@@ -1,0 +1,107 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+# The examples/hillclimb suites on GitHub's hosted Linux and macOS runners: pool_py built from
+# this repository's source as the package's README installs it, the
+# package installed with its training extra, every suite, and the public smoke. A pull request
+# that changes examples/hillclimb gets its CI run of record here.
+#
+# Expected values that pass through libm or BLAS were recorded on macOS on Apple silicon. The
+# tests pin them bit for bit only where HILLCLIMB_EXACT_PINS=1 is set on that platform; this
+# workflow leaves it unset, so both runners compare them within a tolerance
+# (examples/hillclimb/tests/platforms.py).
+name: hillclimb
+
+on:
+  pull_request:
+    paths:
+      - "examples/hillclimb/**"
+      # the package loads these two examples by file path
+      - "examples/hand-noise-law/**"
+      - "examples/run-length-estimator/**"
+      # the kernel binding the suites build and test against
+      - "crates/pool-core/**"
+      - "crates/pool-rules/**"
+      - "crates/pool-py/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - ".github/workflows/hillclimb.yml"
+  push:
+    branches: [main]
+    paths:
+      - "examples/hillclimb/**"
+      - "examples/hand-noise-law/**"
+      - "examples/run-length-estimator/**"
+      - "crates/pool-core/**"
+      - "crates/pool-rules/**"
+      - "crates/pool-py/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - ".github/workflows/hillclimb.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: hillclimb-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  suites:
+    name: hillclimb suites (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-python@v5
+        with:
+          # the package's floor: its estimators add floats with the built-in sum of Python 3.12
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: examples/hillclimb/pyproject.toml
+      - name: virtual environment
+        run: |
+          python -m venv "$RUNNER_TEMP/venv"
+          echo "VIRTUAL_ENV=$RUNNER_TEMP/venv" >> "$GITHUB_ENV"
+          echo "$RUNNER_TEMP/venv/bin" >> "$GITHUB_PATH"
+      - name: build pool_py from this repository's source (README, Install step 1)
+        working-directory: crates/pool-py
+        run: |
+          python -m pip install maturin==1.14.1
+          maturin develop --release
+      # On Linux the default index's torch wheel pulls in NVIDIA's CUDA libraries; the CPU build of
+      # the pinned version keeps the job small. The macOS wheels are CPU builds already.
+      - name: CPU build of the pinned torch (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          torch="$(grep -oE 'torch==[^"]+' examples/hillclimb/pyproject.toml)"
+          test -n "$torch"
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu "$torch"
+      - name: install the package with its training extra (README, Install step 2)
+        run: python -m pip install -e "examples/hillclimb[train]"
+      - name: the kernel binding and the training extras import, so no suite skips them
+        working-directory: examples/hillclimb
+        run: |
+          python -B - <<'EOF'
+          import pool_py, sklearn, torch
+          from hillclimb import adapter
+          assert adapter.available(), "pool_py does not import"
+          print("kernel", pool_py.kernel_version(), "torch", torch.__version__,
+                "scikit-learn", sklearn.__version__)
+          EOF
+      - name: every suite
+        working-directory: examples/hillclimb
+        run: python -B -m unittest discover -s tests -t .
+      - name: the public smoke
+        working-directory: examples/hillclimb
+        run: python -B -m hillclimb_examples.demos.smoke

@@ -1,0 +1,508 @@
+[
+ {
+  "source": "reader",
+  "frame": "diamond/accustats-2019-intlopen-11",
+  "quantity": "under/crown",
+  "value": 0.20892570458938892,
+  "pm": 0.032814557964346874,
+  "admissible": true,
+  "roi": {
+   "under": [
+    622,
+    639,
+    646,
+    643
+   ],
+   "crown_side": [
+    619,
+    619,
+    625,
+    624
+   ]
+  },
+  "note": "crown_side satAny 0.00"
+ },
+ {
+  "source": "reader",
+  "frame": "diamond/accustats-2019-intlopen-11",
+  "quantity": "equator/crown",
+  "value": 0.6731590726000273,
+  "pm": 0.11362176775225541,
+  "admissible": true,
+  "roi": {
+   "equator": [
+    628,
+    627,
+    642,
+    632
+   ],
+   "crown_side": [
+    619,
+    619,
+    625,
+    624
+   ]
+  },
+  "note": ""
+ },
+ {
+  "source": "reader",
+  "frame": "diamond/accustats-2019-intlopen-13",
+  "quantity": "under/crown",
+  "value": 0.2532468849477542,
+  "pm": 0.0714807594035328,
+  "admissible": false,
+  "roi": {
+   "under": [
+    526,
+    475,
+    546,
+    479
+   ],
+   "crown_side": [
+    524,
+    456,
+    529,
+    460
+   ]
+  },
+  "note": "crown clipped (satAny 0.62) \u2192 upper bound"
+ },
+ {
+  "source": "verifier",
+  "frame": "diamond/accustats-2019-intlopen-11",
+  "quantity": "under/crown",
+  "value": 0.19335935177359953,
+  "pm": 0.06376187337838943,
+  "admissible": true,
+  "roi": {
+   "under": [
+    624,
+    639,
+    640,
+    644
+   ],
+   "crownL": [
+    619,
+    618,
+    625,
+    623
+   ]
+  },
+  "note": "crownL satAny 0.00"
+ },
+ {
+  "source": "verifier",
+  "frame": "diamond/accustats-2019-intlopen-11",
+  "quantity": "under/crown",
+  "value": 0.166284375205954,
+  "pm": 0.038793980483744384,
+  "admissible": true,
+  "roi": {
+   "under": [
+    624,
+    639,
+    640,
+    644
+   ],
+   "crownR": [
+    640,
+    618,
+    646,
+    623
+   ]
+  },
+  "note": "crownR satAny 0.03"
+ },
+ {
+  "source": "verifier",
+  "frame": "diamond/accustats-2019-intlopen-11",
+  "quantity": "equator/crown",
+  "value": 0.6706248276100288,
+  "pm": 0.18016543320239992,
+  "admissible": true,
+  "roi": {
+   "equator": [
+    630,
+    626,
+    645,
+    632
+   ],
+   "crownL": [
+    619,
+    618,
+    625,
+    623
+   ]
+  },
+  "note": "crownL satAny 0.00"
+ },
+ {
+  "source": "verifier",
+  "frame": "diamond/accustats-2019-intlopen-11",
+  "quantity": "equator/crown",
+  "value": 0.5767211641633149,
+  "pm": 0.10539636018604967,
+  "admissible": true,
+  "roi": {
+   "equator": [
+    630,
+    626,
+    645,
+    632
+   ],
+   "crownR": [
+    640,
+    618,
+    646,
+    623
+   ]
+  },
+  "note": "crownR satAny 0.03"
+ },
+ {
+  "source": "verifier",
+  "frame": "diamond/accustats-2019-intlopen-05",
+  "quantity": "under/crown",
+  "value": 0.15376086295835728,
+  "pm": 0.01635991779069426,
+  "admissible": true,
+  "roi": {
+   "under": [
+    340,
+    630,
+    366,
+    634
+   ],
+   "crown": [
+    349,
+    606,
+    357,
+    612
+   ]
+  },
+  "note": "crown satAny 0.02"
+ },
+ {
+  "source": "verifier",
+  "frame": "diamond/accustats-2019-intlopen-05",
+  "quantity": "equator/crown",
+  "value": 0.48907868338273575,
+  "pm": 0.08654956370231506,
+  "admissible": true,
+  "roi": {
+   "equator": [
+    340,
+    616,
+    366,
+    621
+   ],
+   "crown": [
+    349,
+    606,
+    357,
+    612
+   ]
+  },
+  "note": "crown satAny 0.02"
+ },
+ {
+  "source": "verifier",
+  "frame": "diamond/accustats-2019-intlopen-09",
+  "quantity": "under/crown",
+  "value": 0.19712121258396129,
+  "pm": 0.03264736838951572,
+  "admissible": true,
+  "roi": {
+   "under": [
+    614,
+    658,
+    636,
+    663
+   ],
+   "crownL": [
+    610,
+    636,
+    616,
+    640
+   ]
+  },
+  "note": "crownL satAny 0.00"
+ },
+ {
+  "source": "verifier",
+  "frame": "diamond/accustats-2019-intlopen-09",
+  "quantity": "under/crown",
+  "value": 0.17626912533772712,
+  "pm": 0.040203816595583725,
+  "admissible": true,
+  "roi": {
+   "under": [
+    614,
+    658,
+    636,
+    663
+   ],
+   "crownR": [
+    631,
+    636,
+    637,
+    640
+   ]
+  },
+  "note": "crownR satAny 0.00"
+ },
+ {
+  "source": "verifier",
+  "frame": "diamond/accustats-2019-intlopen-09",
+  "quantity": "equator/crown",
+  "value": 0.609018426094092,
+  "pm": 0.10202255685258466,
+  "admissible": true,
+  "roi": {
+   "equator": [
+    612,
+    645,
+    638,
+    650
+   ],
+   "crownL": [
+    610,
+    636,
+    616,
+    640
+   ]
+  },
+  "note": "crownL satAny 0.00"
+ },
+ {
+  "source": "verifier",
+  "frame": "diamond/accustats-2019-intlopen-09",
+  "quantity": "equator/crown",
+  "value": 0.5445945866249171,
+  "pm": 0.12523103177170025,
+  "admissible": true,
+  "roi": {
+   "equator": [
+    612,
+    645,
+    638,
+    650
+   ],
+   "crownR": [
+    631,
+    636,
+    637,
+    640
+   ]
+  },
+  "note": "crownR satAny 0.00"
+ },
+ {
+  "source": "verifier",
+  "frame": "diamond/accustats-2019-intlopen-13",
+  "quantity": "under/crown",
+  "value": 0.26217358610658265,
+  "pm": 0.044005511640843625,
+  "admissible": false,
+  "roi": {
+   "under": [
+    527,
+    476,
+    543,
+    480
+   ],
+   "crownSide": [
+    523,
+    458,
+    528,
+    462
+   ]
+  },
+  "note": "crownSide satAny 0.00 (13: crown clipped)"
+ },
+ {
+  "source": "verifier",
+  "frame": "diamond/accustats-2019-intlopen-13",
+  "quantity": "equator/crown",
+  "value": 0.9670689564659701,
+  "pm": 0.19400420280127506,
+  "admissible": false,
+  "roi": {
+   "equator": [
+    527,
+    463,
+    542,
+    468
+   ],
+   "crownSide": [
+    523,
+    458,
+    528,
+    462
+   ]
+  },
+  "note": "crownSide satAny 0.00 (13: crown clipped)"
+ },
+ {
+  "source": "reader",
+  "frame": "predator/official-video2-05",
+  "quantity": "equator/crown",
+  "value": 0.7857223162119626,
+  "pm": 0.06751856495054953,
+  "admissible": true,
+  "roi": {
+   "equator": [
+    620,
+    673,
+    660,
+    680
+   ],
+   "crown": [
+    630,
+    660,
+    650,
+    666
+   ]
+  },
+  "note": "crown satAny 0.00; under occluded"
+ },
+ {
+  "source": "verifier",
+  "frame": "predator/official-video2-05",
+  "quantity": "equator/crown",
+  "value": 0.83502889629978,
+  "pm": 0.08257430717763403,
+  "admissible": true,
+  "roi": {
+   "midvis": [
+    614,
+    674,
+    654,
+    679
+   ],
+   "crown": [
+    618,
+    660,
+    650,
+    668
+   ]
+  },
+  "note": "midvis/crown"
+ },
+ {
+  "source": "verifier",
+  "frame": "joy/gf14_t2668",
+  "quantity": "under/crown",
+  "value": 0.21266836226346458,
+  "pm": 0.04021396177019383,
+  "admissible": false,
+  "roi": {
+   "under": [
+    780,
+    660,
+    880,
+    676
+   ],
+   "crown": [
+    770,
+    472,
+    860,
+    500
+   ]
+  },
+  "note": "crown clipped satAny 0.98"
+ },
+ {
+  "source": "verifier",
+  "frame": "joy/gf14_t2997",
+  "quantity": "under/crown",
+  "value": 0.14893608779673803,
+  "pm": 0.0588209065631938,
+  "admissible": false,
+  "roi": {
+   "under": [
+    600,
+    700,
+    760,
+    720
+   ],
+   "crown": [
+    600,
+    362,
+    760,
+    412
+   ]
+  },
+  "note": "crown clipped satAny 1.00"
+ },
+ {
+  "source": "verifier",
+  "frame": "joy/gf14_t6163",
+  "quantity": "under/crown",
+  "value": 0.29630394213657485,
+  "pm": 0.0509734981762453,
+  "admissible": false,
+  "roi": {
+   "under": [
+    1062,
+    311,
+    1098,
+    323
+   ],
+   "crown": [
+    1058,
+    236,
+    1102,
+    256
+   ]
+  },
+  "note": "crown clipped satAny 1.00"
+ },
+ {
+  "source": "verifier",
+  "frame": "predator/official-arcadia-reserve-on-table",
+  "quantity": "STUDIO under/crown",
+  "value": 0.34363403517593744,
+  "pm": 0.03885460649955555,
+  "admissible": false,
+  "roi": {
+   "under": [
+    20,
+    1430,
+    100,
+    1460
+   ],
+   "crown": [
+    30,
+    1110,
+    110,
+    1160
+   ]
+  },
+  "note": "studio softbox product photo \u2014 context, not arena"
+ },
+ {
+  "source": "verifier",
+  "frame": "predator/official-arcadia-reserve-on-table",
+  "quantity": "STUDIO equator/crown",
+  "value": 0.839521639576121,
+  "pm": 0.051535906891510164,
+  "admissible": false,
+  "roi": {
+   "equator": [
+    40,
+    1270,
+    160,
+    1310
+   ],
+   "crown": [
+    30,
+    1110,
+    110,
+    1160
+   ]
+  },
+  "note": "studio softbox product photo \u2014 context, not arena"
+ }
+]

@@ -1,0 +1,144 @@
+{
+ "schema": "ball-return-hardware/1.0",
+ "track_id": "wpbsa_snooker_12ft-xw101-slides",
+ "table_id": "wpbsa_snooker_12ft",
+ "doc": {
+  "title": "XW101 slides — the track's own hardware (V17 companion)",
+  "status": "DECLARATION (the snooker lane's, consumed)",
+  "revision": "r33v17-v3",
+  "date": "2026-09-07",
+  "issue": "#650 / #489 (SNK-R29)",
+  "source": "the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read",
+  "built_on": {
+   "scene_tip": "bf03b289 (ceremony merge tip; scene bytes identical through HEAD 4424eb84)",
+   "dump": "/tmp/craftr3/clay-r3o/ours-table.json"
+  },
+  "note": "every mesh is ONE merged object across all six assemblies; V17 measures the ball's closest approach per mesh (ownHardware) — the snooker lane expects the built lower wires 17–28 mm ABOVE the export's wire line mid-run (agreeing at the clamp), the built slide ring OD 96 vs the PHOTO 88 (inside its ±12 band, disclosed)"
+ },
+ "mesh_names": [
+  "obPocketTrack",
+  "obSnkSlideRing",
+  "obPocketStrap",
+  "obPocketStrapIron",
+  "obPocketStrapPlate"
+ ],
+ "meshes": [
+  {
+   "name": "obPocketTrack",
+   "role": "hardware — the ball MUST touch (rides the lower pair)",
+   "physical": "the 24 spring-steel wires of the six terminal chutes: per chute 4 wires = two levels × two; each = 30 mm lead under the ring falling 4, straight slope to the clamp, up-turned stop 12 mm before the clamp",
+   "solid_simplification": false,
+   "tags": {
+    "stations": "PHOTO SE: runs 276 ±20 / 453 ±25 / 280 ±20 (table.js 10306), clamp 340 ±15 (10305), ring plane 162 (10302)",
+    "wire_od": "OPEN 6-9, 7.5 carried (10308) → spell DERIVED(proxy) under the schema",
+    "gauge": "OPEN ~28 ±30 % (10309) → DERIVED(proxy)",
+    "level_gap": "DERIVED 19/110 px × 85 = 15 (10310)",
+    "lead_and_stop": "DERIVED 30 mm lead falling 4; stop 12 mm before the clamp (28324-28325) — SUPERSEDED by the SNK-R25 read (vertical drop L_v 30 [22,44] from the rim bosses), not yet rebuilt"
+   },
+   "omissions": [
+    "no vertical drop from the rim bosses (SNK-R25 L_v 30 [22,44]): the built wires start 0.6·rRing inboard under the ring",
+    "the built lower wires run ~20-25 mm ABOVE the export's wire line at mid-run (see seat_consistency)"
+   ]
+  },
+  {
+   "name": "obSnkSlideRing",
+   "role": "hardware — the ball passes THROUGH it (the order's ring)",
+   "physical": "the brass slide ring under each bag; the net funnels into it, the wires leave it",
+   "solid_simplification": false,
+   "tags": {
+    "plane": "PHOTO 162 ±15 under the rail top (SE 151-171, three pockets) (10302)",
+    "od": "PHOTO 88 ±12 (SE bracket 24 px × 3.68) (10303)",
+    "tube": "OPEN — the top ring's tube class; the SE resolves the OD not the section (10304)",
+    "built_vs_read": "built outer Ø 96 (rim at 48) vs PHOTO OD 88 ±12 — rRing 0.044 is used as the tube-centre radius"
+   },
+   "omissions": [
+    "the rim boss-clamps that hold the wires (PHOTO, §R3c.28) are not built"
+   ]
+  },
+  {
+   "name": "obPocketStrap",
+   "role": "hardware — clamp/strap at the run's end (no ball contact in reality; the export's stop station lies inside it, see assemblies)",
+   "physical": "the leather strap hanging the clamp from the rail-band underside, outboard of the wires",
+   "solid_simplification": false,
+   "tags": {
+    "width_thickness": "OPEN W12 montage class; SE reads 30-33 wide (10312)",
+    "top": "PHOTO SE 126 ±12 under the rail top (§R3c.23.3)",
+    "placement": "DERIVED: 6 mm inside the wire ends, outboard by gauge/2 + 4 + 12 (28343-28345)",
+    "material": "OURS(render)"
+   },
+   "omissions": [
+    "the clamp BODY gripping the wires is not modelled — it exists only as the 12 mm placement offset (28345)"
+   ]
+  },
+  {
+   "name": "obPocketStrapIron",
+   "role": "hardware — clamp fittings",
+   "physical": "strap keeper + buckle + the four Ø7.2 dome bolts of the clamp plate",
+   "solid_simplification": true,
+   "tags": {
+    "keeper_buckle": "OPEN W12 montage strap-hardware class (28365)",
+    "bolts": "OUR signed drawing GH489-EXT-R1.2 letter E20 (28376-28381) — 'MODEL/DRAWING' in the comment means OUR drawing, not a purchased model"
+   },
+   "omissions": null
+  },
+  {
+   "name": "obPocketStrapPlate",
+   "role": "hardware — the clamp backplate holding the four wires",
+   "physical": "triangular polished-gold clamp backplate, 60 × 94 per the drawing comment (built y-span 85: bbox −316.8…−231.8), with its cut-out, 3 thick",
+   "solid_simplification": false,
+   "tags": {
+    "shape": "OUR signed drawing GH489-EXT-R1.2 letter E20 (28376-28391); §R3c.23.3: 'PHOTO for the slide furniture … the Magnum has no strap plate' — DRAWING/OURS, not MODEL",
+    "placement": "DERIVED: 30 above the clamp low point, 1.5 off the strap"
+   },
+   "omissions": null
+  }
+ ],
+ "omissions": [
+  "the slide ring's rim boss-clamps holding the wires (PHOTO, §R3c.28)",
+  "the clamp body gripping the wires (only a 12 mm placement offset exists)",
+  "the wires' vertical drop from the rim (L_v 30 [22,44])"
+ ],
+ "seat_consistency_expected": {
+  "finding": "the BUILT lower wires run 17-28 mm ABOVE the export's wire line along the corner runs (27.6 at x −1760, 25.7 at −1700, 24.3 at −1640, 16.7 at −1580); the ball centre (export line + 26.5) therefore rides THROUGH the drawn wires (dMin ≈ 0, stationsBelowR ≈ all)",
+  "numbers_p0": {
+   "x -1760": {
+    "render_wire_heights_three_y": [
+     -136.8,
+     -114.3
+    ],
+    "export_wire_y": -160.6,
+    "ball_centre_y": -134.1
+   },
+   "x -1700": {
+    "render_wire_heights_three_y": [
+     -183.3,
+     -158.3
+    ],
+    "export_wire_y": -204.1,
+    "ball_centre_y": -177.6
+   },
+   "x -1640": {
+    "render_wire_heights_three_y": [
+     -223.4,
+     -208.4
+    ],
+    "export_wire_y": -247.7,
+    "ball_centre_y": -221.2
+   },
+   "x -1580": {
+    "render_wire_heights_three_y": [
+     -274.7,
+     -259.7
+    ],
+    "export_wire_y": -291.2,
+    "ball_centre_y": -264.7
+   }
+  },
+  "why": "the two AGREE at the clamp (render −299.8; the export's stop face is its valley vertex −299.82 at wall_s 289.1 — the −284.82 point is the up-turn's top 19 mm past the stop) and differ in where the run starts: the render leaves 0.6·rRing + 30 under the ring plane −121.8 (slope 56.4 → 264 along the plate axis), the export at −130.05 from 10.3 to 244.3 on a datum 19.7 outboard. Two independent derivations of the same BODY-1 read; both are superseded by the SNK-R25/R27 hand-off (vertical drop, then the run)",
+  "consequence": "V17's ownHardware read will report this until the lead+exporter round rebuilds both from the same read; it is not a refusal by their rule"
+ },
+ "provenance": {
+  "tag": "PHOTO",
+  "source": "XW101 slide furniture read on the manufacturer side elevation (3.679 mm/px, plank-cap anchors 110.5/1157 px) and the studio frames (SNK lane §R3c.23.3, §R3c.28): ring plane 162 ±15 and OD 88 ±12 under the rail top, clamp low point 340 ±15, runs 276/453/280 ±20-25; sub-dimensions carried as OPEN classes and spelled here per the schema's own rule (PROXY as DERIVED with the proxy stated): wire OD 7.5 (6-9), lower-pair gauge 28 (±30 %), level gap 15 DERIVED (19/110 px × 85); the clamp backplate is OUR signed drawing GH489-EXT-R1.2 letter E20 (not a purchased model). Built on craft-r2 tip bf03b289 (HEAD 4424eb84, identical scene bytes). Every mesh is ONE merged object covering all six assemblies."
+ }
+}

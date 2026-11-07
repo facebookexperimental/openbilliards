@@ -1,0 +1,47 @@
+{
+ "clip_id": "HSVA-26",
+ "stem": "HSVA-26_kick_with_English",
+ "conditions": {
+  "approach": "near-perpendicular",
+  "speed": "medium",
+  "spin": "sidespin"
+ },
+ "side": "bottom",
+ "time_base": "osd_counter_1000fps_stamped",
+ "cushion_tilt_deg": null,
+ "ball_radius_px": 18.5,
+ "mm_per_px": 1.545,
+ "measured": {
+  "apex_frame": 36,
+  "theta_in_deg": 4.11,
+  "theta_in_sigma_deg": 2.12,
+  "v_in_pxcf": 2.2566,
+  "n_frames_in": 18,
+  "theta_out_deg": 23.95,
+  "theta_out_sigma_deg": 2.04,
+  "v_out_pxcf": 1.7106,
+  "n_frames_out": 18,
+  "speed_ratio": 0.758,
+  "speed_ratio_sigma": 0.0139,
+  "e_n": 0.6946,
+  "e_n_sigma": 0.0084,
+  "tangential_ratio": -4.2908,
+  "tangential_ratio_sigma": 0.7335,
+  "dwell_video_frames": 1,
+  "vn_in_pxcf": 2.2508,
+  "vt_in_pxcf": 0.1618,
+  "vt_out_pxcf": -0.6944,
+  "vt_in_sigma_pxcf": 0.0275,
+  "vt_out_sigma_pxcf": 0.012,
+  "vn_in_sigma_pxcf": 0.0231,
+  "vn_out_sigma_pxcf": 0.01,
+  "vn_out_pxcf": 1.5633,
+  "v_in_mps": 3.49,
+  "v_out_mps": 2.64
+ },
+ "qc": [
+  "no_cushion_edge_fit_axis_aligned",
+  "near_perpendicular_tangential_ratio_ill_conditioned",
+  "perspective_skew_uncorrected"
+ ]
+}

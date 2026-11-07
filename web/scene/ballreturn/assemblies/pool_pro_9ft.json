@@ -1,0 +1,720 @@
+{
+ "schema": "ball-return-assembly/1.0",
+ "table_id": "diamond_proam_9ft",
+ "doc": {
+  "title": "diamond_proam_9ft — pocket-assembly declaration (V18) for the gully export (GULLY g1)",
+  "status": "DECLARATION (the diamond lane's; #644 D621 model)",
+  "revision": "g1",
+  "date": "2026-09-18",
+  "issue": "#650 / GH-621 (ob-release GULLY ROUND 2 order, 2026-09-18)",
+  "notes": "MESH NAMES ARE THE SCENE NAMES: the D621 render sets render.dmNames = true, and table.js's dm() helper stores every Diamond mesh as `dm-<name>` (dmFor, GULLY-FIX1 correction — the g1 declaration listed bare names and would have matched nothing). Per pocket tag pt = c0 s1 c2 c3 s4 c5 (kernel order): dm-pocketcup-/dm-pocketcupfloor- (the trap cup the ball falls through), dm-bootskirt-/dm-boothem-/dm-bootbowl-/dm-bootcollar-/dm-bootrim-/dm-bootstitch-/dm-falllip- (the boot the sink pose descends); returnshaft-/returnfloor- (the pre-D621 sealed void, built only by the old boot path) in both spellings so main's served model is covered too. The cabinet shell is NOT declared: winding number 0 in the hollow interior (ballreturn's probe), and the six entry crossings are now real OPENINGS cut in the side panels (GULLY-FIX1 C1) with a dark sleeve (own hardware) — the surface rule is measured by tools/render/d621/plan/gully_route_arm_621.mjs against the built meshes. The 12 BARE rows (returnshaft-<pt> / returnfloor-<pt>) match main's pre-D621 boot only; on the D621 tables this file lands on they are INERT (no such mesh is built) and are kept so the same declaration reads correctly on main's model (ballreturn B1-1 item a)."
+ },
+ "meshes": [
+  {
+   "id": "c0-pocketcup",
+   "kind": "cup",
+   "name": "dm-pocketcup-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the D621 trap cup walls (pool_trap01/03: slot r 74.4 about the ring centre running 122.9 corner / 128.0 side inboard, walls bed -7.1..-146.2; corner floor raised to 1 mm above the leg top = -141.8) — the ball falls through it"
+   }
+  },
+  {
+   "id": "c0-pocketcupfloor",
+   "kind": "cup",
+   "name": "dm-pocketcupfloor-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the trap cup's unlit floor disc (-146.2 side / -141.8 corner): the ball rests on nothing here — it leaves through the cup toward the entry station below; passable for the entry segment only"
+   }
+  },
+  {
+   "id": "c0-bootskirt",
+   "kind": "skirt",
+   "name": "dm-bootskirt-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the boot's leather skirt below the collar (MODEL boot anatomy, D621 rev-5/6): the ball passes inside it"
+   }
+  },
+  {
+   "id": "c0-boothem",
+   "kind": "skirt",
+   "name": "dm-boothem-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the boot's folded hem ring at the open bottom (LatheGeometry): the ball passes through the open lower"
+   }
+  },
+  {
+   "id": "c0-bootbowl",
+   "kind": "liner",
+   "name": "dm-bootbowl-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the boot's inner bowl the potted ball rides down (D621 boot anatomy)"
+   }
+  },
+  {
+   "id": "c0-bootcollar",
+   "kind": "liner",
+   "name": "dm-bootcollar-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the padded top collar of the boot (mouth): the ball enters through it"
+   }
+  },
+  {
+   "id": "c0-bootrim",
+   "kind": "ring",
+   "name": "dm-bootrim-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the leather rim ring at the boot top: the sink pose passes inside it"
+   }
+  },
+  {
+   "id": "c0-bootstitch",
+   "kind": "other",
+   "name": "dm-bootstitch-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): stitch detail on the boot rim (a thin decal-scale solid the sink pose brushes)"
+   }
+  },
+  {
+   "id": "c0-falllip",
+   "kind": "liner",
+   "name": "dm-falllip-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the cloth roll cut into the slate edge at the fall: the ball drops past it"
+   }
+  },
+  {
+   "id": "s1-pocketcup",
+   "kind": "cup",
+   "name": "dm-pocketcup-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the D621 trap cup walls (pool_trap01/03: slot r 74.4 about the ring centre running 122.9 corner / 128.0 side inboard, walls bed -7.1..-146.2; corner floor raised to 1 mm above the leg top = -141.8) — the ball falls through it"
+   }
+  },
+  {
+   "id": "s1-pocketcupfloor",
+   "kind": "cup",
+   "name": "dm-pocketcupfloor-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the trap cup's unlit floor disc (-146.2 side / -141.8 corner): the ball rests on nothing here — it leaves through the cup toward the entry station below; passable for the entry segment only"
+   }
+  },
+  {
+   "id": "s1-bootskirt",
+   "kind": "skirt",
+   "name": "dm-bootskirt-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the boot's leather skirt below the collar (MODEL boot anatomy, D621 rev-5/6): the ball passes inside it"
+   }
+  },
+  {
+   "id": "s1-boothem",
+   "kind": "skirt",
+   "name": "dm-boothem-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the boot's folded hem ring at the open bottom (LatheGeometry): the ball passes through the open lower"
+   }
+  },
+  {
+   "id": "s1-bootbowl",
+   "kind": "liner",
+   "name": "dm-bootbowl-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the boot's inner bowl the potted ball rides down (D621 boot anatomy)"
+   }
+  },
+  {
+   "id": "s1-bootcollar",
+   "kind": "liner",
+   "name": "dm-bootcollar-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the padded top collar of the boot (mouth): the ball enters through it"
+   }
+  },
+  {
+   "id": "s1-bootrim",
+   "kind": "ring",
+   "name": "dm-bootrim-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the leather rim ring at the boot top: the sink pose passes inside it"
+   }
+  },
+  {
+   "id": "s1-bootstitch",
+   "kind": "other",
+   "name": "dm-bootstitch-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): stitch detail on the boot rim (a thin decal-scale solid the sink pose brushes)"
+   }
+  },
+  {
+   "id": "s1-falllip",
+   "kind": "liner",
+   "name": "dm-falllip-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the cloth roll cut into the slate edge at the fall: the ball drops past it"
+   }
+  },
+  {
+   "id": "c2-pocketcup",
+   "kind": "cup",
+   "name": "dm-pocketcup-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the D621 trap cup walls (pool_trap01/03: slot r 74.4 about the ring centre running 122.9 corner / 128.0 side inboard, walls bed -7.1..-146.2; corner floor raised to 1 mm above the leg top = -141.8) — the ball falls through it"
+   }
+  },
+  {
+   "id": "c2-pocketcupfloor",
+   "kind": "cup",
+   "name": "dm-pocketcupfloor-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the trap cup's unlit floor disc (-146.2 side / -141.8 corner): the ball rests on nothing here — it leaves through the cup toward the entry station below; passable for the entry segment only"
+   }
+  },
+  {
+   "id": "c2-bootskirt",
+   "kind": "skirt",
+   "name": "dm-bootskirt-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the boot's leather skirt below the collar (MODEL boot anatomy, D621 rev-5/6): the ball passes inside it"
+   }
+  },
+  {
+   "id": "c2-boothem",
+   "kind": "skirt",
+   "name": "dm-boothem-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the boot's folded hem ring at the open bottom (LatheGeometry): the ball passes through the open lower"
+   }
+  },
+  {
+   "id": "c2-bootbowl",
+   "kind": "liner",
+   "name": "dm-bootbowl-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the boot's inner bowl the potted ball rides down (D621 boot anatomy)"
+   }
+  },
+  {
+   "id": "c2-bootcollar",
+   "kind": "liner",
+   "name": "dm-bootcollar-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the padded top collar of the boot (mouth): the ball enters through it"
+   }
+  },
+  {
+   "id": "c2-bootrim",
+   "kind": "ring",
+   "name": "dm-bootrim-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the leather rim ring at the boot top: the sink pose passes inside it"
+   }
+  },
+  {
+   "id": "c2-bootstitch",
+   "kind": "other",
+   "name": "dm-bootstitch-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): stitch detail on the boot rim (a thin decal-scale solid the sink pose brushes)"
+   }
+  },
+  {
+   "id": "c2-falllip",
+   "kind": "liner",
+   "name": "dm-falllip-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the cloth roll cut into the slate edge at the fall: the ball drops past it"
+   }
+  },
+  {
+   "id": "c3-pocketcup",
+   "kind": "cup",
+   "name": "dm-pocketcup-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the D621 trap cup walls (pool_trap01/03: slot r 74.4 about the ring centre running 122.9 corner / 128.0 side inboard, walls bed -7.1..-146.2; corner floor raised to 1 mm above the leg top = -141.8) — the ball falls through it"
+   }
+  },
+  {
+   "id": "c3-pocketcupfloor",
+   "kind": "cup",
+   "name": "dm-pocketcupfloor-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the trap cup's unlit floor disc (-146.2 side / -141.8 corner): the ball rests on nothing here — it leaves through the cup toward the entry station below; passable for the entry segment only"
+   }
+  },
+  {
+   "id": "c3-bootskirt",
+   "kind": "skirt",
+   "name": "dm-bootskirt-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the boot's leather skirt below the collar (MODEL boot anatomy, D621 rev-5/6): the ball passes inside it"
+   }
+  },
+  {
+   "id": "c3-boothem",
+   "kind": "skirt",
+   "name": "dm-boothem-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the boot's folded hem ring at the open bottom (LatheGeometry): the ball passes through the open lower"
+   }
+  },
+  {
+   "id": "c3-bootbowl",
+   "kind": "liner",
+   "name": "dm-bootbowl-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the boot's inner bowl the potted ball rides down (D621 boot anatomy)"
+   }
+  },
+  {
+   "id": "c3-bootcollar",
+   "kind": "liner",
+   "name": "dm-bootcollar-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the padded top collar of the boot (mouth): the ball enters through it"
+   }
+  },
+  {
+   "id": "c3-bootrim",
+   "kind": "ring",
+   "name": "dm-bootrim-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the leather rim ring at the boot top: the sink pose passes inside it"
+   }
+  },
+  {
+   "id": "c3-bootstitch",
+   "kind": "other",
+   "name": "dm-bootstitch-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): stitch detail on the boot rim (a thin decal-scale solid the sink pose brushes)"
+   }
+  },
+  {
+   "id": "c3-falllip",
+   "kind": "liner",
+   "name": "dm-falllip-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the cloth roll cut into the slate edge at the fall: the ball drops past it"
+   }
+  },
+  {
+   "id": "s4-pocketcup",
+   "kind": "cup",
+   "name": "dm-pocketcup-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the D621 trap cup walls (pool_trap01/03: slot r 74.4 about the ring centre running 122.9 corner / 128.0 side inboard, walls bed -7.1..-146.2; corner floor raised to 1 mm above the leg top = -141.8) — the ball falls through it"
+   }
+  },
+  {
+   "id": "s4-pocketcupfloor",
+   "kind": "cup",
+   "name": "dm-pocketcupfloor-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the trap cup's unlit floor disc (-146.2 side / -141.8 corner): the ball rests on nothing here — it leaves through the cup toward the entry station below; passable for the entry segment only"
+   }
+  },
+  {
+   "id": "s4-bootskirt",
+   "kind": "skirt",
+   "name": "dm-bootskirt-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the boot's leather skirt below the collar (MODEL boot anatomy, D621 rev-5/6): the ball passes inside it"
+   }
+  },
+  {
+   "id": "s4-boothem",
+   "kind": "skirt",
+   "name": "dm-boothem-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the boot's folded hem ring at the open bottom (LatheGeometry): the ball passes through the open lower"
+   }
+  },
+  {
+   "id": "s4-bootbowl",
+   "kind": "liner",
+   "name": "dm-bootbowl-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the boot's inner bowl the potted ball rides down (D621 boot anatomy)"
+   }
+  },
+  {
+   "id": "s4-bootcollar",
+   "kind": "liner",
+   "name": "dm-bootcollar-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the padded top collar of the boot (mouth): the ball enters through it"
+   }
+  },
+  {
+   "id": "s4-bootrim",
+   "kind": "ring",
+   "name": "dm-bootrim-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the leather rim ring at the boot top: the sink pose passes inside it"
+   }
+  },
+  {
+   "id": "s4-bootstitch",
+   "kind": "other",
+   "name": "dm-bootstitch-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): stitch detail on the boot rim (a thin decal-scale solid the sink pose brushes)"
+   }
+  },
+  {
+   "id": "s4-falllip",
+   "kind": "liner",
+   "name": "dm-falllip-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the cloth roll cut into the slate edge at the fall: the ball drops past it"
+   }
+  },
+  {
+   "id": "c5-pocketcup",
+   "kind": "cup",
+   "name": "dm-pocketcup-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the D621 trap cup walls (pool_trap01/03: slot r 74.4 about the ring centre running 122.9 corner / 128.0 side inboard, walls bed -7.1..-146.2; corner floor raised to 1 mm above the leg top = -141.8) — the ball falls through it"
+   }
+  },
+  {
+   "id": "c5-pocketcupfloor",
+   "kind": "cup",
+   "name": "dm-pocketcupfloor-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the trap cup's unlit floor disc (-146.2 side / -141.8 corner): the ball rests on nothing here — it leaves through the cup toward the entry station below; passable for the entry segment only"
+   }
+  },
+  {
+   "id": "c5-bootskirt",
+   "kind": "skirt",
+   "name": "dm-bootskirt-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the boot's leather skirt below the collar (MODEL boot anatomy, D621 rev-5/6): the ball passes inside it"
+   }
+  },
+  {
+   "id": "c5-boothem",
+   "kind": "skirt",
+   "name": "dm-boothem-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the boot's folded hem ring at the open bottom (LatheGeometry): the ball passes through the open lower"
+   }
+  },
+  {
+   "id": "c5-bootbowl",
+   "kind": "liner",
+   "name": "dm-bootbowl-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the boot's inner bowl the potted ball rides down (D621 boot anatomy)"
+   }
+  },
+  {
+   "id": "c5-bootcollar",
+   "kind": "liner",
+   "name": "dm-bootcollar-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the padded top collar of the boot (mouth): the ball enters through it"
+   }
+  },
+  {
+   "id": "c5-bootrim",
+   "kind": "ring",
+   "name": "dm-bootrim-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the leather rim ring at the boot top: the sink pose passes inside it"
+   }
+  },
+  {
+   "id": "c5-bootstitch",
+   "kind": "other",
+   "name": "dm-bootstitch-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): stitch detail on the boot rim (a thin decal-scale solid the sink pose brushes)"
+   }
+  },
+  {
+   "id": "c5-falllip",
+   "kind": "liner",
+   "name": "dm-falllip-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the cloth roll cut into the slate edge at the fall: the ball drops past it"
+   }
+  },
+  {
+   "id": "c0-returnshaft-bare",
+   "kind": "liner",
+   "name": "returnshaft-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 boot anatomy's sightline-sealed return shaft (CylinderGeometry r = boot opening + 4 mm, y −203.5..−128.5) — built only by the OLD boot path (`!bootModel`); absent on the D621 build, present on main's model: listed so the declaration covers both served models (bare name: a build without render.dmNames)"
+   }
+  },
+  {
+   "id": "c0-returnshaft",
+   "kind": "liner",
+   "name": "dm-returnshaft-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 boot anatomy's sightline-sealed return shaft (CylinderGeometry r = boot opening + 4 mm, y −203.5..−128.5) — built only by the OLD boot path (`!bootModel`); absent on the D621 build, present on main's model: listed so the declaration covers both served models"
+   }
+  },
+  {
+   "id": "c0-returnfloor-bare",
+   "kind": "other",
+   "name": "returnfloor-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 shaft's unlit floor disc at y −175 (same `!bootModel` path); absent on the D621 build, present on main's (bare name: a build without render.dmNames)"
+   }
+  },
+  {
+   "id": "c0-returnfloor",
+   "kind": "other",
+   "name": "dm-returnfloor-c0",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 shaft's unlit floor disc at y −175 (same `!bootModel` path); absent on the D621 build, present on main's"
+   }
+  },
+  {
+   "id": "s1-returnshaft-bare",
+   "kind": "liner",
+   "name": "returnshaft-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 boot anatomy's sightline-sealed return shaft (CylinderGeometry r = boot opening + 4 mm, y −203.5..−128.5) — built only by the OLD boot path (`!bootModel`); absent on the D621 build, present on main's model: listed so the declaration covers both served models (bare name: a build without render.dmNames)"
+   }
+  },
+  {
+   "id": "s1-returnshaft",
+   "kind": "liner",
+   "name": "dm-returnshaft-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 boot anatomy's sightline-sealed return shaft (CylinderGeometry r = boot opening + 4 mm, y −203.5..−128.5) — built only by the OLD boot path (`!bootModel`); absent on the D621 build, present on main's model: listed so the declaration covers both served models"
+   }
+  },
+  {
+   "id": "s1-returnfloor-bare",
+   "kind": "other",
+   "name": "returnfloor-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 shaft's unlit floor disc at y −175 (same `!bootModel` path); absent on the D621 build, present on main's (bare name: a build without render.dmNames)"
+   }
+  },
+  {
+   "id": "s1-returnfloor",
+   "kind": "other",
+   "name": "dm-returnfloor-s1",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 shaft's unlit floor disc at y −175 (same `!bootModel` path); absent on the D621 build, present on main's"
+   }
+  },
+  {
+   "id": "c2-returnshaft-bare",
+   "kind": "liner",
+   "name": "returnshaft-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 boot anatomy's sightline-sealed return shaft (CylinderGeometry r = boot opening + 4 mm, y −203.5..−128.5) — built only by the OLD boot path (`!bootModel`); absent on the D621 build, present on main's model: listed so the declaration covers both served models (bare name: a build without render.dmNames)"
+   }
+  },
+  {
+   "id": "c2-returnshaft",
+   "kind": "liner",
+   "name": "dm-returnshaft-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 boot anatomy's sightline-sealed return shaft (CylinderGeometry r = boot opening + 4 mm, y −203.5..−128.5) — built only by the OLD boot path (`!bootModel`); absent on the D621 build, present on main's model: listed so the declaration covers both served models"
+   }
+  },
+  {
+   "id": "c2-returnfloor-bare",
+   "kind": "other",
+   "name": "returnfloor-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 shaft's unlit floor disc at y −175 (same `!bootModel` path); absent on the D621 build, present on main's (bare name: a build without render.dmNames)"
+   }
+  },
+  {
+   "id": "c2-returnfloor",
+   "kind": "other",
+   "name": "dm-returnfloor-c2",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 shaft's unlit floor disc at y −175 (same `!bootModel` path); absent on the D621 build, present on main's"
+   }
+  },
+  {
+   "id": "c3-returnshaft-bare",
+   "kind": "liner",
+   "name": "returnshaft-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 boot anatomy's sightline-sealed return shaft (CylinderGeometry r = boot opening + 4 mm, y −203.5..−128.5) — built only by the OLD boot path (`!bootModel`); absent on the D621 build, present on main's model: listed so the declaration covers both served models (bare name: a build without render.dmNames)"
+   }
+  },
+  {
+   "id": "c3-returnshaft",
+   "kind": "liner",
+   "name": "dm-returnshaft-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 boot anatomy's sightline-sealed return shaft (CylinderGeometry r = boot opening + 4 mm, y −203.5..−128.5) — built only by the OLD boot path (`!bootModel`); absent on the D621 build, present on main's model: listed so the declaration covers both served models"
+   }
+  },
+  {
+   "id": "c3-returnfloor-bare",
+   "kind": "other",
+   "name": "returnfloor-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 shaft's unlit floor disc at y −175 (same `!bootModel` path); absent on the D621 build, present on main's (bare name: a build without render.dmNames)"
+   }
+  },
+  {
+   "id": "c3-returnfloor",
+   "kind": "other",
+   "name": "dm-returnfloor-c3",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 shaft's unlit floor disc at y −175 (same `!bootModel` path); absent on the D621 build, present on main's"
+   }
+  },
+  {
+   "id": "s4-returnshaft-bare",
+   "kind": "liner",
+   "name": "returnshaft-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 boot anatomy's sightline-sealed return shaft (CylinderGeometry r = boot opening + 4 mm, y −203.5..−128.5) — built only by the OLD boot path (`!bootModel`); absent on the D621 build, present on main's model: listed so the declaration covers both served models (bare name: a build without render.dmNames)"
+   }
+  },
+  {
+   "id": "s4-returnshaft",
+   "kind": "liner",
+   "name": "dm-returnshaft-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 boot anatomy's sightline-sealed return shaft (CylinderGeometry r = boot opening + 4 mm, y −203.5..−128.5) — built only by the OLD boot path (`!bootModel`); absent on the D621 build, present on main's model: listed so the declaration covers both served models"
+   }
+  },
+  {
+   "id": "s4-returnfloor-bare",
+   "kind": "other",
+   "name": "returnfloor-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 shaft's unlit floor disc at y −175 (same `!bootModel` path); absent on the D621 build, present on main's (bare name: a build without render.dmNames)"
+   }
+  },
+  {
+   "id": "s4-returnfloor",
+   "kind": "other",
+   "name": "dm-returnfloor-s4",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 shaft's unlit floor disc at y −175 (same `!bootModel` path); absent on the D621 build, present on main's"
+   }
+  },
+  {
+   "id": "c5-returnshaft-bare",
+   "kind": "liner",
+   "name": "returnshaft-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 boot anatomy's sightline-sealed return shaft (CylinderGeometry r = boot opening + 4 mm, y −203.5..−128.5) — built only by the OLD boot path (`!bootModel`); absent on the D621 build, present on main's model: listed so the declaration covers both served models (bare name: a build without render.dmNames)"
+   }
+  },
+  {
+   "id": "c5-returnshaft",
+   "kind": "liner",
+   "name": "dm-returnshaft-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 boot anatomy's sightline-sealed return shaft (CylinderGeometry r = boot opening + 4 mm, y −203.5..−128.5) — built only by the OLD boot path (`!bootModel`); absent on the D621 build, present on main's model: listed so the declaration covers both served models"
+   }
+  },
+  {
+   "id": "c5-returnfloor-bare",
+   "kind": "other",
+   "name": "returnfloor-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 shaft's unlit floor disc at y −175 (same `!bootModel` path); absent on the D621 build, present on main's (bare name: a build without render.dmNames)"
+   }
+  },
+  {
+   "id": "c5-returnfloor",
+   "kind": "other",
+   "name": "dm-returnfloor-c5",
+   "provenance": {
+    "tag": "MODEL",
+    "source": "the pre-D621 shaft's unlit floor disc at y −175 (same `!bootModel` path); absent on the D621 build, present on main's"
+   }
+  }
+ ],
+ "provenance": {
+  "tag": "MODEL",
+  "source": "the D621 lane's own served model (diamond-variants-2026-09 web/scene/table.js: diamondPocket boot anatomy + the cabinet block; MODEL pool_trap01/03 + cabinet shell reads) with the crossing stations DERIVED from the gully export's geometry; the first V16 read (ballreturn's browser run on band 9460-9489) names any mesh this declaration missed — fail-closed"
+ }
+}

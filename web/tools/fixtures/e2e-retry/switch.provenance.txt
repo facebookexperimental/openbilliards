@@ -1,0 +1,8 @@
+switch-fail.log: verbatim lines (GitHub log timestamps stripped) of the SECOND pass of pull_request run 38216036242,
+job 114700878147 (e2e-switch on b20-batch-3 head d71e97d8, 2026-10-12 10:06:10-10:06:19Z): log line 167 (the leg
+name), line 168 (its 'E2E-SWITCH FAIL:' row: a driver error the suite caught as a row) and line 174 (the completion
+line 'E2E-SWITCH FAIL (1 failure(s))'). Lines 169-173, the error's stack, are left out: they carry the runner's
+checkout path. The only failing e2e-switch job among the 600 most recent ci.yml runs (back to 2026-09-03; the job
+first ran 2026-10-10); the nightly battery does not run the suite. e2e-switch-paths runs the same suite (token SWITCH).
+switch-pass.log: the last lines of the green pass of main push run 38352665680, job 115148362421 (e2e-switch on
+30b62641, 2026-10-13 06:02:13-06:04:59Z, log lines 247-259), ending with the completion line 'E2E-SWITCH PASS (44 arms)'.

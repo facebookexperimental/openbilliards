@@ -1,0 +1,128 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+# XcodeGen manifest — feature 023 (plan.md Project Structure, research R2).
+# The generated OpenBilliardsMac.xcodeproj is NEVER committed (gitignored);
+# regenerate with: cd macos && xcodegen generate
+#   (or from the repo root: xcodegen generate --spec macos/project.yml)
+#
+# Signing: Signing.xcconfig is a gitignored owner overlay (copy
+# Signing.example.xcconfig and fill DEVELOPMENT_TEAM — research R14).
+# Validation for the missing file is disabled so generation works on
+# machines without it; the CI arm builds with CODE_SIGNING_ALLOWED=NO
+# (unsigned — entitlements lint-checked there, runtime-enforced on the
+# signed local build).
+name: OpenBilliardsMac
+
+options:
+  createIntermediateGroups: true
+  deploymentTarget:
+    macOS: "13.0"
+  disabledValidations:
+    - missingConfigFiles
+
+configFiles:
+  Debug: Signing.xcconfig
+  Release: Signing.xcconfig
+
+settings:
+  base:
+    MARKETING_VERSION: 0.1.0
+    CURRENT_PROJECT_VERSION: 20
+    SWIFT_VERSION: "5.0"
+    # Base bundle id (quickstart §6 locale runs address it); the owner's
+    # Signing.xcconfig may override it.
+    PRODUCT_BUNDLE_IDENTIFIER: org.openbilliards.mac
+
+packages:
+  # SHARED package — consumed UNEDITED by reference (research R3;
+  # contracts/macos-shell.md §2). Already pins .macOS(.v13).
+  ShellCore:
+    path: ../ios/ShellCore
+  # NEW Foundation-only macOS logic package (research R13):
+  # cd macos/MacShellCore && swift test
+  MacShellCore:
+    path: MacShellCore
+
+targets:
+  OpenBilliards:
+    type: application
+    platform: macOS
+    deploymentTarget: "13.0"
+    settings:
+      base:
+        INFOPLIST_FILE: App/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        # Sandbox posture (contracts/downloads.md §3): App Sandbox +
+        # user-selected read-write, NOTHING else. Runtime-enforced on the
+        # signed local arm; lint-checked on the unsigned CI arm (R14).
+        CODE_SIGN_ENTITLEMENTS: App/OpenBilliards.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_HARDENED_RUNTIME: YES
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
+    sources:
+      - path: App/Sources
+        optional: true
+      # SHARED SOURCE — ios/App/Sources/BundleSchemeHandler.swift compiled
+      # into the mac target UNEDITED (research R4; contracts/macos-shell.md
+      # §2 shared-source law: any edit must keep BOTH shells green).
+      - path: ../ios/App/Sources/BundleSchemeHandler.swift
+      # Brand asset catalog lands in lane P (T008); optional so generation
+      # works from the bare scaffold.
+      - path: App/Resources/Assets.xcassets
+        optional: true
+      # Shell strings ×7 locales land in lane T (T019).
+      - path: App/Resources/Localizable.xcstrings
+        optional: true
+      # The verbatim game bundle: FOLDER REFERENCE (blue folder), the SAME
+      # gitignored synced tree the iOS app ships, produced by
+      # ios/tools/bundle-manifest.mjs generate (research R5;
+      # the game-bundle contract (feature 016, internal) stays normative).
+      # Never committed. Run the pipeline once before `xcodegen generate`
+      # so the reference resolves.
+      - path: ../ios/App/Resources/web
+        type: folder
+        optional: true
+        buildPhase: resources
+    dependencies:
+      - package: ShellCore
+      - package: MacShellCore
+    preBuildScripts:
+      # SHARED PIPELINE gate on EVERY build (research R5, SC-002): rsync
+      # web/ -> ios/App/Resources/web + manifest, then an independent
+      # re-hash of both sides. Invoked UNEDITED.
+      - name: Bundle web resources (generate + verify)
+        shell: /bin/bash
+        script: |
+          set -euo pipefail
+          cd "$SRCROOT/.."
+          node ios/tools/bundle-manifest.mjs generate
+          node ios/tools/bundle-manifest.mjs verify
+        basedOnDependencyAnalysis: false
+
+  MacAppTests:
+    # Hosted unit gates (research R16): scheme-served byte-equality + MIME,
+    # download adapter against the scripted panel seam, window-state
+    # adapter, xcstrings mirror. Sources land in lanes D/T (T018, T021).
+    type: bundle.unit-test
+    platform: macOS
+    deploymentTarget: "13.0"
+    sources:
+      - path: MacAppTests
+        optional: true
+    dependencies:
+      - target: OpenBilliards
+
+schemes:
+  OpenBilliardsMac:
+    build:
+      targets:
+        OpenBilliards: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - MacAppTests
+      gatherCoverageData: false
+    archive:
+      config: Release

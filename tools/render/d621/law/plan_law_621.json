@@ -1,0 +1,27 @@
+{
+  "schema": "d621-plan-law/1",
+  "title": "D621 PLAN law — pocket-scale rows the whole-table rows cannot see (D621-PLAN-1; thresholds committed here since D621-PLAN-3-RECORD-3)",
+  "principle": "THE GATE TRUSTS ONLY THE TREE. Row ids, operators and thresholds live in this committed file (its sha256 is embedded in every verdict); row VALUES are re-measured from the export inside the gate, never read from a result file.",
+  "pockets": ["corner_WS", "corner_WN", "corner_ES", "corner_EN", "side_S", "side_N"],
+  "cuts": {"mid": 790.0, "nose": 805.88, "top": 813.7},
+  "cut_notes": "bed+20 / the model's nose height (bed+35.88) / cap top 814.68 − 1; bed top z = 770 in the model frame",
+  "registration_method": {
+    "tag": "DERIVED",
+    "deciding": "own-apex-exact",
+    "ruling": "Maintainer FIX1 checkpoint ruling on PR #733 / 1f3f52724, 2026-09-09, item 3: register MODEL and OURS on their actual nose apex, symmetrically for every size. All cuts, thresholds, raster settings and 66 numeric rows remain unchanged.",
+    "reason": "The old MODEL-height registration sampled OURS below its apex. The historical four-mm nose made that depth error small; the smaller facet-derived radius exposes the offset even when ring geometry is byte-identical.",
+    "apex": "Use the median height of the exact innermost triangle-section endpoints on each straight rail, at the standing section planes; no radius assumption or target-derived height window. Section both sides by the same algorithm.",
+    "secondary": "Re-run all rows with the original MODEL-height registration and original coarse OURS apex search. Record each old value and verdict beside the deciding value; never use the secondary column to decide."
+  },
+  "rows": [
+    {"row": "a", "cuts": ["mid", "nose", "top"], "op": "<=", "thr": 100.0, "unit": "mm²", "label": "area(ring ∩ cushion)", "why": "the model's own contact strip is 22–52 mm²; the grid uncertainty at 2 px/mm is ±100"},
+    {"row": "b", "cuts": ["mid", "nose", "top"], "op": "<=", "thr": 2.0, "unit": "mm", "label": "|arm end − cushion back| worst arm", "why": "the arm ends on the glue plane of its own rail (model relation 0.9–1.2)"},
+    {"row": "c", "cuts": ["mid", "nose", "top"], "op": ">=", "thr": 0.90, "unit": "IoU", "label": "plan IoU ring vs model ring", "why": "footprint identity to the purchased leather section, registered on the pocket's own nose intersection"},
+    {"row": "d1", "cuts": ["nose"], "op": "<=", "thr": 3.0, "unit": "mm", "label": "mouth at the nose vs the kernel letter", "why": "kernel numbers do not move (CP-01 / SP-01 from the committed definition JSON)"},
+    {"row": "d2", "cuts": ["nose"], "op": "<=", "thr": 1.0, "unit": "deg", "label": "initial straight facing angle vs the kernel facing", "why": "kernel numbers do not move (CP-02 / SP-02). C9 measures the straight segment nearest the nose after the jaw arc, without an expected-angle selector; CU-14's measured terminal return is a separate plane farther outboard."}
+  ],
+  "expected_rows": 66,
+  "raster": {"px_per_mm": 2.0, "fill": "even-odd"},
+  "definition_json": "docs/geometry/diamond-proam-8ft-table-definition.json",
+  "red_arm": "the rejected export (7108eb60) fires rows a, b and c at the corner nose cut"
+}

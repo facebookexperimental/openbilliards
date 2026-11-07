@@ -1,0 +1,49 @@
+{
+  "name": "kick",
+  "description": "Full-english lengthwise kick: a rolling ball driven straight into the foot (short) rail with maximum right english; the rebound drifts ~2.8-2.9 diamonds across the table by the time it returns to the head rail (SC-002 spec window 3 +/- 0.3). Demonstrates cushion speed/spin coupling (feel four-pack item 3). Drift = (x at head-rail contact - (-0.45)) / 0.3175 diamonds.",
+  "provenance": "Geometry and shot constants from crates/pool-core/tests/fixtures/anchors/kick.json (lengthwise_geometry; Dr. Dave bank-kick FAQ 1/2/3-diamond anchor, gap-k66 sec 3/5): start (-0.45, -1.2), phi = pi/2 into the foot rail, v0 = 2 m/s, full english a = 0.5 (the miscue limit). Measured kernel drift 2.8031 diamonds (Han/Stronge), 2.9329 (Mathavan preset).",
+  "system": {
+    "balls": [
+      {
+        "id": 0,
+        "params": {
+          "m": 0.170097,
+          "r": 0.028575,
+          "u_s": 0.2,
+          "u_r": 0.01,
+          "u_sp": 0.0127,
+          "e_b": 0.95,
+          "e_c": 0.85,
+          "f_c": 0.2
+        },
+        "state": {
+          "pos": {
+            "x": -0.45,
+            "y": -1.2,
+            "z": 0.028575
+          },
+          "vel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "avel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "motion": "Stationary"
+        }
+      }
+    ],
+    "table": "wpa_9ft"
+  },
+  "shot": {
+    "v0": 2.0,
+    "phi": 1.5707963267948966,
+    "theta": 0.0,
+    "a": 0.5,
+    "b": 0.0,
+    "seed": 0
+  }
+}

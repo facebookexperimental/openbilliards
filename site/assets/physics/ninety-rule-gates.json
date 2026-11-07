@@ -1,0 +1,251 @@
+{
+  "scenario": "ninety-rule",
+  "title": "The 90° rule — stun tangent-line separation (battery A1)",
+  "kernel": "0.1.0+dedc61cd",
+  "anchor": {
+    "rule": "A stun (non-spinning) cue ball leaves along the tangent line — 90° to the object ball's departure; real balls (friction + inelasticity) squeeze the separation inside 90°.",
+    "sources": "Dr. Dave TP 3.1 (90° rule, rev 9/22/20) + TP A.5 Eqs 7-15 (inelasticity + friction refinement, rev 3/19/2014); Illustrated Principles ~85° real-ball rule of thumb",
+    "battery": "A1 — examples/paper/exp_a1_ninety.py (the internal paper baselines §2/§8; half-ball 3 m/s grid cell; straight-in/half-ball rows bit-identical at every re-baseline)",
+    "idealSeparationDeg": 90,
+    "predictedSeparationDeg": 86.36712456128083,
+    "predictedSeparationNote": "TP A.5 Eqs 11-15 at KERNEL params (e_b 0.95, mu(v_rel) TP A-14 fit) evaluated node-side on the gated record's measured v_rel 2.307554638018891 / phi_eff 30.000000000000018 — the same closed form the battery pins as pred_a5_form_kernel_params_deg 86.3671",
+    "predictedTheta1Deg": 2.560278536105915,
+    "predictedTheta2Deg": 1.0725969026132496,
+    "realballRuleOfThumbDeg": 85,
+    "tpA5PaperParamsDeg": 83.2591,
+    "tpA5PaperParamsNote": "TP A.5 p.4 evaluation at e=0.94, mu=0.06 fixed — parameter difference vs the kernel, not model error (battery A1 comparison note)"
+  },
+  "badge": {
+    "line1": "ideal 90.0° · predicted 86.37° · measured 86.37°",
+    "line2": "THE 90° RULE · DR. DAVE TP 3.1 / A.5 EQS 11-15 · BATTERY A1 (EXP_A1_NINETY) · HALF-BALL STUN @ 3 M/S"
+  },
+  "segments": [
+    {
+      "id": "main",
+      "batterySha": "fb204a9493a9050b669c8fe135bf4fdd269bf10d6f9f1df5100410ac16b7c29b",
+      "videoSha": "b0780648e44f232ddd27d51fb1f00a5af1d104d4602bac9c5106007a0dcc2903",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tImpact": 0.14709526150492785,
+        "rhoPre": 0.00015955056050083325,
+        "aimHeadingDeg": 90,
+        "phiEffDeg": 30.000000000000018,
+        "sepImmDeg": 86.36695193104777,
+        "theta1Deg": 2.5602903131006878,
+        "theta2Deg": 1.0727481805442227,
+        "eEff": 0.9498855550092689,
+        "vRelPre": 2.307554638018891,
+        "muModelAtVRel": 0.018722534661287225,
+        "predSepDeg": 86.36712456128083,
+        "predTheta1Deg": 2.560278536105915,
+        "predTheta2Deg": 1.0725969026132496,
+        "locHeadingDeg": 59.99999999999998,
+        "tangentHeadingDeg": 149.99999999999997,
+        "cbPredHeadingDeg": 147.43972146389405,
+        "obPredHeadingDeg": 61.07259690261323,
+        "cbHeadingDeg": 147.43970968689902,
+        "obHeadingDeg": 61.07274818054423,
+        "cbPostSpeed": 2.236548149233374,
+        "obPostSpeed": 3.897095271676655,
+        "contactCb": [
+          0.2683003185471655,
+          0.5848147334798005
+        ],
+        "contactOb": [
+          0.29687531854716553,
+          0.6343080853060812
+        ],
+        "contactPoint": [
+          0.2825878185471655,
+          0.6095614093929409
+        ],
+        "cueStart": [
+          0.2683003185471655,
+          -0.11518526652019945
+        ],
+        "tPot": 0.335101991276717,
+        "pot": {
+          "ball": 1,
+          "pocket": 5
+        },
+        "firstCushionT": 0.7337386964240058,
+        "firstCushionBall": 0,
+        "tEnd": 0.6137386964240058,
+        "readRunM": 0.8485970886196132,
+        "potRunM": 0.7599999999999999,
+        "cbEnd": [
+          -0.44684555142412846,
+          1.041647344639521
+        ],
+        "recordDuration": 5.927481801759642,
+        "minPairMm": 57.150000000000155,
+        "minPairAt": 0.14709526150492785,
+        "minPair": [
+          0,
+          1
+        ],
+        "approachTravelM": 0.7,
+        "approachCentreToCentreM": 0.7500378757481472,
+        "approachSurfaceGapM": 0.6928878757481471,
+        "impactSpeed": 4.615109016234964,
+        "batteryImpactSpeed": 4.615109100094827,
+        "batteryRhoPre": 0.00015942201669401113,
+        "batteryImpactSpeedNote": "FD pre-impact estimate at the harness's clamped sample centre (283 us before contact on the cell, 300 us on the restage) — INFORMATIONAL ONLY; the gate compares the exact post-impact event state instead (review r1 P2)."
+      },
+      "plan": {
+        "frames": 516,
+        "outputSec": 8.6,
+        "maxCutlessStepRatio": 1.0746606147002977,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              362,
+              386
+            ]
+          ],
+          "deliveredFrames": 492,
+          "deliveredSec": 8.2,
+          "firstReplayFrame": 362,
+          "recoveredFrames": 32,
+          "dissolveS": 0.4
+        }
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 3,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 0.30000000000000004,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1.5063829787234047,
+        "wanted": 1.5063829787234047,
+        "dropSec": 0.5974576271186439,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.30000000000000004,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "86.4°",
+              "measured separation"
+            ],
+            "availSec": 1.6333333333333333,
+            "spanSec": 1.3599999999999999,
+            "entrySec": 0.98,
+            "exitSec": 0.38,
+            "scaledSpanSec": 0.9028248587570619,
+            "settledSec": 0.7305084745762714,
+            "needScale": 1.02,
+            "settledFrames": 43
+          },
+          {
+            "text": [
+              "90° ideal tangent"
+            ],
+            "availSec": 1.6333333333333333,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 0.7833333333333332,
+            "settledSec": 0.8500000000000001,
+            "needScale": 0.8850000000000001,
+            "settledFrames": 51
+          },
+          {
+            "text": [
+              "throw-corrected pot · +1.07°"
+            ],
+            "availSec": 1.0833333333333333,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 0.7833333333333332,
+            "settledSec": 0.30000000000000004,
+            "needScale": 1.5063829787234047,
+            "settledFrames": 18
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "main",
+      "frames": 516,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "83df11c7e252678f9f858cb33f4a3c69f20fefb78f8178c848d75a069034725c",
+      "sha256_last": "ba06331675487b687d77bb55bfa5b7ed3f379e199fc3c3d5f2898fb66379851d"
+    }
+  ],
+  "verifyLaw": "sameboot-x2+crossboot-envelope/v1-chunked",
+  "verify": {
+    "main": {
+      "law": "sameboot-x2+crossboot-envelope/v1-chunked",
+      "tierA": "lsb-speckle",
+      "tierB": "byte-identical",
+      "frames": 516,
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "chunks": 4,
+      "chunkFrames": 150,
+      "relaunches": 0,
+      "sameBoot": {
+        "differingFrames": 516,
+        "worstDelta": 1,
+        "worstFrac": 0.000054166666666666664,
+        "worstComponentPx": 2
+      },
+      "kernel": "0.1.0+dedc61cd",
+      "renderer": "7e3b2b35014137dabd495ac2d14fe9be5cc1e29660e5132a1968b92b316a3e17",
+      "atUTC": "2026-08-05T18:13:33.544Z"
+    }
+  },
+  "titleCard": {
+    "value": "The 90° rule",
+    "claim": "stun tangent-line separation (battery A1)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "9e6d226df36d247f2faa0bcd658f222d81b3a154dafa37caeeebb9a7a1dd26de",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "50cf1be7c9866e235175a582677c54dcf28e3e62ea50eb3f844a8cde5dd0d386"
+  }
+}

@@ -1,0 +1,724 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>游戏指南 — openbilliards</title>
+  <meta name="description" content="openbilliards 玩法指南:操作方式、加塞与辅助线、按实现记录的九球、八球、斯诺克、三颗星开伦与单袋规则、玩法目录、装备与标定标注、回放分享、视频导出——共七种语言。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="游戏指南 — openbilliards">
+  <meta property="og:description" content="openbilliards 玩法指南:操作方式、加塞与辅助线、按实现记录的九球、八球、斯诺克、三颗星开伦与单袋规则、玩法目录、装备与标定标注、回放分享、视频导出——共七种语言。">
+  <meta property="og:image" content="../../assets/img/hero-poster.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b100c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23efe9d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../assets/guide.css">
+  <script src="../../assets/site.js" defer></script>
+  <script src="../../assets/motion.js" defer></script>
+</head>
+<body>
+  <a class="bb-skip" href="#main">跳到内容</a>
+
+  <header>
+    <nav class="bb-nav" aria-label="主导航">
+      <a class="bb-wordmark" href="../../index.html">Openbilliards</a>
+      <button class="bb-nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">菜单</button>
+      <ul class="bb-nav-links" id="nav-links">
+        <li><a href="index.html">指南</a></li>
+        <li><a href="../../docs/index.html">API 文档</a></li>
+        <li><a href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a></li>
+        <li><a class="bb-pill bb-pill--fill" href="../../web/app.html">开始游戏</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="bb-section gd-hero" aria-labelledby="gd-h">
+      <p class="bb-edge-tab bb-label">Openbilliards — gameplay guide</p>
+
+      <p class="bb-label bb-marker bb-reveal">指南 — 五种玩法</p>
+      <h1 id="gd-h" class="bb-display bb-reveal bb-d1" style="margin: 24px 0 32px; max-width: 10em;">
+        读懂<br>这张球台。
+      </h1>
+      <p class="bb-body bb-reveal bb-d2" style="max-width: 36em;">
+        每一个操作、每一条规则、游戏画出的每一条线——都按发布版本的实际行为如实记录。每个数字都注明定义它的源文件。
+      </p>
+
+      <nav class="gd-lang bb-reveal bb-d3" aria-label="指南语言" style="margin-top: 48px;">
+        <a data-lang="en" href="../en/index.html" lang="en">English</a>
+        <a data-lang="zh-CN" href="index.html">中文</a>
+        <a data-lang="es" href="../es/index.html" lang="es">Español</a>
+        <a data-lang="ja" href="../ja/index.html" lang="ja">日本語</a>
+        <a data-lang="de" href="../de/index.html" lang="de">Deutsch</a>
+        <a data-lang="fr" href="../fr/index.html" lang="fr">Français</a>
+        <a data-lang="ko" href="../ko/index.html" lang="ko">한국어</a>
+      </nav>
+
+      <nav aria-label="目录" class="bb-reveal bb-d4">
+        <ul class="gd-toc">
+          <li><a href="#first-shot"><span class="n">01</span>第一杆</a></li>
+          <li><a href="#controls"><span class="n">02</span>操作</a></li>
+          <li><a href="#spin"><span class="n">03</span>加塞与辅助线</a></li>
+          <li><a href="#games"><span class="n">04</span>选择玩法</a></li>
+          <li><a href="#rules"><span class="n">05</span>九球规则</a></li>
+          <li><a href="#rules-8ball"><span class="n">06</span>八球规则</a></li>
+          <li><a href="#rules-snooker"><span class="n">07</span>斯诺克规则</a></li>
+          <li><a href="#rules-carom"><span class="n">08</span>开伦规则</a></li>
+          <li><a href="#rules-onepocket"><span class="n">09</span>单袋规则</a></li>
+          <li><a href="#equipment"><span class="n">10</span>装备与标注</a></li>
+          <li><a href="#replays"><span class="n">11</span>回放与分享</a></li>
+          <li><a href="#export"><span class="n">12</span>视频导出</a></li>
+          <li><a href="#recording"><span class="n">13</span>录制与慢动作</a></li>
+          <li><a href="#language"><span class="n">14</span>语言</a></li>
+          <li><a href="#faq"><span class="n">15</span>常见问题</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="first-shot" aria-labelledby="first-shot-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">01 — 第一杆</p>
+        <div class="gd-content">
+          <h2 id="first-shot-h" class="bb-heading bb-reveal" style="max-width: 14em;">开球、观看、再来。</h2>
+          <ol class="gd-steps bb-reveal bb-d1" style="margin-top: 48px;">
+            <li><strong>瞄准。</strong>在台面上任意位置按住左键拖动,球杆就会转向指针所指的方向;一条白色实线预览母球到第一次触球为止的路径。距母球 2.5 个球半径以内的按下会被忽略,因此靠得太近也不会碰乱瞄准
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>。</li>
+            <li><strong>调力度。</strong>瞄准时滚动滚轮,或按
+              <kbd>↑</kbd>/<kbd>↓</kbd>。力度范围为 0.5–12&nbsp;m/s
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>——上限对应实测的职业开球速度(约 27&nbsp;mph)。</li>
+            <li><strong>微调。</strong>按住 <kbd>Shift</kbd> 拖动,以指针角度变化的
+              0.1 倍微调瞄准;方向键每次 ±0.05°(<kbd>Shift</kbd> 为 0.5°)。</li>
+            <li><strong>击球。</strong>状态横幅切到“播放中”——内核早已解出整杆的全部运动。等球停稳,轮到对手:玩家 1 和玩家 2 在同一台机器上轮流
+              <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>。</li>
+            <li><strong>看 HUD。</strong>“P1 目标 1 号球”写明轮到谁、哪颗球是合法目标——永远是台面上号码最小的那颗。</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="controls" aria-labelledby="controls-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">02 — 操作</p>
+        <div class="gd-content">
+          <h2 id="controls-h" class="bb-heading bb-reveal" style="max-width: 14em;">一只鼠标,四个动作。</h2>
+
+          <div class="gd-scroll bb-reveal bb-d1" style="margin-top: 48px;">
+            <table class="gd-table">
+              <caption>鼠标</caption>
+              <thead><tr><th scope="col">输入</th><th scope="col">作用</th></tr></thead>
+              <tbody>
+                <tr>
+                  <th scope="row">在台面上左键拖动</th>
+                  <td>瞄准——球杆方位角直指指针。自由球状态下,从母球 3 个球半径以内开始的拖动改为移动母球;其余位置照常瞄准
+                    <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>。</td>
+                </tr>
+                <tr>
+                  <th scope="row"><kbd>Shift</kbd> + 左键拖动</th>
+                  <td>瞄准时以指针角度变化的 0.1 倍微调瞄准;不在瞄准状态时则环绕旋转镜头。</td>
+                </tr>
+                <tr>
+                  <th scope="row">右键拖动</th>
+                  <td>环绕旋转镜头
+                    <a class="bb-cite" href="../../web/app/orbit.js">web/app/orbit.js</a>。</td>
+                </tr>
+                <tr>
+                  <th scope="row">滚轮</th>
+                  <td>瞄准时调力度,其余时候缩放。<kbd>Shift</kbd> + 滚轮始终缩放。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 48px;">
+            <table class="gd-table">
+              <caption>键盘</caption>
+              <thead><tr><th scope="col">按键</th><th scope="col">作用</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><kbd>←</kbd> <kbd>→</kbd></th>
+                  <td>瞄准 ±0.05°——按住 <kbd>Shift</kbd> 为 ±0.5°
+                    <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a></td></tr>
+                <tr><th scope="row"><kbd>↑</kbd> <kbd>↓</kbd></th>
+                  <td>力度 ±0.1&nbsp;m/s——按住 <kbd>Shift</kbd> 为 ±0.5&nbsp;m/s</td></tr>
+                <tr><th scope="row"><kbd>V</kbd></th>
+                  <td>切换瞄准视角(见下)</td></tr>
+                <tr><th scope="row"><kbd>Esc</kbd></th>
+                  <td>关闭设置抽屉——先关最上层
+                    <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 24px;">
+            当焦点停在“击球”“重新摆球”这类普通按钮上时,方向键仍然有效;遇到下拉框和文本输入框时才会让位。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">瞄准视角</h3>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            按 <kbd>V</kbd> 切换到一台贴地的球后镜头——在母球后方
+            0.78&nbsp;m、高 0.34&nbsp;m
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>,沿瞄准线追随母球。此时瞄准以屏幕为参照:向右拖就向右转,按下也绝不会让瞄准跳变。右键上下拖动加减力度:往下拖,球杆会明显向后拉开。再按 <kbd>V</kbd> 恢复之前保存的镜头。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="spin" aria-labelledby="spin-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">03 — 加塞与辅助线</p>
+        <div class="gd-content">
+          <h2 id="spin-h" class="bb-heading bb-reveal" style="max-width: 14em;">塞,就是球上的一个点。</h2>
+
+          <div class="gd-side" style="margin-top: 48px;">
+            <div>
+              <p class="bb-body bb-reveal bb-d1">
+                左下角的击球点面板就是母球的正面。拖动圆点:
+                <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">a</code>
+                是左右——正值表示向你的右侧加塞;
+                <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">b</code>
+                是高低——中心以上是高杆(跟进),以下是低杆(拉回)
+                <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>。偏移以球半径为单位,校验器强制 a²&nbsp;+&nbsp;b²&nbsp;≤&nbsp;0.25:杆头永远越不过半径一半处的虚线圆环——滑杆极限。非法偏移根本设不进去;游戏里也没有滑杆事件。
+              </p>
+              <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+                弧形滑块把球杆从 0° 抬到 80°
+                <a class="bb-cite" href="../../web/app/aimwidgets.js">web/app/aimwidgets.js</a>。超过 45° 会闪出“扎杆”提示:母球将走弧线。预览与击球用的是同一个内核,所见的弧线就是实际的弧线。
+              </p>
+            </div>
+            <figure class="gd-tip bb-reveal bb-d2" aria-hidden="false">
+              <svg viewBox="0 0 220 220" role="img" aria-label="母球正面:击球点 (a, b),半径一半处的虚线圆环为滑杆极限">
+                <line class="st-axis" x1="110" y1="10" x2="110" y2="210"></line>
+                <line class="st-axis" x1="10" y1="110" x2="210" y2="110"></line>
+                <circle class="st-ball" cx="110" cy="110" r="96"></circle>
+                <circle class="st-ring" cx="110" cy="110" r="48"></circle>
+                <circle class="st-dot" cx="134" cy="80" r="6"></circle>
+                <text x="182" y="100">+a</text>
+                <text x="118" y="30">+b</text>
+              </svg>
+              <figcaption>击球点 (a, b)——虚线圆环是 0.5&nbsp;R 处的滑杆极限</figcaption>
+            </figure>
+          </div>
+
+          <h3 class="bb-heading-s bb-reveal">要读的三条线</h3>
+          <ul class="gd-legend bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><span class="ln" aria-hidden="true"></span>
+              <span><strong>白色实线</strong>——母球的行进路径,直到第一次触球。</span></li>
+            <li><span class="ln ln--object" aria-hidden="true"></span>
+              <span><strong>琥珀色</strong>——目标球触球后的去向,约半个颗星(diamond)间距长的短线。</span></li>
+            <li><span class="ln ln--cue" aria-hidden="true"></span>
+              <span><strong>绿色虚线</strong>——母球<em>触球之后</em>的路径:拉回、跟进或切线。</span></li>
+          </ul>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 24px;">
+            实线表示触球之前,虚线表示触球之后。整套视觉语言就这一条规则
+            <a class="bb-cite" href="../../web/app/preview.js">web/app/preview.js</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">瞄准辅助的档位</h3>
+          <ul class="bb-list bb-body-s bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><strong>关闭</strong>——什么线都没有。</li>
+            <li><strong>标准(路线 + 假想球)</strong>——默认档:行进线、触点处的假想球、目标球短线。</li>
+            <li><strong>练习(所有球的路线)</strong>——在标准档之上,再以暗色画出台面上每颗球的完整预测路线。</li>
+          </ul>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            绿色虚线有自己的开关——“击球后母球路径”,默认开启
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>。这一切在每次调整瞄准时都会重新运行真正的物理内核,每杆约
+            0.2&nbsp;ms
+            <a class="bb-cite" href="../../web/app/preview.js">web/app/preview.js</a>——这些线是精确的物理解,不是几何近似。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="games" aria-labelledby="games-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">04 — 选择玩法</p>
+        <div class="gd-content">
+          <h2 id="games-h" class="bb-heading bb-reveal" style="max-width: 14em;">五种可玩,条条有据。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            设置抽屉的最上方是“玩法”选择器,五个条目全部可玩:<strong>九球</strong>(默认)、<strong>八球</strong>、<strong>斯诺克</strong>、<strong>三颗星开伦</strong>与<strong>单袋</strong>。你的选择会被保存;切换前它会先问一句——“切换玩法将重新摆球。继续?”——因为换玩法就意味着重新摆球(斯诺克与开伦还会换台)
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>。
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            选择器下方,“玩法目录”展开完整的浏览视图:五个项目,每一项都带一条出处行,注明管理机构和转录所依据的规则版本——没有真实出处的条目会被校验直接拒绝
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/games/catalog.ts">sdk/ts/src/games/catalog.ts</a>。
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>玩法目录</caption>
+              <thead><tr><th scope="col">玩法</th><th scope="col">规则文本</th><th scope="col">标注</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">九球</th>
+                  <td>WPA Rules of Play(2025-09-15 生效)第 5 节</td>
+                  <td>可玩</td></tr>
+                <tr><th scope="row">八球</th>
+                  <td>WPA Rules of Play(2025-09-15 生效)第 4 节</td>
+                  <td>可玩</td></tr>
+                <tr><th scope="row">斯诺克</th>
+                  <td>WPBSA《斯诺克与英式台球正式规则》(2024 年 9 月修订)</td>
+                  <td>可玩</td></tr>
+                <tr><th scope="row">三颗星开伦</th>
+                  <td>UMB《开伦台球世界规则》(1989 年 1 月 1 日;世界杯补充规则 15.12.2025)</td>
+                  <td>可玩</td></tr>
+                <tr><th scope="row">单袋</th>
+                  <td>WPA Rules of Play(2025-09-15 生效)第 12 节</td>
+                  <td>可玩</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            五种玩法全部可玩。选定一种,台子与球组会一并切换到该玩法有据可查的搭配——斯诺克在 WPBSA 12 英尺台上使用 52.5&nbsp;mm 球组,开伦在无袋的 UMB 2.84&nbsp;m 台上使用 61.5&nbsp;mm 球组,单袋沿用你的美式台——而且每种玩法各自记住自己的装备选择,切换玩法不会互相串台
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="rules" aria-labelledby="rules-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">05 — 按实现记录的九球规则</p>
+        <div class="gd-content">
+          <h2 id="rules-h" class="bb-heading bb-reveal" style="max-width: 14em;">先打最小,九号定胜。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            一杆合法,要满足两件事:母球的第一次触碰是台面上号码最小的球,
+            <em>并且</em>随后至少有一颗球落袋或碰到库边
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/nineball.ts">sdk/ts/src/rules/nineball.ts</a>。其余都算犯规——且可以同时成立多条:
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d2" style="margin-top: 24px;">
+            <li><strong>母球未触及任何球</strong>——完全没有接触。</li>
+            <li><strong>首先击打了错误的球</strong>——第一次触碰不是最小号。</li>
+            <li><strong>触球后未碰库</strong>——没有球落袋,也没有球碰到库边。</li>
+            <li><strong>母球落袋</strong>——母球进袋,或被打出台外。</li>
+          </ul>
+          <p class="bb-body bb-reveal" style="margin-top: 32px;">
+            任何犯规都让对手获得<strong>自由球,可放在台面任意位置</strong>——没有开球区限制。母球会先出现在置球点上;把它拖到你想要的位置
+            (系统会检查是否与其他球重叠),然后击球
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>。
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            合法击球打进 9 号即胜——组合球也算。9 号在犯规中落袋或被打出台外,会重新摆回脚点;脚点被占则沿纵向中线后移,全被堵死时 v1 里就留在袋中。合法一杆但没有球落袋,交换球权。胜利先显示横幅,2.6&nbsp;秒后自动用新的种子重新摆球
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>。
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            v1 未实现:开球后的推杆(push-out)、WPA 的“开球不进需四球碰库”规则、连续三次犯规判负。开球与普通一杆同样判罚;跳出台外的目标球不回台——只有 9 号会重新摆放。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-8ball" aria-labelledby="rules-8ball-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">06 — 按实现记录的八球规则</p>
+        <div class="gd-content">
+          <h2 id="rules-8ball-h" class="bb-heading bb-reveal" style="max-width: 14em;">杆杆要叫,8 号定局。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            八球按 WPA Rules of Play(2025-09-15 生效)第 4 节转录,每一次判罚都注明规则条号。规则书里留给裁判判断的“明显”击球,这里取最严格的机械读法:每一杆都要明确指定,不做任何推断
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/eightball.ts">sdk/ts/src/rules/eightball.ts</a>。十五颗球摆成三角——8 号居中,两个后角一颗全色、一颗花色(WPA 4.2)。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">开放球局与分组</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            开球是唯一不用叫球的一杆,打完后球局保持<strong>开放</strong>:HUD 徽章显示“开放球局”,第一次触碰可以是 8 号以外的任何球——除非某一组球已全部打进,此时先碰 8 号也合法(WPA 4.4)。分组由第一颗按叫打进的球决定——叫进一颗全色球,你就打全色(1–7),对手打花色(9–15)。此后徽章标出双方各自的分组,清完本组后翻成“打 8 号”。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">叫球</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            开球之后的每一杆都要明确指定目标球和球袋(WPA 4.6,按 1.7 的最严格读法)。HUD 提示“需要叫球:点击一个球袋”:点击六个袋口标记之一,指示条就确认为“N 号球 → 袋口”;在此之前,“击球”会拒绝执行——“请先指定目标球和袋口(或宣告防守)”
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>。击球点面板旁的“安全球”按钮就是那条后路(WPA 1.7):宣告之后这一杆打完即交换球权——防守中落袋的球不再取出。叫的球进了叫的袋,继续击球;其余情况交换球权,不过未叫而落袋的球留在袋中。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">犯规、自由球与规则选项</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            犯规清单与九球一致——母球落袋、母球未触及任何球、首先击打了错误的球(这里指不是本组的球)、触球后未碰库——再加上球被击出台面。普通犯规让对手获得<strong>自由球,可放在台面任意位置</strong>(WPA 4.9);开球犯规则只能放在<strong>开球线后</strong>(WPA 4.3(g),(h))。犯规横幅每次都注明条号——“犯规 — 母球落袋(WPA 3.1 via 4.9)”
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>。八球没有连续三次犯规判负(WPA 3.13 将自己排除在外),而且只有 8 号会被重新摆放(WPA 4.7)。
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            有些开球得到的不是判罚,而是规则书给的选项:提示面板写明由谁选择,做出选择之前无法击球,选择结果会记入回放:
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><strong>干开球</strong>(WPA 4.3(d))——碰库不足四颗且无球落袋:对手可接受现状、重摆自己开球,或重摆由原开球方再开。</li>
+            <li><strong>合法开球进 8 号</strong>(WPA 4.3(e))——开球方选择 8 号置回点位继续,或重新开球。</li>
+            <li><strong>犯规开球进 8 号</strong>(WPA 4.3(f))——对手选择 8 号置回点位并在开球线后获自由球,或重新开球。</li>
+            <li><strong>开球犯规</strong>(WPA 4.3(g),(h))——对手接受现状,或在开球线后获自由球。</li>
+            <li><strong>僵局</strong>(WPA 4.11)——双方确认:重摆,由原开球方开球。</li>
+          </ul>
+
+          <h3 class="bb-heading-s bb-reveal">取胜——以及四种告负</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            清完本组,给 8 号叫定一个球袋,并恰好打进那里:这一杆赢下整局(WPA 第 4 节;4.6)。以下情况当场告负:打进 8 号的同一杆犯规(4.8(a));本组未清完就打进 8 号(4.8(b));8 号进了未叫的袋——防守中打进也算(4.8(c));把 8 号打出台面(4.8(d))
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/eightball.ts">sdk/ts/src/rules/eightball.ts</a>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-snooker" aria-labelledby="rules-snooker-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">07 — 按实现记录的斯诺克规则</p>
+        <div class="gd-content">
+          <h2 id="rules-snooker-h" class="bb-heading bb-reveal" style="max-width: 14em;">一红一彩,一杆杆垒分。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            斯诺克转录自 WPBSA《斯诺克与英式台球正式规则》(2024 年 9 月修订),每一次判罚都注明条款。22 颗球摆上 12 英尺球台:15 颗红球紧贴粉球后方成三角,6 颗彩球各在其点位,母球在 D 区内任意摆放
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">活球:先红球,再指定彩球</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            台面上还有红球时,活球始终是红球(1 分)。打进一颗红球后,活球换成彩球——<strong>点选你要指定的彩球</strong>(瞄准界面会高亮可选的彩球并确认你的选择;不指定就无法出杆)
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>。
+            彩球进袋按分值计分——黄 2、绿 3、棕 4、蓝 5、粉 6、黑 7——红球未清空时彩球会置回点位;随后活球又回到红球,如此交替,直到红球打完。HUD 上始终显示双方比分、当前单杆得分,以及一枚“活球”指示,明确此刻什么球合法
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">置回点位与最后的彩球</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            彩球回到自己的点位;点位被占则改放分值最高的空点位;六个点位都被占时,放在从其点位向顶库方向的中线上最近的一点,且不得触碰其他球(WPBSA Sec3 R7)。置回队列显示在 HUD 上,摆放过程有动画。最后一颗红球的随手彩球打进后,进入<strong>最后的彩球</strong>阶段:黄到黑按分值升序逐一打进,不再置回(Sec3 R3(h)(ii))。黑球落袋且比分不等,一局结束;平分则黑球重新置回——掷币决定谁先击球,接下来的任何得分或犯规立即分出胜负(Sec3 R4)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">犯规:按球计分,最低四分</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            犯规罚分等于活球分值<em>或</em>涉事球中分值最高者,下限 4 分、上限 7 分(Sec3 R11):活球是红球时碰到蓝球,就是 5 分——横幅每次都注明条款。犯规包括:首先击打错误的球、未触及任何球、母球落袋、把球打出台面、未指定彩球、跳过阻挡球。任何犯规之后,上手球员还可以<strong>要求你继续击球</strong>(Sec3 R13)——提示面板记录该选择并写入回放。母球落袋后在<strong>D 区内</strong>获得手中球(Sec3 R8(a)):拖放摆球时会被限制在 D 区之内
+            <a class="bb-cite" href="../../web/app/game.js">web/app/game.js</a>。
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            需要裁判现场裁量的条款刻意不做,并连同出处一并记录,而不是凭空发明:犯规并宣告未中(Sec3 R14)、自由球(Sec2 R13)、贴球(Sec3 R9)、推杆(Sec3 R18)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="rules-carom" aria-labelledby="rules-carom-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">08 — 按实现记录的三颗星开伦</p>
+        <div class="gd-content">
+          <h2 id="rules-carom-h" class="bb-heading bb-reveal" style="max-width: 14em;">先过三库,再碰第二球。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            三颗球,没有球袋:UMB《开伦台球世界规则》(1989 年 1 月 1 日)在 2.84&nbsp;m 加热石板球台上。默认的双母球设置下,双方整场各用<strong>自己的母球</strong>——先开球的一方用纯白球,另一方用黄球(第 22.1/23.2 条,世界大赛惯例;击打对方的母球即注明条款的“打错球”犯规,第 41.11 条;经典的共用白球变体在设置里一键可选)。得 1 分的条件是:你的母球触及两颗目标球,且<strong>在首次触及第二颗目标球之前至少碰库三次</strong>(第 83 条)——同一条库边碰两次算两次,先后顺序直接读内核的事件流
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/carom3c.ts">sdk/ts/src/rules/carom3c.ts</a>。
+            得分则继续击球;碰库不足三次就完成的开伦按规则书原文宣判——“无库” / “一库” / “两库”(UMB 第 83 条),属于交换击球权的犯规——而干净的未中依旧是合规的未得分(第 24.5 条)。击球过程中 HUD 实时计数碰库次数,旁边是双方得分、局数与目标分
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">开球、置回与赛点</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            开局提示先问你从哪个开球点出杆——下点左侧或右侧(第 23.2 条)——而且开球一杆必须<strong>先碰红球</strong>(第 23.3 条),否则就是注明条款的开球犯规。球被打出台面后置回指定点位——红球回顶点,即将出杆一方的母球回下点,另一颗回中点;点位被占则按换点规则处理——且只置回涉事的球(第 27.3(b)、28.1(b) 条)。先到目标分者胜(默认 15 分,可在设置中调整)——若选用等局制预设(第 29.3/29.4 条),落后的一方还有一局从置回的开局位置追平的机会,追平则整场以平局收场;结算画面同时显示双方的得分与局数(第 29.1/29.2 条)
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>。
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            在无袋球台上,游戏不再绘制袋口标记,瞄准线也不会吸附球袋。现实世界才会发生的犯规(触球、推杆、双脚离地;第 41.4–41.7、41.9–41.10 条)仍连同出处记录为不在范围内;而母球贴库时直接打向该库(第 27.2 条,经 41.8)会被判罚,“打错球”犯规随双母球设置生效(第 41.11 条),等局制则是设置里的一个预设(第 29.3/29.4 条)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/carom3c.ts">sdk/ts/src/rules/carom3c.ts</a>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-onepocket" aria-labelledby="rules-onepocket-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">09 — 按实现记录的单袋规则</p>
+        <div class="gd-content">
+          <h2 id="rules-onepocket-h" class="bb-heading bb-reveal" style="max-width: 14em;">各守一袋,八球定胜。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            单袋转录自 WPA Rules of Play(2025-09-15 生效)第 12 节:15 颗球,但每位球员只在<strong>自己的底角袋</strong>计分。开球前的提示会分配球袋——默认遵循 12.3:母球从哪一侧开球,袋就归对侧——HUD 上的标记标出两袋的归属。任何球进你的袋都算数;先得 8 球者胜
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/onepocket.ts">sdk/ts/src/rules/onepocket.ts</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">每个袋口都有意义</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            进<em>对方</em>袋的球给对方计分——即使那一杆你犯规也照算(12.5)。进四个中立袋(两个中袋、两个顶角袋)或被打出台面的球会回来:它们先挂成“待置回”标记,在你这一轮结束时回到置球点(12.6;若台面已被清空则立即置回)。逐袋计数就在 HUD 上,旁边是欠球标记
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">犯规、欠球、三振出局</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            多数犯规之后,母球<strong>停在原地</strong>(12.8)——只有母球落袋或出台(3.1)才给对手开球线后的手中球。犯规还要从你的得分中扣一颗球置回台面;零分时犯规就<em>欠</em>一颗(12.4)——HUD 显示欠账,你之后进的球会立即用来还债。连续三次犯规直接输掉本局(12.9 经 3.13);任何一杆合法击球都会清零计数。僵局重新摆球,双方的得分与欠球全部结转,并由抢杆(lag)决定谁开球(12.10)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/onepocket.ts">sdk/ts/src/rules/onepocket.ts</a>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="equipment" aria-labelledby="equipment-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">10 — 装备与标定标注</p>
+        <div class="gd-content">
+          <h2 id="equipment-h" class="bb-heading bb-reveal" style="max-width: 14em;">五个维度,如实标注。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            设置抽屉提供五个装备维度;改动任意一项都会在确认后重新摆球
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>。
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>装备目录——默认项在前</caption>
+              <thead><tr><th scope="col">维度</th><th scope="col">选项</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">台子</th>
+                  <td>WPA 规格 9 英尺（标称值） ·
+                    美式赛事台 9 英尺，旧款（4.56 英寸袋口） ·
+                    美式赛事台 9 英尺（4.5 英寸袋口） · 美式赛事台 9 英尺，金属袋沿（4.25 英寸袋口） ·
+                    中式八球比赛台 9 英尺 · WPBSA 12 英尺斯诺克台 ·
+                    UMB 开伦台 2.84&nbsp;米（无袋）——按当前玩法的台类筛选</td></tr>
+                <tr><th scope="row">台呢</th>
+                  <td>精纺比赛级台呢（全新）· 精纺比赛级台呢（快速）·
+                    磨损脏污慢速台呢 · 斯诺克起绒羊毛呢 ·
+                    开伦精纺呢(加热石板)</td></tr>
+                <tr><th scope="row">球组</th>
+                  <td>美式台球（57.15&nbsp;mm）· 美式台球·磨损 ·
+                    斯诺克(52.5&nbsp;mm)· 开伦(61.5&nbsp;mm)</td></tr>
+                <tr><th scope="row">球杆</th>
+                  <td>标准枫木球杆 · 低偏移前节(LD 杆) ·
+                    Pro LD 前节，支点长 14.1 英寸（皮革杆头） ·
+                    Pro LD 前节，支点长 11.8 英寸（皮革杆头） ·
+                    Pro LD 前节，支点长 10.1 英寸（皮革杆头） ·
+                    冲杆(酚醛杆头) ·
+                    标准枫木球杆(dime 弧度杆头)</td></tr>
+                <tr><th scope="row">库边模型(高级)</th>
+                  <td>Stronge 柔性库边(真实)· Han 2005(内核默认)·
+                    Mathavan 2010(HSV 联合拟合)· Mathavan 2010 抓握模式
+                    (库边 v5)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="bb-heading-s bb-reveal">标注的含义</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            目录里的每一项都带着三种标注之一,说明它的物理参数是怎么来的:
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d2" style="margin-top: 24px;">
+            <li><span class="gd-badge">标定</span>&nbsp;——参数由实测数据拟合;游戏中以强调色芯片显示。</li>
+            <li><span class="gd-badge">文献</span>&nbsp;——取自公开论文与厂商规格的数值。</li>
+            <li><span class="gd-badge">估计</span>&nbsp;——有记录的最佳估计,待实测。</li>
+          </ul>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            目录 v3 新增:台子轴现在携带实测袋口几何 —— 美式赛事台 9 英尺
+            条目按审计的 4.5 英寸底袋口与 141°/102°
+            袋角实建,比通用 WPA 台明显更紧。
+            <span class="bb-cite">内部台面尺寸审计</span>
+          </p>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            两个安静的行为值得知道:选择台子会静默启用该品牌推荐的库边模型;观看分享回放时装备选择器被锁定——你在发送者的装备上观看。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="replays" aria-labelledby="replays-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">11 — 回放与分享</p>
+        <div class="gd-content">
+          <h2 id="replays-h" class="bb-heading bb-reveal" style="max-width: 15em;">链接里是击球,不是视频帧。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            “分享回放”把整局比赛都装进 URL 的
+            <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">#r=</code>
+            之后——摆球种子、每一杆的五个数字(v0、φ、θ、a、b)原样保留、每次自由球的摆放、完整的五维装备规格,以及内核版本——压缩编码后复制到剪贴板
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/share.ts">sdk/ts/src/share.ts</a>。
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            链接里没有一帧画面。观看者的浏览器在同一个规范 wasm 内核上重新模拟每一杆,得到的记录与发送者的逐字节一致——这就是确定性保证
+            <a class="bb-cite" href="../../web/app/share.js">web/app/share.js</a>。内核版本不一致时会弹出警告,可选“仍要观看”或“关闭”。
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            回放条显示“第 i/N 杆”,带上一杆、下一杆、播放/暂停和 0.25×
+            慢动作开关;两杆之间留 700&nbsp;ms 的间隔
+            <a class="bb-cite" href="../../web/app/share.js">web/app/share.js</a>。回放进行中,击球输入、母球摆放和装备改动全部锁定。链接还记得自己属于<em>哪种玩法</em>——八球分享会带着分组、叫球与开球选项原样重现;玩法轴之前的旧链接(v1–v3)照常解码,一律按九球回放,绝不弹窗询问
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/share.ts">sdk/ts/src/share.ts</a>。
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal" style="margin-top: 32px;">
+            <li><strong>从这里继续打</strong>——以最终局面进入实战。续局本身立刻可以再分享;在重新加载之前,你一直在发送者的装备上继续打。</li>
+            <li><strong>退出回放</strong>——恢复你自己的装备并重新摆球。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="export" aria-labelledby="export-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">12 — 视频导出档位</p>
+        <div class="gd-content">
+          <h2 id="export-h" class="bb-heading bb-reveal" style="max-width: 14em;">五档画质,同一杆。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            “导出视频…”重新渲染你的<em>最后一杆</em>——还没打过,它会请你先打一杆。“实时”档在回放播放的同时录制,任何浏览器都可用;其余各档都是确定性的离线重渲染,需要 WebCodecs,在页面内编码为 mp4
+            (H.264/AAC),并以 webm(VP9)兜底
+            <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>。
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>导出档位</caption>
+              <thead><tr><th scope="col">档位</th><th scope="col">分辨率</th><th scope="col">特点</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">实时</th><td>画布</td>
+                  <td>实时录制回放;webm;任何浏览器</td></tr>
+                <tr><th scope="row">标准</th><td>720p / 1080p</td>
+                  <td>电影级调色;无运动模糊、无景深</td></tr>
+                <tr><th scope="row">高质量</th><td>最高 1080p</td>
+                  <td>1.5× 超采样、8 子帧 310° 快门运动模糊、景深</td></tr>
+                <tr><th scope="row">超清 4K</th><td>1440p / 2160p</td>
+                  <td>8 子帧运动模糊、景深</td></tr>
+                <tr><th scope="row">影院 4K</th><td>2160p</td>
+                  <td>16 子帧快门;最慢,画质最佳</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            码率为 8 / 12 / 24 / 40&nbsp;Mbps,对应 720 / 1080 / 1440 /
+            2160p
+            <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>。速度在离线档提供 1×、0.5×、0.25×;声音是一个勾选项。片长上限
+            60&nbsp;秒(外加 0.5&nbsp;秒收尾),60&nbsp;fps。对话框打开时会试渲染十帧,用来校准剩余时间与文件大小估计;超过 1080p 还需通过专门的 UHD 编码器探测。进行中的导出只能用“取消”按钮停止——Escape 和点击遮罩会被有意忽略。文件名为
+            openbilliards-&lt;档位&gt;-&lt;时间戳&gt;.mp4 或 .webm。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="recording" aria-labelledby="recording-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">13 — 录制与慢动作</p>
+        <div class="gd-content">
+          <h2 id="recording-h" class="bb-heading bb-reveal" style="max-width: 14em;">按下录制,全都留下。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            “录制”把实时画布以 60&nbsp;fps 连同混音后的声音一起写进 webm——VP9,不支持则退回 VP8,码率 8&nbsp;Mbps
+            <a class="bb-cite" href="../../web/app/record.js">web/app/record.js</a>。它不挑状态:瞄准、菜单、击球——屏幕上有什么就录什么。录制中按钮上有一个跳动的红点;“停止”即下载
+            openbilliards-&lt;时间戳&gt;.webm。每一秒写一块数据,即使标签页突然崩溃,已录的素材也还在。浏览器不支持时,这个按钮干脆不出现。
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            慢动作住在三个地方:HUD 的“慢动作”勾选框让每次击球回放都以
+            0.25× 播放
+            <a class="bb-cite" href="../../web/app/game.js">web/app/game.js</a>;分享回放条上有同一个 0.25× 开关(就是同一只);导出对话框则提供
+            0.5× 和 0.25× 的离线渲染。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="language" aria-labelledby="language-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">14 — 语言设置</p>
+        <div class="gd-content">
+          <h2 id="language-h" class="bb-heading bb-reveal" style="max-width: 14em;">七种语言,即时切换。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            游戏内置 English、中文、español、日本語、Deutsch、français、한국어。语言按顺序解析:设置里的明确选择(会保存),其次是浏览器语言的最佳匹配——zh-TW 落到中文,es-MX 落到 español——最后是英语
+            <a class="bb-cite" href="../../web/app/i18n.js">web/app/i18n.js</a>。切换即时生效,不需要重新加载。
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            每种语言携带完全相同的键——e2e 测试强制校验,缺失项回退到英语。语言选择器的标签有意保持各自的母语写法。本指南也一样:顶部的胶囊按钮在七个译本之间切换,你的选择会被记住。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="faq" aria-labelledby="faq-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">15 — 常见问题</p>
+        <div class="gd-content">
+          <h2 id="faq-h" class="bb-heading bb-reveal" style="max-width: 14em;">意外行为,逐条解释。</h2>
+
+          <dl class="gd-faq bb-reveal bb-d1" style="margin-top: 48px;">
+            <dt>我换了台子,库边模型自己变了。</dt>
+            <dd>有意为之:每张台子会启用其品牌推荐的库边模型,不另行询问。之后你仍可以在“高级”里改选任何模型。</dd>
+
+            <dt>滚轮调不了力度。</dt>
+            <dd>滚轮只在瞄准时调力度;不在瞄准状态时它是缩放——而
+              Shift&nbsp;+ 滚轮永远是缩放。</dd>
+
+            <dt>帮助栏说 Shift 拖动转镜头,实际却在微调瞄准。</dt>
+            <dd>瞄准时,Shift + 左键拖动被微调瞄准(0.1×)占用;只有不在瞄准状态时它才转镜头。</dd>
+
+            <dt>看完分享回放接着打——现在用的是谁的球台?</dt>
+            <dd>发送者的。“从这里继续打”会沿用对方的整套装备,直到你重新加载;“退出回放”则恢复你自己的装备并重新摆球。</dd>
+
+            <dt>我赢了,球台立刻重摆——还能重打刚才那副球吗?</dt>
+            <dd>胜利后的自动重摆(2.6&nbsp;秒)会推进摆球种子,下一副是新的。刚才那副还活在“回放”里——以及你分享过的任何链接里。</dd>
+
+            <dt>击球点的圆点过不了虚线圆环。</dt>
+            <dd>那个环是滑杆极限:超过半个球半径的偏移
+              (a²&nbsp;+&nbsp;b²&nbsp;&gt;&nbsp;0.25)无法通过校验,设不进去。游戏里没有滑杆事件——这个上限本身就是规则。</dd>
+
+            <dt>“回放”会弄丢我摆好的自由球位置吗?</dt>
+            <dd>不会。持自由球时看回放,回放结束后你摆好的位置原样保留。</dd>
+
+            <dt>力度为什么止步于 12&nbsp;m/s?</dt>
+            <dd>这是刻意设定的现实上限,对齐可靠实测的职业开球速度
+              (约 27&nbsp;mph)
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>。内核本身的硬校验上限是 15&nbsp;m/s。</dd>
+
+            <dt>“标准”档写着电影级调色,片子却没有运动模糊。</dt>
+            <dd>没错——标准档只渲染一个子帧。运动模糊和景深从“高质量”档才开始
+              <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>。</dd>
+
+            <dt>推杆(push-out)和三次犯规规则在哪里?</dt>
+            <dd>v1 没有实现。开球与普通一杆同样判罚,开球不进不会另行处罚,跳出台外的目标球不回台——只有 9 号会重新摆放
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/nineball.ts">sdk/ts/src/rules/nineball.ts</a>。</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bb-footer">
+    <p class="bb-display bb-footer-statement bb-reveal">永远先打<br>最小号。</p>
+
+    <div class="bb-footer-grid">
+      <nav aria-label="站点">
+        <p class="bb-label">站点</p>
+        <ul>
+          <li><a class="bb-link" href="../../index.html">首页</a></li>
+          <li><a class="bb-link" href="index.html">游戏指南</a></li>
+          <li><a class="bb-link" href="../../docs/index.html">API 文档</a></li>
+          <li><a class="bb-link" href="../../web/app.html">开始游戏</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="项目">
+        <p class="bb-label">项目</p>
+        <ul>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards">GitHub</a></li>
+          <li><span class="bb-cite">设计系统</span></li>
+          <li><a class="bb-link" href="https://github.com/facebookexperimental/openbilliards/blob/main/README.md">自述文件</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="bb-label">关于本站</p>
+        <p class="bb-body-s bb-muted" style="max-width: 34ch;">正文使用 Space&nbsp;Grotesk 与
+          JetBrains&nbsp;Mono,字体随站点内置。无跟踪器、无 CDN,不向本源之外发出任何请求。</p>
+      </div>
+    </div>
+
+    <p class="bb-footer-credits">
+      <span>&copy; 2026 Meta Platforms, Inc. &#183; MIT &#183; <a href="../../web/vendor/NOTICE-pooltool.txt" style="white-space: nowrap;">包含 Apache-2.0 代码</a> &#183; <a href="https://opensource.fb.com/legal/terms" style="white-space: nowrap;">Terms of Use</a> &#183; <a href="https://opensource.fb.com/legal/privacy" style="white-space: nowrap;">Privacy Policy</a></span>
+      <span>由引擎自身渲染</span>
+    </p>
+  </footer>
+</body>
+</html>

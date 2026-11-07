@@ -1,0 +1,33 @@
+{
+  "schema": "d621-letters-law/1",
+  "tag": "DERIVED",
+  "deciding": "actual-apex-and-lower-face",
+  "ruling": "Maintainer FIX1 checkpoint ruling on PR #733 / 1f3f52724, 2026-09-09, item 2: CP-01/CP-09 sampling correction is accepted under Option-B discipline. Apply the identical sampler to MODEL and OURS for every size; preserve old readings as a secondary column. The pre-O22 tree must retain identical letter readings; thresholds and minimum fit counts do not change.",
+  "reason": "The old 0.005 mm depth band can choose a below-apex vertex row on the smaller nose, moving the CP-01 crest chain. The fixed y >= nose - 0.5 mm exclusion can discard the smaller circle's lower tangent and starve CP-09. Neither is a geometric change.",
+  "crest": "Select the actual minimum-depth vertex row, then that exact height row; no radius-derived aperture.",
+  "lower_face": "Simplify collinear exact section splits at the existing coordinate precision; the longest lower straight face supplies its measured upper endpoint. Fit the original undercut formula to existing facing rows at or below that endpoint. A single facing plane keeps the original rear-plane rows. With a separate terminal plane, use actual horizontal triangle edges parallel to the initial face, one actual vertex per existing height; subtract both local profile depth and displacement along the face.",
+  "initial_facing": "C9: walk the measured circular jaw from the mouth (at least four concyclic points at the existing 0.0001 mm coordinate precision), then take the first straight face. CP-02, CP-06 and CP-09 describe that ball-facing part. A separate CU-14 terminal return does not redefine the kernel face. No target angle or radius selects samples. A missing circular-jaw witness remains UNRESOLVED.",
+  "symmetry": "One shared letters_sampling_621.mjs implementation for MODEL and OURS, all three sizes. The purchased 8-ft model is a single unscaled reference, re-evaluated for each size comparison; no side-specific tuning and no synthetic fit rows. Missing data remain UNRESOLVED.",
+  "secondary": "Run the original FIX1 legacy sampling in the same process on the same meshes and record CP-01/CP-09 values, verdicts and identity-5 dependency as non-deciding secondary evidence. Also retain the pre-C9 actual-apex/back-plane-facing readings for CP-02, both CP-06 rows and CP-09; MODEL and OURS use the same implementation for both methods.",
+  "coordinate_precision_mm": 0.0001,
+  "minimum_fit_rows": 3,
+  "legacy": {
+    "tag": "CLEARANCE",
+    "nose_depth_band_mm": 0.005,
+    "height_band_mm": 0.02,
+    "nose_exclusion_mm": 0.5
+  },
+  "thresholds": {
+    "tag": "DERIVED",
+    "CP01_mm": 0.25,
+    "CP09_deg": 1,
+    "source": "Unchanged standing asmodeled letters bars; all other row thresholds remain in the unchanged row declarations."
+  },
+  "history": [
+    {
+      "date": "2026-09-11",
+      "order": "ORDER-D621-O22-C9",
+      "reason": "The MODEL-measured terminal return adds a second face after the unchanged kernel facing. The old back-to-front selector reads the terminal 37.789 degree face as CP-02 and contaminates its implied jaw radius and undercut. Select the initial face from the measured jaw, keep the old readings alongside it, and retain every acceptance bar and the three-existing-height minimum. C7's single-plane readings and side-pocket readings are checked unchanged. This sampling change does not move renderer vertices or substitute the purchased model for the kernel pocket targets."
+    }
+  ]
+}

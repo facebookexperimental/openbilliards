@@ -1,0 +1,4 @@
+# wasm-bindgen CLI output (regenerate per README.md; never committed here —
+# the canonical artifact is the COMMITTED web/dist/pool-wasm binary,
+# constitution P-III; CI's release rebuild is only a compile/freshness probe).
+/pkg/

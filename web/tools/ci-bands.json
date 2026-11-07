@@ -1,0 +1,24 @@
+{
+  "v": 1,
+  "note": "CI-only port bands on the self-hosted runner (GH-687). ONE source: ci.yml / e2e-nightly.yml literals are linted against this table (node web/tools/ci-bands-lint.mjs; ci.yml job ci-bands-lint), run-gate and claimPortBand refuse any band inside `reserved` unless GITHUB_ACTIONS=true or OB_CI_BANDS=1. Bands are disjoint; each job keeps its width and its pin offsets. `suites` lists the suite files the job runs (linted against the job's run lines); each suite's PORT_INVENTORY is READ from its file — a job whose suite declares none fails closed — and the band must be >= bandWidthForInventory with the env pins' derivation tails inside it (lint r11/r12; review r8: hand-copied counts had drifted). Local lanes use bands below `reserved` (the GH-338 registry arbitrates them).",
+  "reserved": {"start": 18700, "end": 20029},
+  "jobs": [
+    {"workflow": "ci.yml", "job": "e2e-fastlane", "band": "18700-18739", "pins": {"OB_E2E_PORT": 18700, "OB_E2E_CDP_PORT": 18715}, "suites": ["e2e-aimwarn.mjs", "e2e-cuestrike.mjs", "e2e-dragshadow.mjs", "e2e-haptics.mjs", "e2e-heyball.mjs", "e2e-i18n.mjs", "e2e-rollslip.mjs", "e2e-rules.mjs", "e2e-aimhud.mjs", "e2e-drills.mjs", "e2e-replays.mjs", "e2e-settings-persist.mjs"]},
+    {"workflow": "e2e-nightly.yml", "job": "battery", "band": "18740-18799", "pins": {"OB_E2E_PORT": 18740, "OB_E2E_CDP_PORT": 18755, "OB_CDP_PORT": 18790}, "suites": ["e2e.mjs", "e2e-userboot.mjs", "e2e-equipment.mjs", "e2e-record.mjs", "e2e-8ball.mjs", "e2e-10ball.mjs", "e2e-onepocket.mjs", "e2e-straightpool.mjs", "e2e-snooker.mjs", "e2e-carom.mjs", "e2e-combined.mjs", "e2e-playground.mjs", "e2e-tables.mjs", "e2e-variants.mjs", "e2e-archive.mjs", "e2e-cuepost.mjs", "e2e-bugreport.mjs", "e2e-harness-hygiene.mjs", "e2e-shell-cont.mjs", "e2e-shell-law2.mjs", "e2e-aimhud.mjs", "e2e-switchperf.mjs", "e2e-drills.mjs", "e2e-lighting-matrix.mjs", "e2e-replays.mjs", "e2e-settings-persist.mjs", "e2e-tablecache.mjs", "e2e-drill-session.mjs", "e2e-inkreadback.mjs", "e2e-inkboot.mjs", "e2e-atelier-b20eq.mjs", "e2e-atelier-c32.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-settings", "band": "18800-18909", "pins": {"OB_E2E_PORT": 18800, "OB_E2E_CDP_PORT": 18900}, "suites": ["e2e-settings.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-sink", "band": "18910-18939", "pins": {"OB_E2E_PORT": 18910, "OB_E2E_CDP_PORT": 18925}, "suites": ["test-sinkdress.mjs", "test-sinkrest.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-userboot-firstframe", "band": "18940-18969", "pins": {"OB_E2E_PORT": 18940, "OB_E2E_CDP_PORT": 18955}, "suites": ["e2e-userboot-firstframe.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-replays", "band": "18990-19099", "pins": {"OB_E2E_PORT": 18990, "OB_E2E_CDP_PORT": 19005}, "suites": ["e2e-replays.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-play", "band": "19100-19209", "pins": {"OB_E2E_PORT": 19100, "OB_E2E_CDP_PORT": 19115}, "suites": ["e2e-play.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-practice", "band": "19210-19319", "pins": {"OB_E2E_PORT": 19210, "OB_E2E_CDP_PORT": 19225}, "suites": ["e2e-practice.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-ui-audit", "band": "19320-19429", "pins": {"OB_E2E_PORT": 19320, "OB_E2E_CDP_PORT": 19410}, "suites": ["e2e-ui.mjs", "e2e-pbcoarse.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-touch", "band": "19780-19889", "pins": {"OB_E2E_PORT": 19780, "OB_E2E_CDP_PORT": 19880}, "suites": ["e2e-touch.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-touch-disciplines", "band": "19430-19539", "pins": {"OB_E2E_PORT": 19430, "OB_E2E_CDP_PORT": 19530}, "suites": ["e2e-touch-disciplines.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-shell", "band": "19540-19649", "pins": {"OB_E2E_PORT": 19540, "OB_E2E_CDP_PORT": 19630}, "suites": ["e2e-shell.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-atelier", "band": "19650-19779", "pins": {"OB_E2E_PORT": 19650, "OB_E2E_CDP_PORT": 19750}, "suites": ["e2e-atelier.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-export-z2", "band": "19890-19919", "pins": {"OB_E2E_PORT": 19890, "OB_E2E_CDP_PORT": 19905}, "suites": ["e2e-export-z2.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-switch", "band": "19920-19949", "pins": {"OB_E2E_PORT": 19920, "OB_E2E_CDP_PORT": 19935}, "suites": ["e2e-switch.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-switch-paths", "band": "19950-19979", "pins": {"OB_E2E_PORT": 19950, "OB_E2E_CDP_PORT": 19965}, "suites": ["e2e-switch.mjs"]},
+    {"workflow": "ci.yml", "job": "e2e-lighting-matrix", "band": "20000-20029", "pins": {"OB_E2E_PORT": 20000, "OB_E2E_CDP_PORT": 20015}, "suites": ["e2e-lighting-matrix.mjs"]}
+  ]
+}

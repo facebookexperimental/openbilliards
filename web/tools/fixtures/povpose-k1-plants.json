@@ -1,0 +1,2516 @@
+{
+ "schema": "gh911-k1-plants/1",
+ "main67": {
+  "rev": "67855b4fb896df78961e52efe2eac0cc6132712b",
+  "path": "web/app/playback.js",
+  "sha256": "7dcbfa8dac444a4fd86f20dee65251e0af503934ea2d9127c0ffe9cbc31a15f7",
+  "bytes": 649256
+ },
+ "latch": {
+  "from": "MAIN67",
+  "generator": "x6-race-latch.mjs:128-143 build()",
+  "card": "rw911/x8-census/row1.mjs",
+  "sha256": "d5012affce0f9ae364c183885bce10cf3e387921172eb0071d152cf0ab6b6075",
+  "edits": [
+   {
+    "op": "replaceExact",
+    "anchor": "  let dialog = null, icons = null, colors = null, coords = null, selMod = null;",
+    "text": "  let dialog = null, icons = null, colors = null, coords = null, selMod = null;\n  let povMod = null; // #911 leaf module (guarded dynamic import)"
+   },
+   {
+    "op": "replaceExact",
+    "anchor": "    import('./coords.js').then((m) => { coords = m; }).catch(() => {});",
+    "text": "    import('./coords.js').then((m) => { coords = m; }).catch(() => {});\n    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});"
+   },
+   {
+    "op": "replaceExact",
+    "anchor": "      cueOff,",
+    "text": "      cueOff,\n      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)"
+   },
+   {
+    "op": "replaceExact",
+    "anchor": "      const p = rec?.initial?.balls\n        ?.find((b) => b.id === recCueId(rec))?.state?.pos; // GH-383",
+    "text": "      const ball = rec?.initial?.balls\n        ?.find((b) => b.id === recCueId(rec)); // GH-383\n      const p = ball?.state?.pos;"
+   },
+   {
+    "op": "replaceExact",
+    "anchor": "      const dx = Math.cos(phi), dy = Math.sin(phi);\n      return {\n        ti: povTImpact(rec), d: [dx, dy],\n        addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n        addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n        standCam: [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n        standLook: [0, 0, 0.02],\n      };",
+    "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch\n      if (!pose) return null;\n      return { ti: povTImpact(rec), ...pose };"
+   }
+  ]
+ },
+ "ins64Anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+ "builder": "lane builder, not tracked (edit lists from generator output)",
+ "rows": [
+  {
+   "id": "PL10-main",
+   "reader": "readF6",
+   "base": "MAIN67",
+   "edits": [],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "x6-race-latch.mjs:22",
+   "card": "rw911/pb-67855b4f.js",
+   "sha256": "7dcbfa8dac444a4fd86f20dee65251e0af503934ea2d9127c0ffe9cbc31a15f7",
+   "expect": {
+    "verdict": "RED",
+    "static": 0,
+    "dyn": 0,
+    "chained": 0
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:13"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-latch",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "x6-race-latch.mjs:143",
+   "card": "rw911/x8-census/row1.mjs",
+   "sha256": "d5012affce0f9ae364c183885bce10cf3e387921172eb0071d152cf0ab6b6075",
+   "expect": {
+    "verdict": "GREEN",
+    "static": 0,
+    "dyn": 1,
+    "chained": 1
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "out-x7-fence-strip.txt:14"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f01",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import { povPose } from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x6-race-latch.mjs:181",
+   "card": "rw911/x7-strip/form1.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:15"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f02",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import {\n  povPose, // the leaf\n} from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x6-race-latch.mjs:182",
+   "card": "rw911/x7-strip/form2.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:16"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f03",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import * as PP from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x6-race-latch.mjs:183",
+   "card": "rw911/x7-strip/form3.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:17"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f04",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import PP from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x6-race-latch.mjs:184",
+   "card": "rw911/x7-strip/form4.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:18"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f05",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x6-race-latch.mjs:185",
+   "card": "rw911/x7-strip/form5.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:19"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f06",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import \"./povpose.js\";"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x6-race-latch.mjs:186",
+   "card": "rw911/x7-strip/form6.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:20"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f07",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "export { povPose } from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x6-race-latch.mjs:187",
+   "card": "rw911/x7-strip/form7.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:21"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f08",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "export * from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x6-race-latch.mjs:188",
+   "card": "rw911/x7-strip/form8.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:22"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f09",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "export * as PP from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x6-race-latch.mjs:189",
+   "card": "rw911/x7-strip/form9.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:23"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f10",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import { povPose } from './povpose.js?v=2';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x6-race-latch.mjs:190",
+   "card": "rw911/x7-strip/form10.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:24"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f11",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import/* leaf */'./povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x6-race-latch.mjs:191",
+   "card": "rw911/x7-strip/form11.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:25"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f12",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "export * /* all */ from // leaf\n  './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x6-race-latch.mjs:192",
+   "card": "rw911/x7-strip/form12.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:26"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f13",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import {\n  povPose, // the leaf's pose\n} from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x7-fence-strip.mjs:116",
+   "card": "rw911/x7-strip/form13.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:27"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f14",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import { povPose /* (lift) */ } from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x7-fence-strip.mjs:117",
+   "card": "rw911/x7-strip/form14.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:28"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f15",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import {\n  povPose, // pose; rod\n} from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x7-fence-strip.mjs:118",
+   "card": "rw911/x7-strip/form15.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:29"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f16",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import { \"povPose\" as pp } from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x7-fence-strip.mjs:119",
+   "card": "rw911/x7-strip/form16.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:30"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f17",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "export {\n  povPose, // the leaf's pose\n} from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x7-fence-strip.mjs:120",
+   "card": "rw911/x7-strip/form17.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:31"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f18",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import { 'a;(b' as pp } from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x7-fence-strip.mjs:123",
+   "card": "rw911/x7-strip/form18.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:32"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f19",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import PP, { 'povPose' as pp } from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x7-fence-strip.mjs:124",
+   "card": "rw911/x7-strip/form19.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:33"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-f20",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "export { 'povPose' as 'pp' } from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x7-fence-strip.mjs:125",
+   "card": "rw911/x7-strip/form20.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:34"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-hz1",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "// import { povPose } from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "literal",
+   "generator": "x7-fence-strip.mjs:128",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "GREEN",
+    "static": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "out-x7-fence-strip.txt:36"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL10-hz2",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "/* import './povpose.js'; */"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "literal",
+   "generator": "x7-fence-strip.mjs:129",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "GREEN",
+    "static": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "out-x7-fence-strip.txt:37"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL11",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "const HINT = \"import { povPose } from './povpose.js'\";"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "literal",
+   "generator": "x7-fence-strip.mjs:130",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "GREEN",
+    "static": 0
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:38"
+   },
+   "tags": [
+    "exempt=OQ-12(f)"
+   ],
+   "reduced": true
+  },
+  {
+   "id": "PL12-i1",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import { povPose as poseñ } from './povpose.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x8-f7-census.mjs:141",
+   "card": "rw911/x8-census/f6r-named-import-non-ASCII-local-name.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "out-x8-f7-census.txt:68"
+   },
+   "tags": [
+    "reclassed=OQ-12(b)"
+   ],
+   "reduced": true
+  },
+  {
+   "id": "PL12-i2",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import './povpose\\x2ejs';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x8-f7-census.mjs:142",
+   "card": "rw911/x8-census/f6r-specifier-spelled-with-a-x2e-escape.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "out-x8-f7-census.txt:69"
+   },
+   "tags": [
+    "reclassed=OQ-12(b)"
+   ],
+   "reduced": true
+  },
+  {
+   "id": "PL12-i3",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "insertAfterLine",
+     "anchor": "import * as shareSdk from '../dist/pool-sdk/share.js';",
+     "text": "import { povPose } from './povpose\\\n.js';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "stmt+latch",
+   "generator": "x8-f7-census.mjs:143",
+   "card": "rw911/x8-census/f6r-specifier-with-a-line-continuation.mjs",
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 1
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "out-x8-f7-census.txt:70"
+   },
+   "tags": [
+    "reclassed=OQ-12(b)"
+   ],
+   "reduced": true
+  },
+  {
+   "id": "OQ61-H0",
+   "reader": "readF6",
+   "base": "HEADPB",
+   "edits": [],
+   "leafEdits": [],
+   "repro": "none",
+   "generator": "RECEIPT-C5.md:109 (C5 case 10)",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "GREEN",
+    "static": 0,
+    "dyn": 1,
+    "chained": 1,
+    "sites": "568:yes"
+   },
+   "text": {
+    "verdict": "n/a",
+    "cite": "none"
+   },
+   "tags": [
+    "control-for=OQ61-H,OQ61-H2"
+   ],
+   "reduced": true
+  },
+  {
+   "id": "OQ61-L",
+   "reader": "readF6",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    import('./povpose.js').then((m) => { povMod = m; });"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "plan",
+   "generator": "OQ-61 (a); plan:1430; x6-race-latch.mjs:130 (IMP_LATCH)",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "static": 0,
+    "dyn": 1,
+    "chained": 0
+   },
+   "text": {
+    "verdict": "n/a",
+    "cite": "OQ-61 (a), plan-decided plant; card:5367"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "OQ61-H",
+   "reader": "readF6",
+   "base": "HEADPB",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    povLoad = import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    povLoad = import('./povpose.js').then((m) => { povMod = m; });"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "plan",
+   "generator": "OQ-61 (a); plan:1430",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "dyn": 1,
+    "chained": 0
+   },
+   "text": {
+    "verdict": "n/a",
+    "cite": "OQ-61 (a)"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "OQ61-H2",
+   "reader": "readF6",
+   "base": "HEADPB",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    povLoad = import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    povLoad = import('./povpose.js').then((m) => { povMod = m; }); povLoad.catch(() => {});"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "plan",
+   "generator": "OQ-61 (a); plan:1430; test-povpose.mjs:141",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "chained": 0
+   },
+   "text": {
+    "verdict": "n/a",
+    "cite": "OQ-61 (a)"
+   },
+   "tags": [
+    "text-rule=x6f6x"
+   ],
+   "reduced": true
+  },
+  {
+   "id": "PL13-plant",
+   "reader": "readF6b",
+   "base": "COORDS",
+   "edits": [
+    {
+     "op": "appendTop",
+     "anchor": "",
+     "text": "import {\n  povPose, // the leaf's pose\n} from './povpose.js';\n"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "literal",
+   "generator": "x7-fence-strip.mjs:166",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "bad": 1,
+    "static": 1
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x7-fence-strip.txt:70"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL13-66",
+   "reader": "readF6b",
+   "base": "APP",
+   "edits": [],
+   "leafEdits": [],
+   "repro": "none",
+   "generator": "readAppFiles() minus playback.js",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "GREEN",
+    "bad": 0,
+    "files": 70
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "out-x7-fence-strip.txt:69"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-r5",
+   "reader": "case1",
+   "base": "MAIN67",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  let dialog = null, icons = null, colors = null, coords = null, selMod = null;",
+     "text": "  let dialog = null, icons = null, colors = null, coords = null, selMod = null;\n  let povLeaf = null;"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./coords.js').then((m) => { coords = m; }).catch(() => {});",
+     "text": "    import('./coords.js').then((m) => { coords = m; }).catch(() => {});\n    import('./povpose.js').then((m) => { povLeaf = m; }).catch(() => {});"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const p = rec?.initial?.balls\n        ?.find((b) => b.id === recCueId(rec))?.state?.pos; // GH-383",
+     "text": "      const ball = rec?.initial?.balls\n        ?.find((b) => b.id === recCueId(rec)); // GH-383\n      const p = ball?.state?.pos;"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const dx = Math.cos(phi), dy = Math.sin(phi);\n      return {\n        ti: povTImpact(rec), d: [dx, dy],\n        addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n        addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n        standCam: [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n        standLook: [0, 0, 0.02],\n      };",
+     "text": "      const pose = povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null;\n      if (!pose) return null;\n      return { ti: povTImpact(rec), ...pose };"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "x6-race-latch.mjs:131,143 (build r5dyn)",
+   "card": "rw911/x8-census/row2.mjs",
+   "sha256": "d1c50ea7a1201fe2bc1c4c80a77e898b9646ab0fd3176368fd9c682a86f198f7",
+   "expect": {
+    "verdict": "RED",
+    "present": 0
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "rw911/out-x6-race-latch.txt:30"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-S",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [],
+   "leafEdits": [
+    {
+     "op": "replaceExact",
+     "anchor": "const STAND_H = 0.81;",
+     "text": "const STAND_H = 0.8100000001;"
+    }
+   ],
+   "repro": "plan",
+   "generator": "plan:1175 (PL-2 r9); card-side rw13/povpose-sketch-m.plant-s.mjs",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "present": 0,
+    "first": "[\"standCam[2]\"]"
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "rw13/out-case1-spec.txt:7-8"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-r7red",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "function povAnchors(rec) {",
+     "text": "function povAnchors(rec) { return null;"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "printed",
+   "generator": "rw16/case1/r16-case1-r7v-b.mjs:65",
+   "card": "printed rw16/case1/out-r16-case1-r7v-b.txt:11 sha e13d838c",
+   "sha256": "e13d838c6622cc0b0c8c94c95f69529f360ebb23f849bbb42eb099de3e17795f",
+   "expect": {
+    "verdict": "RED",
+    "present": 0
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "rw16/case1/out-r16-case1-r7v-b.txt:11"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-Q0",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? { d: [Math.cos(phi), Math.sin(phi)], addrCam: [p.x - 1.05 * Math.cos(phi), p.y - 1.05 * Math.sin(phi), p.z + 0.36], addrLook: [p.x + 1.40 * Math.cos(phi), p.y + 1.40 * Math.sin(phi), p.z], standCam: [p.x - 1.75 * Math.cos(phi), p.y - 1.75 * Math.sin(phi), 0.81], standLook: [0, 0, 0.02] }; // the open's latch"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/hs/hs-fence.mjs:205-213 (pins stale-leaf-leg.mjs:29-37)",
+   "card": "rw20/ed/leg/q-check/q0.mjs",
+   "sha256": "461e646138fa81a021072aac1f2a8e7cad1f63b2d92e05bd32af700756052604",
+   "expect": {
+    "verdict": "RED",
+    "null": 91,
+    "stale": 91
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "leg:7"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-q0s",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = !pb?.povLeaf ? null : pb.povLeaf.povPose?.(ball, phi, povRod(rec)) ?? { d: [Math.cos(phi), Math.sin(phi)], addrCam: [p.x - 1.05 * Math.cos(phi), p.y - 1.05 * Math.sin(phi), p.z + 0.36], addrLook: [p.x + 1.40 * Math.cos(phi), p.y + 1.40 * Math.sin(phi), p.z], standCam: [p.x - 1.75 * Math.cos(phi), p.y - 1.75 * Math.sin(phi), 0.81], standLook: [0, 0, 0.02] }; // the open's latch"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/q0x/mk-q0x.py",
+   "card": "rw14/q0x/q0s.mjs",
+   "sha256": "b267ea1656268363f6bb1e93252de20975ddeaef5bfd80edb4f025daa20bd831",
+   "expect": {
+    "verdict": "RED",
+    "stale": 91
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "leg:40"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-q0c",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb.povLeaf.povPose(ball, phi, povRod(rec)); // the open's latch (throws when missing)"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      return { ti: povTImpact(rec), ...pose };\n    } catch { return null; }",
+     "text": "      return { ti: povTImpact(rec), ...pose };\n    } catch { const phi = Number(rec?.shot?.phi); const p = rec?.initial?.balls?.find((b) => b.id === recCueId(rec))?.state?.pos; if (!p || !Number.isFinite(phi)) return null; return { ti: povTImpact(rec), ...{ d: [Math.cos(phi), Math.sin(phi)], addrCam: [p.x - 1.05 * Math.cos(phi), p.y - 1.05 * Math.sin(phi), p.z + 0.36], addrLook: [p.x + 1.40 * Math.cos(phi), p.y + 1.40 * Math.sin(phi), p.z], standCam: [p.x - 1.75 * Math.cos(phi), p.y - 1.75 * Math.sin(phi), 0.81], standLook: [0, 0, 0.02] } }; }"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/q0x/mk-q0x.py",
+   "card": "rw14/q0x/q0c.mjs",
+   "sha256": "ca864c658b5e4c65e0ee21a2828b1b65998cccb51814b024deb8f2ed4657e8bc",
+   "expect": {
+    "verdict": "RED",
+    "null": 91,
+    "stale": 91
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "leg:43"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-latch",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "x6-race-latch.mjs:143",
+   "card": "rw911/x8-census/row1.mjs",
+   "sha256": "d5012affce0f9ae364c183885bce10cf3e387921172eb0071d152cf0ab6b6075",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "leg:4"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-Q1",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  const POV_FOV = 60; // the decision comment's address/rise projection",
+     "text": "  const POV_FOV = 60; // the decision comment's address/rise projection\n  function povShipped(rec, p, phi) { // stale-leaf fallback copy of the shipped pose\n    const dx = Math.cos(phi), dy = Math.sin(phi);\n    return {\n      d: [dx, dy],\n      addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n      addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n      standCam: [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n      standLook: [0, 0, 0.02],\n    };\n  }"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? povShipped(rec, p, phi); // the open's latch"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/hs/hs-fence.mjs (pins stale-leaf-leg.mjs:29-37)",
+   "card": "rw20/ed/leg/q-check/q1.mjs",
+   "sha256": "980dfe5ef03b2a0bbb2671d6d2f7334be2a1665b70c8a70d6583e87143e96c47",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "leg:10"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-Q2",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  const POV_FOV = 60; // the decision comment's address/rise projection",
+     "text": "  const POV_FOV = 60; // the decision comment's address/rise projection\n  function povShipped(rec, p, phi) { // stale-leaf fallback copy of the shipped pose\n    const dx = Math.cos(phi), dy = Math.sin(phi);\n    return {\n      d: [dx, dy],\n      addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n      addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n      'standCam': [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n      standLook: [0, 0, 0.02],\n    };\n  }"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? povShipped(rec, p, phi); // the open's latch"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/hs/hs-fence.mjs (pins stale-leaf-leg.mjs:29-37)",
+   "card": "rw20/ed/leg/q-check/q2.mjs",
+   "sha256": "4381f9e512af6dda55df9f4eb984430cec82eceba280d19796ec81fd010e3a67",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "leg:15"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-Q3",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  const POV_FOV = 60; // the decision comment's address/rise projection",
+     "text": "  const POV_FOV = 60; // the decision comment's address/rise projection\n  function povShipped(rec, p, phi) { // stale-leaf fallback copy of the shipped pose\n    const dx = Math.cos(phi), dy = Math.sin(phi);\n    return {\n      d: [dx, dy],\n      addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n      addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n      ['standCam']: [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n      standLook: [0, 0, 0.02],\n    };\n  }"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? povShipped(rec, p, phi); // the open's latch"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/hs/hs-fence.mjs (pins stale-leaf-leg.mjs:29-37)",
+   "card": "rw20/ed/leg/q-check/q3.mjs",
+   "sha256": "d36d164e5fbcfa51557150eb6114e0d516bca90f3594acdd9755789a7c68597e",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "leg:20"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-Q4",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  const POV_FOV = 60; // the decision comment's address/rise projection",
+     "text": "  const POV_FOV = 60; // the decision comment's address/rise projection\n  function povShipped(rec, p, phi) { // stale-leaf fallback copy of the shipped pose\n    const dx = Math.cos(phi), dy = Math.sin(phi);\n    return {\n      d: [dx, dy],\n      addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n      addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n      standCam /* shipped */ : [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n      standLook: [0, 0, 0.02],\n    };\n  }"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? povShipped(rec, p, phi); // the open's latch"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/hs/hs-fence.mjs (pins stale-leaf-leg.mjs:29-37)",
+   "card": "rw20/ed/leg/q-check/q4.mjs",
+   "sha256": "e2832f39fe9971dc8696fe4b0cdf10d971104c1dd787d2fd7ddb041139966310",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "leg:25"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL9-q1s",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  const POV_FOV = 60; // the decision comment's address/rise projection",
+     "text": "  const POV_FOV = 60; // the decision comment's address/rise projection\n  function povShipped(rec, p, phi) { // stale-leaf fallback copy of the shipped pose\n    const dx = Math.cos(phi), dy = Math.sin(phi);\n    return {\n      d: [dx, dy],\n      addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n      addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n      standCam: [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n      standLook: [0, 0, 0.02],\n    };\n  }"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = !pb?.povLeaf ? null : pb.povLeaf.povPose?.(ball, phi, povRod(rec)) ?? povShipped(rec, p, phi); // the open's latch"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/hs/hs-fence.mjs (pins stale-leaf-leg.mjs:29-37)",
+   "card": "rw20/ed/leg/q-check/q5.mjs",
+   "sha256": "8e38c6e7d67ef4c8c005ff1f9b030b570b6043ce03f48dc11047079b4f0d13d3",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "leg:30; text fences RED F4, F7c rw14/hs/out-hs-fence.txt:80"
+   },
+   "tags": [
+    "open-item=PL-9 leg:30-39",
+    "fence-differs=F4,F7c"
+   ],
+   "reduced": true
+  },
+  {
+   "id": "PL9-q2s",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  const POV_FOV = 60; // the decision comment's address/rise projection",
+     "text": "  const POV_FOV = 60; // the decision comment's address/rise projection\n  function povShipped(rec, p, phi) { // stale-leaf fallback copy of the shipped pose\n    const dx = Math.cos(phi), dy = Math.sin(phi);\n    return {\n      d: [dx, dy],\n      addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n      addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n      'standCam': [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n      standLook: [0, 0, 0.02],\n    };\n  }"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = !pb?.povLeaf ? null : pb.povLeaf.povPose?.(ball, phi, povRod(rec)) ?? povShipped(rec, p, phi); // the open's latch"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/hs/hs-fence.mjs (pins stale-leaf-leg.mjs:29-37)",
+   "card": "rw20/ed/leg/q-check/q6.mjs",
+   "sha256": "3e38c9d095f291840f8e4ebd41e24cea20bc67570f7492e6aacbc6f35d652c9e",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "leg:35; text fence RED F7c rw14/hs/out-hs-fence.txt:81"
+   },
+   "tags": [
+    "open-item=PL-9 leg:30-39",
+    "fence-differs=F7c"
+   ],
+   "reduced": true
+  },
+  {
+   "id": "PL14-G2",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "   * pre-299 povScript). null = unreadable record (stale shape). */",
+     "text": "   * pre-299 povScript). null = unreadable record (stale shape). */\n  function povLive(b, f, r) { return povMod?.povPose?.(b, f, r) ?? null; }"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? povLive(ball, phi, povRod(rec));"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "x9-f7-anchor.mjs ROWS (row index rule :206-210)",
+   "card": "rw911/x9-check/row38.mjs",
+   "sha256": "95bfd57a776f4a4d196d80d1049746dee9746330afefe769b460d8b26726f931",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "out-x9-f7-anchor.txt:85"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-G3",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  let povMod = null; // #911 leaf module (guarded dynamic import)",
+     "text": "  let povMod = null; // #911 leaf module (guarded dynamic import)\n  let leafRef = null;"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    import('./povpose.js').then((m) => { povMod = m; leafRef = m; }).catch(() => {});"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? leafRef?.povPose?.(ball, phi, povRod(rec)) ?? null;"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "x9-f7-anchor.mjs ROWS (row index rule :206-210)",
+   "card": "rw911/x9-check/row39.mjs",
+   "sha256": "8ceacb17cefcbba3f77b3dcacd66150537bae6890230b503be4c002696833fd1",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "out-x9-f7-anchor.txt:86"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-G4",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    import('./povpose.js').then((m) => { povMod = m; povMod = null; }).catch(() => {});"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "x9-f7-anchor.mjs ROWS (row index rule :206-210)",
+   "card": "rw911/x9-check/row40.mjs",
+   "sha256": "8c1d657f37027da68f954660792538a188d4f58024f87ea176f307e479bbe291",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "out-x9-f7-anchor.txt:87"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-G7",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    import('./povpose.js').then((m) => { povMod = m; if (pb) pb = null; }).catch(() => {});"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "x9-f7-anchor.mjs ROWS (row index rule :206-210)",
+   "card": "rw911/x9-check/row46.mjs",
+   "sha256": "3cbd90593215333a2706af6ea83a0b3d487fab486002dc77b828b107358bf916",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "out-x9-f7-anchor.txt:93"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-G6",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? ('}}' && povMod?.povPose?.(ball, phi, povRod(rec))) ?? null;"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "x9-f7-anchor.mjs:139-140",
+   "card": "rw911/x9-check/row43.mjs",
+   "sha256": "a3aa464d7d44ba8ae08d51d818f2de05942fb3f96922738c71096e435c861a2b",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "out-x9-f7-anchor.txt:90 raw EXTRACTION FAILS; :59 F7a RED; leg:46-47"
+   },
+   "tags": [
+    "fence-differs=F7a;raw-extract-fails"
+   ],
+   "reduced": true
+  },
+  {
+   "id": "PL14-P1",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)",
+     "text": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)\n      ['pov' + 'Leaf']: null,"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw10/r9v-probe-gen.mjs",
+   "card": "rw10/r9v-check/row49.mjs",
+   "sha256": "a3384460d227039eba7b5b19ed664865ded63b44b9f993dbf67fcddc2f75b1ca",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw10/out-r9v-probe.txt:117; [lit] rw15/sweep/out-r15-sweep.txt:9"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-P2",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)",
+     "text": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)\n      [String.fromCharCode(112, 111, 118, 76, 101, 97, 102)]: null,"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw10/r9v-probe-gen.mjs",
+   "card": "rw10/r9v-check/row50.mjs",
+   "sha256": "8caea57c80c79b74b17c36ed59ebae24a35df337cdef3e4ec1d71aab5e5703b0",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw10/out-r9v-probe.txt:118; [lit] rw15/sweep/out-r15-sweep.txt:10"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-P3",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)",
+     "text": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)\n      get ['pov' + 'Leaf']() { return null; },"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw10/r9v-probe-gen.mjs",
+   "card": "rw10/r9v-check/row51.mjs",
+   "sha256": "90ac0f91de1ab0808b201b9b8bb52e972590e2ab9fb6d4704ffe6cd156a3a9b4",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw10/out-r9v-probe.txt:119; [lit] rw15/sweep/out-r15-sweep.txt:11"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-P4",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)",
+     "text": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)\n      ...{ ['pov' + 'Leaf']: null },"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw10/r9v-probe-gen.mjs",
+   "card": "rw10/r9v-check/row52.mjs",
+   "sha256": "af3cae1ec2b6fea26852dd9951361bc11a7bd67972aaa6011fffb40ee1016dbf",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw10/out-r9v-probe.txt:120; [lit] rw15/sweep/out-r15-sweep.txt:12"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-P5",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    import('./povpose.js').then((m) => { povMod = m; if (pb) [pb['pov' + 'Leaf']] = [m]; }).catch(() => {});"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw10/r9v-probe-gen.mjs",
+   "card": "rw10/r9v-check/row53.mjs",
+   "sha256": "e707cbb7abe722e4e3252bdcf579459c08fdbc2c9a65bb546a5d82a4a506c8bc",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw10/out-r9v-probe.txt:121; [lit] rw15/sweep/out-r15-sweep.txt:13"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-P6",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    import('./povpose.js').then((m) => { povMod = m; if (pb) (pb) = null ?? { recs: pb.recs }; }).catch(() => {});"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw10/r9v-probe-gen.mjs",
+   "card": "rw10/r9v-check/row54.mjs",
+   "sha256": "d727e1ec5c5dba8599f01e6f9dee6374fdf1f26a7509d066313a9fdb4f82f33b",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw10/out-r9v-probe.txt:122; [lit] rw15/sweep/out-r15-sweep.txt:14"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-P7",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    import('./povpose.js').then((m) => { povMod = m; if (pb) pb = null, pb ||= { recs: [] }; }).catch(() => {});"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw10/r9v-probe-gen.mjs",
+   "card": "rw10/r9v-check/row55.mjs",
+   "sha256": "75322b875179cb087bc1ad84e0d1249d507101c9b5be6a39e36052c8303b1d47",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw10/out-r9v-probe.txt:123; [lit] rw15/sweep/out-r15-sweep.txt:15"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-P8",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    import('./povpose.js').then((m) => { povMod = m; if (pb) pb &&= { recs: pb.recs }; }).catch(() => {});"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw10/r9v-probe-gen.mjs",
+   "card": "rw10/r9v-check/row56.mjs",
+   "sha256": "d07208fc58cbf88a3c5d28d3c8c4b9c8c71813df8fa45e49d9584de24ac24791",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw10/out-r9v-probe.txt:124; [lit] rw15/sweep/out-r15-sweep.txt:16"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-P9",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    // focus on <body> or inside a player — the successor walk then decides)",
+     "text": "    // focus on <body> or inside a player — the successor walk then decides)\n    const povMod = null;"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw10/r9v-probe-gen.mjs",
+   "card": "rw10/r9v-check/row57.mjs",
+   "sha256": "686a8257265bf104a0798e07fe32fc3008d0e38cf8d97f9ef6fb70b34425c494",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw10/out-r9v-probe.txt:125; [lit] rw15/sweep/out-r15-sweep.txt:17"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-P10",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? eval('pov' + 'Mod')?.povPose?.(ball, phi, povRod(rec)) ?? null;"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw10/r9v-probe-gen.mjs",
+   "card": "rw10/r9v-check/row58.mjs",
+   "sha256": "0e6e1c9dbf9165bcc92046510e00eb94626988f7c8aa49d976d5014839523593",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw10/out-r9v-probe.txt:126; [lit] rw15/sweep/out-r15-sweep.txt:18"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-lit1",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)",
+     "text": "      povLeaf: null,"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw15 sweep [verifier] literal plants (x8-f7-census.mjs:132-135 index rule)",
+   "card": "rw911/x8-census/row6.mjs",
+   "sha256": "06bf8591dd42a262c306e0b92553467db3d218ad23b2486320118977eb495dbd",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw15/sweep/out-r15-sweep.txt:5; RC :19"
+   },
+   "tags": [
+    "also=RC"
+   ],
+   "reduced": true
+  },
+  {
+   "id": "PL14-lit2",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)",
+     "text": "      povLeaf: dialog,"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw15 sweep [verifier] literal plants (x8-f7-census.mjs:132-135 index rule)",
+   "card": "rw911/x8-census/row7.mjs",
+   "sha256": "cdc04c73c3458341598b738502b52f2923c0d0132d928f1be394579c770ddee7",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw15/sweep/out-r15-sweep.txt:6"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-lit3",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    import('./povpose.js').then((m) => { povMod = m; if (pb) Object.assign(pb, { povLeaf: m }); }).catch(() => {});"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw15 sweep [verifier] literal plants (x8-f7-census.mjs:132-135 index rule)",
+   "card": "rw911/x8-census/row8.mjs",
+   "sha256": "edc8eb09035fbe8f4f9c7152bd488679f4be14c33438cb81987b722f2029bf0e",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw15/sweep/out-r15-sweep.txt:7"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-lit4",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    import('./povpose.js').then((m) => { povMod = m; if (pb) pb['povLeaf'] = m; }).catch(() => {});"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw15 sweep [verifier] literal plants (x8-f7-census.mjs:132-135 index rule)",
+   "card": "rw911/x8-census/row9.mjs",
+   "sha256": "187def31a6d20b30bfd1e3bc410fe9172cd953d1f2e51d1fd32456b9b7674fb3",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw15/sweep/out-r15-sweep.txt:8"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-r7v1",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)",
+     "text": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)\n      'povLeaf': null,"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw16/case1/r16-case1-r7v-b.mjs (x8 V7, x8:78-83)",
+   "card": "rw911/x8-census/row19.mjs",
+   "sha256": "ceb1f3ee751925f3a1d5673e19dbd367cbe43f78727d732fac3d940d05afed0e",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw16/case1/out-r16-case1-r7v-b.txt:5"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-r7v2",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)",
+     "text": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)\n      \"povLeaf\": null,"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw16/case1/r16-case1-r7v-b.mjs (x8 V7, x8:78-83)",
+   "card": "rw911/x8-census/row20.mjs",
+   "sha256": "56e2c11e14b8d55aa126a6698bf8dd5b3ac3547dee6142dc2ee18e31d74bf759",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw16/case1/out-r16-case1-r7v-b.txt:6"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-r7v3",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)",
+     "text": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)\n      ['povLeaf']: null,"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw16/case1/r16-case1-r7v-b.mjs (x8 V7, x8:78-83)",
+   "card": "rw911/x8-census/row21.mjs",
+   "sha256": "c88d554ef9c2c19fe75cb9fcc1735ae5e6791cb5c9cb18a29602605fe3e13873",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw16/case1/out-r16-case1-r7v-b.txt:7"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-r7v4",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)",
+     "text": "      povLeaf: povMod, // #911 per-open leaf latch (the cueOff precedent)\n      get povLeaf() { return null; },"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw16/case1/r16-case1-r7v-b.mjs (x8 V7, x8:78-83)",
+   "card": "rw911/x8-census/row22.mjs",
+   "sha256": "339fe5e1a791100fc99ebc14bc82f85ea6f2684a58d440b0efd7bbd36e80aabe",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw16/case1/out-r16-case1-r7v-b.txt:8"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-r7v5",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    import('./povpose.js').then((m) => { povMod = m; if (pb) ({ povLeaf: pb.povLeaf } = { povLeaf: m }); }).catch(() => {});"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw16/case1/r16-case1-r7v-b.mjs (x8 V7, x8:78-83)",
+   "card": "rw911/x8-census/row23.mjs",
+   "sha256": "75214fb262822a80461bfd4144e3483813e5c3c6cc70b68fa6fddea7b72f5e44",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw16/case1/out-r16-case1-r7v-b.txt:9"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "PL14-r7v6",
+   "reader": "case1",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "    import('./povpose.js').then((m) => { povMod = m; }).catch(() => {});",
+     "text": "    import('./povpose.js').then((m) => { povMod = m; if (pb) [pb.povLeaf] = [m]; }).catch(() => {});"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw16/case1/r16-case1-r7v-b.mjs (x8 V7, x8:78-83)",
+   "card": "rw911/x8-census/row24.mjs",
+   "sha256": "058705abcf406b2a204bb74bdfa8e9a0c1463424d77d584c399e7b5e16c8dbdb",
+   "expect": {
+    "verdict": "GREEN",
+    "present": 91,
+    "null": 0,
+    "stale": 0
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw16/case1/out-r16-case1-r7v-b.txt:10"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "F23-main",
+   "reader": "readF2F3",
+   "base": "MAIN67",
+   "edits": [],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "x6-race-latch.mjs:22",
+   "card": "rw911/pb-67855b4f.js",
+   "sha256": "7dcbfa8dac444a4fd86f20dee65251e0af503934ea2d9127c0ffe9cbc31a15f7",
+   "expect": {
+    "verdict": "RED",
+    "red": "F2,F3"
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "rw911/out-x1-single-owner.txt:69 (F2, F3, F4)"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "F23-D2",
+   "reader": "readF2F3",
+   "base": "MAIN67",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  function povAnchors(rec) {\n    try {\n      const p = rec?.initial?.balls\n        ?.find((b) => b.id === recCueId(rec))?.state?.pos; // GH-383\n      const phi = Number(rec?.shot?.phi);\n      if (!p || ![p.x, p.y, p.z, phi].every(Number.isFinite)) return null;\n      const dx = Math.cos(phi), dy = Math.sin(phi);\n      return {\n        ti: povTImpact(rec), d: [dx, dy],\n        addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n        addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n        standCam: [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n        standLook: [0, 0, 0.02],\n      };\n    } catch { return null; }\n  }",
+     "text": "  function povAnchors(rec) {\n    try {\n      const ball = rec?.initial?.balls\n        ?.find((b) => b.id === recCueId(rec)); // GH-383\n      const p = ball?.state?.pos;\n      const phi = Number(rec?.shot?.phi);\n      if (!p || ![p.x, p.y, p.z, phi].every(Number.isFinite)) return null;\n      const dx = Math.cos(phi), dy = Math.sin(phi);\n      const pose = PP.povPose?.(ball, phi, povRod(rec)) ?? { // ruling-7 fallback copy (stale leaf)\n        d: [dx, dy],\n        addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n        addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n        standCam: [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n        standLook: [0, 0, 0.02],\n      };\n      return { ti: povTImpact(rec), ...pose };\n\n\n    } catch { return null; }\n  }"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "literal",
+   "generator": "x1-single-owner.mjs:60 (pvaD2Text; fileWith :85)",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "red": "F3"
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "rw911/out-x1-single-owner.txt:71 (F3, F4)"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "F23-D3",
+   "reader": "readF2F3",
+   "base": "MAIN67",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  function povAnchors(rec) {\n    try {\n      const p = rec?.initial?.balls\n        ?.find((b) => b.id === recCueId(rec))?.state?.pos; // GH-383\n      const phi = Number(rec?.shot?.phi);\n      if (!p || ![p.x, p.y, p.z, phi].every(Number.isFinite)) return null;\n      const dx = Math.cos(phi), dy = Math.sin(phi);\n      return {\n        ti: povTImpact(rec), d: [dx, dy],\n        addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n        addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n        standCam: [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n        standLook: [0, 0, 0.02],\n      };\n    } catch { return null; }\n  }",
+     "text": "  function povAnchors(rec) {\n    try {\n      const ball = rec?.initial?.balls\n        ?.find((b) => b.id === recCueId(rec)); // GH-383\n      const p = ball?.state?.pos;\n      const phi = Number(rec?.shot?.phi);\n      if (!p || ![p.x, p.y, p.z, phi].every(Number.isFinite)) return null;\n      const dx = Math.cos(phi), dy = Math.sin(phi);\n      return {\n        ti: povTImpact(rec), d: [dx, dy],\n        addrCam: PP.povPose(ball, phi, povRod(rec)).addrCam,\n        addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n        standCam: [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n        standLook: [0, 0, 0.02],\n      };\n\n\n    } catch { return null; }\n  }"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "literal",
+   "generator": "x1-single-owner.mjs:70 (pvaD3Text; fileWith :85)",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "RED",
+    "red": "F3"
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "rw911/out-x1-single-owner.txt:72 (F3, F4)"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "F23-Q0",
+   "reader": "readF2F3",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? { d: [Math.cos(phi), Math.sin(phi)], addrCam: [p.x - 1.05 * Math.cos(phi), p.y - 1.05 * Math.sin(phi), p.z + 0.36], addrLook: [p.x + 1.40 * Math.cos(phi), p.y + 1.40 * Math.sin(phi), p.z], standCam: [p.x - 1.75 * Math.cos(phi), p.y - 1.75 * Math.sin(phi), 0.81], standLook: [0, 0, 0.02] }; // the open's latch"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/hs/hs-fence.mjs:205-213",
+   "card": "rw20/ed/leg/q-check/q0.mjs",
+   "sha256": "461e646138fa81a021072aac1f2a8e7cad1f63b2d92e05bd32af700756052604",
+   "expect": {
+    "verdict": "RED",
+    "red": "F3"
+   },
+   "text": {
+    "verdict": "RED",
+    "cite": "rw14/hs/out-hs-fence.txt:75 (F3, F4)"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "F23-Q2",
+   "reader": "readF2F3",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  const POV_FOV = 60; // the decision comment's address/rise projection",
+     "text": "  const POV_FOV = 60; // the decision comment's address/rise projection\n  function povShipped(rec, p, phi) { // stale-leaf fallback copy of the shipped pose\n    const dx = Math.cos(phi), dy = Math.sin(phi);\n    return {\n      d: [dx, dy],\n      addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n      addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n      'standCam': [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n      standLook: [0, 0, 0.02],\n    };\n  }"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? povShipped(rec, p, phi); // the open's latch"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/hs/hs-fence.mjs",
+   "card": "rw20/ed/leg/q-check/q2.mjs",
+   "sha256": "4381f9e512af6dda55df9f4eb984430cec82eceba280d19796ec81fd010e3a67",
+   "expect": {
+    "verdict": "GREEN",
+    "red": ""
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw14/hs/out-hs-fence.txt:77 (F1-F7)"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "F23-Q3",
+   "reader": "readF2F3",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  const POV_FOV = 60; // the decision comment's address/rise projection",
+     "text": "  const POV_FOV = 60; // the decision comment's address/rise projection\n  function povShipped(rec, p, phi) { // stale-leaf fallback copy of the shipped pose\n    const dx = Math.cos(phi), dy = Math.sin(phi);\n    return {\n      d: [dx, dy],\n      addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n      addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n      ['standCam']: [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n      standLook: [0, 0, 0.02],\n    };\n  }"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? povShipped(rec, p, phi); // the open's latch"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/hs/hs-fence.mjs",
+   "card": "rw20/ed/leg/q-check/q3.mjs",
+   "sha256": "d36d164e5fbcfa51557150eb6114e0d516bca90f3594acdd9755789a7c68597e",
+   "expect": {
+    "verdict": "GREEN",
+    "red": ""
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw14/hs/out-hs-fence.txt:78 (F1-F7)"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "F23-Q4",
+   "reader": "readF2F3",
+   "base": "LATCH",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  const POV_FOV = 60; // the decision comment's address/rise projection",
+     "text": "  const POV_FOV = 60; // the decision comment's address/rise projection\n  function povShipped(rec, p, phi) { // stale-leaf fallback copy of the shipped pose\n    const dx = Math.cos(phi), dy = Math.sin(phi);\n    return {\n      d: [dx, dy],\n      addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n      addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n      standCam /* shipped */ : [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n      standLook: [0, 0, 0.02],\n    };\n  }"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? null; // the open's latch",
+     "text": "      const pose = pb?.povLeaf?.povPose?.(ball, phi, povRod(rec)) ?? povShipped(rec, p, phi); // the open's latch"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "file",
+   "generator": "rw14/hs/hs-fence.mjs",
+   "card": "rw20/ed/leg/q-check/q4.mjs",
+   "sha256": "e2832f39fe9971dc8696fe4b0cdf10d971104c1dd787d2fd7ddb041139966310",
+   "expect": {
+    "verdict": "GREEN",
+    "red": ""
+   },
+   "text": {
+    "verdict": "GREEN",
+    "cite": "rw14/hs/out-hs-fence.txt:79 (F1-F7)"
+   },
+   "tags": [],
+   "reduced": true
+  },
+  {
+   "id": "R6-known",
+   "reader": "slicePovDecls+readPovFov",
+   "base": "HEADPB",
+   "edits": [],
+   "leafEdits": [],
+   "repro": "none",
+   "generator": "plan:582 (K1-OP-11: HEAD lines, BASE numbers beside)",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "GREEN",
+    "decls": {
+     "recCueId": [
+      4027,
+      "function recCueId(rec) {",
+      3884
+     ],
+     "povTImpact": [
+      4056,
+      "function povTImpact(rec) {",
+      3913
+     ],
+     "povScript": [
+      4095,
+      "function povScript(rec) {",
+      3948
+     ],
+     "POV_FOV": [
+      4108,
+      "const POV_FOV = 60;",
+      3961
+     ],
+     "povAnchors": [
+      4118,
+      "function povAnchors(rec) {",
+      3967
+     ]
+    },
+    "fov": 60
+   },
+   "text": {
+    "verdict": "n/a",
+    "cite": "plan:581"
+   },
+   "tags": [],
+   "reduced": false
+  },
+  {
+   "id": "K1-dup",
+   "reader": "slicePovDecls+readPovFov",
+   "base": "HEADPB",
+   "edits": [
+    {
+     "op": "appendEnd",
+     "anchor": "      renderList('filter');\n      return true;\n    },\n  };\n}\n",
+     "text": "\nfunction povAnchors() {}\nconst POV_FOV = 45;\n"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "plan",
+   "generator": "plan:583",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "THROW",
+    "slice": "slicePovDecls: 2 declarations of POV_FOV (exactly one required)",
+    "fov": "readPovFov: 2 VariableDeclarators named POV_FOV (exactly one required)"
+   },
+   "text": {
+    "verdict": "n/a",
+    "cite": "plan:581"
+   },
+   "tags": [],
+   "reduced": false
+  },
+  {
+   "id": "K1-none",
+   "reader": "slicePovDecls+readPovFov",
+   "base": "HEADPB",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  function povAnchors(rec) {",
+     "text": "  function povAnchorsK1(rec) {"
+    },
+    {
+     "op": "replaceExact",
+     "anchor": "  const POV_FOV = 60;",
+     "text": "  const POV_FOV_K1 = 60;"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "plan",
+   "generator": "plan:584",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "THROW",
+    "slice": "slicePovDecls: 0 declarations of POV_FOV (exactly one required)",
+    "fov": "readPovFov: 0 VariableDeclarators named POV_FOV (exactly one required)"
+   },
+   "text": {
+    "verdict": "n/a",
+    "cite": "plan:581"
+   },
+   "tags": [],
+   "reduced": false
+  },
+  {
+   "id": "K1-text",
+   "reader": "slicePovDecls+readPovFov",
+   "base": "HEADPB",
+   "edits": [
+    {
+     "op": "appendEnd",
+     "anchor": "      renderList('filter');\n      return true;\n    },\n  };\n}\n",
+     "text": "\n// K1-text: function povAnchors( const POV_FOV = 45\nconst K1_TEXT = 'function povAnchors( const POV_FOV = 45';\n"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "plan",
+   "generator": "plan:585",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "GREEN",
+    "decls": {
+     "recCueId": [
+      4027,
+      "function recCueId(rec) {",
+      3884
+     ],
+     "povTImpact": [
+      4056,
+      "function povTImpact(rec) {",
+      3913
+     ],
+     "povScript": [
+      4095,
+      "function povScript(rec) {",
+      3948
+     ],
+     "POV_FOV": [
+      4108,
+      "const POV_FOV = 60;",
+      3961
+     ],
+     "povAnchors": [
+      4118,
+      "function povAnchors(rec) {",
+      3967
+     ]
+    },
+    "fov": 60
+   },
+   "text": {
+    "verdict": "n/a",
+    "cite": "plan:581"
+   },
+   "tags": [],
+   "reduced": false
+  },
+  {
+   "id": "R6-fovtext",
+   "reader": "readPovFov",
+   "base": "HEADPB",
+   "edits": [
+    {
+     "op": "replaceExact",
+     "anchor": "  const POV_FOV = 60;",
+     "text": "  const POV_FOV = '60';"
+    }
+   ],
+   "leafEdits": [],
+   "repro": "plan",
+   "generator": "SPEC-K1 2.3 (extra)",
+   "card": null,
+   "sha256": null,
+   "expect": {
+    "verdict": "THROW",
+    "fov": "readPovFov: POV_FOV is not initialized by a numeric literal"
+   },
+   "text": {
+    "verdict": "n/a",
+    "cite": "none"
+   },
+   "tags": [
+    "extra=spec"
+   ],
+   "reduced": false
+  }
+ ]
+}

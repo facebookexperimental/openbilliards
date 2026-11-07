@@ -1,0 +1,9 @@
+ui-fail.log: verbatim lines (GitHub log timestamps stripped) of the SECOND pass of the plain step ('e2e-ui behaviour
+arms': node web/tools/e2e-ui.mjs, never --audit) of main push run 35020105012, job 104553359400 (e2e-ui-audit on
+fa46bc7a, 2026-09-16 00:16:55-00:18:00Z, log lines 4236-4253): its one 'E2E-UI FAIL:' row, the passing rows after it,
+and the completion line 'E2E-UI: FAILED'. The newest retained judged red of that step: the later failing jobs' logs
+answer 404, end in run-gate exit 75 before any verdict, or stop at a red --audit step (the plain step never ran).
+ui-pass.log: the last lines of the plain step's green pass in main push run 38352665680, job 115148362807
+(e2e-ui-audit on 30b62641, 2026-10-13 09:41:14-09:42:15Z, log lines 8406-8414), ending with the completion line
+'E2E-UI PASS'.
+Both files write their review-round tags as '(review r2...)', normalised; nothing else differs from the logs.

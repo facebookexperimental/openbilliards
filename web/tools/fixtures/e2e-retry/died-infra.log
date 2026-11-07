@@ -1,0 +1,3 @@
+[cdp] launching chrome-headless-shell on :19101
+Error: chrome debugger endpoint never came up (10 s)
+    at connect (file:///web/tools/cdp.mjs:410:9)

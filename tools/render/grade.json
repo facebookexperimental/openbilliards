@@ -1,0 +1,8 @@
+{
+  "_what": "record.mjs --grade tournament: offline film-grade parameters (ffmpeg post chain applied in assembleFramestep AFTER the optional --ssaa lanczos downscale). Committed so every graded render is reproducible from the repo.",
+  "_provenance": "an internal provenance record (the measurement record behind these numbers; not shipped with the app)",
+  "curve": "0/0.004 0.02/0.028 0.10/0.072 0.45/0.345 0.62/0.46 0.80/0.60 0.93/0.83 1/1",
+  "grain": 3.5,
+  "vignette": 0.10,
+  "_dof_note": "DOF is not part of this ffmpeg chain: --dof renders true accumulation-buffer bokeh in-page (deterministic golden-spiral aperture samples riding the --shutter sub-frames), so its params live on the CLI per shot (aperture radius in meters + --focus target), not in the grade."
+}

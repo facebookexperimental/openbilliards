@@ -1,0 +1,49 @@
+{
+  "name": "bank",
+  "description": "Two-cushion bank shot. Demonstrates cushion rebound physics (Han 2005 default) and how bank angle shortens under speed/spin; sweep phi or the options preset to study cushion-model differences.",
+  "provenance": "Copied from crates/pool-core/tests/fixtures/scenarios/bank_two_cushion.json (oracle-compared fixture: tests/fixtures/oracle/bank_two_cushion.json; also the pinned-record fixture tests/fixtures/pinned/bank_two_cushion_default_han.json).",
+  "system": {
+    "balls": [
+      {
+        "id": 0,
+        "params": {
+          "m": 0.170097,
+          "r": 0.028575,
+          "u_s": 0.2,
+          "u_r": 0.01,
+          "u_sp": 0.0127,
+          "e_b": 0.95,
+          "e_c": 0.85,
+          "f_c": 0.2
+        },
+        "state": {
+          "pos": {
+            "x": -0.3,
+            "y": -0.9,
+            "z": 0.028575
+          },
+          "vel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "avel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "motion": "Stationary"
+        }
+      }
+    ],
+    "table": "wpa_9ft"
+  },
+  "shot": {
+    "v0": 3.0,
+    "phi": 0.9599310885968813,
+    "theta": 0.0,
+    "a": 0.0,
+    "b": 0.0,
+    "seed": 4
+  }
+}

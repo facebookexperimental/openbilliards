@@ -1,0 +1,1527 @@
+{
+ "tool": "tools/render/check-pocket-construction.mjs --midjaw-red",
+ "tool_sha12": "18eaaea94d00",
+ "mj_helper": "tools/render/midjaw-concord.mjs",
+ "mj_sha12": "cc53691f01a5",
+ "law": "GH-568 M4a/M4b/M4c middle-jaw contact-height concordance",
+ "ablation": "corner-scoped ROI filter x >= 1.2845 m replayed on the middle-bay soup (the PR #498 comment 5434858058 artifact: 0 local middle triangles)",
+ "tree": "277cf10b520b48850a5bca764a197b254520a5f1",
+ "web_tree": "0c0d5d1436bdfec89c6aec74470befb416623a85",
+ "src_dirty": false,
+ "when": "2026-08-27T21:41:21.927Z",
+ "reference": "kernel table_geometry_json_for(wpbsa_snooker_12ft) circular arcs (chainsFromKernel)",
+ "mirror_dev_mm": 0,
+ "mirror_red_arm": {
+  "perturb": "middle r1 + 1 mm (JS mirror)",
+  "dev_mm": 1.005,
+  "fired": true
+ },
+ "real": {
+  "verdicts": {
+   "coverage": true,
+   "envelope": true,
+   "wallTop": true
+  },
+  "row": {
+   "tipSMm": 71.68,
+   "nBins": 144,
+   "HMm": 36.75,
+   "sectionFams": {
+    "cloth": 384,
+    "railwood": 216,
+    "obSnkEndGrain": 32,
+    "obPocketCap": 468,
+    "obPocketStitch": 80
+   },
+   "flanks": {
+    "bot-posx": {
+     "covered": 144,
+     "nBins": 144,
+     "gaps": [],
+     "famStats": {
+      "cloth": {
+       "n": 1900,
+       "maxMm": 0,
+       "maxAtMm": 49.9,
+       "minMm": -11.98,
+       "minAtMm": 60,
+       "proudOut": 0
+      },
+      "railwood": {
+       "n": 151,
+       "maxMm": -7.5,
+       "maxAtMm": 65.1,
+       "minMm": -11.96,
+       "minAtMm": 59,
+       "proudOut": 0
+      },
+      "obSnkEndGrain": {
+       "n": 66,
+       "maxMm": -3.68,
+       "maxAtMm": 69.7,
+       "minMm": -6.17,
+       "minAtMm": 71.7,
+       "proudOut": 0
+      }
+     },
+     "proudOutliers": 0,
+     "proudOutlierWorstMm": null,
+     "proudOutlierAtMm": null,
+     "proudOutlierFam": null,
+     "famProudWorstMm": 0.00030892763825325414,
+     "famProudWorstFam": "cloth",
+     "worstProudMm": 0.00030892763825325414,
+     "worstProudAtMm": 49.9,
+     "worstRecessedMm": -0.02710340443989788,
+     "worstRecessedAtMm": 14.4,
+     "walls": [
+      {
+       "sMm": 0,
+       "topMm": 38.72239747634071
+      },
+      {
+       "sMm": 5,
+       "topMm": 38.79490606388053
+      },
+      {
+       "sMm": 10,
+       "topMm": 39.01214566823097
+      },
+      {
+       "sMm": 15,
+       "topMm": 39.37325894392107
+      },
+      {
+       "sMm": 20,
+       "topMm": 39.876820741828524
+      },
+      {
+       "sMm": 25,
+       "topMm": 40.52084373359255
+      },
+      {
+       "sMm": 30,
+       "topMm": 41.30278625469086
+      },
+      {
+       "sMm": 35,
+       "topMm": 41.65164416687899
+      },
+      {
+       "sMm": 40,
+       "topMm": 41.881900725489686
+      },
+      {
+       "sMm": 45,
+       "topMm": 42.052308259697995
+      },
+      {
+       "sMm": 50,
+       "topMm": 42.23044005984844
+      },
+      {
+       "sMm": 55,
+       "topMm": 42.52465186163668
+      },
+      {
+       "sMm": 60,
+       "topMm": 42.98006650357936
+      },
+      {
+       "sMm": 65,
+       "topMm": 43.41346464261255
+      },
+      {
+       "sMm": 70,
+       "topMm": 43.5
+      }
+     ],
+     "wallBad": []
+    },
+    "bot-negx": {
+     "covered": 144,
+     "nBins": 144,
+     "gaps": [],
+     "famStats": {
+      "cloth": {
+       "n": 1900,
+       "maxMm": 0,
+       "maxAtMm": 49.9,
+       "minMm": -11.98,
+       "minAtMm": 60,
+       "proudOut": 0
+      },
+      "railwood": {
+       "n": 151,
+       "maxMm": -7.5,
+       "maxAtMm": 65.1,
+       "minMm": -11.97,
+       "minAtMm": 59,
+       "proudOut": 0
+      },
+      "obSnkEndGrain": {
+       "n": 66,
+       "maxMm": -3.68,
+       "maxAtMm": 69.7,
+       "minMm": -6.17,
+       "minAtMm": 71.7,
+       "proudOut": 0
+      }
+     },
+     "proudOutliers": 0,
+     "proudOutlierWorstMm": null,
+     "proudOutlierAtMm": null,
+     "proudOutlierFam": null,
+     "famProudWorstMm": 0.0003089276382532541,
+     "famProudWorstFam": "cloth",
+     "worstProudMm": 0.0003089276382532541,
+     "worstProudAtMm": 49.9,
+     "worstRecessedMm": -0.02710340443989788,
+     "worstRecessedAtMm": 14.4,
+     "walls": [
+      {
+       "sMm": 0,
+       "topMm": 38.72239747634071
+      },
+      {
+       "sMm": 5,
+       "topMm": 38.79490606388053
+      },
+      {
+       "sMm": 10,
+       "topMm": 39.01214566823097
+      },
+      {
+       "sMm": 15,
+       "topMm": 39.373258943921016
+      },
+      {
+       "sMm": 20,
+       "topMm": 39.876820741828524
+      },
+      {
+       "sMm": 25,
+       "topMm": 40.52084373359255
+      },
+      {
+       "sMm": 30,
+       "topMm": 41.30278625469086
+      },
+      {
+       "sMm": 35,
+       "topMm": 41.65164416687899
+      },
+      {
+       "sMm": 40,
+       "topMm": 41.881900725489686
+      },
+      {
+       "sMm": 45,
+       "topMm": 42.052308259697995
+      },
+      {
+       "sMm": 50,
+       "topMm": 42.23044005984847
+      },
+      {
+       "sMm": 55,
+       "topMm": 42.52465186163668
+      },
+      {
+       "sMm": 60,
+       "topMm": 42.98006650357939
+      },
+      {
+       "sMm": 65,
+       "topMm": 43.41346464261255
+      },
+      {
+       "sMm": 70,
+       "topMm": 43.5
+      }
+     ],
+     "wallBad": []
+    },
+    "top-posx": {
+     "covered": 144,
+     "nBins": 144,
+     "gaps": [],
+     "famStats": {
+      "cloth": {
+       "n": 1900,
+       "maxMm": 0,
+       "maxAtMm": 49.9,
+       "minMm": -11.98,
+       "minAtMm": 60,
+       "proudOut": 0
+      },
+      "railwood": {
+       "n": 151,
+       "maxMm": -7.5,
+       "maxAtMm": 65.1,
+       "minMm": -11.97,
+       "minAtMm": 59,
+       "proudOut": 0
+      },
+      "obSnkEndGrain": {
+       "n": 66,
+       "maxMm": -3.68,
+       "maxAtMm": 69.7,
+       "minMm": -6.17,
+       "minAtMm": 71.7,
+       "proudOut": 0
+      }
+     },
+     "proudOutliers": 0,
+     "proudOutlierWorstMm": null,
+     "proudOutlierAtMm": null,
+     "proudOutlierFam": null,
+     "famProudWorstMm": 0.0003089276382532541,
+     "famProudWorstFam": "cloth",
+     "worstProudMm": 0.0003089276382532541,
+     "worstProudAtMm": 49.9,
+     "worstRecessedMm": -0.02710340443989788,
+     "worstRecessedAtMm": 14.4,
+     "walls": [
+      {
+       "sMm": 0,
+       "topMm": 38.72239747634071
+      },
+      {
+       "sMm": 5,
+       "topMm": 38.79490606388053
+      },
+      {
+       "sMm": 10,
+       "topMm": 39.01214566823097
+      },
+      {
+       "sMm": 15,
+       "topMm": 39.373258943921016
+      },
+      {
+       "sMm": 20,
+       "topMm": 39.876820741828524
+      },
+      {
+       "sMm": 25,
+       "topMm": 40.52084373359255
+      },
+      {
+       "sMm": 30,
+       "topMm": 41.30278625469086
+      },
+      {
+       "sMm": 35,
+       "topMm": 41.65164416687899
+      },
+      {
+       "sMm": 40,
+       "topMm": 41.881900725489686
+      },
+      {
+       "sMm": 45,
+       "topMm": 42.052308259697995
+      },
+      {
+       "sMm": 50,
+       "topMm": 42.23044005984847
+      },
+      {
+       "sMm": 55,
+       "topMm": 42.52465186163668
+      },
+      {
+       "sMm": 60,
+       "topMm": 42.98006650357939
+      },
+      {
+       "sMm": 65,
+       "topMm": 43.41346464261255
+      },
+      {
+       "sMm": 70,
+       "topMm": 43.5
+      }
+     ],
+     "wallBad": []
+    },
+    "top-negx": {
+     "covered": 144,
+     "nBins": 144,
+     "gaps": [],
+     "famStats": {
+      "cloth": {
+       "n": 1900,
+       "maxMm": 0,
+       "maxAtMm": 49.9,
+       "minMm": -11.98,
+       "minAtMm": 60,
+       "proudOut": 0
+      },
+      "railwood": {
+       "n": 151,
+       "maxMm": -7.5,
+       "maxAtMm": 65.1,
+       "minMm": -11.96,
+       "minAtMm": 59,
+       "proudOut": 0
+      },
+      "obSnkEndGrain": {
+       "n": 66,
+       "maxMm": -3.68,
+       "maxAtMm": 69.7,
+       "minMm": -6.17,
+       "minAtMm": 71.7,
+       "proudOut": 0
+      }
+     },
+     "proudOutliers": 0,
+     "proudOutlierWorstMm": null,
+     "proudOutlierAtMm": null,
+     "proudOutlierFam": null,
+     "famProudWorstMm": 0.0003089276382532541,
+     "famProudWorstFam": "cloth",
+     "worstProudMm": 0.0003089276382532541,
+     "worstProudAtMm": 49.9,
+     "worstRecessedMm": -0.02710340443989788,
+     "worstRecessedAtMm": 14.4,
+     "walls": [
+      {
+       "sMm": 0,
+       "topMm": 38.72239747634071
+      },
+      {
+       "sMm": 5,
+       "topMm": 38.79490606388053
+      },
+      {
+       "sMm": 10,
+       "topMm": 39.01214566823097
+      },
+      {
+       "sMm": 15,
+       "topMm": 39.37325894392107
+      },
+      {
+       "sMm": 20,
+       "topMm": 39.876820741828524
+      },
+      {
+       "sMm": 25,
+       "topMm": 40.52084373359255
+      },
+      {
+       "sMm": 30,
+       "topMm": 41.30278625469086
+      },
+      {
+       "sMm": 35,
+       "topMm": 41.65164416687899
+      },
+      {
+       "sMm": 40,
+       "topMm": 41.881900725489686
+      },
+      {
+       "sMm": 45,
+       "topMm": 42.052308259697995
+      },
+      {
+       "sMm": 50,
+       "topMm": 42.23044005984844
+      },
+      {
+       "sMm": 55,
+       "topMm": 42.52465186163668
+      },
+      {
+       "sMm": 60,
+       "topMm": 42.98006650357936
+      },
+      {
+       "sMm": 65,
+       "topMm": 43.41346464261255
+      },
+      {
+       "sMm": 70,
+       "topMm": 43.5
+      }
+     ],
+     "wallBad": []
+    }
+   }
+  }
+ },
+ "ablatedRun": {
+  "verdicts": {
+   "coverage": false,
+   "envelope": false,
+   "wallTop": false
+  },
+  "fired": true,
+  "row": {
+   "tipSMm": 71.68,
+   "nBins": 144,
+   "HMm": 36.75,
+   "sectionFams": {
+    "cloth": 8,
+    "railwood": 8
+   },
+   "flanks": {
+    "bot-posx": {
+     "covered": 0,
+     "nBins": 144,
+     "gaps": [
+      0,
+      0.5,
+      1,
+      1.5,
+      2,
+      2.5,
+      3,
+      3.5,
+      4,
+      4.5,
+      5,
+      5.5,
+      6,
+      6.5,
+      7,
+      7.5,
+      8,
+      8.5,
+      9,
+      9.5,
+      10,
+      10.5,
+      11,
+      11.5,
+      12,
+      12.5,
+      13,
+      13.5,
+      14,
+      14.5,
+      15,
+      15.5,
+      16,
+      16.5,
+      17,
+      17.5,
+      18,
+      18.5,
+      19,
+      19.5,
+      20,
+      20.5,
+      21,
+      21.5,
+      22,
+      22.5,
+      23,
+      23.5,
+      24,
+      24.5,
+      25,
+      25.5,
+      26,
+      26.5,
+      27,
+      27.5,
+      28,
+      28.5,
+      29,
+      29.5,
+      30,
+      30.5,
+      31,
+      31.5,
+      32,
+      32.5,
+      33,
+      33.5,
+      34,
+      34.5,
+      35,
+      35.5,
+      36,
+      36.5,
+      37,
+      37.5,
+      38,
+      38.5,
+      39,
+      39.5,
+      40,
+      40.5,
+      41,
+      41.5,
+      42,
+      42.5,
+      43,
+      43.5,
+      44,
+      44.5,
+      45,
+      45.5,
+      46,
+      46.5,
+      47,
+      47.5,
+      48,
+      48.5,
+      49,
+      49.5,
+      50,
+      50.5,
+      51,
+      51.5,
+      52,
+      52.5,
+      53,
+      53.5,
+      54,
+      54.5,
+      55,
+      55.5,
+      56,
+      56.5,
+      57,
+      57.5,
+      58,
+      58.5,
+      59,
+      59.5,
+      60,
+      60.5,
+      61,
+      61.5,
+      62,
+      62.5,
+      63,
+      63.5,
+      64,
+      64.5,
+      65,
+      65.5,
+      66,
+      66.5,
+      67,
+      67.5,
+      68,
+      68.5,
+      69,
+      69.5,
+      70,
+      70.5,
+      71,
+      71.5
+     ],
+     "famStats": {},
+     "proudOutliers": 0,
+     "proudOutlierWorstMm": null,
+     "proudOutlierAtMm": null,
+     "proudOutlierFam": null,
+     "famProudWorstMm": null,
+     "famProudWorstFam": null,
+     "worstProudMm": null,
+     "worstProudAtMm": null,
+     "worstRecessedMm": null,
+     "worstRecessedAtMm": null,
+     "walls": [
+      {
+       "sMm": 0,
+       "topMm": 38.72239747634071
+      },
+      {
+       "sMm": 5,
+       "topMm": 38.79490606388053
+      },
+      {
+       "sMm": 10,
+       "topMm": 39.01214566823097
+      },
+      {
+       "sMm": 15,
+       "topMm": 39.37325894392107
+      },
+      {
+       "sMm": 20,
+       "topMm": 39.876820741828524
+      },
+      {
+       "sMm": 25,
+       "topMm": 40.52084373359255
+      },
+      {
+       "sMm": 30,
+       "topMm": 41.30278625469086
+      },
+      {
+       "sMm": 35,
+       "topMm": 41.65164416687899
+      },
+      {
+       "sMm": 40,
+       "topMm": 41.881900725489686
+      },
+      {
+       "sMm": 45,
+       "topMm": null
+      },
+      {
+       "sMm": 50,
+       "topMm": null
+      },
+      {
+       "sMm": 55,
+       "topMm": null
+      },
+      {
+       "sMm": 60,
+       "topMm": null
+      },
+      {
+       "sMm": 65,
+       "topMm": 43.41346464261255
+      },
+      {
+       "sMm": 70,
+       "topMm": 43.5
+      }
+     ],
+     "wallBad": [
+      {
+       "sMm": 45,
+       "topMm": null
+      },
+      {
+       "sMm": 50,
+       "topMm": null
+      },
+      {
+       "sMm": 55,
+       "topMm": null
+      },
+      {
+       "sMm": 60,
+       "topMm": null
+      }
+     ]
+    },
+    "bot-negx": {
+     "covered": 0,
+     "nBins": 144,
+     "gaps": [
+      0,
+      0.5,
+      1,
+      1.5,
+      2,
+      2.5,
+      3,
+      3.5,
+      4,
+      4.5,
+      5,
+      5.5,
+      6,
+      6.5,
+      7,
+      7.5,
+      8,
+      8.5,
+      9,
+      9.5,
+      10,
+      10.5,
+      11,
+      11.5,
+      12,
+      12.5,
+      13,
+      13.5,
+      14,
+      14.5,
+      15,
+      15.5,
+      16,
+      16.5,
+      17,
+      17.5,
+      18,
+      18.5,
+      19,
+      19.5,
+      20,
+      20.5,
+      21,
+      21.5,
+      22,
+      22.5,
+      23,
+      23.5,
+      24,
+      24.5,
+      25,
+      25.5,
+      26,
+      26.5,
+      27,
+      27.5,
+      28,
+      28.5,
+      29,
+      29.5,
+      30,
+      30.5,
+      31,
+      31.5,
+      32,
+      32.5,
+      33,
+      33.5,
+      34,
+      34.5,
+      35,
+      35.5,
+      36,
+      36.5,
+      37,
+      37.5,
+      38,
+      38.5,
+      39,
+      39.5,
+      40,
+      40.5,
+      41,
+      41.5,
+      42,
+      42.5,
+      43,
+      43.5,
+      44,
+      44.5,
+      45,
+      45.5,
+      46,
+      46.5,
+      47,
+      47.5,
+      48,
+      48.5,
+      49,
+      49.5,
+      50,
+      50.5,
+      51,
+      51.5,
+      52,
+      52.5,
+      53,
+      53.5,
+      54,
+      54.5,
+      55,
+      55.5,
+      56,
+      56.5,
+      57,
+      57.5,
+      58,
+      58.5,
+      59,
+      59.5,
+      60,
+      60.5,
+      61,
+      61.5,
+      62,
+      62.5,
+      63,
+      63.5,
+      64,
+      64.5,
+      65,
+      65.5,
+      66,
+      66.5,
+      67,
+      67.5,
+      68,
+      68.5,
+      69,
+      69.5,
+      70,
+      70.5,
+      71,
+      71.5
+     ],
+     "famStats": {},
+     "proudOutliers": 0,
+     "proudOutlierWorstMm": null,
+     "proudOutlierAtMm": null,
+     "proudOutlierFam": null,
+     "famProudWorstMm": null,
+     "famProudWorstFam": null,
+     "worstProudMm": null,
+     "worstProudAtMm": null,
+     "worstRecessedMm": null,
+     "worstRecessedAtMm": null,
+     "walls": [
+      {
+       "sMm": 0,
+       "topMm": null
+      },
+      {
+       "sMm": 5,
+       "topMm": null
+      },
+      {
+       "sMm": 10,
+       "topMm": null
+      },
+      {
+       "sMm": 15,
+       "topMm": null
+      },
+      {
+       "sMm": 20,
+       "topMm": null
+      },
+      {
+       "sMm": 25,
+       "topMm": null
+      },
+      {
+       "sMm": 30,
+       "topMm": null
+      },
+      {
+       "sMm": 35,
+       "topMm": null
+      },
+      {
+       "sMm": 40,
+       "topMm": null
+      },
+      {
+       "sMm": 45,
+       "topMm": null
+      },
+      {
+       "sMm": 50,
+       "topMm": null
+      },
+      {
+       "sMm": 55,
+       "topMm": null
+      },
+      {
+       "sMm": 60,
+       "topMm": null
+      },
+      {
+       "sMm": 65,
+       "topMm": null
+      },
+      {
+       "sMm": 70,
+       "topMm": null
+      }
+     ],
+     "wallBad": [
+      {
+       "sMm": 0,
+       "topMm": null
+      },
+      {
+       "sMm": 5,
+       "topMm": null
+      },
+      {
+       "sMm": 10,
+       "topMm": null
+      },
+      {
+       "sMm": 15,
+       "topMm": null
+      },
+      {
+       "sMm": 20,
+       "topMm": null
+      },
+      {
+       "sMm": 25,
+       "topMm": null
+      },
+      {
+       "sMm": 30,
+       "topMm": null
+      },
+      {
+       "sMm": 35,
+       "topMm": null
+      },
+      {
+       "sMm": 40,
+       "topMm": null
+      },
+      {
+       "sMm": 45,
+       "topMm": null
+      },
+      {
+       "sMm": 50,
+       "topMm": null
+      },
+      {
+       "sMm": 55,
+       "topMm": null
+      },
+      {
+       "sMm": 60,
+       "topMm": null
+      },
+      {
+       "sMm": 65,
+       "topMm": null
+      },
+      {
+       "sMm": 70,
+       "topMm": null
+      }
+     ]
+    },
+    "top-posx": {
+     "covered": 0,
+     "nBins": 144,
+     "gaps": [
+      0,
+      0.5,
+      1,
+      1.5,
+      2,
+      2.5,
+      3,
+      3.5,
+      4,
+      4.5,
+      5,
+      5.5,
+      6,
+      6.5,
+      7,
+      7.5,
+      8,
+      8.5,
+      9,
+      9.5,
+      10,
+      10.5,
+      11,
+      11.5,
+      12,
+      12.5,
+      13,
+      13.5,
+      14,
+      14.5,
+      15,
+      15.5,
+      16,
+      16.5,
+      17,
+      17.5,
+      18,
+      18.5,
+      19,
+      19.5,
+      20,
+      20.5,
+      21,
+      21.5,
+      22,
+      22.5,
+      23,
+      23.5,
+      24,
+      24.5,
+      25,
+      25.5,
+      26,
+      26.5,
+      27,
+      27.5,
+      28,
+      28.5,
+      29,
+      29.5,
+      30,
+      30.5,
+      31,
+      31.5,
+      32,
+      32.5,
+      33,
+      33.5,
+      34,
+      34.5,
+      35,
+      35.5,
+      36,
+      36.5,
+      37,
+      37.5,
+      38,
+      38.5,
+      39,
+      39.5,
+      40,
+      40.5,
+      41,
+      41.5,
+      42,
+      42.5,
+      43,
+      43.5,
+      44,
+      44.5,
+      45,
+      45.5,
+      46,
+      46.5,
+      47,
+      47.5,
+      48,
+      48.5,
+      49,
+      49.5,
+      50,
+      50.5,
+      51,
+      51.5,
+      52,
+      52.5,
+      53,
+      53.5,
+      54,
+      54.5,
+      55,
+      55.5,
+      56,
+      56.5,
+      57,
+      57.5,
+      58,
+      58.5,
+      59,
+      59.5,
+      60,
+      60.5,
+      61,
+      61.5,
+      62,
+      62.5,
+      63,
+      63.5,
+      64,
+      64.5,
+      65,
+      65.5,
+      66,
+      66.5,
+      67,
+      67.5,
+      68,
+      68.5,
+      69,
+      69.5,
+      70,
+      70.5,
+      71,
+      71.5
+     ],
+     "famStats": {},
+     "proudOutliers": 0,
+     "proudOutlierWorstMm": null,
+     "proudOutlierAtMm": null,
+     "proudOutlierFam": null,
+     "famProudWorstMm": null,
+     "famProudWorstFam": null,
+     "worstProudMm": null,
+     "worstProudAtMm": null,
+     "worstRecessedMm": null,
+     "worstRecessedAtMm": null,
+     "walls": [
+      {
+       "sMm": 0,
+       "topMm": 38.72239747634071
+      },
+      {
+       "sMm": 5,
+       "topMm": 38.79490606388053
+      },
+      {
+       "sMm": 10,
+       "topMm": 39.01214566823097
+      },
+      {
+       "sMm": 15,
+       "topMm": 39.373258943921016
+      },
+      {
+       "sMm": 20,
+       "topMm": 39.876820741828524
+      },
+      {
+       "sMm": 25,
+       "topMm": 40.52084373359255
+      },
+      {
+       "sMm": 30,
+       "topMm": 41.30278625469086
+      },
+      {
+       "sMm": 35,
+       "topMm": 41.65164416687899
+      },
+      {
+       "sMm": 40,
+       "topMm": 41.881900725489686
+      },
+      {
+       "sMm": 45,
+       "topMm": null
+      },
+      {
+       "sMm": 50,
+       "topMm": null
+      },
+      {
+       "sMm": 55,
+       "topMm": null
+      },
+      {
+       "sMm": 60,
+       "topMm": null
+      },
+      {
+       "sMm": 65,
+       "topMm": 43.41346464261255
+      },
+      {
+       "sMm": 70,
+       "topMm": 43.5
+      }
+     ],
+     "wallBad": [
+      {
+       "sMm": 45,
+       "topMm": null
+      },
+      {
+       "sMm": 50,
+       "topMm": null
+      },
+      {
+       "sMm": 55,
+       "topMm": null
+      },
+      {
+       "sMm": 60,
+       "topMm": null
+      }
+     ]
+    },
+    "top-negx": {
+     "covered": 0,
+     "nBins": 144,
+     "gaps": [
+      0,
+      0.5,
+      1,
+      1.5,
+      2,
+      2.5,
+      3,
+      3.5,
+      4,
+      4.5,
+      5,
+      5.5,
+      6,
+      6.5,
+      7,
+      7.5,
+      8,
+      8.5,
+      9,
+      9.5,
+      10,
+      10.5,
+      11,
+      11.5,
+      12,
+      12.5,
+      13,
+      13.5,
+      14,
+      14.5,
+      15,
+      15.5,
+      16,
+      16.5,
+      17,
+      17.5,
+      18,
+      18.5,
+      19,
+      19.5,
+      20,
+      20.5,
+      21,
+      21.5,
+      22,
+      22.5,
+      23,
+      23.5,
+      24,
+      24.5,
+      25,
+      25.5,
+      26,
+      26.5,
+      27,
+      27.5,
+      28,
+      28.5,
+      29,
+      29.5,
+      30,
+      30.5,
+      31,
+      31.5,
+      32,
+      32.5,
+      33,
+      33.5,
+      34,
+      34.5,
+      35,
+      35.5,
+      36,
+      36.5,
+      37,
+      37.5,
+      38,
+      38.5,
+      39,
+      39.5,
+      40,
+      40.5,
+      41,
+      41.5,
+      42,
+      42.5,
+      43,
+      43.5,
+      44,
+      44.5,
+      45,
+      45.5,
+      46,
+      46.5,
+      47,
+      47.5,
+      48,
+      48.5,
+      49,
+      49.5,
+      50,
+      50.5,
+      51,
+      51.5,
+      52,
+      52.5,
+      53,
+      53.5,
+      54,
+      54.5,
+      55,
+      55.5,
+      56,
+      56.5,
+      57,
+      57.5,
+      58,
+      58.5,
+      59,
+      59.5,
+      60,
+      60.5,
+      61,
+      61.5,
+      62,
+      62.5,
+      63,
+      63.5,
+      64,
+      64.5,
+      65,
+      65.5,
+      66,
+      66.5,
+      67,
+      67.5,
+      68,
+      68.5,
+      69,
+      69.5,
+      70,
+      70.5,
+      71,
+      71.5
+     ],
+     "famStats": {},
+     "proudOutliers": 0,
+     "proudOutlierWorstMm": null,
+     "proudOutlierAtMm": null,
+     "proudOutlierFam": null,
+     "famProudWorstMm": null,
+     "famProudWorstFam": null,
+     "worstProudMm": null,
+     "worstProudAtMm": null,
+     "worstRecessedMm": null,
+     "worstRecessedAtMm": null,
+     "walls": [
+      {
+       "sMm": 0,
+       "topMm": null
+      },
+      {
+       "sMm": 5,
+       "topMm": null
+      },
+      {
+       "sMm": 10,
+       "topMm": null
+      },
+      {
+       "sMm": 15,
+       "topMm": null
+      },
+      {
+       "sMm": 20,
+       "topMm": null
+      },
+      {
+       "sMm": 25,
+       "topMm": null
+      },
+      {
+       "sMm": 30,
+       "topMm": null
+      },
+      {
+       "sMm": 35,
+       "topMm": null
+      },
+      {
+       "sMm": 40,
+       "topMm": null
+      },
+      {
+       "sMm": 45,
+       "topMm": null
+      },
+      {
+       "sMm": 50,
+       "topMm": null
+      },
+      {
+       "sMm": 55,
+       "topMm": null
+      },
+      {
+       "sMm": 60,
+       "topMm": null
+      },
+      {
+       "sMm": 65,
+       "topMm": null
+      },
+      {
+       "sMm": 70,
+       "topMm": null
+      }
+     ],
+     "wallBad": [
+      {
+       "sMm": 0,
+       "topMm": null
+      },
+      {
+       "sMm": 5,
+       "topMm": null
+      },
+      {
+       "sMm": 10,
+       "topMm": null
+      },
+      {
+       "sMm": 15,
+       "topMm": null
+      },
+      {
+       "sMm": 20,
+       "topMm": null
+      },
+      {
+       "sMm": 25,
+       "topMm": null
+      },
+      {
+       "sMm": 30,
+       "topMm": null
+      },
+      {
+       "sMm": 35,
+       "topMm": null
+      },
+      {
+       "sMm": 40,
+       "topMm": null
+      },
+      {
+       "sMm": 45,
+       "topMm": null
+      },
+      {
+       "sMm": 50,
+       "topMm": null
+      },
+      {
+       "sMm": 55,
+       "topMm": null
+      },
+      {
+       "sMm": 60,
+       "topMm": null
+      },
+      {
+       "sMm": 65,
+       "topMm": null
+      },
+      {
+       "sMm": 70,
+       "topMm": null
+      }
+     ]
+    }
+   }
+  }
+ }
+}

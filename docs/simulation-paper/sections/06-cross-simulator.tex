@@ -1,0 +1,192 @@
+% ===========================================================================
+% Section 6 — Cross-simulator agreement
+% Evidence: the study's baseline manifest, its ledger (the oracle parity
+% convention, the oracle re-seat waiver, and the two resolved defect rows),
+% the pinned ORACLE-X output, and rows 5 and 10 of the determinism matrix.
+% Cooperative stance toward pooltool throughout.
+% ===========================================================================
+\section{Cross-simulator agreement}
+\label{sec:oracle}
+
+The battery's fourth anchor tier is an independent simulator. We use
+pooltool \citep{kiefl2024pooltool} at a pinned release (version 0.6.0,
+commit \code{9a8abfe0}) as a cross-simulator oracle wherever the two model
+registries coincide, and we state at the outset that every comparison in
+this section is \emph{verification} in the ASME V\&V~20 sense
+\citep{asme2009vv20}: code against code, under matched models and identical
+inputs. The oracle harness (ORACLE-X) re-executes the registered
+\expid{A3} and \expid{A6} designs --- 38 matched shots --- through both
+engines and compares event times, event sequences, post-impact observables,
+and rest states point by point (Fig.~\ref{fig:F14}).
+
+\figstub{F14}{F14.pdf}{%
+  \textbf{Verification.} Cross-simulator verification against pooltool
+  (ORACLE-X: 38 matched points on the registered \expid{A3}/\expid{A6}
+  subsets, run under the legacy parity convention). (a)~Ball--ball
+  event-time agreement; the panel title carries the 38/38
+  event-sequence match under the declared zero-length-transition drop
+  rule, whose per-side drop counts are noted in panel (b).
+  (b)~Throw-angle comparison error. (c)~The six waived exceedances,
+  all attributed to the oracle's \code{make_kiss} re-seat. (d)~The
+  measured slip-law convention gap between the parity law and the
+  corrected default; values in the text.}{F14}
+
+\subsection{Agreement under the parity convention}
+
+ORACLE-X feeds both engines identical initial states and strike parameters
+and matches the model registries exactly: the same ball parameters on both
+sides, the Han cushion family \citep{han2005dynamics}, the same Alciatore
+$\mu(v)$ ball--ball friction form \citep{alciatore_tp_a14}, and matched
+stick--ball models. One pin is deliberate and permanent. pooltool's
+ball--ball resolver carries the pre-fix slip-impulse convention (the case
+study below), so the kernel side of every oracle run explicitly selects
+the retained legacy law rather than the corrected default. We call this
+the \emph{parity-convention law}: oracle parity is defined against the
+legacy slip law permanently, which makes the oracle harness a
+fixed-convention verification instrument rather than a moving target.
+
+Under that convention the two engines agree at the numerical floor of the
+comparison. Across all 38 points, ball--ball impact times agree to
+$7.4\times10^{-14}$\,s at worst; throw angles to
+$\max|E| = 1.12\times10^{-4}\,^\circ$; post-impact object-ball spin
+$\omega_z$ to $1.9\times10^{-4}$\,rad/s; and post-strike cue-ball states
+to $5.2\times10^{-11}$\,m/s. Event sequences match 38/38 after one
+declared bookkeeping rule: transitions within $10^{-9}$\,s of the strike
+are dropped from both streams, with the drop count recorded per point.
+The rule exists because the rolling strike sits exactly on the
+$\omega R/v = 1$ classification boundary, where pooltool emits a
+zero-length sliding-to-rolling transition at ${\sim}6\times10^{-17}$\,s
+that the kernel folds into the strike post-state; this occurs in 15 of
+the 38 runs and is bookkeeping, not dynamics.
+
+Six tolerance exceedances remain, and all six carry one attributed
+oracle-side mechanism. Four final rest positions exceed the 0.1\,mm gate
+(worst case 0.185\,mm) and two rollout durations exceed even the
+$2\times10^{-4}$\,s waiver ceiling (worst case $8.9\times10^{-4}$\,s),
+exclusively on shots that roll out for up to ${\sim}7.5$\,s. pooltool
+re-seats ball positions by ${\sim}1\,\mu$m (its documented
+\code{make_kiss} step) before resolving a ball--ball contact; the kernel
+resolves at the exact quartic contact point and never re-seats, so the
+micrometer-scale perturbation is amplified through the cushion and roll
+legs of long rollouts. This is a documented convention difference, not a
+physics disagreement, and it is waived with exactly that attribution.
+
+Finally, the harness cross-references its shared points against the
+registered battery outputs, which ride the corrected default. That
+comparison is scoped as a \emph{measurement} of the slip-law convention
+gap,
+never as an identity gate: the maximum throw difference on the 30 shared
+\expid{A3} points is $0.1301^\circ$, the maximum $\omega_z$ difference on
+the 8 shared \expid{A6} points is $0.1783$\,rad/s, and stick-branch
+points coincide. These numbers \emph{are} the slip-law shift, by design
+(panel~(d) of Fig.~\ref{fig:F14}).
+
+\subsection{Case study: two defects found by the methodology}
+
+A useful test of a verification and validation methodology is whether it
+finds defects its authors did not know were there. The battery's first
+full run found two.
+
+\paragraph{The slip-law defect (ball--ball slip impulse)}
+Experiment \expid{A1}'s slip-law characterization recovered a friction
+ratio of 0.97424 against the Coulomb-cap form of the technical-proof
+derivations \citep{alciatore_tp_catalog}, within $1.2\times10^{-4}$ of
+the value $2e_b/(1+e_b) = 0.97436$ predicted if the friction impulse were
+mis-scaled --- slip-regime throw ran approximately 2.6\% low, an offset
+subsequently visible across the \expid{A3}, \expid{A4}, \expid{A6},
+\expid{D1}, \expid{E2}, and \expid{F3} channels. The root cause: the
+kernel scaled the ball--ball slip friction impulse with the post-impact
+normal velocity difference, $\mu\,e_b\,v_n$ --- a convention inherited
+from the reference-implementation lineage the kernel shares with its
+oracle. The Coulomb cap instead requires the normal impulse per unit
+mass, $\mu\,(1+e_b)/2\,v_n$, a $+2.6$\% relative slip-impulse difference
+at $e_b = 0.95$, worth about $0.12$--$0.13^\circ$ of throw at a slow
+half-ball hit. The corrected law is now the kernel default ---
+slip-regime throw is exactly $\arctan\mu$, the reference form of
+\citet{alciatore_tp_a14} --- with the legacy law retained behind an
+explicit option.
+
+\paragraph{The branch-selection defect (settled-rebound branch selection)}
+Independently, the \expid{C1} bank grid showed through-diamond arrival
+discontinuities of 0.49--0.85 diamonds at mid aims under the
+Stronge-compliant cushion preset \citep{stronge2018impact}, with no
+intermediate arrivals. The root cause: the model's terminal stick-to-slip
+equation was solved by a whole-bracket root finder, and at the structural
+double root at stick onset the bracket converged onto whichever solution
+family $10^{-16}$-scale floating-point noise favored. Sliding and stun
+cushion contacts near that tangency therefore jumped between rebound
+families (the tangential ratio stepping from 0.60 to 0.74) as the aim
+varied smoothly. The fix selects the first crossing by a deterministic
+scan and is continuous by construction; the legacy selection is likewise
+retained behind an explicit option.
+
+Neither defect was findable by oracle agreement. The slip-impulse
+convention is shared with the oracle by inheritance, so ORACLE-X agrees
+at the $10^{-14}$\,s level on both sides of the fix; and the
+matched-registry oracle runs exercise only the Han cushion family, never
+the Stronge branch. The independent published-curve anchors were
+load-bearing --- which is the point of a multi-source battery, and, in
+our reading, the strongest single piece of evidence for contribution C2.
+
+\paragraph{Predicted-shift verification}
+Before the post-fix battery re-run, each affected experiment received a
+written prediction of the direction and mechanism of its shift, and no
+registered band or catalog parameter was re-tuned. Seven prediction
+classes were registered, covering every experiment in the battery, and
+all seven confirmed. Table~\ref{tab:predicted-shifts} extracts the two
+classes that carry the case study --- one per defect; the full
+seven-class table is Supplementary Material Table~S3.
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Predicted-shift verification across the slip-law and
+  branch-selection fix cascade:
+  the two prediction classes carrying the case study, one per defect
+  (extract; the full seven-class table --- all seven classes confirmed,
+  no acceptance band or catalog parameter re-tuned --- is Supplementary
+  Material Table~S3). ``Bit-identical'' means byte equality of the
+  affected rows after masking kernel-version stamps.}
+  \label{tab:predicted-shifts}
+  % Col 1 widened so the 'Experiments' header no
+  % longer overflows into col 2; prose columns ragged-right
+  \setlength{\tabcolsep}{4pt}%
+  \begin{tabular}{@{}p{0.16\linewidth}>{\raggedright\arraybackslash}p{0.36\linewidth}>{\raggedright\arraybackslash}p{0.435\linewidth}@{}}
+    \toprule
+    Experiments & Registered prediction & Measured outcome \\
+    \midrule
+    \expid{C1} (branch selection) &
+    the four \code{stronge_realistic} discontinuous bank cells collapse;
+    other presets untouched &
+    cells $4\to0$; the three-crossing cell (aim 3.0, 1\,m/s) monotone;
+    \code{han2005}, \code{mathavan}, and \code{grip} rows bit-identical \\
+    \addlinespace
+    \expid{A3} (slip law) &
+    slip tan-argument ratio $\to 1$ (throw exactly $\arctan\mu$); stick
+    regime unchanged &
+    ratio $0.9745\to1.00014$; stick ratio 1.02564 unchanged; worst
+    slip-channel $|E|$ vs the transcribed master curves
+    $0.0886\to0.0012^\circ$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{Legacy preservation}
+Both pre-fix laws remain available behind explicit options, with
+byte-replay proofs: of the 14 archived event streams re-simulated on the
+corrected binary, 9 are byte-identical, and the 5 registered
+slip-law-class divergences each reproduce their pre-fix stream
+byte-identically under the explicit legacy options
+(Table~\ref{tab:determinism}, rows 5 and 10). Model evolution is thereby
+held to the same determinism doctrine as the shipped binary itself: a
+superseded law is not deleted but pinned, and its historical outputs
+remain reconstructible to the byte.
+
+\subsection{Verification/validation boundary in this section}
+
+To restate the boundary: everything in this section is verification ---
+code against code, or code against its own closed forms --- in the
+vocabulary of ASME V\&V~20 \citep{asme2009vv20}. No validation claim in
+this paper is derived from oracle agreement; validation against physical
+measurement and published data lives in Section~\ref{sec:results}, and
+the parity-convention law above exists precisely to keep the two from
+contaminating each other.

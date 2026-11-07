@@ -1,0 +1,650 @@
+{
+  "tool": "tools/render/bake-lightmap.mjs",
+  "sceneHash": "4434e6541233fc11",
+  "seed": 20260703,
+  "samples": {
+    "direct": 8,
+    "indirect": 96,
+    "floorInd": 64,
+    "probeDirs": 512
+  },
+  "quick": false,
+  "bounds": {
+    "plan": {
+      "x0": -1.56,
+      "z0": -0.96,
+      "x1": 1.56,
+      "z1": 0.96,
+      "w": 320,
+      "h": 200
+    },
+    "floor": {
+      "x0": -4.5,
+      "z0": -3,
+      "x1": 4.5,
+      "z1": 3,
+      "w": 180,
+      "h": 120
+    }
+  },
+  "probes": {
+    "x0": -1.27,
+    "z0": -0.635,
+    "nx": 11,
+    "nz": 6,
+    "dx": 0.254,
+    "dz": 0.254,
+    "y": 0.028575
+  },
+  "looks": {
+    "default": {
+      "files": {
+        "plan": "gi-default-plan.png",
+        "flank": "gi-default-flank.png",
+        "floor": "gi-default-floor.png",
+        "floorshadow": "gi-default-floorshadow.png",
+        "probes": "gi-default-probes.json"
+      },
+      "scale": 0.2648,
+      "scaleFloor": 0.4573,
+      "triCount": 422
+    },
+    "tournament": {
+      "files": {
+        "plan": "gi-tournament-plan.png",
+        "flank": "gi-tournament-flank.png",
+        "floor": "gi-tournament-floor.png",
+        "floorshadow": "gi-tournament-floorshadow.png",
+        "probes": "gi-tournament-probes.json"
+      },
+      "scale": 0.2463,
+      "scaleFloor": 0.3134,
+      "triCount": 422
+    },
+    "sp": {
+      "files": {
+        "plan": "gi-tournament-plan.png",
+        "flank": "gi-tournament-flank.png",
+        "floor": "gi-tournament-floor.png",
+        "floorshadow": "gi-tournament-floorshadow.png",
+        "probes": "gi-tournament-probes.json"
+      },
+      "scale": 0.2463,
+      "scaleFloor": 0.3134,
+      "triCount": 422
+    }
+  },
+  "encoding": "rgb = sqrt(E_indirect / scale), a = lamp visibility",
+  "fixtures": {
+    "perimeter_ring": {
+      "unbaked": true,
+      "note": "honesty-gated (GH-975): the committed pool-class bake's lamp-visibility channel darkened the bed beside the cushion nose far below the runtime's own direct shading (overhead cushion strip / open bed 0.27 with the bake, 0.97 without), so gi.js runs the documented pre-GI lighting for this fixture, as for pendant_bar and snooker_luminaire. Bake with: node tools/render/bake-lightmap.mjs --fixture <id>. Size of the removed set recorded below.",
+      "measuredKB": {
+        "default": 210.9,
+        "tournament": 214.7
+      }
+    },
+    "pendant_bar": {
+      "unbaked": true,
+      "note": "honesty-gated (issue #89, the #52 uGiOn=0 precedent): no committed bake set — gi.js runs the documented pre-GI lighting for this fixture. Bake with: node tools/render/bake-lightmap.mjs --fixture <id>. Measured full-bake size recorded below (repo-growth arbitration: these two are the recorded downgrade; the ring's pool-class set was dropped as well, GH-975).",
+      "measuredKB": {
+        "default": 209.8,
+        "tournament": 224.1
+      }
+    },
+    "snooker_luminaire": {
+      "unbaked": true,
+      "note": "honesty-gated (issue #89, the #52 uGiOn=0 precedent): no committed bake set — gi.js runs the documented pre-GI lighting for this fixture. Bake with: node tools/render/bake-lightmap.mjs --fixture <id>. Measured full-bake size recorded below (repo-growth arbitration: these two are the recorded downgrade; the ring's pool-class set was dropped as well, GH-975).",
+      "measuredKB": {
+        "default": 222.4,
+        "tournament": 229.5
+      }
+    },
+    "pdt_studio": {
+      "sceneHash": "a15d4b3ff309005e",
+      "quick": false,
+      "looks": {
+        "default": {
+          "files": {
+            "plan": "gi-default-pdt_studio-plan.png",
+            "flank": "gi-default-pdt_studio-flank.png",
+            "floor": "gi-default-pdt_studio-floor.png",
+            "floorshadow": "gi-default-pdt_studio-floorshadow.png",
+            "probes": "gi-default-pdt_studio-probes.json"
+          },
+          "scale": 0.3108,
+          "scaleFloor": 0.5914,
+          "triCount": 464
+        },
+        "tournament": {
+          "files": {
+            "plan": "gi-tournament-pdt_studio-plan.png",
+            "flank": "gi-tournament-pdt_studio-flank.png",
+            "floor": "gi-tournament-pdt_studio-floor.png",
+            "floorshadow": "gi-tournament-pdt_studio-floorshadow.png",
+            "probes": "gi-tournament-pdt_studio-probes.json"
+          },
+          "scale": 0.3026,
+          "scaleFloor": 0.4199,
+          "triCount": 464
+        },
+        "sp": {
+          "files": {
+            "plan": "gi-tournament-pdt_studio-plan.png",
+            "flank": "gi-tournament-pdt_studio-flank.png",
+            "floor": "gi-tournament-pdt_studio-floor.png",
+            "floorshadow": "gi-tournament-pdt_studio-floorshadow.png",
+            "probes": "gi-tournament-pdt_studio-probes.json"
+          },
+          "scale": 0.3026,
+          "scaleFloor": 0.4199,
+          "triCount": 464
+        }
+      }
+    }
+  },
+  "tables": {
+    "snooker_12ft": {
+      "footprint": {
+        "length": 3.569,
+        "width": 1.778
+      },
+      "pocketless": false,
+      "sceneHash": "345999acdb31d25d",
+      "quick": false,
+      "bounds": {
+        "plan": {
+          "x0": -2.06,
+          "z0": -1.19,
+          "x1": 2.06,
+          "z1": 1.19,
+          "w": 320,
+          "h": 200
+        },
+        "floor": {
+          "x0": -4.5,
+          "z0": -3,
+          "x1": 4.5,
+          "z1": 3,
+          "w": 180,
+          "h": 120
+        }
+      },
+      "probes": {
+        "x0": -1.7845,
+        "z0": -0.889,
+        "nx": 15,
+        "nz": 8,
+        "dx": 0.25492857142857145,
+        "dz": 0.254,
+        "y": 0.02625
+      },
+      "looks": {
+        "default": {
+          "files": {
+            "plan": "gi-default-snooker_12ft-plan.png",
+            "flank": "gi-default-snooker_12ft-flank.png",
+            "floor": "gi-default-snooker_12ft-floor.png",
+            "floorshadow": "gi-default-snooker_12ft-floorshadow.png",
+            "probes": "gi-default-snooker_12ft-probes.json"
+          },
+          "scale": 0.5814,
+          "scaleFloor": 0.6236,
+          "triCount": 7906
+        },
+        "tournament": {
+          "files": {
+            "plan": "gi-tournament-snooker_12ft-plan.png",
+            "flank": "gi-tournament-snooker_12ft-flank.png",
+            "floor": "gi-tournament-snooker_12ft-floor.png",
+            "floorshadow": "gi-tournament-snooker_12ft-floorshadow.png",
+            "probes": "gi-tournament-snooker_12ft-probes.json"
+          },
+          "scale": 0.5756,
+          "scaleFloor": 0.6175,
+          "triCount": 7906
+        },
+        "sp": {
+          "files": {
+            "plan": "gi-tournament-snooker_12ft-plan.png",
+            "flank": "gi-tournament-snooker_12ft-flank.png",
+            "floor": "gi-tournament-snooker_12ft-floor.png",
+            "floorshadow": "gi-tournament-snooker_12ft-floorshadow.png",
+            "probes": "gi-tournament-snooker_12ft-probes.json"
+          },
+          "scale": 0.5756,
+          "scaleFloor": 0.6175,
+          "triCount": 7906
+        }
+      },
+      "fixtures": {
+        "snooker_luminaire": {
+          "sceneHash": "fcea45d045af7d64",
+          "quick": false,
+          "looks": {
+            "default": {
+              "files": {
+                "plan": "gi-default-snooker_12ft-snooker_luminaire-plan.png",
+                "flank": "gi-default-snooker_12ft-snooker_luminaire-flank.png",
+                "floor": "gi-default-snooker_12ft-snooker_luminaire-floor.png",
+                "floorshadow": "gi-default-snooker_12ft-snooker_luminaire-floorshadow.png",
+                "probes": "gi-default-snooker_12ft-snooker_luminaire-probes.json"
+              },
+              "scale": 4.798,
+              "scaleFloor": 3.914,
+              "triCount": 7906
+            },
+            "tournament": {
+              "files": {
+                "plan": "gi-tournament-snooker_12ft-snooker_luminaire-plan.png",
+                "flank": "gi-tournament-snooker_12ft-snooker_luminaire-flank.png",
+                "floor": "gi-tournament-snooker_12ft-snooker_luminaire-floor.png",
+                "floorshadow": "gi-tournament-snooker_12ft-snooker_luminaire-floorshadow.png",
+                "probes": "gi-tournament-snooker_12ft-snooker_luminaire-probes.json"
+              },
+              "scale": 4.924,
+              "scaleFloor": 4.018,
+              "triCount": 7906
+            },
+            "sp": {
+              "files": {
+                "plan": "gi-tournament-snooker_12ft-snooker_luminaire-plan.png",
+                "flank": "gi-tournament-snooker_12ft-snooker_luminaire-flank.png",
+                "floor": "gi-tournament-snooker_12ft-snooker_luminaire-floor.png",
+                "floorshadow": "gi-tournament-snooker_12ft-snooker_luminaire-floorshadow.png",
+                "probes": "gi-tournament-snooker_12ft-snooker_luminaire-probes.json"
+              },
+              "scale": 4.924,
+              "scaleFloor": 4.018,
+              "triCount": 7906
+            }
+          }
+        }
+      }
+    },
+    "carom_284": {
+      "footprint": {
+        "length": 2.84,
+        "width": 1.42
+      },
+      "pocketless": true,
+      "sceneHash": "d874f17e7ab1c936",
+      "quick": false,
+      "bounds": {
+        "plan": {
+          "x0": -1.7,
+          "z0": -0.99,
+          "x1": 1.7,
+          "z1": 0.99,
+          "w": 320,
+          "h": 200
+        },
+        "floor": {
+          "x0": -4.5,
+          "z0": -3,
+          "x1": 4.5,
+          "z1": 3,
+          "w": 180,
+          "h": 120
+        }
+      },
+      "probes": {
+        "x0": -1.42,
+        "z0": -0.71,
+        "nx": 12,
+        "nz": 6,
+        "dx": 0.2581818181818182,
+        "dz": 0.284,
+        "y": 0.03075
+      },
+      "looks": {
+        "default": {
+          "files": {
+            "plan": "gi-default-carom_284-plan.png",
+            "flank": "gi-default-carom_284-flank.png",
+            "floor": "gi-default-carom_284-floor.png",
+            "floorshadow": "gi-default-carom_284-floorshadow.png",
+            "probes": "gi-default-carom_284-probes.json"
+          },
+          "scale": 0.6701,
+          "scaleFloor": 0.2552,
+          "triCount": 526
+        },
+        "tournament": {
+          "files": {
+            "plan": "gi-tournament-carom_284-plan.png",
+            "flank": "gi-tournament-carom_284-flank.png",
+            "floor": "gi-tournament-carom_284-floor.png",
+            "floorshadow": "gi-tournament-carom_284-floorshadow.png",
+            "probes": "gi-tournament-carom_284-probes.json"
+          },
+          "scale": 0.7852,
+          "scaleFloor": 0.2525,
+          "triCount": 526
+        },
+        "sp": {
+          "files": {
+            "plan": "gi-tournament-carom_284-plan.png",
+            "flank": "gi-tournament-carom_284-flank.png",
+            "floor": "gi-tournament-carom_284-floor.png",
+            "floorshadow": "gi-tournament-carom_284-floorshadow.png",
+            "probes": "gi-tournament-carom_284-probes.json"
+          },
+          "scale": 0.7852,
+          "scaleFloor": 0.2525,
+          "triCount": 526
+        }
+      },
+      "fixtures": {
+        "carom_luminaire": {
+          "sceneHash": "b3e131c08335c5e4",
+          "quick": false,
+          "looks": {
+            "default": {
+              "files": {
+                "plan": "gi-default-carom_284-carom_luminaire-plan.png",
+                "flank": "gi-default-carom_284-carom_luminaire-flank.png",
+                "floor": "gi-default-carom_284-carom_luminaire-floor.png",
+                "floorshadow": "gi-default-carom_284-carom_luminaire-floorshadow.png",
+                "probes": "gi-default-carom_284-carom_luminaire-probes.json"
+              },
+              "scale": 1.21,
+              "scaleFloor": 0.4214,
+              "triCount": 526
+            },
+            "tournament": {
+              "files": {
+                "plan": "gi-tournament-carom_284-carom_luminaire-plan.png",
+                "flank": "gi-tournament-carom_284-carom_luminaire-flank.png",
+                "floor": "gi-tournament-carom_284-carom_luminaire-floor.png",
+                "floorshadow": "gi-tournament-carom_284-carom_luminaire-floorshadow.png",
+                "probes": "gi-tournament-carom_284-carom_luminaire-probes.json"
+              },
+              "scale": 1.241,
+              "scaleFloor": 0.4322,
+              "triCount": 526
+            },
+            "sp": {
+              "files": {
+                "plan": "gi-tournament-carom_284-carom_luminaire-plan.png",
+                "flank": "gi-tournament-carom_284-carom_luminaire-flank.png",
+                "floor": "gi-tournament-carom_284-carom_luminaire-floor.png",
+                "floorshadow": "gi-tournament-carom_284-carom_luminaire-floorshadow.png",
+                "probes": "gi-tournament-carom_284-carom_luminaire-probes.json"
+              },
+              "scale": 1.241,
+              "scaleFloor": 0.4322,
+              "triCount": 526
+            }
+          }
+        }
+      }
+    },
+    "chinese8_9ft": {
+      "footprint": {
+        "length": 2.54,
+        "width": 1.26
+      },
+      "pocketless": false,
+      "sceneHash": "c68a8182be15036d",
+      "quick": false,
+      "bounds": {
+        "plan": {
+          "x0": -1.7,
+          "z0": -0.99,
+          "x1": 1.7,
+          "z1": 0.99,
+          "w": 320,
+          "h": 200
+        },
+        "floor": {
+          "x0": -4.5,
+          "z0": -3,
+          "x1": 4.5,
+          "z1": 3,
+          "w": 180,
+          "h": 120
+        }
+      },
+      "probes": {
+        "x0": -1.27,
+        "z0": -0.63,
+        "nx": 12,
+        "nz": 6,
+        "dx": 0.23090909090909092,
+        "dz": 0.252,
+        "y": 0.028575
+      },
+      "looks": {
+        "default": {
+          "files": {
+            "plan": "gi-default-chinese8_9ft-plan.png",
+            "flank": "gi-default-chinese8_9ft-flank.png",
+            "floor": "gi-default-chinese8_9ft-floor.png",
+            "floorshadow": "gi-default-chinese8_9ft-floorshadow.png",
+            "probes": "gi-default-chinese8_9ft-probes.json"
+          },
+          "scale": 0.9597,
+          "scaleFloor": 0.377,
+          "triCount": 4970
+        },
+        "tournament": {
+          "files": {
+            "plan": "gi-tournament-chinese8_9ft-plan.png",
+            "flank": "gi-tournament-chinese8_9ft-flank.png",
+            "floor": "gi-tournament-chinese8_9ft-floor.png",
+            "floorshadow": "gi-tournament-chinese8_9ft-floorshadow.png",
+            "probes": "gi-tournament-chinese8_9ft-probes.json"
+          },
+          "scale": 0.9501,
+          "scaleFloor": 0.3731,
+          "triCount": 4970
+        },
+        "sp": {
+          "files": {
+            "plan": "gi-tournament-chinese8_9ft-plan.png",
+            "flank": "gi-tournament-chinese8_9ft-flank.png",
+            "floor": "gi-tournament-chinese8_9ft-floor.png",
+            "floorshadow": "gi-tournament-chinese8_9ft-floorshadow.png",
+            "probes": "gi-tournament-chinese8_9ft-probes.json"
+          },
+          "scale": 0.9501,
+          "scaleFloor": 0.3731,
+          "triCount": 4970
+        }
+      },
+      "fixtures": {
+        "joy_lowrect": {
+          "sceneHash": "6c9db6ad7e5a4f91",
+          "quick": false,
+          "looks": {
+            "default": {
+              "files": {
+                "plan": "gi-default-chinese8_9ft-joy_lowrect-plan.png",
+                "flank": "gi-default-chinese8_9ft-joy_lowrect-flank.png",
+                "floor": "gi-default-chinese8_9ft-joy_lowrect-floor.png",
+                "floorshadow": "gi-default-chinese8_9ft-joy_lowrect-floorshadow.png",
+                "probes": "gi-default-chinese8_9ft-joy_lowrect-probes.json"
+              },
+              "scale": 1.208,
+              "scaleFloor": 0.4817,
+              "triCount": 4970
+            },
+            "tournament": {
+              "files": {
+                "plan": "gi-tournament-chinese8_9ft-joy_lowrect-plan.png",
+                "flank": "gi-tournament-chinese8_9ft-joy_lowrect-flank.png",
+                "floor": "gi-tournament-chinese8_9ft-joy_lowrect-floor.png",
+                "floorshadow": "gi-tournament-chinese8_9ft-joy_lowrect-floorshadow.png",
+                "probes": "gi-tournament-chinese8_9ft-joy_lowrect-probes.json"
+              },
+              "scale": 1.239,
+              "scaleFloor": 0.4942,
+              "triCount": 4970
+            },
+            "sp": {
+              "files": {
+                "plan": "gi-tournament-chinese8_9ft-joy_lowrect-plan.png",
+                "flank": "gi-tournament-chinese8_9ft-joy_lowrect-flank.png",
+                "floor": "gi-tournament-chinese8_9ft-joy_lowrect-floor.png",
+                "floorshadow": "gi-tournament-chinese8_9ft-joy_lowrect-floorshadow.png",
+                "probes": "gi-tournament-chinese8_9ft-joy_lowrect-probes.json"
+              },
+              "scale": 1.239,
+              "scaleFloor": 0.4942,
+              "triCount": 4970
+            }
+          }
+        }
+      }
+    },
+    "pool_8ft": {
+      "footprint": {
+        "length": 2.286,
+        "width": 1.143
+      },
+      "pocketless": false,
+      "sceneHash": "fbb7cc721cc22227",
+      "quick": false,
+      "bounds": {
+        "plan": {
+          "x0": -1.44,
+          "z0": -0.9,
+          "x1": 1.44,
+          "z1": 0.9,
+          "w": 320,
+          "h": 200
+        },
+        "floor": {
+          "x0": -4.5,
+          "z0": -3,
+          "x1": 4.5,
+          "z1": 3,
+          "w": 180,
+          "h": 120
+        }
+      },
+      "probes": {
+        "x0": -1.143,
+        "z0": -0.5715,
+        "nx": 11,
+        "nz": 6,
+        "dx": 0.2286,
+        "dz": 0.2286,
+        "y": 0.028575
+      },
+      "looks": {
+        "default": {
+          "files": {
+            "plan": "gi-default-pool_8ft-plan.png",
+            "flank": "gi-default-pool_8ft-flank.png",
+            "floor": "gi-default-pool_8ft-floor.png",
+            "floorshadow": "gi-default-pool_8ft-floorshadow.png",
+            "probes": "gi-default-pool_8ft-probes.json"
+          },
+          "scale": 0.1941,
+          "scaleFloor": 0.447,
+          "triCount": 422
+        },
+        "tournament": {
+          "files": {
+            "plan": "gi-tournament-pool_8ft-plan.png",
+            "flank": "gi-tournament-pool_8ft-flank.png",
+            "floor": "gi-tournament-pool_8ft-floor.png",
+            "floorshadow": "gi-tournament-pool_8ft-floorshadow.png",
+            "probes": "gi-tournament-pool_8ft-probes.json"
+          },
+          "scale": 0.2479,
+          "scaleFloor": 0.3063,
+          "triCount": 422
+        },
+        "sp": {
+          "files": {
+            "plan": "gi-tournament-pool_8ft-plan.png",
+            "flank": "gi-tournament-pool_8ft-flank.png",
+            "floor": "gi-tournament-pool_8ft-floor.png",
+            "floorshadow": "gi-tournament-pool_8ft-floorshadow.png",
+            "probes": "gi-tournament-pool_8ft-probes.json"
+          },
+          "scale": 0.2479,
+          "scaleFloor": 0.3063,
+          "triCount": 422
+        }
+      }
+    },
+    "pool_7ft": {
+      "footprint": {
+        "length": 2.032,
+        "width": 1.016
+      },
+      "pocketless": false,
+      "sceneHash": "9d6b23a2fc41f77f",
+      "quick": false,
+      "bounds": {
+        "plan": {
+          "x0": -1.31,
+          "z0": -0.83,
+          "x1": 1.31,
+          "z1": 0.83,
+          "w": 320,
+          "h": 200
+        },
+        "floor": {
+          "x0": -4.5,
+          "z0": -3,
+          "x1": 4.5,
+          "z1": 3,
+          "w": 180,
+          "h": 120
+        }
+      },
+      "probes": {
+        "x0": -1.016,
+        "z0": -0.508,
+        "nx": 11,
+        "nz": 6,
+        "dx": 0.2032,
+        "dz": 0.2032,
+        "y": 0.028575
+      },
+      "looks": {
+        "default": {
+          "files": {
+            "plan": "gi-default-pool_7ft-plan.png",
+            "flank": "gi-default-pool_7ft-flank.png",
+            "floor": "gi-default-pool_7ft-floor.png",
+            "floorshadow": "gi-default-pool_7ft-floorshadow.png",
+            "probes": "gi-default-pool_7ft-probes.json"
+          },
+          "scale": 0.2656,
+          "scaleFloor": 0.4366,
+          "triCount": 422
+        },
+        "tournament": {
+          "files": {
+            "plan": "gi-tournament-pool_7ft-plan.png",
+            "flank": "gi-tournament-pool_7ft-flank.png",
+            "floor": "gi-tournament-pool_7ft-floor.png",
+            "floorshadow": "gi-tournament-pool_7ft-floorshadow.png",
+            "probes": "gi-tournament-pool_7ft-probes.json"
+          },
+          "scale": 0.2469,
+          "scaleFloor": 0.2991,
+          "triCount": 422
+        },
+        "sp": {
+          "files": {
+            "plan": "gi-tournament-pool_7ft-plan.png",
+            "flank": "gi-tournament-pool_7ft-flank.png",
+            "floor": "gi-tournament-pool_7ft-floor.png",
+            "floorshadow": "gi-tournament-pool_7ft-floorshadow.png",
+            "probes": "gi-tournament-pool_7ft-probes.json"
+          },
+          "scale": 0.2469,
+          "scaleFloor": 0.2991,
+          "triCount": 422
+        }
+      }
+    }
+  }
+}

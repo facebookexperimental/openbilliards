@@ -1,0 +1,280 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* help.css — 024 help overlay skin. LEAF stylesheet, injected by
+   web/app/help.js as a <link> carrying ?v=<HELP_CSS_V> — bump the constant
+   IN help.js on EVERY edit here (the ownership ledger CSS addendum: DOM and skin can
+   never drift). Colors/sizes consume --ob-* tokens ONLY (tokens.css owns the
+   definitions; CI grep-gates hardcoded colors). Rules are scoped to the
+   .ob-help panel family + the #ob-help toolbar pill; selector contract
+   (FROZEN): the help-overlay contract (feature 024, internal) §6.
+   Geometry per research R2: 920px cap, internal body scroll, the close
+   control always on-screen at the macOS shell's 1024×640 floor. Labels and
+   cells WRAP, never ellipsize (kit audit law; de/fr are the stress
+   locales). Reduced-motion safe by construction: disclosures toggle
+   `hidden`, panel motion rides the kit; the only transitions here are
+   pointer feedback + the chevron, both zeroed under the media query. */
+
+/* ---- toolbar pill: the #ob-gear register (34px round icon-only pill, one
+   toolbar family). The fixed offset is the stale-app.html fallback ONLY —
+   `#ob-toolbar > * { position: static !important; }` neutralizes it once
+   containered. Below the gear's slot (gear owns top:10/right:10). ---- */
+/* GH-668 B-K16: the pill is the kit toolbar part (help.js stamps
+   .ob-btn.ob-btn--icon.ob-btn--glass.ob-toolbar-pill; kit.css owns the
+   material, rungs, face law, coarse 44 and reduced motion) — this sheet
+   keeps the stale-app.html fallback slot only. */
+#ob-help {
+  position: fixed;
+  top: 54px;
+  right: 10px;
+}
+
+/* ---- panel frame (kit .ob-panel supplies the glass register; this sheet
+   owns placement + internal layout — centered like .ob-confirm, above the
+   z:40 chrome and the z:60 export wrapper) ---- */
+.ob-help {
+  position: fixed;
+  inset: 0;
+  margin: auto; /* centered via margins — motion.js owns transform */
+  z-index: 70;
+  width: min(920px, calc(100vw - 2 * var(--ob-sp-4)));
+  height: fit-content;
+  max-height: calc(100vh - 2 * var(--ob-sp-4));
+  display: flex;
+  flex-direction: column;
+  padding: 0; /* .ob-panel padding redistributed to head/body */
+  overflow: hidden; /* the body scrolls internally, the frame never */
+}
+
+.ob-help__head {
+  flex: 0 0 auto; /* the close control never scrolls off-screen (R2) */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ob-sp-3);
+  padding: var(--ob-sp-4) var(--ob-sp-5);
+  border-bottom: 1px dashed var(--ob-line-0);
+}
+.ob-help__head h2 {
+  margin: 0;
+  font-size: var(--ob-fs-1);
+  font-weight: var(--ob-fw-semi);
+  line-height: var(--ob-lh-tight);
+  color: var(--ob-text-0);
+}
+/* #ob-help-close (GH-245 close unification): the bespoke 28px circle block
+   that lived here is RETIRED — the button now carries the kit's
+   `.ob-btn .ob-btn--ghost .ob-btn--icon` (help.js), so the 34px/44pt
+   geometry, the ghost voice, every hover/active rung, the focus ring and
+   the face centring are all the kit's. The face span still needs its own
+   centring for the STALE-KIT pairing (a cached pre---icon kit.css leaves
+   the button an unclassed pill; the span law keeps its glyph level — the
+   #49 belt, kept). */
+.ob-help #ob-help-close span { display: inline-flex; align-items: center; }
+
+.ob-help__body {
+  min-height: 0; /* flex child may shrink → internal scroll */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--ob-sp-2) var(--ob-sp-5) var(--ob-sp-5);
+}
+
+/* ---- disclosure sections (data-model §3: button[aria-expanded] header +
+   hidden-toggled region — asserted directly by e2e/audit) ---- */
+.ob-help section[data-section] {
+  border-bottom: 1px dashed var(--ob-line-0);
+}
+.ob-help section[data-section]:last-of-type { border-bottom: 0; }
+
+.ob-help__disclose {
+  /* overrides kit.css's generic panel pill-button recipe (:where() — zero
+     specificity by design) into a full-width caps section header */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ob-sp-3);
+  margin: 0;
+  padding: var(--ob-sp-3) 0;
+  background: none;
+  border: 0;
+  border-radius: var(--ob-r-s);
+  color: var(--ob-text-0);
+  font-size: var(--ob-fs-0);
+  font-weight: var(--ob-fw-semi);
+  letter-spacing: var(--ob-track-caps);
+  text-transform: uppercase;
+  text-align: left;
+  cursor: pointer;
+}
+.ob-help__disclose:hover { background: none; color: var(--ob-accent-text); }
+.ob-help__chev {
+  flex: 0 0 auto;
+  /* square centered box: the collapsed state rotates this glyph -90deg,
+     and a transformed descendant's visual bounds JOIN the scrollable
+     overflow area — a tall text box (8x21 at fs-0 line-height) rotated
+     sideways sticks ~7px past the row edge and trips the never-clips
+     audit walker (integration ledger: T025 --audit finding). A square
+     rotates onto itself: zero overflow in either state. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  line-height: 1;
+  color: var(--ob-text-2);
+  transition: transform var(--ob-t-fast) var(--ob-ease);
+}
+.ob-help__disclose[aria-expanded="false"] .ob-help__chev {
+  transform: rotate(-90deg);
+}
+
+/* mouse/trackpad non-detection disclaimer (help.pointerNote): rendered in
+   the fine-pointer group header area, visible in both modes */
+.ob-help__note {
+  margin: 0 0 var(--ob-sp-3);
+  color: var(--ob-text-2);
+  font-size: var(--ob-fs--1);
+  line-height: var(--ob-lh-body);
+}
+
+.ob-help__region { padding: 0 0 var(--ob-sp-4); }
+
+/* ---- controls tables (gesture → effect) ---- */
+.ob-help__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--ob-fs-0);
+}
+.ob-help__table th,
+.ob-help__table td {
+  padding: var(--ob-sp-2) 0;
+  vertical-align: top;
+  text-align: left;
+  overflow-wrap: break-word; /* wrap, NEVER ellipsize (audit law) */
+  line-height: var(--ob-lh-body);
+}
+.ob-help__table th {
+  width: 36%;
+  padding-right: var(--ob-sp-4);
+  color: var(--ob-text-0);
+  font-weight: var(--ob-fw-med);
+}
+.ob-help__table td { color: var(--ob-text-1); }
+.ob-help__table tr + tr th,
+.ob-help__table tr + tr td { border-top: 1px dashed var(--ob-line-0); }
+
+/* ---- flow primer (ordered list, 1–7, shipped turn order) ---- */
+.ob-help__flow {
+  margin: 0;
+  padding-left: var(--ob-sp-5);
+  display: grid;
+  gap: var(--ob-sp-3);
+  font-size: var(--ob-fs-0);
+}
+.ob-help__flow li::marker {
+  color: var(--ob-accent-text);
+  font-weight: var(--ob-fw-semi);
+}
+.ob-help__flow b {
+  display: block;
+  color: var(--ob-text-0);
+  font-weight: var(--ob-fw-med);
+}
+.ob-help__flowdesc { color: var(--ob-text-1); line-height: var(--ob-lh-body); }
+
+/* ---- games at a glance (definition list: shipped game.<id> name + the
+   one-sentence objective) ---- */
+.ob-help__games {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
+  gap: var(--ob-sp-2) var(--ob-sp-4);
+  font-size: var(--ob-fs-0);
+}
+.ob-help__games dt { color: var(--ob-text-0); font-weight: var(--ob-fw-med); }
+.ob-help__games dd {
+  margin: 0;
+  color: var(--ob-text-1);
+  line-height: var(--ob-lh-body);
+}
+
+/* ---- optional footer links (research R5: scheme gate + same-origin
+   HEAD probe — help.js toggles `hidden`; never rendered in the shells):
+   the full guide + the project-site backlink, one shared register so the
+   pair reads as a single footer row ---- */
+.ob-help__guide,
+.ob-help__site {
+  display: inline-flex;
+  align-items: center;
+  margin-top: var(--ob-sp-4);
+  /* chalk info voice (#49 accent rationing, re-read under #59): a hyperlink
+     is citation/info, not game action — links stay on the QUIET info rungs
+     while action/selection speaks the brighter accent rungs of the same
+     chalk hue (the design charter bridge; one hue, two registers) */
+  color: var(--ob-info-text);
+  font-size: var(--ob-fs-0);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* a token gap separates the row's two links (both gated by the same probe,
+   so they only ever appear together) */
+.ob-help__site { margin-left: var(--ob-sp-4); }
+.ob-help__guide:hover,
+.ob-help__site:hover { color: var(--ob-info-hi); }
+/* F1 fix (fix-024-f1, delivery-record §4): the display rule above defeats
+   the UA [hidden] default, so the dead anchor rendered under app:// and
+   web/-alone serves. Re-pin the hidden semantics explicitly. */
+.ob-help__guide[hidden],
+.ob-help__site[hidden] { display: none; }
+
+/* ---- narrow fine-pointer band (settings-modal 820px precedent): the games
+   grid stacks so long localized names never starve the sentence column ---- */
+@media (max-width: 820px) {
+  .ob-help__games { grid-template-columns: minmax(0, 1fr); }
+  .ob-help__games dd { margin: 0 0 var(--ob-sp-2); }
+}
+
+/* ==== PHONE SHEET (014 phone-hud law, settings-modal precedent): DOUBLY
+   gated — .ob-touch root class (set only by touch.js installTouch) AND
+   (pointer: coarse) — fine-pointer computed styles stay byte-identical.
+   Same DOM, restyled as a full-height sheet; portrait keeps the #ob-rotate
+   prompt's precedence untouched (it overlays at its own z-order). ==== */
+@media (pointer: coarse) {
+  .ob-touch .ob-help {
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+    border: 0;
+  }
+  .ob-touch .ob-help .ob-help__head {
+    padding: calc(env(safe-area-inset-top, 0px) + var(--ob-sp-3))
+      calc(env(safe-area-inset-right, 0px) + var(--ob-sp-4))
+      var(--ob-sp-3)
+      calc(env(safe-area-inset-left, 0px) + var(--ob-sp-4));
+  }
+  .ob-touch .ob-help .ob-help__body {
+    touch-action: pan-y;
+    padding: var(--ob-sp-2)
+      calc(env(safe-area-inset-right, 0px) + var(--ob-sp-4))
+      calc(env(safe-area-inset-bottom, 0px) + var(--ob-sp-4))
+      calc(env(safe-area-inset-left, 0px) + var(--ob-sp-4));
+  }
+  /* 44pt touch-target floors (014 tap-target law) for every interactive
+     element inside the overlay */
+  .ob-touch .ob-help .ob-help__disclose { min-height: 44px; }
+  .ob-touch .ob-help #ob-help-close { width: 44px; height: 44px; }
+  .ob-touch .ob-help .ob-help__guide,
+  .ob-touch .ob-help .ob-help__site { min-height: 44px; }
+  /* the toolbar pill itself joins the gear's coarse-pointer register
+     (touch.css `html.ob-touch #ob-toolbar > #ob-gear` 44px precedent,
+     phone AND tablet bands) — same double gate: .ob-touch root class +
+     (pointer: coarse). Covers the fixed-offset fallback placement too
+     (integration ledger: T025 --audit 44pt tap-floor finding). */
+  /* (the pill's coarse 44 circle + fs-3 fallback glyph are the kit's since
+     GH-668 B-K16) */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ob-help__chev { transition: none; }
+}

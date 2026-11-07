@@ -1,0 +1,1974 @@
+{
+  "schema": "d621-cushion-law/1",
+  "tag": "DERIVED",
+  "title": "ORDER-D621-O22-C4B: owner-selected Rasson MODEL nose radius; Diamond cage foot and lean retained",
+  "principle": "Values are measured in process from the archived renderer's fresh scene dumps. No result-file input, missing-value pass, threshold override or tolerance amendment. C4B owner option b binds row e to the existing Rasson CU-09 MODEL scalar receipt; actual OURS B fits are measured independently. Exact B ladders still decide f/j against the Diamond cage, with unchanged PREP secondary columns.",
+  "decision": "C4B owner option b adopts only the unscaled Rasson OX CU-09 MODEL nose radius, through the committed leaf and confirmed station receipt. The previous Diamond control-cage radius is historical TESSELLATION. R1 back lean and R3 foot retain C2 TESSELLATION, with no new ruling; R4/R5, the crease and every kernel datum remain unchanged.",
+  "numeric_provenance": "Targets below carry their own tag. Every threshold and expected count is DERIVED verbatim from ORDER-D621-O22 section 4, not fitted to this implementation. Sampling is TESSELLATION as fixed by the PREP reader. Diagnostic floating-point guards are CLEARANCE, not verdict tolerances.",
+  "measurement_method": {
+    "tag": "DERIVED",
+    "ruling": "ORDER-D621-O22-C4B, owner option b, 2026-09-10: row e compares all 144 resolved OURS B nose fits with the unscaled, receipt-bound Rasson CU-09 MODEL scalar. Diamond cage radius fits remain non-deciding diagnostics. The radius bar, all sampling counts, f/j instruments, other targets and WASM pin are unchanged.",
+    "deciding_rows": [
+      "e",
+      "f_p90",
+      "f_max",
+      "j"
+    ],
+    "sectioner": "The same section_dz / objlib.section triangle-plane intersections and exact segment crossings for MODEL and OURS, at the same six-rail, eight-station ordinal grid with the unchanged end margin.",
+    "radius_fit": "OURS retains the original B centered least-squares fit on actual section vertices within geometry-derived shoulder support. The target is the confirmed Rasson CU-09 scalar at the pinned commit, from its existing 32-station replication receipt; Rasson geometry is not remeasured. Diamond cage face-tangent and B apex fits are recorded only as historical diagnostics.",
+    "model_reference": "The Diamond cage still supplies the unchanged exact-B f/j comparison and other cage diagnostics on the six-rail/eight-station grid. The separately cited Rasson MODEL receipt decides only e; no Diamond cage radius or nominal renderer value substitutes for it.",
+    "secondary": "PREP one-mm chord radii and windowed ladders remain per station and beside e/f/j, explicitly non-deciding. Historical PREP e keeps its 1.2 mm reference solely to preserve the prior secondary column; h retains its standing trace method with the new MODEL-derived entry radius.",
+    "reason": "The one-mm depth band extends beyond the nose facets/arc into the sloping tangent faces, so its vertical span is not a circular chord; the inverse-chord formula over-read the MODEL itself as 1.18 mm as well as biasing OURS upward.",
+    "identifiability": "Every OURS radius fit must resolve with finite support. Missing, disconnected, collinear, flat-apex or ambiguous-shoulder sections are UNRESOLVED. An unresolved fit contributes a non-passing sample; no nominal fill, dropped station or tolerance change. Rasson leaf/receipt, all three CU-11 leaves, the law target and the generated served leaf must bind exactly.",
+    "radius_derivation": "With inward unit face normals N and offsets k, a tangent circle center satisfies N*C=k+r, hence C=C0+r*v. For each actual facet vertex P_i, the residual |P_i-C|^2-r^2 is quadratic in r. Minimize the sum of squared residuals by evaluating all positive real roots of its cubic derivative. Report radius spread across 48 stations and per-station radial rms/tangency error; no arbitrary triangle-edge crossing is a facet vertex.",
+    "secondary_radius_reference_mm": {
+      "value": 1.2,
+      "tag": "DERIVED",
+      "source": "Historical O22 PREP column reference only; never a deciding constant."
+    },
+    "model_tessellation_note": {
+      "tag": "TESSELLATION",
+      "source": "The existing 24 nose arc rows are unchanged. C4B changes only their radius to the owner-selected, unscaled Rasson CU-09 value; the old Diamond cage face-tangent radius remains a non-deciding historical diagnostic.",
+      "arc_rows": 24,
+      "proposal_radius_mm": 0.5,
+      "approx_proposal_arc_per_row_mm": 0.03
+    }
+  },
+  "ruled_red_rows": {
+    "tag": "DERIVED",
+    "f_p90": {
+      "status": "RED-BY-LAW",
+      "source": "Maintainer FIX1 checkpoint ruling on PR #733 / 1f3f52724, 2026-09-09, item 1",
+      "accepted": true,
+      "ruling": "The retained MFR CU-08 cloth-relief crease is absent from the purchased model. Row f remains RED-BY-LAW, not PASS: keep its measured value, station spread and crease geometry next to R1/R2 on the card. Do not re-derive the MODEL target, subtract the crease, change a threshold or discard a sample.",
+      "component_description": "The ruling describes the crease contribution as approximately +0.43-0.48 mm. Report the complete measured f residual separately; this description is neither a replacement target nor a subtraction.",
+      "characterized_inputs": {
+        "tag": "DERIVED",
+        "commit": "c73f5bafaa02712818d6439a9ea60e33d37de942",
+        "table_js_sha256": "7e6b0f0a2f76351cecd5d0e243e826b28fe3208381afd24448e44b0749fe9120",
+        "node": "v22.23.1",
+        "instrument": {
+          "guard": "tools/render/d621/plan/f_input_guard_621.mjs",
+          "dump": "tools/render/d621/plan/offline_scene_dump_621.mjs"
+        },
+        "note": "f's input meshes (cushion_profile_621.py ours_rails: dm-cushion-0..5 and dm-railtop-0..5) of the characterized commit, built headless under the pinned runtime: sha256 of Float64 world positions + Uint32 indices, the gate's mesh_fence formula. The same digests come from node v26.3.1's build and from the app captures of fe70f037 (D-3e card) and of the re-pin tree (2026-10-19).",
+        "meshes": {
+          "7ft": {
+            "dm-cushion-0": "6f11ebcc435b3acf110ee9a3f2b2b6c928638893a9c2a8125d92338ea99a2688",
+            "dm-cushion-1": "acbabe94c2ee6755e6d61990f7b910eca89e2932f878cf0aec0e29717e74b0fe",
+            "dm-cushion-2": "f605d307b95abac3ee4d5216bca16476ac8371ac93bba0871f9688bcf507d1b0",
+            "dm-cushion-3": "6b9989fd9c7f37051183b6973e60193c50e22a76445d52dffc51f51d5809cd03",
+            "dm-cushion-4": "eeb7dd81a6f55401f494182a6fdeeb5ceb696ab704d9bd61e8b382ce30453525",
+            "dm-cushion-5": "b984cbacc9d505c81e3fb92958569d1b86804b3b869a27f4ac91f5c6e0f989e3",
+            "dm-railtop-0": "3a254f3cb3c925e46e2f36b60ab9f80d73be887e107d4a7df402907a2779cf6a",
+            "dm-railtop-1": "8a1fa80e921d7b909f7879c81728bc6851f3ff63ca1d68126aec28fa932d317c",
+            "dm-railtop-2": "131c254af345ee017e30c28caa848cc05632a95edef90af6483b41dd4f044e69",
+            "dm-railtop-3": "e0d6ba41c22f47c27e1da842d0b377fe7e1244363ba292a4432ddac26250b762",
+            "dm-railtop-4": "f28074ca907eb4dd63864fb1a81c5c5dc6fb92ef6867874c4e598372c0bbeb40",
+            "dm-railtop-5": "44bb0c2760fac8523dc2f5f47edadb20e0ec4e72a9b56b43fa88245f6891becf"
+          },
+          "8ft": {
+            "dm-cushion-0": "b2fe9a27ac229471fa7632a24a7c2f3141dc7e4d12a6b71a29dd0ec9a5cfeb1b",
+            "dm-cushion-1": "f17af6eac9594c526266929dcbf91290412a65ab2b49517df505865ab11db2b3",
+            "dm-cushion-2": "b7ba7136a78baab73f59a4fecf7885a2c791ee84b265b6d470aa8b550f7b68a3",
+            "dm-cushion-3": "45186166566678c64208b8288c320ab5c9e4c48b295835bf76bd546afb9e6c47",
+            "dm-cushion-4": "d9eef020c875618eeda692201cb6c88ebef25436a01c61d1119b9be786355859",
+            "dm-cushion-5": "4ada342c6f968592b794826da92455f801f8ee527d45cb96cf4935516f9bd51c",
+            "dm-railtop-0": "044ef5086baf8f66e381e7611083ea72e8b96a2bd12c3e6c51152970d573531c",
+            "dm-railtop-1": "bcf2f0c84a720dc045b280c735d6c9576875d549566e5e65d2b21ff5514f0683",
+            "dm-railtop-2": "b0be179c441d21784788af481503f1d71f7fba52d2ec253891192ff0c79d29a7",
+            "dm-railtop-3": "40b64387f10b9066060263868c51a22408af01c2343138c1ba72f9337b8bee56",
+            "dm-railtop-4": "221ac8425811174bf7cea1ead6d4a146301629851a142c3f27ee672bedd8e1db",
+            "dm-railtop-5": "4bff82563c90fd2f91b76033acd39dca4ace25b2641f9af65904534aa2ebf4e1"
+          },
+          "9ft": {
+            "dm-cushion-0": "53cea2e0816b52dde931e790e394ec0ff77f83263628869679f4d666ea19c109",
+            "dm-cushion-1": "962a3f1715f36eaccaf1c13c5ea4bd3a1c57901310d6b1c29c475e71d034b7ab",
+            "dm-cushion-2": "e6d4e3dce8edb485abc0b40ee345145a7d4944b298ae1610cdab47558e402c61",
+            "dm-cushion-3": "e052697fd164007a436d230a34844ef3613cbb5a5e85a0980d58f7631b91f40f",
+            "dm-cushion-4": "69b70e916ddb680f00638be158abbe0842845cfb4ae7e8b86d1c5c199380e00d",
+            "dm-cushion-5": "58bd444702e20537c38b03d6f84b254afdf0a0d87d19a7106422ca0e8828985f",
+            "dm-railtop-0": "8beea9773db666c05c5c53b1d4f567e8a48bab401f11d0f51d308459079c0558",
+            "dm-railtop-1": "bb8c8dd59b9dd7f4086f7f23672b6b259b995e4d1c05829eb8ea1ceaf9ea359c",
+            "dm-railtop-2": "ef775c9b9289ccb755d16ba77b5f32702bff0a1b8a0b961385829946c6783366",
+            "dm-railtop-3": "189465d86bbbb8584c45c9e2e108f74e0d9736684fdb7568a0129ff0ea105f29",
+            "dm-railtop-4": "7f5b19794b59e1c9897db173338388fccb3f4827ed6fbb30f744f0f64df9fd93",
+            "dm-railtop-5": "eec6c26663b3eab20f3310fc743dab0274764e7b4b22ae84a45908b4ab699105"
+          }
+        }
+      },
+      "binding": "Applies only to OURS geometry whose f input meshes (dm-cushion-0..5 and dm-railtop-0..5 at 7 / 8 / 9 ft) are byte-identical to characterized_inputs, a complete finite f sample and the observed retained crease. f_input_guard_621.mjs enforces the geometry continuity on every change; the archive gate checks the same digests on its app dumps. A table.js edit that leaves those meshes byte-identical keeps the disposition; a change to any of them re-measures f and re-binds. Historical bindings are provenance, not an allowlist: the pre-O22 and four-mm scratch renderers cannot inherit this disposition. All other gate rows still decide normally.",
+      "rebinding": {
+        "tag": "DERIVED",
+        "source": "GH-621 f renderer re-pin after the table.js drift since D-3e (maintainer routing 2026-10-18), identity-carried (every Diamond mesh)",
+        "reason": "web/scene/table.js changed in 96 commits (85 non-merge) in the revision range fe70f037..c73f5baf (reachability counts; the range includes older side-branch work) without a re-pin; main's copy first changed after #644 at #642 (2026-09-21) and has changed 12 times on main since #644, unnoticed because test_cushion_gate_621 is not CI-wired (found red at main c73f5baf on 2026-10-18). The Diamond Pro-Am geometry did not change. (1) The committed fence pin cushion_mesh_fence_621.json equals the recorded real-app capture of fe70f037 (the D-3e card run) on every mesh, 127 / 127 / 148 at 7 / 8 / 9 ft. (2) A headless full-scene dump (offline_scene_dump_621.mjs, each tree with its own copy) of fe70f037 and of c73f5baf is byte-identical on every mesh, 127 / 127 / 148, f's exact-B inputs dm-cushion-0..5 and dm-railtop-0..5 included. (3) The seven meshes the headless instrument does not reproduce app-exactly (dm-bootcollar-* at every size, dm-bed-cloth at 7 and 9 ft) are built by code that is byte-identical at both trees (the diamondPocket block, the collar helpers, proamBedPath and the non-cn8 bed branch) and read no canvas: the collar gap is the app's asynchronous cuestick capability swap (915 -> 1275 vertices) and the bed-cloth gap a one-ulp Math.atan2 difference between the browser engine and node at one operand pair; the earlier 'canvas-sampled' wording for these meshes is a misattribution. (4) An app capture of the re-pin tree (dump-ours-621.mjs, the card's instrument, on a clean export whose web/ is main c73f5baf's; pinned chrome-headless-shell 151.0.7922.71; 2026-10-19T00:36Z) equals the fence pin on every mesh, 127 / 127 / 148 at 7 / 8 / 9 ft, the seven app-only meshes included. So f's sections are unchanged and the RED-BY-LAW disposition binds to the new bytes with its value carried (O22-C2 form). The purchased-model archive gate was not re-run: the quarantine OBJ set is not on this host.",
+        "previous_renderer_sha256": "8c4eca65ac0ee67aa0414a480f458e2404491b3278b6aa5941e7e157bb16e628",
+        "renderer_sha256": "7e6b0f0a2f76351cecd5d0e243e826b28fe3208381afd24448e44b0749fe9120",
+        "measurement": {
+          "tag": "TESSELLATION",
+          "method": "Unmodified exact B OURS minus Diamond control cage at all ordered heights; no crease subtraction",
+          "p90_mm": 0.412844468798653,
+          "n": 816,
+          "station_count": 48,
+          "station_p90_spread": {
+            "n": 48,
+            "mean": 0.40678418869599925,
+            "rms": 0.018538229098298876,
+            "p50": 0.41491770716661447,
+            "p90": 0.41557625143336735,
+            "max": 0.4156094612462084,
+            "min": 0.364977197749954
+          },
+          "ours_crease_stations": 48,
+          "model_crease_stations": 0,
+          "measurement_provenance": {
+            "record": "FIX7 WHATIF-MEASUREMENTS.json",
+            "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+            "measurement_path": "reference.cage.ladders.under_ladder",
+            "mode": "TESSELLATION CAGE READ",
+            "unapplied_modifiers": [
+              "TurboSmooth",
+              "UVW Xform"
+            ],
+            "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+            "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+            "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+            "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+            "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+          },
+          "basis": "CARRIED BY BYTE IDENTITY of every Diamond mesh (f's exact-B inputs included) between fe70f037 (table.js 8c4eca65) and c73f5baf (table.js 7e6b0f0a): headless dumps of both trees identical on all three sizes, the seven app-only meshes proven by construction and by the app capture; the value is the one carried at D-3b and D-3e"
+        },
+        "deciding_instrument": {
+          "path": "tools/render/d621/plan/cushion_gate_621.py",
+          "sha256": "a4f1e29621496af433ceb5b86dc07dbb1887603d8a7235cc44751a4f04078b37",
+          "note": "changed since D-3e only in frozen_checks' id-map catalog rows (#789, 896bbfb9); the f measurement code is unchanged"
+        },
+        "receipt": {
+          "path": "<private evidence>/equipment/d621-repin/F-REBINDING-7e6b0f0a.json",
+          "sha256": "d83a4bf9f2003f4874087547d166fc2dc2ed73d1423d9cf51a928c8ba78d1a0c"
+        },
+        "identity_instrument": {
+          "path": "tools/render/d621/plan/offline_scene_dump_621.mjs",
+          "sha256": "a75cadfe94df989e8abab7fd7910bf12572e4061e6117cf0d56d45ebb76a3783",
+          "validation": "headless against headless across the two trees: 127 / 127 / 148 of 127 / 127 / 148 meshes byte-identical; against the fence pin (= the fe70f037 app capture) both trees match 120 / 121 / 141, the gap being exactly the seven app-only meshes above"
+        }
+      },
+      "history": [
+        {
+          "status": "RED-BY-LAW",
+          "source": "Maintainer FIX1 checkpoint ruling on PR #733 / 1f3f52724, 2026-09-09, item 1",
+          "accepted": true,
+          "ruling": "The retained MFR CU-08 cloth-relief crease is absent from the purchased model. Row f remains RED-BY-LAW, not PASS: keep its measured value, station spread and crease geometry next to R1/R2 on the card. Do not re-derive the MODEL target, subtract the crease, change a threshold or discard a sample.",
+          "component_description": "The ruling describes the crease contribution as approximately +0.43-0.48 mm. Report the complete measured f residual separately; this description is neither a replacement target nor a subtraction.",
+          "characterized_renderer_sha256": "e7d4babb2e5f23d11432a73e53eb348e7a585ffac3426f5da7f44e64befd11bb",
+          "binding": "Applies only to the already-refuted FIX1 renderer bytes, a complete finite f sample and the observed retained crease. The pre-O22 and four-mm scratch renderers cannot inherit this disposition. All other gate rows still decide normally."
+        },
+        {
+          "source": "ORDER-D621-O22-C2",
+          "source_commit": "9d2ca97bf754cf436ea63604b780e13d769c0d83",
+          "previous_law_sha256": "7e800250a0b6b3d2b895b3194317c9a6f169e2069265bfaee7c28d1ba2693caf",
+          "characterized_renderer_sha256": "1756f7163cab9f41e54082d697106e9d6192ccd136f82b68fe6087402f020c05",
+          "replacement_renderer_sha256": "af12be816712530747b139505396ee92e0604749e4e167bdf293d903d8c5b794",
+          "reason": "C2 changes only renderer comments and provenance tags. The complete real buildTable geometry buffers and matrices are identical for all three sizes, and a fresh quarantine-cage comparison reproduces all FIX9 f samples and retained creases exactly. Bind the unchanged RED-BY-LAW ruling to the new source bytes; no target, threshold, sample, crease or geometry value changed. This is offline numerical evidence, not a new browser capture.",
+          "previous_rebinding_receipt": {
+            "path": "<private evidence>/d621/o22-fix9-v2uxkf43/F-REMEASUREMENT.json",
+            "sha256": "938fc818072ed7ca2d582e880f90023720b8ce10b7b4a37072c9e6dc09db1aa2"
+          }
+        },
+        {
+          "source": "ORDER-D621-O22-C3",
+          "source_commit": "2fac4c7be22c494756849ce88ffa3b2c5fc7e3ae",
+          "previous_law_sha256": "3afeb4e35c59d042008e5265053a2211d059cf4f3ca76a0456f037c33eb3b2b4",
+          "characterized_renderer_sha256": "af12be816712530747b139505396ee92e0604749e4e167bdf293d903d8c5b794",
+          "replacement_renderer_sha256": "282d929e01e6cedc17461cd053344d7680f13e7d0b4f3171e4eda65faf42a99f",
+          "reason": "C3 corrects crowned cap face indices and wall normals using outline handedness, valid concave-cell triangulation and a complete shared-edge orientation check. Every rendered vertex position is unchanged; all cushion buffers are identical, and a fresh quarantine-cage comparison reproduces all FIX9 f samples and retained creases exactly. Bind the unchanged RED-BY-LAW ruling to the final renderer bytes; no target, threshold, sample or crease changed. This receipt is offline exact-B numerical evidence; C3 shipping viewer frames and rays are recorded separately.",
+          "previous_rebinding_receipt": {
+            "path": "<private evidence>/d621/o22-c2-8cvp14qp/F-REMEASUREMENT.json",
+            "sha256": "5ba54efb4d5a13ed924c3315b6b8c70ebd762a4c3d1f2266132bf078be82eebc"
+          }
+        },
+        {
+          "tag": "DERIVED",
+          "source": "ORDER-D621-O22-C4B",
+          "source_commit": "80241afcb501c0c2194bdca87aeeba24c0741000",
+          "previous_law_sha256": "9b5c79093fbc341892937053e91e54ea1a189feec294631c32d5fa207825d8d3",
+          "characterized_renderer_sha256": "282d929e01e6cedc17461cd053344d7680f13e7d0b4f3171e4eda65faf42a99f",
+          "replacement_renderer_sha256": "d7efdbb4a07f66a9242cd8c6825614c8cedd62eefd8bed73c98006170ef2e293",
+          "previous_rebinding": {
+            "tag": "DERIVED",
+            "source": "ORDER-D621-O22-FIX9, 2026-09-10",
+            "reason": "FIX6-A split crownedPlankGeom cap sidewalls at the unchanged crown grid to close the corner holes; the FIX1 handoff had also changed two disclosure comments. The final served renderer was remeasured with the deciding exact-B instrument: f p90 is unchanged at 0.5540413010887733 mm versus the unchanged 0.50 mm bar, with all 816 samples and 48 retained CU-08 creases. The accepted exception carries over as RED-BY-LAW; no crease subtraction, target change, threshold change or sample removal.",
+            "renderer_commit": "4e5fe2616e186cbcfde195b2e4a41942db0bf712",
+            "previous_renderer_sha256": "e7d4babb2e5f23d11432a73e53eb348e7a585ffac3426f5da7f44e64befd11bb",
+            "measurement": {
+              "tag": "TESSELLATION",
+              "method": "Unmodified exact B OURS minus MODEL at all ordered heights; no crease subtraction",
+              "p90_mm": 0.5540413010887733,
+              "n": 816,
+              "station_count": 48,
+              "station_p90_spread": {
+                "n": 48,
+                "mean": 0.5476449775145137,
+                "rms": 0.004193586774410717,
+                "p50": 0.5492516015360933,
+                "p90": 0.5500397451701928,
+                "max": 0.5500521638158261,
+                "min": 0.5380506277341055
+              },
+              "ours_crease_stations": 48,
+              "model_crease_stations": 0,
+              "cage_caveat": "TESSELLATION: purchased TurboSmooth control-cage read; the OBJ extraction did not apply TurboSmooth. Nose options: (c) retain 0.8 mm cage tessellation; (a) CC1 ≈ 0.55 mm / (b) CC2 ≈ 0.57 mm are EST what-ifs, not verified modifier outputs; (d) ≈ 2 mm requires a non-model source. OWNER DECISION PENDING.",
+              "measurement_provenance": {
+                "record": "FIX7 WHATIF-MEASUREMENTS.json",
+                "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+                "measurement_path": "reference.cage.ladders.under_ladder",
+                "mode": "TESSELLATION CAGE READ",
+                "unapplied_modifiers": [
+                  "TurboSmooth",
+                  "UVW Xform"
+                ],
+                "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+                "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+                "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+                "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+                "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+              }
+            },
+            "deciding_instrument": {
+              "path": "tools/render/d621/plan/cushion_gate_621.py",
+              "sha256": "26196818f91b5bf1ff43939484332e63528cf34d0e04f93b91655a69f2295a1b"
+            },
+            "receipt": {
+              "path": "<private evidence>/d621/o22-fix9-v2uxkf43/F-REMEASUREMENT.json",
+              "sha256": "938fc818072ed7ca2d582e880f90023720b8ce10b7b4a37072c9e6dc09db1aa2"
+            },
+            "tag_only_amendment": {
+              "source": "ORDER-D621-O22-C2",
+              "reason": "C2 changes only renderer comments and provenance tags. The complete real buildTable geometry buffers and matrices are identical for all three sizes, and a fresh quarantine-cage comparison reproduces all FIX9 f samples and retained creases exactly. Bind the unchanged RED-BY-LAW ruling to the new source bytes; no target, threshold, sample, crease or geometry value changed. This is offline numerical evidence, not a new browser capture.",
+              "previous_renderer_sha256": "1756f7163cab9f41e54082d697106e9d6192ccd136f82b68fe6087402f020c05",
+              "renderer_sha256": "af12be816712530747b139505396ee92e0604749e4e167bdf293d903d8c5b794",
+              "receipt": {
+                "path": "<private evidence>/d621/o22-c2-8cvp14qp/F-REMEASUREMENT.json",
+                "sha256": "5ba54efb4d5a13ed924c3315b6b8c70ebd762a4c3d1f2266132bf078be82eebc"
+              }
+            },
+            "orientation_amendment": {
+              "source": "ORDER-D621-O22-C3",
+              "reason": "C3 corrects crowned cap face indices and wall normals using outline handedness, valid concave-cell triangulation and a complete shared-edge orientation check. Every rendered vertex position is unchanged; all cushion buffers are identical, and a fresh quarantine-cage comparison reproduces all FIX9 f samples and retained creases exactly. Bind the unchanged RED-BY-LAW ruling to the final renderer bytes; no target, threshold, sample or crease changed. This receipt is offline exact-B numerical evidence; C3 shipping viewer frames and rays are recorded separately.",
+              "previous_renderer_sha256": "af12be816712530747b139505396ee92e0604749e4e167bdf293d903d8c5b794",
+              "renderer_sha256": "282d929e01e6cedc17461cd053344d7680f13e7d0b4f3171e4eda65faf42a99f",
+              "receipt": {
+                "path": "<private evidence>/d621/o22-c3-silnrsx4/F-REMEASUREMENT.json",
+                "sha256": "a2d7a9f18d3e14ca7cff7d4dd3480f41b3d8f43e0fdbef435bdcb21f2b6c884d"
+              }
+            }
+          },
+          "reason": "C4B owner option b changes only the nose radius to the bound Rasson CU-09 scalar. Fresh served renderer sections retain all 816 exact-B under-face samples and 48 MFR CU-08 creases; Diamond cage has none. f p90 changes from 0.5540413010887733 to 0.412844468798653 mm against the unchanged 0.5 mm bar. The existing crease exception remains applicable only with this new renderer binding; no subtraction, target substitution, threshold change or dropped station. Other rows still decide."
+        },
+        {
+          "tag": "DERIVED",
+          "source": "ORDER-D621-O22-C5",
+          "source_commit": "a25a649a2f39a733be4aacadce7a2914aaa84660",
+          "previous_law_sha256": "0c88f3c20d9edbf2a4fe85e49d546606935398893e6f23b7ac45e09f00c70970",
+          "characterized_renderer_sha256": "d7efdbb4a07f66a9242cd8c6825614c8cedd62eefd8bed73c98006170ef2e293",
+          "replacement_renderer_sha256": "053c8c0527db9cca0955573a41405638afac52aef5490c5a14a5af3805712fd9",
+          "previous_rebinding": {
+            "tag": "DERIVED",
+            "source": "ORDER-D621-O22-C4B",
+            "reason": "C4B owner option b changes only the nose radius to the bound Rasson CU-09 scalar. Fresh served renderer sections retain all 816 exact-B under-face samples and 48 MFR CU-08 creases; Diamond cage has none. f p90 changes from 0.5540413010887733 to 0.412844468798653 mm against the unchanged 0.5 mm bar. The existing crease exception remains applicable only with this new renderer binding; no subtraction, target substitution, threshold change or dropped station. Other rows still decide.",
+            "previous_renderer_sha256": "282d929e01e6cedc17461cd053344d7680f13e7d0b4f3171e4eda65faf42a99f",
+            "renderer_sha256": "d7efdbb4a07f66a9242cd8c6825614c8cedd62eefd8bed73c98006170ef2e293",
+            "measurement": {
+              "tag": "TESSELLATION",
+              "method": "Unmodified exact B OURS minus Diamond control cage at all ordered heights; no crease subtraction",
+              "p90_mm": 0.412844468798653,
+              "n": 816,
+              "station_count": 48,
+              "station_p90_spread": {
+                "n": 48,
+                "mean": 0.40678418869600624,
+                "rms": 0.018538229098299653,
+                "p50": 0.41491770716666,
+                "p90": 0.41557625143346283,
+                "max": 0.4156094612462084,
+                "min": 0.364977197749954
+              },
+              "ours_crease_stations": 48,
+              "model_crease_stations": 0,
+              "measurement_provenance": {
+                "record": "FIX7 WHATIF-MEASUREMENTS.json",
+                "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+                "measurement_path": "reference.cage.ladders.under_ladder",
+                "mode": "TESSELLATION CAGE READ",
+                "unapplied_modifiers": [
+                  "TurboSmooth",
+                  "UVW Xform"
+                ],
+                "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+                "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+                "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+                "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+                "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+              }
+            },
+            "deciding_instrument": {
+              "path": "tools/render/d621/plan/cushion_gate_621.py",
+              "sha256": "2a3459c0a04d19274bdd15c61d785980289e8efa3171aacf7a2e0db165270fab"
+            },
+            "receipt": {
+              "path": "<private evidence>/d621/o22-c4b-hkokujug/F-REMEASUREMENT.json",
+              "sha256": "5ecf5136fd33fed91e93e4232525d9157e0d71f7b5507cae49368450854efe6c"
+            }
+          },
+          "reason": "C5 folds main be25b147c088f6abcb6368cd131a166002c5590e into C4B, changing the served renderer digest. Fresh application geometry retains all 816 exact-B under-face samples and 48 MFR CU-08 creases; the Diamond cage has none. f p90 is 0.412844468798653 mm against the unchanged 0.5 mm bar. This remeasurement binds the merged renderer; no radius, threshold, station or source changes."
+        },
+        {
+          "tag": "DERIVED",
+          "source": "ORDER-D621-O22-C6",
+          "source_commit": "19679cb0da8eaedf0cf15a322b1b879416b1d23a",
+          "previous_law_sha256": "7bccfefdd15db02c5513ddd1d19f7b127fefb512520dfc5a733124f02136ae05",
+          "characterized_renderer_sha256": "053c8c0527db9cca0955573a41405638afac52aef5490c5a14a5af3805712fd9",
+          "replacement_renderer_sha256": "d1638deba13e007396ddb6faea1b4e96a3c4f79e22088907728be478889ba9a0",
+          "previous_rebinding_receipt": {
+            "path": "<private evidence>/d621/o22-c5-bxtilvp1/F-REMEASUREMENT.json",
+            "sha256": "bd18c6c002f1b274b9bf3c5e7bef95a001069fc23613d73c886d808fdb9a9e24"
+          },
+          "reason": "C6 addendum corrects six active CU-10/CU-12 source caveats to the decided C4B nose state. The definition digest cascades through the generated nose module and its table.js import, changing the served renderer digest without changing geometry. Fresh application geometry retains all 816 exact-B under-face samples and 48 MFR CU-08 creases; the Diamond cage has none. f p90 is 0.412844468798653 mm against the unchanged 0.5 mm bar. This fresh remeasurement binds the C6 renderer; no radius, threshold, station or source changes."
+        },
+        {
+          "tag": "DERIVED",
+          "source": "ORDER-D621-O22-C7",
+          "source_commit": "02d7b12b7ea5b2d7b5a83b1a581d798bf2cc376a",
+          "previous_law_sha256": "caf883f04225f977eea336f59a9dfb68db7fdcd38ce774d6bcc1b796896dd706",
+          "characterized_renderer_sha256": "d1638deba13e007396ddb6faea1b4e96a3c4f79e22088907728be478889ba9a0",
+          "replacement_renderer_sha256": "20ab7d29e25933bcecb9a53e1b4adea525be6523bae786daa0fb8eb3be681484",
+          "previous_rebinding": {
+            "tag": "DERIVED",
+            "source": "ORDER-D621-O22-C6",
+            "reason": "C6 addendum corrects six active CU-10/CU-12 source caveats to the decided C4B nose state. The definition digest cascades through the generated nose module and its table.js import, changing the served renderer digest without changing geometry. Fresh application geometry retains all 816 exact-B under-face samples and 48 MFR CU-08 creases; the Diamond cage has none. f p90 is 0.412844468798653 mm against the unchanged 0.5 mm bar. This fresh remeasurement binds the C6 renderer; no radius, threshold, station or source changes.",
+            "previous_renderer_sha256": "053c8c0527db9cca0955573a41405638afac52aef5490c5a14a5af3805712fd9",
+            "renderer_sha256": "d1638deba13e007396ddb6faea1b4e96a3c4f79e22088907728be478889ba9a0",
+            "measurement": {
+              "tag": "TESSELLATION",
+              "method": "Unmodified exact B OURS minus Diamond control cage at all ordered heights; no crease subtraction",
+              "p90_mm": 0.412844468798653,
+              "n": 816,
+              "station_count": 48,
+              "station_p90_spread": {
+                "n": 48,
+                "mean": 0.40678418869600624,
+                "rms": 0.018538229098299653,
+                "p50": 0.41491770716666,
+                "p90": 0.41557625143346283,
+                "max": 0.4156094612462084,
+                "min": 0.364977197749954
+              },
+              "ours_crease_stations": 48,
+              "model_crease_stations": 0,
+              "measurement_provenance": {
+                "record": "FIX7 WHATIF-MEASUREMENTS.json",
+                "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+                "measurement_path": "reference.cage.ladders.under_ladder",
+                "mode": "TESSELLATION CAGE READ",
+                "unapplied_modifiers": [
+                  "TurboSmooth",
+                  "UVW Xform"
+                ],
+                "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+                "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+                "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+                "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+                "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+              }
+            },
+            "deciding_instrument": {
+              "path": "tools/render/d621/plan/cushion_gate_621.py",
+              "sha256": "2a3459c0a04d19274bdd15c61d785980289e8efa3171aacf7a2e0db165270fab"
+            },
+            "receipt": {
+              "path": "<private evidence>/d621/o22-c6-hd4uhc84/F-REMEASUREMENT.json",
+              "sha256": "6b728b5751d6be55dc397901c3134f35071fc8ce44e9922164f04d44c0800410"
+            }
+          },
+          "reason": "C7 binds the measured RC-01 corner PLAN rings and TESSELLATION junction finish to the final renderer. Cushion geometry and the Rasson CU-09 nose remain unchanged. Fresh served renderer sections retain all 816 exact-B under-face samples and 48 MFR CU-08 creases; Diamond cage has none. f p90 changes from 0.412844468798653 to 0.412844468798653 mm against the unchanged 0.5 mm bar. The existing crease exception remains applicable only with this new renderer binding; no subtraction, target substitution, threshold change or dropped station. Other rows still decide."
+        },
+        {
+          "tag": "DERIVED",
+          "source": "ORDER-D621-O22-C9",
+          "source_commit": "0d48c03c1a47a96672656645a80dd5afd849634e",
+          "previous_law_sha256": "aa3a078c0a86035bdaba937f04576069b785cf49abb7e491c8b07983e88e4c3b",
+          "characterized_renderer_sha256": "20ab7d29e25933bcecb9a53e1b4adea525be6523bae786daa0fb8eb3be681484",
+          "replacement_renderer_sha256": "620a3955bc56f256bbd34badb54b711f72be9fc983478039fda823dc741a28c7",
+          "previous_rebinding": {
+            "tag": "DERIVED",
+            "source": "ORDER-D621-O22-C7",
+            "reason": "C7 binds the measured RC-01 corner PLAN rings and TESSELLATION junction finish to the final renderer. Cushion geometry and the Rasson CU-09 nose remain unchanged. Fresh served renderer sections retain all 816 exact-B under-face samples and 48 MFR CU-08 creases; Diamond cage has none. f p90 changes from 0.412844468798653 to 0.412844468798653 mm against the unchanged 0.5 mm bar. The existing crease exception remains applicable only with this new renderer binding; no subtraction, target substitution, threshold change or dropped station. Other rows still decide.",
+            "previous_renderer_sha256": "d1638deba13e007396ddb6faea1b4e96a3c4f79e22088907728be478889ba9a0",
+            "renderer_sha256": "20ab7d29e25933bcecb9a53e1b4adea525be6523bae786daa0fb8eb3be681484",
+            "measurement": {
+              "tag": "TESSELLATION",
+              "method": "Unmodified exact B OURS minus Diamond control cage at all ordered heights; no crease subtraction",
+              "p90_mm": 0.412844468798653,
+              "n": 816,
+              "station_count": 48,
+              "station_p90_spread": {
+                "n": 48,
+                "mean": 0.40678418869600624,
+                "rms": 0.018538229098299653,
+                "p50": 0.41491770716666,
+                "p90": 0.41557625143346283,
+                "max": 0.4156094612462084,
+                "min": 0.364977197749954
+              },
+              "ours_crease_stations": 48,
+              "model_crease_stations": 0,
+              "measurement_provenance": {
+                "record": "FIX7 WHATIF-MEASUREMENTS.json",
+                "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+                "measurement_path": "reference.cage.ladders.under_ladder",
+                "mode": "TESSELLATION CAGE READ",
+                "unapplied_modifiers": [
+                  "TurboSmooth",
+                  "UVW Xform"
+                ],
+                "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+                "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+                "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+                "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+                "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+              }
+            },
+            "deciding_instrument": {
+              "path": "tools/render/d621/plan/cushion_gate_621.py",
+              "sha256": "066326caa075ea96d542ff235d69d95a9937606d260fbdd6bbb97708c251c7c1"
+            },
+            "receipt": {
+              "path": "<private evidence>/d621/o22-c7-20260911T054026Z/F-REMEASUREMENT.json",
+              "sha256": "d2468266029c56fd1164a233e8e522f39c3ddf99c8cb9eaa32dc6e1e2d3c1214"
+            }
+          },
+          "reason": "C9 applies the MODEL CU-14 terminal return to the outboard cushion tails. The Rasson CU-11 nose section, kernel contact geometry and C7 RC-01 corner furniture remain unchanged. Fresh real-app sections retain all 816 exact-B under-face samples and 48 MFR CU-08 creases; Diamond cage has none. f p90 changes from 0.412844468798653 to 0.412844468798653 mm against the unchanged 0.5 mm bar. The existing crease exception remains applicable only with this new renderer binding; no subtraction, target substitution, threshold change or dropped station. Other rows still decide."
+        },
+        {
+          "tag": "DERIVED",
+          "source": "maintainer GULLY-FIX6 order 2026-09-18 (review 644g6 P2 #2)",
+          "source_commit": "GULLY-FIX6 on eba63f16 (landing sha in GULLY-R2.md §14)",
+          "previous_law_sha256": "d56db2c22d0908876207bef24e4c46b0250a5db1e58c6e198be3673a2f222841",
+          "characterized_renderer_sha256": "620a3955bc56f256bbd34badb54b711f72be9fc983478039fda823dc741a28c7",
+          "replacement_renderer_sha256": "96780f8b102a07680ba43f80873befa626f7b6909554e8fd4e9c86d43cbb905a",
+          "previous_rebinding": {
+            "tag": "DERIVED",
+            "source": "ORDER-D621-O22-C9",
+            "reason": "C9 applies the MODEL CU-14 terminal return to the outboard cushion tails. The Rasson CU-11 nose section, kernel contact geometry and C7 RC-01 corner furniture remain unchanged. Fresh real-app sections retain all 816 exact-B under-face samples and 48 MFR CU-08 creases; Diamond cage has none. f p90 changes from 0.412844468798653 to 0.412844468798653 mm against the unchanged 0.5 mm bar. The existing crease exception remains applicable only with this new renderer binding; no subtraction, target substitution, threshold change or dropped station. Other rows still decide.",
+            "previous_renderer_sha256": "20ab7d29e25933bcecb9a53e1b4adea525be6523bae786daa0fb8eb3be681484",
+            "renderer_sha256": "620a3955bc56f256bbd34badb54b711f72be9fc983478039fda823dc741a28c7",
+            "measurement": {
+              "tag": "TESSELLATION",
+              "method": "Unmodified exact B OURS minus Diamond control cage at all ordered heights; no crease subtraction",
+              "p90_mm": 0.412844468798653,
+              "n": 816,
+              "station_count": 48,
+              "station_p90_spread": {
+                "n": 48,
+                "mean": 0.40678418869599925,
+                "rms": 0.018538229098298876,
+                "p50": 0.41491770716661447,
+                "p90": 0.41557625143336735,
+                "max": 0.4156094612462084,
+                "min": 0.364977197749954
+              },
+              "ours_crease_stations": 48,
+              "model_crease_stations": 0,
+              "measurement_provenance": {
+                "record": "FIX7 WHATIF-MEASUREMENTS.json",
+                "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+                "measurement_path": "reference.cage.ladders.under_ladder",
+                "mode": "TESSELLATION CAGE READ",
+                "unapplied_modifiers": [
+                  "TurboSmooth",
+                  "UVW Xform"
+                ],
+                "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+                "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+                "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+                "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+                "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+              }
+            },
+            "deciding_instrument": {
+              "path": "tools/render/d621/plan/cushion_gate_621.py",
+              "sha256": "f201f122a7612483f1b3c99b0fc6e4e19cb3504c00603107838bd7682d6775b1"
+            },
+            "receipt": {
+              "path": "<private evidence>/d621/o22-c9-20260911T200217Z/F-REMEASUREMENT.json",
+              "sha256": "e92a7b5e8980a226258a3cdb8747c4f96815bf384ca868fd1bbab728752fa42e"
+            }
+          },
+          "reason": "GULLY g1 … FIX6 change web/scene/table.js only in the cabinet construction: the head-end collector box behind the 560 × 98 aperture (the unlit trough plate dm-cabinet-trough-hhead removed), the six entry sleeves / escutcheon plates / sightline baffles with their 110 × 110 side-panel cutouts (9 ft), and the aperture lip. The headless full-scene dump at both renderers shows every cushion-family mesh (dm-cushion-0..5, dm-subrail-0..5, dm-railtop-0..5, dm-cornerblock-0..3, dm-apronband, dm-shelfshadow-*, dm-bootcollar-*) BYTE-IDENTICAL for all three sizes (9 ft: 110 of the 113 pre-gully meshes identical, only dm-cabinet-side-l / -r differ; 8 / 7 ft: 112 identical, none differ), so the exact-B under-face sections that f measures are unchanged and the RED-BY-LAW disposition binds to the new bytes with its value, station spread and crease geometry carried. Offline numerical evidence per the O22-C2 precedent, not a browser capture; the card's real-app sections re-characterize on a maintainer go-ahead."
+        },
+        {
+          "tag": "DERIVED",
+          "source": "D-3 ceremony merge (maintainer ruling 2026-09-18: main merged into #644 by merge commit)",
+          "source_commit": "merge of main 6e329ea77222f256994104e0bd5c9684323b2e8d into 825341e4 (the D-3 commit; its sha is in the ceremony record)",
+          "previous_law_sha256": "301747cfd4b2cccc0a17fd35b3a79b816e2fbe5dd5018900deb72548fc8c899d",
+          "characterized_renderer_sha256": "96780f8b102a07680ba43f80873befa626f7b6909554e8fd4e9c86d43cbb905a",
+          "replacement_renderer_sha256": "e397ed0242b753e884051333ec752ccb0ba4ca90003ab9efe841af0dcf43452b",
+          "previous_rebinding": {
+            "tag": "DERIVED",
+            "source": "maintainer GULLY-FIX6 order 2026-09-18 (review 644g6 P2 #2)",
+            "reason": "GULLY g1 … FIX6 change web/scene/table.js only in the cabinet construction: the head-end collector box behind the 560 × 98 aperture (the unlit trough plate dm-cabinet-trough-hhead removed), the six entry sleeves / escutcheon plates / sightline baffles with their 110 × 110 side-panel cutouts (9 ft), and the aperture lip. The headless full-scene dump at both renderers shows every cushion-family mesh (dm-cushion-0..5, dm-subrail-0..5, dm-railtop-0..5, dm-cornerblock-0..3, dm-apronband, dm-shelfshadow-*, dm-bootcollar-*) BYTE-IDENTICAL for all three sizes (9 ft: 110 of the 113 pre-gully meshes identical, only dm-cabinet-side-l / -r differ; 8 / 7 ft: 112 identical, none differ), so the exact-B under-face sections that f measures are unchanged and the RED-BY-LAW disposition binds to the new bytes with its value, station spread and crease geometry carried. Offline numerical evidence per the O22-C2 precedent, not a browser capture; the card's real-app sections re-characterize on a maintainer go-ahead.",
+            "previous_renderer_sha256": "620a3955bc56f256bbd34badb54b711f72be9fc983478039fda823dc741a28c7",
+            "renderer_sha256": "96780f8b102a07680ba43f80873befa626f7b6909554e8fd4e9c86d43cbb905a",
+            "measurement": {
+              "tag": "TESSELLATION",
+              "method": "Unmodified exact B OURS minus Diamond control cage at all ordered heights; no crease subtraction",
+              "p90_mm": 0.412844468798653,
+              "n": 816,
+              "station_count": 48,
+              "station_p90_spread": {
+                "n": 48,
+                "mean": 0.40678418869599925,
+                "rms": 0.018538229098298876,
+                "p50": 0.41491770716661447,
+                "p90": 0.41557625143336735,
+                "max": 0.4156094612462084,
+                "min": 0.364977197749954
+              },
+              "ours_crease_stations": 48,
+              "model_crease_stations": 0,
+              "measurement_provenance": {
+                "record": "FIX7 WHATIF-MEASUREMENTS.json",
+                "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+                "measurement_path": "reference.cage.ladders.under_ladder",
+                "mode": "TESSELLATION CAGE READ",
+                "unapplied_modifiers": [
+                  "TurboSmooth",
+                  "UVW Xform"
+                ],
+                "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+                "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+                "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+                "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+                "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+              },
+              "basis": "CARRIED BY BYTE IDENTITY of the cushion-family meshes between the characterized renderer 620a3955 (04a5cbcf) and this renderer (headless full-scene dump, all three sizes); not a fresh section capture"
+            },
+            "deciding_instrument": {
+              "path": "tools/render/d621/plan/cushion_gate_621.py",
+              "sha256": "f201f122a7612483f1b3c99b0fc6e4e19cb3504c00603107838bd7682d6775b1"
+            },
+            "receipt": {
+              "path": "<private evidence>/diamond/gully/fix6/F-REBINDING.json",
+              "sha256": "2e4418561dda0701aa9d61406cf4be24f6c32630e30b3b20bc9fc2fba2296898"
+            },
+            "identity_instrument": {
+              "path": "tools/render/d621/plan/offline_scene_dump_621.mjs",
+              "sha256": "a75cadfe94df989e8abab7fd7910bf12572e4061e6117cf0d56d45ebb76a3783",
+              "validation": "106 / 107 / 106 of 113 meshes byte-identical to the B2 app dumps of d7b8b0f0; dm-bed-cloth and dm-bootcollar-* are canvas-sampled and not reproduced headless"
+            }
+          },
+          "reason": "The merge brings main's table.js changes (#637 snooker R3-SNK-9 / R3-SNK-11 B2, #727 venue lighting, cn8 …) beside the D621 block; the four conflict hunks are UNIONS (snooker ternary + the D621 fourth argument). The headless full-scene dump of the merged tree is BYTE-IDENTICAL to the D-0 tip 825341e4 for every Diamond mesh on all three sizes (142 / 121 / 121), so f's exact-B sections are unchanged and the RED-BY-LAW disposition binds to the merged bytes with its value carried (O22-C2 form); the card on the merged tip re-characterizes with real sections at D-6."
+        },
+        {
+          "tag": "DERIVED",
+          "source": "D-3b gully look fix (TASTE audit 1)",
+          "source_commit": "the D-3b commit on top of the D-3 merge of main 6e329ea77222f256994104e0bd5c9684323b2e8d",
+          "previous_law_sha256": "90e7f92f93c6255e3b982f26ba261b46e3952817fc2f1e2565e53e5ed41c683b",
+          "characterized_renderer_sha256": "e397ed0242b753e884051333ec752ccb0ba4ca90003ab9efe841af0dcf43452b",
+          "replacement_renderer_sha256": "573258a83fb194101d5237a86c7b2444643c08f4e05a7f9b778c0393db996fb9",
+          "previous_rebinding": {
+            "tag": "DERIVED",
+            "source": "D-3 ceremony merge (main -> #644), identity-carried",
+            "reason": "The merge brings main's table.js changes (#637 snooker R3-SNK-9 / R3-SNK-11 B2, #727 venue lighting, cn8 …) beside the D621 block; the four conflict hunks are UNIONS (snooker ternary + the D621 fourth argument). The headless full-scene dump of the merged tree is BYTE-IDENTICAL to the D-0 tip 825341e4 for every Diamond mesh on all three sizes (142 / 121 / 121), so f's exact-B sections are unchanged and the RED-BY-LAW disposition binds to the merged bytes with its value carried (O22-C2 form); the card on the merged tip re-characterizes with real sections at D-6.",
+            "previous_renderer_sha256": "96780f8b102a07680ba43f80873befa626f7b6909554e8fd4e9c86d43cbb905a",
+            "renderer_sha256": "e397ed0242b753e884051333ec752ccb0ba4ca90003ab9efe841af0dcf43452b",
+            "measurement": {
+              "tag": "TESSELLATION",
+              "method": "Unmodified exact B OURS minus Diamond control cage at all ordered heights; no crease subtraction",
+              "p90_mm": 0.412844468798653,
+              "n": 816,
+              "station_count": 48,
+              "station_p90_spread": {
+                "n": 48,
+                "mean": 0.40678418869599925,
+                "rms": 0.018538229098298876,
+                "p50": 0.41491770716661447,
+                "p90": 0.41557625143336735,
+                "max": 0.4156094612462084,
+                "min": 0.364977197749954
+              },
+              "ours_crease_stations": 48,
+              "model_crease_stations": 0,
+              "measurement_provenance": {
+                "record": "FIX7 WHATIF-MEASUREMENTS.json",
+                "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+                "measurement_path": "reference.cage.ladders.under_ladder",
+                "mode": "TESSELLATION CAGE READ",
+                "unapplied_modifiers": [
+                  "TurboSmooth",
+                  "UVW Xform"
+                ],
+                "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+                "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+                "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+                "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+                "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+              },
+              "basis": "CARRIED BY BYTE IDENTITY of every Diamond mesh between 825341e4 and the merged tree (headless full-scene dump, all three sizes)"
+            },
+            "deciding_instrument": {
+              "path": "tools/render/d621/plan/cushion_gate_621.py",
+              "sha256": "f201f122a7612483f1b3c99b0fc6e4e19cb3504c00603107838bd7682d6775b1"
+            },
+            "receipt": {
+              "path": "<private evidence>/diamond/gully/fix6/F-REBINDING.json",
+              "sha256": "2e4418561dda0701aa9d61406cf4be24f6c32630e30b3b20bc9fc2fba2296898"
+            },
+            "identity_instrument": {
+              "path": "tools/render/d621/plan/offline_scene_dump_621.mjs",
+              "sha256": "a75cadfe94df989e8abab7fd7910bf12572e4061e6117cf0d56d45ebb76a3783",
+              "validation": "106 / 107 / 106 of 113 meshes byte-identical to the B2 app dumps of d7b8b0f0; dm-bed-cloth and dm-bootcollar-* are canvas-sampled and not reproduced headless"
+            }
+          },
+          "reason": "D-3b (review TASTE audit 1 on the D-0 gully triptych; maintainer order 2026-09-20; the maintainer's look decision): the entry sleeves start at the plate plane with a mitred rim, the aperture lip is 10 mm, four unlit reveal liners are added — a GULLY-ONLY change. The headless full-scene dump of this tree vs the D-0 tip 825341e4: every non-gully mesh BYTE-IDENTICAL on all three sizes (9 ft 132 identical; gully changed 10, added 4); the cushion families are untouched, so f's exact-B sections are unchanged and the RED-BY-LAW disposition binds to the new bytes with its value carried (O22-C2 form); the card at the ceremony window re-characterises.",
+          "gully_mesh_delta": {
+            "9ft": {
+              "changed": [
+                "dm-gullybox-lip-bottom",
+                "dm-gullybox-lip-l",
+                "dm-gullybox-lip-r",
+                "dm-gullybox-lip-top",
+                "dm-gullysleeve-c0",
+                "dm-gullysleeve-c2",
+                "dm-gullysleeve-c3",
+                "dm-gullysleeve-c5",
+                "dm-gullysleeve-s1",
+                "dm-gullysleeve-s4"
+              ],
+              "added": [
+                "dm-gullybox-reveal-bottom",
+                "dm-gullybox-reveal-l",
+                "dm-gullybox-reveal-r",
+                "dm-gullybox-reveal-top"
+              ],
+              "removed": [],
+              "identical": 132
+            },
+            "8ft": {
+              "changed": [
+                "dm-gullybox-lip-bottom",
+                "dm-gullybox-lip-l",
+                "dm-gullybox-lip-r",
+                "dm-gullybox-lip-top"
+              ],
+              "added": [
+                "dm-gullybox-reveal-bottom",
+                "dm-gullybox-reveal-l",
+                "dm-gullybox-reveal-r",
+                "dm-gullybox-reveal-top"
+              ],
+              "removed": [],
+              "identical": 117
+            },
+            "7ft": {
+              "changed": [
+                "dm-gullybox-lip-bottom",
+                "dm-gullybox-lip-l",
+                "dm-gullybox-lip-r",
+                "dm-gullybox-lip-top"
+              ],
+              "added": [
+                "dm-gullybox-reveal-bottom",
+                "dm-gullybox-reveal-l",
+                "dm-gullybox-reveal-r",
+                "dm-gullybox-reveal-top"
+              ],
+              "removed": [],
+              "identical": 117
+            }
+          }
+        },
+        {
+          "tag": "DERIVED",
+          "source": "D-3e residual sleeve + trough-sill liners (TASTE audit 2)",
+          "source_commit": "the D-3e commit on top of D-3d f6dc9dbf60cd8ad524cd2ae3b772c23c15fc7520 (D-3 merge of main 6e329ea77222f256994104e0bd5c9684323b2e8d)",
+          "previous_law_sha256": "88f35bc8291d0a7ef57413c0cc7bb137f986e4a408fde53c522379c4cd2c49f3",
+          "characterized_renderer_sha256": "573258a83fb194101d5237a86c7b2444643c08f4e05a7f9b778c0393db996fb9",
+          "replacement_renderer_sha256": "8c4eca65ac0ee67aa0414a480f458e2404491b3278b6aa5941e7e157bb16e628",
+          "previous_rebinding": {
+            "tag": "DERIVED",
+            "source": "D-3b gully look fix, identity-carried (non-gully meshes)",
+            "reason": "D-3b (review TASTE audit 1 on the D-0 gully triptych; maintainer order 2026-09-20; the maintainer's look decision): the entry sleeves start at the plate plane with a mitred rim, the aperture lip is 10 mm, four unlit reveal liners are added — a GULLY-ONLY change. The headless full-scene dump of this tree vs the D-0 tip 825341e4: every non-gully mesh BYTE-IDENTICAL on all three sizes (9 ft 132 identical; gully changed 10, added 4); the cushion families are untouched, so f's exact-B sections are unchanged and the RED-BY-LAW disposition binds to the new bytes with its value carried (O22-C2 form); the card at the ceremony window re-characterises.",
+            "previous_renderer_sha256": "e397ed0242b753e884051333ec752ccb0ba4ca90003ab9efe841af0dcf43452b",
+            "renderer_sha256": "573258a83fb194101d5237a86c7b2444643c08f4e05a7f9b778c0393db996fb9",
+            "measurement": {
+              "tag": "TESSELLATION",
+              "method": "Unmodified exact B OURS minus Diamond control cage at all ordered heights; no crease subtraction",
+              "p90_mm": 0.412844468798653,
+              "n": 816,
+              "station_count": 48,
+              "station_p90_spread": {
+                "n": 48,
+                "mean": 0.40678418869599925,
+                "rms": 0.018538229098298876,
+                "p50": 0.41491770716661447,
+                "p90": 0.41557625143336735,
+                "max": 0.4156094612462084,
+                "min": 0.364977197749954
+              },
+              "ours_crease_stations": 48,
+              "model_crease_stations": 0,
+              "measurement_provenance": {
+                "record": "FIX7 WHATIF-MEASUREMENTS.json",
+                "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+                "measurement_path": "reference.cage.ladders.under_ladder",
+                "mode": "TESSELLATION CAGE READ",
+                "unapplied_modifiers": [
+                  "TurboSmooth",
+                  "UVW Xform"
+                ],
+                "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+                "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+                "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+                "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+                "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+              },
+              "basis": "CARRIED BY BYTE IDENTITY of every non-gully Diamond mesh (the cushion families included) between 825341e4 and this tree; the gully delta is listed in the history entry"
+            },
+            "deciding_instrument": {
+              "path": "tools/render/d621/plan/cushion_gate_621.py",
+              "sha256": "f201f122a7612483f1b3c99b0fc6e4e19cb3504c00603107838bd7682d6775b1"
+            },
+            "receipt": {
+              "path": "<private evidence>/diamond/gully/fix6/F-REBINDING.json",
+              "sha256": "2e4418561dda0701aa9d61406cf4be24f6c32630e30b3b20bc9fc2fba2296898"
+            },
+            "identity_instrument": {
+              "path": "tools/render/d621/plan/offline_scene_dump_621.mjs",
+              "sha256": "a75cadfe94df989e8abab7fd7910bf12572e4061e6117cf0d56d45ebb76a3783",
+              "validation": "106 / 107 / 106 of 113 meshes byte-identical to the B2 app dumps of d7b8b0f0; dm-bed-cloth and dm-bootcollar-* are canvas-sampled and not reproduced headless"
+            }
+          },
+          "reason": "D-3e (review TASTE audit 2 on the round-2 gully sheets; maintainer order + rulings 2026-09-20): RS — every entry sleeve's outer rim is mitred 0.3 mm INSIDE the panel's outer face (was the escutcheon plane 1 mm proud) and the escutcheon becomes a 1 mm slab from the panel face (same footprint / hole / outer face) so the ring between plate and panel is closed; TL — one unlit 0.6 mm liner on each end's trough-slot sill (the lit up-facing cut face pixel-certified as the g2 highlight). A GULLY-ONLY change: the headless full-scene dump of this tree vs the REAL app dumps of the D-3d card (f6dc9dbf-20260920T181942Z): every non-gully mesh identical on all three sizes (9 ft 134 identical; gully changed 12, added 2); the cushion families are untouched, so f's exact-B sections are unchanged and the RED-BY-LAW disposition binds to the new bytes with its value carried (O22-C2 form); the card at the ceremony window re-characterises.",
+          "gully_mesh_delta": {
+            "9ft": {
+              "changed": [
+                "dm-gullysleeve-c0",
+                "dm-gullyplate-c0",
+                "dm-gullysleeve-s1",
+                "dm-gullyplate-s1",
+                "dm-gullysleeve-c2",
+                "dm-gullyplate-c2",
+                "dm-gullysleeve-c3",
+                "dm-gullyplate-c3",
+                "dm-gullysleeve-s4",
+                "dm-gullyplate-s4",
+                "dm-gullysleeve-c5",
+                "dm-gullyplate-c5"
+              ],
+              "added": [
+                "dm-gullybox-reveal-trough-sill",
+                "dm-gullybox-reveal-trough-sill-f"
+              ],
+              "removed": [],
+              "identical": 134
+            },
+            "8ft": {
+              "changed": [],
+              "added": [
+                "dm-gullybox-reveal-trough-sill",
+                "dm-gullybox-reveal-trough-sill-f"
+              ],
+              "removed": [],
+              "identical": 125
+            },
+            "7ft": {
+              "changed": [],
+              "added": [
+                "dm-gullybox-reveal-trough-sill",
+                "dm-gullybox-reveal-trough-sill-f"
+              ],
+              "removed": [],
+              "identical": 125
+            }
+          }
+        },
+        {
+          "tag": "DERIVED",
+          "source": "GH-621 f renderer re-pin after the table.js drift since D-3e (maintainer routing 2026-10-18 19:4xZ)",
+          "source_commit": "the re-pin commit on main c73f5bafaa02712818d6439a9ea60e33d37de942 (batch 8 merged)",
+          "previous_law_sha256": "8e00b284ba425391464cb06f9819ddfc5872406274dd3acc4f81ed1530c205f9",
+          "characterized_renderer_sha256": "8c4eca65ac0ee67aa0414a480f458e2404491b3278b6aa5941e7e157bb16e628",
+          "replacement_renderer_sha256": "7e6b0f0a2f76351cecd5d0e243e826b28fe3208381afd24448e44b0749fe9120",
+          "previous_rebinding": {
+            "tag": "DERIVED",
+            "source": "D-3e residual sleeve + trough-sill liners, identity-carried (non-gully meshes)",
+            "reason": "D-3e (review TASTE audit 2 on the round-2 gully sheets; maintainer order + rulings 2026-09-20): RS — every entry sleeve's outer rim is mitred 0.3 mm INSIDE the panel's outer face (was the escutcheon plane 1 mm proud) and the escutcheon becomes a 1 mm slab from the panel face (same footprint / hole / outer face) so the ring between plate and panel is closed; TL — one unlit 0.6 mm liner on each end's trough-slot sill (the lit up-facing cut face pixel-certified as the g2 highlight). A GULLY-ONLY change: the headless full-scene dump of this tree vs the REAL app dumps of the D-3d card (f6dc9dbf-20260920T181942Z): every non-gully mesh identical on all three sizes (9 ft 134 identical; gully changed 12, added 2); the cushion families are untouched, so f's exact-B sections are unchanged and the RED-BY-LAW disposition binds to the new bytes with its value carried (O22-C2 form); the card at the ceremony window re-characterises.",
+            "previous_renderer_sha256": "573258a83fb194101d5237a86c7b2444643c08f4e05a7f9b778c0393db996fb9",
+            "renderer_sha256": "8c4eca65ac0ee67aa0414a480f458e2404491b3278b6aa5941e7e157bb16e628",
+            "measurement": {
+              "tag": "TESSELLATION",
+              "method": "Unmodified exact B OURS minus Diamond control cage at all ordered heights; no crease subtraction",
+              "p90_mm": 0.412844468798653,
+              "n": 816,
+              "station_count": 48,
+              "station_p90_spread": {
+                "n": 48,
+                "mean": 0.40678418869599925,
+                "rms": 0.018538229098298876,
+                "p50": 0.41491770716661447,
+                "p90": 0.41557625143336735,
+                "max": 0.4156094612462084,
+                "min": 0.364977197749954
+              },
+              "ours_crease_stations": 48,
+              "model_crease_stations": 0,
+              "measurement_provenance": {
+                "record": "FIX7 WHATIF-MEASUREMENTS.json",
+                "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+                "measurement_path": "reference.cage.ladders.under_ladder",
+                "mode": "TESSELLATION CAGE READ",
+                "unapplied_modifiers": [
+                  "TurboSmooth",
+                  "UVW Xform"
+                ],
+                "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+                "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+                "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+                "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+                "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+              },
+              "basis": "CARRIED BY BYTE IDENTITY of every non-gully Diamond mesh (the cushion families included) between the D-3d card's app dumps (f6dc9dbf-20260920T181942Z) and this tree; the gully delta is listed in the history entry"
+            },
+            "deciding_instrument": {
+              "path": "tools/render/d621/plan/cushion_gate_621.py",
+              "sha256": "f201f122a7612483f1b3c99b0fc6e4e19cb3504c00603107838bd7682d6775b1"
+            },
+            "receipt": {
+              "path": "<private evidence>/diamond/gully/fix6/F-REBINDING.json",
+              "sha256": "2e4418561dda0701aa9d61406cf4be24f6c32630e30b3b20bc9fc2fba2296898"
+            },
+            "identity_instrument": {
+              "path": "tools/render/d621/plan/offline_scene_dump_621.mjs",
+              "sha256": "a75cadfe94df989e8abab7fd7910bf12572e4061e6117cf0d56d45ebb76a3783",
+              "validation": "106 / 107 / 106 of 113 meshes byte-identical to the B2 app dumps of d7b8b0f0; dm-bed-cloth and dm-bootcollar-* are canvas-sampled and not reproduced headless"
+            }
+          },
+          "reason": "web/scene/table.js changed in 96 commits (85 non-merge) in the revision range fe70f037..c73f5baf (reachability counts; the range includes older side-branch work) without a re-pin; main's copy first changed after #644 at #642 (2026-09-21) and has changed 12 times on main since #644, unnoticed because test_cushion_gate_621 is not CI-wired (found red at main c73f5baf on 2026-10-18). The Diamond Pro-Am geometry did not change. (1) The committed fence pin cushion_mesh_fence_621.json equals the recorded real-app capture of fe70f037 (the D-3e card run) on every mesh, 127 / 127 / 148 at 7 / 8 / 9 ft. (2) A headless full-scene dump (offline_scene_dump_621.mjs, each tree with its own copy) of fe70f037 and of c73f5baf is byte-identical on every mesh, 127 / 127 / 148, f's exact-B inputs dm-cushion-0..5 and dm-railtop-0..5 included. (3) The seven meshes the headless instrument does not reproduce app-exactly (dm-bootcollar-* at every size, dm-bed-cloth at 7 and 9 ft) are built by code that is byte-identical at both trees (the diamondPocket block, the collar helpers, proamBedPath and the non-cn8 bed branch) and read no canvas: the collar gap is the app's asynchronous cuestick capability swap (915 -> 1275 vertices) and the bed-cloth gap a one-ulp Math.atan2 difference between the browser engine and node at one operand pair; the earlier 'canvas-sampled' wording for these meshes is a misattribution. (4) An app capture of the re-pin tree (dump-ours-621.mjs, the card's instrument, on a clean export whose web/ is main c73f5baf's; pinned chrome-headless-shell 151.0.7922.71; 2026-10-19T00:36Z) equals the fence pin on every mesh, 127 / 127 / 148 at 7 / 8 / 9 ft, the seven app-only meshes included. So f's sections are unchanged and the RED-BY-LAW disposition binds to the new bytes with its value carried (O22-C2 form). The purchased-model archive gate was not re-run: the quarantine OBJ set is not on this host.",
+          "mesh_identity": {
+            "7ft": {
+              "meshes": 127,
+              "identical": 127
+            },
+            "8ft": {
+              "meshes": 127,
+              "identical": 127
+            },
+            "9ft": {
+              "meshes": 148,
+              "identical": 148
+            }
+          }
+        },
+        {
+          "tag": "DERIVED",
+          "source": "maintainer ruling 2026-10-19 00:5xZ (option C): the f ruling binds to its input-mesh digests, not to table.js bytes",
+          "source_commit": "the guard commit on e627632b (the re-pin, approved for batch 10)",
+          "previous_law_sha256": "0334e06efc44d0d94b67f14eea382539f6f01e2f5932bc9ab5b853e9ed869efc",
+          "previous_binding": {
+            "characterized_renderer_sha256": "7e6b0f0a2f76351cecd5d0e243e826b28fe3208381afd24448e44b0749fe9120",
+            "binding": "Applies only to the renderer bytes characterized by the latest remeasurement below, a complete finite f sample and the observed retained crease. Historical bindings are provenance, not an allowlist: the pre-O22 and four-mm scratch renderers cannot inherit this disposition. All other gate rows still decide normally."
+          },
+          "reason": "The byte pin went red on every table.js edit: 96 commits in fe70f037..c73f5baf, none of which moved f's inputs (e627632b's evidence). The README rule becomes: every change to f's input meshes re-runs f; a table.js edit that leaves those meshes byte-identical does not. The table.js byte-pin test is retired in the same commit; the guard builds the characterized commit and HEAD from their own trees under one pinned runtime and compares the 12 meshes byte for byte, failing by name on any change, missing or extra mesh."
+        }
+      ]
+    }
+  },
+  "sizes": [
+    "9ft",
+    "8ft",
+    "7ft"
+  ],
+  "model_size": "8ft",
+  "sampling": {
+    "tag": "TESSELLATION",
+    "rails_per_size": 6,
+    "stations_per_rail": 8,
+    "end_margin_mm": 90,
+    "densify_mm": 0.25,
+    "top_depths_mm": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46,
+      48,
+      50
+    ],
+    "under_heights_mm": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34
+    ],
+    "back_heights_mm": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42
+    ],
+    "bed_model_z_mm": 770
+  },
+  "targets": {
+    "nose_z_mm": {
+      "value": 36.5125,
+      "tag": "MFR",
+      "source": "CU-03 frozen K-55 FIG 3 / RKC kernel target"
+    },
+    "nose_depth_mm": {
+      "value": 0,
+      "tag": "DERIVED",
+      "source": "frozen per-size kernel nose line"
+    },
+    "cushion_width_mm": {
+      "value": 50.8,
+      "tag": "MFR",
+      "source": "CU-04 WPA section 7 upper limit; frozen kernel"
+    },
+    "back_lean_deg": {
+      "value": 14.58,
+      "tag": "TESSELLATION",
+      "source": "R1: 48 stations, 0.02 degree rms; accepted decision row",
+      "cage_caveat": "TESSELLATION: purchased TurboSmooth control-cage read; the OBJ extraction did not apply TurboSmooth. Nose options: (c) retain 0.8 mm cage tessellation; (a) CC1 ≈ 0.55 mm / (b) CC2 ≈ 0.57 mm are EST what-ifs, not verified modifier outputs; (d) ≈ 2 mm requires a non-model source. OWNER DECISION PENDING.",
+      "measurement_provenance": {
+        "record": "FIX7 WHATIF-MEASUREMENTS.json",
+        "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+        "measurement_path": "reference.cage.statistics.back_lean_deg",
+        "mode": "TESSELLATION CAGE READ",
+        "unapplied_modifiers": [
+          "TurboSmooth",
+          "UVW Xform"
+        ],
+        "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+        "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+        "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+        "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+        "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+      }
+    },
+    "nose_radius_mm": {
+      "value": 1.93,
+      "tag": "MODEL",
+      "source": {
+        "doc": "rasson-ox-9ft CU-09, owner ruling 2026-09-10 option b",
+        "tier": "MODEL",
+        "commit": "d058e15c27bd03518ebae8a1fd0b439a817011f3",
+        "definition_path": "docs/geometry/rasson-ox-9ft-table-definition.json",
+        "definition_sha256": "f9170dd52129cab67d62453b1529d22a31394614774653b4b83c3e03af00ad99",
+        "leaf": "CU-09",
+        "value_path": "value.tip_fillet_R_mm",
+        "leaf_sha256": "852a167245cb020c0505d781016cc1c1e3e7a65b1971976fff7b308a3fbcf709",
+        "record_path": "docs/geometry/rasson-ox-9ft-a1-station-records.json",
+        "record_file_sha256": "cbd1b30a51674bffa82b15e052d40264ca23b32a78732ed0d2074cd00ca683bc",
+        "record_pointer": "/records/CU-09",
+        "record_sha256": "6cf14ac85106cb7c09568a330139d674b55a9c63249023c6fbd2a50d46815f34",
+        "snapshot": "tools/render/d621/law/rasson_nose_source_621.json"
+      },
+      "history": [
+        {
+          "tag": "TESSELLATION",
+          "status": "SUPERSEDED",
+          "source_commit": "80241afcb501c0c2194bdca87aeeba24c0741000",
+          "target": {
+            "value": 0.8,
+            "tag": "TESSELLATION",
+            "source": "Round the TESSELLATION cage 48-station adjacent-face-tangent radius mean 0.7968813089666199 mm to hundredths of a millimetre. Row e uses the fresh TESSELLATION cage value of each station, never this entry nominal.",
+            "cage_caveat": "TESSELLATION: purchased TurboSmooth control-cage read; the OBJ extraction did not apply TurboSmooth. Nose options: (c) retain 0.8 mm cage tessellation; (a) CC1 ≈ 0.55 mm / (b) CC2 ≈ 0.57 mm are EST what-ifs, not verified modifier outputs; (d) ≈ 2 mm requires a non-model source. OWNER DECISION PENDING.",
+            "measurement_provenance": {
+              "record": "FIX7 WHATIF-MEASUREMENTS.json",
+              "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+              "measurement_path": "reference.cage.statistics.circle_radius_mm",
+              "mode": "TESSELLATION CAGE READ",
+              "unapplied_modifiers": [
+                "TurboSmooth",
+                "UVW Xform"
+              ],
+              "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+              "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+              "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+              "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+              "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+            }
+          }
+        }
+      ]
+    },
+    "inner_foot_mm": {
+      "value": 25.4,
+      "tag": "TESSELLATION",
+      "source": "R3: PREP 25.43 +/- 0.02 mm",
+      "cage_caveat": "TESSELLATION: purchased TurboSmooth control-cage read; the OBJ extraction did not apply TurboSmooth. Nose options: (c) retain 0.8 mm cage tessellation; (a) CC1 ≈ 0.55 mm / (b) CC2 ≈ 0.57 mm are EST what-ifs, not verified modifier outputs; (d) ≈ 2 mm requires a non-model source. OWNER DECISION PENDING.",
+      "measurement_provenance": {
+        "record": "FIX7 WHATIF-MEASUREMENTS.json",
+        "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+        "measurement_path": "reference.cage.statistics.base_inner_d",
+        "mode": "TESSELLATION CAGE READ",
+        "unapplied_modifiers": [
+          "TurboSmooth",
+          "UVW Xform"
+        ],
+        "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+        "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+        "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+        "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+        "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+      }
+    },
+    "crease_depth_mm": {
+      "value": 24.7,
+      "tag": "TESSELLATION",
+      "source": "R3 inner foot minus the retained 0.7 mm relief run",
+      "cage_caveat": "TESSELLATION: purchased TurboSmooth control-cage read; the OBJ extraction did not apply TurboSmooth. Nose options: (c) retain 0.8 mm cage tessellation; (a) CC1 ≈ 0.55 mm / (b) CC2 ≈ 0.57 mm are EST what-ifs, not verified modifier outputs; (d) ≈ 2 mm requires a non-model source. OWNER DECISION PENDING.",
+      "measurement_provenance": {
+        "record": "FIX7 WHATIF-MEASUREMENTS.json",
+        "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+        "measurement_path": "reference.cage.statistics.base_inner_d",
+        "mode": "TESSELLATION CAGE READ",
+        "unapplied_modifiers": [
+          "TurboSmooth",
+          "UVW Xform"
+        ],
+        "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+        "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+        "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+        "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+        "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+      }
+    },
+    "crease_z_mm": {
+      "value": 1.6,
+      "tag": "DERIVED",
+      "source": "retained render rounding of the MFR CU-08 1/16 inch cloth-relief crease"
+    },
+    "crest_depth_mm": {
+      "value": 32.5,
+      "tag": "MFR",
+      "source": "R5 K-55 mounting guide FIG 2"
+    },
+    "crest_z_mm": {
+      "value": 44.45,
+      "tag": "TESSELLATION",
+      "source": "CU-09 frozen top plane: TurboSmooth control-cage read, retaining the COM field-measurement cross-check; unchanged applied value.",
+      "cage_caveat": "TESSELLATION: purchased TurboSmooth control-cage read; the OBJ extraction did not apply TurboSmooth. This is not a measured modifier-applied or limit surface. CC1/CC2 remain EST what-ifs pending actual Max settings; no value is moved by this provenance correction.",
+      "measurement_provenance": {
+        "record": "FIX7 WHATIF-MEASUREMENTS.json",
+        "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+        "measurement_path": "reference.cage.statistics.crest_z",
+        "mode": "TESSELLATION CAGE READ",
+        "unapplied_modifiers": [
+          "TurboSmooth",
+          "UVW Xform"
+        ],
+        "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+        "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+        "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+        "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+        "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+      }
+    },
+    "cap_z_mm": {
+      "value": 44.68,
+      "tag": "TESSELLATION",
+      "source": "RB-02 frozen since ALIGN",
+      "cage_caveat": "TESSELLATION: purchased TurboSmooth control-cage read; the OBJ extraction did not apply TurboSmooth. Nose options: (c) retain 0.8 mm cage tessellation; (a) CC1 ≈ 0.55 mm / (b) CC2 ≈ 0.57 mm are EST what-ifs, not verified modifier outputs; (d) ≈ 2 mm requires a non-model source. OWNER DECISION PENDING.",
+      "measurement_provenance": {
+        "record": "FIX7 WHATIF-MEASUREMENTS.json",
+        "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+        "measurement_path": "reference.cage.statistics.cap_z",
+        "mode": "TESSELLATION CAGE READ",
+        "unapplied_modifiers": [
+          "TurboSmooth",
+          "UVW Xform"
+        ],
+        "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+        "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+        "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+        "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+        "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+      }
+    },
+    "cap_step_mm": {
+      "value": 0.23,
+      "tag": "TESSELLATION",
+      "source": "RB-02 minus CU-09",
+      "cage_caveat": "TESSELLATION: purchased TurboSmooth control-cage read; the OBJ extraction did not apply TurboSmooth. Nose options: (c) retain 0.8 mm cage tessellation; (a) CC1 ≈ 0.55 mm / (b) CC2 ≈ 0.57 mm are EST what-ifs, not verified modifier outputs; (d) ≈ 2 mm requires a non-model source. OWNER DECISION PENDING.",
+      "measurement_provenance": {
+        "record": "FIX7 WHATIF-MEASUREMENTS.json",
+        "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+        "measurement_path": "reference.cage.statistics.cap_step",
+        "mode": "TESSELLATION CAGE READ",
+        "unapplied_modifiers": [
+          "TurboSmooth",
+          "UVW Xform"
+        ],
+        "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+        "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+        "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+        "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+        "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+      }
+    },
+    "cap_front_mm": {
+      "value": 50.8,
+      "tag": "TESSELLATION",
+      "source": "R4 model relation plus WPA CU-04; pre-adoption pocket-cut and positive lip-step proof",
+      "cage_caveat": "TESSELLATION: purchased TurboSmooth control-cage read; the OBJ extraction did not apply TurboSmooth. Nose options: (c) retain 0.8 mm cage tessellation; (a) CC1 ≈ 0.55 mm / (b) CC2 ≈ 0.57 mm are EST what-ifs, not verified modifier outputs; (d) ≈ 2 mm requires a non-model source. OWNER DECISION PENDING.",
+      "measurement_provenance": {
+        "record": "FIX7 WHATIF-MEASUREMENTS.json",
+        "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+        "measurement_path": "reference.cage.statistics.cap_front_d",
+        "mode": "TESSELLATION CAGE READ",
+        "unapplied_modifiers": [
+          "TurboSmooth",
+          "UVW Xform"
+        ],
+        "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+        "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+        "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+        "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+        "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+      }
+    }
+  },
+  "rows": [
+    {
+      "key": "a",
+      "label": "nose height error from frozen CU-03",
+      "op": "<=",
+      "threshold": 0.01,
+      "unit": "mm",
+      "n": 144
+    },
+    {
+      "key": "b",
+      "label": "section nose-line depth error",
+      "op": "<=",
+      "threshold": 0.05,
+      "unit": "mm",
+      "n": 144
+    },
+    {
+      "key": "c",
+      "label": "rear-closure least-squares angle error",
+      "op": "<=",
+      "threshold": 0.25,
+      "unit": "deg",
+      "n": 144
+    },
+    {
+      "key": "c_rms",
+      "label": "rear-closure line rms",
+      "op": "<=",
+      "threshold": 0.1,
+      "unit": "mm",
+      "n": 144
+    },
+    {
+      "key": "d",
+      "label": "outer bed foot error from CW - crestZ * tan(backLean)",
+      "op": "<=",
+      "threshold": 0.3,
+      "unit": "mm",
+      "n": 144
+    },
+    {
+      "key": "e",
+      "label": "Nose radius: actual OURS B fit vs owner-selected Rasson CU-09 MODEL",
+      "op": "<=",
+      "threshold": 0.3,
+      "unit": "mm",
+      "n": 144
+    },
+    {
+      "key": "f_p90",
+      "label": "Option B exact under-face ladder vs model p90",
+      "op": "<=",
+      "threshold": 0.5,
+      "unit": "mm",
+      "n": 816
+    },
+    {
+      "key": "f_max",
+      "label": "Option B exact under-face ladder vs model max",
+      "op": "<=",
+      "threshold": 1,
+      "unit": "mm",
+      "n": 816
+    },
+    {
+      "key": "g",
+      "label": "cloth-relief horizontal run over the last 1.6 mm",
+      "op": "<=",
+      "threshold": 0.8,
+      "unit": "mm",
+      "n": 144
+    },
+    {
+      "key": "g_crease",
+      "label": "distinct CU-08 relief crease present",
+      "op": ">=",
+      "threshold": 144,
+      "unit": "sections",
+      "n": 144
+    },
+    {
+      "key": "h_p90",
+      "label": "top ladder vs MFR trace p90",
+      "op": "<=",
+      "threshold": 0.3,
+      "unit": "mm",
+      "n": 3600
+    },
+    {
+      "key": "h_max",
+      "label": "top ladder vs MFR trace max",
+      "op": "<=",
+      "threshold": 0.6,
+      "unit": "mm",
+      "n": 3600
+    },
+    {
+      "key": "i_crest",
+      "label": "CU-09 crest-height error",
+      "op": "<=",
+      "threshold": 0.02,
+      "unit": "mm",
+      "n": 144
+    },
+    {
+      "key": "i_cap",
+      "label": "RB-02 cap-plateau error",
+      "op": "<=",
+      "threshold": 0.02,
+      "unit": "mm",
+      "n": 144
+    },
+    {
+      "key": "i_step",
+      "label": "cap-minus-crest step error",
+      "op": "<=",
+      "threshold": 0.03,
+      "unit": "mm",
+      "n": 144
+    },
+    {
+      "key": "i_front",
+      "label": "cap-front error from verified R4 CU-04",
+      "op": "<=",
+      "threshold": 0.1,
+      "unit": "mm",
+      "n": 144
+    },
+    {
+      "key": "j",
+      "label": "Option B exact cross-size top/under ladder maximum difference",
+      "op": "<=",
+      "threshold": 0.02,
+      "unit": "mm",
+      "n": 4032
+    },
+    {
+      "key": "k_plan",
+      "label": "fresh in-process PLAN rows a-d all pass",
+      "op": ">=",
+      "threshold": 66,
+      "unit": "rows",
+      "n": 66
+    },
+    {
+      "key": "k_arms",
+      "label": "realised glue/arm-end moves versus ordered impact table",
+      "op": "<=",
+      "threshold": 0.3,
+      "unit": "mm",
+      "n": 10
+    }
+  ],
+  "arm_impact": {
+    "tag": "DERIVED",
+    "source": "ORDER-D621-O22 section 5; baseline CU-10 is a frozen historical value, not the accepted target",
+    "baseline_back_lean_deg": 23.5,
+    "rows": [
+      {
+        "height_mm": 0,
+        "side_move_mm": 7.77,
+        "corner_axis_move_mm": 10.98
+      },
+      {
+        "height_mm": 20,
+        "side_move_mm": 4.27,
+        "corner_axis_move_mm": 6.04
+      },
+      {
+        "height_mm": 36.51,
+        "side_move_mm": 1.39,
+        "corner_axis_move_mm": 1.96
+      },
+      {
+        "height_mm": 43.7,
+        "side_move_mm": 0.13,
+        "corner_axis_move_mm": 0.19
+      },
+      {
+        "height_mm": 44.45,
+        "side_move_mm": 0,
+        "corner_axis_move_mm": 0
+      }
+    ]
+  },
+  "fence": {
+    "baseline": "tools/render/d621/law/cushion_fence_621.json",
+    "positive_non_target_entries": 8,
+    "tag": "DERIVED",
+    "changed_mesh_families_subset": [
+      "dm-cushion",
+      "dm-subrail",
+      "dm-bootcollar",
+      "dm-railtop",
+      "dm-cornerblock",
+      "dm-shelfshadow",
+      "dm-apronband"
+    ],
+    "source": "Original five families plus the explicit FIX1 shelf-shadow ruling and C7 frame/apron corner-outline ruling; no other unexpected family is accepted.",
+    "ruled_identity_delta": {
+      "tag": "DERIVED",
+      "ruling": "dm-shelfshadow follows the glue plane by derivation (PLAN-1 made the shadow leg a derivation of the arm end)",
+      "source": "FIX1 addendum item 2, maintainer 2026-09-09",
+      "scope": "The sixth ordered family, not a hidden freeze or a failing row."
+    },
+    "owner_alias": {
+      "tag": "DERIVED",
+      "id": "owner_proam_9ft_2026_07",
+      "follows": "diamond_proam_9ft",
+      "ruling": "FIX1 addendum item 3: the owner alias follows the render-only Pro-Am cushion entry. Physics and camera calibration remain unchanged. Its fence-base-490 ceremony row is an expected re-pin by name, never claimed IDENTICAL."
+    },
+    "corner_outline_ruling": {
+      "tag": "DERIVED",
+      "ruling": "C7 owner corner-outline order and CROSS-CHECK 2026-09-11 06:05Z",
+      "source_leaf": "RC-01",
+      "added_family": "dm-apronband",
+      "reason": "The measured frame/apron rings are emitted by the existing apron assembly. Railtop and cornerblock are already fenced. No mesh-set, collision, cushion or other-family exemption; a C7 before/after full-mesh digest arm checks the narrower incremental change."
+    },
+    "gully_ruling": {
+      "tag": "DERIVED",
+      "source": "maintainer GULLY-FIX6 order 2026-09-18 (review 644g6 P2 #2 / #3); maintainer ruling 2026-09-17 (#650 inside build 18)",
+      "ruling": "The full-scene mesh-fence pin is RE-DERIVED at GULLY-FIX6 (the gully collector, sleeves, plates, baffles and lip are new families; dm-cabinet-side-l / -r carry the 9 ft cutouts; dm-cabinet-trough-hhead is gone) from the headless full-scene dump validated against the B2 app capture. The changed-mesh-families subset is NOT widened: the gully families are frozen at this pin like every other unlisted family — the next construction change re-derives the pin with its own ruling. Seven digests are carried from the B2 app capture (dm-bed-cloth, dm-bootcollar-*) because the headless build does not reproduce canvas-sampled geometry; the card's app capture re-derives them.",
+      "pin_sha256": "5cf05634bd0836bc1a0a278de34408254a9f48b90c6c92448eb6b7c7856b2390",
+      "previous_pin_sha256": "4f6de97fd5ef54b45f5ab3ea09044f3a6252a8ceb1556f343e89416b9a239a8a",
+      "per_size": {
+        "9ft": {
+          "identical": 110,
+          "differ": [
+            "dm-cabinet-side-l",
+            "dm-cabinet-side-r"
+          ],
+          "added": [
+            "dm-gullybox-floor",
+            "dm-gullybox-ceiling",
+            "dm-gullybox-back-0",
+            "dm-gullybox-back-1",
+            "dm-gullybox-end-l",
+            "dm-gullybox-end-r",
+            "dm-gullybox-feedbaffle-0",
+            "dm-gullybox-feedbaffle-1",
+            "dm-gullybox-lip-top",
+            "dm-gullybox-lip-bottom",
+            "dm-gullybox-lip-r",
+            "dm-gullybox-lip-l",
+            "dm-gullysleeve-c0",
+            "dm-gullyplate-c0",
+            "dm-gullybaffle-c0",
+            "dm-gullysleeve-s1",
+            "dm-gullyplate-s1",
+            "dm-gullybaffle-s1",
+            "dm-gullysleeve-c2",
+            "dm-gullyplate-c2",
+            "dm-gullybaffle-c2",
+            "dm-gullysleeve-c3",
+            "dm-gullyplate-c3",
+            "dm-gullybaffle-c3",
+            "dm-gullysleeve-s4",
+            "dm-gullyplate-s4",
+            "dm-gullybaffle-s4",
+            "dm-gullysleeve-c5",
+            "dm-gullyplate-c5",
+            "dm-gullybaffle-c5"
+          ],
+          "removed": [
+            "dm-cabinet-trough-hhead"
+          ]
+        },
+        "8ft": {
+          "identical": 112,
+          "differ": [],
+          "added": [
+            "dm-gullybox-floor",
+            "dm-gullybox-ceiling",
+            "dm-gullybox-back-0",
+            "dm-gullybox-end-l",
+            "dm-gullybox-end-r",
+            "dm-gullybox-lip-top",
+            "dm-gullybox-lip-bottom",
+            "dm-gullybox-lip-r",
+            "dm-gullybox-lip-l"
+          ],
+          "removed": [
+            "dm-cabinet-trough-hhead"
+          ]
+        },
+        "7ft": {
+          "identical": 112,
+          "differ": [],
+          "added": [
+            "dm-gullybox-floor",
+            "dm-gullybox-ceiling",
+            "dm-gullybox-back-0",
+            "dm-gullybox-end-l",
+            "dm-gullybox-end-r",
+            "dm-gullybox-lip-top",
+            "dm-gullybox-lip-bottom",
+            "dm-gullybox-lip-r",
+            "dm-gullybox-lip-l"
+          ],
+          "removed": [
+            "dm-cabinet-trough-hhead"
+          ]
+        }
+      },
+      "carried_digests": [],
+      "headless_validation": {
+        "commit": "d7b8b0f0 (the B2 baseline app dumps, <private evidence>/diamond/dumps)",
+        "identical_meshes": {
+          "9ft": 106,
+          "8ft": 107,
+          "7ft": 106
+        },
+        "of": 113,
+        "not_reproduced_headless": {
+          "9ft": [
+            "dm-bed-cloth",
+            "dm-bootcollar-c0",
+            "dm-bootcollar-c2",
+            "dm-bootcollar-c3",
+            "dm-bootcollar-c5",
+            "dm-bootcollar-s1",
+            "dm-bootcollar-s4"
+          ],
+          "8ft": [
+            "dm-bootcollar-c0",
+            "dm-bootcollar-c2",
+            "dm-bootcollar-c3",
+            "dm-bootcollar-c5",
+            "dm-bootcollar-s1",
+            "dm-bootcollar-s4"
+          ],
+          "7ft": [
+            "dm-bed-cloth",
+            "dm-bootcollar-c0",
+            "dm-bootcollar-c2",
+            "dm-bootcollar-c3",
+            "dm-bootcollar-c5",
+            "dm-bootcollar-s1",
+            "dm-bootcollar-s4"
+          ]
+        },
+        "reason": "dm-bed-cloth (494 vs 495 triangles) and dm-bootcollar-* (915 vs 1275 vertices) depend on 2D-canvas sampling the node stub cannot supply; every other mesh reproduces the app bytes exactly"
+      },
+      "families_widened": false,
+      "d3_note": "D-3: the pin is re-derived from the D-0 card's real app dumps (no carried digest); the family subset is still NOT widened.",
+      "d3b_note": "D-3b look fix: gully meshes changed / added per gully_mesh_delta (headless digests); every other mesh keeps its app digest; family subset NOT widened.",
+      "d3e_note": "D-3e: gully meshes changed / added per gully_mesh_delta (headless digests); every other mesh keeps the D-3d card app digest; the family subset is not widened (sleeves, plates and the trough-sill liners are gully hardware, dm-gully*)"
+    }
+  },
+  "battery": {
+    "tag": "DERIVED",
+    "liveswitch_assertions": 68,
+    "cue_clearance": "PASS",
+    "e2e": "GH-628(3) ring mirror; unrelated pre-existing lighting failures must be disclosed separately",
+    "source": "ORDER section 4(l); executed archive tools only, one pinned Chrome at a time"
+  },
+  "census": {
+    "tag": "DERIVED",
+    "untagged_allowed": 0,
+    "source": "ORDER section 4(m); all three CU-10/CU-11/CU-12 rows retagged and five-SHA cascade verified"
+  },
+  "diagnostics": {
+    "tag": "DERIVED",
+    "method_status": "C4B: actual OURS B nose fits vs the receipt-bound Rasson CU-09 MODEL scalar decide e. Diamond cage radius fits are diagnostic; exact B intersections still decide f/j; PREP secondary retained.",
+    "vertex_height_epsilon_mm": 0.0001,
+    "epsilon_source": "CLEARANCE: unchanged float32 world-coordinate precision in the metre-to-mm section transform; also rejects collinear circle support below that precision, identically for MODEL and OURS",
+    "support_source": "DERIVED from each section's facet shoulders; OURS B depth limit is the smaller shoulder depth, never from a target radius."
+  },
+  "model_facet_baseline": {
+    "tag": "TESSELLATION",
+    "source": "pool_rubber01..06, 6 x 8 stations, 90 mm end exclusion; nose_facets_621.tangent_circle. Recorded scalar reads only; fresh per-station targets decide.",
+    "summary": {
+      "n": 48,
+      "mean": 0.7968813089666199,
+      "rms": 0.004330242663590757,
+      "p50": 0.7965768676221252,
+      "p90": 0.7972181167863827,
+      "max": 0.8134403731143257,
+      "min": 0.7856917872603233
+    },
+    "fit_rms_mm": {
+      "n": 48,
+      "mean": 0.021880365077810937,
+      "rms": 0.006898314646338209,
+      "p50": 0.0197636884907453,
+      "p90": 0.02605239824734397,
+      "max": 0.04841479177263752,
+      "min": 0.019523281944230038
+    },
+    "attempted_sections": 48,
+    "unresolved_sections": 0,
+    "stations": [
+      {
+        "rail": "long +y a",
+        "ordinal": 0,
+        "radius_mm": 0.7971946644894321,
+        "fit_rms_mm": 0.019529340026731918,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y a",
+        "ordinal": 1,
+        "radius_mm": 0.7971946644894268,
+        "fit_rms_mm": 0.019529340026731328,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y a",
+        "ordinal": 2,
+        "radius_mm": 0.7971946644894268,
+        "fit_rms_mm": 0.019529340026731328,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y a",
+        "ordinal": 3,
+        "radius_mm": 0.7971946644894268,
+        "fit_rms_mm": 0.019529340026731328,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y a",
+        "ordinal": 4,
+        "radius_mm": 0.7971946644894268,
+        "fit_rms_mm": 0.019529340026731328,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y a",
+        "ordinal": 5,
+        "radius_mm": 0.7971958312695878,
+        "fit_rms_mm": 0.01952390920408613,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y a",
+        "ordinal": 6,
+        "radius_mm": 0.7856917872603233,
+        "fit_rms_mm": 0.030791875420475352,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y a",
+        "ordinal": 7,
+        "radius_mm": 0.7965760840363988,
+        "fit_rms_mm": 0.019533187608565716,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y b",
+        "ordinal": 0,
+        "radius_mm": 0.7963647226712653,
+        "fit_rms_mm": 0.019586088942216747,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y b",
+        "ordinal": 1,
+        "radius_mm": 0.7963112888964867,
+        "fit_rms_mm": 0.01984698477956969,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y b",
+        "ordinal": 2,
+        "radius_mm": 0.7972698017547272,
+        "fit_rms_mm": 0.01976383087561701,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y b",
+        "ordinal": 3,
+        "radius_mm": 0.7972698017547272,
+        "fit_rms_mm": 0.01976383087561701,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y b",
+        "ordinal": 4,
+        "radius_mm": 0.796952631304408,
+        "fit_rms_mm": 0.019774225069405463,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y b",
+        "ordinal": 5,
+        "radius_mm": 0.8132692021212581,
+        "fit_rms_mm": 0.04841479177263752,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y b",
+        "ordinal": 6,
+        "radius_mm": 0.7971943002657598,
+        "fit_rms_mm": 0.01952763752903168,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long +y b",
+        "ordinal": 7,
+        "radius_mm": 0.7971959660856245,
+        "fit_rms_mm": 0.019523281944257325,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y a",
+        "ordinal": 0,
+        "radius_mm": 0.7965235817540554,
+        "fit_rms_mm": 0.019788011868903818,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y a",
+        "ordinal": 1,
+        "radius_mm": 0.7965235817540554,
+        "fit_rms_mm": 0.019788011868903818,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y a",
+        "ordinal": 2,
+        "radius_mm": 0.7965235817540554,
+        "fit_rms_mm": 0.019788011868903818,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y a",
+        "ordinal": 3,
+        "radius_mm": 0.7965235817540554,
+        "fit_rms_mm": 0.019788011868903818,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y a",
+        "ordinal": 4,
+        "radius_mm": 0.7965235817540554,
+        "fit_rms_mm": 0.019788011868903818,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y a",
+        "ordinal": 5,
+        "radius_mm": 0.7965235817540554,
+        "fit_rms_mm": 0.019788011868903818,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y a",
+        "ordinal": 6,
+        "radius_mm": 0.7965235817540554,
+        "fit_rms_mm": 0.019788011868903818,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y a",
+        "ordinal": 7,
+        "radius_mm": 0.7965773948895127,
+        "fit_rms_mm": 0.019527146165972693,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y b",
+        "ordinal": 0,
+        "radius_mm": 0.7965760840363969,
+        "fit_rms_mm": 0.01953318760856595,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y b",
+        "ordinal": 1,
+        "radius_mm": 0.7965235817540554,
+        "fit_rms_mm": 0.019788011868903818,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y b",
+        "ordinal": 2,
+        "radius_mm": 0.7965430490675677,
+        "fit_rms_mm": 0.019780391547377176,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y b",
+        "ordinal": 3,
+        "radius_mm": 0.7971959660856245,
+        "fit_rms_mm": 0.019523281944257325,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y b",
+        "ordinal": 4,
+        "radius_mm": 0.7971959660856245,
+        "fit_rms_mm": 0.019523281944257325,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y b",
+        "ordinal": 5,
+        "radius_mm": 0.8134403731143257,
+        "fit_rms_mm": 0.04819732584527514,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y b",
+        "ordinal": 6,
+        "radius_mm": 0.7965235817540554,
+        "fit_rms_mm": 0.019788011868903818,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "long -y b",
+        "ordinal": 7,
+        "radius_mm": 0.7965235817540554,
+        "fit_rms_mm": 0.019788011868903818,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short +x",
+        "ordinal": 0,
+        "radius_mm": 0.7965763403547705,
+        "fit_rms_mm": 0.019533183673159354,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short +x",
+        "ordinal": 1,
+        "radius_mm": 0.7863442324264079,
+        "fit_rms_mm": 0.026052397517466824,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short +x",
+        "ordinal": 2,
+        "radius_mm": 0.7971957695969617,
+        "fit_rms_mm": 0.01952419616609487,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short +x",
+        "ordinal": 3,
+        "radius_mm": 0.7971946644894621,
+        "fit_rms_mm": 0.01952934002670497,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short +x",
+        "ordinal": 4,
+        "radius_mm": 0.7971946644894605,
+        "fit_rms_mm": 0.019529340026705325,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short +x",
+        "ordinal": 5,
+        "radius_mm": 0.7971957695985901,
+        "fit_rms_mm": 0.019524196158501986,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short +x",
+        "ordinal": 6,
+        "radius_mm": 0.7863442316465439,
+        "fit_rms_mm": 0.02605239995039064,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short +x",
+        "ordinal": 7,
+        "radius_mm": 0.796576340354771,
+        "fit_rms_mm": 0.019533183673161387,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short -x",
+        "ordinal": 0,
+        "radius_mm": 0.7965760840363593,
+        "fit_rms_mm": 0.01953318760856944,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short -x",
+        "ordinal": 1,
+        "radius_mm": 0.7965235817540101,
+        "fit_rms_mm": 0.019788011868907367,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short -x",
+        "ordinal": 2,
+        "radius_mm": 0.7965861029664526,
+        "fit_rms_mm": 0.019763546105873595,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short -x",
+        "ordinal": 3,
+        "radius_mm": 0.7971959660856636,
+        "fit_rms_mm": 0.019523281944230038,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short -x",
+        "ordinal": 4,
+        "radius_mm": 0.799145133513495,
+        "fit_rms_mm": 0.045607011211487546,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short -x",
+        "ordinal": 5,
+        "radius_mm": 0.7965235817540101,
+        "fit_rms_mm": 0.019788011868907367,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short -x",
+        "ordinal": 6,
+        "radius_mm": 0.7965235817540101,
+        "fit_rms_mm": 0.019788011868907367,
+        "status": "RESOLVED"
+      },
+      {
+        "rail": "short -x",
+        "ordinal": 7,
+        "radius_mm": 0.7965773948894794,
+        "fit_rms_mm": 0.01952714616597636,
+        "status": "RESOLVED"
+      }
+    ],
+    "cage_caveat": "TESSELLATION: purchased TurboSmooth control-cage read; the OBJ extraction did not apply TurboSmooth. Nose options: (c) retain 0.8 mm cage tessellation; (a) CC1 ≈ 0.55 mm / (b) CC2 ≈ 0.57 mm are EST what-ifs, not verified modifier outputs; (d) ≈ 2 mm requires a non-model source. OWNER DECISION PENDING.",
+    "measurement_provenance": {
+      "record": "FIX7 WHATIF-MEASUREMENTS.json",
+      "record_sha256": "ed3fa4a780b0a9bce600ce04249353f9225d7cbb1da60fe5ccf46ca9154e52f6",
+      "measurement_path": "reference.cage.statistics.circle_radius_mm",
+      "mode": "TESSELLATION CAGE READ",
+      "unapplied_modifiers": [
+        "TurboSmooth",
+        "UVW Xform"
+      ],
+      "modifier_record": "FIX7 POLYGON-CAGE-AUDIT.json",
+      "modifier_record_sha256": "00fbb5a07e2e5a6774fce1265915d283da257c0348136eae98cbfccaac5564ce",
+      "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+      "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+      "scope": "Surface provenance; the named statistic records the cage read. Retained historical diagnostics and derived targets keep their stated methods."
+    }
+  },
+  "decision_history": [
+    {
+      "tag": "DERIVED",
+      "source_commit": "80241afcb501c0c2194bdca87aeeba24c0741000",
+      "decision": "R1 = MODEL 14.58 degrees, accepted and owner-overridable; RKC/bradsh98 via AZB 465370 remains community tier, not MFR. R2 = MODEL facet-aware face-tangent radius, measured 0.796881 mm and rounded to 0.80 mm; the order's 1.2 was a chord over-read. The earlier ~0.5 / chord-equivalent ~0.53 proposal is retained as a different convention, not relabelled as this tangent read. Owner may overrule. R3/R4/R5 and every kernel datum remain unchanged.",
+      "measurement_method": {
+        "tag": "DERIVED",
+        "ruling": "ORDER-D621-O22-FIX1 plus maintainer addendum 2026-09-09: MODEL row-e target is the circle tangent to both adjoining faces fitted through the actual facet vertices; OURS keeps the B apex circle fit. R2 follows the 48 fresh MODEL reads. The +/-0.3 mm bar, counts, other ordered dimensions and WASM pin stay unchanged. Exact B intersections continue to decide f/j.",
+        "deciding_rows": [
+          "e",
+          "f_p90",
+          "f_max",
+          "j"
+        ],
+        "sectioner": "The same section_dz / objlib.section triangle-plane intersections and exact segment crossings for MODEL and OURS, at the same six-rail, eight-station ordinal grid with the unchanged end margin.",
+        "radius_fit": "Exact closed triangle sections on both sides. Coordinate-precision simplification removes collinear triangle splits; each shoulder is located by the largest adjacent facet-length increase. MODEL fits a circle tangent to the two adjoining face lines through the nose-facet vertices. OURS uses the original B centered least-squares circle fit on raw section vertices at depths no greater than the smaller of its two measured shoulder depths. This support is geometry-derived, not target-derived. MODEL's B apex fit is also recorded diagnostically and can be UNRESOLVED.",
+        "model_reference": "Only one purchased 8-ft model exists: its same 48 physical sections are evaluated for each of the three size comparisons, never scaled or presented as three independent models; the deciding MODEL ladder comparison remains 8-ft only.",
+        "secondary": "PREP one-mm chord radii and windowed ladders remain per station and beside e/f/j, explicitly non-deciding. Historical PREP e keeps its 1.2 mm reference solely to preserve the prior secondary column; h retains its standing trace method with the new MODEL-derived entry radius.",
+        "reason": "The one-mm depth band extends beyond the nose facets/arc into the sloping tangent faces, so its vertical span is not a circular chord; the inverse-chord formula over-read the MODEL itself as 1.18 mm as well as biasing OURS upward.",
+        "identifiability": "A missing, disconnected, literal flat-apex, collinear or ambiguous-shoulder section is UNRESOLVED. In particular a circle fit on 2-4 collinear vertices is UNRESOLVED by construction. If either the MODEL tangent fit or OURS B fit is unresolved, that station has null error and row e cannot pass. No dropping pairs or nominal substitution.",
+        "radius_derivation": "With inward unit face normals N and offsets k, a tangent circle center satisfies N*C=k+r, hence C=C0+r*v. For each actual facet vertex P_i, the residual |P_i-C|^2-r^2 is quadratic in r. Minimize the sum of squared residuals by evaluating all positive real roots of its cubic derivative. Report radius spread across 48 stations and per-station radial rms/tangency error; no arbitrary triangle-edge crossing is a facet vertex.",
+        "secondary_radius_reference_mm": {
+          "value": 1.2,
+          "tag": "DERIVED",
+          "source": "Historical O22 PREP column reference only; never a deciding constant."
+        },
+        "model_tessellation_note": {
+          "tag": "TESSELLATION",
+          "source": "The existing NA=24 nose arc rows are unchanged. A proposed 0.5 mm arc would have roughly 0.03 mm of arc per row at this angular span: the crisp MODEL edge is not evidence of a 1.2 mm circle. The actual constrained tangent fit is recorded separately and is near the refuters' 0.81 mm facet fit.",
+          "arc_rows": 24,
+          "proposal_radius_mm": 0.5,
+          "approx_proposal_arc_per_row_mm": 0.03
+        }
+      }
+    }
+  ]
+}

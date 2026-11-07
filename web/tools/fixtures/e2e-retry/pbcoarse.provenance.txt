@@ -1,0 +1,17 @@
+# #1180 provenance of the PBCOARSE specimens: the new suite has no CI job log yet, so both come from local runs of the
+# e2e-ui-audit job's own step command (node web/tools/run-gate.mjs --band 22800-22909 --no-canary --no-belt --
+# node web/tools/e2e-pbcoarse.mjs, OB_E2E_POLL_SCALE=1), each on a clean export of a local preview tree, under the
+# launchd leg wrapper, which captures stdout and stderr to separate files.
+
+pbcoarse-pass.log (the review-delta tip with its sw.js regenerated)
+tree: 2622ca8e255817ba50a79b78a95ff7f6e19f3f51
+when: 2026-10-30T21:57:35Z - 21:59:37Z, rc 0
+lines: the suite's stdout from its first cell line to the completion line 'E2E-PBCOARSE: PASS' (the run-gate band and
+ledger lines around them dropped); stderr was empty.
+
+pbcoarse-fail.log (f75a24d3 with its sw.js regenerated, under the review delta's suite: the Blob-holding reveal marker)
+tree: 3474cb4255d161c7b2e2e6017640e283f071f58b
+when: 2026-10-30T05:17:33Z - 05:19:40Z, rc 1
+lines: the suite's stdout from its first cell line to the completion line 'E2E-PBCOARSE: FAILED (3)', with its three
+stderr rows ('E2E-PBCOARSE FAIL: PB-TILES ...') placed where the suite prints them: each after its cell's
+before/after line, the fine control's after its body-overflow note. The lines themselves are verbatim.

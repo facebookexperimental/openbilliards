@@ -1,0 +1,1038 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guide de jeu — openbilliards</title>
+  <meta name="description" content="Comment jouer à openbilliards : commandes, effet et lignes d'aide, les règles du 9-ball, du 8-ball, du snooker, de la carambole trois bandes et du one-pocket telles qu'implémentées, le catalogue des jeux, équipement et badges de calibration, replays partagés, export vidéo — en sept langues.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Guide de jeu — openbilliards">
+  <meta property="og:description" content="Comment jouer à openbilliards : commandes, effet et lignes d'aide, les règles du 9-ball, du 8-ball, du snooker, de la carambole trois bandes et du one-pocket telles qu'implémentées, le catalogue des jeux, équipement et badges de calibration, replays partagés, export vidéo — en sept langues.">
+  <meta property="og:image" content="../../assets/img/hero-poster.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b100c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23efe9d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../assets/guide.css">
+  <script src="../../assets/site.js" defer></script>
+  <script src="../../assets/motion.js" defer></script>
+</head>
+<body>
+  <a class="bb-skip" href="#main">Aller au contenu</a>
+
+  <header>
+    <nav class="bb-nav" aria-label="Navigation principale">
+      <a class="bb-wordmark" href="../../index.html">Openbilliards</a>
+      <button class="bb-nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <ul class="bb-nav-links" id="nav-links">
+        <li><a href="index.html">Guide</a></li>
+        <li><a href="../../docs/index.html">Docs API</a></li>
+        <li><a href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a></li>
+        <li><a class="bb-pill bb-pill--fill" href="../../web/app.html">Jouer</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="bb-section gd-hero" aria-labelledby="gd-h">
+      <p class="bb-edge-tab bb-label">Openbilliards — gameplay guide</p>
+
+      <p class="bb-label bb-marker bb-reveal">Guide — cinq disciplines</p>
+      <h1 id="gd-h" class="bb-display bb-reveal bb-d1" style="margin: 24px 0 32px; max-width: 9em;">
+        La table,<br>expliquée.
+      </h1>
+      <p class="bb-body bb-reveal bb-d2" style="max-width: 36em;">
+        Chaque commande, chaque règle, chaque ligne que le jeu dessine —
+        documentées exactement comme se comporte le build livré. Chaque nombre
+        cite le fichier source qui le définit.
+      </p>
+
+      <nav class="gd-lang bb-reveal bb-d3" aria-label="Langue du guide" style="margin-top: 48px;">
+        <a data-lang="en" href="../en/index.html" lang="en">English</a>
+        <a data-lang="zh-CN" href="../zh-CN/index.html" lang="zh-CN">中文</a>
+        <a data-lang="es" href="../es/index.html" lang="es">Español</a>
+        <a data-lang="ja" href="../ja/index.html" lang="ja">日本語</a>
+        <a data-lang="de" href="../de/index.html" lang="de">Deutsch</a>
+        <a data-lang="fr" href="index.html">Français</a>
+        <a data-lang="ko" href="../ko/index.html" lang="ko">한국어</a>
+      </nav>
+
+      <nav aria-label="Sommaire" class="bb-reveal bb-d4">
+        <ul class="gd-toc">
+          <li><a href="#first-shot"><span class="n">01</span>Votre premier tir</a></li>
+          <li><a href="#controls"><span class="n">02</span>Commandes</a></li>
+          <li><a href="#spin"><span class="n">03</span>Effet &amp; lignes d'aide</a></li>
+          <li><a href="#games"><span class="n">04</span>Choisir un jeu</a></li>
+          <li><a href="#rules"><span class="n">05</span>Règles du 9-ball</a></li>
+          <li><a href="#rules-8ball"><span class="n">06</span>Règles du 8-ball</a></li>
+          <li><a href="#rules-snooker"><span class="n">07</span>Règles du snooker</a></li>
+          <li><a href="#rules-carom"><span class="n">08</span>Règles de la carambole</a></li>
+          <li><a href="#rules-onepocket"><span class="n">09</span>Règles du one-pocket</a></li>
+          <li><a href="#equipment"><span class="n">10</span>Équipement &amp; badges</a></li>
+          <li><a href="#replays"><span class="n">11</span>Replays &amp; partage</a></li>
+          <li><a href="#export"><span class="n">12</span>Export vidéo</a></li>
+          <li><a href="#recording"><span class="n">13</span>Enregistrement &amp; ralenti</a></li>
+          <li><a href="#language"><span class="n">14</span>Langues</a></li>
+          <li><a href="#faq"><span class="n">15</span>FAQ</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="first-shot" aria-labelledby="first-shot-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">01 — Votre premier tir</p>
+        <div class="gd-content">
+          <h2 id="first-shot-h" class="bb-heading bb-reveal" style="max-width: 13em;">Tirer, regarder,<br>recommencer.</h2>
+          <ol class="gd-steps bb-reveal bb-d1" style="margin-top: 48px;">
+            <li><strong>Visez.</strong> Glissez avec le bouton gauche n'importe où sur
+              la table : la queue pivote vers le pointeur, et une ligne blanche
+              continue prévisualise le trajet de la blanche jusqu'au premier
+              contact. Les pressions à moins de 2,5 rayons de bille de la
+              blanche sont ignorées — saisir trop près ne dérègle jamais la
+              visée
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.</li>
+            <li><strong>Dosez la puissance.</strong> Faites rouler la molette pendant la
+              visée, ou appuyez sur <kbd>↑</kbd>/<kbd>↓</kbd>. La puissance va
+              de 0,5 à 12&nbsp;m/s
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a> —
+              le plafond correspond aux casses professionnelles mesurées
+              (~27&nbsp;mph).</li>
+            <li><strong>Affinez.</strong> Maintenez <kbd>Shift</kbd> et glissez : visée fine
+              à 0,1× le mouvement du pointeur ; les flèches ajustent de ±0,05°
+              (<kbd>Shift</kbd>&nbsp;0,5°).</li>
+            <li><strong>Tirez.</strong> La bannière d'état passe à LECTURE — le noyau a
+              déjà résolu le tir entier. Quand les billes s'arrêtent, le tour
+              passe : les joueurs 1 et 2 alternent sur la même machine
+              <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.</li>
+            <li><strong>Lisez le HUD.</strong> « J1 sur la 1 » indique à qui est le tour
+              et quelle bille est légale — toujours le plus petit numéro sur la
+              table.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="controls" aria-labelledby="controls-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">02 — Commandes</p>
+        <div class="gd-content">
+          <h2 id="controls-h" class="bb-heading bb-reveal" style="max-width: 13em;">Une souris,<br>quatre verbes.</h2>
+
+          <div class="gd-scroll bb-reveal bb-d1" style="margin-top: 48px;">
+            <table class="gd-table">
+              <caption>Souris</caption>
+              <thead><tr><th scope="col">Entrée</th><th scope="col">Ce que ça fait</th></tr></thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Glisser gauche sur la table</th>
+                  <td>Viser — l'azimut de la queue s'aligne droit sur le
+                    pointeur. Avec bille en main, un glissement qui commence à
+                    moins de 3 rayons de bille de la blanche déplace la bille ;
+                    partout ailleurs on continue de viser
+                    <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><kbd>Shift</kbd> + glisser gauche</th>
+                  <td>Visée fine à 0,1× le mouvement angulaire du pointeur
+                    pendant la visée ; hors d'un état de visée, fait tourner la
+                    caméra.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Glisser droit</th>
+                  <td>Faire tourner la caméra autour de la table
+                    <a class="bb-cite" href="../../web/app/orbit.js">web/app/orbit.js</a>.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Molette</th>
+                  <td>Puissance pendant la visée ; zoom sinon.
+                    <kbd>Shift</kbd>&nbsp;+ molette zoome toujours.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 48px;">
+            <table class="gd-table">
+              <caption>Clavier</caption>
+              <thead><tr><th scope="col">Touche</th><th scope="col">Effet</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><kbd>←</kbd> <kbd>→</kbd></th>
+                  <td>Visée ±0,05° — ±0,5° avec <kbd>Shift</kbd>
+                    <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a></td></tr>
+                <tr><th scope="row"><kbd>↑</kbd> <kbd>↓</kbd></th>
+                  <td>Puissance ±0,1&nbsp;m/s — ±0,5&nbsp;m/s avec <kbd>Shift</kbd></td></tr>
+                <tr><th scope="row"><kbd>V</kbd></th>
+                  <td>Basculer la vue de visée (ci-dessous)</td></tr>
+                <tr><th scope="row"><kbd>Esc</kbd></th>
+                  <td>Fermer le panneau de réglages — couche du dessus d'abord
+                    <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 24px;">
+            Les flèches continuent de fonctionner quand un simple bouton comme
+            Tirer ou Nouveau rack a le focus ; elles s'effacent devant les
+            listes déroulantes et les champs de texte.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Vue de visée</h3>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            Appuyez sur <kbd>V</kbd> pour une caméra basse derrière la bille —
+            0,78&nbsp;m en retrait, 0,34&nbsp;m de haut
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a> —
+            qui suit la blanche le long de la ligne de visée. La visée devient
+            relative à l'écran : glisser à droite braque à droite, et une
+            pression ne fait jamais sauter la visée. Glissez verticalement avec
+            le bouton droit pour charger la puissance ; la queue recule
+            visiblement quand vous tirez vers le bas. <kbd>V</kbd> restaure la
+            caméra sauvegardée.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="spin" aria-labelledby="spin-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">03 — Effet &amp; lignes d'aide</p>
+        <div class="gd-content">
+          <h2 id="spin-h" class="bb-heading bb-reveal" style="max-width: 14em;">L'effet est un point<br>sur la bille.</h2>
+
+          <div class="gd-side" style="margin-top: 48px;">
+            <div>
+              <p class="bb-body bb-reveal bb-d1">
+                Le pavé d'effet en bas à gauche est la face de la blanche.
+                Glissez le point :
+                <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">a</code>
+                est le côté — positif signifie effet vers votre droite — et
+                <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">b</code>
+                la hauteur — au-dessus du centre c'est le coulé, en dessous le
+                rétro
+                <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>.
+                Les décalages se mesurent en rayons de bille, et le validateur
+                impose a²&nbsp;+&nbsp;b²&nbsp;≤&nbsp;0,25 : le procédé ne passe
+                jamais l'anneau en pointillé à mi-rayon — la limite de fausse
+                queue. Les valeurs illégales ne peuvent tout simplement pas
+                être réglées ; il n'existe aucun événement de fausse queue dans
+                le jeu.
+              </p>
+              <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+                Le curseur en arc relève la queue de 0° à 80°
+                <a class="bb-cite" href="../../web/app/aimwidgets.js">web/app/aimwidgets.js</a>.
+                Au-delà de 45°, l'avertissement MASSÉ clignote : la blanche va
+                courber. L'aperçu tourne sur le même noyau que le tir — la
+                courbe que vous voyez est la courbe que vous obtenez.
+              </p>
+            </div>
+            <figure class="gd-tip bb-reveal bb-d2" aria-hidden="false">
+              <svg viewBox="0 0 220 220" role="img" aria-label="Face de la blanche : point de contact (a, b) avec l'anneau en pointillé de la limite de fausse queue à mi-rayon">
+                <line class="st-axis" x1="110" y1="10" x2="110" y2="210"></line>
+                <line class="st-axis" x1="10" y1="110" x2="210" y2="110"></line>
+                <circle class="st-ball" cx="110" cy="110" r="96"></circle>
+                <circle class="st-ring" cx="110" cy="110" r="48"></circle>
+                <circle class="st-dot" cx="134" cy="80" r="6"></circle>
+                <text x="182" y="100">+a</text>
+                <text x="118" y="30">+b</text>
+              </svg>
+              <figcaption>Point de contact (a, b) — l'anneau en pointillé est la limite de fausse queue à 0,5&nbsp;R</figcaption>
+            </figure>
+          </div>
+
+          <h3 class="bb-heading-s bb-reveal">Trois lignes à lire</h3>
+          <ul class="gd-legend bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><span class="ln" aria-hidden="true"></span>
+              <span><strong>Blanc continu</strong> — l'approche de la blanche, jusqu'au premier contact.</span></li>
+            <li><span class="ln ln--object" aria-hidden="true"></span>
+              <span><strong>Ambre</strong> — la direction de la bille visée après le contact, un segment d'environ un demi-diamant.</span></li>
+            <li><span class="ln ln--cue" aria-hidden="true"></span>
+              <span><strong>Vert pointillé</strong> — le trajet de la blanche <em>après</em> le contact : rétro, coulé ou tangente.</span></li>
+          </ul>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 24px;">
+            Continu veut dire avant le contact ; pointillé, après. Cette
+            distinction est tout le langage visuel
+            <a class="bb-cite" href="../../web/app/preview.js">web/app/preview.js</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Niveaux d'aide</h3>
+          <ul class="bb-list bb-body-s bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><strong>Désactivée</strong> — aucune ligne.</li>
+            <li><strong>Standard (trajectoire + bille fantôme)</strong> — le réglage par
+              défaut : ligne d'approche, bille fantôme au contact, segment de la
+              bille visée.</li>
+            <li><strong>Entraînement (trajectoires de toutes les billes)</strong> —
+              Standard plus la trajectoire complète, estompée, de chaque bille
+              de la table.</li>
+          </ul>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            La ligne verte pointillée a son propre interrupteur — « Trajet de
+            la blanche après contact », activé par défaut
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>.
+            Tout cela re-simule le vrai noyau physique à chaque changement de
+            visée, en 0,2&nbsp;ms environ par tir
+            <a class="bb-cite" href="../../web/app/preview.js">web/app/preview.js</a> —
+            les lignes sont de la physique exacte, pas une approximation
+            géométrique.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="games" aria-labelledby="games-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">04 — Choisir un jeu</p>
+        <div class="gd-content">
+          <h2 id="games-h" class="bb-heading bb-reveal" style="max-width: 13em;">Cinq jouables,<br>chacun avec sa source.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Le sélecteur « Jeu » ouvre le panneau de réglages avec cinq entrées
+            jouables : le <strong>Jeu de la 9</strong> (par défaut), le
+            <strong>Jeu de la 8</strong>, le <strong>Snooker</strong>, la
+            <strong>Carambole trois bandes</strong> et le
+            <strong>One&nbsp;Pocket</strong>. Votre choix persiste, et changer
+            demande d'abord — « Changer de jeu réinstalle les billes.
+            Continuer ? » — parce qu'un nouveau jeu veut dire un nouveau rack
+            (et, pour le snooker et la carambole, une autre table)
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>.
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            Sous le sélecteur, « Catalogue des jeux » déplie la vue complète :
+            cinq disciplines, chacune avec une ligne de provenance qui nomme
+            son instance dirigeante et l'édition du règlement dont elle est
+            transcrite — une entrée sans citation réelle est rejetée d'office
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/games/catalog.ts">sdk/ts/src/games/catalog.ts</a>.
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>Le catalogue des jeux</caption>
+              <thead><tr><th scope="col">Jeu</th><th scope="col">Règlement</th><th scope="col">Badge</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Jeu de la 9</th>
+                  <td>WPA Rules of Play (en vigueur depuis le 15-09-2025), sec.&nbsp;5</td>
+                  <td>jouable</td></tr>
+                <tr><th scope="row">Jeu de la 8</th>
+                  <td>WPA Rules of Play (en vigueur depuis le 15-09-2025), sec.&nbsp;4</td>
+                  <td>jouable</td></tr>
+                <tr><th scope="row">Snooker</th>
+                  <td>WPBSA Official Rules of the Games of Snooker and English
+                    Billiards (révision de septembre 2024)</td>
+                  <td>jouable</td></tr>
+                <tr><th scope="row">Carambole trois bandes</th>
+                  <td>UMB World Rules of Carom Billiard (1er janvier 1989 ;
+                    complément World Cup 15.12.2025)</td>
+                  <td>jouable</td></tr>
+                <tr><th scope="row">One Pocket</th>
+                  <td>WPA Rules of Play (en vigueur depuis le 15-09-2025), sec.&nbsp;12</td>
+                  <td>jouable</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            Les cinq disciplines sont jouables. En choisir une bascule aussi
+            la table et les billes vers l'appariement cité de la discipline —
+            le snooker se joue sur la table WPBSA de 12 pieds avec des billes
+            de 52,5&nbsp;mm, la carambole sur la table UMB de 2,84&nbsp;m sans
+            poches avec des billes de 61,5&nbsp;mm, le one-pocket sur votre
+            table de pool — et chaque jeu retient ses propres choix
+            d'équipement ; changer de discipline ne fait jamais fuir d'état
+            de l'une vers l'autre
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="rules" aria-labelledby="rules-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">05 — Règles du 9-ball telles qu'implémentées</p>
+        <div class="gd-content">
+          <h2 id="rules-h" class="bb-heading bb-reveal" style="max-width: 14em;">La plus basse d'abord.<br>La 9 gagne.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Un tir est légal quand le premier contact de la blanche est la
+            bille au plus petit numéro sur la table <em>et</em> qu'ensuite au
+            moins une bille est empochée ou atteint une bande
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/nineball.ts">sdk/ts/src/rules/nineball.ts</a>.
+            Tout le reste est faute — et les fautes peuvent se cumuler :
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d2" style="margin-top: 24px;">
+            <li><strong>La blanche n'a touché aucune bille</strong> — aucun contact.</li>
+            <li><strong>Mauvaise bille touchée en premier</strong> — le premier contact n'était pas la plus basse.</li>
+            <li><strong>Aucune bande après le contact</strong> — rien d'empoché et aucune bille n'a atteint de bande.</li>
+            <li><strong>Blanche empochée</strong> — la blanche est tombée dans une poche ou a quitté la table.</li>
+          </ul>
+          <p class="bb-body bb-reveal" style="margin-top: 32px;">
+            Toute faute donne à l'adversaire <strong>bille en main, n'importe où
+            sur la table</strong> — il n'y a pas de restriction de cuisine. La
+            blanche réapparaît sur la mouche de tête ; glissez-la où vous
+            voulez (le placement est vérifié contre les chevauchements), puis
+            tirez
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            Empochez la 9 sur un tir légal et vous gagnez — les combinaisons
+            comptent. Si la 9 tombe sur une faute, ou quitte la table, elle est
+            remise sur la mouche de pied, à défaut le long de la ligne
+            longitudinale ; si tout est bloqué, elle reste empochée en v1. Un
+            tir légal qui n'empoche rien passe le tour. La victoire affiche sa
+            bannière puis remonte le rack automatiquement avec une graine neuve
+            après 2,6&nbsp;s
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            Absents de la v1 : le push-out après la casse, la règle WPA des
+            quatre billes à la bande sur casse sèche et la défaite aux trois
+            fautes consécutives. La casse est jugée comme n'importe quel tir,
+            et les billes de but qui quittent la table restent dehors — seule
+            la 9 est remise en jeu.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-8ball" aria-labelledby="rules-8ball-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">06 — Règles du 8-ball telles qu'implémentées</p>
+        <div class="gd-content">
+          <h2 id="rules-8ball-h" class="bb-heading bb-reveal" style="max-width: 13em;">Tout annoncer.<br>La 8 décide.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Le 8-ball est transcrit des WPA Rules of Play (en vigueur depuis le
+            15-09-2025), sec.&nbsp;4, et chaque verdict cite son numéro de
+            règle. Là où le règlement laisse les coups « évidents » à
+            l'arbitre, c'est la lecture la plus stricte qui s'applique : chaque
+            coup est annoncé explicitement, rien n'est déduit
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/eightball.ts">sdk/ts/src/rules/eightball.ts</a>.
+            Quinze billes forment le triangle — la 8 au centre, une pleine et
+            une rayée aux coins arrière (WPA 4.2).
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Table ouverte &amp; groupes</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            La casse est le seul coup sans annonce, et elle laisse la table
+            <strong>ouverte</strong> : la puce du HUD affiche TABLE OUVERTE, et
+            le premier contact peut être n'importe quelle bille sauf la 8 — à
+            moins qu'un groupe ne soit déjà entièrement empoché
+            (WPA 4.4). Les groupes se décident à la première bille
+            <em>annoncée</em> légalement empochée — empochez une pleine
+            annoncée et vous jouez les pleines (1–7), votre adversaire les
+            rayées (9–15). Dès lors les puces portent le groupe de chaque
+            joueur, et passent à « sur la 8 » une fois un groupe nettoyé.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Annoncez votre coup</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Chaque coup après la casse porte une annonce explicite de bille +
+            poche (WPA 4.6 via la lecture la plus stricte de 1.7). Le HUD
+            demande « Annonce requise : touchez une poche » : touchez l'un des
+            six repères de poche et l'indicateur confirme « Bille N → poche » ;
+            jusque-là, Tirer refuse avec « annoncez d'abord une bille et une
+            poche (ou déclarez une défense) »
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.
+            Le bouton Sécurité près du pavé d'effet est cette alternative
+            (WPA 1.7) : déclarez-la et le tour passe après votre coup — une
+            bille empochée en défense reste au fond. Mettez la bille annoncée
+            dans la poche annoncée et vous gardez la table ; tout le reste
+            passe le tour, même si les billes surnuméraires non annoncées
+            restent empochées.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Fautes, bille en main, décisions</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            La liste des fautes recoupe celle du 9-ball — blanche empochée,
+            aucun contact, mauvaise bille en premier (ici : pas votre groupe),
+            aucune bande après le contact — plus une bille éjectée de la
+            table. Une faute standard donne à l'adversaire <strong>bille en
+            main n'importe où</strong> (WPA 4.9) ; une faute à la casse limite
+            le placement à <strong>derrière la ligne de tête</strong>
+            (WPA 4.3(g),(h)). La bannière de faute nomme la règle à chaque
+            fois — « FAUTE — blanche empochée (WPA 3.1 via 4.9) »
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.
+            Il n'y a pas de défaite aux trois fautes au 8-ball (la WPA 3.13
+            s'exclut elle-même), et seule la 8 est jamais remise en jeu
+            (WPA 4.7).
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            Certaines casses se terminent par une option du règlement plutôt
+            qu'un verdict : une invite nomme qui choisit, le tir reste
+            verrouillé jusqu'au choix, et le choix s'enregistre dans le
+            replay :
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><strong>Casse sèche</strong> (WPA 4.3(d)) — moins de quatre billes à
+              la bande et rien d'empoché : l'adversaire accepte la table,
+              recasse lui-même, ou fait recasser le casseur.</li>
+            <li><strong>La 8 sur casse légale</strong> (WPA 4.3(e)) — le casseur
+              remet la 8 et continue, ou recasse.</li>
+            <li><strong>La 8 sur casse fautive</strong> (WPA 4.3(f)) — l'adversaire
+              remet la 8 avec bille en main derrière la ligne de tête, ou fait
+              recasser.</li>
+            <li><strong>Faute à la casse</strong> (WPA 4.3(g),(h)) — l'adversaire
+              accepte la table ou prend bille en main derrière la ligne de
+              tête.</li>
+            <li><strong>Impasse</strong> (WPA 4.11) — les deux joueurs confirment :
+              on recasse, le casseur d'origine casse.</li>
+          </ul>
+
+          <h3 class="bb-heading-s bb-reveal">Gagner — et les quatre façons de perdre</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Nettoyez votre groupe, annoncez une poche pour la 8 et mettez-la
+            exactement là : cela gagne le rack (WPA sec.&nbsp;4 ; 4.6). Le
+            rack est perdu sur-le-champ si la 8 tombe avec une faute sur le
+            même coup (4.8(a)), avant que votre groupe soit nettoyé (4.8(b)),
+            dans une poche non annoncée — une 8 empochée en défense compte
+            (4.8(c)) — ou si elle est éjectée de la table (4.8(d))
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/eightball.ts">sdk/ts/src/rules/eightball.ts</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-snooker" aria-labelledby="rules-snooker-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">07 — Règles du snooker telles qu'implémentées</p>
+        <div class="gd-content">
+          <h2 id="rules-snooker-h" class="bb-heading bb-reveal" style="max-width: 13em;">Une rouge, une couleur.<br>Le break se construit.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Le snooker est transcrit des WPBSA Official Rules (révision de
+            septembre 2024), et chaque verdict cite sa section. Vingt-deux
+            billes occupent la table de 12 pieds : quinze rouges en triangle
+            derrière la rose, les six couleurs sur leurs mouches, la blanche
+            n'importe où dans le D
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Bille « on » : rouge, puis couleur nommée</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Tant qu'il reste des rouges, la bille « on » est toujours une
+            rouge (1 point). Empochez-en une et une couleur devient « on » —
+            <strong>touchez la couleur que vous nommez</strong> (l'interface
+            de visée surligne les couleurs sélectionnables et confirme votre
+            choix ; Tirer refuse tant que vous n'avez pas nommé)
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.
+            Une couleur empochée marque sa valeur — jaune&nbsp;2, verte&nbsp;3,
+            marron&nbsp;4, bleue&nbsp;5, rose&nbsp;6, noire&nbsp;7 — et
+            revient sur sa mouche tant qu'il reste des rouges ; ensuite c'est
+            de nouveau rouge, en alternance, jusqu'à épuisement des rouges. Le
+            HUD porte les deux scores, le break en cours et une pastille
+            « bille on » qui nomme toujours ce qui est légal
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Remises en place &amp; les couleurs finales</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Une couleur revient sur sa propre mouche ; si elle est occupée,
+            elle prend la mouche libre de plus haute valeur, et si les six
+            sont occupées, le point le plus proche sur la ligne médiane vers
+            la bande supérieure, sans toucher une autre bille (WPBSA Sec3 R7).
+            La file de remises s'affiche dans le HUD et le placement est
+            animé. Une fois empochée la couleur de la dernière rouge, les
+            <strong>couleurs finales</strong> commencent : de la jaune à la
+            noire en ordre croissant, sans plus aucune remise (Sec3
+            R3(h)(ii)). La partie se termine quand la noire tombe sur des
+            scores inégaux ; à égalité, la noire est remise — un tirage décide
+            qui joue en premier, et le point ou la faute qui suit conclut
+            (Sec3 R4)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Fautes : la valeur de la bille, minimum quatre</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Une faute accorde à l'adversaire la valeur de la bille « on »
+            <em>ou</em> celle de la bille de plus haute valeur impliquée,
+            plancher 4, plafond 7 (Sec3 R11) : touchez la bleue alors que la
+            rouge est « on » et c'est 5 points contre vous — la bannière nomme
+            la règle à chaque fois. Sont des fautes : mauvais premier contact,
+            aucun contact, blanche empochée, bille éjectée de la table,
+            nomination manquante, saut par-dessus une bille interposée. Après
+            toute faute, le joueur entrant peut aussi <strong>vous faire
+            rejouer</strong> (Sec3 R13) — une invite enregistre le choix dans
+            le replay. Un scratch donne bille en main <strong>dans le
+            D</strong> (Sec3 R8(a)) : le placement reste contraint au D
+            <a class="bb-cite" href="../../web/app/game.js">web/app/game.js</a>.
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            Les clauses qui relèvent du jugement d'arbitre restent
+            délibérément hors périmètre, documentées avec leurs citations
+            plutôt qu'inventées : foul and a miss (Sec3 R14), la bille libre
+            (Sec2 R13), la bille touchante (Sec3 R9), le coup poussé (Sec3
+            R18)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="rules-carom" aria-labelledby="rules-carom-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">08 — Carambole trois bandes telle qu'implémentée</p>
+        <div class="gd-content">
+          <h2 id="rules-carom-h" class="bb-heading bb-reveal" style="max-width: 13em;">Trois bandes,<br>puis la deuxième bille.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Trois billes, pas de poches : les UMB World Rules (1er janvier
+            1989) sur la table chauffée de 2,84&nbsp;m. Avec le réglage par
+            défaut à deux billes de jeu, chaque joueur garde <strong>sa
+            propre bille</strong> toute la partie — celui qui ouvre joue la
+            blanche unie, l'autre camp la jaune (art.&nbsp;22.1/23.2,
+            pratique des championnats du monde ; jouer la bille de
+            l'adversaire est la faute citée de « mauvaise bille »,
+            art.&nbsp;41.11, et la variante classique à blanche partagée
+            reste à un clic dans les Réglages). Un point exige que
+            votre bille touche les deux billes objets, avec <strong>au moins
+            trois contacts de bande avant le premier contact de la
+            deuxième</strong> (art.&nbsp;83) — la même bande deux fois compte
+            deux fois, et l'ordre se lit directement dans le flux d'événements
+            du noyau
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/carom3c.ts">sdk/ts/src/rules/carom3c.ts</a>.
+            Marquez et vous rejouez ; un carambolage réussi avec moins de
+            trois bandes est annoncé avec les mots du règlement — « pas de
+            bande » / « une bande » / « deux bandes » (UMB art.&nbsp;83), une
+            faute qui passe la main — tandis qu'un coup manqué proprement
+            reste le raté régulier (art.&nbsp;24.5). Le HUD compte les bandes
+            en direct pendant chaque coup, à côté des points, des reprises et
+            de l'objectif de la course
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">La casse, les remises, la course</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            L'invite d'ouverture demande de quelle mouche de départ vous
+            cassez — à gauche ou à droite de la mouche inférieure
+            (art.&nbsp;23.2) — et le coup d'ouverture doit toucher <strong>la
+            rouge en premier</strong> (art.&nbsp;23.3) ; tout le reste est la
+            faute de casse citée. Une bille éjectée de la table revient sur sa
+            mouche désignée — la rouge en haut, la bille du joueur ENTRANT en
+            bas, l'autre au centre, avec la règle d'échange si une mouche est
+            masquée — et seules les billes concernées bougent
+            (art.&nbsp;27.3(b), 28.1(b)). Le premier à l'objectif (15 par
+            défaut, réglable dans les Réglages) gagne — ou, avec le préréglage
+            à reprises égales (art.&nbsp;29.3/29.4), le camp mené obtient une
+            reprise d'égalisation depuis la position de départ remise en
+            place, et un score égalisé conclut la partie sur un nul ; l'écran
+            de résultat montre points et reprises des deux joueurs
+            (art.&nbsp;29.1/29.2)
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            Sur la table sans poches, le jeu ne dessine aucun repère de poche
+            et la ligne de visée ne s'aimante jamais à une poche. Les fautes
+            du monde physique (billes touchées, coup poussé, pieds décollés
+            du sol ; art.&nbsp;41.4–41.7, 41.9–41.10) restent documentées hors
+            périmètre avec leurs citations ; en revanche, jouer directement
+            dans une bande à laquelle votre bille est collée est jugé
+            (art.&nbsp;27.2 via 41.8), la faute de « mauvaise bille »
+            accompagne le réglage à deux billes (art.&nbsp;41.11), et le
+            format à reprises égales est un préréglage des Réglages
+            (art.&nbsp;29.3/29.4)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/carom3c.ts">sdk/ts/src/rules/carom3c.ts</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-onepocket" aria-labelledby="rules-onepocket-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">09 — One-pocket tel qu'implémenté</p>
+        <div class="gd-content">
+          <h2 id="rules-onepocket-h" class="bb-heading bb-reveal" style="max-width: 13em;">Une poche chacun.<br>Huit billes gagnent.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Le one-pocket est transcrit des WPA Rules of Play (en vigueur
+            depuis le 15-09-2025), sec.&nbsp;12 : quinze billes, mais chaque
+            joueur ne marque que dans <strong>sa poche de coin côté
+            pied</strong>. Avant la casse, une invite attribue les poches — le
+            défaut suit 12.3, la poche opposée au côté d'où vous cassez — et
+            des badges du HUD marquent la poche de chacun. Toute bille dans
+            votre poche compte ; le premier à huit gagne
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/onepocket.ts">sdk/ts/src/rules/onepocket.ts</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Chaque poche a un sens</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Les billes dans la poche de votre <em>adversaire</em> comptent
+            pour lui — même si vous commettez une faute sur le même coup
+            (12.5). Les billes dans les quatre poches neutres, ou éjectées de
+            la table, reviennent : elles s'empilent en pastilles « à
+            remettre » et regagnent la mouche du pied à la fin de votre tour
+            (12.6, remises immédiatement si la table est autrement vide). Les
+            compteurs par poche vivent dans le HUD à côté des pastilles de
+            billes dues
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Fautes, billes dues, trois prises</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Après la plupart des fautes, la blanche <strong>reste où elle
+            est</strong> (12.8) — seul un scratch ou une blanche hors table
+            donne à l'adversaire bille en main derrière la ligne de casse
+            (3.1). Une faute coûte aussi une bille de votre score, remise sur
+            la table ; à zéro, vous en <em>devez</em> une (12.4) — le HUD
+            affiche la dette, et votre prochaine bille marquée la rembourse
+            aussitôt. Trois fautes consécutives perdent le rack sur-le-champ
+            (12.9 via 3.13) ; le compteur se remet à zéro à chaque coup légal.
+            Une impasse refait le rack en conservant scores et dettes, et un
+            lag décide qui casse (12.10)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/onepocket.ts">sdk/ts/src/rules/onepocket.ts</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="equipment" aria-labelledby="equipment-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">10 — Équipement &amp; badges de calibration</p>
+        <div class="gd-content">
+          <h2 id="equipment-h" class="bb-heading bb-reveal" style="max-width: 13em;">Cinq axes,<br>des badges honnêtes.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Le panneau de réglages offre cinq axes d'équipement ; en changer un
+            refait le rack après confirmation
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>.
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>Le catalogue — valeur par défaut en premier</caption>
+              <thead><tr><th scope="col">Axe</th><th scope="col">Options</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Table</th>
+                  <td>9 pieds spéc. WPA (nominale) ·
+                    Pool 9 pieds ancien (poches 4,56 pouces) ·
+                    Pool tournoi 9 pieds (poches 4,5 pouces) · Pool 9 pieds métal (poches 4,25 pouces) ·
+                    Table de tournoi 8-ball chinois 9 pieds · Snooker WPBSA 12 pieds ·
+                    Carambole UMB 2,84&nbsp;m (sans blouses) — filtrée sur la
+                    classe de table citée du jeu actif</td></tr>
+                <tr><th scope="row">Tapis</th>
+                  <td>Drap peigné de tournoi (neuf) · Drap peigné de tournoi (rapide) ·
+                    tapis usé et lent · laine de snooker (à poils) ·
+                    peigné de carambole (ardoise chauffée)</td></tr>
+                <tr><th scope="row">Jeu de billes</th>
+                  <td>Pool (57,15&nbsp;mm) · Pool, usé ·
+                    snooker (52,5&nbsp;mm) · carambole (61,5&nbsp;mm)</td></tr>
+                <tr><th scope="row">Queue</th>
+                  <td>Standard en érable · flèche à faible déviation ·
+                    Flèche Pro LD, pivot de 14,1 pouces (procédé cuir) ·
+                    Flèche Pro LD, pivot de 11,8 pouces (procédé cuir) ·
+                    Flèche Pro LD, pivot de 10,1 pouces (procédé cuir) ·
+                    queue de casse (procédé phénolique) ·
+                    standard en érable, procédé dime</td></tr>
+                <tr><th scope="row">Modèle de bande (Avancé)</th>
+                  <td>Stronge élastique (réaliste) · Han 2005 (défaut du noyau)
+                    · Mathavan 2010 (ajustement HSV) · Mathavan 2010 mode
+                    adhérence (bande v5)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="bb-heading-s bb-reveal">Ce que disent les badges</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Chaque entrée du catalogue porte l'un de trois badges, qui dit
+            comment ses paramètres physiques sont fondés :
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d2" style="margin-top: 24px;">
+            <li><span class="gd-badge">calibré</span>&nbsp; — paramètres ajustés sur
+              des données mesurées ; rendu en jeu comme puce d'accent.</li>
+            <li><span class="gd-badge">littérature</span>&nbsp; — valeurs tirées
+              d'articles publiés et de fiches fabricant.</li>
+            <li><span class="gd-badge">estimé</span>&nbsp; — la meilleure estimation
+              documentée, en attente de mesure.</li>
+          </ul>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            Nouveauté du catalogue v3 : l'axe table porte désormais une géométrie
+            de poches mesurée — l'entrée Pool tournoi 9 pieds joue avec ses embouchures
+            d'angle de 4,5 pouces auditées et ses facings à 141°/102°,
+            sensiblement plus serrées que la table WPA générique.
+            <span class="bb-cite">l'audit des dimensions de table (interne)</span>
+          </p>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            Deux comportements discrets à connaître : choisir une table engage
+            sans prévenir le modèle de bande recommandé par cette marque, et
+            les sélecteurs d'équipement se verrouillent pendant un replay
+            partagé — vous regardez sur la spécification de l'expéditeur.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="replays" aria-labelledby="replays-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">11 — Replays &amp; partage</p>
+        <div class="gd-content">
+          <h2 id="replays-h" class="bb-heading bb-reveal" style="max-width: 15em;">Le lien porte des tirs,<br>pas des images.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            « Partager le replay » range la partie entière dans l'URL après
+            <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">#r=</code> —
+            la graine du rack, les cinq nombres de chaque tir (v0, φ, θ, a, b)
+            tels quels, chaque placement de bille en main, la spécification
+            complète d'équipement sur cinq axes et la version du noyau —
+            compressé, encodé, copié dans votre presse-papiers
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/share.ts">sdk/ts/src/share.ts</a>.
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            Aucune image ne voyage. Le navigateur du spectateur re-simule
+            chaque tir sur le même noyau wasm canonique, et les enregistrements
+            obtenus correspondent octet pour octet à ceux de l'expéditeur —
+            c'est la garantie de déterminisme
+            <a class="bb-cite" href="../../web/app/share.js">web/app/share.js</a>.
+            Si la version du noyau diffère, un avertissement propose « Voir
+            quand même » ou « Ignorer ».
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            La barre de lecture affiche le tir i/N avec précédent, suivant,
+            lecture/pause et une bascule ralenti 0,25× ; 700&nbsp;ms de calme
+            séparent les tirs
+            <a class="bb-cite" href="../../web/app/share.js">web/app/share.js</a>.
+            Pendant un replay, la saisie de tir, le placement de la blanche et
+            les changements d'équipement sont verrouillés. Le lien se souvient
+            aussi <em>de quel jeu</em> il relève — un partage de 8-ball rejoue
+            avec ses groupes, ses annonces et ses décisions de casse intacts,
+            tandis que les liens antérieurs à l'axe des jeux (v1–v3) se
+            décodent toujours et rejouent en 9-ball, sans jamais rien demander
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/share.ts">sdk/ts/src/share.ts</a>.
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal" style="margin-top: 32px;">
+            <li><strong>Continuer d'ici</strong> — adopte la position finale pour jouer
+              en direct. La suite est elle-même immédiatement partageable, et
+              vous continuez sur l'équipement de l'expéditeur jusqu'au
+              rechargement.</li>
+            <li><strong>Quitter le replay</strong> — restaure votre équipement et refait
+              le rack.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="export" aria-labelledby="export-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">12 — Niveaux d'export vidéo</p>
+        <div class="gd-content">
+          <h2 id="export-h" class="bb-heading bb-reveal" style="max-width: 12em;">Cinq niveaux,<br>un tir.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            « Exporter la vidéo… » re-rend votre <em>dernier</em> tir — s'il
+            n'y en a pas, il vous demande d'en jouer un d'abord. Temps réel
+            enregistre en direct pendant que le replay se joue et fonctionne
+            dans tout navigateur ; chaque autre niveau est un re-rendu hors
+            ligne déterministe qui exige WebCodecs, encodé dans la page en mp4
+            (H.264/AAC) avec webm (VP9) en secours
+            <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>.
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>Niveaux d'export</caption>
+              <thead><tr><th scope="col">Niveau</th><th scope="col">Résolution</th><th scope="col">Caractère</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Temps réel</th><td>canvas</td>
+                  <td>capture en direct à vitesse réelle ; webm ; tout navigateur</td></tr>
+                <tr><th scope="row">Standard</th><td>720p / 1080p</td>
+                  <td>étalonnage film ; pas de flou de mouvement, pas de
+                    profondeur de champ</td></tr>
+                <tr><th scope="row">Élevée</th><td>jusqu'à 1080p</td>
+                  <td>suréchantillonnage 1,5×, flou de mouvement 8 sous-images à
+                    obturateur 310°, profondeur de champ</td></tr>
+                <tr><th scope="row">Ultra 4K</th><td>1440p / 2160p</td>
+                  <td>flou de mouvement 8 sous-images, profondeur de champ</td></tr>
+                <tr><th scope="row">Cinéma 4K</th><td>2160p</td>
+                  <td>obturateur 16 sous-images ; le plus lent, la meilleure
+                    qualité</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            Les débits font 8 / 12 / 24 / 40&nbsp;Mbps à 720 / 1080 / 1440 /
+            2160p
+            <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>.
+            La vitesse propose 1×, 0,5× et 0,25× sur les niveaux hors ligne ;
+            le son est une case à cocher. Les clips plafonnent à 60&nbsp;s
+            (plus 0,5&nbsp;s de queue) à 60&nbsp;fps. À l'ouverture, la boîte
+            de dialogue rend dix images d'essai pour affiner ses estimations de
+            durée et de taille ; au-delà de 1080p, il faut passer la sonde de
+            l'encodeur UHD. Un export en cours ne s'arrête que par son bouton
+            Annuler — Échap et les clics sur l'arrière-plan sont ignorés à
+            dessein. Les fichiers se téléchargent en
+            openbilliards-&lt;niveau&gt;-&lt;horodatage&gt;.mp4 ou .webm.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="recording" aria-labelledby="recording-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">13 — Enregistrement &amp; ralenti</p>
+        <div class="gd-content">
+          <h2 id="recording-h" class="bb-heading bb-reveal" style="max-width: 13em;">Enregistrez,<br>gardez tout.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            « Enregistrer » capture le canvas en direct à 60&nbsp;fps avec le
+            mixage audio maître dans un webm — VP9 avec repli VP8, à
+            8&nbsp;Mbps
+            <a class="bb-cite" href="../../web/app/record.js">web/app/record.js</a>.
+            Il ignore l'état du jeu : visée, menus, tirs — tout ce qui est à
+            l'écran. Un point rouge pulsé signale l'enregistrement en cours, et
+            Arrêter télécharge openbilliards-&lt;horodatage&gt;.webm. Les
+            fragments s'écrivent chaque seconde, si bien qu'un onglet qui meurt
+            brutalement garde la séquence. Sur les navigateurs non compatibles,
+            le bouton n'apparaît tout simplement pas.
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            Le ralenti habite trois endroits : la case « ralenti » du HUD joue
+            chaque lecture à 0,25×
+            <a class="bb-cite" href="../../web/app/game.js">web/app/game.js</a>,
+            la barre du replay partagé porte la même bascule 0,25× (c'est le
+            même interrupteur), et la boîte d'export rend 0,5× et 0,25× hors
+            ligne.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="language" aria-labelledby="language-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">14 — Réglages de langue</p>
+        <div class="gd-content">
+          <h2 id="language-h" class="bb-heading bb-reveal" style="max-width: 14em;">Sept langues,<br>changées à chaud.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Le jeu sort en English, 中文, español, 日本語, Deutsch, français et
+            한국어. La langue se résout dans l'ordre : le choix explicite dans
+            les Réglages (persisté), puis la meilleure correspondance avec la
+            langue du navigateur — zh-TW tombe sur 中文, es-MX sur español —,
+            puis l'anglais
+            <a class="bb-cite" href="../../web/app/i18n.js">web/app/i18n.js</a>.
+            Le changement s'applique à chaud, sans rechargement.
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            Chaque langue porte exactement les mêmes clés — la suite e2e
+            l'impose, et ce qui manque retombe en anglais. Les libellés du
+            sélecteur restent volontairement dans leur propre langue. Ce guide
+            fonctionne pareil : la rangée de pilules en haut bascule entre ses
+            sept traductions, et votre choix persiste.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="faq" aria-labelledby="faq-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">15 — FAQ</p>
+        <div class="gd-content">
+          <h2 id="faq-h" class="bb-heading bb-reveal" style="max-width: 13em;">Les surprises,<br>expliquées.</h2>
+
+          <dl class="gd-faq bb-reveal bb-d1" style="margin-top: 48px;">
+            <dt>J'ai changé de table et le modèle de bande a changé tout seul.</dt>
+            <dd>C'est voulu : chaque table engage le modèle de bande recommandé
+              par sa marque, sans question séparée. Vous pouvez ensuite choisir
+              un autre modèle dans Avancé.</dd>
+
+            <dt>La molette ne change pas ma puissance.</dt>
+            <dd>La molette ne règle la puissance que pendant la visée. Hors
+              d'un état de visée, elle zoome — et Shift&nbsp;+ molette zoome
+              toujours.</dd>
+
+            <dt>L'aide dit que Shift-glisser fait tourner la caméra, mais ça fait de la visée fine.</dt>
+            <dd>Pendant la visée, Shift&nbsp;+ glisser gauche réclame le geste pour
+              la visée fine à 0,1×. La caméra ne tourne que hors d'un état de
+              visée.</dd>
+
+            <dt>J'ai continué depuis un replay partagé — sur la table de qui je joue ?</dt>
+            <dd>Celle de l'expéditeur. « Continuer d'ici » garde son équipement
+              complet jusqu'au rechargement ; « Quitter le replay » restaure le
+              vôtre et refait le rack.</dd>
+
+            <dt>J'ai gagné et la table s'est remontée aussitôt. Puis-je rejouer ce rack ?</dt>
+            <dd>Le remontage automatique après la victoire (2,6&nbsp;s) avance
+              la graine : le rack suivant est neuf. Le rack gagnant survit dans
+              Revoir — et dans tout lien que vous avez partagé.</dd>
+
+            <dt>Le point d'effet s'arrête à l'anneau en pointillé.</dt>
+            <dd>Cet anneau est la limite de fausse queue : les décalages
+              au-delà du demi-rayon (a²&nbsp;+&nbsp;b²&nbsp;&gt;&nbsp;0,25)
+              échouent à la validation et ne peuvent pas être réglés. Il n'y a
+              pas d'événement de fausse queue — la limite est la règle.</dd>
+
+            <dt>Revoir perd-il mon placement de bille en main ?</dt>
+            <dd>Non. Revoir pendant que vous tenez bille en main préserve votre
+              placement préparé une fois le replay terminé.</dd>
+
+            <dt>Pourquoi la puissance s'arrête-t-elle à 12&nbsp;m/s ?</dt>
+            <dd>C'est un plafond réel délibéré, calé sur les vitesses de casse
+              professionnelles mesurées de façon fiable (~27&nbsp;mph)
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.
+              Le noyau lui-même valide jusqu'à 15&nbsp;m/s.</dd>
+
+            <dt>« Standard » annonce un étalonnage film, mais mon clip n'a pas de flou de mouvement.</dt>
+            <dd>Exact — Standard ne rend qu'une seule sous-image. Le flou de
+              mouvement et la profondeur de champ commencent au niveau Élevée
+              <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>.</dd>
+
+            <dt>Où sont le push-out et la règle des trois fautes ?</dt>
+            <dd>Pas en v1. La casse est jugée comme n'importe quel tir, les
+              casses sèches ne sont pas pénalisées, et les billes qui quittent
+              la table restent dehors — seule la 9 est remise en jeu
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/nineball.ts">sdk/ts/src/rules/nineball.ts</a>.</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bb-footer">
+    <p class="bb-display bb-footer-statement bb-reveal">La plus basse d'abord.<br>Toujours.</p>
+
+    <div class="bb-footer-grid">
+      <nav aria-label="Site">
+        <p class="bb-label">Site</p>
+        <ul>
+          <li><a class="bb-link" href="../../index.html">Accueil</a></li>
+          <li><a class="bb-link" href="index.html">Guide de jeu</a></li>
+          <li><a class="bb-link" href="../../docs/index.html">Docs API</a></li>
+          <li><a class="bb-link" href="../../web/app.html">Jouer</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Projet">
+        <p class="bb-label">Projet</p>
+        <ul>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards">GitHub</a></li>
+          <li><span class="bb-cite">Système de design</span></li>
+          <li><a class="bb-link" href="https://github.com/facebookexperimental/openbilliards/blob/main/README.md">Readme</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="bb-label">Colophon</p>
+        <p class="bb-body-s bb-muted" style="max-width: 34ch;">Composé en Space&nbsp;Grotesk et JetBrains&nbsp;Mono,
+          embarquées. Pas de traceurs, pas de CDN, aucune requête hors de
+          cette origine.</p>
+      </div>
+    </div>
+
+    <p class="bb-footer-credits">
+      <span>&copy; 2026 Meta Platforms, Inc. &#183; MIT &#183; <a href="../../web/vendor/NOTICE-pooltool.txt" style="white-space: nowrap;">inclut du code Apache-2.0</a> &#183; <a href="https://opensource.fb.com/legal/terms" style="white-space: nowrap;">Terms of Use</a> &#183; <a href="https://opensource.fb.com/legal/privacy" style="white-space: nowrap;">Privacy Policy</a></span>
+      <span>Rendu par son propre moteur</span>
+    </p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,31 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+[workspace]
+resolver = "2"
+members = [
+    "crates/pool-core",
+    "crates/pool-cli",
+    "crates/pool-wasm",
+    "crates/pool-py",
+    "crates/pool-rules",
+    "crates/pool-rules-wasm",
+]
+# pool-wasm is excluded from the default build: it targets wasm32-unknown-unknown
+# and is built/tested by the M10 workstream (contract kernel-api.md §M10).
+# pool-py is excluded too: it is a Python extension module built by maturin
+# against a Python interpreter (SDK workstream, issue #12).
+# pool-rules IS a default member (feature 013): native `cargo test`/clippy
+# cover the open rules crate on every workspace invocation.
+default-members = ["crates/pool-core", "crates/pool-cli", "crates/pool-rules"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT AND Apache-2.0"
+repository = "https://github.com/facebookexperimental/openbilliards"
+
+# SC-004 performance budget: the browser-deliverable (wasm) break must stay
+# under 5 ms, so the release profile trades compile time for codegen quality.
+[profile.release]
+lto = "fat"
+codegen-units = 1

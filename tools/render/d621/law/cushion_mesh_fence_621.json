@@ -1,0 +1,2109 @@
+{
+ "schema": "d621-cushion-mesh-fence/1",
+ "tag": "DERIVED",
+ "source_note": "D-3e re-derivation: every mesh unchanged by D-3e keeps the REAL app-capture digest of the D-3d card (rerun-card.sh f6dc9dbf, run f6dc9dbf-20260920T181942Z, ~/ob-artifacts/diamond/gully/card-f6dc9dbf/run/ours-*.json; those digests reproduce every D-3d pin, so the D-3b headless gully digests are now app-confirmed); the gully meshes D-3e changed (six sleeves, six plates) or added (two trough-sill liners) carry headless digests (plain geometry, app-exact class). Non-gully identity proven by the headless dump vs the app capture (this script refuses otherwise). Previous pin sha256 4f6de97fd5ef54b45f5ab3ea09044f3a6252a8ceb1556f343e89416b9a239a8a. Hash format: little-endian Float64 positions followed by little-endian Uint32 indices.",
+ "derivation": {
+  "tag": "DERIVED",
+  "source": "D-3d card app dumps + headless D-3e gully delta",
+  "previous_pin_sha256": "4f6de97fd5ef54b45f5ab3ea09044f3a6252a8ceb1556f343e89416b9a239a8a",
+  "carried": [],
+  "gully_mesh_delta": {
+   "9ft": {
+    "changed": [
+     "dm-gullysleeve-c0",
+     "dm-gullyplate-c0",
+     "dm-gullysleeve-s1",
+     "dm-gullyplate-s1",
+     "dm-gullysleeve-c2",
+     "dm-gullyplate-c2",
+     "dm-gullysleeve-c3",
+     "dm-gullyplate-c3",
+     "dm-gullysleeve-s4",
+     "dm-gullyplate-s4",
+     "dm-gullysleeve-c5",
+     "dm-gullyplate-c5"
+    ],
+    "added": [
+     "dm-gullybox-reveal-trough-sill",
+     "dm-gullybox-reveal-trough-sill-f"
+    ],
+    "removed": [],
+    "identical": 134
+   },
+   "8ft": {
+    "changed": [],
+    "added": [
+     "dm-gullybox-reveal-trough-sill",
+     "dm-gullybox-reveal-trough-sill-f"
+    ],
+    "removed": [],
+    "identical": 125
+   },
+   "7ft": {
+    "changed": [],
+    "added": [
+     "dm-gullybox-reveal-trough-sill",
+     "dm-gullybox-reveal-trough-sill-f"
+    ],
+    "removed": [],
+    "identical": 125
+   }
+  },
+  "app_dumps": {
+   "9ft": {
+    "path": "<artifacts>/diamond/gully/card-f6dc9dbf/run/ours-9ft.json",
+    "sha256": "96f9cbf3516e478321197f07558e13534c00e7bd7a995a791b726883e22ca048",
+    "run": "f6dc9dbf-20260920T181942Z"
+   },
+   "8ft": {
+    "path": "<artifacts>/diamond/gully/card-f6dc9dbf/run/ours-8ft.json",
+    "sha256": "1d8d2edf36d75b66e830ace1b20257d5c6a2113d3c971fdc92338488997f830d",
+    "run": "f6dc9dbf-20260920T181942Z"
+   },
+   "7ft": {
+    "path": "<artifacts>/diamond/gully/card-f6dc9dbf/run/ours-7ft.json",
+    "sha256": "5b18c4d61979a9fa862b512a7a7e6e8aa11fa11cde005f0b599951b97ed413f9",
+    "run": "f6dc9dbf-20260920T181942Z"
+   }
+  }
+ },
+ "dumps": {
+  "9ft": {
+   "tag": "DERIVED",
+   "source_web_commit": "D-3e on D-3d f6dc9dbf (D-3 merge of main 6e329ea7); table.js sha256 8c4eca65ac0ee67aa0414a480f458e2404491b3278b6aa5941e7e157bb16e628",
+   "source_dump": "/tmp/d3e-repins-1789931062/scene-9ft.json",
+   "source_dump_sha256": "3c95d0ca45fbb5b1431ac112ddb93cc8636cb67678df18cf87aa868186ec2976",
+   "table": "diamond_proam_9ft",
+   "meshes": [
+    {
+     "key": "dm-bed-cloth",
+     "geometry_sha256": "3db900ae52019eea9a0414d382c21431a2f1b49a74f2a5fe7c81fb043b3e3afd",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-cushion-0",
+     "geometry_sha256": "53cea2e0816b52dde931e790e394ec0ff77f83263628869679f4d666ea19c109",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-0",
+     "geometry_sha256": "eebd0ff97cf67546b3dbde3611cc680880805f52ad050142fcd9256d25b6aeed",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-1",
+     "geometry_sha256": "962a3f1715f36eaccaf1c13c5ea4bd3a1c57901310d6b1c29c475e71d034b7ab",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-1",
+     "geometry_sha256": "fa8f1a39ebb7bf36aa73da66b4dff3da06008dd31ace19a0033ca67335061a34",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-2",
+     "geometry_sha256": "e6d4e3dce8edb485abc0b40ee345145a7d4944b298ae1610cdab47558e402c61",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-2",
+     "geometry_sha256": "8f83f0e9d626a03f80214682cc43d6706f90ebb8a01e4691ed6c028d78096ae8",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-3",
+     "geometry_sha256": "e052697fd164007a436d230a34844ef3613cbb5a5e85a0980d58f7631b91f40f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-3",
+     "geometry_sha256": "df9b04ff4b835edc72fe05ac48c4d0f40e37d3b2ffdd51d6ef71403dadd46509",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-4",
+     "geometry_sha256": "69b70e916ddb680f00638be158abbe0842845cfb4ae7e8b86d1c5c199380e00d",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-4",
+     "geometry_sha256": "6f460e5cff10c65ba034d7ce881721d1dcaf01c49b25b9d82cac7aa6675d0a1e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-5",
+     "geometry_sha256": "58bd444702e20537c38b03d6f84b254afdf0a0d87d19a7106422ca0e8828985f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-5",
+     "geometry_sha256": "f6adfb69ca03e5df0eb6d9358556c43572662fc21a026b9c6489191f41652cd1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-0",
+     "geometry_sha256": "8beea9773db666c05c5c53b1d4f567e8a48bab401f11d0f51d308459079c0558",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-1",
+     "geometry_sha256": "bb8c8dd59b9dd7f4086f7f23672b6b259b995e4d1c05829eb8ea1ceaf9ea359c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-2",
+     "geometry_sha256": "ef775c9b9289ccb755d16ba77b5f32702bff0a1b8a0b961385829946c6783366",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-3",
+     "geometry_sha256": "189465d86bbbb8584c45c9e2e108f74e0d9736684fdb7568a0129ff0ea105f29",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-4",
+     "geometry_sha256": "7f5b19794b59e1c9897db173338388fccb3f4827ed6fbb30f744f0f64df9fd93",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-5",
+     "geometry_sha256": "eec6c26663b3eab20f3310fc743dab0274764e7b4b22ae84a45908b4ab699105",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cornerblock-0",
+     "geometry_sha256": "59cd784014f6cfa30e3432234be942a0223232cd7c788bf4156402df281d4eb3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cornerblock-1",
+     "geometry_sha256": "6412aaa23640a53759eb4d69149f2d66b7e64a18e10c0f3439cd151286984b88",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cornerblock-2",
+     "geometry_sha256": "a8e5c94267a6e910128a251a8307b9020f27f4c34a40b2ee7164eb4aab887b66",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cornerblock-3",
+     "geometry_sha256": "b847ac8241acb10f474cc7462e6bd9b489cacc8f0e36c63b356e142e7a8ac8d3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-kerffloor-l",
+     "geometry_sha256": "1e6d465a76bb1784af1c2ebcea9e3c2ebf197b3e46de5cd282589a46c4424285",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-kerffloor-r",
+     "geometry_sha256": "9e0632c6bb0600766e8cc8fc2807f2bda19cf9ba491a86da5eb82ee3fa3bcbac",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-apronband",
+     "geometry_sha256": "33778f86eb8ebbb0e6239337aaef17fb53e08781be8629ea56d8b6bda96b23bf",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-end-h",
+     "geometry_sha256": "3a087a26cae81490c0e67cced39103ef02bcb821f0de97c9ae86bef3c8b442dc",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-trough-hboth",
+     "geometry_sha256": "6ea26300213f8888484680700e73f2d7f863d638400f64e0c1161901a5532c1f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-floor",
+     "geometry_sha256": "c928abf65a65c0729946bf0f38b3e4460666ba61e6bd8117c23f7a45ba87ec33",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-ceiling",
+     "geometry_sha256": "53ef3772e3065700b677cc099a630d6f29533476664bd5bc436b191f013f6d94",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-back-0",
+     "geometry_sha256": "03dab1aa9d75e64cc70c9991dff6b66acfc617ec9ee92ef7edafa0bc5245639e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-back-1",
+     "geometry_sha256": "5ccdafc48289677fb704ac387aa537509219268541ba4b6a9b23b8de12086d58",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-end-l",
+     "geometry_sha256": "276d306fd0977c242f74486ee21a760eb5e2224a39aecf83422404df068a8706",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-end-r",
+     "geometry_sha256": "f9d6e182d972bd4445e7beb0caf6e79f2e6af8d66039d6788b3ec1cef130ac00",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-feedbaffle-0",
+     "geometry_sha256": "309fb675086c2b429fec624484a10f3a75d53f2ab2d9b1d055c3f950a404ad68",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-feedbaffle-1",
+     "geometry_sha256": "91834b5b7b4b5fc3a1837d5f4e0b842b6e7fedbd40382fab9ae7433e022d4c11",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-lip-top",
+     "geometry_sha256": "6b62b45662287be310cfe1fcbd77659337f4089e484d53c680adeebad29ebcc3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-lip-bottom",
+     "geometry_sha256": "5a2b4be4433f9bca8a2e0c2f1c8051a1e23be40a247edacbb3e0bdc34aa2bb16",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-lip-r",
+     "geometry_sha256": "b5e7f86d50ddaf12f6ec4897e687a805cfb6043e8155964a0f7587dec71c00f8",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-lip-l",
+     "geometry_sha256": "dff54b3b30ef12071618102f2324f6573d6344afde438c8ca87200fa10e0a963",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-top",
+     "geometry_sha256": "a70c717ff750a9ac8db13249e669623b07c1938f1ed5b25f68fc74ad228fcd92",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-bottom",
+     "geometry_sha256": "d91546b42269472be983958e098b3de955ccac00985204010f1571a862426d04",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-r",
+     "geometry_sha256": "fe213f1028ca1d14638ccdee1ed7ea4561ea8b1ced946389eedbe017d2b59118",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-l",
+     "geometry_sha256": "4d8db87f159dd09f9a20bf4d7f6d39874594bae041cfa2b9b495d1ab3787eadd",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-ehl0",
+     "geometry_sha256": "029d735ab2d426c315d9f18a4abdab62136c988fa8ae029f3600834e50b1c0e3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-ehl1",
+     "geometry_sha256": "1cb1fefde5d0489ba15efb63b3a1ab0e3ad48f3af46a3943abae0afa7a6b451c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-ehr0",
+     "geometry_sha256": "a685e1bd66a6c971b52eab12fe7e657073323ede173987e85b8e1fedbf3d2b66",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-ehr1",
+     "geometry_sha256": "37d489d8e93a8c900bf3eeccc0defb137f37d43e2ab9a7c1cd8b4d3728f3def3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-end-f",
+     "geometry_sha256": "ba414a00b9eb0a2f294b5f70b35198c0a44c70da4bb4cb968bb1b8dc00532861",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-trough-fboth",
+     "geometry_sha256": "6d61b744a56c943144dc465e8221e15d27fbc307b5029f569436be8e644007c9",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-efl0",
+     "geometry_sha256": "d39732640ecefa90c80088690be6431f683691a1deb59eeb3f48f4d0b103f4b6",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-efl1",
+     "geometry_sha256": "8abba0d0dba1fae077c3f2350905b3c9bfa940ca4609109c2c53d44b543a8bc1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-efr0",
+     "geometry_sha256": "cb11fab30ab55f32532860eef5a8020c01ab81e2a1084c0701a9e908d322af8b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-efr1",
+     "geometry_sha256": "98d03a538ae45d1e2f643258abedbd95ae113d3c718973e537562e11f9921bb1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-side-l",
+     "geometry_sha256": "5f41f47cd881309ce100e500cbcf7b36a903717565ec25a326a8e1d5242054c8",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullysleeve-c0",
+     "geometry_sha256": "dc75dbb5ccd4355bdb43f375eeaf3b323a6e6fdccf58dee0f7edbf1858a82404",
+     "source": "headless (D-3e gully delta; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullyplate-c0",
+     "geometry_sha256": "5eda1d1b4a2d4ef5748c3f2c3bfc4b1842d2e88af7e33109b78b38a4a7a95fe9",
+     "source": "headless (D-3e gully delta; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullybaffle-c0",
+     "geometry_sha256": "1ef2cf5ce413aa9694b8bdedff94d7af9ff97087ce3b1e6fed01be20d56ffb0e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullysleeve-s1",
+     "geometry_sha256": "9822698851de3e761c650f2a39713753821d05a97481f5e21114f76097ee5299",
+     "source": "headless (D-3e gully delta; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullyplate-s1",
+     "geometry_sha256": "aeba58b2dee5f41253b68f3a23291b0bbdd1b460a73503b8a06900c7963708c1",
+     "source": "headless (D-3e gully delta; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullybaffle-s1",
+     "geometry_sha256": "a0eed0294a6659d7b94b686958fbc6f683c01d3bb5ce44a9d3cfd0f302f9f0fa",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullysleeve-c2",
+     "geometry_sha256": "9cd5e51ca318ae133d0f5b0f661e7dc73dce52ee37321190e1bf43d3a1562f0f",
+     "source": "headless (D-3e gully delta; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullyplate-c2",
+     "geometry_sha256": "07ff2172674131fdf38211300c56f4f5a6986fb64bdd1f4a7268ed14c291bf46",
+     "source": "headless (D-3e gully delta; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullybaffle-c2",
+     "geometry_sha256": "0f3e2d6eab3f88b7cfd055f9a0efbdf3bcd9340f48989a9ac9e8fc6a5857838d",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-slh0",
+     "geometry_sha256": "a4579600ec2b96ec7204690a453d9222c58a56bab266aa0e039b69374f2eb01a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-slh1",
+     "geometry_sha256": "fa67cac0a3c23b87751ec12f605e57c1e43964e55fd0a9146e8e68946e2ea526",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-slf0",
+     "geometry_sha256": "0eab500ec34ff034680283ce9305a214c718ca185c63c2b1236bc435f06940d3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-slf1",
+     "geometry_sha256": "02b19506349b46da174aa21bb92b3f1532eb8525049c2a838cdb0049c655d34a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-side-r",
+     "geometry_sha256": "d401abf6abff0055c8b66003ddc0808aecf3b6e86160b6efd4c4e63406f1d884",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullysleeve-c3",
+     "geometry_sha256": "5b4fd0318a26c22d19afeadbe33ffdbce58a5c6daa9a4357681854f98f516d52",
+     "source": "headless (D-3e gully delta; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullyplate-c3",
+     "geometry_sha256": "9664a451c1e24e760a23d2a276682fb0f59f49055bf8430024257aa8b8891df4",
+     "source": "headless (D-3e gully delta; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullybaffle-c3",
+     "geometry_sha256": "6a5af22b99c169271b1cdb78482ef1298d9a2392d46ddf90cd1111ffe4f6e266",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullysleeve-s4",
+     "geometry_sha256": "792a3f47cec5fb257e7ece73e06b9b58554c004df9539306279da901ea90a047",
+     "source": "headless (D-3e gully delta; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullyplate-s4",
+     "geometry_sha256": "dcfd47c5d4a16c509b0f75e7e7e6441797385a49d6baa0c73dbd691bd39cfd3f",
+     "source": "headless (D-3e gully delta; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullybaffle-s4",
+     "geometry_sha256": "12a4d586c0681e9d5c16cebc3448053435ef0525cb5b3221bf945ec5764e5d9a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullysleeve-c5",
+     "geometry_sha256": "058df314e829f8870d8c3289b1c0808d9869f0fc5c684d3d3ab3da8398be95e2",
+     "source": "headless (D-3e gully delta; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullyplate-c5",
+     "geometry_sha256": "39933764220af75f22fcf29ed70adea17c9c7cb55cc74b75d2658fbfd73bbd58",
+     "source": "headless (D-3e gully delta; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullybaffle-c5",
+     "geometry_sha256": "c61c3b5160bf93706d1e041ab94cdb7f37ca7bae85e40feb16b7039de4cc10fd",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-srh0",
+     "geometry_sha256": "39957aad3a25309c0c1213965202662514da3ca33a1394eed84af58d001451eb",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-srh1",
+     "geometry_sha256": "3eeb930fe9ffe569766906871ea5731e34cebefa8838f69a03a921be4b5137c9",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-srf0",
+     "geometry_sha256": "943bec0fbcd4783d107fcfad7d134aba47505068c53f798cf6e41f3ed40248d9",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-srf1",
+     "geometry_sha256": "6cd08b4d2b97c4a469669ef3736e342b6580eb006b1b7a4a28ab01bf72813ac0",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-board",
+     "geometry_sha256": "15cb080ec26f68bcbde6795ef1b40e4096b38889330b5ea642880f24b809d03f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leg-hl",
+     "geometry_sha256": "7d9f65183b6d82125f5d1a4d68c1259523bda5cd17c932a44fec3ca41fc1814b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leveler-hl",
+     "geometry_sha256": "48f28f9d67b83eef1cf7f9a3d34f247f53ae577d675ee00445cb0cf4734b3e26",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leg-hr",
+     "geometry_sha256": "1eb34211e5454f248ba32ebb45b8e2f777d75370386db83adb89dd7bc1aa5b63",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leveler-hr",
+     "geometry_sha256": "cea8cf4098884eab820ea6b40c5ceaad34093d1d4bbddc9e2ebbe5e11b030643",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leg-fl",
+     "geometry_sha256": "3e0e0e14edde60e8eadde87b2a1db1b886054a1094cf031f7731272f2f930523",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leveler-fl",
+     "geometry_sha256": "75c62745813290acd69884c0643de4a84c3640c4dbab2de278a3a24455dd02ec",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leg-fr",
+     "geometry_sha256": "2451a8b11395211dc361297ecec89ea5826bd50d10ed07a049420f99b7040ee7",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leveler-fr",
+     "geometry_sha256": "c91a83e8159219713c210d6d86bb40514ed8499a6aae82ebcb17dee1d7a6152c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-c0",
+     "geometry_sha256": "802940924eb1806f473db9d087386a16f8afcfee70433d854d08e9c70f20c28a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-c0",
+     "geometry_sha256": "550e6d989a8747e159a2cb23ebfbdae7db1869ae94c7aa62cfaaadd8105eaa06",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-c0",
+     "geometry_sha256": "8eb2b1321e51aad07c7b0d28df00e520d6b35d248a3bc044cf22ba008a33df22",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-c0",
+     "geometry_sha256": "ae8d851fd8cfcb4663f6195434dfd169ed95c4672cef8be69ba4c063673daac6",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-c0",
+     "geometry_sha256": "63a3ebb9296d1a8cd4ecb62d7e02cb93e066f6a769d41216139713501464753e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-c0",
+     "geometry_sha256": "7c0372a6189f010b6bb86937729c0a4c95299f07c021d67f9c526a36af2cc540",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-s1",
+     "geometry_sha256": "878e9f79aba8a5a99e642b93cce049af9ac549f5c04289d67a40dae401c7bc94",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-s1",
+     "geometry_sha256": "4b5e36f56990e91714716fbe15c5daa0e78cc6efbcf743b9ba89a10fc605a463",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-s1",
+     "geometry_sha256": "176701eae49b484d56e805b8d5d2c5f4b5334ad94cfe770bacc02db40b288b39",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-s1",
+     "geometry_sha256": "1b6eeb38d3282fc00964add4f6e413b1fba2177c91a57a9f43ae70456a08781b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-s1",
+     "geometry_sha256": "47392eed05b9e66be7e7d42bf47bb3ad308716b68579eac7b9ac2e6e9fe670d6",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-s1",
+     "geometry_sha256": "06a4ad944c73b5232b6efad0db3ffe276a4ea5df3bbf5c11e72cb590cec7c97a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-c2",
+     "geometry_sha256": "c86bd459b3e8c0c8fa611286117700cb456b13a76a8dcb2874901d065bf8e364",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-c2",
+     "geometry_sha256": "3d6827da90a3ab7e223ed57ee5cef6cdfedaebec09e9bbcb30c9e36864bf4b4b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-c2",
+     "geometry_sha256": "15c47702482f0e0456847b345a7de32f6847ede8ddfef06990ddb7726d46fac2",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-c2",
+     "geometry_sha256": "7f6ba6bc96cecd915bd2d5cacd5042e00fbb4a4c87943edeac20e9e30d5492f3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-c2",
+     "geometry_sha256": "65b5c17621624259b7c7df20b234deecabc9c49392f07d2878c5c63da9039578",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-c2",
+     "geometry_sha256": "f849a516f9ae75c57dabf79b9c1d9712d4c1e08baaec9b7cb7ca8c665cb5055c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-c3",
+     "geometry_sha256": "e811b0c9bf650ea12553fd32ba6beb1319d12451a40e3c83206b05a8e95d7f85",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-c3",
+     "geometry_sha256": "5ba0f1f010664d86e60548a8f94e73d7dec3633ae15c322cf9553fe232259039",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-c3",
+     "geometry_sha256": "b89b50778c7111e2eb469980a906c8fade06e251687fc831250c385f392668b8",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-c3",
+     "geometry_sha256": "980d986c260ce3d957d34fdd75d4caf3a27e2798483d82341bf3928dba3d3a7b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-c3",
+     "geometry_sha256": "0b581be1754a2bfa3f7ffe61fa3920f3677e8c25120f142b935283b5246a154a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-c3",
+     "geometry_sha256": "f4f1b8440d13b90b439c380fe0daae975a37e518309d39f1c7150a922397f25a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-s4",
+     "geometry_sha256": "2a23fa3c767871d6cea9a48bcc592746ca078e79f6d673c892b2b65a831240f4",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-s4",
+     "geometry_sha256": "45251ce8e429093fe1344c62ed08b00aa346584ccb26fb3a3b77d360d027957a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-s4",
+     "geometry_sha256": "fc62bcad97bcbf6fc43d77cadba52c83000ed64ee464f0cae7c37c5c2130c9e3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-s4",
+     "geometry_sha256": "d68daac821c4d44ae4fc2d820ca08c8a8d216e718099637f07f91ab05567ac54",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-s4",
+     "geometry_sha256": "6dd7864ef4c04bb1b3e3dc8e113eb0f8dd9b254af2f721a97027ca912529c140",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-s4",
+     "geometry_sha256": "85454eb631504493196dff0020fa8b3a01c72732986b3e7c63d02250d2e4cbd9",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-c5",
+     "geometry_sha256": "08f5d3fcf64ed01c540208de649c150f68ace870a50d33b88a83692f3772a59e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-c5",
+     "geometry_sha256": "b3dec608c9ea29cab72ff8a66343cd4f7d7dba8ab7719500806f4a8d2d4dd7d7",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-c5",
+     "geometry_sha256": "640cc46e5e524c0955fd2c019d066320538b3e049fed3d6c88d0709b1f538e3a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-c5",
+     "geometry_sha256": "d1a6166c42c387e89e9554a857fd298b3bdfad49b45a22bfc875a49acbb6dd8b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-c5",
+     "geometry_sha256": "347a822ef022d2212aa6b38ceec2e5149f07a6acffd58d106045ae5427f8ab5a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-c5",
+     "geometry_sha256": "c7c6777c6e493527b681d37742d6caaeece1938e3f6eda3b4c6d9eaa7572dcb5",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-spot-foot",
+     "geometry_sha256": "9dcba074788b5b8b36ae91149ae8107add8fe372c5493aeb815a15c49a68d593",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lh1",
+     "geometry_sha256": "abedaeef5e40919fa3c6bed07ea2c80136afc02c965e839c68b9c16202627a75",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rh1",
+     "geometry_sha256": "064ea1a501f7add1a75dfcdadcaa8b438677e251ac3dd8ee9d990a1cb9e02b76",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lh2",
+     "geometry_sha256": "447f457baebdf2397f80e5178b77a3322f0a71deb8437331dbe7a981088d4bb1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rh2",
+     "geometry_sha256": "437603edabb2ed0c6b2b04f58eab2d09216fbbd830d8a3189c476e63c685a3d3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lh3",
+     "geometry_sha256": "08f417fe1f3201f52c92d1b15c4350065ab40b1122da552d191fa49549a59988",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rh3",
+     "geometry_sha256": "0954e8c1160271b13c45b28f95f91b6feaa202a9bb8c483a1b28db90950042fe",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-hl",
+     "geometry_sha256": "d6982740516fe63e214b1b620e0bfd61fbda8043ed0a8dd20188caf88f6e708a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-fl",
+     "geometry_sha256": "9ef641c1d932f6c349983ef6795ddedc7b781adb64d365f0c0e59846bbcb32c6",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lf1",
+     "geometry_sha256": "102914b4099650c30f1e2335e275b4f209a1d74078f80ea311b0d2f79ed69a57",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rf1",
+     "geometry_sha256": "01dbfcb19d1ba9a10f240d5f220e37f8bc0f1a2ddf9d5c94d20ae98cb85df977",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lf2",
+     "geometry_sha256": "f0ef687551e889d4b9a1b77bee6c8696e9aea9cd6665e808e4ad6260b0c62cab",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rf2",
+     "geometry_sha256": "ba107ffb5bfb37f42b24a9e8493033d4ab6421fbccbd6cef77f892674749086b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lf3",
+     "geometry_sha256": "3079db33013aae0a8d82bb22b06d9ec54c1acad074bc4d7e4f1a904b6f8c3168",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rf3",
+     "geometry_sha256": "02656651d50260e0a370668086f9e8e635eb2023ea624bfdf1189977b183f0e1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-hr",
+     "geometry_sha256": "9a5acf6a172e991cf9179fad53973cb5663ebbe6940ca52246d26f9b6420097c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-fr",
+     "geometry_sha256": "28871bd17b3118646df32e6247f9227d33d6c2a2adf5db44a502f3a06121a21f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-hc",
+     "geometry_sha256": "a5c6bfc2a27b0697e9a7629fe2378b62a6a7ffeb1f4a759e65d4ae94f5da8902",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-fc",
+     "geometry_sha256": "a6d37ca1ec71868ff6a997d4c673b0200c6feb19b5f209805a0f04a2b013cd63",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-trough-sill",
+     "geometry_sha256": "43023cc859e35e3a27ceed256d43d89b2b74f4cf3af71c648331acd9663d88b6",
+     "source": "headless (D-3e gully delta: new mesh; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullybox-reveal-trough-sill-f",
+     "geometry_sha256": "cd6c3dc9e8888543d30f95f8d5e7aba242635717b1cc8955b52cfe954d9e49ed",
+     "source": "headless (D-3e gully delta: new mesh; app-exact class per the FIX6 validation and the D-3d card)"
+    }
+   ]
+  },
+  "8ft": {
+   "tag": "DERIVED",
+   "source_web_commit": "D-3e on D-3d f6dc9dbf (D-3 merge of main 6e329ea7); table.js sha256 8c4eca65ac0ee67aa0414a480f458e2404491b3278b6aa5941e7e157bb16e628",
+   "source_dump": "/tmp/d3e-repins-1789931062/scene-8ft.json",
+   "source_dump_sha256": "953bedd395f9dee226b8f54709f816d459f028235f91bdfc843b814de27aa2c5",
+   "table": "diamond_proam_8ft",
+   "meshes": [
+    {
+     "key": "dm-bed-cloth",
+     "geometry_sha256": "2f6e218ac0656a5bcfb0e485ef59f5afdd7e953bb5afb65ccb40c64ade4f94fc",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-0",
+     "geometry_sha256": "b2fe9a27ac229471fa7632a24a7c2f3141dc7e4d12a6b71a29dd0ec9a5cfeb1b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-0",
+     "geometry_sha256": "158e8e3b41a888115597b95e5f011287629306e3607b81c45e69817b204da798",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-1",
+     "geometry_sha256": "f17af6eac9594c526266929dcbf91290412a65ab2b49517df505865ab11db2b3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-1",
+     "geometry_sha256": "91bc51d214d18e9fc52a12dded2b58715b45d4d51a5f5e538b7ec885f030d6ca",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-2",
+     "geometry_sha256": "b7ba7136a78baab73f59a4fecf7885a2c791ee84b265b6d470aa8b550f7b68a3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-2",
+     "geometry_sha256": "654734e14f59d8693fb7f6146a84e7dcf2277b2ed686b180689cb6870462a949",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-3",
+     "geometry_sha256": "45186166566678c64208b8288c320ab5c9e4c48b295835bf76bd546afb9e6c47",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-3",
+     "geometry_sha256": "7ad1ad8a2159edde474705fb2f4208b686755b8536313be1a341bc56e74b439d",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-4",
+     "geometry_sha256": "d9eef020c875618eeda692201cb6c88ebef25436a01c61d1119b9be786355859",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-4",
+     "geometry_sha256": "d0f2142471e203469c49338365ad6f02abd8559e9e2fc6e6922cabb25838008c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-5",
+     "geometry_sha256": "4ada342c6f968592b794826da92455f801f8ee527d45cb96cf4935516f9bd51c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-5",
+     "geometry_sha256": "240014ac968c57b54db30dffaf4bf1ef2fec464deac6d401d9314bf55f97f82e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-0",
+     "geometry_sha256": "044ef5086baf8f66e381e7611083ea72e8b96a2bd12c3e6c51152970d573531c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-1",
+     "geometry_sha256": "bcf2f0c84a720dc045b280c735d6c9576875d549566e5e65d2b21ff5514f0683",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-2",
+     "geometry_sha256": "b0be179c441d21784788af481503f1d71f7fba52d2ec253891192ff0c79d29a7",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-3",
+     "geometry_sha256": "40b64387f10b9066060263868c51a22408af01c2343138c1ba72f9337b8bee56",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-4",
+     "geometry_sha256": "221ac8425811174bf7cea1ead6d4a146301629851a142c3f27ee672bedd8e1db",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-5",
+     "geometry_sha256": "4bff82563c90fd2f91b76033acd39dca4ace25b2641f9af65904534aa2ebf4e1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cornerblock-0",
+     "geometry_sha256": "5fdb0e610b6e979ce59ccd46ad6e461092826d16a88b6f7b92579dc3295ca6dc",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cornerblock-1",
+     "geometry_sha256": "371abd45e95944d4a2dbc17d7eced8115ae90ce30e1352db4e8914f6009092ab",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cornerblock-2",
+     "geometry_sha256": "76ef7e91f4b3028345e4fe5233e6e908367cf1bff44ddd6e0585e7109876ce20",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cornerblock-3",
+     "geometry_sha256": "112e62b15e563637a1602ed015fc89c5424072a2305ef1684b91027ab8c89f98",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-kerffloor-l",
+     "geometry_sha256": "52f0ece2faf70966ff54628b3bfac68b16e3ac89b2ec568a5f3309c2a10e12da",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-kerffloor-r",
+     "geometry_sha256": "6ccd88ae3d92d1e09899400d2d181fd821e4239eb0752aa964689a9355c7b6bd",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-apronband",
+     "geometry_sha256": "3efbe22293afb35837bbfbcb4ec4a8da75338c5e2ede3214c0cd215ab45c2cb9",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-end-h",
+     "geometry_sha256": "ceb24a6d542ce356bfe2cf9271367fdf42524171498e74cd87bf5b95d4feecb8",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-trough-hboth",
+     "geometry_sha256": "2f5586bd08ae8cda32e2e617e0a839288fb10d306980dc19d2fc9ecd96a7d261",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-floor",
+     "geometry_sha256": "4992f5633e1309d78727bba5d980d39a2225f1b49ca5ad7681e30961fe446a36",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-ceiling",
+     "geometry_sha256": "85cd5bb6f7ada405ffb7db21a7d3d35e71a0bf55ae565a30885341e1139bc348",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-back-0",
+     "geometry_sha256": "5d5022e0e1f3598f1677f1f55919d5285695d8851dea77e571acdbdbbf7c7c78",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-end-l",
+     "geometry_sha256": "7938da24f8d851cbffb001513a928b7e8230e5853bf5ed9d7e51c6315d692263",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-end-r",
+     "geometry_sha256": "c656e45c88c52ffc1712fce0d8e9ee9d7141a4748ca227a8b390506c77c5e667",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-lip-top",
+     "geometry_sha256": "5eb2a2354b953dd7a6da064958662a6b72872356b06504610ecb6b51b2e600f8",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-lip-bottom",
+     "geometry_sha256": "fc333b5daad9636d7c96af2d2ce285d040718d072c1771b4fcd374a8e2668d1b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-lip-r",
+     "geometry_sha256": "a69375d7d7af866b62ac9fe4d1acb7697e8f11b4f2c95c5245775634321be79e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-lip-l",
+     "geometry_sha256": "83c8f7dcea1b958aefbd5291c8a2ddfe464cb4737caf84b7ba416b8fbd92d445",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-top",
+     "geometry_sha256": "e126cc855098ef716f7515c4c0dadc1645f7af293d447cb68b4832eaf5b7a469",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-bottom",
+     "geometry_sha256": "15d9e22f0ee6b193a6f2ccc40d1b91c3dc83b2d4b32f1c75713515fb4e07c7c4",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-r",
+     "geometry_sha256": "9774cb5316e5aa47d3b389cb4f008a064c32d3e12f50f075f782361d554b7b2e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-l",
+     "geometry_sha256": "dbd716aeb11a472a1bbd4845c60fcc7f3a60c141a554fc2c7639c84fd49921ce",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-ehl0",
+     "geometry_sha256": "5676e31722609155db5716fa824b499ec34fd12f9337b123796000986a0d8bc5",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-ehl1",
+     "geometry_sha256": "c00ef5c72e05f10e417baac25914b9c45c23a3ef22f063069ba93465ecb5bb57",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-ehr0",
+     "geometry_sha256": "f441d9c6454606a309f0af2d554842b85f47a27a5672c7309efe345fd26ab51b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-ehr1",
+     "geometry_sha256": "cc767b5e1856edaa7502975241ea0c6ab6e02db88deaca887f5cb6f0ad76f542",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-end-f",
+     "geometry_sha256": "a1aeeeeafb5aae5ae1de4337a532128a87a2d394d0c12a44566ba31edb85324e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-trough-fboth",
+     "geometry_sha256": "34c3bed905b6d7095e36e48569c401cd00941f2a9c2c2809a8346f366616eb8f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-efl0",
+     "geometry_sha256": "8b4a4edc081a228c1744a8cd40de3babea1747a081f98e43680a5906e61d4118",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-efl1",
+     "geometry_sha256": "6ccc8cf9058740404660dca70f1889cc571984de0a6d20a85ad4c22f919905f2",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-efr0",
+     "geometry_sha256": "8b9e62e351824c59fd905d27b3b040e85ea6678374fbe977e534d2305a059a74",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-efr1",
+     "geometry_sha256": "251cdc0850c3f5c4753e4ed1792b855c1b19a2203f0cc25162bf42bce556a166",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-side-l",
+     "geometry_sha256": "23323d0dd0b0380071bd30e507dd5897f73af05d4348dcd0549d3b594cdda4ba",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-slh0",
+     "geometry_sha256": "c6e206e7dcba57af0d030940f34f5afebf3e67b155c11c8d8f4277953f3b966d",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-slh1",
+     "geometry_sha256": "6092cd28b52062eab5b8408cadf2026942d9e535b72aec797453471091344fe1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-slf0",
+     "geometry_sha256": "35e5b9ecdff17b4bfd7b7151c23534a5a5e5f2f0a56bff4a28820948dfe8fb97",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-slf1",
+     "geometry_sha256": "1c23c7f36eacfd02072c1701f6bdf34420a5ca163854156ba16d657f093f37e1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-side-r",
+     "geometry_sha256": "de59f703dde2ebcdf6ead1bc94764519f38ee1598053cce12d131bec92bd8f48",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-srh0",
+     "geometry_sha256": "fdf0f70a2e9a7b01080103875dfadd6bcb4deece4f0431bfd7008f582dac10f8",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-srh1",
+     "geometry_sha256": "05ca22a7a6b0d47f2590b5536397746cb6725f87223bb56e7d59c8f562fb127a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-srf0",
+     "geometry_sha256": "a7862dcae49e240a87d66bea3697016a4109c51e85c0d4ffbfc98ef9ada3de96",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-srf1",
+     "geometry_sha256": "e80a70151b175db295ef5ac25df6753571fa58b4dae7c4c811a8cc06ed17f756",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-board",
+     "geometry_sha256": "5a40e4a978db8ef15f1d5fe9aa751bad37f744f904f26f8d82655698b0565250",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leg-hl",
+     "geometry_sha256": "e0c8e13b794e6da5951d8d45e2760b505eeb21f449e875aee3a0c1dd09e7306a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leveler-hl",
+     "geometry_sha256": "27518f18c94d8e7087411c2833b76ebfebd290ae6690d23ef7de18e4a9c49618",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leg-hr",
+     "geometry_sha256": "153299b96a9919cfb2e95b724f538025500400c957bffa45c1ce55b3b9c3fa43",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leveler-hr",
+     "geometry_sha256": "d1ca17a658372fa88e55387de81f7aae41bcfec61d6f0187c6fc2e9f42d91b5f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leg-fl",
+     "geometry_sha256": "03caca711918ae3f3f36026aae537166c83d9186202c6f4f70cbede39d22ebf5",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leveler-fl",
+     "geometry_sha256": "f04a68fa80a492b90bd2321b82c7545c1b0fe40e8a75f3a016a2f1f4e2d7f28e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leg-fr",
+     "geometry_sha256": "1a888db6a0ef206e789bb7fc5126c81fa6f6268860f3b067c3d72b6e38f317d7",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leveler-fr",
+     "geometry_sha256": "d9d1caa7f094f14a6541be53b898fb6435b4a81498c567d9288e24facc219e48",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-c0",
+     "geometry_sha256": "c5047ece8dc173557fb9a692e70992bef259e51c53e43f6fab02f75d9a54c2bd",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-c0",
+     "geometry_sha256": "af811ddcc9ffbe10f257428c5939f670df2bef5423c7909e575a26ad1564caf1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-c0",
+     "geometry_sha256": "c8c59741403b1d0b9cf62323a867be7366cc7bb9c3bdb09139b1ead40ad3169d",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-c0",
+     "geometry_sha256": "fe8d7b707fb005221b86d9294c8d76cd063672855570cea3ac50eef88a8b5cd0",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-c0",
+     "geometry_sha256": "906a823b77d429367e163363cc5ccd17f4f59a2ab4864a38b6e75d3c9334d458",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-c0",
+     "geometry_sha256": "b1e5ccc8cee706cf3a50b24483d1be16a3e2fc6e30734594f0fe6656bc77e521",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-s1",
+     "geometry_sha256": "b43f88a1459384d2955aa4ecfa47f9dca86037a2daed528cad1eef9c0138a665",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-s1",
+     "geometry_sha256": "8ce6de98bf2b67801452fd7ea9b94a7c0b26d138860497511238b57ee0bd4698",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-s1",
+     "geometry_sha256": "4b8bf136a93c61e9526f62cadf5435981eef5c2c4f9bd4ba5a2316e9a1fbd4c7",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-s1",
+     "geometry_sha256": "1f9686ba31f13742a3d504986506974804c07f43e23d0dce5fbd19fff9902836",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-s1",
+     "geometry_sha256": "a915373c7fde9b122a3a808b4f36839d4606a8364c09d17075427adffe6ef740",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-s1",
+     "geometry_sha256": "6bcba40b5807eb5a11de11681e5118815daa8530da5190462104bd2ce2aa2ea9",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-c2",
+     "geometry_sha256": "ef7f2e4b471df9561182135bfa942cb50268d89c99610ab3d82143c3a13777ff",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-c2",
+     "geometry_sha256": "d7a9f1bf27204b885e1c6214666d5dfbd7fdbc71c2a26ab16b4dd4ff9d3bd69e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-c2",
+     "geometry_sha256": "cf2b283dfc891e50f45476786c85c348048d1745a4d009c4601daa1d402d8519",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-c2",
+     "geometry_sha256": "35bd841d46138bf58507c24f0f445bc2b7c162161d0a8dd7501e306b4aeaa52d",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-c2",
+     "geometry_sha256": "c77bf4b0b5bc6db34d6b55ba673cb8dc0ddf9f8ac8ccca07581f2816c9fd1a3f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-c2",
+     "geometry_sha256": "2380230818a527a0be10148b4c6835f855e3e5df786ca6f0b0560bf0d5ac68a7",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-c3",
+     "geometry_sha256": "1002b69a9ca38d2a07cb210ecd38517b4239048072bd558d7df634f9b196616e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-c3",
+     "geometry_sha256": "48397773b7a09c7b484bc99dd85a05b16c7baf653c29801dc131d174e6a64dee",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-c3",
+     "geometry_sha256": "0580eb2f006aead22f201d743485b0044220cf8910417ea29b011d34ba160fae",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-c3",
+     "geometry_sha256": "d7ad2446f621804013f47ec47cc2d4a0a8d66b5dce76401e06bf2ae541cc1cd8",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-c3",
+     "geometry_sha256": "f77f4161b4dd99f985d932af6376c280a8848b142958fb710e3a73e3f695db3d",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-c3",
+     "geometry_sha256": "8f03bd513d052af77207c8e3db419ec3202ff16d5d23a0d45f1a4a5d1c0bdf65",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-s4",
+     "geometry_sha256": "d197dbd490fbc4322fcdaf248f360a08c0ef2b101b9ca04ed9035a11ddc154e0",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-s4",
+     "geometry_sha256": "3a47096b87bd229fe68c7749e5bb1f6027d2478655d71ab5d1bad7365649caf4",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-s4",
+     "geometry_sha256": "a60daddc56a5f20b7b21ccb7955b68c11f97a70be8459decb964efc1ad77ae4f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-s4",
+     "geometry_sha256": "f2820b55ec528b753839a4746274fe15a8c392b1742a2374b3ef805409f9836f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-s4",
+     "geometry_sha256": "433642a826be881f0cdbb3f0cbe9386a0c05ebd98516a3169150c9f7c9e1d76b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-s4",
+     "geometry_sha256": "0fff070c3011245297e28f0b61f938c453e3ea3dcb3dfa1f6bdb257110bd4e84",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-c5",
+     "geometry_sha256": "e78a1a15ba166b5e30b5108ce07f3659edf8c0e424f2508e2675543fe5cacd40",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-c5",
+     "geometry_sha256": "e4abef02eca15c13e0ad8d29006bba0b71feb2f99da8975be4b856fdf8b731e0",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-c5",
+     "geometry_sha256": "69e12199aaf59a1dc6f636d10f61a1763132da2a15ed26667015208def1709d0",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-c5",
+     "geometry_sha256": "89169cf6e32d21c0b60b8913ef1979638d4ad175e9c96eb3c91a409ddc289574",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-c5",
+     "geometry_sha256": "11660e64906a8f1479ceb648eff72b06267478fc8fada27b7ce5b58615620c66",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-c5",
+     "geometry_sha256": "57e78b9fbe0b97dc2d8dbbf876dcfba64387520d06e513f4d578fd328e9162f0",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-spot-foot",
+     "geometry_sha256": "e433722f9407c9c7e7611cd503f691f0658ea4226bdbe534340ea5f04d2874f9",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lh1",
+     "geometry_sha256": "a173ebfb8a1342240b398b5026106ff2353c31d44e399384c105842a1c73932c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rh1",
+     "geometry_sha256": "694b3a8b5d75e8a1807c022f58922e6928fdf289e1c163c598d6716b1842892d",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lh2",
+     "geometry_sha256": "de14ff364b25a9e97ee5ffb911ded893b14823f03be2a1f161806b7eac3c9422",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rh2",
+     "geometry_sha256": "7f5afb8afae62da50a74ff9d67f7558303c83452dca1af4e0b38e1ad92aedd4c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lh3",
+     "geometry_sha256": "f3d8926d46ef95ad442bba4304366dbbe719b0c1d0e1cc569c32f5461b459f54",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rh3",
+     "geometry_sha256": "7f29615cc5845ed1fc184efd984b71f4fbca2934c270f7aeea01b3b56f390bc5",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-hl",
+     "geometry_sha256": "72230776be9a19701504ef3c8a3a7e40c2f475ad5709027d461ea5a7c2e3fcae",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-fl",
+     "geometry_sha256": "0f708c0dd3760951a1dde66b8868ee0cc2cda38e8721af339e0e2f63dd4041ce",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lf1",
+     "geometry_sha256": "4904ba57c391b2fe7c4f7f9016e770c34ea4398c4a92235776e52354cc97d4e4",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rf1",
+     "geometry_sha256": "e077518b1ec4c5fc769afb5905cb36948e018526c12337b4709e5be240ffda72",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lf2",
+     "geometry_sha256": "f277a8d8a6df966d0b6e59a764be37c6a8125e1d12c1c6291e057d831922c960",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rf2",
+     "geometry_sha256": "f9446d2456e40dc78fb10dbce5a01b4d1093942be49c1ab9689fc8433985c3d3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lf3",
+     "geometry_sha256": "57894380cfbade4612e26e966391efc96bc2c86d0ee2741934f2b93391a630a1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rf3",
+     "geometry_sha256": "2ccd70ea0194858a7ff3d3601267b2b2361bb3643d5508f21dedb88a8cf3db5e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-hr",
+     "geometry_sha256": "dbcbd4b594c53fc4f8c7783ffff771cb8228cfbe656492d9154c7767ff9aea57",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-fr",
+     "geometry_sha256": "658ff762427d075adfa125fc009a54cba2c38b2adc2e1e213381df3796fa2517",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-hc",
+     "geometry_sha256": "c86a5f92d0f70d7090cb068606fce04e61e19d2d5aa217e276f99de9a73405f4",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-fc",
+     "geometry_sha256": "a2816b220ecf3b65d9172b7a75f42408708d0e98fcc3de355a8652143e20f691",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-trough-sill",
+     "geometry_sha256": "39c53b284340d83e226e0679ecd0b7a316cd9ef74a75562e42153b50cd99fb82",
+     "source": "headless (D-3e gully delta: new mesh; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullybox-reveal-trough-sill-f",
+     "geometry_sha256": "39f728e416d6536651475e35280a1fff22d709845dee37e6764eab7135690363",
+     "source": "headless (D-3e gully delta: new mesh; app-exact class per the FIX6 validation and the D-3d card)"
+    }
+   ]
+  },
+  "7ft": {
+   "tag": "DERIVED",
+   "source_web_commit": "D-3e on D-3d f6dc9dbf (D-3 merge of main 6e329ea7); table.js sha256 8c4eca65ac0ee67aa0414a480f458e2404491b3278b6aa5941e7e157bb16e628",
+   "source_dump": "/tmp/d3e-repins-1789931062/scene-7ft.json",
+   "source_dump_sha256": "296eac39d9e8c3e253463c9617de3b002ea389191cfb1468b765fbf01fdde74d",
+   "table": "diamond_proam_7ft",
+   "meshes": [
+    {
+     "key": "dm-bed-cloth",
+     "geometry_sha256": "e21d12f2a4bb5e13bbd1b9ee246b8339b02db24ea1877f71b97606f8bcdc6a64",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-cushion-0",
+     "geometry_sha256": "6f11ebcc435b3acf110ee9a3f2b2b6c928638893a9c2a8125d92338ea99a2688",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-0",
+     "geometry_sha256": "866953460bf5bc3ce53ddfeef28b62d0e56d4302bf697553ef046cb3d38c1b36",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-1",
+     "geometry_sha256": "acbabe94c2ee6755e6d61990f7b910eca89e2932f878cf0aec0e29717e74b0fe",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-1",
+     "geometry_sha256": "53eeecaba833a354f0061f90db5303f536e9942e6abad52103e85b3496649da1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-2",
+     "geometry_sha256": "f605d307b95abac3ee4d5216bca16476ac8371ac93bba0871f9688bcf507d1b0",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-2",
+     "geometry_sha256": "1c326d891ead4edf87b1376548972f97b77873449a0015561ad14d7acfa44f03",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-3",
+     "geometry_sha256": "6b9989fd9c7f37051183b6973e60193c50e22a76445d52dffc51f51d5809cd03",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-3",
+     "geometry_sha256": "c55d7b9529fb29ab27c88c063abd32052f70454acc6c3b59c96c5507865fb50d",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-4",
+     "geometry_sha256": "eeb7dd81a6f55401f494182a6fdeeb5ceb696ab704d9bd61e8b382ce30453525",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-4",
+     "geometry_sha256": "4d6c5600e4facac68d4291cb2b34ddd672b5d966ba55311538d40f9054db2252",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cushion-5",
+     "geometry_sha256": "b984cbacc9d505c81e3fb92958569d1b86804b3b869a27f4ac91f5c6e0f989e3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-subrail-5",
+     "geometry_sha256": "169bda16fb93d74892b17fd982ee9a9dac1189ddff6df3c676257eadb92a8f96",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-0",
+     "geometry_sha256": "3a254f3cb3c925e46e2f36b60ab9f80d73be887e107d4a7df402907a2779cf6a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-1",
+     "geometry_sha256": "8a1fa80e921d7b909f7879c81728bc6851f3ff63ca1d68126aec28fa932d317c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-2",
+     "geometry_sha256": "131c254af345ee017e30c28caa848cc05632a95edef90af6483b41dd4f044e69",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-3",
+     "geometry_sha256": "e0d6ba41c22f47c27e1da842d0b377fe7e1244363ba292a4432ddac26250b762",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-4",
+     "geometry_sha256": "f28074ca907eb4dd63864fb1a81c5c5dc6fb92ef6867874c4e598372c0bbeb40",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-railtop-5",
+     "geometry_sha256": "44bb0c2760fac8523dc2f5f47edadb20e0ec4e72a9b56b43fa88245f6891becf",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cornerblock-0",
+     "geometry_sha256": "f46ac085cf48f21f5be7edf0bb25949d26b84a0accebec71edd5ab524769602c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cornerblock-1",
+     "geometry_sha256": "37948358a2ea4d153ddc15b58a9b1f1efe74fb5b002477c3c806e1044e83361f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cornerblock-2",
+     "geometry_sha256": "4db346848bfaa91239993e6e555f3b53bf3f115d1afffc44b70822cd9a890421",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cornerblock-3",
+     "geometry_sha256": "29a94eee426e24009b38210a7cfe8f94bc3cbf5c4df1e35a27cb5f016d153187",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-kerffloor-l",
+     "geometry_sha256": "24d77ee6b09167f667ec94d3f9d890ff8185662fba470dd34d89a5657a7165a2",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-kerffloor-r",
+     "geometry_sha256": "58b0ca56ac97daf7d63c8697e177808c05c0136b27e9590a9b2064216545d618",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-apronband",
+     "geometry_sha256": "a0cf1b89f97c18c678769ad97776dd57f57c5aa258d21e2afc5358c2ac77db14",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-end-h",
+     "geometry_sha256": "755e920fa1bd9c4855006e615074d21102653972aaab5286c9b06948de705e15",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-trough-hboth",
+     "geometry_sha256": "ce80fd2d3f5e46293526ff377da81e2676be3b9ce29b755eb647b2e1cf7f092e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-floor",
+     "geometry_sha256": "8749fc11f0e718f790541ed96fd11f1cf58aae3edb2ef125d7f43fe8882a1e2d",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-ceiling",
+     "geometry_sha256": "4b558cdbab945563e3fcf3400409534dc56fad486de199c0b8f38787308f777e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-back-0",
+     "geometry_sha256": "1545edae7b216c6d7e467bdff18ccc36f51f604a6f6d731fdb46c8ba385c136e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-end-l",
+     "geometry_sha256": "4ce3e4d1d9e46d59abcaccccd0ed6dfee08192d0d92d4e14ec35a0f14f0b96d1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-end-r",
+     "geometry_sha256": "a22ff4f05a4440a22d5541e22142a958f3a01d2267e7bb8869be57ed6fbee535",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-lip-top",
+     "geometry_sha256": "d1a1128c27a02ee5c15bbe29169351eb60275efc1b5e001dbb370b7aa37dd07c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-lip-bottom",
+     "geometry_sha256": "a9f800b3567a63621d997fb95546eb136548b057fdffda61127fcda6458ad050",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-lip-r",
+     "geometry_sha256": "ebdf40174ce8eb930a87337aef0fa999b6ea0213442065cdacd4720ad351d287",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-lip-l",
+     "geometry_sha256": "4f6bb8f2fdb78b234eb4f23e265fabdc381d6211c67c9567b22ed9ff372adab2",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-top",
+     "geometry_sha256": "2d2e9d58038ed0c93976a5df3386a95bd226f3f0e095559db1047d6f5e7db88b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-bottom",
+     "geometry_sha256": "1568c2f2aa12ca485e655bed53172a4113a25db9a5064c6ecc851d34d2ed1348",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-r",
+     "geometry_sha256": "c1c79a5b366e6bbe2d37a5630bf16d2b84c13c1f04b79b281e77a76d442ce2e3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-l",
+     "geometry_sha256": "d86a2cd4cabcfa91809b90a744ffbdce8a438ac6a2e8b2b282be748dd201ae61",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-ehl0",
+     "geometry_sha256": "2a79f0d4e61e543503466f37433e7cfc6c847478d0a15be20b6d64a83831eddb",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-ehl1",
+     "geometry_sha256": "adeab63247473ce555c0746aec9b91e25019f6f8d17eb78c8df056d96614765c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-ehr0",
+     "geometry_sha256": "d9b9c86bbbe3670f330d59c5b11e48419b574f3439f3926a05226d74815c2c70",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-ehr1",
+     "geometry_sha256": "5081a9958b32308a301b2aea18e5fa1820fcf7824f61e014e8e246326ba65d25",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-end-f",
+     "geometry_sha256": "9b76dae4d634faab154514fc7b0de8e9d95f90a494b4d0cd365401718cd1be50",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-trough-fboth",
+     "geometry_sha256": "f6d815876af2b49cbb8e718356eb9f8e0f02ac56cf5934aab8229ffc1006fab0",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-efl0",
+     "geometry_sha256": "951a522c0a31b7078a3c7b1ecf2b9d740838626ac8ef7583b9a63debb6dda1ed",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-efl1",
+     "geometry_sha256": "2ad79bc05c99538a8f93150d8782dd65811db407be1093656fcc1faadff5b447",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-efr0",
+     "geometry_sha256": "e4d6cda332e10fd500f6ca56a94de195dd86e5c0fddbc8c28799861a2c53adf7",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-efr1",
+     "geometry_sha256": "4c2d9d336f171b9cb7639b3e7b39fcabb9947948174ffaebc65fe58883aacf46",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-side-l",
+     "geometry_sha256": "bc16cbdc8b855a541192ff7df4382a3431f34188b65b995d73f0eac0eb4487b4",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-slh0",
+     "geometry_sha256": "56efae74f246abb1b151ba5f33e3f9860c8ff608a246684cf4f243c3165b1b78",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-slh1",
+     "geometry_sha256": "7f1c8c0a73d8a78543eede9d31b01361d5b3c26012053bcd38580971516b2cb6",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-slf0",
+     "geometry_sha256": "e18491c7cbcf17145d9634eeb2b87f8e326541932e66b59c66ce324bcf1cad2c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-slf1",
+     "geometry_sha256": "cd81d004347fdd4f4cd5332c9d79ddc26c5e691fb8dd81892147e7cbcbaa93a6",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-side-r",
+     "geometry_sha256": "5e0869509bc31cb5ebd9556675cc047e3ee685c9e67ca6f97851481ccdc416e6",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-srh0",
+     "geometry_sha256": "ecb3c8cf1c424534f09cba9d395d7b86542072ec5c87118f42375f59f405bbd4",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-srh1",
+     "geometry_sha256": "d7916cdd99cf5b03351fb1afa8fbdff19889e256d6265f35944d9e6812aae800",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-srf0",
+     "geometry_sha256": "6d34be0b9fada096b1841c864d710651cc3c6331adf03e0136fef2ce77a71519",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-screw-srf1",
+     "geometry_sha256": "3c0aeab9eef30ca4fea5bcc1c323b819f59f7fc83fc8efb833c65786ba50fdfd",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-cabinet-board",
+     "geometry_sha256": "e584921f90ab4e092b369b5db1afa66fe4b85bebab4bd73444c9ca256753da47",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leg-hl",
+     "geometry_sha256": "b1f8cafff62e011639dbb4be271486fd9b1ee9bd88f6e0acada9825728d1dd55",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leveler-hl",
+     "geometry_sha256": "fcacdac6c27b4776ee44cc31c800e0081a98db9941de3b51811b3e9ed7679e89",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leg-hr",
+     "geometry_sha256": "a845aee5f0703e7c5dcb3e60539b5de89074c5ee7e6839d0c68dab3b4bd91022",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leveler-hr",
+     "geometry_sha256": "7e43aca3e756868a2e97066984693576ee251beb046c28a7dd751bd4bd201fc3",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leg-fl",
+     "geometry_sha256": "836cb3f74635bfc0ea437a1cca0b46486943fb2cc535bfd0d5f32495c9c1b7b7",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leveler-fl",
+     "geometry_sha256": "5d0077e3eee636220d81c5defdf420c5e6ad915f5dc19a03f313d711e0c4d000",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leg-fr",
+     "geometry_sha256": "8c8f9b3cbcddfb230918fcc4e88b4f618c839f1b667ae7e3905de1563bf54c6c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-leveler-fr",
+     "geometry_sha256": "16b95ee8e9ff5b7c446ff7dab1848fba487840b338cded841b30f267214857a1",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-c0",
+     "geometry_sha256": "e1890c57d5cacefda45a3e63ea98ff1e17d924958c9c7f17d1af80d1b0e69b13",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-c0",
+     "geometry_sha256": "45b3156f75bb6788a86b4835a20b110b51b988c48cf43d63e4c81647e46a76ad",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-c0",
+     "geometry_sha256": "cc33dfe5d74895487d4337b37b5542fe5deb93a1f59b5d6373b04a5c225d48d5",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-c0",
+     "geometry_sha256": "c2d9c12da0cd163020f7c4d6a497539aa77e168408e725a974c651f2ef915316",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-c0",
+     "geometry_sha256": "42a532c43a6e9f8dc4f402e7b2bb0e1690b835c8b36d7f33c63f2846e45299cb",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-c0",
+     "geometry_sha256": "8ec01fa2f119261db43dc52d149665d539e635c85680725089283ab71150c9a4",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-s1",
+     "geometry_sha256": "fc08dd243b0caa0a13dbfa7316f4dd5fd8a7139f73b1d8e4af98f4f25049c6ad",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-s1",
+     "geometry_sha256": "51768852721a509af0065207b573eb99f1d55186ac5f242731dbddedc794760a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-s1",
+     "geometry_sha256": "ecf3795e91a5f19ea22853b363a89a5975c4d8ce9185ed57b295faf09bec5000",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-s1",
+     "geometry_sha256": "15a96f8b77e20f848d0ebf7d2780b99c275d2702c5bf0c3e6a014ff6f5a6b276",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-s1",
+     "geometry_sha256": "b4044ee97948e793ebd770eab9cb99ab11d21cc36b1eef7b2e1734a216ef8b30",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-s1",
+     "geometry_sha256": "e09f28697e814f86e191e96d6aa019d48c9082e3bebc17409f016c04d5d1c06e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-c2",
+     "geometry_sha256": "a124c41ef61716f51f0a2fbb254702ba34ed18b2cb12192dec7c71f0b4d72306",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-c2",
+     "geometry_sha256": "b9c85993ef0ce55e753477f097e99418cd2d9156493160eb3363b2f4d25cf02a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-c2",
+     "geometry_sha256": "c3ebc16cd8a2e49bfb7cc70a670eb9ae679cd9f5079a03141bc26871ace1d19a",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-c2",
+     "geometry_sha256": "fa0f60cdfbdac799504b9d69e5fe393c92f01d5a4ecae66f55e1900f917fa81b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-c2",
+     "geometry_sha256": "d11e97a30078fa4c3a8ff3fc8dafe6bcb7512d756697f8cc3cb61245a122d81e",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-c2",
+     "geometry_sha256": "d1fa3ac60dc73c9b199ac2454eaa6093e18fd8986a3db97432812ffc0cae9c58",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-c3",
+     "geometry_sha256": "790e3aa9ccc931e64a53d155e56f0b6d9691e5ac39aeb24a65cc3966c3293287",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-c3",
+     "geometry_sha256": "23fbcb40a4375e5da0ad1a62587a5d492503cac1501ace1c7b65d534af3cf600",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-c3",
+     "geometry_sha256": "03bc7e72de2350894ef084d79a29331606f27287cdb8004bd8da2c5a73405a68",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-c3",
+     "geometry_sha256": "d8d7e214aff412f4a8eda27a442c25b9db286f913a40fcda10effad8810271dd",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-c3",
+     "geometry_sha256": "85982c5b4994d0409a389cf3922825113b867effac089cf388826590ef1f55aa",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-c3",
+     "geometry_sha256": "ce66369352b7e35d6c44209f5fa5e56c0966d2e29aec18f1be539b3d587f5b1c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-s4",
+     "geometry_sha256": "e1e86222cac77e93fc23c7500f18c069afbd366cee2504fd402652608c08938f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-s4",
+     "geometry_sha256": "d788bd76de877f4b4a6567d6b94fa3fb3cefe654d04ab2b5d3d0a9e851dfa080",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-s4",
+     "geometry_sha256": "3952536b26621f4ed969ee83813101088510a38e67c1dd27bef8b440659fce99",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-s4",
+     "geometry_sha256": "3488451e6c2bd7234a679bd5900ac9e3836000682e10d3eefaa3c5c0920940cb",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-s4",
+     "geometry_sha256": "2b9d49a70e0494c7e0fc09014698b548eeac36d23753259559d4ca71fab04a0d",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-s4",
+     "geometry_sha256": "73afc104d6bad82190f283b60e71bb9fccce2556fd228acf059856f68ef0c9af",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-falllip-c5",
+     "geometry_sha256": "1549dacdb28634e12b021b923ee7b9445632afed6eed525c7688091331d1ec64",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcup-c5",
+     "geometry_sha256": "1ef183fb45b5aa33d05ead8d9c1af254e3505cbeaee969f3614dff2bd02b1b87",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-pocketcupfloor-c5",
+     "geometry_sha256": "45696e4efd1373cc2380480f3af1dcec4a5cb5e188840a1d4e2da3b7da6fe1cb",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-bootcollar-c5",
+     "geometry_sha256": "1981902b6d2f3ff6cd3ba8b699834d847d796e08b80628e1e51598e2762291c4",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); canvas-sampled mesh (not reproducible headless), unchanged"
+    },
+    {
+     "key": "dm-shelfshadow-c5",
+     "geometry_sha256": "73562c0c61fa4c6ebb766e9c2d86f7db6251a55f3ac7e6927d8e2c2e05538a72",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-tongueao-c5",
+     "geometry_sha256": "f08ad71cbbf17e81f2e7c3882f872335566fcfd92d8183ffc478b95d60a56913",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-spot-foot",
+     "geometry_sha256": "1d62888207c19bb5f38d1ab26665ee558d22658befc555da31f8a2a0b6968b4b",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lh1",
+     "geometry_sha256": "c829bc376b2ddf499822bd4797148b5ed2acdcdc7d810f56b1ec14dd45adf029",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rh1",
+     "geometry_sha256": "6b771e5e046942414b68bc5251b84392b0b0c8952e017c85317c99882d5cd80c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lh2",
+     "geometry_sha256": "99682bf135d2bbc64744c2e75d1841f7732e2953329ce680b83336e98e4566a4",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rh2",
+     "geometry_sha256": "e93f0ff4c77ed57227b680b234fc65c87e4e1f3a6490d01ea5de3b251d6deda7",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lh3",
+     "geometry_sha256": "7d0726f9f9cb9b5c3554e246e27ec8efb72ca56e1de5f7a155bc09450f76f678",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rh3",
+     "geometry_sha256": "f0c8fa69d4b49b83ff8380a5bd0a47888577c50c4ceddb3ff6fc04add9d29dbc",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-hl",
+     "geometry_sha256": "4c36f40f5fee07afd803f3f7ad55e9bbdf83d4e8e9e5c6b85f8c358d23e4212f",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-fl",
+     "geometry_sha256": "a9f5e0d5b292a87e41b292ed7d087e1749018e48c74c9e4573368dfdc3665e43",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lf1",
+     "geometry_sha256": "68a474a9864e0b4617038bc4ba26b5bc83c28cd038369b6c36e31ea15e024953",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rf1",
+     "geometry_sha256": "cea5eeace8939c0e958e74fa7ed77542fbd0baf9f90e339f4c849d1890ffc6c6",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lf2",
+     "geometry_sha256": "f67a05c110fed00c783db7d0fd87319c6730cec5bac089103145f950a2d7d627",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rf2",
+     "geometry_sha256": "0df293ce97f72f8e2459d3519312a9891b3caef8874a29be54f0033798f4c78c",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-lf3",
+     "geometry_sha256": "a3f592d13242b0e81283da96aaf50989e73bafeff74b9bb078ef2fecebfb6ac6",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-long-rf3",
+     "geometry_sha256": "e603b0f5e01dc6a711837a99ee0532206bd58284d6c8e2db119c464f85f0e497",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-hr",
+     "geometry_sha256": "b4e9716c1f86665efcd0827d7fdceffbf43de44fe029ae2d7d7e0add9a6d0014",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-fr",
+     "geometry_sha256": "9a51af4054fd8e6bb7362419d32380c6ec1f7ab98eb71a631facb153a4833bd5",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-hc",
+     "geometry_sha256": "b6bf5d62545e16ee748e76c87ffb53a7030ab286214959b7019f8806f454fd34",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-sight-short-fc",
+     "geometry_sha256": "3a03bcb1f80ea61577a0c77f7a5eaf88d4164dbe3e8d0618e69b17772f2815d4",
+     "source": "app dump of the D-3d card (f6dc9dbf-20260920T181942Z); unchanged by D-3e (headless digest identical)"
+    },
+    {
+     "key": "dm-gullybox-reveal-trough-sill",
+     "geometry_sha256": "125f3769b75d1fd5d2ac7c468a98bed90d16e898c7d9ae8f02126c55265cab4a",
+     "source": "headless (D-3e gully delta: new mesh; app-exact class per the FIX6 validation and the D-3d card)"
+    },
+    {
+     "key": "dm-gullybox-reveal-trough-sill-f",
+     "geometry_sha256": "d2a80591be6ab2e11272117c012eb226a0db67f774c0f3614f3515c2ef24d1f2",
+     "source": "headless (D-3e gully delta: new mesh; app-exact class per the FIX6 validation and the D-3d card)"
+    }
+   ]
+  }
+ }
+}

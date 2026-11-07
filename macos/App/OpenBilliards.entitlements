@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Sandbox posture (contracts/downloads.md §3, spec FR-014, SC-010):
+	     App Sandbox ON; user-selected read-write is the ONLY file
+	     entitlement (the NSSavePanel Powerbox grant is the write
+	     permission). Adding ANY further key is a recorded FR-014
+	     deviation, never a silent edit. -->
+	<key>com.apple.security.app-sandbox</key>
+	<true/>
+	<key>com.apple.security.files.user-selected.read-write</key>
+	<true/>
+	<!-- RECORDED FR-014 DEVIATION (T025 register item (a), 2026-07-17;
+	     the internal macOS acceptance integration report):
+	     macOS WebKit's out-of-process networking stack refuses to start
+	     ANY navigation inside a sandboxed host without the outgoing-
+	     connections entitlement — even for purely local custom-scheme
+	     (app://local) content served by WKURLSchemeHandler from the app
+	     process. Observed on the signed local build (macOS 26/Xcode 27):
+	     webView.URL stays nil, isLoading stays false, white window; the
+	     identical webview + handler wiring serves byte-complete content in
+	     the unsigned (sandbox-unenforced) hosted test arm. The offline
+	     claim therefore falls back to the runtime zero-non-app-origin-
+	     request assertion (spec FR-014; the whole T026 acceptance session
+	     runs with networking disabled), and the CI entitlements lint pins
+	     THIS exact three-key posture. -->
+	<key>com.apple.security.network.client</key>
+	<true/>
+</dict>
+</plist>

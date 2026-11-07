@@ -1,0 +1,123 @@
+{
+ "schema": "d621-d3-merge-admissions/1",
+ "tag": "DERIVED",
+ "studied_against_main": "6e329ea77222f256994104e0bd5c9684323b2e8d",
+ "rehearsal_merge_commit": "7d3dbbd0a78d3eed371347b06dd5f691de57e2f2",
+ "rule": "a path listed here is admitted by the census ONLY when `git diff --no-color <main-ref commit> <audited commit> -- <path>` hashes to expected_diff_sha256 (the studied resolution form); any other content stays outside the fence",
+ "paths": {
+  "tools/render/capture-488d-registers.mjs": {
+   "reason": "D-3 merge: main's FIX10 argv layer (__stringOpt --registers) merged into a pre-O22 lane file whose D621 hunks (parametric poses, PIN_9FT / POSE_PIN, --table, --web) are unchanged — the diff vs main is exactly the studied lane form",
+   "expected_diff_sha256": "dfa22185989ef3fa0f875fa4a25d592dc12370417bea27034535586a35278c89",
+   "numstat": {
+    "added": 134,
+    "removed": 21
+   }
+  },
+  "tools/render/liveswitch-628.mjs": {
+   "reason": "D-3 merge: main's strict parse (__parseArgv, invalidatePrior, --web check) merged with the lane's --red-arm declared as a boolean and the rim N/A clause — the diff vs main is exactly the studied lane form",
+   "expected_diff_sha256": "e22187bb1196d602c4b125e187ca17e8d2f00909915329b961c3f56a8dcb6be9",
+   "numstat": {
+    "added": 145,
+    "removed": 7
+   }
+  },
+  "tools/render/orbitsweep-488d.mjs": {
+   "reason": "D-3 merge: main's __pathOpt('--pack') parse merged with the lane's variant-aware PREFIX / RIG_EXPECT / --table / --web / --skip-pocketing — the diff vs main is exactly the studied lane form",
+   "expected_diff_sha256": "f0e0e474c4f52eec02d8c03176d171dcd8363acb6eaf4500cab108ac05ae3b3f",
+   "numstat": {
+    "added": 254,
+    "removed": 33
+   }
+  },
+  "web/app/locales/zh-CN.json": {
+   "reason": "D-3 merge: main's GH-668 S5 word-joiner typography kept on the 9 ft row; the lane's 8 ft / 7 ft rows added in the same typography — the diff vs main is exactly those two rows",
+   "expected_diff_sha256": "a016d2419da8676c502ac5ae197bd13812fc5e142b11b64f4244744b0e957d5b",
+   "numstat": {
+    "added": 4,
+    "removed": 0
+   }
+  },
+  "tools/render/fixtures/cushion-profile-sources-490.json": {
+   "reason": "D-3 (row 112 (b), ORDER-CEREMONY-v1 §2.4 / D-5 census): the four Diamond tables read entry-profile (render.cushionProfile = the fourth L-CCP argument) on top of main's rows; _statement / _expectation re-pointed — the diff vs main is exactly that",
+   "expected_diff_sha256": "a3990140f18092ebcc145c7a295e3fdab385d3ca3813a89e1a44d01ade724aee",
+   "numstat": {
+    "added": 7,
+    "removed": 5
+   }
+  },
+  "tools/fixtures/provenance-tags.json": {
+   "tag": "DERIVED",
+   "reason": "D-3 O15 (GH-789 gate): NUMBERS-ONLY re-pin of the cited line numbers the lane's insertions move (55 locations; digit-mask proof in the D-3 record) — the fixture's own gate (tools/check-provenance-tags.mjs) validates it; its numeric leaves are line numbers, not geometry: numeric census delegated to that gate",
+   "expected_diff_sha256": "0520ea4547fde78efae7b5479d881e72f009c631ca04041f0725bd7e0ac54b84",
+   "numstat": {
+    "added": 110,
+    "removed": 110
+   },
+   "numeric_census": "delegated to tools/check-provenance-tags.mjs (GH-789)"
+  },
+  "tools/fixtures/brand-locale-forms.json": {
+   "tag": "DERIVED",
+   "reason": "D-3 O15 (GH-789 gate, maintainer ruling): 8 rows for the lane's brand-bearing equipment strings (diamond_proam_8ft / 7ft names + descriptions: Diamond / Pro Cut / Pro-Am), mirrored from the corpus's 9 ft rows, forms read from the merged locales; counts re-derived; numeric census delegated to that gate",
+   "expected_diff_sha256": "3015121359fe57a08fea32c31abbb7a6f395c73446db00632a96db6b15be2fe2",
+   "numstat": {
+    "added": 244,
+    "removed": 4
+   },
+   "numeric_census": "delegated to tools/check-provenance-tags.mjs (GH-789)"
+  },
+  "tools/fixtures/sp-census.json": {
+   "tag": "DERIVED",
+   "reason": "D-3 O15 (GH-789 gate, maintainer ruling): the census re-measured at the merge (152 files / 791 lines), SPIKE-REPORT-D621.md adjudicated column A like SPIKE-REPORT-488D.md, three B-SHIP quote lines re-pinned numbers-only; numeric census delegated to that gate",
+   "expected_diff_sha256": "7fda2ee092ef8d5b0692400a5342f9ac316eb0ca5f35b47cbcd04237a41bcf11",
+   "numstat": {
+    "added": 14,
+    "removed": 13
+   },
+   "numeric_census": "delegated to tools/check-provenance-tags.mjs (GH-789)"
+  },
+  "web/app/locales/ja.json": {
+   "reason": "D-3g (maintainer ruling 2026-09-20): the lane's 8 ft / 7 ft rows, the 7 ft parenthetical joinered for TYPO-PAREN-WHOLE (run of record 35532992261)",
+   "expected_diff_sha256": "ad852b7dcff328f3878cc78ee77a1c956a8173244b9321bdea604b6a0bfe2555",
+   "numstat": {
+    "added": 4,
+    "removed": 0
+   }
+  },
+  "web/app/locales/ko.json": {
+   "reason": "D-3g (maintainer ruling 2026-09-20): the lane's 8 ft / 7 ft rows, the 7 ft parenthetical joinered for TYPO-PAREN-WHOLE (run of record 35532992261)",
+   "expected_diff_sha256": "190db5167a934975e9e020b5d6b71ca6c09678c45a2613c959402b66ebd00b67",
+   "numstat": {
+    "added": 4,
+    "removed": 0
+   }
+  },
+  "web/assets/stations/tables/diamond_proam_7ft.webp": {
+   "reason": "D-3g (maintainer ruling 2026-09-20): station turntable strips for the size variants, baked with tools/render/bake-station-thumbs.mjs --isolated (D-3g window 22:45Z)",
+   "expected_diff_sha256": "382357e6cc097d13e80f838c2852328308eab298da8afc121d948cbeffb3fceb",
+   "numstat": {
+    "added": 0,
+    "removed": 0,
+    "binary": true
+   }
+  },
+  "web/assets/stations/tables/diamond_proam_8ft.webp": {
+   "reason": "D-3g (maintainer ruling 2026-09-20): station turntable strips for the size variants, baked with tools/render/bake-station-thumbs.mjs --isolated (D-3g window 22:45Z)",
+   "expected_diff_sha256": "1bb5f30e124fb5227f38311465f0e49aec7413d3bb6483949c131f54eb6ae8b1",
+   "numstat": {
+    "added": 0,
+    "removed": 0,
+    "binary": true
+   }
+  },
+  "web/tools/e2e-atelier-s5.mjs": {
+   "reason": "D-3g (maintainer ruling 2026-09-20): FACES register count 8 -> 10 for the two strips",
+   "expected_diff_sha256": "ee98fa346de723794d2ef9eec56e2135eae117d2ce3e17c13c457cbc0bd21c9c",
+   "numstat": {
+    "added": 1,
+    "removed": 1
+   }
+  }
+ },
+ "rehearsal_merge_commit_o15": "4a0509b00f4cbd46c6d227360c489851049906a6",
+ "studied_against_main_o15": "bae65a6f6c5f6f3d82730178e071c7f8eb274ac3"
+}

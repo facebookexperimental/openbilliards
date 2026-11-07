@@ -1,0 +1,2 @@
+DVR864 END legs 19 invalid 3 fail 0 pass 16
+E2E-EXPORT-Z2 PASS (the export plan covers the last pocket drop: runExport, the drill builder (live AND non-live records), the estimate seam and realtime read ONE completion; cueTail read from cueTailForEstimate over the live record; the DVR live schedule ends each segment at E_i: 16 legs asserted, the control compare deferred without a baseline)

@@ -1,0 +1,245 @@
+% ===========================================================================
+% Supplement — extended per-experiment results for groups B and D (moved
+% from the main text's Sections 5.2 and 5.4 when the main text was
+% shortened; the main text keeps the group summary tables and the
+% non-obvious findings). Every number traces to the study's baseline
+% manifest, its ledger, or a field of a pinned group-B or group-D output
+% (canonical kernel 0.1.0+fb3425ad). Figure and table references without
+% an "S" prefix resolve to the main document (xr).
+% ===========================================================================
+\section{Extended results: groups B and D}
+\label{sec:supp-extended-results}
+
+This section carries the per-experiment result prose behind the group
+summary tables of the main text's Sections~\ref{sec:results-b}
+(stick--ball) and~\ref{sec:results-d} (curved paths). The figures cited
+here (Figs.~\ref{fig:F6} and~\ref{fig:F10}) and the miscue-convention
+table (Table~\ref{tab:miscue-conventions}) appear in the main document.
+
+\subsection{Group B --- stick--ball, per experiment}
+\label{sec:supp-results-b}
+
+\paragraph{Endmass squirt (\expid{B1})}
+The kernel's cue-ball deflection (squirt) is the endmass closed form of
+TP A-31 \citep{alciatore_tp_a31} and \citet{cross2008squirt}, in the
+lineage of \citet{shepard2001squirt}. Over contact offsets $0$--$0.5R$,
+end masses $\{5, 10, 15\}$\,g, and speeds $\{1, 2, 4\}$\,m/s plus the
+six-cue catalog grid (333 runs), the maximum comparison error against
+the closed form is $8 \times 10^{-15}$ degrees --- machine precision,
+confirming the implementation and the tip-offset plumbing end to end
+(Fig.~\ref{fig:F6}a). The source's printed example evaluations reproduce
+to $|E| \le 4.3 \times 10^{-4}$ degrees, the PDF's own rounding scale.
+The registered qualitative features quantify as: near-linearity in
+offset with $R^2 = 0.9967$--$0.9979$ per registered end-mass/speed
+series ($R^2 \geq 0.9961$ for the plotted six-cue catalog grids of
+Fig.~\ref{fig:F6}a), the local slope
+density falling $\sim$12\% toward the miscue limit (mildly sub-linear);
+speed invariance exact (measured spread $0.0^\circ$ --- the closed form
+contains no speed); and left/right symmetry to $1.4 \times 10^{-14}$
+degrees.
+
+\paragraph{Natural pivot length (\expid{B2})}
+A simulated aim-and-pivot binary search per cue recovers the natural
+pivot length $L^{*}$ at which backhand-english pivoting self-corrects
+squirt; geometric consistency with the closed form holds to
+$4.8 \times 10^{-10}$\,m, the bisection floor. TP B.26's claim that one
+pivot length serves all offsets is strongly confirmed: re-using each
+cue's single $L^{*}$ across the legal offset ladder leaves a worst-case
+residual aiming error of $0.077^\circ$ (shipped catalog cues
+$0.006$--$0.026^\circ$). The comparison's boundary is a convention
+(Fig.~\ref{fig:F6}b): catalog pivot lengths span $10.5$--$64.9$\,in,
+with only the break cue inside the Platinum-protocol $8$--$14$\,in band
+(the next-lowest shaft misses the band top by 0.03\,in), and the
+companion squirt-angle comparison of \expid{B1} shows why --- commanding
+the protocol's published 6/12\,mm as \emph{tip-center} offsets (the
+protocol page's literal wording) undershoots all four robot-measured
+shafts by $0.32$--$0.42^\circ$, while reading the same numbers as
+\emph{contact} offsets closes the gap almost exactly ($+0.02^\circ$ on
+the lowest-squirt shaft) with a growing positive residual toward the
+break cue ($+0.22^\circ$). Re-referencing the pivot geometry to contact
+offsets scales $L^{*}$ by $1/(1 + r_{\mathrm{tip}}/R) \approx 0.729$,
+which would bring two further shafts inside the band. Both readings are
+recorded and neither is adopted as a recalibration: the
+commanded/tip-center form is the physical backhand-english geometry. In $u_{\mathrm{val}}$ terms
+(Table~\ref{tab:uval}) the robot source publishes a band with no
+per-shaft uncertainty, and the $0.32$--$0.42^\circ$ convention gap is an
+order larger than any plausible protocol $u_D$, so the boundary here is
+convention, not measurement uncertainty.
+
+\paragraph{Miscue limit and maximum sidespin (\expid{B3})}
+The registered ``near-linear'' spin-versus-offset question resolves to
+exactly linear: the source relation is linear in contact offset ---
+spin-rate factor $\mathrm{SRF} = \omega R / v = (5/2)(x/R)$ --- and the
+kernel reproduces it to $|E| \le 2.2 \times 10^{-16}$ in SRF with fitted
+quadratic curvature $\le 5.5 \times 10^{-15}$, exact odd symmetry, and
+exact speed invariance (252 runs, plus a six-run dime-tip arm). The
+envelope, by contrast, is a
+conventions result (Table~\ref{tab:miscue-conventions};
+Fig.~\ref{fig:F6}c). The kernel's miscue rule is input validation on
+\emph{commanded tip-center} offsets, $a^2 + b^2 \le (0.5R)^2$, with no
+tip-friction model anywhere; the source (TP 2.1) derives the limit from
+tip friction at the \emph{contact} offset. Under the shipped nickel tip
+the reachable contact offset therefore tops out at $0.365R$
+($\mathrm{SRF} = 0.912$, below natural-roll-rate sidespin), and the tip
+friction coefficients implied by the kernel's ceilings
+($0.39$--$0.58$ across conventions) sit at or below the
+$0.577$--$0.659$ the literature attributes to chalked tips --- every
+accepted command is physically non-miscuing, so the conservatism is
+one-sided. Contact offsets in $(0.365, 0.5]R$ are physically legal per
+the source yet unreachable under the nickel tip, and $(0.5, 0.55]R$ is
+unreachable under every convention. The registered $0.525$--$0.6R$
+sweep tail was realized as rejection probes: all 16 cells reject with
+identical diagnostics under both tip radii --- designed rejection
+evidence for the envelope, not a failure mode. Post-registration, a
+kernel amendment (kernel \code{0.1.0+8efd660e}) re-binds the miscue limit
+to the contact offset (commanded cap
+$0.5\,(1 + r_{\mathrm{tip}}/R) \approx 0.686R$, nickel); every
+previously accepted input reproduces bit-exactly. The rejection probes
+above are boundary probes of the registered envelope itself: under the
+revised, cue-aware convention the eight nickel-tip cells (contact
+$0.383$--$0.438R$, inside the $0.5R$ contact limit) and the registered
+combined-axis probe at commanded $(0.375, 0.375)$ would be accepted
+and simulate, the eight contact-mode cells still reject, and the
+recorded tip-radius-independent diagnostics are superseded by
+cue-aware validation by design. The pinned artifact stands unchanged
+as the registered-envelope record; the post-registration maintenance
+re-baseline under the revised envelope, which measures exactly this
+disclosed class, is recorded in the study's baseline manifest.
+$(0.5, 0.55]R$
+remains unreachable (amendment note: main-text
+Section~\ref{sec:limitations}).
+
+\paragraph{Center of percussion (\expid{B4})}
+Coriolis' center-of-percussion result --- immediate natural roll when the
+tip strikes at $70\%$ of ball height, i.e., a contact offset of $0.4R$
+above center \citep{coriolis1835,alciatore2008coriolis} --- verifies end
+to end through the event pipeline over 41 offsets $\times$ three speeds
+(123 runs; Fig.~\ref{fig:F6}d). The slide-phase duration is exactly zero
+at $b = 0.4R$ at all three speeds; the interpolated crossing sits at
+$b^{*} = 0.4R + 1.4 \times 10^{-11}$ (the documented contact-mode tip
+correction), equivalently at height fraction 0.700, and the slide-time
+V-shape's arms match the closed form. The spin-rate factor follows
+$(5/2)(b/R)$ exactly (fitted slope 2.5, $R^2 = 1$). Above the crossing
+the cue ball overspins and cloth friction acts \emph{forward}: the
+roll-speed conversion $v_{\mathrm{roll}} = v(5 + 2\,\mathrm{SRF})/7$
+holds to machine precision, giving $+7.14\%$ speed at $b = 0.5R$; below
+it, a draw strike retains $35.7\%$ of strike speed at $b = -0.5R$ and
+never reverses direction without an object ball. The slide map matches
+the closed forms to $6.3 \times 10^{-11}$\,m in slide distance and
+$1.8 \times 10^{-11}$\,s in duration over the 104 uncensored cells; the
+19 censored cells are all $v_0 = 3$\,m/s near-stun or draw shots whose
+closed-form slide distance (up to ${\approx}3.2$\,m) exceeds the available
+$\sim$2.44\,m runway --- slides that cannot complete on a regulation
+9-ft table either. They are censored by the foot cushion, characterized
+via the closed form, and the design was never re-aimed (a registered
+exclusion, not a waiver).
+
+\subsection{Group D --- curved paths (Coriolis), per experiment}
+\label{sec:supp-results-d}
+
+\paragraph{Parabolic slide path (\expid{D1})}
+Experiment \expid{D1} verifies that the cue ball's sliding path after an
+oblique rolling-ball impact is parabolic: half-ball hits at 1, 2, and
+3\,m/s, both cut signs, sampled at 1\,ms. The registered acceptance
+criterion --- quadratic-fit $R^2 > 1 - 10^{-6}$ in the frame aligned with
+the measured post-impact velocity --- fails on all six runs, with
+$1 - R^2$ between $2.2\times10^{-6}$ and $3.7\times10^{-6}$. The miss is a
+frame artifact, and we keep it as this paper's worked example of a
+frame-sensitive verification criterion: the real-ball impact model ($e_b = 0.95$,
+finite ball--ball friction) leaves the friction acceleration
+$2.9$--$4.1^\circ$ off perpendicular to that axis, injecting a cubic term
+that a quadratic fit cannot absorb. In the slip-aligned frame --- the
+parabola's own axis frame --- the fit is exact to machine precision:
+$1 - R^2 = 0.0$ on every run, worst time-domain residual
+$3.6\times10^{-16}$\,m, and the TP A.4 Eq.~20 slide duration reproduced to
+within $2.8\times10^{-17}$\,s \citep{alciatore_tp_catalog}
+(Fig.~\ref{fig:F10}a). The path extent scales as $v^{2.09}$--$v^{2.14}$
+across the speed grid against the registered $\sim v^2$ claim, and the
+final direction is nearly speed-invariant: the comparison error against
+the TP A.4 closed-form angle anchor is $+0.17^\circ$ at 1\,m/s (the
+post-cascade value) growing to $-0.94^\circ$ at 3\,m/s, a $1.11^\circ$
+spread over the grid.
+
+\paragraph{Mass\'e aiming (\expid{D2})}
+Experiment \expid{D2} tests the mass\'e BAR aiming rule of
+TP A.19 \citep{alciatore_tp_catalog} --- ``B for ball contact point, A
+for cloth aim point, R for CB resting point,'' the source's own naming
+\citep{alciatore_faq}: the final cue-ball direction should
+parallel the line from the resting point (R) through the aim point (A)
+on the cloth. Over elevations $45$--$75^\circ$ (a declared executed subset of
+the registered $45$--$80^\circ$ range), eight azimuths, and two tip
+speeds (64 cells; two ill-conditioned cells flagged and excluded from the
+headline statistics), the final-heading error has mean $0.68^\circ$ and
+maximum $1.60^\circ$, improving with elevation to a maximum of
+$0.49^\circ$ at the grounded $75^\circ$ full-pinch mass\'e (the
+$45$--$55^\circ$ cells run in the airborne jump-launch regime). Two
+properties stand out. First, Coriolis' invariance theorem --- friction
+acting along the fixed slip direction cannot rotate the final direction
+\citep{coriolis1835} --- is realized exactly: the per-cell heading errors
+at the two tip speeds are identical to the full recorded precision of the
+output in all 32 (elevation, azimuth) pairs, so the per-speed error
+statistics coincide bit-for-bit (Fig.~\ref{fig:F10}b). Second, 88\% of
+cells ``come up a little short'' of the predicted direction, which is
+precisely the behavior the source itself expects of real shots (TP A.19,
+p.~3) --- a pass with the source's own caveat reproduced. The rule is also
+usable where it is taught: the final direction is realized within 0.75\,m
+at worst (median 0.18\,m), never beyond half a table length.
+
+A scope note on the sub-pinch rows. The $45$--$55^\circ$ cells run in
+the airborne jump-launch regime (the elevated strike launches the ball
+off the cloth), and there everything \emph{after} the strike is inert to
+the comparison by a conservation identity: under any impulsive strike
+the natural-roll final heading --- the azimuth of the table-plane
+combination $\mathbf{w}_{xy} = (5\mathbf{v}_{0,xy} +
+2R\,\boldsymbol{\omega}_0 \times \hat{\mathbf{z}})/7$, the
+$\times\hat{\mathbf{z}}$ term planar by construction --- is exactly
+invariant to intervening hops, to the ball--slate restitution, and to
+the sliding-friction law: every cloth-contact friction impulse enters
+$\mathbf{v}_{xy}$ and $R\,\boldsymbol{\omega}\times\hat{\mathbf{z}}$
+with equal and opposite weights in that combination, and a normal
+(restitution) impulse at the cloth contact carries no planar component
+and no torque about the center. Coriolis makes the robustness claim
+himself --- the constructions giving the final directions ``subsistent
+toujours, quelles que soient les lois que suivent les deux frottemens
+de glissemens et de roulement'' \citep[quoted in][]{bouleau2006coriolis}
+--- and the property is proven independently for this kernel's
+strike--flight--contact pipeline (a launch-invariance theorem in the
+kernel's unpublished design record). The $45$--$55^\circ$ rows therefore exercise
+the strike's impulse--momentum mapping together with the flight and
+contact solver's conservation structure --- a strike defect that
+mis-mapped tip offset to launch velocity or spin would still miss the
+R$\to$A line, so the rows are not vacuous --- but within the
+impulse--momentum model class the BAR construction is reproduced by
+derivation, so agreement there cannot discriminate strike \emph{realism}
+beyond that idealization (finite tip dwell, tip--slate jamming) at those
+elevations; we also know of no published mass\'e-aiming measurement in
+the $30$--$60^\circ$ elevation band. The flight-leg half of the claim is
+directly falsifiable in-sim: perturbing the ball--slate restitution
+$e_t$ at $45^\circ$ elevation must leave each cell's BAR heading error
+unchanged to output precision --- any larger shift would indicate a
+broken flight/contact solver, not new strike physics.
+
+\paragraph{Swerve maps (\expid{D3})}
+Experiment \expid{D3} maps swerve over elevations
+$\{0, 5, 10, 20, 30\}^\circ$, english fractions $\{25, 50, 100\%\}$, and
+tip speeds 1--3\,m/s, with drift read at 0.5--2.5\,m along the aim line
+(TP B.23 provenance; the registered claims are the FAQ's structural rules,
+\citealp{alciatore_tp_catalog, alciatore_faq}). All three registered
+structural rules hold with zero violations on the grid: no drift at level
+cue (the maximum $|$curve$|$ over all level-cue rows is exactly zero ---
+pure vertical-axis spin leaves the sliding leg straight), drift monotone
+in elevation and in spin, and curvature at fixed distance decreasing with
+speed, the delayed-onset rule. The delayed onset is made quantitative
+through the squirt--swerve cancellation distance (``squerve''): the
+distance at which swerve re-crosses the aim line that the $1.9^\circ$
+full-english squirt displaced. Measured cancellation distances span
+$0.08$--$2.65$\,m on the grid; at $5^\circ$ elevation and full english the
+distance moves outward from 0.26\,m at 1\,m/s to 1.05\,m at 2\,m/s (the
+marked $5^\circ$ crossing in Fig.~\ref{fig:F10}c) to
+2.36\,m at 3\,m/s --- a derived, teachable quantity
+linking the stick--ball and curved-path channels. Cells in which the ball
+rests, or the 3.2\,m observation window ends, before re-crossing record no
+distance. The sliding legs are closed-form parabolas to within
+$2.6\times10^{-13}$\,m --- the same verification floor as \expid{D1} ---
+and the experiment is cue-only, bit-identical across the slip-law kernel
+cascade.

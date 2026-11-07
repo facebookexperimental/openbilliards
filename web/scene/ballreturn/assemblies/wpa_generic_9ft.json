@@ -1,0 +1,29 @@
+{
+ "schema": "ball-return-assembly/1.0",
+ "table_id": "wpa_generic_9ft",
+ "doc": {
+  "title": "wpa_generic_9ft — pocket-assembly declaration (V18)",
+  "status": "FIXTURE GEOMETRY (main's generic bed has no craft lane; declared by the ball-return lane, order 21 ruling 1)",
+  "revision": "a1",
+  "date": "2026-09-08",
+  "issue": "#650 (ORDER-BALLRETURN-21 item 1)",
+  "notes": "Only the two MIDDLE-pocket wells are declared: they are what the TEST fixtures' leads enter (TEST-terminal-chutes-high: the lead and the chute's first 30 mm inside the well, V16's read of 2026-09-08). The corner cups are unserved by every fixture on this bed and stay furniture. The wells are UNNAMED meshes in web/scene/table.js (a CylinderGeometry under the obTable group), so they are matched by parent, geometry and world box; a rename or a move in the table build breaks the match and V16 names them again — fail-closed."
+ },
+ "meshes": [
+  {
+   "id": "middle-well-lc",
+   "kind": "well",
+   "match": { "parent": "obTable", "geometry": "CylinderGeometry", "center_mm": [0, -99, -703], "size_mm": [137, 200, 137], "tolerance_mm": 3 },
+   "solid_simplification": true,
+   "provenance": { "tag": "DERIVED", "source": "from the built model, not a read of any table: V16's furniture read on wpa_generic_9ft named obTable/CylinderGeometry@(0,-99,-703)[137x200x137] with the high fixture's lc-lead 0-50 mm and lc-chute 0-30.4 mm inside it (12 stations wholly inside, worst 85.4 mm) — a SOLID cylinder standing in for the hollow drop of a real middle pocket (solid_simplification)" }
+  },
+  {
+   "id": "middle-well-rc",
+   "kind": "well",
+   "match": { "parent": "obTable", "geometry": "CylinderGeometry", "center_mm": [0, -99, 704], "size_mm": [137, 200, 137], "tolerance_mm": 3 },
+   "solid_simplification": true,
+   "provenance": { "tag": "DERIVED", "source": "the mirror of middle-well-lc: obTable/CylinderGeometry@(0,-99,704)[137x200x137], the high fixture's rc-lead 0-50 mm and rc-chute 0-30.4 mm inside it (same read)" }
+  }
+ ],
+ "provenance": { "tag": "DERIVED", "source": "the ball-return lane's V16 census of the built wpa_generic_9ft scene (e2e-xw101-look --table wpa_generic_9ft --track TEST-terminal-chutes-high, 2026-09-08; pack order20/v16-reads/high-fixture-wpa-v16-read.log); the modelling lane owns the wells — solid_simplification flagged on both" }
+}

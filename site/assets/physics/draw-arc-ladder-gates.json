@@ -1,0 +1,427 @@
+{
+  "scenario": "draw-arc-ladder",
+  "title": "Draw-arc power ladder — heavy draw on a cut ALWAYS bends; the arc outgrows the table (issue #53)",
+  "kernel": "0.1.0+dedc61cd",
+  "anchor": {},
+  "badge": {
+    "line1": "predicted bend 35.3° / 41.7° / 44.2° · measured arc 99.2 / 131.2 / 27.3 mm",
+    "line2": "DRAW-ARC POWER LADDER · THREE CUT SHOTS AT INCREASING CUE SPEED"
+  },
+  "segments": [
+    {
+      "id": "v2.5",
+      "batterySha": "f9a004df1d51da93047013108541019902fd13a874404c4a520f0026b74544e8",
+      "videoSha": "f9a004df1d51da93047013108541019902fd13a874404c4a520f0026b74544e8",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "contactCb": [
+          0.25,
+          -0.149493
+        ],
+        "tangentHeadingDeg": 147.46944734976293,
+        "slideLateralMm": 99.20665306294617,
+        "maxLateralMm": 375.3693984804083,
+        "bendAtNaturalRollDeg": 35.33273112670631,
+        "asymptoticNoRailBendDeg": 35.33273112670631,
+        "tRollClosedForm": 0.5820092167768223,
+        "tRollMeasured": 0.5820092167768224,
+        "rollMark": [
+          -0.165012,
+          -0.002458
+        ],
+        "endMark": [
+          -0.7035,
+          0
+        ],
+        "tImpact": 0.1547648176313146,
+        "tEnd": 1.3333,
+        "minPairMm": 57.149999999999935,
+        "minPairAt": 0.1547648176313146,
+        "minPair": [
+          0,
+          1
+        ]
+      },
+      "plan": {
+        "frames": 444,
+        "outputSec": 7.4,
+        "maxCutlessStepRatio": 1.0748172849529565,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              156,
+              180
+            ]
+          ],
+          "deliveredFrames": 420,
+          "deliveredSec": 7,
+          "firstReplayFrame": 156,
+          "recoveredFrames": 33,
+          "dissolveS": 0.4
+        }
+      }
+    },
+    {
+      "id": "v4",
+      "batterySha": "125c4451b4c2d6ea27717613a8421edc473184a660482d3860a3ae5643142eb0",
+      "videoSha": "125c4451b4c2d6ea27717613a8421edc473184a660482d3860a3ae5643142eb0",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "contactCb": [
+          0.25,
+          -0.149493
+        ],
+        "tangentHeadingDeg": 147.49426928024678,
+        "slideLateralMm": 131.2098811392212,
+        "maxLateralMm": 128.85975079091406,
+        "bendAtNaturalRollDeg": null,
+        "asymptoticNoRailBendDeg": 41.72096699317984,
+        "tRollClosedForm": 0.9037424067044328,
+        "tRollMeasured": null,
+        "rollMark": null,
+        "endMark": [
+          -0.606425,
+          0.240646
+        ],
+        "tImpact": 0.09369029227259625,
+        "tEnd": 0.6893,
+        "minPairMm": 57.15000000000078,
+        "minPairAt": 0.09369029227259625,
+        "minPair": [
+          0,
+          1
+        ]
+      },
+      "plan": {
+        "frames": 351,
+        "outputSec": 5.85,
+        "maxCutlessStepRatio": 1.0677624557677876,
+        "shutter": 8,
+        "shutterDeg": 310
+      }
+    },
+    {
+      "id": "v8",
+      "batterySha": "5ffc997a4c0a666e7608b4f8f7459353806918a575803fdde5f4da72d5e72f39",
+      "videoSha": "5ffc997a4c0a666e7608b4f8f7459353806918a575803fdde5f4da72d5e72f39",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "contactCb": [
+          0.25,
+          -0.149493
+        ],
+        "tangentHeadingDeg": 147.49782457948618,
+        "slideLateralMm": 27.28889394384959,
+        "maxLateralMm": 27.049970962670255,
+        "bendAtNaturalRollDeg": null,
+        "asymptoticNoRailBendDeg": 44.24216307741622,
+        "tRollClosedForm": 1.7783452084246798,
+        "tRollMeasured": null,
+        "rollMark": null,
+        "endMark": [
+          -0.606425,
+          0.363798
+        ],
+        "tImpact": 0.04617999127547079,
+        "tEnd": 0.355,
+        "minPairMm": 57.149999999997625,
+        "minPairAt": 0.4062634532738115,
+        "minPair": [
+          0,
+          1
+        ]
+      },
+      "plan": {
+        "frames": 207,
+        "outputSec": 3.45,
+        "maxCutlessStepRatio": 1.0677624557677876,
+        "shutter": 8,
+        "shutterDeg": 310
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 3,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 0.45333333333333337,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 2.4033333333333333,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "99.2 mm",
+              "v 2.5 — slide-phase arc, carves to the pocket"
+            ],
+            "availSec": 3.783333333333333,
+            "spanSec": 1.38,
+            "entrySec": 1,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.38,
+            "settledSec": 2.4033333333333333,
+            "needScale": 0.39617224880382773,
+            "settledFrames": 144
+          }
+        ],
+        "refused": false
+      },
+      {
+        "segIdx": 1,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 2.4833333333333334,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "131.2 mm",
+              "v 4.0 — the rail interrupts the slide"
+            ],
+            "availSec": 3.8833333333333333,
+            "spanSec": 1.4,
+            "entrySec": 1.02,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.4,
+            "settledSec": 2.4833333333333334,
+            "needScale": 0.3906976744186046,
+            "settledFrames": 148
+          }
+        ],
+        "refused": false
+      },
+      {
+        "segIdx": 2,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.45333333333333337,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "27.3 mm",
+              "v 8.0 — the arc outgrows the table"
+            ],
+            "availSec": 1.8333333333333333,
+            "spanSec": 1.38,
+            "entrySec": 1,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.38,
+            "settledSec": 0.45333333333333337,
+            "needScale": 0.9,
+            "settledFrames": 27
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "v2.5",
+      "frames": 444,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "39cb7614ea823ec7ef81f4a193408cc124e7abdd0817aa0d694a5c8593bfb047",
+      "sha256_last": "0eaa4d3b864eca5d069be163c68fcdb6cb6f4abf45347d1374e40f00102bf1be"
+    },
+    {
+      "segment": "v4",
+      "frames": 351,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "073764f3fdf6f9d36399e4aa9c20fba664293f45fdb2e5dd825e7804b6a7858f",
+      "sha256_last": "4a66aa5ae2d8ea8ed9d77cf313d16770b8468be7c33b814cff5c919d0dde928c"
+    },
+    {
+      "segment": "v8",
+      "frames": 207,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "5676e722a9787f52b008fa30e2ab12ea9cdc9eec492f965582c332306d072f91",
+      "sha256_last": "7c844197c0a96b14d09528eb143b6846d56702b24158ecea5487f1190911b70d"
+    }
+  ],
+  "verifyLaw": "sameboot-x2+crossboot-envelope/v1-chunked",
+  "verify": {
+    "v2.5": {
+      "law": "sameboot-x2+crossboot-envelope/v1-chunked",
+      "tierA": "lsb-speckle",
+      "tierB": "lsb-speckle",
+      "frames": 444,
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "chunks": 3,
+      "chunkFrames": 150,
+      "relaunches": 0,
+      "sameBoot": {
+        "differingFrames": 444,
+        "worstDelta": 1,
+        "worstFrac": 3.4027777777777775e-05,
+        "worstComponentPx": 2
+      },
+      "crossBoot": {
+        "differingFrames": 150,
+        "worstDelta": 1,
+        "worstFrac": 1.388888888888889e-06,
+        "worstComponentPx": 1
+      },
+      "kernel": "0.1.0+dedc61cd",
+      "renderer": "7e3b2b35014137dabd495ac2d14fe9be5cc1e29660e5132a1968b92b316a3e17",
+      "atUTC": "2026-08-05T16:58:49.123Z"
+    },
+    "v4": {
+      "law": "sameboot-x2+crossboot-envelope/v1-chunked",
+      "tierA": "lsb-speckle",
+      "tierB": "byte-identical",
+      "frames": 351,
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "chunks": 3,
+      "chunkFrames": 150,
+      "relaunches": 0,
+      "sameBoot": {
+        "differingFrames": 351,
+        "worstDelta": 1,
+        "worstFrac": 3.0555555555555554e-05,
+        "worstComponentPx": 3
+      },
+      "kernel": "0.1.0+dedc61cd",
+      "renderer": "7e3b2b35014137dabd495ac2d14fe9be5cc1e29660e5132a1968b92b316a3e17",
+      "atUTC": "2026-08-05T17:28:16.862Z"
+    },
+    "v8": {
+      "law": "sameboot-x2+crossboot-envelope/v1-chunked",
+      "tierA": "lsb-speckle",
+      "tierB": "byte-identical",
+      "frames": 207,
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "chunks": 2,
+      "chunkFrames": 150,
+      "relaunches": 0,
+      "sameBoot": {
+        "differingFrames": 207,
+        "worstDelta": 1,
+        "worstFrac": 2.8472222222222223e-05,
+        "worstComponentPx": 3
+      },
+      "kernel": "0.1.0+dedc61cd",
+      "renderer": "7e3b2b35014137dabd495ac2d14fe9be5cc1e29660e5132a1968b92b316a3e17",
+      "atUTC": "2026-08-05T17:35:47.582Z"
+    }
+  },
+  "titleCard": {
+    "value": "Draw-arc power ladder",
+    "claim": "heavy draw on a cut ALWAYS bends; the arc outgrows the table (issue #53)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "76aeff1ca024f959e753ee52a5ebcef29f8a201081f92cfac0aca27726a26296",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "a7e3a82a69ef5bed5c041555f33139baa6dac017a973909e879d9b66dc16c4dc"
+  },
+  "composite": {
+    "purpose": "Neutral scenario caption; the original simulation footage and top title card are preserved.",
+    "plates": {
+      "source": "Preserved textless, ungraded draw-arc-ladder-master.mp4 (2560x1440, crf 12). The kernel, capture and segment records above describe these original plates.",
+      "sha256": "9e72e3c36202fa5ba29619f89f4ce555a5d72f441e5a6b8e601c10760f62c3e2",
+      "frames": 978,
+      "priorDeliveredSha256": "f090b2803969ce4a24fb4faecfc229f1f08a781a61a8dce81a82b7eaa0df1bdc"
+    },
+    "textLayer": {
+      "line2": "DRAW-ARC POWER LADDER · THREE CUT SHOTS AT INCREASING CUE SPEED",
+      "layerSha256": "ef1f2604c1c041042a68ca104a314ffc8cd17745b768e6a89aa9ba36bfc14d48",
+      "originalManifestSha256": "9e2171e173c1a3411633231ebcfe260a2c1ef759001c69d4973e3596e254d844",
+      "originalReconstruction": {
+        "frames": 978,
+        "deliveredHashesAndSubframeDigests": "byte-identical to the archived manifest"
+      },
+      "verification": {
+        "frames": 978,
+        "subFramesPerFrame": 8,
+        "shutterDeg": 310,
+        "freshBootHashesAndSubframeDigests": "byte-identical"
+      },
+      "changedPixels": {
+        "framesCompared": 978,
+        "changedFrames": 957,
+        "changeBounds4k": [
+          635,
+          2040,
+          3259,
+          2122
+        ],
+        "outsideBadgeLine2": "byte-identical",
+        "originalFramesMatchArchivedManifest": 978,
+        "newFramesMatchFreshBoot8Subframes": 978,
+        "originalTitleCardSha256": "76aeff1ca024f959e753ee52a5ebcef29f8a201081f92cfac0aca27726a26296"
+      }
+    },
+    "titleCardLayer": {
+      "layerSha256": "76aeff1ca024f959e753ee52a5ebcef29f8a201081f92cfac0aca27726a26296",
+      "frames": 95,
+      "originalLayer": "byte-identical",
+      "freshBootSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ]
+    },
+    "graphs": "scenario-render assembleMontage text-layer graph using the preserved master, grade.json curve and vignette, premultiplied 4K text overlay, fades and grain; delivery encode; then the unchanged scenario-titlecard overlay.",
+    "generations": "preserved 1440p crf 12 master -> graded 1080p crf 12 -> delivered crf 23 -> carded crf 23",
+    "encoder": "libx264, delivery preset slow, 60 fps, no audio; two codec/filter threads"
+  }
+}

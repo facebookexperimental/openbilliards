@@ -1,0 +1,5337 @@
+{
+ "tool": "tools/render/check-coplanar-pairs.mjs",
+ "table": "wpbsa_snooker_12ft",
+ "perTable": {
+  "wpbsa_snooker_12ft": {
+   "pairs": 340,
+   "mm2": 591915.1196
+  }
+ },
+ "perTable_statement": "#637 main merge (landing prep 6): main's check-coplanar-pairs (FIX6) refuses a baseline without a perTable record naming the tables it pins with {pairs, mm2}; pairs must equal the fixture's row count for the table. Both numbers are DERIVED from this fixture's own rows (340 rows -> pairs 340; sum of mm2 -> 591915.1196), no row and no tolerance touched - the same derivation main's coplanar-baseline-490.json carries (52 rows -> pairs 52, mm2 87223.66 - main's fixture rounds mm2 to 2 decimals, the checker's toFixed(2); this record keeps 4, the fixture's own row precision). Derivation command: python3 -c \"import json,collections; d=json.load(open('tools/render/fixtures/coplanar-baseline-489.json')); c=collections.Counter(r['table'] for r in d['rows']); m={t: round(sum(r['mm2'] for r in d['rows'] if r['table']==t),4) for t in c}; print(dict(c), m)\" -> {'wpbsa_snooker_12ft': 340} {'wpbsa_snooker_12ft': 591915.1196}. Drop arm: pairs 339 -> REFUSED 'inconsistent ... perTable says 339 pairs but the fixture carries 340 rows'.",
+ "pinned_at": "GH-489 SNK-R32 (review round 6 P2 a) \u2014 pinned from the census of 2026-09-09T12:04:37.638Z on the round's final table.js (served-tree sw VERSION 0.1.0+a7c980b4_rules-0.1.10+2d62d871_tree-f8dd2fff, table.js sha256 66a737cb50e71a36), BASELINE HELD on that tree; the sealed sha is named in SPIKE-REPORT-CRAFT-R2.md \u00a7R3c.38 \u2014 RE-PINNED GH-489 SNK-R33 (maintainer's ruling of 2026-09-10 on \u00a7R3c.39.6): the four obPocketStrapIron#0 | obSnkSoffit#0\u20133 rows' triangle-pair counts 7 \u2192 6 / 3 \u2192 2 from the census of 2026-09-10T04:44:51.538Z on the sealed export a0d163dd (served-tree sw VERSION 0.1.0+a7c980b4_rules-0.1.10+2d62d871_tree-b2d9bde6, table.js sha256 e0131d399f478c81); identity, plane and area of every row unchanged \u2014 RE-PINNED GH-489 SNK-R34 (the R33 ruling's rule): the obPocketStrap#0 | obPocketStrapIron#0 row's area 672.0086 \u2192 671.9972 mm\u00b2 (identity, plane and triangle pairs unchanged) from the census of 2026-09-10T15:11:31.835Z on the sealed export 897252b9 (table.js sha256 0a0532f39d4a1996)",
+ "served_tree": {
+  "sw_sha256": "454330ef79ec5bd11161bf9aee2fd5256d9c40fa178297a5424cc9d4ff0d5e09",
+  "sw_version": "0.1.0+a7c980b4_rules-0.1.10+2d62d871_tree-4bc75a78",
+  "table_js_sha256": "0a0532f39d4a19963ecabefbafdf89e0951749007c4a2103389d6a8ae7d36bea"
+ },
+ "note": "PINNED, CHARACTERISED coplanar pairs of the wpbsa cabinet (the #671 pattern): every row is an identity-keyed (aid/bid) pair the census reports on the sealed tree; --expect-baseline requires every live row to match one row here (plane by the census's own test, mm\u00b2 to 0.01, triangle pairs exactly) and every row here to be matched, so a new, grown, cured or changed pair fails by name. The pairs are the cabinet's own constructions from the BODY rounds (mouldings, beads and the band laid flat on panels / the slab; battens on beams; panel-to-panel and panel-to-post flush joints; the strap and its iron on the soffit): coplanar back faces of applied parts occluded by the parts' own thickness, and flush joints of box parts. They are NOT this round's classes (the split retrace and the depth-biased flesh side are fixed / exempted by derivation). OPEN row for the body lane: re-derive each applied part as a face ON its host (no back face on the host plane) \u2014 construction-level, not a tolerance. The 144 obSnkPostRibFrame self rows and the 4 panel|soffit / 1 drawer|panel rows are sub-1e-3 mm\u00b2 seam jitter (the census reports them, never suppresses them).",
+ "classes": [
+  {
+   "pair": "obSnkBead | obSnkPanel",
+   "rows": 22,
+   "mm2": 167987.071,
+   "max_row_mm2": 24627.295,
+   "tri_pairs": 602,
+   "planes": {
+    "y": 14,
+    "x": 4,
+    "z": 4
+   }
+  },
+  {
+   "pair": "obSnkMold | obSnkPanel",
+   "rows": 34,
+   "mm2": 162526.186,
+   "max_row_mm2": 24574.265,
+   "tri_pairs": 616,
+   "planes": {
+    "y": 26,
+    "z": 8
+   }
+  },
+  {
+   "pair": "obSnkBand | obSnkSlab",
+   "rows": 4,
+   "mm2": 95011.567,
+   "max_row_mm2": 32707.883,
+   "tri_pairs": 316,
+   "planes": {
+    "y": 4
+   }
+  },
+  {
+   "pair": "obSnkBatten | obSnkBeam",
+   "rows": 16,
+   "mm2": 48000,
+   "max_row_mm2": 3000,
+   "tri_pairs": 64,
+   "planes": {
+    "y": 16
+   }
+  },
+  {
+   "pair": "obSnkPanel | obSnkPanel",
+   "rows": 24,
+   "mm2": 31039.899,
+   "max_row_mm2": 4180.008,
+   "tri_pairs": 220,
+   "planes": {
+    "x": 8,
+    "y": 16
+   }
+  },
+  {
+   "pair": "obSnkPanel | obSnkPost",
+   "rows": 8,
+   "mm2": 27148.318,
+   "max_row_mm2": 3687.079,
+   "tri_pairs": 54,
+   "planes": {
+    "y": 8
+   }
+  },
+  {
+   "pair": "obSnkMold | obSnkMold",
+   "rows": 32,
+   "mm2": 13645.166,
+   "max_row_mm2": 801.304,
+   "tri_pairs": 128,
+   "planes": {
+    "x": 16,
+    "y": 16
+   }
+  },
+  {
+   "pair": "obSnkPanel | obSnkPlaque",
+   "rows": 4,
+   "mm2": 13200.001,
+   "max_row_mm2": 3300.0,
+   "tri_pairs": 68,
+   "planes": {
+    "y": 4
+   }
+  },
+  {
+   "pair": "obSnkPlaque | obSnkPost",
+   "rows": 4,
+   "mm2": 9920.002,
+   "max_row_mm2": 2480.001,
+   "tri_pairs": 16,
+   "planes": {
+    "y": 4
+   }
+  },
+  {
+   "pair": "obSnkBand | obSnkPanel",
+   "rows": 8,
+   "mm2": 7526.387,
+   "max_row_mm2": 940.802,
+   "tri_pairs": 84,
+   "planes": {
+    "x": 4,
+    "z": 4
+   }
+  },
+  {
+   "pair": "obSnkPost | obSnkSoffit",
+   "rows": 4,
+   "mm2": 6509.992,
+   "max_row_mm2": 1627.498,
+   "tri_pairs": 34,
+   "planes": {
+    "y": 4
+   }
+  },
+  {
+   "pair": "obSnkPlaque | obSnkSoffit",
+   "rows": 4,
+   "mm2": 5999.999,
+   "max_row_mm2": 1500.0,
+   "tri_pairs": 64,
+   "planes": {
+    "y": 4
+   }
+  },
+  {
+   "pair": "obPocketStrapIron | obSnkSoffit",
+   "rows": 4,
+   "mm2": 1295.996,
+   "max_row_mm2": 431.999,
+   "tri_pairs": 20,
+   "planes": {
+    "y": 4
+   }
+  },
+  {
+   "pair": "(anon) | (anon)",
+   "rows": 18,
+   "mm2": 760.526,
+   "max_row_mm2": 79.874,
+   "tri_pairs": 222,
+   "planes": {
+    "x": 8,
+    "z": 4,
+    "y": 6
+   }
+  },
+  {
+   "pair": "obPocketStrap | obPocketStrapIron",
+   "rows": 1,
+   "mm2": 672.009,
+   "max_row_mm2": 672.009,
+   "tri_pairs": 24,
+   "planes": {
+    "y": 1
+   }
+  },
+  {
+   "pair": "obPocketStrap | obSnkSoffit",
+   "rows": 4,
+   "mm2": 672.009,
+   "max_row_mm2": 224.003,
+   "tri_pairs": 16,
+   "planes": {
+    "y": 4
+   }
+  },
+  {
+   "pair": "obSnkPanel | obSnkSoffit",
+   "rows": 4,
+   "mm2": 0.002,
+   "max_row_mm2": 0.001,
+   "tri_pairs": 4,
+   "planes": {
+    "y": 4
+   }
+  },
+  {
+   "pair": "obSnkDrawer | obSnkPanel",
+   "rows": 1,
+   "mm2": 0.0,
+   "max_row_mm2": 0.0,
+   "tri_pairs": 6,
+   "planes": {
+    "x": 1
+   }
+  },
+  {
+   "pair": "obSnkPostRibFrame | obSnkPostRibFrame",
+   "rows": 144,
+   "mm2": 0,
+   "max_row_mm2": 0,
+   "tri_pairs": 144,
+   "planes": {
+    "z": 80,
+    "x": 64
+   }
+  }
+ ],
+ "issue": "OPEN ROW (body lane): the wpbsa cabinet's 340 coplanar pairs / 0.59 m\u00b2 \u2014 applied parts (bead, mold, band, batten) with a back face ON their host's plane and flush box joints (panel|panel, panel|post, plaque, soffit, strap) \u2014 re-derive each part as a face on its host; SPIKE-REPORT-CRAFT-R2.md \u00a7R3c.38.2 carries the class table; GitHub issue to be filed by the maintainer (the lane does not file)",
+ "census_run": {
+  "when": "2026-09-10T15:11:31.835Z",
+  "tris": 1055346,
+  "meshes": 222,
+  "skippedZero": 63748,
+  "exemptDepthBiased": true,
+  "depthBiasedInfo": {
+   "meshes": [
+    "obTable#0/obPocketLining#1"
+   ],
+   "rows": 105250,
+   "mm2": 227804.43
+  }
+ },
+ "rows": [
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBand",
+   "b": "obSnkSlab",
+   "aid": "obTable#0/obSnkBand#0",
+   "bid": "obTable#0/obSnkSlab#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.004,
+   "mm2": 32707.8828,
+   "tris": 45
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBand",
+   "b": "obSnkSlab",
+   "aid": "obTable#0/obSnkBand#2",
+   "bid": "obTable#0/obSnkSlab#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.004,
+   "mm2": 32707.8828,
+   "tris": 83
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#0",
+   "bid": "obTable#0/obSnkPanel#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 24627.2951,
+   "tris": 96
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#0",
+   "bid": "obTable#0/obSnkPanel#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 24627.2951,
+   "tris": 85
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#2",
+   "bid": "obTable#0/obSnkPanel#2",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 24627.2951,
+   "tris": 85
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#2",
+   "bid": "obTable#0/obSnkPanel#3",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 24627.2951,
+   "tris": 96
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#10",
+   "bid": "obTable#0/obSnkPanel#8",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 24574.2654,
+   "tris": 68
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#10",
+   "bid": "obTable#0/obSnkPanel#9",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 24574.2654,
+   "tris": 96
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#8",
+   "bid": "obTable#0/obSnkPanel#6",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 24574.2654,
+   "tris": 96
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#8",
+   "bid": "obTable#0/obSnkPanel#7",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 24574.2654,
+   "tris": 68
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#1",
+   "bid": "obTable#0/obSnkPanel#4",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 21939.927,
+   "tris": 94
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#3",
+   "bid": "obTable#0/obSnkPanel#5",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 21939.927,
+   "tris": 94
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#11",
+   "bid": "obTable#0/obSnkPanel#11",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 21833.9594,
+   "tris": 81
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#9",
+   "bid": "obTable#0/obSnkPanel#10",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 21833.9594,
+   "tris": 81
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBand",
+   "b": "obSnkSlab",
+   "aid": "obTable#0/obSnkBand#1",
+   "bid": "obTable#0/obSnkSlab#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.004,
+   "mm2": 14797.9007,
+   "tris": 94
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBand",
+   "b": "obSnkSlab",
+   "aid": "obTable#0/obSnkBand#3",
+   "bid": "obTable#0/obSnkSlab#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.004,
+   "mm2": 14797.9007,
+   "tris": 94
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#10",
+   "bid": "obTable#0/obSnkPanel#22",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.730625,
+   "mm2": 4180.0085,
+   "tris": 20
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#10",
+   "bid": "obTable#0/obSnkPanel#23",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.730625,
+   "mm2": 4180.0085,
+   "tris": 20
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#11",
+   "bid": "obTable#0/obSnkPanel#20",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.730625,
+   "mm2": 4180.0085,
+   "tris": 20
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#11",
+   "bid": "obTable#0/obSnkPanel#21",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.730625,
+   "mm2": 4180.0085,
+   "tris": 20
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPost",
+   "aid": "obTable#0/obSnkPanel#20",
+   "bid": "obTable#0/obSnkPost#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 3687.0789,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPost",
+   "aid": "obTable#0/obSnkPanel#21",
+   "bid": "obTable#0/obSnkPost#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 3687.0789,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPost",
+   "aid": "obTable#0/obSnkPanel#22",
+   "bid": "obTable#0/obSnkPost#2",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 3687.0789,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPost",
+   "aid": "obTable#0/obSnkPanel#23",
+   "bid": "obTable#0/obSnkPost#3",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 3687.0789,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#12",
+   "bid": "obTable#0/obSnkPanel#23",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 3543.7499,
+   "tris": 9
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#13",
+   "bid": "obTable#0/obSnkPanel#22",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 3543.7499,
+   "tris": 7
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#14",
+   "bid": "obTable#0/obSnkPanel#21",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 3543.7499,
+   "tris": 7
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#15",
+   "bid": "obTable#0/obSnkPanel#20",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 3543.7499,
+   "tris": 9
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPlaque",
+   "aid": "obTable#0/obSnkPanel#6",
+   "bid": "obTable#0/obSnkPlaque#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 3300.0002,
+   "tris": 17
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPlaque",
+   "aid": "obTable#0/obSnkPanel#7",
+   "bid": "obTable#0/obSnkPlaque#2",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 3300.0002,
+   "tris": 17
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPlaque",
+   "aid": "obTable#0/obSnkPanel#8",
+   "bid": "obTable#0/obSnkPlaque#4",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 3300.0002,
+   "tris": 17
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPlaque",
+   "aid": "obTable#0/obSnkPanel#9",
+   "bid": "obTable#0/obSnkPlaque#6",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 3300.0002,
+   "tris": 17
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPost",
+   "aid": "obTable#0/obSnkPanel#6",
+   "bid": "obTable#0/obSnkPost#4",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 3100.0006,
+   "tris": 10
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPost",
+   "aid": "obTable#0/obSnkPanel#7",
+   "bid": "obTable#0/obSnkPost#6",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 3100.0006,
+   "tris": 10
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPost",
+   "aid": "obTable#0/obSnkPanel#8",
+   "bid": "obTable#0/obSnkPost#5",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 3100.0006,
+   "tris": 10
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPost",
+   "aid": "obTable#0/obSnkPanel#9",
+   "bid": "obTable#0/obSnkPost#7",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 3100.0006,
+   "tris": 10
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#0",
+   "bid": "obTable#0/obSnkPanel#14",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 3039.7667,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#0",
+   "bid": "obTable#0/obSnkPanel#18",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 3039.7667,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#2",
+   "bid": "obTable#0/obSnkPanel#12",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 3039.7667,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#2",
+   "bid": "obTable#0/obSnkPanel#16",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 3039.7667,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#1",
+   "bid": "obTable#0/obSnkPanel#17",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 3039.7431,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#1",
+   "bid": "obTable#0/obSnkPanel#19",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 3039.7431,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#3",
+   "bid": "obTable#0/obSnkPanel#13",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 3039.7431,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#3",
+   "bid": "obTable#0/obSnkPanel#15",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 3039.7431,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#0",
+   "bid": "obTable#0/obSnkBeam#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#0",
+   "bid": "obTable#0/obSnkBeam#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.054,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#0",
+   "bid": "obTable#0/obSnkBeam#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#0",
+   "bid": "obTable#0/obSnkBeam#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.054,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#1",
+   "bid": "obTable#0/obSnkBeam#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#1",
+   "bid": "obTable#0/obSnkBeam#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.054,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#1",
+   "bid": "obTable#0/obSnkBeam#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#1",
+   "bid": "obTable#0/obSnkBeam#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.054,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#2",
+   "bid": "obTable#0/obSnkBeam#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#2",
+   "bid": "obTable#0/obSnkBeam#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.054,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#2",
+   "bid": "obTable#0/obSnkBeam#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#2",
+   "bid": "obTable#0/obSnkBeam#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.054,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#3",
+   "bid": "obTable#0/obSnkBeam#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#3",
+   "bid": "obTable#0/obSnkBeam#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.054,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#3",
+   "bid": "obTable#0/obSnkBeam#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBatten",
+   "b": "obSnkBeam",
+   "aid": "obTable#0/obSnkBatten#3",
+   "bid": "obTable#0/obSnkBeam#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.054,
+   "mm2": 3000,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPlaque",
+   "b": "obSnkPost",
+   "aid": "obTable#0/obSnkPlaque#0",
+   "bid": "obTable#0/obSnkPost#4",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 2480.0006,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPlaque",
+   "b": "obSnkPost",
+   "aid": "obTable#0/obSnkPlaque#2",
+   "bid": "obTable#0/obSnkPost#6",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 2480.0006,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPlaque",
+   "b": "obSnkPost",
+   "aid": "obTable#0/obSnkPlaque#4",
+   "bid": "obTable#0/obSnkPost#5",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 2480.0006,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPlaque",
+   "b": "obSnkPost",
+   "aid": "obTable#0/obSnkPlaque#6",
+   "bid": "obTable#0/obSnkPost#7",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 2480.0006,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#10",
+   "bid": "obTable#0/obSnkPanel#22",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.710625,
+   "mm2": 2448.5959,
+   "tris": 20
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#10",
+   "bid": "obTable#0/obSnkPanel#23",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.710625,
+   "mm2": 2448.5959,
+   "tris": 20
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#11",
+   "bid": "obTable#0/obSnkPanel#20",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.710625,
+   "mm2": 2448.5959,
+   "tris": 20
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#11",
+   "bid": "obTable#0/obSnkPanel#21",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.710625,
+   "mm2": 2448.5959,
+   "tris": 20
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPost",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obSnkPost#4",
+   "bid": "obTable#0/obSnkSoffit#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 1627.4979,
+   "tris": 8
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPost",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obSnkPost#5",
+   "bid": "obTable#0/obSnkSoffit#2",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 1627.4979,
+   "tris": 9
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPost",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obSnkPost#6",
+   "bid": "obTable#0/obSnkSoffit#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 1627.4979,
+   "tris": 9
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPost",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obSnkPost#7",
+   "bid": "obTable#0/obSnkSoffit#3",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 1627.4979,
+   "tris": 8
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPlaque",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obSnkPlaque#0",
+   "bid": "obTable#0/obSnkSoffit#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 1499.9997,
+   "tris": 16
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPlaque",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obSnkPlaque#2",
+   "bid": "obTable#0/obSnkSoffit#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 1499.9997,
+   "tris": 16
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPlaque",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obSnkPlaque#4",
+   "bid": "obTable#0/obSnkSoffit#2",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 1499.9997,
+   "tris": 16
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPlaque",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obSnkPlaque#6",
+   "bid": "obTable#0/obSnkSoffit#3",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 1499.9997,
+   "tris": 16
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBand",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBand#0",
+   "bid": "obTable#0/obSnkPanel#14",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.7711101,
+   "mm2": 940.8019,
+   "tris": 10
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBand",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBand#0",
+   "bid": "obTable#0/obSnkPanel#18",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.7711101,
+   "mm2": 940.8019,
+   "tris": 11
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBand",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBand#2",
+   "bid": "obTable#0/obSnkPanel#12",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.7711101,
+   "mm2": 940.8019,
+   "tris": 11
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBand",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBand#2",
+   "bid": "obTable#0/obSnkPanel#16",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.7711101,
+   "mm2": 940.8019,
+   "tris": 10
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBand",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBand#1",
+   "bid": "obTable#0/obSnkPanel#17",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.87561,
+   "mm2": 940.7949,
+   "tris": 11
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBand",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBand#1",
+   "bid": "obTable#0/obSnkPanel#19",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.87561,
+   "mm2": 940.7949,
+   "tris": 10
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBand",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBand#3",
+   "bid": "obTable#0/obSnkPanel#13",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.87561,
+   "mm2": 940.7949,
+   "tris": 10
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBand",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBand#3",
+   "bid": "obTable#0/obSnkPanel#15",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.87561,
+   "mm2": 940.7949,
+   "tris": 11
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#1",
+   "bid": "obTable#0/obSnkMold#4",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.734625,
+   "mm2": 801.3042,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#1",
+   "bid": "obTable#0/obSnkMold#5",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.734625,
+   "mm2": 801.3042,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#3",
+   "bid": "obTable#0/obSnkMold#6",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.734625,
+   "mm2": 801.3042,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#3",
+   "bid": "obTable#0/obSnkMold#7",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.734625,
+   "mm2": 801.3042,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obPocketStrap",
+   "b": "obPocketStrapIron",
+   "aid": "obTable#0/obPocketStrap#0",
+   "bid": "obTable#0/obPocketStrapIron#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 671.9972,
+   "tris": 24
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#4",
+   "bid": "obTable#0/obSnkPanel#23",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.665625,
+   "mm2": 592.0012,
+   "tris": 5
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#5",
+   "bid": "obTable#0/obSnkPanel#22",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.665625,
+   "mm2": 592.0012,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#6",
+   "bid": "obTable#0/obSnkPanel#21",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.665625,
+   "mm2": 592.0012,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#7",
+   "bid": "obTable#0/obSnkPanel#20",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.665625,
+   "mm2": 592.0012,
+   "tris": 5
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#1",
+   "bid": "obTable#0/obSnkMold#4",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.714625,
+   "mm2": 494.7862,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#1",
+   "bid": "obTable#0/obSnkMold#5",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.714625,
+   "mm2": 494.7862,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#3",
+   "bid": "obTable#0/obSnkMold#6",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.714625,
+   "mm2": 494.7862,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#3",
+   "bid": "obTable#0/obSnkMold#7",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.714625,
+   "mm2": 494.7862,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obPocketStrapIron",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obPocketStrapIron#0",
+   "bid": "obTable#0/obSnkSoffit#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 431.9987,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obPocketStrapIron",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obPocketStrapIron#0",
+   "bid": "obTable#0/obSnkSoffit#3",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 431.9987,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#11",
+   "bid": "obTable#0/obSnkMold#14",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 417.1293,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#11",
+   "bid": "obTable#0/obSnkMold#14",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.28182,
+   "mm2": 417.1293,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#11",
+   "bid": "obTable#0/obSnkMold#15",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 417.1293,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#11",
+   "bid": "obTable#0/obSnkMold#15",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.28182,
+   "mm2": 417.1293,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#12",
+   "bid": "obTable#0/obSnkMold#9",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 417.1293,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#12",
+   "bid": "obTable#0/obSnkMold#9",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.28182,
+   "mm2": 417.1293,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#13",
+   "bid": "obTable#0/obSnkMold#9",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 417.1293,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#13",
+   "bid": "obTable#0/obSnkMold#9",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.28182,
+   "mm2": 417.1293,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#10",
+   "bid": "obTable#0/obSnkPanel#22",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 400.0002,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#10",
+   "bid": "obTable#0/obSnkPanel#22",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 400.0002,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#10",
+   "bid": "obTable#0/obSnkPanel#23",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 400.0002,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#10",
+   "bid": "obTable#0/obSnkPanel#23",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 400.0002,
+   "tris": 5
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#11",
+   "bid": "obTable#0/obSnkPanel#20",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 400.0002,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#11",
+   "bid": "obTable#0/obSnkPanel#20",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 400.0002,
+   "tris": 5
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#11",
+   "bid": "obTable#0/obSnkPanel#21",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 400.0002,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#11",
+   "bid": "obTable#0/obSnkPanel#21",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 400.0002,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#11",
+   "bid": "obTable#0/obSnkMold#14",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.737625,
+   "mm2": 366.3922,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#11",
+   "bid": "obTable#0/obSnkMold#15",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.737625,
+   "mm2": 366.3922,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#12",
+   "bid": "obTable#0/obSnkMold#9",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.737625,
+   "mm2": 366.3922,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#13",
+   "bid": "obTable#0/obSnkMold#9",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.737625,
+   "mm2": 366.3922,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#1",
+   "bid": "obTable#0/obSnkMold#4",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.28182,
+   "mm2": 350.2944,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#1",
+   "bid": "obTable#0/obSnkMold#4",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.24482,
+   "mm2": 350.2944,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#1",
+   "bid": "obTable#0/obSnkMold#5",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.28182,
+   "mm2": 350.2944,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#1",
+   "bid": "obTable#0/obSnkMold#5",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.24482,
+   "mm2": 350.2944,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#3",
+   "bid": "obTable#0/obSnkMold#6",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.28182,
+   "mm2": 350.2944,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#3",
+   "bid": "obTable#0/obSnkMold#6",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.24482,
+   "mm2": 350.2944,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#3",
+   "bid": "obTable#0/obSnkMold#7",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.28182,
+   "mm2": 350.2944,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#3",
+   "bid": "obTable#0/obSnkMold#7",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.24482,
+   "mm2": 350.2944,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#12",
+   "bid": "obTable#0/obSnkPanel#10",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 338.5104,
+   "tris": 7
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#13",
+   "bid": "obTable#0/obSnkPanel#10",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 338.5104,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#14",
+   "bid": "obTable#0/obSnkPanel#11",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 338.5104,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#15",
+   "bid": "obTable#0/obSnkPanel#11",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 338.5104,
+   "tris": 7
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#11",
+   "bid": "obTable#0/obSnkPanel#20",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 266.9816,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#11",
+   "bid": "obTable#0/obSnkPanel#21",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 266.9816,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#9",
+   "bid": "obTable#0/obSnkPanel#22",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 266.9816,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#9",
+   "bid": "obTable#0/obSnkPanel#23",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 266.9816,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#12",
+   "bid": "obTable#0/obSnkPanel#23",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.665625,
+   "mm2": 256.0006,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#13",
+   "bid": "obTable#0/obSnkPanel#22",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.665625,
+   "mm2": 256.0006,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#14",
+   "bid": "obTable#0/obSnkPanel#21",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.665625,
+   "mm2": 256.0006,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#15",
+   "bid": "obTable#0/obSnkPanel#20",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.665625,
+   "mm2": 256.0006,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obPocketStrap",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obPocketStrap#0",
+   "bid": "obTable#0/obSnkSoffit#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 224.0027,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obPocketStrap",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obPocketStrap#0",
+   "bid": "obTable#0/obSnkSoffit#3",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 224.0027,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obPocketStrapIron",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obPocketStrapIron#0",
+   "bid": "obTable#0/obSnkSoffit#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 215.9994,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obPocketStrapIron",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obPocketStrapIron#0",
+   "bid": "obTable#0/obSnkSoffit#2",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 215.9994,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#11",
+   "bid": "obTable#0/obSnkMold#14",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.714625,
+   "mm2": 213.9616,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#11",
+   "bid": "obTable#0/obSnkMold#15",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.714625,
+   "mm2": 213.9616,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#12",
+   "bid": "obTable#0/obSnkMold#9",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.714625,
+   "mm2": 213.9616,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkMold",
+   "aid": "obTable#0/obSnkMold#13",
+   "bid": "obTable#0/obSnkMold#9",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.714625,
+   "mm2": 213.9616,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#20",
+   "bid": "obTable#0/obSnkPanel#9",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 165.685,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#20",
+   "bid": "obTable#0/obSnkPanel#9",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 165.685,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#21",
+   "bid": "obTable#0/obSnkPanel#7",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 165.685,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#21",
+   "bid": "obTable#0/obSnkPanel#7",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 165.685,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#22",
+   "bid": "obTable#0/obSnkPanel#8",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 165.685,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#22",
+   "bid": "obTable#0/obSnkPanel#8",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 165.685,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#23",
+   "bid": "obTable#0/obSnkPanel#6",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 165.685,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkPanel#23",
+   "bid": "obTable#0/obSnkPanel#6",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 165.685,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#0",
+   "bid": "obTable#0/obSnkPanel#14",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.7711101,
+   "mm2": 160.0003,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#0",
+   "bid": "obTable#0/obSnkPanel#18",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.7711101,
+   "mm2": 160.0003,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#2",
+   "bid": "obTable#0/obSnkPanel#12",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.7711101,
+   "mm2": 160.0003,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#2",
+   "bid": "obTable#0/obSnkPanel#16",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.7711101,
+   "mm2": 160.0003,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#1",
+   "bid": "obTable#0/obSnkPanel#17",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.87561,
+   "mm2": 159.9991,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#1",
+   "bid": "obTable#0/obSnkPanel#19",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.87561,
+   "mm2": 159.9991,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#3",
+   "bid": "obTable#0/obSnkPanel#13",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.87561,
+   "mm2": 159.9991,
+   "tris": 3
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkBead",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkBead#3",
+   "bid": "obTable#0/obSnkPanel#15",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.87561,
+   "mm2": 159.9991,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obPocketStrap",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obPocketStrap#0",
+   "bid": "obTable#0/obSnkSoffit#1",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 112.0016,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obPocketStrap",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obPocketStrap#0",
+   "bid": "obTable#0/obSnkSoffit#2",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 112.0016,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#1",
+   "bid": "obTable#0/(anon)#7",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.04192,
+   "mm2": 79.8738,
+   "tris": 9
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#10",
+   "bid": "obTable#0/(anon)#4",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.04192,
+   "mm2": 79.8738,
+   "tris": 9
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#2",
+   "bid": "obTable#0/(anon)#8",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.04192,
+   "mm2": 79.8738,
+   "tris": 8
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#3",
+   "bid": "obTable#0/(anon)#9",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.04192,
+   "mm2": 79.8738,
+   "tris": 8
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#10",
+   "bid": "obTable#0/obSnkPanel#20",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 71.5294,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#10",
+   "bid": "obTable#0/obSnkPanel#22",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 71.5294,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#8",
+   "bid": "obTable#0/obSnkPanel#21",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 71.5294,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#8",
+   "bid": "obTable#0/obSnkPanel#23",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 71.5294,
+   "tris": 2
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#12",
+   "bid": "obTable#0/obSnkPanel#6",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 71.5283,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#13",
+   "bid": "obTable#0/obSnkPanel#8",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 71.5283,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#14",
+   "bid": "obTable#0/obSnkPanel#7",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 71.5283,
+   "tris": 4
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkMold",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkMold#15",
+   "bid": "obTable#0/obSnkPanel#9",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.29782,
+   "mm2": 71.5283,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#1",
+   "bid": "obTable#0/(anon)#7",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.7711101,
+   "mm2": 36.3617,
+   "tris": 8
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#10",
+   "bid": "obTable#0/(anon)#4",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.7711101,
+   "mm2": 36.3617,
+   "tris": 8
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#2",
+   "bid": "obTable#0/(anon)#8",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.7711101,
+   "mm2": 36.3617,
+   "tris": 9
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#3",
+   "bid": "obTable#0/(anon)#9",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.7711101,
+   "mm2": 36.3617,
+   "tris": 9
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#11",
+   "bid": "obTable#0/(anon)#5",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.87561,
+   "mm2": 36.3615,
+   "tris": 10
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#11",
+   "bid": "obTable#0/(anon)#5",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.87561,
+   "mm2": 36.3615,
+   "tris": 8
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#12",
+   "bid": "obTable#0/(anon)#6",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.87561,
+   "mm2": 36.3615,
+   "tris": 8
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#12",
+   "bid": "obTable#0/(anon)#6",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.87561,
+   "mm2": 36.3615,
+   "tris": 10
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#13",
+   "bid": "obTable#0/(anon)#19",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0007,
+   "mm2": 35.2873,
+   "tris": 30
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#14",
+   "bid": "obTable#0/(anon)#19",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0007,
+   "mm2": 35.2873,
+   "tris": 30
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#15",
+   "bid": "obTable#0/(anon)#19",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0007,
+   "mm2": 35.2873,
+   "tris": 22
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#13",
+   "bid": "obTable#0/(anon)#20",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0007,
+   "mm2": 17.6381,
+   "tris": 15
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#14",
+   "bid": "obTable#0/(anon)#20",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0007,
+   "mm2": 17.6381,
+   "tris": 15
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "(anon)",
+   "b": "(anon)",
+   "aid": "obTable#0/(anon)#19",
+   "bid": "obTable#0/(anon)#20",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0007,
+   "mm2": 9.0001,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obSnkPanel#20",
+   "bid": "obTable#0/obSnkSoffit#5",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 0.0006,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obSnkPanel#21",
+   "bid": "obTable#0/obSnkSoffit#5",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 0.0006,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obSnkPanel#22",
+   "bid": "obTable#0/obSnkSoffit#4",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 0.0006,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPanel",
+   "b": "obSnkSoffit",
+   "aid": "obTable#0/obSnkPanel#23",
+   "bid": "obTable#0/obSnkSoffit#4",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.08882,
+   "mm2": 0.0006,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkDrawer",
+   "b": "obSnkPanel",
+   "aid": "obTable#0/obSnkDrawer#0",
+   "bid": "obTable#0/obSnkPanel#11",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.730625,
+   "mm2": 0.0004,
+   "tris": 6
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#0",
+   "bid": "obTable#0/obSnkPostRibFrame#2",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.759125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#0",
+   "bid": "obTable#0/obSnkPostRibFrame#2",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#0",
+   "bid": "obTable#0/obSnkPostRibFrame#2",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#0",
+   "bid": "obTable#0/obSnkPostRibFrame#3",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.688125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#0",
+   "bid": "obTable#0/obSnkPostRibFrame#3",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#0",
+   "bid": "obTable#0/obSnkPostRibFrame#3",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#1",
+   "bid": "obTable#0/obSnkPostRibFrame#2",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.759125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#1",
+   "bid": "obTable#0/obSnkPostRibFrame#2",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#1",
+   "bid": "obTable#0/obSnkPostRibFrame#2",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#1",
+   "bid": "obTable#0/obSnkPostRibFrame#3",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.688125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#1",
+   "bid": "obTable#0/obSnkPostRibFrame#3",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#1",
+   "bid": "obTable#0/obSnkPostRibFrame#3",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#10",
+   "bid": "obTable#0/obSnkPostRibFrame#8",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.688125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#10",
+   "bid": "obTable#0/obSnkPostRibFrame#8",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#10",
+   "bid": "obTable#0/obSnkPostRibFrame#8",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#10",
+   "bid": "obTable#0/obSnkPostRibFrame#9",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.688125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#10",
+   "bid": "obTable#0/obSnkPostRibFrame#9",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#10",
+   "bid": "obTable#0/obSnkPostRibFrame#9",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#11",
+   "bid": "obTable#0/obSnkPostRibFrame#8",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.759125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#11",
+   "bid": "obTable#0/obSnkPostRibFrame#8",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#11",
+   "bid": "obTable#0/obSnkPostRibFrame#8",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#11",
+   "bid": "obTable#0/obSnkPostRibFrame#9",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.759125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#11",
+   "bid": "obTable#0/obSnkPostRibFrame#9",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#11",
+   "bid": "obTable#0/obSnkPostRibFrame#9",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#12",
+   "bid": "obTable#0/obSnkPostRibFrame#14",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#12",
+   "bid": "obTable#0/obSnkPostRibFrame#14",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#12",
+   "bid": "obTable#0/obSnkPostRibFrame#14",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.649625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#12",
+   "bid": "obTable#0/obSnkPostRibFrame#15",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#12",
+   "bid": "obTable#0/obSnkPostRibFrame#15",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#12",
+   "bid": "obTable#0/obSnkPostRibFrame#15",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.578625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#13",
+   "bid": "obTable#0/obSnkPostRibFrame#14",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#13",
+   "bid": "obTable#0/obSnkPostRibFrame#14",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#13",
+   "bid": "obTable#0/obSnkPostRibFrame#14",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.649625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#13",
+   "bid": "obTable#0/obSnkPostRibFrame#15",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#13",
+   "bid": "obTable#0/obSnkPostRibFrame#15",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#13",
+   "bid": "obTable#0/obSnkPostRibFrame#15",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.578625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#16",
+   "bid": "obTable#0/obSnkPostRibFrame#18",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#16",
+   "bid": "obTable#0/obSnkPostRibFrame#18",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#16",
+   "bid": "obTable#0/obSnkPostRibFrame#18",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.759125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#16",
+   "bid": "obTable#0/obSnkPostRibFrame#19",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#16",
+   "bid": "obTable#0/obSnkPostRibFrame#19",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#16",
+   "bid": "obTable#0/obSnkPostRibFrame#19",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.688125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#17",
+   "bid": "obTable#0/obSnkPostRibFrame#18",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#17",
+   "bid": "obTable#0/obSnkPostRibFrame#18",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#17",
+   "bid": "obTable#0/obSnkPostRibFrame#18",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.759125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#17",
+   "bid": "obTable#0/obSnkPostRibFrame#19",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#17",
+   "bid": "obTable#0/obSnkPostRibFrame#19",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#17",
+   "bid": "obTable#0/obSnkPostRibFrame#19",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.688125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#20",
+   "bid": "obTable#0/obSnkPostRibFrame#22",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.578625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#20",
+   "bid": "obTable#0/obSnkPostRibFrame#22",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#20",
+   "bid": "obTable#0/obSnkPostRibFrame#22",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#20",
+   "bid": "obTable#0/obSnkPostRibFrame#23",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.649625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#20",
+   "bid": "obTable#0/obSnkPostRibFrame#23",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#20",
+   "bid": "obTable#0/obSnkPostRibFrame#23",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#21",
+   "bid": "obTable#0/obSnkPostRibFrame#22",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.578625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#21",
+   "bid": "obTable#0/obSnkPostRibFrame#22",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#21",
+   "bid": "obTable#0/obSnkPostRibFrame#22",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#21",
+   "bid": "obTable#0/obSnkPostRibFrame#23",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.649625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#21",
+   "bid": "obTable#0/obSnkPostRibFrame#23",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#21",
+   "bid": "obTable#0/obSnkPostRibFrame#23",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#24",
+   "bid": "obTable#0/obSnkPostRibFrame#26",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#24",
+   "bid": "obTable#0/obSnkPostRibFrame#26",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#24",
+   "bid": "obTable#0/obSnkPostRibFrame#26",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.688125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#24",
+   "bid": "obTable#0/obSnkPostRibFrame#27",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#24",
+   "bid": "obTable#0/obSnkPostRibFrame#27",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#24",
+   "bid": "obTable#0/obSnkPostRibFrame#27",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.759125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#25",
+   "bid": "obTable#0/obSnkPostRibFrame#26",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#25",
+   "bid": "obTable#0/obSnkPostRibFrame#26",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#25",
+   "bid": "obTable#0/obSnkPostRibFrame#26",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.688125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#25",
+   "bid": "obTable#0/obSnkPostRibFrame#27",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.743625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#25",
+   "bid": "obTable#0/obSnkPostRibFrame#27",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.736625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#25",
+   "bid": "obTable#0/obSnkPostRibFrame#27",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.759125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#28",
+   "bid": "obTable#0/obSnkPostRibFrame#30",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.578625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#28",
+   "bid": "obTable#0/obSnkPostRibFrame#30",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#28",
+   "bid": "obTable#0/obSnkPostRibFrame#30",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#28",
+   "bid": "obTable#0/obSnkPostRibFrame#31",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.649625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#28",
+   "bid": "obTable#0/obSnkPostRibFrame#31",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#28",
+   "bid": "obTable#0/obSnkPostRibFrame#31",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#29",
+   "bid": "obTable#0/obSnkPostRibFrame#30",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.578625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#29",
+   "bid": "obTable#0/obSnkPostRibFrame#30",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#29",
+   "bid": "obTable#0/obSnkPostRibFrame#30",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#29",
+   "bid": "obTable#0/obSnkPostRibFrame#31",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.649625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#29",
+   "bid": "obTable#0/obSnkPostRibFrame#31",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#29",
+   "bid": "obTable#0/obSnkPostRibFrame#31",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#32",
+   "bid": "obTable#0/obSnkPostRibFrame#34",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#32",
+   "bid": "obTable#0/obSnkPostRibFrame#34",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#32",
+   "bid": "obTable#0/obSnkPostRibFrame#34",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.517375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#32",
+   "bid": "obTable#0/obSnkPostRibFrame#35",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#32",
+   "bid": "obTable#0/obSnkPostRibFrame#35",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#32",
+   "bid": "obTable#0/obSnkPostRibFrame#35",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.588375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#33",
+   "bid": "obTable#0/obSnkPostRibFrame#34",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#33",
+   "bid": "obTable#0/obSnkPostRibFrame#34",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#33",
+   "bid": "obTable#0/obSnkPostRibFrame#34",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.517375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#33",
+   "bid": "obTable#0/obSnkPostRibFrame#35",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#33",
+   "bid": "obTable#0/obSnkPostRibFrame#35",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#33",
+   "bid": "obTable#0/obSnkPostRibFrame#35",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.588375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#36",
+   "bid": "obTable#0/obSnkPostRibFrame#38",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.517375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#36",
+   "bid": "obTable#0/obSnkPostRibFrame#38",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#36",
+   "bid": "obTable#0/obSnkPostRibFrame#38",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#36",
+   "bid": "obTable#0/obSnkPostRibFrame#39",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.588375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#36",
+   "bid": "obTable#0/obSnkPostRibFrame#39",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#36",
+   "bid": "obTable#0/obSnkPostRibFrame#39",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#37",
+   "bid": "obTable#0/obSnkPostRibFrame#38",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.517375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#37",
+   "bid": "obTable#0/obSnkPostRibFrame#38",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#37",
+   "bid": "obTable#0/obSnkPostRibFrame#38",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#37",
+   "bid": "obTable#0/obSnkPostRibFrame#39",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.588375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#37",
+   "bid": "obTable#0/obSnkPostRibFrame#39",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#37",
+   "bid": "obTable#0/obSnkPostRibFrame#39",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#4",
+   "bid": "obTable#0/obSnkPostRibFrame#6",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#4",
+   "bid": "obTable#0/obSnkPostRibFrame#6",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#4",
+   "bid": "obTable#0/obSnkPostRibFrame#6",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.649625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#4",
+   "bid": "obTable#0/obSnkPostRibFrame#7",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#4",
+   "bid": "obTable#0/obSnkPostRibFrame#7",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#4",
+   "bid": "obTable#0/obSnkPostRibFrame#7",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.578625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#40",
+   "bid": "obTable#0/obSnkPostRibFrame#42",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#40",
+   "bid": "obTable#0/obSnkPostRibFrame#42",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#40",
+   "bid": "obTable#0/obSnkPostRibFrame#42",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.588375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#40",
+   "bid": "obTable#0/obSnkPostRibFrame#43",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#40",
+   "bid": "obTable#0/obSnkPostRibFrame#43",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#40",
+   "bid": "obTable#0/obSnkPostRibFrame#43",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.517375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#41",
+   "bid": "obTable#0/obSnkPostRibFrame#42",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#41",
+   "bid": "obTable#0/obSnkPostRibFrame#42",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#41",
+   "bid": "obTable#0/obSnkPostRibFrame#42",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.588375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#41",
+   "bid": "obTable#0/obSnkPostRibFrame#43",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#41",
+   "bid": "obTable#0/obSnkPostRibFrame#43",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#41",
+   "bid": "obTable#0/obSnkPostRibFrame#43",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.517375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#44",
+   "bid": "obTable#0/obSnkPostRibFrame#46",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.588375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#44",
+   "bid": "obTable#0/obSnkPostRibFrame#46",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#44",
+   "bid": "obTable#0/obSnkPostRibFrame#46",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#44",
+   "bid": "obTable#0/obSnkPostRibFrame#47",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.517375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#44",
+   "bid": "obTable#0/obSnkPostRibFrame#47",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#44",
+   "bid": "obTable#0/obSnkPostRibFrame#47",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#45",
+   "bid": "obTable#0/obSnkPostRibFrame#46",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.588375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#45",
+   "bid": "obTable#0/obSnkPostRibFrame#46",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#45",
+   "bid": "obTable#0/obSnkPostRibFrame#46",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#45",
+   "bid": "obTable#0/obSnkPostRibFrame#47",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.517375,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#45",
+   "bid": "obTable#0/obSnkPostRibFrame#47",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#45",
+   "bid": "obTable#0/obSnkPostRibFrame#47",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#5",
+   "bid": "obTable#0/obSnkPostRibFrame#6",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#5",
+   "bid": "obTable#0/obSnkPostRibFrame#6",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#5",
+   "bid": "obTable#0/obSnkPostRibFrame#6",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.649625,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#5",
+   "bid": "obTable#0/obSnkPostRibFrame#7",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.846125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#5",
+   "bid": "obTable#0/obSnkPostRibFrame#7",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.853125,
+   "mm2": 0,
+   "tris": 1
+  },
+  {
+   "table": "wpbsa_snooker_12ft",
+   "a": "obSnkPostRibFrame",
+   "b": "obSnkPostRibFrame",
+   "aid": "obTable#0/obSnkPostRibFrame#5",
+   "bid": "obTable#0/obSnkPostRibFrame#7",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.578625,
+   "mm2": 0,
+   "tris": 1
+  }
+ ],
+ "repin": "SNK-R33 class A: the strap keeper moved 9.7 mm outboard with the guide wires DERIVED over the ball's reachable domain (upper half-spacing 18.0 \u2192 27.695 mm), so the soffit's triangulation under the keeper's coplanar top changed by one triangle per patch (area 431.9987 / 215.9994 mm\u00b2 identical) \u2014 a measurement-corrected re-pin, not a pass-making edit; the pre-round pin (2026-09-09T12:04:37.638Z, tree-f8dd2fff) is in git history | SNK-R34: the strap followed the upper guide wires' ring-clearing start (upperHalf 27.695 \u2192 27.6394, the strap 56 \u00b5m inboard): the strap | strap-iron coplanar patch re-read 671.9972 mm\u00b2 against the pinned 672.0086 (\u0394 -0.0114, beyond the 0.005 mm\u00b2 match) \u2014 a derived consequence, the same class as the R33 re-pin"
+}

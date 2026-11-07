@@ -1,0 +1,225 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* ============================================================
+   guide.css — page-scoped styles for site/guide/<locale>/
+   (gameplay-guide wave). Additive only; all tokens come from
+   site.css. No new colors except the assist-line legend, which
+   DOCUMENTS the game's own line colors (a section about the UI,
+   not site chrome).
+   ============================================================ */
+
+/* ---- hero-lite: shorter than the landing hero --------------- */
+.gd-hero {
+  min-height: 62vh; min-height: 62svh;
+  padding-top: calc(var(--bb-nav-h) + 6vh);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  position: relative;
+}
+.gd-hero .bb-body { text-wrap: pretty; } /* no one-word orphan under the lockup */
+
+/* ---- language switcher pill row (ghost pills only) ---------- */
+.gd-lang {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  list-style: none; padding: 0;
+}
+.gd-lang a {
+  display: inline-block; padding: 7px 16px;
+  border: 1px solid var(--bb-line);
+  border-radius: var(--bb-r-pill);
+  color: var(--bb-ivory-2); text-decoration: none;
+  font-size: var(--bb-t-label); font-weight: 620; line-height: 1.2;
+  transition: color var(--bb-t-hover) ease, border-color var(--bb-t-hover) ease;
+}
+.gd-lang a:hover { color: var(--bb-ivory); border-color: var(--bb-ivory-2); }
+.gd-lang a[aria-current] {           /* active marker = one of chalk's legal uses */
+  color: var(--bb-chalk);
+  border: 1px dashed color-mix(in oklab, oklch(64% 0.10 252) 55%, transparent);
+}
+
+/* ---- contents: label-layer links, numbered ------------------ */
+.gd-toc {
+  list-style: none; padding: 0; margin-top: 48px;
+  display: grid; gap: 14px 32px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  max-width: 64em;
+}
+.gd-toc a {
+  color: var(--bb-ivory-2); text-decoration: none;
+  font-size: var(--bb-t-label); font-weight: 620;
+  letter-spacing: var(--bb-label-track); text-transform: uppercase;
+  transition: color var(--bb-t-hover) ease;
+}
+.gd-toc a::after { content: "\00a0\2193"; content: "\00a0\2193" / ""; }
+.gd-toc a:hover { color: var(--bb-chalk); }
+.gd-toc .n { color: var(--bb-ivory); margin-right: 10px; }
+
+/* ---- numbered walkthrough steps ------------------------------ */
+.gd-steps {
+  list-style: none; padding: 0; counter-reset: gd-step;
+  max-width: 62ch;
+}
+.gd-steps > li {
+  counter-increment: gd-step;
+  position: relative; padding-left: 56px;
+  font-size: var(--bb-t-body); line-height: 1.55;
+}
+.gd-steps > li + li {
+  margin-top: 24px; padding-top: 24px;
+  border-top: 1px dashed var(--bb-line);
+}
+.gd-steps > li::before {
+  content: counter(gd-step, decimal-leading-zero);
+  position: absolute; left: 0; top: 0.5em;
+  font-size: var(--bb-t-label); font-weight: 620;
+  letter-spacing: var(--bb-label-track);
+  color: var(--bb-ivory-2);
+}
+.gd-steps strong { font-weight: 560; }
+
+/* ---- tables (controls, equipment, export tiers) --------------
+   Mobile (390px) contract: wide tables PAN inside .gd-scroll with
+   an explicit affordance (2026-07 dual audit must-fix — tables
+   used to clip mid-glyph with zero hint). Two affordance layers:
+   1. edge glows ("scrolling shadows"): ivory fades pinned to the
+      container edges, covered by slate-colored strips that scroll
+      WITH the content (background-attachment local) — the glow is
+      visible exactly while more columns hide beyond that edge;
+   2. an always-visible thin scrollbar (styled below).
+   Momentum scrolling for touch panning. */
+.gd-scroll {
+  overflow-x: auto; max-width: 72em;
+  -webkit-overflow-scrolling: touch;    /* momentum panning (iOS) */
+  background:
+    /* covers (scroll with content, hide the glow at rest edges) */
+    linear-gradient(to right, var(--bb-slate) 45%, transparent)
+      left center / 36px 100% no-repeat local,
+    linear-gradient(to left, var(--bb-slate) 45%, transparent)
+      right center / 36px 100% no-repeat local,
+    /* edge glows (pinned to the container) */
+    radial-gradient(farthest-side at 0 50%,
+      color-mix(in oklab, #efe9d8 22%, transparent), transparent)
+      left center / 18px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%,
+      color-mix(in oklab, #efe9d8 22%, transparent), transparent)
+      right center / 18px 100% no-repeat scroll;
+  scrollbar-width: thin;                 /* Firefox: thin, always-on */
+  scrollbar-color: color-mix(in oklab, #efe9d8 35%, transparent) transparent;
+}
+/* WebKit/Blink: styling the scrollbar forces it always-visible —
+   the explicit "more content this way" affordance */
+.gd-scroll::-webkit-scrollbar { height: 8px; }
+.gd-scroll::-webkit-scrollbar-track { background: transparent; }
+.gd-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, #efe9d8 35%, transparent);
+  border-radius: 999px;
+}
+.gd-table { border-collapse: collapse; width: 100%; min-width: 520px; }
+.gd-table caption {
+  text-align: left; margin-bottom: 16px;
+  font-size: var(--bb-t-label); font-weight: 620;
+  letter-spacing: var(--bb-label-track); text-transform: uppercase;
+  color: var(--bb-ivory-2);
+}
+.gd-table th, .gd-table td {
+  text-align: left; vertical-align: top;
+  padding: 14px 32px 14px 0;
+  border-bottom: 1px dashed var(--bb-line);
+  font-size: var(--bb-t-body-s); line-height: 1.6;
+}
+.gd-table thead th {
+  padding-top: 0; padding-bottom: 10px;
+  font-size: var(--bb-t-label); font-weight: 620;
+  letter-spacing: var(--bb-label-track); text-transform: uppercase;
+  color: var(--bb-ivory-2);
+}
+.gd-table tbody th { font-weight: 560; color: var(--bb-ivory); }
+.gd-table td { color: var(--bb-ivory-2); }
+.gd-table td:last-child, .gd-table th:last-child { padding-right: 0; }
+
+/* keyboard keys: mono chip, radius 0 (inputs pole) */
+kbd {
+  font-family: var(--bb-mono); font-size: 12.5px; line-height: 1;
+  display: inline-block; padding: 4px 7px 3px;
+  background: var(--bb-riser);
+  border: 1px solid var(--bb-line); border-radius: 0;
+  white-space: nowrap;
+  color: var(--bb-ivory);
+}
+
+/* ---- assist-line legend --------------------------------------
+   The swatch colors are the GAME's aim-assist line colors,
+   reproduced here because this section documents that UI. They
+   are content, not chrome — never reuse them elsewhere on site. */
+.gd-legend { list-style: none; padding: 0; max-width: 58ch; }
+.gd-legend li {
+  display: grid; grid-template-columns: 72px 1fr;
+  gap: 20px; align-items: center;
+  padding: 14px 0;
+  font-size: var(--bb-t-body-s); line-height: 1.6;
+  color: var(--bb-ivory-2);
+}
+.gd-legend li + li { border-top: 1px dashed var(--bb-line); }
+.gd-legend .ln { border-top: 2px solid var(--bb-ivory); height: 0; }
+.gd-legend .ln--object { border-top-color: #d9a84e; }             /* amber */
+.gd-legend .ln--cue    { border-top-style: dashed; border-top-color: #74b884; } /* green, dashed */
+.gd-legend strong { color: var(--bb-ivory); font-weight: 560; }
+
+/* ---- tip-offset diagram (inline SVG) ------------------------- */
+.gd-tip { margin: 0; }
+.gd-tip svg { width: 200px; height: auto; }
+.gd-tip .st-ball { fill: none; stroke: var(--bb-ivory); stroke-width: 1.5; }
+.gd-tip .st-ring { fill: none; stroke: var(--bb-ivory-2); stroke-width: 1; stroke-dasharray: 4 4; }
+.gd-tip .st-axis { stroke: var(--bb-line); stroke-width: 1; }
+.gd-tip .st-dot  { fill: var(--bb-ivory); }
+.gd-tip text {
+  font-family: var(--bb-mono); font-size: 12px;
+  fill: var(--bb-chalk);       /* code names (a, b) take chalk, per the design system */
+}
+.gd-tip figcaption {
+  margin-top: 16px; max-width: 26ch;
+  font-size: var(--bb-t-label); font-weight: 620; line-height: 1.5;
+  letter-spacing: var(--bb-label-track); text-transform: uppercase;
+  color: var(--bb-ivory-2);
+}
+.gd-side { display: grid; gap: 48px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 900px) {
+  .gd-side { grid-template-columns: minmax(0, 3fr) auto; align-items: start; }
+}
+
+/* ---- calibration badges (non-interactive chips, radius 0) ---- */
+.gd-badge {
+  display: inline-block; padding: 4px 10px 3px;
+  border: 1px solid var(--bb-line); border-radius: 0;
+  font-size: var(--bb-t-label); font-weight: 620; line-height: 1.4;
+  letter-spacing: var(--bb-label-track); text-transform: uppercase;
+  color: var(--bb-ivory);
+  white-space: nowrap;
+}
+
+/* ---- FAQ --------------------------------------------------- */
+.gd-faq { max-width: 68ch; }
+.gd-faq dt {
+  font-size: var(--bb-t-body); line-height: 1.45; font-weight: 560;
+}
+.gd-faq dt::before {
+  content: "\25C6\00a0\00a0"; content: "\25C6\00a0\00a0" / ""; /* silent for AT */
+  font-size: 8px; vertical-align: 3px; color: var(--bb-ivory-2);
+}
+.gd-faq dd {
+  margin: 12px 0 0;
+  font-size: var(--bb-t-body-s); line-height: 1.6;
+  color: var(--bb-ivory-2);
+}
+.gd-faq dd + dt { margin-top: 32px; padding-top: 32px; border-top: 1px dashed var(--bb-line); }
+
+/* ---- small print ------------------------------------------- */
+.gd-content { min-width: 0; } /* let the split's grid item shrink past table min-widths */
+.gd-content h3 { margin-top: 56px; }
+.gd-content .bb-body { max-width: 62ch; }
+.gd-content .bb-body-s { max-width: 68ch; }
+.gd-content .bb-list { max-width: 62ch; }
+
+@media (max-width: 760px) {
+  .gd-hero { min-height: 48vh; min-height: 48svh; }
+  .gd-table th, .gd-table td { padding-right: 20px; }
+}

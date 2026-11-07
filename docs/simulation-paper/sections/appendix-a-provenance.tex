@@ -1,0 +1,103 @@
+% ===========================================================================
+% Supplement S1 (former Appendix A) — Data provenance
+% Compiles into supplement.pdf via supplement-main.tex; main-text pointers
+% are prose "Section S1".
+% Maps every figure/table to its experiment ID, baseline-manifest row
+% (expected sha256, 8-char prefix shown; full hashes are in the
+% machine-readable expected-hash table of the artifact bundle), and
+% registered source. Slot namespace: figure slots F1-F14 vs experiment
+% IDs F1-F3.
+% ===========================================================================
+\section{Data provenance: figures and tables to pinned outputs}
+\label{sec:appendix-provenance}
+
+Table~\ref{tab:provenance} states the paper's reading contract: every
+plotted number regenerates from one registered script against the pinned
+kernel, and the expected sha256 of each output is recorded both in the
+study's baseline manifest (the post-cascade baseline of record under the
+canonical kernel \code{0.1.0+fb3425ad}) and in the artifact bundle's
+machine-readable expected-hash table, which is parsed from that manifest
+rather than hand-written. The scripts, the manifest, and the bundle are
+not part of the public source release (main-text
+Section~\ref{sec:availability}). Slot F1 (the architecture schematic)
+carries no experiment data. Tables~\ref{tab:models}, \ref{tab:domains}, and
+\ref{tab:determinism} draw on battery output metadata, the group
+subsections' ledgered numbers, and the determinism evidence index,
+respectively.
+
+{\footnotesize
+\begin{longtable}{lllp{0.5\linewidth}}
+  \caption{Provenance map: figure slot $\to$ experiment $\to$ expected
+  output hash (prefix) $\to$ registered source.}
+  \label{tab:provenance}\\
+  \toprule
+  Slot & Exp & sha256 (8) & Registered source \\
+  \midrule
+  \endfirsthead
+  \toprule
+  Slot & Exp & sha256 (8) & Registered source \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  F3  & \expid{A1} & \code{ec64b364} & TP 3.1, A.5, A.7 \\
+  F3  & \expid{A2} & \code{865815ab} & TP 3.3, A.4 \\
+  F2  & \expid{A3} & \code{f1367bc1} & TP A-14, A.28, B.3 \\
+  F4  & \expid{A4} & \code{dcbe8050} & TP B.25, FAQ speed-effects \\
+  F4  & \expid{A5} & \code{df91770b} & TP A.26 \\
+  F4  & \expid{A6} & \code{c24e4e37} & TP A.27 \\
+  F5  & \expid{A7} & \code{87bd5f07} & TP A.17, A.14 bottom \\
+  F6  & \expid{B1} & \code{faebd431} & TP A-31; \citet{cross2008squirt} \\
+  F6  & \expid{B2} & \code{3b6356e4} & TP B.1, B.26 \\
+  F6  & \expid{B3} & \code{1ed54d97} & TP 2.1, A.12 \\
+  F6  & \expid{B4} & \code{a42720a6} & TP 4.2 \\
+  F7  & \expid{C1} & \code{0b3d1246} & TP B.28, B.27 \\
+  F8  & \expid{C2} & \code{64410241} & TP 7.2; \citet{cohen2002threecushion} \\
+  F8  & \expid{C3} & \code{3d12bdf4} & FAQ; TP 6.3, 7.3 \\
+  F9  & \expid{C4} & \code{32feed7a} & \citet{mathavan2010cushion} Figs 7--10; HSV B.15 \\
+  F10 & \expid{D1} & \code{8a4a53a2} & TP A.4; HSV A.76; \citet{coriolis1835} \\
+  F10 & \expid{D2} & \code{2178b9d8} & TP A.19; \citet{coriolis1835} \\
+  F10 & \expid{D3} & \code{c5a5113f} & TP B.23 \\
+  F11--F12 & \expid{E1} & \code{21f9efd2} & Jewett via BD Dec 2024; HSV A.88--A.95 \\
+  F11 & \expid{E2} & \code{ea6cff60} & TP B.21, A.15 \\
+  F12 & \expid{E3} & \code{87121a5b} & HSV 7.6/7.7, B.43, B.45 \\
+  F13 & \expid{F1} & \code{28ee6348} & TP 4.1, B.5, B.6, B.8 \\
+  F13 & \expid{F2} & \code{78d1b730} & TP B.8/B.9; FAQ trisect \\
+  F13 & \expid{F3} & \code{f0ee2200} & FAQ jump; HSV A.1/A.2, B.37 \\
+  F14 & ORACLE-X   & \code{00a1488e} & \citet{kiefl2024pooltool}, pinned oracle env \\
+\end{longtable}
+}
+
+The abstract's battery-scale figure --- 16{,}933 recorded simulations
+--- is an exact, artifact-backed count, not a program-management
+estimate: it is the number of kernel simulations the battery executes
+end-to-end, recorded one row per call (serde-exact inputs plus
+stamp-normalized trajectory digest) by the input tap behind the
+wasm-replay corpus of Section~\ref{sec:reproducibility}, whose SHA-256
+and per-experiment row counts are pinned in the bundle's replay report.
+It supersedes the pre-replay floor of ``more than 4{,}800'', which was
+derived from the pinned outputs alone: the baseline manifest's digest
+normalization counts 3{,}157 digest-pinned per-record trajectory
+fingerprints across the 25 outputs --- all 3{,}157 of which appear in the
+replay corpus's digest set --- and the remainder are digest-free recorded sweep rows (e.g.\ the
+492-run \expid{A4} grid) carried in the same pinned files.
+
+One artifact is deliberately outside this contract. The computational
+performance evidence of Section~\ref{sec:simulator-performance}
+(Table~\ref{tab:perf}) is engineering-tier, not physics V\&V: its
+timings are machine-dependent by nature, so its artifact (a pinned
+benchmark report in the bundle) records host provenance, both
+measurement passes, and the protocol, but
+carries \emph{no} expected hash and is excluded from the physics-identity
+manifest. Its determinism guards are digest ties, not timing hashes: the
+timed kernel records reproduce the stamp-independent trajectory digests
+of the ORACLE-X output (30/30 matched), proving the timed scenarios are
+the event-verified ones.
+
+Three run-order dependencies exist; every other script is order-free.
+Experiment \expid{A7} reads the \expid{A3} output; ORACLE-X reads the
+\expid{A3} and \expid{A6} outputs and additionally requires the pinned
+pooltool environment; \expid{D1} and \expid{F2} re-read only their own
+outputs. Digitized-source fixtures (the TP curves, the Mathavan figures,
+the FAQ charts) carry per-fixture provenance blocks and digitization
+uncertainty; no third-party source frames are redistributed.

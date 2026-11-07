@@ -1,0 +1,16 @@
+{
+  "name": "break",
+  "description": "9-ball break: seeded WPA rack (rack gaps derive from shot.seed, so a --seeds sweep re-racks every shot), full-speed center-ball break from the head spot. Demonstrates the {\"rack\": ...} scenario convenience and seed-driven outcome distributions.",
+  "provenance": "Rack layout = pool-core rack.rs nine_ball_rack (apex on the foot spot, 9 centered, seeded 0.05-0.5 mm gaps per the internal break-physics report); break speed 8 m/s is a typical strong 9-ball break (pool-wasm ships the same schema with a 3 m/s placeholder shot).",
+  "system": {
+    "rack": "nine"
+  },
+  "shot": {
+    "v0": 8.0,
+    "phi": 1.5707963267948966,
+    "theta": 0.0,
+    "a": 0.0,
+    "b": 0.0,
+    "seed": 42
+  }
+}

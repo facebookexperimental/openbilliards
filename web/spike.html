@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>openbilliards — renderer visual-target spike (issue #3)</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #000; overflow: hidden; }
+  canvas { display: block; }
+  #err { position: fixed; top: 8px; left: 8px; color: #f66; font: 13px monospace;
+         white-space: pre-wrap; z-index: 9; }
+</style>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<div id="err"></div>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from './vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { createShared, rng } from './scene/shading.js';
+import { TABLE, buildTable } from './scene/table.js';
+import { R, buildBalls, defaultLayout } from './scene/balls.js';
+import { ROOM, LIGHT_POS, buildRoom } from './scene/room.js';
+import { createPostFX } from './scene/postfx.js';
+
+window.addEventListener('error', (e) => {
+  document.getElementById('err').textContent += '[spike] ERROR: ' + e.message + '\n';
+  console.error('[spike] ERROR:', e.message);
+});
+
+const rand = rng(20260701);
+
+// ------------------------------------------------------------------ renderer
+const W = window.innerWidth, H = window.innerHeight;
+const renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: 'high-performance' });
+renderer.setSize(W, H);
+renderer.setPixelRatio(1);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+document.body.appendChild(renderer.domElement);
+RectAreaLightUniformsLib.init();
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000);
+
+// camera presets: ?view=full (default) | closeup | top (geometry debug)
+const view = new URLSearchParams(location.search).get('view') || 'full';
+const camera = new THREE.PerspectiveCamera(40, W / H, 0.01, 50);
+const closeupEye = new THREE.Vector3(0.10, 0.175, 0.40);
+if (view === 'closeup') {
+  camera.position.copy(closeupEye);
+  camera.lookAt(0.66, 0.015, -0.06);
+} else if (view === 'top') {
+  camera.position.set(0, 3.4, 0.001);
+  camera.lookAt(0, 0, 0);
+} else {
+  // below the lamp plane so the emissive light box face is in frame
+  camera.position.set(-3.10, 0.88, 1.92);
+  camera.lookAt(0.35, 0.07, -0.10);
+}
+
+// ------------------------------------------------------------------ scene
+const shared = createShared({ lightPos: LIGHT_POS, roomMin: ROOM.min, roomMax: ROOM.max });
+
+const { group: roomGroup } = buildRoom();
+scene.add(roomGroup);
+
+let preparationError = null;
+try {
+  const pending = typeof buildTable.prepare === 'function' ? buildTable.prepare() : null;
+  if (pending) await pending;
+} catch (cause) {
+  if (!buildTable.recoversPreparationFailure) throw cause;
+  preparationError = cause;
+}
+const { group: tableGroup } = buildTable({ shared, preparationError });
+scene.add(tableGroup);
+
+const layout = defaultLayout(TABLE.footSpot, rand);
+const ballGroup = buildBalls({ shared, layout, faceTarget: closeupEye, rand });
+scene.add(ballGroup);
+
+// --------------------------------------------- bake room cubemap (startup, once)
+// parallax-corrected env source: cube render of room + table + light box
+// (balls hidden; their analytic shadows stay in the cloth shader = anchored refl.)
+const cubeRT = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+const cubeCam = new THREE.CubeCamera(0.02, 40, cubeRT);
+cubeCam.position.copy(ROOM.min).add(ROOM.max).multiplyScalar(0.5); // parallax box center
+ballGroup.visible = false;
+cubeCam.update(renderer, scene);
+ballGroup.visible = true;
+ballGroup.children.forEach((m) => { m.material.envMap = cubeRT.texture; });
+scene.environment = cubeRT.texture;
+// GH-518 (review r4): the per-class room reseat (room.js tableChanged,
+// notified from populate through an async import continuation) can land
+// AFTER this one-shot capture when the boot table carries roomFloor
+// (snooker) — publish the same guaranteed re-bake seam the app exposes so
+// table.js's scheduleRebake() repairs the capture from the reseated
+// bounds. Fixed-floor boots never schedule it (byte-identical path).
+window.__rebakeEnv = () => {
+  cubeCam.position.copy(ROOM.min).add(ROOM.max).multiplyScalar(0.5);
+  ballGroup.visible = false;
+  cubeCam.update(renderer, scene);
+  ballGroup.visible = true;
+};
+// the closure above re-centres on the current bounds — carry the r6
+// capability marker so the floor-reseat path accepts it
+window.__rebakeEnv.boundsAware = true;
+
+// ------------------------------------------------------------------ post fx
+const composer = createPostFX(renderer, scene, camera, W, H);
+
+// ------------------------------------------------------------------ loop
+let frames = 0, tSum = 0;
+renderer.info.autoReset = false; // accumulate across all composer passes per frame
+function loop() {
+  const t0 = performance.now();
+  renderer.info.reset();
+  composer.render();
+  const dt = performance.now() - t0;
+  if (frames >= 2) tSum += dt;
+  frames++;
+  if (frames >= 3) {
+    // rolling report (headless-readable via --dump-dom; console for devtools)
+    const msg = `[spike] frames ${frames} avg composer.render ms ${(tSum / (frames - 2)).toFixed(2)}`
+      + ` | calls ${renderer.info.render.calls} tris ${renderer.info.render.triangles}`;
+    document.title = msg;
+    if (frames === 60) console.log(msg);
+  }
+  requestAnimationFrame(loop);
+}
+loop();
+</script>
+</body>
+</html>

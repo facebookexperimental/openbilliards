@@ -1,0 +1,1 @@
+{"w": 160, "h": 100, "ds": 2, "W": 320, "H": 200, "channels": 3, "dtype": "float32le", "rows": "top-down", "nan": 0, "neg": 0, "max": 2.5214521884918213, "note": "L24-B: main 163d7f25 CONVERGED frame (before/default/predator_apex_9ft/conv/full34, land7 round), crop x320-640 y100-300 of the 1280x800 LDR (HDR at ds 2)"}

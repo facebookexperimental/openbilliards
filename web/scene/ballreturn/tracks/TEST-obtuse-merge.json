@@ -1,0 +1,232 @@
+{
+ "schema": "openbilliards/ball-return-track/1",
+ "doc": {
+  "table_id": "wpa_generic_9ft",
+  "title": "TEST-obtuse-merge",
+  "status": "TEST",
+  "revision": "r1",
+  "date": "2026-09-06",
+  "issue": "#650",
+  "sources": [
+   "web/scene/table.js makeGeom('wpa_generic_9ft'): L 2540, W 1270, CW 50.8, side cups (0, ±703.5) r 64.5, corner cups (±1299.5, ±664.5) r 62, apron ring |X| 1410.8..1462.8 / |Z| 775.8..827.8 over y −254..+6, legs square half-side 106 about (±1265.8, ±630.8) over y −740..−180 (legIn 0.20)",
+   "web/scene/pocket-geometry.md: throat cup y ∈ [−199, 1]; SINK_SHIELD_Y −55 (cull line)",
+   "crates/pool-core/src/params.rs ClothPreset::default u_r 0.010 (Waldron stimpmeter) — PROXY for a steel-wire class (OPEN); resistance on twin rails per track.js resistCoeff",
+   "topology after dossier-star-xw101/01-official/official-bare-frame-wire-ball-tracks.jpg (wires along the long beams toward the head end, one drawer)",
+   "web/scene/ballreturn/track.js buildTrack yield stations: the hold station is pushed up the approach until the chord to every station of every other path through the point, from one diameter past it back to the peer's own cap two diameters before it, is at least one ball diameter"
+  ],
+  "notes": "Same served pockets, support, resistance, lc-run, trunk and tray as TEST-midedge-landing; only rc-run's shape differs. It overshoots the trunk head to a vertex at (-1394.26, +291.10) and doubles BACK, so its last edge meets the trunk's direction of travel at 130.00 deg in plan - an OBTUSE merge, the feeder running against the trunk rather than with it. The schema admits the geometry (every edge drains, the landing is on the trunk polyline, the path clears the head legs and the apron), and on an obtuse merge the clearance chord across the bend shortens as sin of the turn: the hold station a merge-clearance pass measures along the feeder is much nearer the trunk in 3-D than its arc length suggests. Seal 13 pushed the hold +0.00 mm and drew a waiting feeder ball 45.32 mm from a passing trunk ball; the seal-14 mid-edge fix pushed it +1.80 mm and still drew 46.75 mm (10.40 mm of interpenetration) - both breaches, and both invisible to a coarse offset sweep, which reads 57.15 mm. The peer window now reaches the peer's own cap on OUR side of the bend as well, so the hold is pushed +15.00 mm and every drawn pair holds one diameter (node-gate arms r16a-r16d). The angle is a family: swinging the overshoot vertex gives 75 deg through 135 deg admitted and one diameter clear, 150 deg and 165 deg refused by name. Geometry values are TEST reads chosen from the table's own dimensions with stated clearances; nothing here is a claim about any real slide."
+ },
+ "units": {
+  "length": "mm",
+  "angle": "deg"
+ },
+ "datum_frame": {
+  "id": "TCS-TBL-01",
+  "axes": {
+   "+X": "head rail toward foot rail",
+   "+Y": "up from the playing surface",
+   "+Z": "left to right viewed from head rail"
+  },
+  "runtime_mapping": "three.js (x, y, z) = (X, Y, Z) x 0.001; kernel (kx, ky, kz) = (Z, X, Y) x 0.001",
+  "pocket_order": "kernel order: 0 lb, 1 lc, 2 lt, 3 rb, 4 rc, 5 rt (l/r = sign of Z, b/c/t = -X / 0 / +X)"
+ },
+ "ball": {
+  "reference_diameter_mm": 57.15,
+  "provenance": {
+   "tag": "MFR",
+   "source": "WPA Equipment Specifications §16, 2 1/4 in pool ball (crates/pool-core default r 0.028575)"
+  }
+ },
+ "support": {
+  "kind": "twin-rail",
+  "gauge_mm": 40,
+  "rail_diameter_mm": 4,
+  "provenance": {
+   "tag": "TEST",
+   "source": "synthetic wire pair: gauge 40 < 57.15 + 4 (admits the ball, V9); derived h = sqrt(30.575^2 - 20^2) = 23.13, c = 20*28.575/30.575 = 18.69, rho = sqrt(28.575^2 - 18.69^2) = 21.61, k = 1/(1 + 0.4*(28.575/21.61)^2) = 0.5884"
+  }
+ },
+ "rolling_resistance": {
+  "class": "default",
+  "u_r": 0.01,
+  "provenance": {
+   "tag": "DERIVED",
+   "source": "PROXY: the kernel default class (params.rs ClothPreset::default, u_r 0.010 — Waldron stimpmeter roll-out, a first-hand cloth measurement) stands in for the unmeasured steel-wire class. On the twin rail the effective coefficient is (7/5)(r/ρ)·u_r = 1.4 × 1.322 × 0.010 = 0.0185 (track.js resistCoeff); drain margin at the shallowest edge: sin θ 0.0436 vs 0.0185."
+  }
+ },
+ "arrival": {
+  "restitution": 0,
+  "provenance": {
+   "tag": "DESIGN",
+   "source": "research.md R5 / the brief's 'inelastic arrival' and the owner's 「一个接一个堆」: arriving balls share a common velocity with the group they touch, the tray wall is infinite mass. A modelling decision, NOT a measurement — no ball-on-ball impact in a return tray has been captured in this repo; a measured e would enter through this block and a runtime law change (spec §7)."
+  }
+ },
+ "runways": [
+  {
+   "id": "rc-run",
+   "role": "entry",
+   "points_mm": [
+    [
+     0,
+     -263,
+     703.5
+    ],
+    [
+     -1394.26,
+     -300,
+     291.1
+    ],
+    [
+     -1150,
+     -361,
+     0
+    ]
+   ],
+   "next": "trunk",
+   "notes": "entry directly under the right middle cup; one long outboard run PAST the trunk head to a vertex at (-1394.26, +291.10), then a second edge that doubles back and lands MID-EDGE on the trunk at (-1150, 0) - 151.3 mm past the trunk head - at 130.00 deg in plan against the trunk's direction of travel (an obtuse, against-the-flow merge). Ball extent |Z| 732 < apron inner face 775.8 and |X| 1394.26 + 0 < apron inner face 1410.8, so the path never reaches the apron ring; over the head-leg X band -1371.8..-1159.8 the path runs at |Z| 11.7..360.5, clear of the leg squares' |Z| 524.8..736.8",
+   "provenance": {
+    "tag": "TEST",
+    "source": "entry Y -263 = cup bottom -199 - r 28.575 - 12.3 clearance - h 23.13 (ball centre -239.9, top -211.3 < -199); edge 1 (-1394.26, -37, -412.40) len 1454.44 sin theta 0.0254; edge 2 (244.26, -61, -291.10) len 384.87 sin theta 0.1585 (both > u_r/k 0.0136); edge 2's plan run (244.26, -291.10) len 380.00 against the trunk heading (-1, 0) = 130.00 deg; its landing (-1150, -361, 0) is ON the trunk polyline (half its 300 mm plan run, Y -341.5 - 19.5)"
+   }
+  },
+  {
+   "id": "lc-run",
+   "role": "entry",
+   "points_mm": [
+    [
+     0,
+     -263,
+     -703.5
+    ],
+    [
+     -500,
+     -300,
+     -200
+    ],
+    [
+     -1000,
+     -341.5,
+     0
+    ]
+   ],
+   "next": "trunk",
+   "notes": "reaches the trunk at its HEAD vertex (−1000, 0) at 21.80° in plan — upstream of rc-run's landing",
+   "provenance": {
+    "tag": "TEST",
+    "source": "mirror of rc-run's entry Y; mid vertex (−500, −300, −200); last edge (−500, −41.5, 200) len 540.1 sin θ 0.0768 > u_r/k 0.0136, 21.80° in plan against the trunk"
+   }
+  },
+  {
+   "id": "trunk",
+   "role": "trunk",
+   "points_mm": [
+    [
+     -1000,
+     -341.5,
+     0
+    ],
+    [
+     -1300,
+     -380.5,
+     0
+    ]
+   ],
+   "next": "tray",
+   "notes": "lc-run lands on the trunk's HEAD vertex and rc-run 151.3 mm down it against the flow, so the trunk carries upstream traffic through rc-run's landing AND the feeder approaches it from the far side of a 130 deg bend; the trunk descends under the head rail to the tray; the twin-rail -> channel transition keeps the ball centre continuous (-380.5 + 23.13 = -386 + 28.575 - 0.05)",
+   "provenance": {
+    "tag": "TEST",
+    "source": "drop 19.5 over 151.3 (sin θ 0.129); end Y = tray support −386 + r 28.575 − h 23.13 = −380.55 (rounded −380.5; the 0.05 step is inside the V3 tolerance and invisible)"
+   }
+  },
+  {
+   "id": "tray",
+   "role": "tray",
+   "points_mm": [
+    [
+     -1300,
+     -386,
+     0
+    ],
+    [
+     -1600,
+     -386,
+     0
+    ]
+   ],
+   "next": null,
+   "support": {
+    "kind": "channel",
+    "width_mm": 80,
+    "provenance": {
+     "tag": "TEST",
+     "source": "synthetic drawer floor 80 wide (> ball 57.15); ball centre −357.4, top −328.9 < apron bottom −254 so the drawer passes under the head apron and hangs outside the body (|X| > 1462.8); room floor −790"
+    }
+   },
+   "notes": "level steel drawer floor; the wall is the last vertex (X −1600)",
+   "provenance": {
+    "tag": "TEST",
+    "source": "length 300 → capacity floor(300 / 57.15) = 5 (V6 identity)"
+   }
+  }
+ ],
+ "hooks": [],
+ "pockets": [
+  {
+   "index": 1,
+   "entry_runway": "lc-run",
+   "notes": "left middle (lc): kernel cup (0, −703.5) r 64.5; no visual fall on pool entries (pocketVisualFalls null) so the cup is the fall",
+   "exit_below_y_mm": -199,
+   "provenance": {
+    "tag": "DERIVED",
+    "source": "lowest solid of the wpa_generic_9ft pocket assembly: throat wall span y ∈ [−199, 1] (web/scene/pocket-geometry.md; table.js CylinderGeometry at −0.099 ± 0.10) and the opaque bottom disc at −197 (table.js bottomY) → the ball is shown only once its top is below −199"
+   }
+  },
+  {
+   "index": 4,
+   "entry_runway": "rc-run",
+   "notes": "right middle (rc): kernel cup (0, +703.5) r 64.5",
+   "exit_below_y_mm": -199,
+   "provenance": {
+    "tag": "DERIVED",
+    "source": "lowest solid of the wpa_generic_9ft pocket assembly: throat wall span y ∈ [−199, 1] (web/scene/pocket-geometry.md; table.js CylinderGeometry at −0.099 ± 0.10) and the opaque bottom disc at −197 (table.js bottomY) → the ball is shown only once its top is below −199"
+   }
+  }
+ ],
+ "unserved_pockets": [
+  {
+   "index": 0,
+   "reason": "corner cup (−1299.5, −664.5) lies inside the leg footprint (leg square half-side 106 about (−1265.8, −630.8), top −180 above the cup bottom −199): no runway can leave it (table.js legIn 0.20)"
+  },
+  {
+   "index": 2,
+   "reason": "corner cup (+1299.5, −664.5) inside the foot-left leg footprint — same as pocket 0"
+  },
+  {
+   "index": 3,
+   "reason": "corner cup (−1299.5, +664.5) inside the head-right leg footprint — same as pocket 0"
+  },
+  {
+   "index": 5,
+   "reason": "corner cup (+1299.5, +664.5) inside the foot-right leg footprint — same as pocket 0"
+  }
+ ],
+ "tray": {
+  "runway": "tray",
+  "end": "wall",
+  "capacity_balls": 5,
+  "length_mm": 300,
+  "provenance": {
+   "tag": "TEST",
+   "source": "synthetic drawer 300 long; capacity = floor(300 / 57.15) = 5 balls (the V6 identity the loader enforces)"
+  }
+ },
+ "debug_visual": true,
+ "checks": {
+  "drain_monotonic": true,
+  "determinism_sha256": "a5ee277c957fa5fd6a0f573f8538d6a8cae1cd4fd65fa92abdcc73bc0c06d7dc",
+  "continuation_pins": {
+   "r45-D": "165f1a15f4b90dead5c0f2aa262993e76c11a36c28c988cbc787964ad8d33909",
+   "notes": "r45-D = investigator A's seeding D (three balls on route 4: 2 mm below the junction at rest, a 0.8 m/s pair 60 / 137 mm above it): the fold parting's solution sampled at 240 Hz from t 0 to tEnd + 0.5 s, sha-256 (order 21, r45b; re-cut with `test-ballreturn.mjs --pin` when the law changes)"
+  }
+ }
+}

@@ -1,0 +1,216 @@
+{
+  "schema": "openbilliards/rox-cushion-top-arc-measurement/1",
+  "source_tag": "MODEL",
+  "source": {
+    "dossier_directory": "06-model-derived/a1-stations/rails",
+    "files": {
+      "replicate.json": "cdc5fe2922694534e04d5750ee9d939722f685fa13329b8ea534b150eff88397",
+      "replicate_summary.json": "807b018a04a417c032e5ab82a8eca33fdc1280d6284049df0f3cecb3a1fdbfb3",
+      "replicate_rails.py": "4eb493f53ca9e897b47b091fd24a734d9b4937789653c35b2ee70094d652a6f9"
+    },
+    "method": "A1 transverse half-stations; least-squares circle on upper-envelope probe hits with nose-relative u > 1.5 mm and u < flat_start - 0.2 mm. The original replicate_rails.py top_arc fit is retained.",
+    "read": "Only original scalar station labels, radii, fit residuals and sample counts are transcribed; no mesh or section coordinates."
+  },
+  "stations": [
+    {
+      "station": "x=-1100 +Y",
+      "radius_mm": 64.2423817092148,
+      "fit_rms_mm": 0.008243993045235702,
+      "fit_samples": 221
+    },
+    {
+      "station": "x=-1100 -Y",
+      "radius_mm": 64.24068909725791,
+      "fit_rms_mm": 0.008243405610742747,
+      "fit_samples": 221
+    },
+    {
+      "station": "x=-900 +Y",
+      "radius_mm": 64.24238170921655,
+      "fit_rms_mm": 0.00824399304523445,
+      "fit_samples": 221
+    },
+    {
+      "station": "x=-900 -Y",
+      "radius_mm": 64.24078968271913,
+      "fit_rms_mm": 0.008243475456079976,
+      "fit_samples": 221
+    },
+    {
+      "station": "x=-750 +Y",
+      "radius_mm": 64.2423817092174,
+      "fit_rms_mm": 0.008243993045237138,
+      "fit_samples": 221
+    },
+    {
+      "station": "x=-750 -Y",
+      "radius_mm": 64.24082543153384,
+      "fit_rms_mm": 0.008243531346039501,
+      "fit_samples": 221
+    },
+    {
+      "station": "x=-450 +Y",
+      "radius_mm": 64.18586995702867,
+      "fit_rms_mm": 0.008348804773326208,
+      "fit_samples": 207
+    },
+    {
+      "station": "x=-450 -Y",
+      "radius_mm": 64.18402180047076,
+      "fit_rms_mm": 0.008348636517503713,
+      "fit_samples": 207
+    },
+    {
+      "station": "x=-150 +Y",
+      "radius_mm": 64.15169317550739,
+      "fit_rms_mm": 0.008206865729476402,
+      "fit_samples": 217
+    },
+    {
+      "station": "x=-150 -Y",
+      "radius_mm": 64.14969585699939,
+      "fit_rms_mm": 0.008206292160433783,
+      "fit_samples": 217
+    },
+    {
+      "station": "x=+150 +Y",
+      "radius_mm": 64.15169317550779,
+      "fit_rms_mm": 0.008206865729476048,
+      "fit_samples": 217
+    },
+    {
+      "station": "x=+150 -Y",
+      "radius_mm": 64.1496958575574,
+      "fit_rms_mm": 0.008206292160598015,
+      "fit_samples": 217
+    },
+    {
+      "station": "x=+450 +Y",
+      "radius_mm": 64.18586995703322,
+      "fit_rms_mm": 0.008348804773334013,
+      "fit_samples": 207
+    },
+    {
+      "station": "x=+450 -Y",
+      "radius_mm": 64.18402180106041,
+      "fit_rms_mm": 0.008348636517602691,
+      "fit_samples": 207
+    },
+    {
+      "station": "x=+750 +Y",
+      "radius_mm": 64.24238170921731,
+      "fit_rms_mm": 0.008243993045232724,
+      "fit_samples": 221
+    },
+    {
+      "station": "x=+750 -Y",
+      "radius_mm": 64.24082543145339,
+      "fit_rms_mm": 0.008243531345893165,
+      "fit_samples": 221
+    },
+    {
+      "station": "x=+900 +Y",
+      "radius_mm": 64.24238170921731,
+      "fit_rms_mm": 0.00824399304523347,
+      "fit_samples": 221
+    },
+    {
+      "station": "x=+900 -Y",
+      "radius_mm": 64.24078968253093,
+      "fit_rms_mm": 0.008243475455873232,
+      "fit_samples": 221
+    },
+    {
+      "station": "x=+1100 +Y",
+      "radius_mm": 64.24238170921835,
+      "fit_rms_mm": 0.008243993045236882,
+      "fit_samples": 221
+    },
+    {
+      "station": "x=+1100 -Y",
+      "radius_mm": 64.24068909697276,
+      "fit_rms_mm": 0.008243405610469559,
+      "fit_samples": 221
+    },
+    {
+      "station": "y=-500 +X",
+      "radius_mm": 64.24041779831991,
+      "fit_rms_mm": 0.008246493534988023,
+      "fit_samples": 221
+    },
+    {
+      "station": "y=-500 -X",
+      "radius_mm": 64.24143859066344,
+      "fit_rms_mm": 0.00824604034806674,
+      "fit_samples": 221
+    },
+    {
+      "station": "y=-300 +X",
+      "radius_mm": 64.24134167906575,
+      "fit_rms_mm": 0.008246529304728249,
+      "fit_samples": 221
+    },
+    {
+      "station": "y=-300 -X",
+      "radius_mm": 64.24189311481894,
+      "fit_rms_mm": 0.008245345512253944,
+      "fit_samples": 221
+    },
+    {
+      "station": "y=-100 +X",
+      "radius_mm": 64.12312701242587,
+      "fit_rms_mm": 0.008273506990925508,
+      "fit_samples": 213
+    },
+    {
+      "station": "y=-100 -X",
+      "radius_mm": 64.12323258033777,
+      "fit_rms_mm": 0.008273128889939245,
+      "fit_samples": 213
+    },
+    {
+      "station": "y=+100 +X",
+      "radius_mm": 64.12999295997464,
+      "fit_rms_mm": 0.008233741102080201,
+      "fit_samples": 215
+    },
+    {
+      "station": "y=+100 -X",
+      "radius_mm": 64.12983311094764,
+      "fit_rms_mm": 0.00823402472880196,
+      "fit_samples": 215
+    },
+    {
+      "station": "y=+300 +X",
+      "radius_mm": 64.24265332699427,
+      "fit_rms_mm": 0.0082427778754389,
+      "fit_samples": 221
+    },
+    {
+      "station": "y=+300 -X",
+      "radius_mm": 64.24254394761294,
+      "fit_rms_mm": 0.008242625095752302,
+      "fit_samples": 221
+    },
+    {
+      "station": "y=+500 +X",
+      "radius_mm": 64.24293304083702,
+      "fit_rms_mm": 0.008242691764128876,
+      "fit_samples": 221
+    },
+    {
+      "station": "y=+500 -X",
+      "radius_mm": 64.24294445564155,
+      "fit_rms_mm": 0.008242671391270337,
+      "fit_samples": 221
+    }
+  ],
+  "summary": {
+    "station_count": 32,
+    "radius_mean_mm": 64.20886912114295,
+    "radius_min_mm": 64.12312701242587,
+    "radius_max_mm": 64.24294445564155,
+    "published_radius_mm": 64.21,
+    "published_decimals": 2
+  }
+}

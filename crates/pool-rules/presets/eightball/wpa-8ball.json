@@ -1,0 +1,39 @@
+{
+  "schema": "rules-preset-v1",
+  "preset": "wpa-8ball",
+  "family": "eightball",
+  "display_key": "settings.variant.wpa-8ball",
+  "source": {
+    "title": "WPA Rules of Play, Section 4 (8-Ball)",
+    "publisher": "World Pool-Billiard Association",
+    "edition": "Effective 2025-09-15 (the 011/012 pinned edition)",
+    "url": "https://wpapool.com/rules-of-play/",
+    "tier": "primary",
+    "inherits": null
+  },
+  "judged": {},
+  "adapter": {
+    "rack_pattern": {
+      "value": "no_purposeful_pattern",
+      "cite": "WPA 4.2",
+      "owner": "adapter"
+    },
+    "break_order": {
+      "value": "alternate",
+      "cite": "WPA 1.3",
+      "owner": "adapter"
+    }
+  },
+  "not_modeled": [
+    {
+      "axis": "referee_discretion",
+      "cite": "WPA 3.16",
+      "reason": "unsportsmanlike-conduct rulings are referee judgments (the NEW-4 external Ruling input, not shipped -- issue #43); the engine never infers them"
+    },
+    {
+      "axis": "tournament_operations",
+      "cite": "WPA regulations (shot clocks, coaching, concession)",
+      "reason": "regulations-layer operations are out of engine scope"
+    }
+  ]
+}

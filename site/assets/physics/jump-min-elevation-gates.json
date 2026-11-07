@@ -1,0 +1,260 @@
+{
+  "scenario": "jump-min-elevation",
+  "title": "Jump shot minimum elevation — ballistic clearance over a full ball (battery F3)",
+  "kernel": "0.1.0+dedc61cd",
+  "anchor": {},
+  "badge": {
+    "line1": "predicted min elevation 30° · measured 30.0° clears +7.0 mm · 25.0° clips",
+    "line2": "JUMP MINIMUM ELEVATION · DR. DAVE FAQ JUMP CHART · HSV A.2/B.37 · BATTERY F3 (EXP_F3_JUMP) · GAP 0.30 M @ 3 M/S"
+  },
+  "segments": [
+    {
+      "id": "clear30",
+      "batterySha": "73b595d8e6b0b80f9a000ee9696cd4125fb55195a48c763f78201dee9e364c46",
+      "videoSha": "1d5fc24e6119095d36456473eab99501c5b4a72e9b5ed55882998ac1c306d250",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tLaunch": 1e-9,
+        "tApex": 0.11761986288774814,
+        "tLand": 0.2352397267754963,
+        "tGrounded": 0.35285958966324443,
+        "tContact9": 0.4131755927656167,
+        "tPot": 0.9716163314381911,
+        "tFirstCushion": 1.4170344019797652,
+        "tEnd": 1.297034401979765,
+        "cbAtEnd": [
+          0.5242175138457389,
+          1.0290419424557857
+        ],
+        "tClearanceMin": 0.089145,
+        "cbAtContact": [
+          -0.14999999999999983,
+          0.14742279486317283
+        ],
+        "blockerMarginSphereM": 0.006960217227899697,
+        "apexBottomM": 0.06785788967481876,
+        "landingAlongM": 0.7774075656699523,
+        "blockerMinCenterDistM": 0.0641102172278997,
+        "minPairMm": 57.15000000000012,
+        "minPairAt": 0.4131755927656167,
+        "minPair": [
+          0,
+          9
+        ]
+      },
+      "plan": {
+        "frames": 472,
+        "outputSec": 7.866666666666666,
+        "maxCutlessStepRatio": 1.074889663087409,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              265,
+              289
+            ]
+          ],
+          "deliveredFrames": 448,
+          "deliveredSec": 7.466666666666667,
+          "firstReplayFrame": 265,
+          "recoveredFrames": 51,
+          "dissolveS": 0.4
+        }
+      }
+    },
+    {
+      "id": "clip25",
+      "batterySha": "92ddbfa81b1d01b25f5b44d78ad2712a2d0ed462073c12b0bb18232c424a7b08",
+      "videoSha": "081eaeab7869a3bd2a254432fe0ab51c278744e1464d49349a50d233c8123669",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tLaunch": 1e-9,
+        "tClip": 0.07367392190641296,
+        "tEnd": 0.41911307885717874,
+        "clipHeightM": 0.04522888448110361,
+        "minPairMm": 57.14999999999994,
+        "minPairAt": 0.07367392190641296,
+        "minPair": [
+          0,
+          1
+        ]
+      },
+      "plan": {
+        "frames": 349,
+        "outputSec": 5.816666666666666,
+        "maxCutlessStepRatio": 1.074889663087409,
+        "shutter": 8,
+        "shutterDeg": 310
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 3,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 0.7033333333333336,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.7033333333333336,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "30°",
+              "minimum elevation — ballistic clearance"
+            ],
+            "availSec": 3.1,
+            "spanSec": 1.32,
+            "entrySec": 0.9400000000000001,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.32,
+            "settledSec": 1.78,
+            "needScale": 0.4714285714285714,
+            "settledFrames": 106
+          },
+          {
+            "text": [
+              "+7.0 mm",
+              "clears the blocker · lands · pots the 9"
+            ],
+            "availSec": 2.0833333333333335,
+            "spanSec": 1.38,
+            "entrySec": 1,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.38,
+            "settledSec": 0.7033333333333336,
+            "needScale": 0.7738317757009344,
+            "settledFrames": 42
+          }
+        ],
+        "refused": false
+      },
+      {
+        "segIdx": 1,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 3.2799999999999994,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "25°",
+              "five degrees shy — clips on the ascent"
+            ],
+            "availSec": 4.6,
+            "spanSec": 1.32,
+            "entrySec": 0.9400000000000001,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.32,
+            "settledSec": 3.2799999999999994,
+            "needScale": 0.30697674418604654,
+            "settledFrames": 196
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "clear30",
+      "frames": 472,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "71ce580df0b2d9d9f802916c4160e853a88376e74138cc8f3233b240fe5e6956",
+      "sha256_last": "124345c0d14414561cccee26528b14b6cfdd6ec1a7ef0d4bf831dcc1117d1cfb"
+    },
+    {
+      "segment": "clip25",
+      "frames": 349,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "ed320c6be6e65acc73c8bed1c76925a3e85ec3973715d78f59e4cc47053308fd",
+      "sha256_last": "1f0fbe85b050f8171e1f6badd35e3a9c1d27a895d3f8cfc12df055d0abbaa567"
+    }
+  ],
+  "verifyLaw": "sameboot-x2+crossboot-envelope/v1-chunked",
+  "verify": {
+    "clear30": {
+      "law": "sameboot-x2+crossboot-envelope/v1-chunked",
+      "tierA": "byte-identical",
+      "tierB": "byte-identical",
+      "frames": 472,
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "chunks": 4,
+      "chunkFrames": 150,
+      "relaunches": 0,
+      "kernel": "0.1.0+dedc61cd",
+      "renderer": "e2117f9a81be07a5ceb8af2c13cefbdfbeed2c2d7f15f947bc1ee6f00921c181",
+      "atUTC": "2026-08-05T19:35:56.130Z"
+    },
+    "clip25": {
+      "law": "sameboot-x2+crossboot-envelope/v1-chunked",
+      "tierA": "byte-identical",
+      "tierB": "byte-identical",
+      "frames": 349,
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "chunks": 3,
+      "chunkFrames": 150,
+      "relaunches": 0,
+      "kernel": "0.1.0+dedc61cd",
+      "renderer": "e2117f9a81be07a5ceb8af2c13cefbdfbeed2c2d7f15f947bc1ee6f00921c181",
+      "atUTC": "2026-08-05T20:01:15.266Z"
+    }
+  },
+  "titleCard": {
+    "value": "Jump shot minimum elevation",
+    "claim": "ballistic clearance over a full ball (battery F3)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "945b900a2ec890510bf494571ac449cb96510d67d19faea262a78e43c83b5d22",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "8aba95ec0c29b55363d17d1c9bd30ca552221eec2b69799a659efc1011ad937c"
+  }
+}

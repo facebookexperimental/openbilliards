@@ -1,0 +1,53 @@
+{
+  "format": "openbilliards.anchors.v1",
+  "anchor": "sidespin_kick_offsets",
+  "provenance": "Spec SC-002 / Dr. Dave billiards bank-kick effects FAQ: '1/3, 2/3 and 3/3 of maximum spin result in approximately 1, 2 or 3 diamonds of cross-table change' (docs/research/gap-k66-cushion-params.md sec 3/5). GEOMETRY REINTERPRETATION (GitHub issue #9): 'cross-table change' is the lateral change measured ACROSS the table of a kick traveling ALONG it - a LENGTHWISE kick driven perpendicular into a short rail with ~7.82 diamonds (nose to nose) of return travel - NOT a kick driven cross-table into a long rail (~3.64 diamonds of return), which is the geometry this fixture encoded before and whose ~1.35-diamond full-english ceiling was misread as a cushion-model gap. Derivation: at 1/3..full english the rail contact is in gross slip, where the rebound lateral/normal speed ratio is Coulomb-capped at mu*(1+e) = 0.2*1.85 = 0.37; over 7.82 diamonds of return that projects to <= 2.9 diamonds (matches the full-english spec point 3), over 3.64 diamonds only <= 1.35 (the old measurement, kept below as cross_table_full_english). measured_diamonds are release-mode kernel measurements at cue_v0 = 2 m/s (harness measure_lengthwise_kick_grid in tests/anchors.rs), IDENTICAL under Han2005 and StrongeCompliant(omega_ratio=1.8) to < 1e-4 diamonds (gross slip: Stronge's tangential impulse equals the Coulomb limit, same as Han's gross-slip branch) and mirror-symmetric in the spin sign. Residuals to the nominal 1/2/3: -0.216 / -0.092 / -0.197 diamonds - all INSIDE the +-0.3 spec windows, but consistently low; mu_w is the lever that would lift them (research range 0.14-0.22, current 0.20 - gap-k66 sec 5, sec 6 item 4). The 1/3-english point is sub-linear (0.784 < 2.803/3): at low english more of the Coulomb-limited friction impulse opposes the topspin component of the contact slip. UNITS: 1 diamond = 0.3175 m = table length/8 = width/4 (identical spacing along long and short rails on a 9-ft table); the lateral change is measured across the short rail in those units, read at the ball's return arrival at the head rail nose.",
+  "cue_v0": 2.0,
+  "full_english_tip_offset": 0.5,
+  "lengthwise_geometry": {
+    "start_x_abs": 0.45,
+    "start_y": -1.2,
+    "aim": "phi = pi/2, straight into the foot (short) rail; b = 0, and the ~2.44 m approach guarantees natural roll well before contact",
+    "start_x_note": "the ball starts on the side opposite the expected drift (right english, a > 0, drifts +x => start at x = -0.45) so up to ~3 diamonds of lateral change fit without touching a long rail",
+    "measure": "signed lateral offset x(head-rail arrival) - x0 in diamonds, read at the second cushion contact (the head rail): one full table length of return travel",
+    "return_travel_diamonds": 7.82,
+    "diamond_m": 0.3175
+  },
+  "points": [
+    {
+      "english_fraction": 0.3333333333333333,
+      "spec_diamonds": 1.0,
+      "spec_tol_diamonds": 0.3,
+      "measured_diamonds": 0.7837,
+      "measured_tol_diamonds": 0.1,
+      "measured_diamonds_mathavan": 0.7399,
+      "measured_tol_diamonds_mathavan": 0.1
+    },
+    {
+      "english_fraction": 0.6666666666666666,
+      "spec_diamonds": 2.0,
+      "spec_tol_diamonds": 0.3,
+      "measured_diamonds": 1.9084,
+      "measured_tol_diamonds": 0.1,
+      "measured_diamonds_mathavan": 1.9009,
+      "measured_tol_diamonds_mathavan": 0.1
+    },
+    {
+      "english_fraction": 1.0,
+      "spec_diamonds": 3.0,
+      "spec_tol_diamonds": 0.3,
+      "measured_diamonds": 2.8031,
+      "measured_tol_diamonds": 0.1,
+      "measured_diamonds_mathavan": 2.9329,
+      "measured_tol_diamonds_mathavan": 0.1
+    }
+  ],
+  "cross_table_full_english": {
+    "note": "sanity record (issue #9): the same full-english kick driven cross-table into the right long rail (start (-0.55, -0.5), ~3.64 diamonds of return) - the OLD anchor geometry. The Coulomb-capped rebound ratio is a direction, so lateral change scales with return travel: expected ratio ~= 7.82/3.64 = 2.15, measured 2.8031/1.3471 = 2.08 (~2x, both models).",
+    "measured_diamonds": 1.3471,
+    "measured_tol_diamonds": 0.1,
+    "ratio_min": 1.8,
+    "ratio_max": 2.2
+  },
+  "mathavan_note": "Cushion-v3 stage 2 (kernel-api Amendment 005, GitHub issue #9): measured_diamonds_mathavan are release-mode kernel measurements of the SAME lengthwise geometry under SimOptions::mathavan_2010() -- the Mathavan 2010 dual-contact resolver at pool parameters (mu_w = f_c = 0.2 flat, energetic ee0 = 0.98, bed mu_s = u_s = 0.2), harness examples/eval_mathavan.rs (kickpin mode). Residuals to the nominal 1/2/3: -0.260 / -0.099 / -0.067 diamonds -- all INSIDE the +-0.3 SC-002 windows (the dual-contact bed friction steepens the response in english, pulling the full-english point up from Han's 2.803 to 2.933 while the 1/3 point drops 0.784 -> 0.740). Pins re-measured at the shipped delta_p_scale = 0.1 default (delta_p = 1e-4; the earlier scale-1.0 pins 0.7405/1.9046/2.9361 carried the first-order step-size bias, see MATHAVAN_DELTA_P_SCALE_DEFAULT docs). Joint-fit record (examples/eval_mathavan.rs grid, 36 configs x 9 sims over mu_w 0.14-0.25 x ee 0.85-0.98): kicks stay green for mu_w in [0.18, 0.25] at ee = 0.98 and narrow toward mu_w <= 0.18 as ee drops to 0.85; the max-honest-passes point with kicks green is (mu_w 0.25, ee 0.98), which additionally closes the TOPRIGHT-02 running-vs-reverse spread to 15.7 deg (>= 15 required) but nothing else, so the shipped Mathavan preset keeps the pool defaults (mu_w 0.2, ee 0.98). The mu_s-bed axis is dead at these arrivals (resolver-level probe: exit angle changes < 0.1 deg over mu_s 0.10-0.30), so u_s = 0.2 stays pooltool-faithful."
+}

@@ -1,0 +1,2125 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* openbilliards UI kit — component styles. Consumes tokens.css variables
+   ONLY (no hardcoded colors/sizes; contract: feature 006 (internal spec)
+   contracts/ui-kit.md). Class namespace .ob- is reserved for this kit.
+   Native inputs stay in the DOM (e2e/AT contract) and are restyled via
+   appearance:none; the only fully custom widget is the select popover. */
+
+/* ---------- base ---------- */
+
+/* G2 (the design charter geometry contracts): every kit-owned box computes
+   border-box — all fixed dimensions below (34x20 toggle track, 6px
+   progress, 16px slider thumb, panel widths) state OUTER size including
+   the 1px border. Scoped to ob-* classes + their pseudos on purpose: a
+   global * reset would reflow the canvas/HUD layout nodes outside the kit.
+   :where() keeps specificity 0 so component rules always win. */
+:where([class^="ob-"], [class*=" ob-"]),
+:where([class^="ob-"], [class*=" ob-"])::before,
+:where([class^="ob-"], [class*=" ob-"])::after {
+  box-sizing: border-box;
+}
+/* vendor pseudo-elements can't share a selector list (an unknown pseudo
+   would invalidate the whole list in other engines) */
+.ob-range::-webkit-slider-runnable-track { box-sizing: border-box; }
+.ob-range::-webkit-slider-thumb { box-sizing: border-box; }
+.ob-range::-moz-range-track { box-sizing: border-box; }
+.ob-range::-moz-range-thumb { box-sizing: border-box; }
+
+/* GH-668 B-K23 — no kit-bearing control at a UA font. A <button> outside
+   any .ob-panel (the place rail's strip segments, the DVR list's chips)
+   used to fall back to the UA 13.333px / system family; one zero-
+   specificity reset makes every control that carries or sits inside a kit
+   class inherit its host's font, and each part then states its own role
+   (size / weight / line height) on top. :where() keeps this at 0,0,0 so no
+   kit or surface rule has to fight it. */
+:where(button, input, select, textarea, [role="button"]):where([class*="ob-"], [class*="ob-"] *) {
+  font: inherit;
+}
+
+/* GH-668 B-K23 — ONE scrollbar rule. Every kit scroll pane (and any surface
+   pane that adds `.ob-scroll`) draws the thin UA scrollbar in the kit's
+   ink; the three ::-webkit-scrollbar recipes this replaces (select list,
+   navmodal nav + pane, the DVR card body) are gone. Inline strips are the
+   OTHER law (.ob-strip hides its bar and pans — see the strip block). */
+.ob-scroll, .ob-select__list, .ob-navmodal__nav, .ob-navmodal__pane {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ob-bg-3) transparent;
+}
+
+.ob-panel, .ob-select, .ob-select__list, .ob-toggle, .ob-segmented,
+.ob-badge, .ob-banner, .ob-progress {
+  font-family: var(--ob-font);
+  font-size: var(--ob-fs-0);
+  font-weight: var(--ob-fw-reg);
+  color: var(--ob-text-0);
+  line-height: var(--ob-lh-body);
+}
+
+.ob-panel button:focus-visible, .ob-btn:focus-visible,
+.ob-range:focus-visible, .ob-toggle input:focus-visible ~ .ob-toggle__track,
+.ob-select:focus-visible, .ob-segmented label:has(input:focus-visible) {
+  outline: none;
+  box-shadow: var(--ob-focus);
+}
+/* GH-226: navmodal open() places PROGRAMMATIC focus on the active nav
+   item; before the session's first pointer interaction the browser's
+   boot-default modality made that script focus match :focus-visible, so
+   the ring above painted on a pointer-opened modal (the phone tab strip's
+   overflow clip reduced it to a stray thick bar on the selected pill's
+   right side). navmodal quietFocus() marks exactly that one focus; the
+   marker clears on the first keydown/blur, so a genuine keyboard focus
+   still shows the ring — this is NOT a blanket outline:none. */
+.ob-panel button[data-ob-quiet-focus]:focus-visible { box-shadow: none; }
+/* FOCUS-ON-PRESENT (GH-668 B-K06): presenting a sheet/list moves focus to
+   its title or container — the element marked data-ob-present-focus
+   (tabindex=-1; dialog.js openPanel prefers it over the first focusable),
+   so a programmatic open never rings the first CONTROL (the DVR filter's
+   selected segment wore ring + selected fill = three rings, critique R-15).
+   The anchor shows the same ring on a keyboard-modality open and none after
+   a pointer open (the browser's :focus-visible heuristic); close returns
+   focus to the opener (dialog.js prevFocus). */
+[data-ob-present-focus]:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+  border-radius: var(--ob-r-s);
+}
+
+/* ---------- MATERIAL LADDER (GH-668 B-K14 / the design charter "Material ladder")
+   Four rungs, declared ONCE, and who wears them:
+     .ob-mat-smoke  — hall PLACE chrome only (rail band, place cards, note):
+                      --ob-glass-bg 52 % + blur + saturate + specular + noise.
+     .ob-mat-glass  — HUD INSTRUMENT panels (.ob-panel family): --ob-glass
+                      82 % + blur; shares the hall's specular + noise so the
+                      two never read as two products.
+     .ob-mat-solid  — text-dense micro-chrome: sticky headers, the selected
+                      rail pill's base, EVERY inner card on a glass pane, and
+                      every fallback rung: --ob-glass-solid 94 %, no blur.
+     .ob-mat-opaque — modals and action footers: an opaque --ob-bg-* step.
+   ONE BLUR PER STACK: a translucent rung nested inside a blurred rung drops
+   to the solid rung (the milky mid-tone ground of the S5 critique was a
+   52 % smoke + 14 px blur painted on top of another). The fallback ladder is
+   the shell's (no backdrop-filter support / prefers-reduced-transparency /
+   body.ob-glass-off perf tier) and lands the solid rung at ~80 % parity.
+   Surfaces adopt these classes in the consumer-deletion step; until then
+   the shell's own recipe (ui/shell.css) is the reference implementation. */
+.ob-mat-opaque { background-color: var(--ob-bg-1); }
+.ob-mat-solid,
+.ob-mat-glass,
+.ob-mat-smoke,
+.ob-prompt {
+  background-color: var(--ob-glass-solid);
+  background-image: var(--ob-glass-noise);
+  border-top-color: var(--ob-glass-edge);
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  body:not(.ob-glass-off) .ob-mat-glass {
+    background-color: var(--ob-glass);
+    backdrop-filter: blur(var(--ob-blur));
+    -webkit-backdrop-filter: blur(var(--ob-blur));
+  }
+  body:not(.ob-glass-off) :is(.ob-mat-smoke, .ob-prompt) {
+    background-color: var(--ob-glass-bg);
+    backdrop-filter: blur(var(--ob-glass-blur)) saturate(var(--ob-glass-sat));
+    -webkit-backdrop-filter: blur(var(--ob-glass-blur))
+                             saturate(var(--ob-glass-sat));
+  }
+  /* the NOTICE register stays on the solid rung under glass too (S5 slice-2
+     visual audit r1, B-SH08 / A2 — B-K14 text-dense micro-chrome; the
+     rationale sits on .ob-prompt--notice below): stated at the smoke rule's
+     own specificity so the family smoke never outranks it.
+     The ROUTED prompt (#ob-shell-decision, .ob-prompt--routed) joins it
+     (GH-638 / #727 ORDER-LIGHT-C2-FIX21): its text-1 hint read 3.70–3.74:1
+     over the venue-lit floor through the smoke at the 844x390 fork —
+     text-dense micro-chrome over the scene takes the solid rung (B-K14). */
+  body:not(.ob-glass-off) :is(.ob-prompt--notice, .ob-prompt--routed) {
+    background-color: var(--ob-glass-solid);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  /* one blur per stack — nested translucent rungs fall to solid */
+  body:not(.ob-glass-off) :is(.ob-mat-glass, .ob-mat-smoke, .ob-prompt)
+    :is(.ob-mat-glass, .ob-mat-smoke, .ob-prompt) {
+    background-color: var(--ob-glass-solid);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  body:not(.ob-glass-off) :is(.ob-mat-glass, .ob-mat-smoke, .ob-prompt) {
+    background-color: var(--ob-glass-solid);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* ---------- panel / dialog shell ---------- */
+
+.ob-panel {
+  background: var(--ob-glass);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-l);
+  box-shadow: var(--ob-el-2);
+  padding: var(--ob-sp-4) var(--ob-sp-5);
+}
+
+/* ---------- G7 type roles (GH-668 B-K13 / B-K24) ----------
+   One type role per component, from the scale; the classes below are the
+   ONLY home of each role, so a part either carries the class or sits in
+   the selector list here — never a restated size/weight/tracking. caps =
+   badges + section/group heads + the nav rail; control = every button,
+   segment, select, option and row/toggle/form label (sentence case, R5);
+   title = every panel / modal / HUD title (16); place = exactly ONE element
+   per frame, the place h2 (19, ruling R2); hint's ink is legal only on an
+   opaque / solid ground (the ground law). */
+.ob-caps, .ob-badge, .ob-status, .ob-prompt__hint {
+  font-size: var(--ob-fs--1);
+  font-weight: var(--ob-fw-semi);
+  letter-spacing: var(--ob-track-caps);
+  text-transform: uppercase;
+  color: var(--ob-text-2);
+}
+/* CJK arm: uppercase and tracking are no-ops in ja / ko / zh, so the caps
+   voice would read as small grey text — drop both, one weight step lighter,
+   13 px. :lang() reads the inherited <html lang> i18n.js sets. */
+:is(.ob-caps, .ob-badge, .ob-status, .ob-prompt__hint):is(:lang(ja), :lang(ko), :lang(zh)) {
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: var(--ob-fw-med);
+  font-size: var(--ob-fs--1-cjk);
+}
+/* a citation inside a caps row keeps its case ("WPA 4.3(d)", "UMB Art
+   23.1(c)"): rule references are case-sensitive data, not label voice
+   (uiaudit GH-1013) */
+.ob-cite { text-transform: none; }
+.ob-control {
+  font-size: var(--ob-fs-0);
+  font-weight: var(--ob-fw-med);
+  line-height: var(--ob-lh-body);
+}
+.ob-body {
+  font-size: var(--ob-fs-0);
+  font-weight: var(--ob-fw-reg);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-1);
+}
+.ob-hint {
+  font-size: var(--ob-fs--1);
+  font-weight: var(--ob-fw-reg);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-2);
+}
+.ob-title, .ob-panel__title, .ob-prompt__title {
+  font-size: var(--ob-fs-1);
+  font-weight: var(--ob-fw-semi);
+  line-height: var(--ob-lh-tight);
+  color: var(--ob-text-0);
+}
+.ob-place {
+  font-size: var(--ob-fs-2);
+  font-weight: var(--ob-fw-semi);
+  line-height: var(--ob-lh-tight);
+  color: var(--ob-text-0);
+}
+.ob-panel__title { margin: 0 0 var(--ob-sp-3); }
+
+.ob-panel__section {
+  /* brand's dashed hairline signature lives on dividers ONLY — control
+     and panel borders stay solid (the site's own cards/pills are solid) */
+  border-top: 1px dashed var(--ob-line-0);
+  padding-top: var(--ob-sp-3);
+  margin-top: var(--ob-sp-3);
+}
+
+.ob-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--ob-scrim);
+  z-index: var(--ob-z-chrome);
+}
+
+/* ---------- confirm dialog (dialog.js confirmDialog) ---------- */
+
+/* Backdrop layering: the confirm/side-nav modals sit ABOVE the fixed z:40
+   chrome (toolbar, settings drawer) and the z:60 export modal wrapper. The
+   base .ob-backdrop keeps z:40 for in-flow panel dialogs (export card). */
+.ob-backdrop--top { z-index: var(--ob-z-scrim); }
+
+.ob-confirm {
+  position: fixed;
+  inset: 0;
+  margin: auto; /* centered via margins — motion.js owns transform */
+  width: min(400px, calc(100vw - 32px));
+  height: fit-content;
+  z-index: var(--ob-z-dialog);
+}
+.ob-confirm--danger { border-color: var(--ob-danger-line); }
+.ob-confirm__body {
+  /* dialog body size per the tokens.css scale note (--ob-fs-1) */
+  font-size: var(--ob-fs-1);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-1);
+  margin: 0;
+}
+.ob-confirm__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--ob-sp-3);
+  margin-top: var(--ob-sp-5);
+}
+
+/* ---------- prompt (GH-668 B-K17: decision prompt + refusal notice) ----------
+   ONE transient-panel voice for the shell's two spoken panels — the in-shell
+   decision prompt (shell.js #ob-shell-decision, migrates in slice 2 B-PL05)
+   and the entry-refusal notice (#ob-shell-note, B-SH08). Before this part
+   the decision was the app's only CENTRED-text panel (82 % glass, sp-4/5,
+   title → caps hint → pills = a hero-metric stack) beside a start-aligned
+   smoke card, and the notice wore the rail's smoke with no register cue.
+   Anatomy: __title (the question, ≤ 40 ch, title role 16) → __hint (caps
+   12: who decides · the citation) → __actions (intrinsic .ob-btn pills,
+   start-aligned, wrap). Material = the hall's SMOKE rung (the material
+   ladder above: 52 % + blur + specular + noise, solid on every fallback
+   rung) — a prompt is place chrome, not an instrument panel. Width follows
+   the longest option (fit-content), never the column. */
+.ob-prompt {
+  position: fixed;
+  z-index: var(--ob-z-shell);
+  width: fit-content;
+  max-width: min(560px, calc(100vw - 32px));
+  padding: var(--ob-sp-3) var(--ob-sp-4);
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-l);
+  color: var(--ob-text-0);
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-body);
+  text-align: start;
+  box-shadow: var(--ob-el-2);
+}
+.ob-prompt__title { margin: 0; } /* title role: the G7 block above */
+.ob-prompt__hint { /* caps role (G7 block above); its own ink for the smoke ground */
+  display: block;
+  margin-top: var(--ob-sp-1);
+  color: var(--ob-text-1);
+}
+.ob-prompt__body {
+  margin: var(--ob-sp-2) 0 0;
+  color: var(--ob-text-1);
+}
+.ob-prompt__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: var(--ob-sp-2);
+  margin-top: var(--ob-sp-3);
+}
+/* an answer never outgrows its row: capped at the actions box, a copy that
+   cannot fit its pill overflows the PILL (not the prompt) and the kit
+   auto-row law (ui/controls.js pillNeedsRow) turns it into --row, where it
+   wraps — the 255 px bound at 667 x 375 under 47 px insets vs 330-400 px
+   longest answers (e2e-play P2p-sa-667) */
+.ob-prompt__actions > .ob-btn { max-width: 100%; }
+/* R6: equal rule-mandated choices are equal NEUTRAL pills (the first is the
+   focus target, never the accent target); --primary only when the rule
+   names a default. Their coarse 44 floor is the kit's one floor (G10). */
+/* NOTICE register: a status line, not a question — bottom-centred over the
+   rail, a 1 px info top edge as its register cue (the rail's smoke alone
+   read as a tooltip), balanced wrapping (the ja one-glyph orphan), and on
+   coarse a bottom that clears the 66 px coarse rail band (88 = 12 rail
+   bottom + 66 band + 10 breathing) plus the consumer's stacking lift
+   (--ob-prompt-lift: the shell raises it over the remember pill via
+   :has() — B-SH08). Notices are informational: pointer-events none. */
+.ob-prompt--notice {
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  bottom: calc(84px + var(--ob-prompt-lift, 0px) + env(safe-area-inset-bottom, 0px));
+  max-width: min(480px, calc(100vw - 32px));
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  border-top: 1px solid var(--ob-info-line);
+  color: var(--ob-text-1);
+  text-wrap: balance;
+  pointer-events: none;
+  /* MATERIAL (S5 slice-2 visual audit r1, B-SH08 / A2): a one-line status
+     is text-dense micro-chrome — the B-K14 rung the place rail took. The
+     prompt family's smoke (52 %) read text-1 at 3.4-3.5:1 over LIT felt
+     (the busy refusal lands over the table with the hall closed; the coarse
+     long-press feedback always does) and 9:1 over the dark room — the
+     ground must not depend on the cloth under it. Solid rung, no blur;
+     the routed prompt keeps the family glass (it sits over the room). */
+  background-color: var(--ob-glass-solid);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+@media (pointer: coarse) {
+  html.ob-touch .ob-prompt--notice {
+    bottom: calc(88px + var(--ob-prompt-lift, 0px) + env(safe-area-inset-bottom, 0px));
+    max-width: min(480px, 56vw);
+  }
+}
+/* ROUTED register (the decision prompt): centred at the top on wide frames;
+   under 1180 px it moves to the band RIGHT of the 280 px card column (the
+   shell.js #ob-shell-decision numbers: 12 px band, 560 px bound, safe-area
+   insets subtracted twice) so it never crosses the column. */
+.ob-prompt--routed {
+  top: calc(var(--ob-sp-3) + env(safe-area-inset-top, 0px));
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+}
+@media (max-width: 1180px) {
+  .ob-prompt--routed {
+    left: auto;
+    margin-inline: 0;
+    right: calc(var(--ob-sp-3) + env(safe-area-inset-right, 0px));
+    max-width: min(100vw - 318px - env(safe-area-inset-left, 0px)
+      - env(safe-area-inset-right, 0px), 560px);
+  }
+}
+/* ONE PLACEMENT LAW for both transient panels on a coarse landscape frame
+   with the place cards up: the kit confirm (dialog.js) landed mid-card on
+   the phone (crossed the column by 72 px); it now anchors where the routed
+   prompt does — the band right of the card column — instead of the
+   viewport centre. body.ob-shell-open = the card column is on screen. */
+@media (pointer: coarse) and (max-width: 1180px) {
+  html.ob-touch body.ob-shell-open :is(.ob-confirm, .ob-prompt--routed) {
+    top: calc(var(--ob-sp-3) + env(safe-area-inset-top, 0px));
+    bottom: auto;
+    left: auto;
+    right: calc(var(--ob-sp-3) + env(safe-area-inset-right, 0px));
+    margin: 0;
+    max-width: min(100vw - 318px - env(safe-area-inset-left, 0px)
+      - env(safe-area-inset-right, 0px), 560px);
+  }
+}
+
+/* ---------- icon faces (de-baseline law) ---------- */
+
+/* Every ui/icons.js face carries data-icon (icons.js iconHtml). An <svg>
+   defaults to display:inline — a BASELINE-aligned inline replaced box — so
+   its line box adds the font descent + half-leading BELOW the glyph, the
+   holder inflates downward, and align-items:center then centres the HOLDER,
+   not the ink (measured on c1166631: .ob-pb-adv "Advanced" face 2.50px high
+   = 7.50 device px at the owner's DPR 3, .ob-pb-save 3.00px, and a kit
+   .ob-btn 3px TALLER than its byte-identical text-only sibling). A BLOCK
+   face has no line box at all: the holder's height collapses onto the glyph
+   and every centring rule in the app starts measuring the INK.
+   flex:0 0 auto — a face in a flex row must never shrink (the label absorbs
+   a long locale; labels-never-ellipsize law).
+   SCOPED TO [data-icon] on purpose: a bare `svg { display: block }` would
+   reach the canvas/scene/decorative SVGs outside the icon grammar.
+   Single source of the law; the per-module copies (export.js, record.js,
+   share.js, modes.css) stay as documented stale-cache belts — a cached
+   kit.css paired with a fresh module would otherwise re-hang those glyphs. */
+svg[data-icon] { display: block; flex: 0 0 auto; }
+
+/* Explicit icon slot. It also carries the TEXT-GLYPH fallback register: when
+   the guarded icons.js import fails, face() writes a text glyph ('⚙') into
+   the holder. What line-height:1 buys there is measured and narrower than
+   "keeps it centred" (align-items does the centring): it COLLAPSES the
+   holder onto the glyph's em box (12px vs 16px at --ob-fs--1), so the text
+   register cannot inflate the row the way a baseline-hung <svg> did. Gated by
+   e2e-ui J4b on the glyph's INK plus the collapsed slot height. */
+.ob-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  line-height: var(--ob-lh-glyph);
+}
+/* label slot: part of the anatomy contract (ui-kit.md amendment). No
+   flex-shrink override — the truncation gate polices the label, and the
+   face is pinned above so pressure lands on the label, never the glyph. */
+.ob-btn__label { white-space: nowrap; }
+
+/* ---------- buttons ---------- */
+
+.ob-btn, :where(.ob-panel) button:where(:not(.ob-select)) {
+  appearance: none;
+  font: inherit;
+  font-size: var(--ob-fs-0);
+  font-weight: var(--ob-fw-med);
+  color: var(--ob-text-0);
+  background: var(--ob-bg-2);
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-full); /* brand: pill = clickable */
+  /* G6 (GH-667 / B-K10): inline pad is DERIVED from the pill's height rung
+     (tokens.css --ob-pill-pad-* = h × 0.4), never a spacing step picked by
+     eye. The base pill is the control rung (16px on 36–40 = 0.44–0.4 h);
+     every taller rung re-derives (strip pills below, the coarse floor in
+     the G10 step). Surfaces never set pill padding. */
+  padding: var(--ob-sp-2) var(--ob-pill-pad);
+  cursor: pointer;
+  user-select: none;
+  /* G5 (GH-667 / B-K01): a --ob-r-full pill holds exactly ONE line; long
+     locales grow the button, never the line count. `white-space: normal`
+     on a .ob-btn is legal ONLY together with --tile or --row (the two
+     modifiers that change the radius pole to --ob-r-m first) — the e2e-ui
+     J9 lab + the A1 audit predicate red any pill painting > 1 line box. */
+  white-space: nowrap;
+  transition: background var(--ob-t-fast) var(--ob-ease),
+              border-color var(--ob-t-fast) var(--ob-ease),
+              color var(--ob-t-fast) var(--ob-ease);
+}
+/* LAYOUT CONTRACT (2026-07 button audit, owner build-11 finding). .ob-btn
+   shipped with appearance/font/colour/border/radius/padding and NO display,
+   align-items, justify-content or gap — the only kit part pairing a glyph
+   with text that never got the flex centring every sibling restates
+   (.ob-navmodal__close, .ob-select, .ob-toggle, .ob-badge). That is why 13
+   surfaces hand-wrote these same three declarations and why ZERO shipped
+   .ob-btn instances carried icon+label: the component could not hold a face.
+   SCOPED TO .ob-btn, deliberately NOT added to the shared
+   `:where(.ob-panel) button` arm — measured regression there: .ob-game-row
+   70 -> 78px and .ob-eq-prov-row__pick 44 -> 52px (an --ob-sp-2 gap leaking
+   into bespoke multi-child panel buttons). The de-baseline law above is what
+   fixes the non-.ob-btn carriers; they already declare display:flex.
+   justify-content:center reproduces the UA text-align:center buttons already
+   had (widths measured byte-identical on #shoot/#replay/#rerack).
+   This wave adds LAYOUT ONLY — the --primary/--ghost/--danger ladder and
+   every hover/active/disabled/focus rung below are untouched. */
+.ob-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ob-sp-2);
+}
+/* HEIGHT LADDER (GH-668 B-K11, visual audit r1 P2): a default pill sits on
+   the CONTROL rung — 40 border-box — stated ONCE here at (0,1,0), BEFORE
+   every voice with its own rung (--icon 34 / 44, --row 44, --lg 48, --thumb
+   64, .ob-strip__seg 44 — all later in this sheet, so the cascade lets them
+   win). The padding math alone landed off the ladder: sp-2 + the 21 px line
+   box + 2 px border = 39 (the lab2 default / danger pill), and the HUD's
+   fs--1 pills 36. min-height lifts them to the rung without touching the pad
+   math (G6 pads follow the rung). Scoped to .ob-btn ALONE — never the shared
+   `:where(.ob-panel) button` recipe above: that leg dresses hand-rolled panel
+   buttons (the About pane's text-link rows, the DVR's chip strips) whose
+   rungs are their owners' (fix round 4 r2: the shared block lifted the About
+   links to 40 px with the dashed underline 9 px under the text). */
+.ob-btn { min-height: var(--ob-h-control); }
+/* HIDDEN semantics belong to the component that took over `display`. The UA
+   sheet's `[hidden] { display: none }` lives in the UA ORIGIN, so ANY author
+   `display` beats it: the moment .ob-btn declared one, every
+   `btn.hidden = true` in the app would have kept painting (the reason
+   modes.css already carries a one-off `#rerack[hidden]` guard). Restated at
+   (0,2,0) so it also outranks the .ob-btn rule above. Module rules that set
+   `display` on a .ob-btn at HIGHER specificity (an id, or
+   `html.ob-touch .ob-touch-row`) still owe their own guard — same as before
+   this wave. */
+.ob-btn[hidden] { display: none; }
+/* .ob-badge owns display too (inline-flex below) and therefore owes the
+   same guard — the GH-534 polish-pass evidence: the atelier lighting prov
+   row hides its tier badge (fixtures are settings mirrors, no catalog
+   tier), and the hidden EMPTY badge kept painting as a stray gray dash
+   beside the fixture name (the F1 ghost class, one rung down). */
+.ob-badge[hidden] { display: none; }
+/* STALE-MODULE BELTS for the layout contract above (review round 9). The
+   cache-poison contract treats fresh-CSS / stale-JS as a SUPPORTED pairing —
+   it is the same reasoning that keeps the per-module `svg { display: block }`
+   copies alive as belts in the other direction. Both rules below EXIST in
+   their owning module's injected stylesheet, which is appended after this
+   sheet and therefore still wins when the module is fresh; this copy only
+   ever takes effect when `kit.css?v=013` is served against a heuristically
+   cached PRE-contract module, and it is then the only thing standing
+   between the user and a measured layout regression:
+     - `#ob-rq-card .rq-row` (record-quality.js) is a LEDGER row, not a
+       centred pill: without its own `justify-content: flex-start` the kit's
+       `center` re-packs the size chip + description pair (measured on the
+       stale pairing: chip left 15.80/49.98 instead of 13.00 on the
+       as-recorded/720p/1080p/4K rows).
+   Specificity is what makes it work: (1,1,0) outranks the (0,1,0) `.ob-btn`
+   rule. It adds no declaration its module does not already state — a belt,
+   never a new opinion.
+   RETIRED BELT (GH-225 Phase D): `.ob-touch-row.rec { gap: 0 }` was the
+   second member of this block, belting record.js's recording-dot `::before`
+   (which owns `margin-right: var(--ob-sp-2)`, so the kit gap would be spent
+   a SECOND time on the same edge — 16px instead of 8px, label left
+   95.19 -> 102.19 at 852x393 DPR3). Phase D retires the phone settings-sheet
+   Record row and record.js's `.ob-touch-row.rec` rules with it, so the
+   FRESH module no longer states that declaration — and this block's own
+   invariant is that a belt never states what its module does not. Kept
+   honest about the residue: a DOUBLY stale graph (a pre-button-audit
+   record.js paired with a pre-Phase-D touchwidgets.js that still builds the
+   row) would paint that dot 8px wider. That is a cosmetic 8px on a row that
+   no longer ships, and it was judged the better trade than a kit-level
+   declaration contradicting the belt contract. */
+#ob-rq-card .rq-row { justify-content: flex-start; }
+/* SELECTION OUTRANKS HOVER (GH-525 integrator 2026-09-05; the kit strip's
+   pill probe log, internal): a control
+   that IS the current selection ([aria-current="true"]) never takes hover
+   paint — its selected register is the one source of truth for its look.
+   The exclusion rides :not(:where(...)) so this rung keeps its (0,3,0):
+   every consumer override that beats it by order today still does.
+   GUARDED HOVER LAW (GH-668 B-K15): every :hover rung in this sheet sits
+   inside @media (hover: hover) and (pointer: fine) — see the strip block
+   for the touch-sticky-hover finding; the media wrapper changes NO
+   specificity, so the (0,3,0) arithmetic below is untouched. :active is
+   the coarse pointer's feedback register and stays unguarded. */
+@media (hover: hover) and (pointer: fine) {
+  .ob-btn:hover:not(:disabled):not(:where([aria-current="true"])),
+  :where(.ob-panel) button:where(:not(.ob-select)):hover:not(:disabled):not(:where([aria-current="true"])) {
+    background: var(--ob-bg-3);
+    border-color: var(--ob-line-2);
+  }
+}
+/* :active — CSS-side press state (full state coverage law, the product charter):
+   motion.js press() adds the scale feedback when present; this holds
+   without it (reduced-motion / stale-cache kit).
+   LADDER DOCTRINE (defined here, consumed kit-wide): default < hover <
+   active — pressed is always ONE rung PAST hover, never back below it,
+   and every variant walks all three rungs inside its OWN hue (the
+   per-variant :hover/:active rules below outrank these neutral rungs at
+   equal specificity by source order; #49 review finding 2). ID-styled
+   toolbar pills (#ob-playback, #ob-gear, #ob-help, #ob-share, #ob-drills,
+   #ob-export-btn — #ob-record left with its pill in GH-225 Phase D)
+   outrank this rule entirely, so each restates hover AND active at id
+   specificity in its own style block. They also all
+   share ONE material at rest — border 1px --ob-line-1 over --ob-glass with
+   the backdrop blur, NEVER the accent voice (that belongs to
+   .ob-btn--primary below); e2e-ui --audit J3 gates the family. */
+.ob-btn:active:not(:disabled),
+:where(.ob-panel) button:where(:not(.ob-select)):active:not(:disabled) {
+  background: var(--ob-bg-3);
+  border-color: var(--ob-accent-dim-2); /* pressed reads one rung past hover */
+}
+.ob-btn:disabled, :where(.ob-panel) button:where(:not(.ob-select)):disabled {
+  opacity: 0.38;
+  cursor: default;
+}
+
+.ob-btn--primary {
+  background: var(--ob-accent-dim);
+  border-color: var(--ob-accent-line);
+  color: var(--ob-accent-text);
+  font-weight: var(--ob-fw-semi);
+}
+/* PRIMARY LADDER (GH-668 B-K15): rest dim (16 %) -> hover dim-3 (36 %) ->
+   active dim-3 + an INSET --ob-el-1 press. The dim -> dim-2 hover step
+   (10 alpha points on a wash) measured imperceptible on the play rail
+   (0.9 % of pixels changed) and the shell's quick-play even stepped DOWN
+   under the pointer; the ladder now moves a full 20 points on hover and
+   the press is a shadow, not a fourth wash. Pressed keeps the focus ring
+   composed (B-K06: a box-shadow-bearing register never hides the ring). */
+@media (hover: hover) and (pointer: fine) {
+  .ob-btn--primary:hover:not(:disabled) {
+    background: var(--ob-accent-dim-3);
+    border-color: var(--ob-accent);
+  }
+}
+.ob-btn--primary:active:not(:disabled) {
+  background: var(--ob-accent-dim-3);
+  border-color: var(--ob-accent);
+  box-shadow: inset var(--ob-el-1);
+}
+.ob-btn--primary:active:not(:disabled):focus-visible {
+  box-shadow: var(--ob-focus), inset var(--ob-el-1);
+}
+
+.ob-btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ob-text-1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ob-btn--ghost:hover:not(:disabled) {
+    background: var(--ob-bg-2);
+    color: var(--ob-text-0);
+  }
+}
+.ob-btn--ghost:active:not(:disabled) {
+  background: var(--ob-bg-3); /* pressed: one rung deeper than hover */
+  color: var(--ob-text-0);
+}
+
+.ob-btn--danger {
+  background: var(--ob-danger-dim);
+  border-color: var(--ob-danger-line);
+  /* label ink = the READING step, not the hue (GH-668 B-K20): --ob-danger
+     on its own wash measures 3.95–4.64:1 over kit glass, --ob-danger-text
+     7.3–11.5:1 on every wash over every ground (token-receipts.mjs). The
+     hue stays on the border + wash so the button still reads destructive. */
+  color: var(--ob-danger-text);
+}
+/* danger walks its OWN ladder (#49 review finding 2a: without these the
+   generic .ob-btn rungs above outrank the variant and a pressed danger
+   button flashed NEUTRAL bg + accent-green border — destructive intent
+   must never read as safe). Mirrors primary's rung grammar: hover = dim-2
+   wash + full-hue border, active = dim-3 wash one rung past hover. */
+@media (hover: hover) and (pointer: fine) {
+  .ob-btn--danger:hover:not(:disabled) {
+    background: var(--ob-danger-dim-3); /* mirrors the primary's 20-point hover step (B-K15) */
+    border-color: var(--ob-danger);
+  }
+}
+.ob-btn--danger:active:not(:disabled) {
+  background: var(--ob-danger-dim-3);
+  border-color: var(--ob-danger);
+  box-shadow: inset var(--ob-el-1); /* the press, danger-hued wash under it */
+}
+.ob-btn--danger:active:not(:disabled):focus-visible {
+  box-shadow: var(--ob-focus), inset var(--ob-el-1);
+}
+
+/* SHAPE modifier, not a voice: the icon-only pill. The 2026-07 button audit
+   found NINE independent restatements of this exact shape (square-ish box,
+   zero padding, a centred face, its own coarse tap floor) across playback/
+   help/drills/touch/export — none of them a kit part. 34px matches the
+   toolbar-family height law (the design charter); the coarse arm lifts it to the
+   44pt floor. Composes with --primary/--ghost/--danger for voice.
+   The icon square states its own coarse rung (width AND height); every
+   other kit control rides the ONE coarse floor after the row modifier. */
+.ob-btn--icon {
+  width: var(--ob-h-toolbar);
+  height: var(--ob-h-toolbar);
+  min-height: var(--ob-h-toolbar); /* its own rung (the base pill's control floor above must not lift the circle) */
+  padding: 0;
+  /* flex:0 0 auto — width/height alone are a STARTING size: as a flex item the
+     pill keeps the default flex-shrink:1, so a crowded row (or a column, where
+     the height is the main axis) would collapse it toward its icon's
+     min-content box and break the 44pt coarse floor below. Same law the face
+     itself carries (svg[data-icon]). */
+  flex: 0 0 auto;
+}
+@media (pointer: coarse) {
+  html.ob-touch .ob-btn--icon { width: var(--ob-h-coarse); height: var(--ob-h-coarse); min-height: var(--ob-h-coarse); }
+}
+
+/* SHAPE modifier, not a voice: the stacked icon-over-label TILE (GH-245
+   wave B — the shape the 2026-07 button audit found restated on the save
+   card's destination tiles and the player's camera shelf, neither a kit
+   part). A tile is a CARD, not a pill: mid radius, column axis, labels may
+   WRAP (the de destination labels do) — wrapping is the no-ellipsize law
+   working, so white-space reopens here. Composes with --primary/--ghost/
+   --danger for voice and inherits every .ob-btn rung (hover/active/
+   disabled/focus). No size pin: tiles are grid/row-sized by their surface
+   (.ob-pb-dests grid, .ob-pb-row1), and each surface owns its own coarse
+   floor (the enumerated-44pt-sites law). */
+.ob-btn--tile {
+  flex-direction: column;
+  gap: var(--ob-sp-1);
+  border-radius: var(--ob-r-m);
+  padding: var(--ob-sp-3) 0 var(--ob-sp-2);
+  white-space: normal;
+}
+
+/* ACTION ROW modifier (GH-667 / GH-668 B-K01, the design charter G5): the shape a
+   label takes the moment it needs a SECOND line. Seven surfaces had
+   re-opened `white-space: normal` on the r-full pill (shell card actions,
+   replays Open, atelier txbar/actions, the decision prompt ≤ 700px, the
+   practice degrade + "All assists" rows, the play Back) and de/fr grew
+   2–3-line 66–88px blobs whose end caps (r = h/2 ≥ 33) ate the inline pad
+   on the first and last line — the text touched the curve. A row is a
+   CARD-POLE control, not a pill: mid radius, sp-2 / sp-3 pads, the control
+   line height (--ob-lh-control 1.35, not the 1.5 body rhythm), start-
+   aligned text with the glyph slot leading (.ob-btn__icon stays on the
+   optical centre of the ≤ 2-line block via the base align-items). Floor
+   44 / 44 (charter). Copy law G8: ≤ 2 lines; a third line is a COPY
+   defect, not a layout job (the J9 lab reds it). Composes with --primary /
+   --ghost / --danger for voice and inherits every .ob-btn rung; a row
+   inside a column stretches to the column by the consumer's `width:
+   100%` — that is the row's legal full-width form (a full-width r-full
+   pill with start-aligned text is what reads as a text field). */
+.ob-btn--row {
+  justify-content: flex-start;
+  min-height: var(--ob-h-row);
+  border-radius: var(--ob-r-m);
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  line-height: var(--ob-lh-control);
+  text-align: start;
+  white-space: normal;
+}
+/* the label slot's nowrap (above) is the pill law; the row re-opens it at
+   (0,2,0) so the SLOT wraps with its host (makeButton() rows) */
+.ob-btn--row .ob-btn__label { white-space: normal; }
+
+/* COARSE FLOOR, STATED ONCE (the design charter G10; uiaudit RC3). Under a finger
+   every kit control lifts to the 44 pt rung: the default / --toggle pill
+   (its inline pad re-derived on the coarse rung, G6), the tile, the select
+   trigger and the option. Before this the floor was enumerated at ~55
+   surface sites, and any pill a surface forgot stayed 40 beside 44 siblings
+   (A15). Voices with their own rung keep it: --icon (above), --row and the
+   strip (44 / 48), --lg 48, --thumb 64, toolbar pills 44. :where() holds
+   the rule at (0,1,1) — over the (0,1,0) control rung, under every surface
+   rule that sizes its own part on purpose. Double-gated like every coarse
+   rung: touch.js armed (html.ob-touch) AND (pointer: coarse). */
+@media (pointer: coarse) {
+  html.ob-touch :where(.ob-btn:not(.ob-btn--icon, .ob-btn--row, .ob-btn--tile, .ob-btn--lg, .ob-btn--thumb, .ob-strip__seg, .ob-toolbar-pill)) {
+    min-height: var(--ob-h-coarse);
+    padding-inline: var(--ob-pill-pad-coarse);
+  }
+  html.ob-touch :where(.ob-btn--tile, .ob-select, .ob-option) { min-height: var(--ob-h-coarse); }
+}
+
+/* ---------- toolbar voice + family (GH-668 B-K16) ----------
+   --glass = the TOOLBAR MATERIAL (the design charter toolbar family: border 1px
+   --ob-line-1 over --ob-glass + backdrop blur, --ob-text-0 ink), the
+   register seven pills hand-rolled at id specificity (#ob-shell-open,
+   #ob-gear, #ob-help, #ob-drills, #ob-playback, #ob-share, #ob-export-btn)
+   — each restating hover AND active because its id rest rule outranked the
+   kit's rungs. Declared at (0,1,0) the rest material sits UNDER the kit
+   hover/active/focus ladder (0,3,0), so a glass pill walks the same rungs
+   as every .ob-btn (hover bg-2/line-2, pressed bg-3/accent-dim-2, ring).
+   Module id blocks keep ONLY the stale-app.html position fallback
+   (`#ob-toolbar > * { position: static !important }` neutralises it once
+   containered) and the icons.js-fails glyph fallback. e2e-ui J3 gates the
+   family's one material (bg + ink + blur), J12 the voice itself. */
+.ob-btn--glass {
+  background: var(--ob-glass);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+}
+/* the family part = .ob-btn.ob-btn--icon.ob-btn--glass + this: the chrome
+   layer (fallback placement only), the text-fallback metrics (a stale
+   module's '?' / '⚙' / '▸' glyph stays centred in the circle — line-height
+   1 keeps it from inflating the circle, the .ob-btn__icon law), the face
+   laws (the aria-hidden span sizes to its SVG, no baseline descent), and
+   flex: 0 0 auto (already on --icon; restated for the text register). */
+.ob-toolbar-pill {
+  z-index: var(--ob-z-chrome);
+  flex: 0 0 auto;
+  font-size: var(--ob-fs-2);
+  font-weight: var(--ob-fw-med);
+  line-height: var(--ob-lh-glyph);
+  /* the TEXT fallback (before the icons.js import resolves, or under a
+     stale / absent icons.js `#ob-share` keeps its word — no --icon yet)
+     sits on the toolbar rung 34 / 44, never the base pill's 40 (GH-668
+     review r2 P2, fix round 5): the family part restates its own min-height
+     at (0,1,0) AFTER the .ob-btn control rung, and its coarse rung below */
+  min-height: var(--ob-h-toolbar);
+}
+.ob-toolbar-pill > span { display: inline-flex; align-items: center; }
+.ob-toolbar-pill svg { display: block; }
+@media (pointer: coarse) {
+  /* the 44 circle comes from --icon's coarse rule; the text fallback
+     steps up one size with it (the touch.css #ob-gear precedent) */
+  html.ob-touch .ob-toolbar-pill { font-size: var(--ob-fs-3); min-height: var(--ob-h-coarse); }
+}
+
+/* TOGGLE register (B-K16 / R4): an aria-pressed button that SAYS it is a
+   toggle. Before this the remember pill was the app's only aria-pressed
+   control and invented its own look (a button at rest, the PRIMARY
+   register + a tick once pressed — G9 forbids a secondary wearing the
+   primary voice). Pressed = the segmented "checked" register (bg-3 +
+   accent ink + el-1), never accent-line / glow. A 16 px mark slot is
+   RESERVED at rest (a hairline ring) so the width never jumps when the
+   tick appears; the tick is drawn from the slot's own box (two borders,
+   rotated), not an authored glyph. Composes with the pill or --row pole. */
+.ob-btn--toggle {
+  position: relative;
+  color: var(--ob-text-1);
+}
+.ob-btn--toggle::before {
+  content: "";
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--ob-r-full);
+  border: 1px solid var(--ob-line-2);
+  transition: background var(--ob-t-fast) var(--ob-ease),
+              border-color var(--ob-t-fast) var(--ob-ease);
+}
+.ob-btn--toggle[aria-pressed="true"] {
+  background: var(--ob-bg-3);
+  color: var(--ob-accent-text);
+  box-shadow: var(--ob-el-1);
+}
+.ob-btn--toggle[aria-pressed="true"]::before {
+  background: var(--ob-accent-dim);
+  border-color: var(--ob-accent-line);
+}
+/* the tick: a 4 × 8 L inside the 16 slot, centred on the slot's box via the
+   slot's own inline position (the slot is the first flex item, so its
+   inline start = the host's inline padding). */
+.ob-btn--toggle[aria-pressed="true"]::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc(var(--ob-pill-pad) + 5px);
+  top: calc(50% - 5px);
+  width: 4px;
+  height: 8px;
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  transform: rotate(45deg);
+  transform-origin: 50% 50%;
+}
+.ob-btn--row.ob-btn--toggle[aria-pressed="true"]::after {
+  inset-inline-start: calc(var(--ob-sp-3) + 5px);
+}
+/* B-K06 composition: pressed + keyboard focus keeps both the lift and the
+   ring (the checked-segment companion law) */
+.ob-btn--toggle[aria-pressed="true"]:focus-visible {
+  box-shadow: var(--ob-focus), var(--ob-el-1);
+}
+
+/* HEIGHT RUNGS (B-K11 ladder / B-K16): --lg = the 48 PRIMARY rung (the
+   shell quick-play pill, today a 48 px accent pill re-drawn in shell.css)
+   and --thumb = the 64 THUMB rung (touch.css FIRE / push-out controls).
+   Each re-derives its inline pad from its height (G6, tokens.css); the
+   type role stays the control role — R2 drops the quick-play verb to the
+   control role, the rung is a HEIGHT, not a headline. */
+.ob-btn--lg {
+  min-height: var(--ob-h-primary);
+  padding: var(--ob-sp-2) var(--ob-pill-pad-primary);
+}
+.ob-btn--thumb {
+  min-height: var(--ob-h-thumb);
+  min-width: var(--ob-h-thumb);
+  padding: var(--ob-sp-2) var(--ob-pill-pad-thumb);
+  font-size: var(--ob-fs-1);
+}
+
+/* ---------- option card / row (GH-668 B-K12) ----------
+   The "title + hint + meta + aria-current" control that five sheets drew
+   on their own (play discipline card + variant row, practice rows/cards,
+   the settings catalog cards, the atelier cardrail card) — each with its
+   own height (60 px variant rows in a 44 px kit; 212 px discipline cards
+   sized by the longest sibling's citation), badge placement, focus radius
+   and material lift. ONE part: a CARD-POLE control (mid radius, sp-2 /
+   sp-3, 44 floor on both pointers), the SOLID rung inside a glass pane
+   (never a second blur), G9 registers on aria-current / aria-selected
+   (dim-3 fill + accent hairline + accent ink), aria-disabled 0.38.
+   Anatomy: [__thumb] __body > __head (__name + __badge) > __hint > __meta.
+   BADGE SLOT LAW: the head is a wrapping flex line — a badge that fits sits
+   trailing on the name's line; past the measure it DROPS to its own line,
+   the name never wraps because of it (name ≤ 2 lines is copy law G8).
+   CONTENT BUDGET LAW (--card): uniform height = the DECLARED reserve (name
+   2 lines + issuer 1 + edition 1 at the type tokens), never the tallest
+   sibling — a card whose copy exceeds the reserve is a copy defect, not a
+   layout job (Q2 default A: full citations live in the detail row). */
+.ob-card-option {
+  appearance: none;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ob-sp-3);
+  width: 100%;
+  min-height: var(--ob-h-row);
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  font: inherit;
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-control);
+  text-align: start;
+  color: var(--ob-text-0);
+  background-color: var(--ob-glass-solid);
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-m);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--ob-t-fast) var(--ob-ease),
+              border-color var(--ob-t-fast) var(--ob-ease),
+              color var(--ob-t-fast) var(--ob-ease);
+}
+.ob-card-option[hidden] { display: none; }
+.ob-card-option__thumb {
+  flex: 0 0 auto;
+  width: var(--ob-h-control);
+  height: var(--ob-h-control);
+  border-radius: var(--ob-r-s);
+  background: var(--ob-bg-0);
+  overflow: hidden;
+}
+.ob-card-option__thumb > img,
+.ob-card-option__thumb > svg,
+.ob-card-option__thumb > canvas { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ob-card-option__body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-1);
+}
+.ob-card-option__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--ob-sp-1) var(--ob-sp-2);
+}
+.ob-card-option__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-weight: var(--ob-fw-med);
+  /* a NAME wraps (≤ 2 lines, G8) — it is never ellipsized; the badge
+     beside it is one line by the badge law and drops below past the measure */
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.ob-card-option__badge { flex: 0 0 auto; margin-inline-start: auto; }
+.ob-card-option__hint,
+.ob-card-option__meta {
+  font-size: var(--ob-fs--1);
+  line-height: var(--ob-lh-control);
+  color: var(--ob-text-1);
+}
+.ob-card-option__meta { font-variant-numeric: tabular-nums; }
+/* --card: the uniform-height form. The reserve is DERIVED from the type
+   tokens (2 name lines + 2 hint-role lines + the body gaps + the pads);
+   siblings in a row/grid align-start so no card stretches to another's
+   overflow — the reserve IS the row height. */
+.ob-card-option--card {
+  --ob-card-option-reserve: calc(2 * var(--ob-sp-2) + 2px
+    + 2 * var(--ob-fs-0) * var(--ob-lh-control)
+    + 2 * var(--ob-fs--1) * var(--ob-lh-control)
+    + 2 * var(--ob-sp-1));
+  flex-direction: column;
+  align-self: start;
+  min-height: var(--ob-card-option-reserve);
+}
+.ob-card-option--card .ob-card-option__thumb { width: 100%; height: auto; aspect-ratio: 16 / 9; }
+/* registers — G9 (R1: dim-3 fill + accent hairline + accent ink; no glow) */
+@media (hover: hover) and (pointer: fine) {
+  .ob-card-option:hover:not([aria-disabled="true"]):not([aria-current="true"]):not([aria-selected="true"]) {
+    background-color: var(--ob-bg-3);
+    border-color: var(--ob-line-2);
+  }
+}
+.ob-card-option:active:not([aria-disabled="true"]) {
+  background-color: var(--ob-accent-dim-3);
+}
+/* VALUE law (review r1 P2): every selected / hint / focus / hover selector
+   tests the VALUE — [aria-current="true"] — never the bare presence: the
+   play and atelier renderers mark INACTIVE cards aria-current="false", and
+   a presence match painted them all selected (and switched their hover
+   off). e2e-ui J12 reds a "false" card that paints the G9 register. */
+.ob-card-option[aria-current="true"],
+.ob-card-option[aria-selected="true"] {
+  background-color: var(--ob-accent-dim-3);
+  border-color: var(--ob-accent-line);
+  color: var(--ob-accent-text);
+}
+.ob-card-option[aria-current="true"] .ob-card-option__hint,
+.ob-card-option[aria-selected="true"] .ob-card-option__hint { color: var(--ob-text-0); }
+.ob-card-option[aria-disabled="true"] {
+  opacity: 0.38;
+  cursor: default;
+}
+.ob-card-option:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+}
+/* B-K06 composition: the current card keeps its hairline under the ring */
+.ob-card-option[aria-current="true"]:focus-visible,
+.ob-card-option[aria-selected="true"]:focus-visible {
+  box-shadow: var(--ob-focus), inset 0 0 0 1px var(--ob-accent-line);
+}
+
+/* ---------- slider (restyled native range) ---------- */
+
+.ob-range {
+  --val: 50%; /* synced by controls.js upgradeSlider */
+  appearance: none;
+  -webkit-appearance: none;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+.ob-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: var(--ob-r-full);
+  background: linear-gradient(to right,
+    var(--ob-accent) 0 var(--val), var(--ob-bg-3) var(--val) 100%);
+}
+.ob-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-text-0);
+  border: 1px solid var(--ob-line-2);
+  box-shadow: var(--ob-el-1);
+  transition: transform var(--ob-t-fast) var(--ob-ease),
+              box-shadow var(--ob-t-fast) var(--ob-ease);
+}
+.ob-range:active::-webkit-slider-thumb {
+  transform: scale(1.18);
+  box-shadow: 0 0 0 5px var(--ob-accent-dim), var(--ob-el-1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ob-range:hover::-webkit-slider-thumb {
+    transform: scale(1.18);
+    box-shadow: 0 0 0 5px var(--ob-accent-dim), var(--ob-el-1);
+  }
+}
+/* firefox parity */
+.ob-range::-moz-range-track {
+  height: 4px;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-bg-3);
+}
+.ob-range::-moz-range-progress {
+  height: 4px;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-accent);
+}
+.ob-range::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-text-0);
+  border: 1px solid var(--ob-line-2);
+}
+
+/* ---------- toggle (wrapped native checkbox) ---------- */
+
+.ob-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ob-sp-2);
+  cursor: pointer;
+}
+.ob-toggle input {
+  /* visually hidden, still focusable + clickable via the label */
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.ob-toggle__track {
+  flex: 0 0 auto;
+  width: 34px;
+  height: var(--ob-h-toggle);
+  border-radius: var(--ob-r-full);
+  background: var(--ob-bg-3);
+  border: 1px solid var(--ob-line-1);
+  position: relative;
+  transition: background var(--ob-t-med) var(--ob-ease),
+              border-color var(--ob-t-med) var(--ob-ease);
+}
+.ob-toggle__track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-text-1);
+  transition: transform var(--ob-t-med) var(--ob-ease),
+              background var(--ob-t-med) var(--ob-ease);
+}
+.ob-toggle input:checked ~ .ob-toggle__track {
+  background: var(--ob-accent-dim);
+  border-color: var(--ob-accent-line);
+}
+.ob-toggle input:checked ~ .ob-toggle__track::after {
+  transform: translateX(14px);
+  background: var(--ob-accent-hi);
+}
+.ob-toggle input:disabled ~ .ob-toggle__track { opacity: 0.38; }
+/* a pressed-state BUTTON can host the switch track too (aria-pressed — the
+   hall's remember row, release ruling D1): the same on register */
+[aria-pressed="true"] > .ob-toggle__track {
+  background: var(--ob-accent-dim);
+  border-color: var(--ob-accent-line);
+}
+[aria-pressed="true"] > .ob-toggle__track::after {
+  transform: translateX(14px);
+  background: var(--ob-accent-hi);
+}
+
+/* ---------- segmented control (wrapped native radios) ----------
+   GEOMETRY LAW (GH-668 B-K03, the design charter G5/G8 on segments): the control
+   is INTRINSIC — equal segments, each as wide as the LONGEST label + 2 ×
+   pad, and the whole never `flex: 1 1 0` to its column (settings
+   #ob-set-mode shipped as 3 × 204px desktop / 3 × 267 × 52px phone: a 7:1
+   pill per word that read as a tab bar with a slab). inline-grid with
+   `grid-auto-columns: 1fr` is what makes 1fr tracks in a shrink-to-fit
+   grid resolve to the widest item, i.e. equal-to-longest without JS;
+   `width: fit-content` defeats a flex/grid parent's stretch, `max-width:
+   100%` keeps the well inside a narrow card (labels that still do not fit
+   are a COPY defect — B-PL01 splits the qualifier into a hint line). The
+   phone nav tabs (.ob-navmodal__tabs) restate width below: they are a
+   panning nav strip, not a segmented. */
+.ob-segmented {
+  display: inline-grid;
+  grid-auto-flow: column;
+  /* EQUAL TRACKS (B-K03: equal segments = longest label + 2 × pad). `1fr`
+     alone is minmax(auto, 1fr): under the `max-width: 100 %` clamp the auto
+     MINIMUM held every track at its label's min-content, so a well narrower
+     than the sum painted the TRACKS past the pill's edge while every label
+     still fitted its own cell — controls.js's per-label measure never saw
+     an overflow and the --stack pole below never armed (S5 slice 4 verifier
+     round 1, P2-a; integrator-authorized kit hunk #1). A 0 minimum keeps the
+     tracks equal shares of the clamped well, the squeezed label overflows
+     its cell, and the kit's own measure changes pole. Unclamped (fit-content)
+     the fr sizing is unchanged: every track = the widest label. */
+  grid-auto-columns: minmax(0, 1fr);
+  width: fit-content;
+  max-width: 100%;
+  flex: 0 0 auto;
+  padding: 2px;
+  gap: 2px;
+  background: var(--ob-bg-0);
+  border: 1px solid var(--ob-line-0);
+  border-radius: var(--ob-r-full); /* joins the pill family (brand) */
+}
+/* segment: fine rung h 28 = the COMPACT rung (--ob-h-compact; the well = 34)
+   with the toolbar-rung pad (13.6 ≈ the charter's 14, G6 0.47 h); coarse
+   44 via the kit's own min-height + pad in the G10 block below — never a
+   52px label box (the old content-box label + a 44px surface floor). */
+.ob-segmented label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  /* B-K11 ladder (visual audit r2 P2, fix round 5): the segment sits on the
+     COMPACT rung — min-height 28, no block pad (sp-1 + the 21 px line box
+     + sp-1 landed at 29, off the ladder); the line box centres in the rung */
+  min-height: var(--ob-h-compact);
+  /* THE FIT LADDER's pad (GH-668 S5 slice 4 round 2, integrator-authorized
+     kit hunk #3 — the strip's --strip-pad idiom, ui/strip.js): controls.js
+     fitSegmented publishes `--seg-pad` on the GROUP only when the default
+     pad overflows an equal track — clamp(floor, (track − widest label) / 2,
+     default) with the floor PER RUNG: --ob-sp-3 on the default type rung,
+     --ob-sp-2 on the tight rung below (kit hunk #3b, ruling R-PR-3b, round
+     3); absent = this derived default (the degrade register too). Restated
+     with the coarse default in the G10 block below. */
+  padding: 0 var(--seg-pad, var(--ob-pill-pad-toolbar));
+  border-radius: calc(var(--ob-r-full) - 3px);
+  color: var(--ob-text-1);
+  font-weight: var(--ob-fw-med);
+  cursor: pointer;
+  transition: background var(--ob-t-fast) var(--ob-ease),
+              color var(--ob-t-fast) var(--ob-ease);
+}
+/* WRAP LAW at (0,2,1): a segment label NEVER wraps (G5 — a 996px-radius
+   box holding two lines is the GH-667 blob). Stated on the upgraded
+   radiogroup so it outranks any class-level surface blanket
+   (`.x label { white-space: normal }`, (0,1,1)) whatever the load order;
+   id-scoped consumer overrides still win and are the step-9 deletions
+   (settings-modal.css #ob-set-mode, play.css [data-ob=play-body] label). */
+.ob-segmented[role="radiogroup"] > label { white-space: nowrap; }
+/* G10 coarse floor for segments, stated ONCE here (double-gated like every
+   coarse rule in this sheet): 44 border-box via the kit's own min-height +
+   the coarse-rung pad (17.6 = 0.4 h, G6). The phone nav tabs are excluded
+   — a panning nav strip with its own charter row (B-K19), not a segmented —
+   and so are the STACK rows (below): a row is not a pill, so the PILL pad
+   must never reach `.ob-segmented--stack > label`. Both exclusions ride ONE
+   :not() list (a list inside :not() carries the specificity of its most
+   specific argument): this rule is (0,4,2) either way, and it simply does
+   not MATCH a stack row — no cascade-order or specificity contest. */
+@media (pointer: coarse) {
+  html.ob-touch .ob-segmented[role="radiogroup"]:not(.ob-navmodal__tabs, .ob-segmented--stack) > label {
+    min-height: var(--ob-h-coarse);
+    padding: var(--ob-sp-2) var(--seg-pad, var(--ob-pill-pad-coarse)); /* fit-aware (above) */
+  }
+  /* the STACK rows keep the ROW register on coarse: the 44 floor (restated
+     here — the pill rule above no longer reaches these rows) + the row pads
+     sp-2 / sp-3. (0,3,2). GH-668 fix round 3 (verifier r2 P2): the pill rule
+     used to carry `:not(.ob-navmodal__tabs)` alone — (0,4,2) against this
+     (0,3,2) row rule, while the comment here claimed "(0,4,1) after (0,4,1)"
+     — so the phone rows painted the 17.6 pill pad, not 12. */
+  html.ob-touch .ob-segmented--stack[role="radiogroup"] > label {
+    min-height: var(--ob-h-coarse);
+    padding: var(--ob-sp-2) var(--ob-sp-3);
+  }
+}
+/* THE FIT LADDER's second rung (kit hunk #3, doc at .ob-segmented label):
+   when the pad floor (sp-3) alone cannot hold the widest label in its equal
+   track, controls.js stamps `data-ob-seg-fit="tight"` and the segment type
+   drops ONE rung to --ob-fs--1 (the rung stays: min-height holds 28 / 44,
+   the line box centres) and re-fits the pad down to THIS rung's floor,
+   --ob-sp-2 (kit hunk #3b: 12 px type earns the 8 px pad — the pill returns
+   on a 228 px well in every Latin locale, fit 8.7–9.4); CJK keeps the kit's
+   legibility floor for that rung (--ob-fs--1-cjk, the tokens.css :lang
+   law). Stripped again the moment the copy fits at fs-0; never on the
+   stack rows. */
+.ob-segmented[data-ob-seg-fit="tight"][role="radiogroup"] > label { font-size: var(--ob-fs--1); }
+.ob-segmented[data-ob-seg-fit="tight"][role="radiogroup"]:is(:lang(ja), :lang(ko), :lang(zh)) > label { font-size: var(--ob-fs--1-cjk); }
+@media (hover: hover) and (pointer: fine) {
+  .ob-segmented label:hover { color: var(--ob-text-0); }
+}
+/* PRESS register (full state coverage law; S5 slice 4 verifier round 1 P1-a,
+   e2e-ui --audit A10 red on every segmented consumer — the sheet had no
+   :active rung for a segment). The kit's press form: ONE unguarded rule
+   (the .ob-btn:active / .ob-card-option:active precedent — :active is the
+   coarse pointer's whole feedback register and rides no hover guard, so the
+   fine-pointer rung and its coarse twin are the same declaration), the
+   ladder's step past hover in the segment's own hue: hover = ink to
+   --ob-text-0, pressed = that ink on the --ob-bg-3 wash (.ob-btn's press
+   step). (0,2,1): the CHECKED register below (:has(input:checked), (0,3,2))
+   and the stack row's checked rule outrank it, so a press on the current
+   value stays the selected register. */
+.ob-segmented label:active {
+  background: var(--ob-bg-3);
+  color: var(--ob-text-0);
+}
+.ob-segmented input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.ob-segmented label:has(input:checked) {
+  background: var(--ob-bg-3);
+  color: var(--ob-accent-text);
+  box-shadow: var(--ob-el-1);
+}
+/* B-K06 composition: this rule and the kit focus rule are both (0,2,2)
+   and this one is later — without the companion the CHECKED segment
+   swallowed its keyboard ring (focus invisible on the current value). */
+.ob-segmented label:has(input:checked):has(input:focus-visible) {
+  box-shadow: var(--ob-focus), var(--ob-el-1);
+}
+/* STACK FALLBACK (GH-667 / GH-668 B-K03, the design charter G5): controls.js
+   upgradeSegmented measures every label after layout / resize / text change
+   and sets this modifier the moment ANY label cannot paint on one line at
+   the group's available inline size. The control changes POLE — a column
+   of --row-register options (the .ob-btn--row anatomy: r-m, start-aligned,
+   ≤ 2 lines at --ob-lh-control, sp-2 / sp-3 pads, full width) instead of a
+   multi-line pill (the GH-667 blob: 2–3 lines in a cap-r 35 segment). The
+   selected row is the R1 register (dim-3 fill + accent hairline + accent
+   ink; no glow); coarse keeps the 44 floor from the block above. The pill
+   form returns when the copy fits (the B-PL01 copy split, slice 3). */
+.ob-segmented.ob-segmented--stack {
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  width: 100%;
+  border-radius: var(--ob-r-m);
+}
+.ob-segmented--stack[role="radiogroup"] > label {
+  justify-content: flex-start;
+  text-align: start;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  border-radius: calc(var(--ob-r-m) - 3px);
+  line-height: var(--ob-lh-control);
+}
+.ob-segmented--stack[role="radiogroup"] > label:has(input:checked) {
+  background: var(--ob-accent-dim-3);
+  color: var(--ob-accent-text);
+  box-shadow: inset 0 0 0 1px var(--ob-accent-line);
+}
+/* B-K06 composition restated for the stack row: ring + hairline */
+.ob-segmented--stack[role="radiogroup"] > label:has(input:checked):has(input:focus-visible) {
+  box-shadow: var(--ob-focus), inset 0 0 0 1px var(--ob-accent-line);
+}
+
+/* ---------- select (custom combobox + listbox popover) ---------- */
+
+.ob-select {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ob-sp-2);
+  min-width: 0;
+  width: 100%;
+  font: inherit;
+  font-size: var(--ob-fs-0);
+  color: var(--ob-text-0);
+  background: var(--ob-bg-0);
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-m);
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color var(--ob-t-fast) var(--ob-ease),
+              background var(--ob-t-fast) var(--ob-ease);
+}
+/* select ladder (B-K15): rest --ob-bg-0 + line-1 -> hover --ob-bg-2 + line-2
+   (the old line-1 -> line-2 hairline step was invisible) -> active = the
+   accent dim-3 press. Hover guarded (touch-sticky hover law). */
+@media (hover: hover) and (pointer: fine) {
+  .ob-select:hover { background: var(--ob-bg-2); border-color: var(--ob-line-2); }
+}
+.ob-select:active { background: var(--ob-accent-dim-3); border-color: var(--ob-accent-line); }
+.ob-select[aria-expanded="true"] { border-color: var(--ob-accent-line); }
+/* CLOSED-LABEL LAW (GH-668 B-K21, the ×7 never-ellipsize law): this slot
+   carried the ONE `text-overflow: ellipsis` in the kit, and the long de/fr
+   catalog names lost their tails in every locale. The trigger now grows to
+   its column and the label WRAPS (≤ 2 lines at --ob-lh-control; min-width
+   0 lets the flex item shrink below max-content so it wraps instead of
+   pushing the chevron out). min-height on .ob-select keeps the one-line
+   trigger on the control rung (40) — 18.9 + 16 + 2 would have landed off
+   the height ladder. The popover keeps its own symmetric-overhang law. */
+.ob-select { min-height: var(--ob-h-control); }
+.ob-select__label {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: var(--ob-lh-control);
+  /* TWO-LINE CLAMP (G8 measure law; visual audit r1 P2, B-K21): a trigger
+     label paints at most TWO whole lines — the third and later lines are
+     clipped at the line-box edge (max-height = 2 × the control line box,
+     overflow clip on the block axis only), NEVER an ellipsis glyph on a
+     visible line. The full text stays reachable: select.js stamps it on
+     the trigger's title while the label is clamped (measured, not
+     assumed) and the popover always carries every option whole. A
+     three-line 74.7 px trigger (the lab2 de select at 254 px) broke the
+     control rhythm; a two-line 56 px trigger sits inside it. */
+  max-height: calc(2 * var(--ob-lh-control) * 1em);
+  overflow-x: visible;
+  overflow-y: clip;
+}
+.ob-select__chevron {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--ob-text-2);
+  border-bottom: 1.5px solid var(--ob-text-2);
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform var(--ob-t-fast) var(--ob-ease);
+}
+.ob-select[aria-expanded="true"] .ob-select__chevron {
+  transform: rotate(-135deg) translateY(-2px);
+}
+
+.ob-select__list {
+  position: fixed; /* select.js computes placement + viewport flip; it also
+     sets min-width = trigger width (no static floor here: the popover must
+     match its trigger column unless option content NEEDS more) */
+  /* z-layering (2026-07-13 owner-bug fix): popovers must sit ABOVE the z:70
+     navmodal shell (.ob-navmodal — the 015 settings modal hosts nine kit
+     selects; at the old z:60 every one of them opened UNDER the modal panel:
+     invisible and unclickable, the outside-pointerdown handler read the
+     option click as a dismiss). Confirm dialogs (.ob-confirm, z:70) still
+     cover popovers in practice: openPanel focuses the dialog on open, and
+     select.js's blur handler sweeps any open popover the moment its
+     combobox loses focus — a confirm never renders under one. */
+  z-index: var(--ob-z-popover);
+  /* height law (issue GH-291): the popover grows to its content and only the
+     VIEWPORT clamps it (16px top/bottom margins — the width law's viewport
+     clamp, same register). The old fixed 300px cap held ~8 of the catalog
+     v14 cue list's option centers above the fold with nothing but the
+     scrollbar hinting at the rest; select.js place() already pins an
+     overheight list inside the viewport (flip branch top clamp), so every
+     option is visible without scrolling whenever the viewport can hold the
+     list. overflow-y stays auto: short viewports still scroll, never clip.
+     Mobile (review r2): 100vh is the LAYOUT viewport — with browser chrome
+     expanded it exceeds the visible area, so a list sized to it can fit its
+     client box while its tail hides behind the chrome, unscrollable. The
+     dvh override tracks the CURRENT viewport (place() clamps against
+     innerHeight, which tracks the same visual viewport; a mid-open chrome
+     change fires resize, which closes the popover), and the safe-area
+     insets keep a top/bottom-pinned list out of the notch and home-
+     indicator bands (touch.css 100dvh/safe precedent). vh line = the
+     fallback for engines without dvh. */
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px
+    - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  background: var(--ob-bg-1);
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-m);
+  box-shadow: var(--ob-el-3);
+  padding: var(--ob-sp-1);
+  margin: 0;
+  list-style: none;
+}
+
+.ob-option {
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-2);
+  /* B-K11 ladder (visual audit r2 P2, fix round 5): an option is a control
+     row — the CONTROL rung 40 (sp-2 + 21 + sp-2 = 37 was off the ladder;
+     the trigger it mirrors is 40) */
+  min-height: var(--ob-h-control);
+  /* text-column law: 1px list border + 4px ul padding + 8px here = 13px,
+     exactly the trigger's own 1px border + 12px padding — option text and
+     trigger label share one x (±1px). The selection check is TRAILING for
+     the same reason: a leading glyph column would push the text off it. */
+  padding: var(--ob-sp-2) var(--ob-sp-3) var(--ob-sp-2) var(--ob-sp-2);
+  border-radius: var(--ob-r-s);
+  color: var(--ob-text-0);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ob-option[data-active="1"] {
+  background: var(--ob-bg-3);
+  outline: 1px solid var(--ob-focus-ring);
+  outline-offset: -1px;
+}
+.ob-option[aria-selected="true"] {
+  background: var(--ob-accent-dim);
+  color: var(--ob-accent-text);
+  font-weight: var(--ob-fw-med);
+}
+.ob-option[aria-selected="true"]::after {
+  content: "";
+  width: 6px;
+  height: 10px;
+  margin-left: auto; /* right-gutter check, clear of the text column */
+  border-right: 1.5px solid var(--ob-accent-hi);
+  border-bottom: 1.5px solid var(--ob-accent-hi);
+  transform: rotate(45deg);
+  flex: 0 0 auto;
+}
+
+/* ---------- progress ---------- */
+
+.ob-progress {
+  height: 6px;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-bg-0);
+  border: 1px solid var(--ob-line-0);
+  overflow: hidden;
+  position: relative;
+}
+.ob-progress__fill {
+  height: 100%;
+  width: 100%;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-accent);
+  transform-origin: left center;
+  transform: scaleX(0); /* makeProgress().set(fraction) drives this */
+  transition: transform var(--ob-t-med) var(--ob-ease);
+}
+
+/* ---------- badge / chip ---------- */
+
+.ob-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ob-sp-1);
+  /* caps role from the G7 block; the badge's own ink is text-1 */
+  color: var(--ob-text-1);
+  background: var(--ob-bg-2);
+  border: 1px solid var(--ob-line-0);
+  border-radius: var(--ob-r-full);
+  padding: 1px var(--ob-sp-2);
+  /* G5 on the smallest pill (GH-668 B-K21): a badge is ONE line, always —
+     the settings practice-card badges and the drill readout chips wrapped
+     into two-line 202 × 33 pills with an orphaned separator. Overflow =
+     drop the badge or shorten the copy; a READOUT is not a badge (B-PR05
+     moves it to a tabular-nums mini-table). nowrap also floors the flex
+     item at its one-line min-content, so no flex-shrink can wrap it. */
+  white-space: nowrap;
+}
+/* the accent CHIP speaks through its ink only (uiaudit F2 / #1002): the
+   accent wash + accent hairline on the r-full pole was the .ob-btn--primary
+   voice in miniature, so a "P1" shooter chip, an OFFICIAL preset or an
+   "Equipped" tick read as a second, shorter button beside real ones. The
+   chip keeps the neutral badge ground + hairline; a live STATE beside an
+   action uses .ob-status. */
+.ob-badge--accent {
+  color: var(--ob-accent-text);
+}
+.ob-badge--warn {
+  color: var(--ob-warn);
+  background: var(--ob-warn-dim);
+  border-color: var(--ob-warn-line);
+}
+
+/* ---------- status marker (uiaudit RC4) ----------
+   A live STATE ("Previewing", "Equipped"), never an action. The accent
+   badge was the button voice in miniature — accent ink + accent wash +
+   accent hairline on the r-full pole, the kit's own definition of
+   clickable — so beside a 40 / 44 pill it read as a second, shorter button
+   (the keep-bar "Previewing" vs "Keep" report). The marker drops every
+   affordance cue: no box, no wash, no hairline, no radius. Caps role (G7
+   list above, with its CJK arm) in --ob-accent-text — accent because the
+   doctrine reserves it for selection and live values — led by a 6 px dot.
+   It sizes to its line box: the consumer centres it on its row. */
+.ob-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ob-sp-2);
+  color: var(--ob-accent-text);
+  white-space: nowrap;
+}
+.ob-status::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-accent);
+}
+.ob-status[hidden] { display: none; }
+
+/* ---------- banner ---------- */
+
+.ob-banner {
+  background: var(--ob-glass-thin);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+  border: 1px solid var(--ob-accent-line);
+  border-radius: var(--ob-r-l);
+  box-shadow: var(--ob-el-2);
+  color: var(--ob-text-0);
+  font-size: var(--ob-fs-3);
+  font-weight: var(--ob-fw-semi);
+  line-height: var(--ob-lh-tight);
+  letter-spacing: var(--ob-track-display);
+  padding: var(--ob-sp-4) var(--ob-sp-7);
+}
+.ob-banner--foul {
+  /* danger wash LAYERED over full glass — glass-thin let the backdrop wood
+     dominate and the penalty read as a warm brown toast (taste review) */
+  background: linear-gradient(var(--ob-danger-dim), var(--ob-danger-dim)),
+              var(--ob-glass);
+  border-color: var(--ob-danger-line);
+  color: var(--ob-danger-text);
+}
+.ob-banner--info { border-color: var(--ob-line-2); }
+
+/* ---------- side-nav modal (navmodal.js) ---------- */
+
+/* Large centered surface: min(880px, 92vw) wide; HEIGHT = clamp(420px,
+   content, min(620px, 86vh)) (GH-668 B-K19 — the 015 comp-a box was a
+   fixed 880 × 620 sized for its largest pane, so the Display pane showed
+   five rows in the top 40 % of a void). fit-content between the two bounds
+   lets the visible section size the modal; the 200 ms height transition
+   rides `interpolate-size: allow-keywords` (Chrome 129+; older engines and
+   reduced motion snap — the law is the clamp, the motion is a courtesy).
+   Centered via margins — motion.js owns transform. Opened by dialog.js
+   with display:flex; z-layering shared with .ob-confirm (backdrop--top). */
+.ob-navmodal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  z-index: var(--ob-z-dialog);
+  width: min(880px, 92vw);
+  height: fit-content;
+  min-height: min(420px, 86vh);
+  max-height: min(620px, 86vh);
+  interpolate-size: allow-keywords;
+  transition: height var(--ob-t-med) var(--ob-ease);
+  display: none; /* resting state; dialog.js openPanel flips to flex */
+  flex-direction: column;
+  padding: 0; /* .ob-panel padding redistributed to head/nav/pane */
+}
+.ob-navmodal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ob-sp-3);
+  padding: var(--ob-sp-4) var(--ob-sp-5);
+  border-bottom: 1px dashed var(--ob-line-0); /* dashed divider law */
+}
+.ob-navmodal__head .ob-panel__title { margin: 0; }
+/* GH-245 close-geometry unification: the navmodal close now carries
+   .ob-btn--icon (navmodal.js), so the 34px/44pt circle geometry, padding: 0
+   and the flex centring all come from the --icon primitive above — this
+   block would otherwise OUTRANK it by source order at equal (0,1,0)
+   specificity (the old padding/font-size did exactly that). What stays is
+   the text-fallback register only: line-height 1 keeps the stale-cache '×'
+   glyph from inflating the circle (the .ob-btn__icon law). A STALE cached
+   navmodal.js (no --icon class) degrades to the plain .ob-btn--ghost pill —
+   centred by the .ob-btn layout contract, never broken. */
+.ob-navmodal__close {
+  line-height: var(--ob-lh-glyph);
+  font-size: var(--ob-fs-1);
+}
+.ob-navmodal__grid {
+  flex: 1;
+  min-height: 0; /* pane/nav own the scroll, never the panel */
+  display: grid;
+  grid-template-columns: 208px 1fr; /* 015 comp-a rail width */
+}
+.ob-navmodal__nav {
+  overflow-y: auto;
+  padding: var(--ob-sp-3);
+  border-right: 1px dashed var(--ob-line-0);
+}
+.ob-navmodal__nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+/* nav rows: the kit list recipe (option styling — mid radius, accent-dim
+   current row); overrides the generic .ob-panel pill-button rule */
+.ob-navmodal__item {
+  display: flex; /* a flex row centres the label inside the 40 rung */
+  align-items: center;
+  min-height: var(--ob-h-control); /* B-K11 ladder (visual audit r1 P2): the
+     nav row is a CONTROL-rung control (charter: "nav row — one padding
+     math"); the bare padding math painted 38 on fine pointers */
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: var(--ob-fs-0);
+  font-weight: var(--ob-fw-reg);
+  color: var(--ob-text-1);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--ob-r-s);
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  cursor: pointer;
+  white-space: nowrap;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ob-navmodal__item:hover {
+    background: var(--ob-bg-2);
+    color: var(--ob-text-0);
+  }
+}
+.ob-navmodal__item[aria-current="true"] {
+  background: var(--ob-accent-dim);
+  color: var(--ob-accent-text);
+  font-weight: var(--ob-fw-med);
+}
+.ob-navmodal__pane {
+  overflow-y: auto; /* per-section scroll (navmodal.js keeps scrollTop/id) */
+  padding: var(--ob-sp-4) var(--ob-sp-5);
+}
+/* 015 §2: ALL sections stay DOM-present; switching toggles `hidden` only.
+   Explicit guard so a future display rule on __section can never defeat
+   the UA's [hidden] default. */
+.ob-navmodal__section[hidden] { display: none; }
+/* B-K06 NO-INSET LAW: the pane's ring was an inset 2 px outline (read as
+   a keyline). It now wears the ONE kit ring (box-shadow outside the box —
+   .ob-panel clips nothing, so it paints); navmodal.js makes the pane a tab
+   stop ONLY while it overflows (tabbable-only-if-overflow law). */
+.ob-navmodal__pane:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+}
+/* phone tab strip: hidden everywhere by default (declared after
+   .ob-segmented so display:none wins at equal specificity). width/max-width
+   restate the strip's own geometry over the segmented INTRINSIC law above:
+   the tabs are a full-width panning nav strip (B-K19 owns their charter),
+   not an intrinsic control. */
+.ob-navmodal__tabs { display: none; width: auto; max-width: none; }
+
+/* PHONE SHEET SKELETON — STUB (final wiring at feature-014 integration).
+   Gating law (contracts/phone-hud.md §1): every rule applies only under
+   the boot-set .ob-touch root class AND a (pointer: coarse) media query,
+   so desktop computed styles stay byte-identical. Full-screen sheet +
+   segmented top tabs replacing the side nav. */
+@media (pointer: coarse) {
+  .ob-touch .ob-navmodal {
+    width: 100vw;
+    height: 100dvh;
+    min-height: 0;
+    max-height: none; /* the sheet is the screen; the desktop clamp stands down */
+    border-radius: 0;
+    border: 0;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .ob-touch .ob-navmodal__grid { grid-template-columns: 1fr; }
+  .ob-touch .ob-navmodal__nav { display: none; }
+  .ob-touch .ob-navmodal__tabs {
+    display: flex;
+    margin: 0 var(--ob-sp-5) var(--ob-sp-3);
+    overflow-x: auto; /* many sections: tabs pan, labels never ellipsize */
+  }
+  /* B-K19: on the sheet the SELECTED TAB IS THE HEADING — a consumer's
+     pane title (class-marked; settings-modal.css adopts in B-SH07) leaves
+     the paint but stays in the accessibility tree (the sheet said DISPLAY
+     twice before its first control). */
+  .ob-touch .ob-navmodal__pane-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .ob-touch .ob-navmodal__row {
+    grid-template-columns: 1fr minmax(200px, 46%);
+    min-height: var(--ob-h-coarse);
+  }
+  .ob-touch .ob-navmodal__bar {
+    padding: var(--ob-sp-2)
+      calc(env(safe-area-inset-right, 0px) + var(--ob-sp-4))
+      calc(env(safe-area-inset-bottom, 0px) + var(--ob-sp-2))
+      calc(env(safe-area-inset-left, 0px) + var(--ob-sp-4));
+  }
+  /* the bar's actions (the settings sheet's Share / Re-rack rows, GH-668
+     S5 slice 2 B-SH01) ride the kit's one coarse floor (G10): 44 with the
+     pad that tracks it (G6 / A6). */
+}
+/* B-K19 control row: label column + the 320 px control rail (the settings
+   ledger's own grid, now a kit part so the toggle track sits at the START
+   of the control column beside its state word instead of floating 590 px
+   from its label). Coarse: 1fr / minmax(200px, 46 %) + the 44 floor. */
+.ob-navmodal__row {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--ob-sp-4);
+  align-items: center;
+  padding: var(--ob-sp-2) 0;
+}
+.ob-navmodal__row > .ob-toggle,
+.ob-navmodal__row > * > .ob-toggle { justify-self: start; }
+/* the toggle's STATE WORD (controls.js upgradeToggle `states`): the track
+   alone said nothing at arm's length; the word rides beside it in the
+   control column, aria-hidden (the checkbox is the truth). */
+.ob-toggle__state {
+  font-size: var(--ob-fs-0);
+  color: var(--ob-text-1);
+  white-space: nowrap;
+}
+.ob-toggle input:checked ~ .ob-toggle__state { color: var(--ob-text-0); }
+/* pinned action bar: an IN-FLOW footer under the grid (flex: 0 0 auto), so
+   the pane keeps its own scroll and the kit block fade (navmodal.js
+   attaches it on the elected scroller) says "more below" — no overlay,
+   no padding arithmetic. Hidden until a consumer fills it. */
+.ob-navmodal__bar {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end; /* a footer's actions trail (intrinsic pills, <= 2 per row) */
+  gap: var(--ob-sp-2);
+  border-top: 1px dashed var(--ob-line-0);
+  padding: var(--ob-sp-2) var(--ob-sp-4);
+}
+.ob-navmodal__bar:empty { display: none; }
+
+/* ---------- segmented strip (ui/strip.js; GH-534 round 7) ----------
+   THE ONE STRIP CONTROL (owner directive 2026-08-19): the shell place rail
+   and the atelier station strip shipped as two hand-rolled CSS blocks with
+   DIFFERENT gaps/insets; this block is now the single geometry law both
+   consume. Consumers keep VOICE only (placement, material/elevation,
+   typography registers) on their own selectors — never geometry.
+   GEOMETRY LAW, in full:
+   - uniform token inset: padding sp-2 ALL sides (the GH-534 round-3
+     OPTICAL-INSET LAW — on an r-full strip holding full-height r-full
+     pills the end caps are concentric exactly when inline inset equals
+     block inset; block sp-2 also keeps the selected pill's
+     --ob-glass-glow ring READING instead of trimming at the scroll box,
+     the item-C law — overflow-x:auto computes overflow-y:auto);
+   - uniform sp-1 gap between pills;
+   - scroll-padding-inline mirrors the inset (focus scrolls and
+     programmatic pans land an end pill with block-equal breathing);
+   - CENTER-SYMMETRY LAW (owner round 7: "first pill hugs the left wall"):
+     the content block centers inside the strip — equal start/end
+     residuals when the items fit. Auto margins on the edge children, NOT
+     justify-content:center, which would CLIP the leading items of an
+     overflowing scroller (the cardrail precedent); when overflowing the
+     margins resolve to 0 and the scroll-padding law above owns the edges;
+   - pills never wrap; long locales PAN the strip (one row — the ×7
+     no-ellipsize law);
+   - selected-pill register: accent-dim-3 fill + accent hairline + glow
+     (the S1 chalk selection voice), focus ring COMPOSES with the glow
+     (the review r2 P2 law — a later equal-specificity glow must never
+     swallow :focus-visible);
+   - coarse-pointer floor: 48px pill height (both shipped consumers
+     carried it; scoped to the strip, not a blanket .ob-btn floor). */
+.ob-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-1);
+  padding: var(--ob-sp-2);
+  scroll-padding-inline: var(--ob-sp-2);
+  border-radius: var(--ob-r-full);
+  border: 1px solid var(--ob-line-1);
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+/* the pseudo is the pre-Safari-18.2 belt for scrollbar-width: none; the
+   ONLY ::-webkit-scrollbar the kit keeps (B-K23 one-scrollbar law) */
+.ob-strip::-webkit-scrollbar { display: none; }
+.ob-strip > * { flex: 0 0 auto; }
+.ob-strip > :first-child { margin-inline-start: auto; }
+.ob-strip > :last-child { margin-inline-end: auto; }
+.ob-strip__seg {
+  min-height: var(--ob-h-row);
+  min-width: var(--ob-h-row);
+  /* G6 (GH-667 / B-K10): 12px on a 44px pill was 0.27 h — the label sat
+     inside the 22px end cap (d-play-de-rail.png). The pad is the rung's
+     derived token, re-derived with the coarse rung below.
+     THE FIT-AWARE PAD (GH-668 visual audit r2 P1, ruling V-P1, fix round
+     5): a strip NARROWER than its content must never hide more label at
+     rest than the S4 tree's 12 px pads did — ui/strip.js measures the strip
+     and writes --strip-pad = clamp(--ob-sp-3, (clip − Σ label) / (2 n),
+     0.4 h) on the mount (inherited here; absent = this 0.4 h default, the
+     degrade register too). kit-laws A6 judges the same formula. */
+  padding: 0 var(--strip-pad, var(--ob-pill-pad-row));
+  border-radius: var(--ob-r-full);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ob-text-1);
+  font-size: var(--ob-fs-1);
+  font-weight: var(--ob-fw-med);
+  line-height: var(--ob-lh-tight);
+  white-space: nowrap;
+}
+/* :not(:disabled) matches the .ob-btn hover rung's specificity (0,3,0) —
+   a bare .ob-strip__seg:hover would LOSE to it regardless of order.
+   SELECTION OUTRANKS HOVER (GH-525 integrator 2026-09-05, pill probe
+   log, internal): at (0,3,0) this rung
+   also outranked the selected pill's (0,2,0) below, so after every REAL
+   click (pointer left resting on the pill) or phone TAP (touch hover is
+   sticky until the next tap) the CURRENT place pill painted as an
+   unselected hovered pill (--ob-bg-2, transparent border) instead of the
+   accent fill — every real-user clip and the practice ret/glassoff stills
+   showed it DARK while the posed obshell=1 stills (never hovered) showed
+   it FILLED. The :not(:where([aria-current="true"])) excludes the current
+   segment from this rung at an UNCHANGED (0,3,0) (a bare :not(...) would
+   lift it to (0,4,0)); the .ob-btn base rung above carries the same
+   exclusion — without it the base rung (0,3,0) simply took over the
+   current pill (--ob-bg-3, the first green-run finding). The selected
+   paint has ONE source of truth: the [aria-current="true"] rule below.
+   Focus-visible composition unchanged. e2e-shell arm H red-proves both
+   registers. */
+/* HOVER LADDER (GH-668 B-K15, the design charter G9/G10 registers): a strip sits on
+   the shell's 52 % smoke, so an opaque --ob-bg-2 hover punched a dark HOLE
+   into the glass (critique/shell qp-states-sheet). The glass-strip hover
+   is an ivory WASH — --ob-line-0 (8 % ivory) laid over whatever the smoke
+   shows — one rung up from the transparent rest, below the accent fill.
+   GUARDED HOVER LAW: every neutral :hover in this sheet rides
+   @media (hover: hover) and (pointer: fine) — touch hover is sticky
+   (Chrome keeps :hover on the last tapped element until the next tap), so
+   an unguarded hover left tapped pills/cards lifted under the confirm
+   scrim; on coarse pointers :active is the whole feedback register. The
+   guard changes NO specificity, so every ordering argument above holds. */
+@media (hover: hover) and (pointer: fine) {
+  .ob-strip__seg:hover:not(:disabled):not(:where([aria-current="true"])) {
+    background: var(--ob-line-0);
+    border-color: transparent;
+    color: var(--ob-text-0);
+  }
+}
+.ob-strip__seg:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+}
+/* G9 SELECTED REGISTER (GH-668 B-K09, judge ruling R1 "glow rail-only"):
+   every strip's current segment = --ob-accent-dim-3 fill + --ob-accent-line
+   hairline + --ob-accent-text ink — and NOTHING else. The 10 px
+   --ob-glass-glow was the ONE place pill's mark and had spread to every
+   selected card/row/segment (up to three glowing objects per frame — the
+   static-neon tell four critics named). It now lives ONLY on the PLACE
+   rail: the consumer stamps .ob-strip--place on the app's primary nav
+   strip (shell.js #ob-shell-rail); station strips, assist segments and
+   every card/row select with the plain G9 register. e2e-ui J10 counts the
+   glow rules (exactly the two --place rules) and --audit A5 will hold the
+   per-frame count at <= 1.
+   FOCUS COMPOSITION LAW (B-K06): a selected rule that owns box-shadow
+   never ships without its :focus-visible companion composing
+   var(--ob-focus) IN FRONT of the selected shadow — the plain register
+   owns no box-shadow, so the .ob-strip__seg:focus-visible ring above is
+   its composition; the --place pair below composes ring + glow. */
+.ob-strip__seg[aria-current="true"] {
+  background: var(--ob-accent-dim-3);
+  border-color: var(--ob-accent-line);
+  color: var(--ob-accent-text);
+}
+.ob-strip--place .ob-strip__seg[aria-current="true"] {
+  box-shadow: var(--ob-glass-glow);
+}
+.ob-strip--place .ob-strip__seg[aria-current="true"]:focus-visible {
+  box-shadow: var(--ob-focus), var(--ob-glass-glow);
+}
+@media (pointer: coarse) {
+  .ob-strip__seg {
+    min-height: var(--ob-h-primary);
+    padding-inline: var(--strip-pad, var(--ob-pill-pad-primary)); /* fit-aware (above) */
+  }
+}
+
+/* ---------- scroll-edge fade (ui/scrollfade.js; GH-534 round 7; GH-668
+   B-K04 both axes + paint mode, B-K18 band law) ----------
+   THE FADE LAW (owner directive 2026-08-19: "scroll 的时候下端没有渐隐"):
+   an edge fade is a TRUTHFUL affordance — visible IFF content is clipped
+   in that direction (data attrs owned by ui/scrollfade.js: -top / -bottom
+   on the block axis, -start / -end on the inline axis).
+   TWO PAINTS, ONE PREDICATE (B-K04): a scroller that owns NO paint of its
+   own (transparent, borderless — the rail on the shell smoke, the replays
+   card body, the play body) is MASKED (mask-image on the scroller: the
+   content dissolves toward the ground really behind it; the leaf stamps
+   .ob-scrollfade--mask-x / --mask-y per axis). A scroller that carries its
+   own background / border (the atelier spec card) keeps the painted BAND
+   — absolute pseudo overlays toward --ob-glass-solid — because a mask
+   would dissolve the card's own chrome at the edge. The always-band paint
+   composited --ob-glass-solid LIGHTER than the 52 % shell smoke (a
+   highlight stripe across the replays meta line). Band anchoring:
+   absolute children of a scroller live in the SCROLLED coordinate space,
+   so the leaf pins the bands to the visible clip edges each sync via the
+   component-local --sf-top / --sf-bot-edge (block) and --sf-start /
+   --sf-end-edge (inline) props (NOT --ob-* — tokens.css owns that
+   namespace). Position:sticky was tried and REJECTED (a sticky box cannot
+   escape its containing block). The bands serve ONE axis — the block axis,
+   or the inline axis on a strip that only ever clips inline
+   (.ob-scrollfade--inline); an axis the bands do not serve is masked.
+   z-index keeps the bands over scrolled content; pointer-events never.
+   THE BAND LAW (B-K18; replaces the one-third law of 2026-09-05): the leaf
+   writes --sf-h = max(4, min(24, 20 % of the clip height, (clip − one
+   20 px row) / 2)) — never two bands without one clean row between them
+   (two 24 px bands in the 105 px phone window left 57 px clean; 21 → 63)
+   — and --sf-w = max(4, min(48, 20 % of the clip width)); 48 = the 32 px
+   PEEK plus its 16 px margin (the peek law: a clipped neighbour shows
+   ≥ 32 px fully inside the fade; fitPeek locks --sf-w at peek + 16). The
+   24px / 48px fallbacks are the pre-law paint for a stale leaf.
+   THE NO-PHANTOM-OVERFLOW LAW (GH-525 integrator 2026-09-05, play lane
+   question 31): the leaf clamps the anchors into the TRUE content range
+   (children extent, not scrollHeight/Width), so a band can never extend
+   or sustain scrollable overflow after a content shrink.
+   Reduced-transparency rung (the shell.css cascade-ordering law — a11y
+   block AFTER the base at matching specificity): every fade becomes a
+   --ob-line-1 HAIRLINE DIVIDER — masks off, bands 1px — same predicate,
+   calmer material. The mask flips instantly (a gradient mask does not
+   interpolate); the bands keep the 120 ms opacity. */
+:where(.ob-scrollfade) { position: relative; } /* fixed/sticky hosts win */
+.ob-scrollfade {
+  /* the per-axis mask layers: opaque (a no-op) until an axis clips; the
+     opaque stop's colour is irrelevant to a mask (alpha only) — a token
+     keeps the sheet on the token grep (the play.css precedent) */
+  --sf-mask-x: linear-gradient(var(--ob-text-0), var(--ob-text-0));
+  --sf-mask-y: linear-gradient(var(--ob-text-0), var(--ob-text-0));
+}
+.ob-scrollfade::before,
+.ob-scrollfade::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--sf-h, 24px);
+  z-index: var(--ob-z-raised);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--ob-t-fast) var(--ob-ease);
+}
+.ob-scrollfade::before {
+  top: var(--sf-top, 0px);
+  background: linear-gradient(to bottom, var(--ob-glass-solid), transparent);
+}
+.ob-scrollfade::after {
+  top: calc(var(--sf-bot-edge, 100%) - var(--sf-h, 24px));
+  background: linear-gradient(to top, var(--ob-glass-solid), transparent);
+}
+.ob-scrollfade[data-ob-fade-top="1"]::before { opacity: 1; }
+.ob-scrollfade[data-ob-fade-bottom="1"]::after { opacity: 1; }
+/* B-K06 tabbable-only-if-overflow: scrollfade.js gives a clipped scroller
+   (with no tabbable descendant of its own) tabindex=0 and takes it back the
+   moment the content reads whole; the stop wears the ONE kit ring, never an
+   inset outline (a clipping ancestor opts into overflow: clip +
+   overflow-clip-margin: 4px instead). */
+.ob-scrollfade:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+}
+/* inline-primary bands: the pseudo pair turns 90° — start / end bands
+   spanning the visible height. THE PSEUDO-AXIS LAW (GH-668 review r2 P2,
+   fix round 5): the pair serves the inline axis when band mode names it
+   (.ob-scrollfade--inline) OR a MASKED scroller clips inline only — start /
+   end flags with no top / bottom flag, the mask-x-only state of a paint-less
+   rail (the play card rail). In mask mode the rotated pair rests at opacity
+   0 (the mask paints) and surfaces only where the mask lifts: reduced
+   transparency (the hairline arm below) and the focus ring (the ring-over-
+   a-mask block). A two-axis mask clip keeps the block pair. Stated in the
+   sheet, not the leaf, so a stale leaf's flags already obey it. */
+.ob-scrollfade.ob-scrollfade--inline::before,
+.ob-scrollfade.ob-scrollfade--inline::after,
+.ob-scrollfade--mask-x:not([data-ob-fade-top="1"], [data-ob-fade-bottom="1"]):is([data-ob-fade-start="1"], [data-ob-fade-end="1"])::before,
+.ob-scrollfade--mask-x:not([data-ob-fade-top="1"], [data-ob-fade-bottom="1"]):is([data-ob-fade-start="1"], [data-ob-fade-end="1"])::after {
+  top: 0;
+  bottom: 0;
+  height: auto;
+  width: var(--sf-w, 48px);
+  opacity: 0;
+}
+.ob-scrollfade.ob-scrollfade--inline::before,
+.ob-scrollfade--mask-x:not([data-ob-fade-top="1"], [data-ob-fade-bottom="1"]):is([data-ob-fade-start="1"], [data-ob-fade-end="1"])::before {
+  left: var(--sf-start, 0px);
+  right: auto;
+  background: linear-gradient(to right, var(--ob-glass-solid), transparent);
+}
+.ob-scrollfade.ob-scrollfade--inline::after,
+.ob-scrollfade--mask-x:not([data-ob-fade-top="1"], [data-ob-fade-bottom="1"]):is([data-ob-fade-start="1"], [data-ob-fade-end="1"])::after {
+  left: calc(var(--sf-end-edge, 100%) - var(--sf-w, 48px));
+  right: auto;
+  background: linear-gradient(to left, var(--ob-glass-solid), transparent);
+}
+.ob-scrollfade--inline[data-ob-fade-start="1"]::before { opacity: 1; }
+.ob-scrollfade--inline[data-ob-fade-end="1"]::after { opacity: 1; }
+/* mask mode per axis: the band never paints on a masked axis (the pseudo
+   stays in the tree, opacity 0, so a stale leaf or a forced-paint probe
+   still finds it); the mask layer takes the axis's gradient */
+.ob-scrollfade--mask-y[data-ob-fade-top="1"]::before,
+.ob-scrollfade--mask-y[data-ob-fade-bottom="1"]::after { opacity: 0; }
+.ob-scrollfade--mask-y[data-ob-fade-top="1"] {
+  --sf-mask-y: linear-gradient(to bottom, transparent, var(--ob-text-0) var(--sf-h, 24px));
+}
+.ob-scrollfade--mask-y[data-ob-fade-bottom="1"] {
+  --sf-mask-y: linear-gradient(to top, transparent, var(--ob-text-0) var(--sf-h, 24px));
+}
+.ob-scrollfade--mask-y[data-ob-fade-top="1"][data-ob-fade-bottom="1"] {
+  --sf-mask-y: linear-gradient(to bottom, transparent, var(--ob-text-0) var(--sf-h, 24px),
+                               var(--ob-text-0) calc(100% - var(--sf-h, 24px)), transparent);
+}
+.ob-scrollfade--mask-x[data-ob-fade-start="1"] {
+  --sf-mask-x: linear-gradient(to right, transparent, var(--ob-text-0) var(--sf-w, 48px));
+}
+.ob-scrollfade--mask-x[data-ob-fade-end="1"] {
+  --sf-mask-x: linear-gradient(to left, transparent, var(--ob-text-0) var(--sf-w, 48px));
+}
+.ob-scrollfade--mask-x[data-ob-fade-start="1"][data-ob-fade-end="1"] {
+  --sf-mask-x: linear-gradient(to right, transparent, var(--ob-text-0) var(--sf-w, 48px),
+                               var(--ob-text-0) calc(100% - var(--sf-w, 48px)), transparent);
+}
+/* the mask is applied only while an axis clips (an opaque mask still costs
+   a compositing layer); both layers intersect so a two-axis clip fades all
+   four edges; a scroller's mask sits on its border box, pinned to the
+   scrollport, never the scrolled content */
+.ob-scrollfade--mask-y:is([data-ob-fade-top="1"], [data-ob-fade-bottom="1"]),
+.ob-scrollfade--mask-x:is([data-ob-fade-start="1"], [data-ob-fade-end="1"]) {
+  -webkit-mask-image: var(--sf-mask-y), var(--sf-mask-x);
+  -webkit-mask-composite: source-in;
+  mask-image: var(--sf-mask-y), var(--sf-mask-x);
+  mask-composite: intersect;
+}
+/* THE RING OVER A MASK (GH-668 review r2 P2, fix round 5; the design charter G3 /
+   B-K06 — the ONE kit ring): --ob-focus is an OUTER shadow and a mask clips
+   its element to the border box, so a masked tab stop (the phone replays
+   body, tabindex 0 while it clips) rang for nothing. An inset ring was
+   rejected — it sits inside the fade and dissolves with the content. While
+   the pane wears the ring the mask LIFTS and the same truthful flags paint
+   the band pair on the clipped axis (band material, the leaf's geometry):
+   the fade never lies, the ring never hides. Equal specificity to the mask
+   rule above, declared after it. */
+.ob-scrollfade--mask-x:focus-visible,
+.ob-scrollfade--mask-y:focus-visible {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.ob-scrollfade--mask-y:focus-visible[data-ob-fade-top="1"]::before,
+.ob-scrollfade--mask-y:focus-visible[data-ob-fade-bottom="1"]::after,
+.ob-scrollfade--mask-x:focus-visible:not([data-ob-fade-top="1"], [data-ob-fade-bottom="1"])[data-ob-fade-start="1"]::before,
+.ob-scrollfade--mask-x:focus-visible:not([data-ob-fade-top="1"], [data-ob-fade-bottom="1"])[data-ob-fade-end="1"]::after { opacity: 1; }
+@media (prefers-reduced-transparency: reduce) {
+  .ob-scrollfade::before,
+  .ob-scrollfade::after {
+    height: 1px;
+    background: var(--ob-line-1);
+  }
+  .ob-scrollfade::after { top: calc(var(--sf-bot-edge, 100%) - 1px); }
+  .ob-scrollfade.ob-scrollfade--inline::before,
+  .ob-scrollfade.ob-scrollfade--inline::after { height: auto; width: 1px; }
+  .ob-scrollfade.ob-scrollfade--inline::after { left: calc(var(--sf-end-edge, 100%) - 1px); }
+  /* masks off; the hairline paints on the masked axis too — on BOTH axes
+     (review r2 P2, fix round 5): a mask-x-only scroller (the pseudo-axis law
+     above) restates the rotated pair as 1 px start / end hairlines */
+  /* (0,2,0) — the mask rule above is (0,2,0) too; the old (0,1,0) form
+     never won, so masked hosts kept their gradient under reduced
+     transparency (found by the C3 arm, fix round 5) */
+  .ob-scrollfade.ob-scrollfade--mask-x, .ob-scrollfade.ob-scrollfade--mask-y {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .ob-scrollfade--mask-x:not([data-ob-fade-top="1"], [data-ob-fade-bottom="1"]):is([data-ob-fade-start="1"], [data-ob-fade-end="1"])::before,
+  .ob-scrollfade--mask-x:not([data-ob-fade-top="1"], [data-ob-fade-bottom="1"]):is([data-ob-fade-start="1"], [data-ob-fade-end="1"])::after { height: auto; width: 1px; }
+  .ob-scrollfade--mask-x:not([data-ob-fade-top="1"], [data-ob-fade-bottom="1"]):is([data-ob-fade-start="1"], [data-ob-fade-end="1"])::after { left: calc(var(--sf-end-edge, 100%) - 1px); }
+  .ob-scrollfade--mask-y[data-ob-fade-top="1"]::before,
+  .ob-scrollfade--mask-y[data-ob-fade-bottom="1"]::after,
+  .ob-scrollfade--mask-x:not([data-ob-fade-top="1"], [data-ob-fade-bottom="1"])[data-ob-fade-start="1"]::before,
+  .ob-scrollfade--mask-x:not([data-ob-fade-top="1"], [data-ob-fade-bottom="1"])[data-ob-fade-end="1"]::after { opacity: 1; }
+}
+
+/* ---------- reduced motion: CSS side (motion.js handles the JS side) ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ob-panel, .ob-btn, .ob-panel button, .ob-range, .ob-toggle__track,
+  .ob-toggle__track::after, .ob-segmented label, .ob-select,
+  .ob-select__chevron, .ob-progress__fill,
+  .ob-scrollfade::before, .ob-scrollfade::after,
+  .ob-navmodal, .ob-card-option, .ob-btn--toggle::before {
+    transition: none !important;
+  }
+}

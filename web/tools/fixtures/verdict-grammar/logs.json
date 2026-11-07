@@ -1,0 +1,545 @@
+{
+ "_about": "#1194: whole-log cases for the verdict grammar, in the shapes the census found in the gate ledger's logs (paths shortened); L24 is the FAIL half of e2e-share's 'LABEL: PASS (qualifier)' arm form, which no suite prints for an arm yet (e2e-replays' summary 'E2E-REPLAYS: FAIL (n failure(s))' has that shape and is read as a summary). Each case: the log's lines, its countArms, its failArms, and (where given) its ledger fields for a result.",
+ "cases": [
+  {
+   "id": "L1",
+   "what": "a retried GREEN (e2e-retry --intersect): the arm count is the final attempt's; the first attempt's failure is named by failArms, and a green ledger entry names none",
+   "lines": [
+    "[x] PASS a",
+    "E2E-X FAIL: b broke",
+    "E2E-X: FAILED",
+    "E2E-RETRY: attempt 1 JUDGED-FAIL rows=1 (completion line: E2E-X: FAILED)",
+    "E2E-RETRY:   row 1: b broke",
+    "E2E-RETRY: attempt 1 JUDGED-FAIL — retrying once (--intersect, #806: any red retries once)",
+    "[x] PASS a",
+    "[x] PASS b",
+    "E2E-X: PASS",
+    "E2E-RETRY: attempt 2 JUDGED-PASS rows=0 (completion line: E2E-X: PASS)",
+    "E2E-RETRY: RETRIED-GREEN — the first run's failures were: b broke. This green consumed the one retry (--intersect, #806)."
+   ],
+   "arms": 3,
+   "failArms": [
+    "b broke"
+   ],
+   "ledger": {
+    "result": "green",
+    "arms_v3": 3,
+    "failArms_v3": []
+   }
+  },
+  {
+   "id": "L2",
+   "what": "a retried RED whose last attempt DIED without a word: failArms still names what failed (attempt 1), never the wrapper's own verdict line",
+   "lines": [
+    "E2E-ATELIER FAIL: C: select→float-visible over budget (300 ms): {\"id\":\"low_deflection\"}",
+    "E2E-ATELIER: 1 failure(s) in this arm — OK line withheld (C OK)",
+    "E2E-ATELIER: FAILED",
+    "E2E-RETRY: attempt 1 JUDGED-FAIL rows=1 (completion line: E2E-ATELIER: FAILED)",
+    "E2E-RETRY: attempt 1 JUDGED-FAIL ONLY in known-flake arm(s) [C] — retrying once (GH-559)",
+    "B OK: strip-absent degrade — plain kit buttons",
+    "S5-M2 1280x800/en/settings-body: after Enter {\"ae\":\"body\"}",
+    "E2E-RETRY: attempt 2 DIED rows=0 (no completion line)",
+    "E2E-ATELIER RED: C"
+   ],
+   "arms": 1,
+   "failArms": [
+    "C: select→float-visible over budget (300 ms)",
+    "C"
+   ],
+   "ledger": {
+    "result": "red",
+    "arms_v3": 1,
+    "failArms_v3": [
+     "C: select→float-visible over budget (300 ms)",
+     "C"
+    ]
+   }
+  },
+  {
+   "id": "L3",
+   "what": "an uncaught launch crash ends the run: one failure, named 'uncaught: Error: <message>' (#1210)",
+   "lines": [
+    "[e2e-aimwarn] PASS A: aim at the 9 (lowest is 1) → chip",
+    "file:///x/web/tools/cdp.mjs:4323",
+    "    const e = new Error(msg + (exited ? '' : ' (and the chrome child ignored '",
+    "              ^",
+    "",
+    "Error: chrome debugger endpoint never came up",
+    "    at launchFailure (file:///x/web/tools/cdp.mjs:4323:15)",
+    "    at async file:///x/web/tools/e2e-aimwarn.mjs:71:16",
+    "",
+    "Node.js v22.23.1"
+   ],
+   "arms": 1,
+   "failArms": [
+    "uncaught: Error: chrome debugger endpoint never came up"
+   ]
+  },
+  {
+   "id": "L4",
+   "what": "a child's crash relayed inside a FAIL, after which the suite goes on judging: only the FAIL line names a failure",
+   "lines": [
+    "  ok: live: rack reset disarms fail-closed",
+    "E2E-CUEPOST FAIL: cli: probe --cuepost exited 1",
+    "Error: listen EADDRINUSE: address already in use 127.0.0.1:9567",
+    "    at Server.setupListenHandle (node:net:1908:16)",
+    "",
+    "Node.js v22.23.1",
+    "  ok: rejected: missing t_contact",
+    "E2E-CUEPOST: 1 failure(s)"
+   ],
+   "arms": 2,
+   "failArms": [
+    "cli: probe --cuepost exited 1"
+   ]
+  },
+  {
+   "id": "L5",
+   "what": "an uncaught error that carries properties ({ cdpWedged: true }) is still one named failure, 'uncaught: Error: <message>'",
+   "lines": [
+    "S1-gi OK (GH-337 + GH-386): GI bands live",
+    "Error: CDP Runtime.enable did not answer within 600000 ms — the tab is wedged",
+    "    at TCP.<anonymous> (node:net:347:12) {",
+    "  cdpWedged: true",
+    "}",
+    "",
+    "Node.js v26.3.1"
+   ],
+   "arms": 1,
+   "failArms": [
+    "uncaught: Error: CDP Runtime.enable did not answer within 600000 ms — the tab is wedged"
+   ]
+  },
+  {
+   "id": "L6",
+   "what": "e2e-userboot's known case: a passing arm named 'terminal BOOT FAILED honest' and a narration quoting the app's BOOT FAILED card name no failure; its upper-case OK verdicts count",
+   "lines": [
+    "terminal BOOT FAILED honest: #err over the failure card, skeleton suppressed",
+    "[stale-dict] card: failed='module' title='Could not start' reason='A module failed to load.' err='[app] BOOT FAILED: failed to load http://127.0.0.1:23190/app/main.js",
+    "cache self-heal already attempted",
+    "full shot OK: settled in AIM",
+    "[wasm404] failure honesty OK: card + Retry reload",
+    "arrival/fast OK: the leaf painted",
+    "SWSTOP-STAGING: 109 OK / 0 RED (15 native lifecycle schedules)",
+    "E2E-USERBOOT PASS"
+   ],
+   "arms": 5,
+   "failArms": [],
+   "ledger": {
+    "result": "green",
+    "arms_v3": 5,
+    "failArms_v3": []
+   }
+  },
+  {
+   "id": "L7",
+   "what": "a suite summary's own count is the inventory (taken once, as a maximum); an arm line's detail number is never harvested",
+   "lines": [
+    "P-A OK: the card group opens",
+    "P-B OK: the drill list scrolls",
+    "E2E-PRACTICE PASS (37 arms)"
+   ],
+   "arms": 37,
+   "failArms": []
+  },
+  {
+   "id": "L8",
+   "what": "e2e-tablecache: '(222 meshes)' in an arm name adds nothing (the old reader read 770 for 33 arms)",
+   "lines": [
+    "[e2e-tablecache] PASS C1 desktop snooker: cache hit == fresh build (222 meshes)",
+    "[e2e-tablecache] PASS C1 desktop pool-9ft: cache hit == fresh build (148 meshes)",
+    "E2E-TABLECACHE: ALL PASS"
+   ],
+   "arms": 3,
+   "failArms": []
+  },
+  {
+   "id": "L9",
+   "what": "e2e-ui: audit rows count; a count line that points at the FAIL rows names no arm",
+   "lines": [
+    "  OK   [main] play hop (catalog audit): zero app-captured / console errors",
+    "  FAIL [main] kit select ob-set-look [display]: popover opens ABOVE the modal",
+    "E2E-UI FAIL: 10 visible native-styled control(s) — see FAIL lines above",
+    "E2E-UI: FAILED"
+   ],
+   "arms": 1,
+   "failArms": [
+    "[main] kit select ob-set-look [display]: popover opens ABOVE the modal"
+   ]
+  },
+  {
+   "id": "L10",
+   "what": "failures with no FAIL word: withheld OK lines, RED and red (n) markers, failure-line counts; summaries name nothing",
+   "lines": [
+    "S5-B/G 926x428: 1 failure(s) so far — done line withheld",
+    "[e2e-drills] arm 28 GH-668 B-PR03 RED (5 failure(s))",
+    "E2E-PRACTICE: P-D4 red (1)",
+    "P-HOLD RED (2 failure line(s) above)",
+    "P-STALE-KIT-STATES: 1 failure line(s) above (the arm printed its own verdict line)",
+    "E2E-SWITCH FAIL (1 failure(s))",
+    "[e2e-touch] FAIL (5 failing assertions)",
+    "PAUSED-ANSWER-SELFTEST FAIL (2/4)",
+    "3 FAILURES"
+   ],
+   "arms": 0,
+   "failArms": [
+    "S5-B/G 926x428",
+    "arm 28 GH-668 B-PR03",
+    "P-D4",
+    "P-HOLD",
+    "P-STALE-KIT-STATES"
+   ]
+  },
+  {
+   "id": "L11",
+   "what": "lighting matrix: MATRIX/ENV cells under an upper-case tag; an OUT cell is a named failure, the FAIL summary is not",
+   "lines": [
+    "MATRIX OK neutral|pool_pro_9ft|auto|1 centre 0.38977 ref 0.38977",
+    "MATRIX OK neutral|pool_pro_9ft|auto|2 centre 0.39 ref 0.39",
+    "MATRIX OUT factory|pool_pro_9ft|pendant_bar|1 N1 centre 0.3732 = 0.919x reference 0.40619 (> 5 %)",
+    "MATRIX FAIL 2/3 in range, 1 out, 0 refused (rows: /tmp/x/rows.jsonl)",
+    "ENV PASS 0 out, 0 refused",
+    "07:31:34 ROW neutral pool_pro_9ft auto b=1"
+   ],
+   "arms": 3,
+   "failArms": [
+    "factory|pool_pro_9ft|pendant_bar|1 N1 centre 0.3732 = 0.919x reference 0.40619 (> 5 %)"
+   ]
+  },
+  {
+   "id": "L12",
+   "what": "e2e-switch: '  - <leg>: green' rows are its arms; a run killed mid-leg names nothing",
+   "lines": [
+    "leg hall",
+    "    hall-nine_ball: pixels over 0 (budget 120) mean 0.000",
+    "  - hall-nine_ball: green",
+    "  - hall-snooker: green"
+   ],
+   "arms": 2,
+   "failArms": []
+  },
+  {
+   "id": "L13",
+   "what": "SKIP, INVALID, UNJUDGEABLE, KNOWN-RED and RED-PROVE lines are never verdicts; the summary still counts",
+   "lines": [
+    "[hygiene] SKIP pacing (d) live teeth proof — SKIPPED-STORM: storm axes busy",
+    "DVR864 C-beat INVALID: compare deferred: no baseline supplied",
+    "0b UNJUDGEABLE (instrument): the request census never saw the document",
+    "  ! KNOWN-RED #1058 winkeep-nine_ball-table-keep: env face 3",
+    "P2p-fold RED-PROVE: leaf off → rest clip y 233.0 cuts 2",
+    "E2E-X PASS"
+   ],
+   "arms": 1,
+   "failArms": []
+  },
+  {
+   "id": "L14",
+   "what": "a 'not ok:' row is a failure, never a pass ('ok' inside it)",
+   "lines": [
+    "ok: alpha holds",
+    "not ok: paused answer — tolerated twice",
+    "PAUSED-ANSWER-SELFTEST FAIL (1/2)"
+   ],
+   "arms": 1,
+   "failArms": [
+    "paused answer — tolerated twice"
+   ]
+  },
+  {
+   "id": "L15",
+   "what": "a retry cut short by a signal (the wrapper prints no report for it): the second attempt still counts and names",
+   "lines": [
+    "E2E-ATELIER FAIL: C: select→float-visible over budget (300 ms)",
+    "E2E-ATELIER: FAILED",
+    "E2E-RETRY: attempt 1 JUDGED-FAIL rows=1 (completion line: E2E-ATELIER: FAILED)",
+    "E2E-RETRY: attempt 1 JUDGED-FAIL ONLY in known-flake arm(s) [C] — retrying once (GH-559)",
+    "A OK: the dock opens",
+    "B OK: the strip pins",
+    "E2E-ATELIER FAIL: D: the dock never re-opened after Esc"
+   ],
+   "arms": 2,
+   "failArms": [
+    "C: select→float-visible over budget (300 ms)",
+    "D: the dock never re-opened after Esc"
+   ]
+  },
+  {
+   "id": "L16",
+   "what": "a suite's last lines that land after the wrapper's report (stdout and stderr interleave) still count; the wrapper's closing verdict line is never an arm",
+   "lines": [
+    "[x] PASS a",
+    "E2E-RETRY: attempt 1 JUDGED-FAIL rows=1 (completion line: E2E-SHELL FAIL)",
+    "[x] PASS b",
+    "E2E-SHELL FAIL: A3 rm rail → practice",
+    "E2E-SHELL FAIL",
+    "E2E-SHELL RED: A3 rm rail → practice"
+   ],
+   "arms": 2,
+   "failArms": [
+    "A3 rm rail → practice"
+   ]
+  },
+  {
+   "id": "L17",
+   "what": "a CRLF log's uncaught crash is named 'uncaught: Error: <message>'",
+   "lines": [
+    "[x] PASS a\r",
+    "Error: chrome debugger endpoint never came up\r",
+    "    at launchFailure (file:///x/cdp.mjs:4323:15)\r",
+    "\r",
+    "Node.js v22.23.1\r"
+   ],
+   "arms": 1,
+   "failArms": [
+    "uncaught: Error: chrome debugger endpoint never came up"
+   ]
+  },
+  {
+   "id": "L18",
+   "what": "an uncaught DOMException is named with its kind ('uncaught: DOMException [TimeoutError]: …'), and so is an error whose frames start several lines below it (a command's stderr in between)",
+   "lines": [
+    "DOMException [TimeoutError]: The operation was aborted due to timeout",
+    "    at new DOMException (node:internal/per_context/domexception:53:5)",
+    "",
+    "Node.js v26.3.1"
+   ],
+   "arms": 0,
+   "failArms": [
+    "uncaught: DOMException [TimeoutError]: The operation was aborted due to timeout"
+   ]
+  },
+  {
+   "id": "L19",
+   "what": "failure names: a withheld OK line with a qualifier names its arm, a done line withheld names its leg, an arm label keeps its reason, a line-end FAIL names its label, a DVR864 leg keeps its id",
+   "lines": [
+    "E2E-ATELIER: 1 failure(s) in this arm — OK line withheld (W OK (desktop))",
+    "S5-K2 1440x900 en: 1 failure(s) — done line withheld",
+    "[e2e-ui] 024 drift gate FAILED — help content is pinned to the mapping",
+    "[e2e-i18n] help overlay live-switch de: FAIL",
+    "DVR864 L6a FAIL: frames short of the plan | pin endT 3.96"
+   ],
+   "arms": 0,
+   "failArms": [
+    "W",
+    "S5-K2 1440x900 en",
+    "024 drift gate — help content is pinned to the mapping",
+    "help overlay live-switch de",
+    "DVR864 L6a: frames short of the plan | pin endT 3.96"
+   ]
+  },
+  {
+   "id": "L20",
+   "what": "property dumps and narration that carry a verdict word are never verdicts",
+   "lines": [
+    "  ok: false,",
+    "{ ok: false, why: 'no pocket' }",
+    "[e2e-switchperf] PLANTED RED on the GH-1170 boots: ?obArm=cn8-timeout-latch",
+    "E2E-X PASS"
+   ],
+   "arms": 1,
+   "failArms": []
+  },
+  {
+   "id": "L21",
+   "what": "a run whose arm filter matched nothing (OB_E2E_DRILLSESSION_ARMS=no-matching-arm) prints only its count-bearing summary: '(0 arms)' reads 0, never one passing arm, so its ledger entry carries arms_v3 0 for the zero-arm guard (#1194 r2, review)",
+   "lines": [
+    "E2E-DRILLSESSION PASS (0 arms)",
+    "E2E-RETRY: attempt 1 JUDGED-PASS rows=0 (completion line: E2E-DRILLSESSION PASS (0 arms))",
+    "E2E-RETRY: verdict green — exit 0 on attempt 1 (JUDGED-PASS)"
+   ],
+   "arms": 0,
+   "failArms": [],
+   "ledger": {
+    "result": "green",
+    "arms_v3": 0,
+    "failArms_v3": []
+   }
+  },
+  {
+   "id": "L22",
+   "what": "a count-bearing summary after its own arm lines is their count, never one more arm: 3 arm lines and '(3 arms)' read 3 (#1194 r2)",
+   "lines": [
+    "P-A OK: arrival shape — pose, section, cards, host class, sheet, identity",
+    "P-A2(404) OK: S1 stubs stand, __practice undefined after the bounded wait, stub clickable",
+    "P-B OK: Drills tap and hold → picker with entrySource shell, mode unchanged",
+    "E2E-PRACTICE PASS (3 arms)",
+    "E2E-RETRY: attempt 1 JUDGED-PASS rows=0 (completion line: E2E-PRACTICE PASS (3 arms))",
+    "E2E-RETRY: verdict green — exit 0 on attempt 1 (JUDGED-PASS)"
+   ],
+   "arms": 3,
+   "failArms": [],
+   "ledger": {
+    "result": "green",
+    "arms_v3": 3,
+    "failArms_v3": []
+   }
+  },
+  {
+   "id": "L23",
+   "what": "an e2e-share green log, whole: its 'LABEL: PASS (qualifier)' arms count with its line-end 'LABEL: PASS' arms (11 arms and the summary); its 'record N: byte-match OK (…)' sub-checks hold ': ' in the label and stay prose (#1194 r2, review)",
+   "lines": [
+    "sound nodes scheduled during live play: 7",
+    "share URL for the 2-shot game: 269 chars",
+    "record 0: byte-match OK (10109 bytes)",
+    "record 1: byte-match OK (9548 bytes)",
+    "sound nodes scheduled during gestureless replay: 0",
+    "sound nodes scheduled after the first gesture: 3",
+    "448 v6-legacy: scrub seat parity OK (breaker 1, both passes ended on seat 2)",
+    "448 v7-breaker2: scrub seat parity OK (breaker 2, both passes ended on seat 1)",
+    "450 same-tick: double-⏮ survived — replay re-finished with byte-matching records",
+    "450 15ms-gap: double-⏮ survived — replay re-finished with byte-matching records",
+    "legacy corpus: 5 pinned links (captured caad8ca)",
+    "corpus v1-realistic-foul-bih: G1 decode + G2 scenarios/streams (3 pinned, 0 registered-divergent/downstream) + adjudications OK",
+    "corpus v1-default-two-shots: shot 0 is the registered break-class divergence (explicit-legacy attribution proven by --corpus); downstream shots follow the diverged state",
+    "corpus v1-default-two-shots: shot 0 re-judged on the flipped kernel: {\"ballInHand\":false,\"fouls\":[],\"gameOver\":false,\"legal\":true,\"nextLowest\":1,\"nineBallPocketed\":false,\"pocketed\":[5,8],\"respotNine\":false}",
+    "corpus v1-default-two-shots: shot 1 re-judged on the flipped kernel: {\"ballInHand\":true,\"fouls\":[\"wrong-first-ball\",\"scratch\"],\"gameOver\":false,\"legal\":false,\"nextLowest\":1,\"nineBallPocketed\":false,\"pocketed\":[],\"respotNine\":false}",
+    "corpus v1-default-two-shots: G1 decode + G2 scenarios/streams (0 pinned, 2 registered-divergent/downstream) + adjudications OK",
+    "corpus v2-grip-worn-foul-bih: shot 0 is the registered break-class divergence (explicit-legacy attribution proven by --corpus); downstream shots follow the diverged state",
+    "corpus v2-grip-worn-foul-bih: shot 0 re-judged on the flipped kernel: {\"ballInHand\":true,\"fouls\":[\"wrong-first-ball\"],\"gameOver\":false,\"legal\":false,\"nextLowest\":1,\"nineBallPocketed\":false,\"pocketed\":[],\"respotNine\":false}",
+    "corpus v2-grip-worn-foul-bih: shot 1 re-judged on the flipped kernel: {\"ballInHand\":true,\"fouls\":[\"no-contact\"],\"gameOver\":false,\"legal\":false,\"nextLowest\":1,\"nineBallPocketed\":false,\"pocketed\":[],\"respotNine\":false}",
+    "corpus v2-grip-worn-foul-bih: shot 2 re-judged on the flipped kernel: {\"ballInHand\":true,\"fouls\":[\"wrong-first-ball\"],\"gameOver\":false,\"legal\":false,\"nextLowest\":1,\"nineBallPocketed\":false,\"pocketed\":[],\"respotNine\":false}",
+    "corpus v2-grip-worn-foul-bih: G1 decode + G2 scenarios/streams (0 pinned, 3 registered-divergent/downstream) + adjudications OK",
+    "corpus v2-mathavan-default-cloth: shot 0 is the registered break-class divergence (explicit-legacy attribution proven by --corpus); downstream shots follow the diverged state",
+    "corpus v2-mathavan-default-cloth: shot 0 re-judged on the flipped kernel: {\"ballInHand\":false,\"fouls\":[],\"gameOver\":false,\"legal\":true,\"nextLowest\":1,\"nineBallPocketed\":false,\"pocketed\":[],\"respotNine\":false}",
+    "corpus v2-mathavan-default-cloth: shot 1 re-judged on the flipped kernel: {\"ballInHand\":true,\"fouls\":[\"no-contact\"],\"gameOver\":false,\"legal\":false,\"nextLowest\":1,\"nineBallPocketed\":false,\"pocketed\":[],\"respotNine\":false}",
+    "corpus v2-mathavan-default-cloth: G1 decode + G2 scenarios/streams (0 pinned, 2 registered-divergent/downstream) + adjudications OK",
+    "corpus v3-full-equipment-foul-bih: shot 0 is the registered break-class divergence (explicit-legacy attribution proven by --corpus); downstream shots follow the diverged state",
+    "corpus v3-full-equipment-foul-bih: shot 0 re-judged on the flipped kernel: {\"ballInHand\":true,\"fouls\":[\"wrong-first-ball\"],\"gameOver\":false,\"legal\":false,\"nextLowest\":1,\"nineBallPocketed\":false,\"pocketed\":[],\"respotNine\":false}",
+    "corpus v3-full-equipment-foul-bih: shot 1 re-judged on the flipped kernel: {\"ballInHand\":true,\"fouls\":[\"no-contact\"],\"gameOver\":false,\"legal\":false,\"nextLowest\":1,\"nineBallPocketed\":false,\"pocketed\":[],\"respotNine\":false}",
+    "corpus v3-full-equipment-foul-bih: shot 2 re-judged on the flipped kernel: {\"ballInHand\":true,\"fouls\":[\"no-contact\"],\"gameOver\":false,\"legal\":false,\"nextLowest\":1,\"nineBallPocketed\":false,\"pocketed\":[],\"respotNine\":false}",
+    "corpus v3-full-equipment-foul-bih: G1 decode + G2 scenarios/streams (0 pinned, 3 registered-divergent/downstream) + adjudications OK",
+    "[e2e-share] per-game equipment pairing: 9-ball worn cloth stashed and restored; 8-ball on the pool default",
+    "8-ball record 0: byte-match OK (67046 bytes)",
+    "8-ball record 1: byte-match OK (17573 bytes)",
+    "[e2e-share] 8-ball replay match state: {\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"onEight\":null,\"openClaim\":false}",
+    "[e2e-share] 8-BALL ROUND-TRIP ARM: PASS",
+    "one_pocket record: byte-match OK (67050 bytes)",
+    "[e2e-share] ONE_POCKET ROUND-TRIP ARM: PASS",
+    "snooker record: byte-match OK (37276 bytes)",
+    "[e2e-share] SNOOKER ROUND-TRIP ARM: PASS",
+    "carom_3cushion record: byte-match OK (3857 bytes)",
+    "[e2e-share] CAROM_3CUSHION ROUND-TRIP ARM: PASS",
+    "492 arm: byte-match OK under a 2.5 s registry hold (3857 bytes)",
+    "[e2e-share] GH-492 BOOT-RACE ARM: PASS",
+    "14.1 records: byte-match OK (4 records, 145795 bytes total)",
+    "[e2e-share] STRAIGHT_POOL MULTI-RE-RACK ARM: PASS (2 re-derived re-racks + accept + called stroke, byte-identical)",
+    "[e2e-share] STRAIGHT_POOL 14-AT-14 PARTIAL RE-RACK ARM: PASS (partial re-rack crossed, decoded-wire re-run byte-identical: poses + 2 records (25556 bytes) + fold + re-encoded link)",
+    "[e2e-share] PHONE DONE-REGISTER ARM: PASS (667x375 x en/de/ja: labels whole, gauge clear, band-S held, 44pt floors, Continue hit-testable)",
+    "[e2e-share] cp link for the 2-shot game + 4-cut/1-pose plan: 343 chars (planless: 261)",
+    "[e2e-share] CP ROUND-TRIP ARM: PASS (author DVR plan → &cp= link → replay → content-matched DVR session adopts the plan byte-equal; records byte-match; planless link byte-shaped like today's)",
+    "[e2e-share] CP MALFORMED ARM: PASS (garbage/truncated/future-version ignored with a warn; replay played to done)",
+    "[e2e-share] CP UNKNOWN-ID ARM: PASS (cam 6 kept in the model, broadcast at apply)",
+    "E2E-SHARE PASS"
+   ],
+   "arms": 12,
+   "failArms": [],
+   "ledger": {
+    "result": "green",
+    "arms_v3": 12,
+    "failArms_v3": []
+   }
+  },
+  {
+   "id": "L24",
+   "what": "the FAIL half of the same form, which no suite prints for an arm yet: 'LABEL: FAIL (qualifier)' after an arm label is a failure named by the label and the qualifier (#1194 r2)",
+   "lines": [
+    "[e2e-share] CP ROUND-TRIP ARM: PASS (author DVR plan → &cp= link → replay → content-matched DVR session adopts the plan byte-equal; records byte-match; planless link byte-shaped like today's)",
+    "[e2e-share] CP MALFORMED ARM: FAIL (replay stalled before done)"
+   ],
+   "arms": 1,
+   "failArms": [
+    "CP MALFORMED ARM (replay stalled before done)"
+   ]
+  },
+  {
+   "id": "L25",
+   "what": "an e2e-replays run whose OB_REPLAYS_ARMS matched nothing (the suite's real output): its summary carries its OK-line count, so '(0 arms)' reads 0 and the ledger entry carries arms_v3 0, which the zero-arm guard refuses",
+   "lines": [
+    "teardown: 0 launched client(s) confirmed gone",
+    "teardown: static server :21860 confirmed gone",
+    "E2E-REPLAYS: PASS (0 arms)"
+   ],
+   "arms": 0,
+   "failArms": [],
+   "ledger": {
+    "result": "green",
+    "arms_v3": 0,
+    "failArms_v3": []
+   }
+  },
+  {
+   "id": "L26",
+   "what": "an e2e-settings-persist run whose OB_PERSIST_ARMS matched nothing (the suite's real output): '(0 arms)' reads 0",
+   "lines": [
+    "E2E-SETTINGS-PERSIST PASS (0 arms)"
+   ],
+   "arms": 0,
+   "failArms": [],
+   "ledger": {
+    "result": "green",
+    "arms_v3": 0,
+    "failArms_v3": []
+   }
+  },
+  {
+   "id": "L27",
+   "what": "#1210: e2e-userboot's red of e2e-nightly 39104321283 (job 117606843756, step 8, lines 217-240): ten '<name> OK:' arms, the passing 'terminal BOOT FAILED honest: …' line never named, and node's uncaught CDP handshake crash as its one failure, named 'uncaught: Error: …'",
+   "lines": [
+    "user boot renders: lum 80.1, blue 0.17, gray 0.02, green 0.00",
+    "shell-boot variant OK: settle landed play anchor, quick-play exited to the live table",
+    "full shot OK: settled in AIM",
+    "GH-326 boot hygiene OK: no AudioContext warnings, 0 nodes scheduled pre-gesture",
+    "overlay lifecycle OK: seen (z 60, stage 'kernel') → removed; lum 80.1, blue 0.17",
+    "returning boot OK: instant PLAY pose, stored equipment lastPlace retained through quick-play exit, no move",
+    "straight-to-AIM boot OK: today's pose, pill present",
+    "storage arms OK: corrupt/unknown degrade to FRESH, ob-settings-v1 byte-identical",
+    "poison recovery OK: 1 heal, 2 loads, lum 80.1",
+    "terminal BOOT FAILED honest: #err over the failure card, skeleton suppressed",
+    "GH-1081 ResizeObserver-loop notification ignored at boot OK: ro 0 trips in 1 document (logged {\"ro\":1,\"censored\":1}); rearm 1 trip; control tripped 'module' and healed in 2 documents",
+    "scripted pin OK: green 0.19",
+    "composer scale symmetric: 2x at boot and post-resize (renderer 2x, DPR 2)",
+    "scripted pin holds under DPR 2: renderer 1x, composer 1216×780 == CSS",
+    "file:///x/web/tools/cdp.mjs:4557",
+    "      const t = setTimeout(() => rej(new Error('CDP websocket handshake did not '",
+    "                                     ^",
+    "",
+    "Error: CDP websocket handshake did not complete within 30 s: ws://127.0.0.1:18758/devtools/page/E82DA972F04C0FECF29EAABC46CC87C1",
+    "    at Timeout.<anonymous> (file:///x/web/tools/cdp.mjs:4557:38)",
+    "    at listOnTimeout (node:internal/timers:585:17)",
+    "    at process.processTimers (node:internal/timers:521:7)",
+    "",
+    "Node.js v22.23.1"
+   ],
+   "arms": 10,
+   "failArms": [
+    "uncaught: Error: CDP websocket handshake did not complete within 30 s: ws://127.0.0.1:18758/devtools/page/E82DA972F04C0F"
+   ],
+   "ledger": {
+    "result": "red",
+    "arms_v3": 10,
+    "failArms_v3": [
+     "uncaught: Error: CDP websocket handshake did not complete within 30 s: ws://127.0.0.1:18758/devtools/page/E82DA972F04C0F"
+    ]
+   }
+  },
+  {
+   "id": "L28",
+   "what": "#1210: an uncaught error whose message opens with '{' keeps that message in its name: the message is cut on its own (nameOf), then 'uncaught: <class>: ' is put in front",
+   "lines": [
+    "[x] PASS a",
+    "file:///x/web/tools/cdp.mjs:900",
+    "      throw new Error(JSON.stringify(reply.error));",
+    "            ^",
+    "",
+    "Error: {\"code\":-32000,\"message\":\"Cannot find context with specified id\"}",
+    "    at CDP.onMessage (file:///x/web/tools/cdp.mjs:900:13)",
+    "",
+    "Node.js v22.23.1"
+   ],
+   "arms": 1,
+   "failArms": [
+    "uncaught: Error: {\"code\":-32000,\"message\":\"Cannot find context with specified id\"}"
+   ]
+  }
+ ]
+}

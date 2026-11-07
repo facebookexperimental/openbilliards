@@ -1,0 +1,677 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* ============================================================
+   openbilliards — brand site stylesheet (feature 008)
+   Source of truth: /the design charter ("Slate-room physics editorial").
+   Two surfaces (slate/riser), ivory type, rationed chalk blue,
+   dashed hairlines, diamond bullets, two-pole radii, no shadows.
+   Hand-written CSS. No build step. No external requests.
+   ============================================================ */
+
+/* ---- fonts (vendored, see assets/fonts/LICENSE-*) ----------
+   Space Grotesk variable = the brand family (the design charter v2).
+   The fontsource latin subset's unicode-range is kept verbatim so
+   the arrow glyphs (→ ↗) and ◆, which the subset does not carry,
+   keep falling through to the Inter fallback below. */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("fonts/SpaceGroteskVariable-latin.woff2") format("woff2-variations");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter var";
+  src: url("fonts/InterVariable-subset.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/JetBrainsMono-latin-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- tokens (the design charter Quick Start, verbatim) -------------- */
+:root {
+  --bb-slate: oklch(13% 0.009 165);
+  --bb-riser: oklch(19% 0.012 163);
+  --bb-ivory: #efe9d8;
+  --bb-ivory-2: color-mix(in oklab, #efe9d8 62%, transparent);
+  --bb-line: color-mix(in oklab, #efe9d8 14%, transparent);
+  --bb-chalk: oklch(64% 0.10 252);
+  --bb-brass: oklch(70% 0.08 85 / 0.2);
+
+  --bb-font: "Space Grotesk", "Inter var", system-ui, sans-serif;
+  --bb-mono: "JetBrains Mono", ui-monospace, monospace;
+  --bb-t-label: 12px; --bb-t-body-s: 14.5px; --bb-t-body: 19px;
+  --bb-t-h-s: 26px;
+  --bb-t-h: clamp(32px, 4vw, 56px);
+  --bb-t-display: clamp(44px, 7vw, 118px);
+
+  --bb-r-card: 12px; --bb-r-pill: 999px;
+  --bb-ease-enter: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --bb-t-enter: 0.8s; --bb-t-hover: 0.2s;
+
+  /* motion layer tokens (v2, values measured off oryzo/offbrand —
+     see extract/motion-spec.md §5 of each site) */
+  --bb-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);      /* offbrand reveal feel */
+  --bb-ease-back: cubic-bezier(0.175, 0.885, 0.32, 1.15);/* oryzo flip settle    */
+  --bb-t-flip: 0.3s;   /* letter roll        (oryzo: 0.3s spring)               */
+  --bb-t-fill: 0.6s;   /* hairline draw-in   (offbrand: transform 0.6s family)  */
+  --bb-t-drop: 0.9s;   /* display char drop  (offbrand: 0.9s/char, expo-out)    */
+  --bb-t-reveal: 1.2s; /* evidence reveal    (offbrand 1.7s inOut, shortened
+                          for data density per the spec's mapping section)      */
+
+  /* derived knobs (site layer, not in Quick Start) */
+  --bb-gutter: max(24px, 5vw);       /* 24px mobile / 5vw desktop */
+  --bb-display-lh: 0.92;             /* CJK pages override to 1.08 */
+  --bb-label-track: 0.06em;          /* CJK pages override to 0.02em */
+  --bb-nav-h: 76px;
+}
+
+/* CJK register (zh-CN / ja / ko): text-transform is a no-op, so
+   display steps down one notch and loosens; labels lose tracking. */
+html[lang^="zh"], html[lang^="ja"], html[lang^="ko"] {
+  --bb-t-display: clamp(36px, 5.5vw, 88px);
+  --bb-display-lh: 1.08;
+  --bb-label-track: 0.02em;
+}
+
+/* ---- base -------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; box-shadow: none !important; } /* shadows are banned */
+
+html {
+  color-scheme: dark;
+  scrollbar-color: color-mix(in oklab, #efe9d8 30%, transparent) transparent;
+}
+body {
+  background: var(--bb-slate);
+  color: var(--bb-ivory);
+  font-family: var(--bb-font);
+  font-weight: 430;
+  font-size: var(--bb-t-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+img, video, svg { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+::selection { background: var(--bb-ivory); color: var(--bb-slate); }
+
+:focus-visible {
+  outline: 2px solid var(--bb-ivory);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* skip link — first child of <body>, appears on keyboard focus */
+.bb-skip {
+  position: fixed; top: 12px; left: 12px; z-index: 200;
+  padding: 10px 20px;
+  background: var(--bb-ivory); color: var(--bb-slate);
+  border-radius: var(--bb-r-pill);
+  font-size: var(--bb-t-label); font-weight: 620;
+  letter-spacing: var(--bb-label-track); text-transform: uppercase;
+  text-decoration: none;
+  transform: translateY(calc(-100% - 16px));
+}
+.bb-skip:focus-visible { transform: none; }
+
+/* ---- type voices (exactly three + code) --------------------
+   display / heading — uppercase graphic objects (w560)
+   label             — 12px caps wayfinding layer (w620)
+   body / prose      — the sole mixed-case voice (w430)      */
+.bb-display, .bb-heading, .bb-heading-s {
+  font-weight: 560;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  text-wrap: balance;
+}
+.bb-display  { font-size: var(--bb-t-display); line-height: var(--bb-display-lh); }
+.bb-heading  { font-size: var(--bb-t-h);   line-height: 1.0; }
+.bb-heading-s{ font-size: var(--bb-t-h-s); line-height: 1.15; }
+html[lang^="zh"] :is(.bb-heading, .bb-heading-s),
+html[lang^="ja"] :is(.bb-heading, .bb-heading-s),
+html[lang^="ko"] :is(.bb-heading, .bb-heading-s) { line-height: 1.2; }
+
+.bb-label {
+  font-size: var(--bb-t-label);
+  font-weight: 620;
+  line-height: 1.2;
+  letter-spacing: var(--bb-label-track);
+  text-transform: uppercase;
+  color: var(--bb-ivory-2);
+}
+.bb-label strong { color: var(--bb-ivory); font-weight: 620; }
+
+.bb-body   { font-size: var(--bb-t-body);   line-height: 1.55; font-weight: 430; }
+.bb-body-s { font-size: var(--bb-t-body-s); line-height: 1.6;  font-weight: 430; }
+.bb-muted  { color: var(--bb-ivory-2); }
+
+/* docs measure: calm 16.5px prose, 68ch */
+.bb-prose { max-width: 68ch; font-size: 16.5px; line-height: 1.6; font-weight: 430; }
+.bb-prose > * + * { margin-top: 16px; }
+.bb-prose :is(h2, h3, h4) { margin-top: 48px; }
+.bb-prose code {
+  font-family: var(--bb-mono); font-size: 0.88em;
+  color: var(--bb-chalk);       /* inline code names = chalk (the design charter) */
+  overflow-wrap: anywhere;      /* long mono tokens must never widen the page */
+}
+
+/* section marker: "◆ 01 — KERNEL" wayfinding line above headings.
+   The two-value content form keeps decorative glyphs out of AT names
+   (older engines fall back to the plain declaration above it). */
+.bb-marker::before {
+  content: "\25C6\00a0\00a0";
+  content: "\25C6\00a0\00a0" / "";
+  font-size: 8px; vertical-align: 2px;
+  display: inline-block; width: 18px; text-indent: 0;
+}
+/* hanging indent: the diamond sits in its own 18px column, so a
+   wrapped label's second line aligns with the TEXT, not the marker
+   (360px hero label audit) */
+.bb-marker { display: block; padding-left: 18px; text-indent: -18px; }
+
+/* ---- link language ------------------------------------------
+   Every link carries a direction glyph:
+   .bb-link → internal · .bb-link--ext ↗ external · .bb-link--down ↓ scroll */
+a { color: inherit; }
+.bb-link {
+  display: inline-block;
+  text-decoration: underline;
+  text-decoration-color: var(--bb-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  transition: color var(--bb-t-hover) ease, text-decoration-color var(--bb-t-hover) ease;
+}
+/* inline-block ::after: excluded from the underline box AND from
+   wrapping away from the label; the two-value content form keeps
+   the glyphs silent for assistive tech. */
+.bb-link::after {
+  content: "\00a0\2192"; content: "\00a0\2192" / ""; /* → */
+  display: inline-block;
+}
+.bb-link--ext::after  { content: "\00a0\2197"; content: "\00a0\2197" / ""; } /* ↗ */
+.bb-link--down::after { content: "\00a0\2193"; content: "\00a0\2193" / ""; } /* ↓ */
+.bb-link--bare::after { content: none; }
+.bb-link:hover {
+  color: var(--bb-chalk);
+  text-decoration-color: var(--bb-chalk);
+}
+
+/* citation chip — chalk, dashed underline, ↗ (every number cites) */
+.bb-cite {
+  font-family: var(--bb-mono);
+  font-size: var(--bb-t-label);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--bb-chalk);
+  text-decoration: none;
+  border-bottom: 1px dashed color-mix(in oklab, oklch(64% 0.10 252) 55%, transparent);
+  padding-bottom: 1px;
+  white-space: nowrap;
+  transition: border-color var(--bb-t-hover) ease, opacity var(--bb-t-hover) ease;
+}
+.bb-cite::after { content: "\00a0\2197"; content: "\00a0\2197" / ""; }
+.bb-cite:hover { border-bottom-color: var(--bb-chalk); }
+/* touch devices: expand the citation chip's hit area (18px-tall inline
+   chips) without moving its dashed underline or the line layout */
+@media (pointer: coarse) {
+  .bb-cite { position: relative; }
+  .bb-cite::before { content: ""; position: absolute; inset: -13px -4px; }
+}
+sup.bb-cite-sup { line-height: 0; font-size: 11px; margin-left: 2px; }
+
+/* ---- section primitives ------------------------------------
+   Full-bleed. No max-width page frame; whitespace + hairlines
+   do the sectioning. One idea per section.                    */
+.bb-section {
+  padding: 10vh var(--bb-gutter);
+}
+.bb-hero-100vh {
+  min-height: 100vh; min-height: 100svh;
+  padding-top: calc(var(--bb-nav-h) + 4vh);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  position: relative;
+}
+.bb-band { min-height: 60vh; }
+
+/* dashed hairline divider (the system's signature) */
+.bb-rule {
+  border: 0; border-top: 1px dashed var(--bb-line);
+  margin: 0;
+}
+hr.bb-rule { width: 100%; }
+
+/* diamond list — rail sights as bullets */
+.bb-list { list-style: none; padding: 0; }
+.bb-list li {
+  padding-left: 24px; position: relative;
+}
+.bb-list li + li { margin-top: 12px; }
+.bb-list li::before {
+  content: "\25C6"; content: "\25C6" / ""; /* ◆ — silent for AT */
+  position: absolute; left: 0; top: 0.42em;
+  font-size: 8px; color: var(--bb-ivory-2);
+}
+
+/* ---- nav ----------------------------------------------------
+   Fixed bar: wordmark left · label links + ONE filled pill right.
+   Mark the current page with aria-current="page" (site.js also
+   sets it by matching pathnames).                              */
+.bb-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--bb-nav-h);
+  padding: 0 var(--bb-gutter);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
+  background: var(--bb-slate);
+}
+.bb-wordmark {
+  font-size: 15px; font-weight: 620; letter-spacing: 0.04em;
+  text-transform: uppercase; text-decoration: none; color: var(--bb-ivory);
+}
+.bb-nav-links {
+  display: flex; align-items: center; gap: 32px;
+  list-style: none; padding: 0;
+}
+.bb-nav-links a:not(.bb-pill) {
+  font-size: var(--bb-t-label); font-weight: 620;
+  letter-spacing: var(--bb-label-track); text-transform: uppercase;
+  color: var(--bb-ivory-2); text-decoration: none;
+  padding-bottom: 4px; border-bottom: 1px dashed transparent;
+  transition: color var(--bb-t-hover) ease, border-color var(--bb-t-hover) ease;
+}
+.bb-nav-links a:not(.bb-pill):hover { color: var(--bb-ivory); }
+.bb-nav-links a[aria-current="page"] {
+  color: var(--bb-chalk);
+  border-bottom-color: var(--bb-chalk); /* dashed active underline */
+}
+.bb-nav-toggle { display: none; }
+
+/* ---- pills (radius 999 = "you can click this") -------------
+   Ghost = ivory hairline. Filled = Felt Riser fill — the ONE
+   filled pill per viewport (PLAY NOW). Hover inverts to ivory. */
+.bb-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px;
+  border: 1px solid var(--bb-ivory);
+  border-radius: var(--bb-r-pill);
+  background: transparent; color: var(--bb-ivory);
+  font-size: var(--bb-t-label); font-weight: 620;
+  letter-spacing: var(--bb-label-track); text-transform: uppercase;
+  line-height: 1.2; text-decoration: none;
+  transition: background-color var(--bb-t-hover) ease,
+              color var(--bb-t-hover) ease,
+              border-color var(--bb-t-hover) ease;
+}
+.bb-pill:hover { background: var(--bb-ivory); color: var(--bb-slate); }
+.bb-pill--fill { background: var(--bb-riser); }
+.bb-nav .bb-pill { padding: 9px 18px; }
+
+/* ---- card (the only boxed surface) ------------------------- */
+.bb-card {
+  background: var(--bb-riser);
+  border: 1px solid var(--bb-line);
+  border-radius: var(--bb-r-card);
+  padding: 24px;
+}
+.bb-card > .bb-label { margin-bottom: 16px; }
+a.bb-card { display: block; text-decoration: none;
+  transition: border-color var(--bb-t-hover) ease; }
+a.bb-card:hover { border-color: var(--bb-ivory-2); }
+
+/* brass note — optional warm wash, docs warnings only */
+.bb-note {
+  background: var(--bb-brass);
+  border: 1px dashed var(--bb-line);
+  border-radius: var(--bb-r-card);
+  padding: 16px 24px;
+  font-size: var(--bb-t-body-s); line-height: 1.6;
+}
+/* chalk on the brass wash sits at ~4.55:1 — one lightness step up
+   buys AA headroom without a new hue */
+.bb-note .bb-cite { color: oklch(70% 0.10 252); }
+
+/* ---- code well (riser bg, mono, duotone) --------------------
+   Markup:  <pre class="bb-code"><code>…</code></pre>
+   Duotone: wrap names/strings in <b class=tk-n> (chalk) and
+   comments in <i class=tk-c> (ivory-2). Base stays ivory.
+   No rainbow syntax.                                           */
+.bb-code {
+  background: var(--bb-riser);
+  border: 1px solid var(--bb-line);
+  border-radius: var(--bb-r-card);
+  padding: 24px;
+  overflow-x: auto;
+  font-family: var(--bb-mono);
+  font-size: var(--bb-t-body-s); /* 14.5px */
+  line-height: 1.65;
+}
+.bb-code code { font-family: inherit; color: var(--bb-ivory); }
+.bb-code .tk-n { font-weight: 400; font-style: normal; color: var(--bb-chalk); }
+.bb-code .tk-c { font-weight: 400; font-style: normal; color: var(--bb-ivory-2); }
+
+/* ---- edge tab — serial-plate artifact down the hero margin --
+   <p class="bb-edge-tab bb-label">OPENBILLIARDS — KERNEL 0.1</p>
+   Parent needs position:relative (bb-hero-100vh already is).   */
+.bb-edge-tab {
+  position: absolute; top: 50%; right: calc(var(--bb-gutter) / 2);
+  transform: translate(50%, -50%) rotate(90deg);
+  transform-origin: center;
+  white-space: nowrap;
+}
+
+/* ---- footer -------------------------------------------------
+   Giant display statement → sitemap columns of arrow-links →
+   credits line (chalk = editorial credit, per the design charter).      */
+.bb-footer {
+  border-top: 1px dashed var(--bb-line);
+  padding: 12vh var(--bb-gutter) 48px;
+}
+.bb-footer-statement { margin-bottom: 12vh; max-width: 12em; }
+.bb-footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 48px 24px;
+  padding-bottom: 10vh;
+}
+.bb-footer-grid .bb-label { margin-bottom: 20px; }
+.bb-footer-grid ul { list-style: none; padding: 0; }
+.bb-footer-grid li + li { margin-top: 12px; }
+.bb-footer-grid .bb-link { font-size: var(--bb-t-body-s); }
+.bb-footer-credits {
+  border-top: 1px dashed var(--bb-line);
+  padding-top: 24px;
+  display: flex; flex-wrap: wrap; gap: 12px 32px;
+  justify-content: space-between;
+  font-size: var(--bb-t-label);
+  letter-spacing: var(--bb-label-track); text-transform: uppercase;
+  color: var(--bb-chalk);
+}
+.bb-footer-credits a { color: inherit; text-decoration: none;
+  border-bottom: 1px dashed color-mix(in oklab, oklch(64% 0.10 252) 55%, transparent); }
+
+/* ---- grid helper (card rows, split bands) ------------------- */
+.bb-grid {
+  display: grid; gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+}
+.bb-split { /* label rail left, content right */
+  display: grid; gap: 24px;
+  grid-template-columns: minmax(160px, 1fr) minmax(0, 3fr);
+  align-items: start;
+}
+/* grid items must shrink past their content's min-width (code wells,
+   tables) or the section forces horizontal page overflow */
+.bb-split > * { min-width: 0; }
+
+/* ---- reveal system ------------------------------------------
+   Add .bb-reveal to any element; site.js adds .in once when it
+   scrolls into view (rise 24px + fade, 0.8s expo-out). Stagger
+   siblings with .bb-d1…d5 (+60ms each). Hidden ONLY when JS is
+   live (html.js) — file:// with scripts off still shows all.   */
+html.js .bb-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--bb-t-enter) var(--bb-ease-enter),
+              transform var(--bb-t-enter) var(--bb-ease-enter);
+}
+html.js .bb-reveal.in { opacity: 1; transform: none; }
+/* keyboard focus must never land inside a hidden reveal: if the
+   observer hasn't fired yet, focus reveals instantly (WCAG 2.4.7);
+   site.js additionally adds .in on focusin */
+html.js .bb-reveal:focus-within { opacity: 1; transform: none; transition: none; }
+.bb-d1 { transition-delay: 60ms; }
+.bb-d2 { transition-delay: 120ms; }
+.bb-d3 { transition-delay: 180ms; }
+.bb-d4 { transition-delay: 240ms; }
+.bb-d5 { transition-delay: 300ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .bb-reveal {
+    opacity: 1; transform: none; transition: none;
+  }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ---- responsive ---------------------------------------------
+   360px phones → 4K. Mobile nav: links collapse behind a plain
+   stacked panel toggled by the MENU button (no hamburger).     */
+@media (max-width: 760px) {
+  :root { --bb-nav-h: 64px; }
+  .bb-nav-toggle {
+    display: inline-block;
+    font-size: var(--bb-t-label); font-weight: 620;
+    letter-spacing: var(--bb-label-track); text-transform: uppercase;
+    color: var(--bb-ivory);
+    /* WCAG 2.5.5 / HIG: ≥44×44 touch target (was 36×35). Padding grows
+       the hit box; the negative margin cancels it out of layout so the
+       visual size and nav rhythm are unchanged. */
+    padding: 15px 12px; margin: -15px -12px;
+  }
+  /* open state gets the system's active marker (chalk + dashed) —
+     state is always visibly marked */
+  .bb-nav.open .bb-nav-toggle {
+    color: var(--bb-chalk);
+    text-decoration: underline dashed;
+    text-underline-offset: 5px;
+  }
+  .bb-nav-links {
+    position: absolute; top: var(--bb-nav-h); left: 0; right: 0;
+    background: var(--bb-slate);
+    border-bottom: 1px dashed var(--bb-line);
+    padding: 8px var(--bb-gutter) 32px;
+    flex-direction: column; align-items: flex-start; gap: 24px;
+  }
+  /* collapse ONLY when JS can reopen it (mirrors the reveal gate);
+     without scripts the panel ships open and the toggle hides */
+  html.js .bb-nav-links { display: none; }
+  .bb-nav.open .bb-nav-links { display: flex; }
+  html:not(.js) .bb-nav-toggle { display: none; }
+  .bb-nav .bb-pill { padding: 12px 24px; } /* full-size inside the panel */
+  .bb-split { grid-template-columns: 1fr; }
+  .bb-edge-tab { display: none; }
+  .bb-footer-statement { max-width: none; }
+  /* citation chips wrap on phones: nowrap was correct for the old short
+     path labels, but the pathless-label wave's prose citations ("the
+     internal verification archive") cannot fit a 145px hero-spec column
+     at 390px and clipped at the hero's overflow edge. The dashed
+     border-bottom wraps per line box; overflow-wrap matches the ko
+     body contract (keep-all + anywhere) instead of fighting it. */
+  .bb-cite { white-space: normal; overflow-wrap: anywhere; }
+  /* code wells: at 14.5px/24px padding nearly every line pans, and iOS
+     hides scrollbars, so wells read as clipped. One step down keeps
+     most lines whole at 390px; lines never wrap — panning stays the
+     affordance for the rest (thin scrollbar keeps it visible). */
+  .bb-code { font-size: 13px; padding: 16px 18px; scrollbar-width: thin; }
+}
+
+@media (min-width: 2000px) { /* 4K: keep the label layer legible */
+  :root { --bb-t-label: 13px; --bb-t-body: 21px; }
+}
+
+/* ---- misc ---------------------------------------------------- */
+.bb-visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  clip-path: inset(50%); overflow: hidden; white-space: nowrap;
+}
+.bb-lang-switch { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.bb-lang-switch a {
+  color: var(--bb-ivory-2); text-decoration: none;
+  padding-bottom: 3px; border-bottom: 1px dashed transparent;
+  transition: color var(--bb-t-hover) ease, border-color var(--bb-t-hover) ease;
+}
+.bb-lang-switch a:hover { color: var(--bb-ivory); }
+.bb-lang-switch a[aria-current] {
+  color: var(--bb-chalk); border-bottom-color: var(--bb-chalk);
+}
+[hidden] { display: none !important; }
+
+/* Korean is space-delimited: never break inside a word (ja/zh wrap per
+   character by design; ko reads broken without keep-all) */
+html[lang="ko"] body { word-break: keep-all; overflow-wrap: anywhere; }
+
+/* no-JS phones: the always-open nav panel must FLOW, not overlay — as a
+   fixed dropdown it permanently covered y=64-306 (the H1!) on every page
+   (audit r2 must-fix). JS-on keeps the fixed dropdown behavior. */
+@media (max-width: 760px) {
+  html:not(.js) .bb-nav { position: static; height: auto; flex-wrap: wrap; }
+  /* flex-basis 100%: the links always wrap to their own stacked row —
+     otherwise a narrow locale's panel fits beside the wordmark and the
+     wordmark floats vertically centered against a right-hand column */
+  html:not(.js) .bb-nav-links { position: static; box-shadow: none; flex-basis: 100%; }
+  html:not(.js) body { padding-top: 0; }
+}
+
+/* ============================================================
+   MOTION LAYER (v2 — assets/motion.js drives this)
+   Choreography extracted from oryzo.ai / itsoffbrand.com by CDP
+   state-diffing; exact values in the repo's motion spec. Three
+   layers: hover / entrance / scroll-driven. Laws: transform,
+   opacity and clip-path ONLY; native scroll; no libraries.
+
+   Gating contract: every hidden-initial state below sits behind
+   html.motion, which motion.js sets ONLY when JS runs AND
+   prefers-reduced-motion is off. No-JS and reduced-motion users
+   therefore get the finished page instantly — nothing to unhide.
+   html.scrub marks pages with scroll choreography (index only);
+   guide/docs reading surfaces stay calm.
+   ============================================================ */
+
+/* ---- 1 HOVER · nav letter flipper (oryzo "IInnttrroo") -------
+   JS wraps each glyph once: .fl(clip) > .fl-i(rolls) > [glyph,
+   .fl-d duplicate parked at top:100%]. Hover tweens the inner to
+   -100% so the duplicate rolls up: 0.3s back-out(1.15) spring,
+   20ms/glyph stagger L→R on enter, REVERSED (R→L) on leave —
+   both straight off the oryzo measurements. CSS does the motion;
+   JS only wraps. The link keeps its text in aria-label; the
+   split copy is one aria-hidden span. */
+.seg { display: inline-block; white-space: nowrap; } /* word stays one unit */
+.fl { display: inline-block; overflow: clip; }
+.fl-i {
+  position: relative; display: inline-block;
+  transform: translate3d(0, 0, 0);
+  transition: transform var(--bb-t-flip) var(--bb-ease-back);
+  /* leave order: right→left */
+  transition-delay: calc((var(--n, 1) - 1 - var(--i, 0)) * 20ms);
+}
+.fl-d { position: absolute; top: 100%; left: 0; }
+.bb-flip:is(:hover, :focus-visible) .fl-i {
+  transform: translate3d(0, -100%, 0);
+  transition-delay: calc(var(--i, 0) * 20ms); /* enter order: left→right */
+}
+
+/* ---- 2 ENTRANCE · display lockup letter drop ----------------
+   offbrand hero: chars drop from -101% inside overflow-clipped
+   wrappers, 0.9s expo-out each, ~20-25ms scrambled stagger (JS
+   assigns --d from a fixed random permutation). Transform-only —
+   the clip wrapper does the revealing, opacity stays 1. */
+/* padding-bottom extends the clip box below the 0.92 line box so
+   commas/periods in split displays keep their descents; the
+   negative margin cancels it out of layout. No padding-top — the
+   parked glyph above must stay fully clipped. */
+html.motion .lk {
+  display: inline-block; overflow: clip;
+  padding-bottom: 0.18em; margin-bottom: -0.18em;
+}
+html.motion .lk-i {
+  display: inline-block;
+  transform: translate3d(0, -101%, 0);
+  animation: bb-drop var(--bb-t-drop) var(--bb-ease-enter) var(--d, 0ms) forwards;
+}
+@keyframes bb-drop { to { transform: translate3d(0, 0, 0); } }
+
+/* section displays (index bands + guide headings) reuse the drop
+   but hold it paused at t=0 until the shared once-observer marks
+   the heading .in on section ENTRY — the display voice gets the
+   hero's ceremony in every band, not just the first viewport. */
+html.motion .lk-hold .lk-i { animation-play-state: paused; }
+html.motion .lk-hold.in .lk-i { animation-play-state: running; }
+
+/* entrance · evidence rows: the measured offbrand reveal feel —
+   inOut transform (slow start, soft land) + LINEAR opacity,
+   1.2s (1.7s measured, shortened for data density per spec).
+   Row stagger stays on the existing .bb-d* system (60ms). */
+html.motion .claims .bb-reveal {
+  transition: opacity var(--bb-t-reveal) linear,
+              transform var(--bb-t-reveal) var(--bb-ease-inout);
+}
+
+/* entrance · count-up values: tabular figures so the tween does
+   not make the row breathe; real value lives in a visually-hidden
+   sibling for AT (motion.js builds the pair). */
+.cnt { font-variant-numeric: tabular-nums; }
+
+/* entrance · dashed hairline draw-in: clip sweep left→right,
+   0.6s (offbrand fill-family duration), once, on section entry. */
+html.motion hr.bb-rule {
+  clip-path: inset(-1px 100% -1px 0);
+  transition: clip-path var(--bb-t-fill) var(--bb-ease-enter);
+}
+html.motion hr.bb-rule.in { clip-path: inset(-1px 0 -1px 0); }
+
+/* entrance · imagery: offbrand card recipe — the render starts
+   pre-zoomed 1.05 and settles to 1.0 on entry (so motion never
+   reveals edges). The image is re-painted on a ::before that
+   inherits the figure's own background stack; the figure keeps
+   painting it too, so no-JS/reduced pages are pixel-identical. */
+html.motion :is(.band-figure, .strip) { overflow: hidden; }
+html.motion :is(.band-figure, .strip)::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: inherit;
+  transform: scale(1.05);
+  transition: transform var(--bb-t-reveal) var(--bb-ease-enter);
+}
+html.motion :is(.band-figure, .strip).in::before { transform: scale(1); }
+html.motion :is(.band-figure, .strip) > .figure-plate { z-index: 1; }
+
+/* ---- 3 SCROLL-DRIVEN (index only, html.scrub) ----------------
+   Continuous maps are LINEAR to scroll and written by motion.js
+   as inline transforms (pure functions of scrollY — fractional
+   values hold at rest, the scrub signature). CSS owns only the
+   floating-header state flip below.
+
+   Header: transparent over the hero; past 0.5 viewport it gains
+   a slate scrim + dashed hairline (0.3s, opacity-only — the law
+   forbids animating background-color, so the scrim is a pseudo
+   whose opacity flips). The open mobile panel forces the scrim. */
+html.scrub .bb-nav { background: transparent; }
+html.scrub .bb-nav::before {
+  content: "";
+  position: absolute; inset: 0; z-index: -1;
+  background: oklch(13% 0.009 165 / 0.92);
+  border-bottom: 1px dashed var(--bb-line);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+html.scrub .bb-nav:is(.is-float, .open)::before { opacity: 1; }
+
+/* lockup scrub: shrink toward the baseline-left corner so the
+   wordmark reads as settling into the page, not zooming away */
+html.scrub .hero-lockup { transform-origin: 0 100%; }
+
+/* the focus contract outranks every motion rule above: keyboard
+   focus inside ANY reveal snaps it visible instantly (restated
+   last so the .claims override cannot win the cascade) */
+html.js .bb-reveal:focus-within { opacity: 1; transform: none; transition: none; }
+
+/* reduced motion: html.motion is never set (motion.js bails), so
+   the initial-state rules above are inert; this block keeps the
+   base-layer transitions instant as before. */
+@media (prefers-reduced-motion: reduce) {
+  html.motion .lk-i { animation: none; transform: none; }
+  html.motion hr.bb-rule { clip-path: none; transition: none; }
+}

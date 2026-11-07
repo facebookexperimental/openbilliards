@@ -1,0 +1,83 @@
+# Rust
+target/
+Cargo.lock.orig
+
+# Node / web
+node_modules/
+# root-level only: web/dist/ (the committed wasm pkg the app imports) must
+# NOT be ignored
+/dist/
+*.tsbuildinfo
+
+# WASM build output
+pkg/
+
+# Generator build output. The engineering-drawing generators (ghrox,
+# ghrmagnum) now REQUIRE an explicit --output-dir, but the ghrox r1 default
+# was build/drawings/rox resolved against the CWD, so a run from the repo
+# root dropped seven sheets at ./build/. This entry stays as the standing
+# guard: a build product like the ios/*/.build/ and macos/*/.build/ trees
+# below, never committed (sealed sheets are published to Drive instead).
+build/
+# output/ — the same guard for the other name people reach for; both ghrox
+# tools now REFUSE an --output-dir inside the repo tree outright (r3, C3).
+output/
+
+# OS / editor
+.DS_Store
+*.swp
+
+# Local scratch
+/tmp/
+# R1-FIX12 (verification C7): evidence packs under output/ carry the owner's
+# photos and quarantine STUDY pixels — never staged, never in an archive
+/output/
+.venv/
+# feature 020 (FR-010): the documented reference-machine training venv
+# (quickstart §1: python3 -m venv --system-site-packages .venv-rl)
+.venv-rl/
+# Stage-B iteration-2 worktree venv (same recipe, worktree-local)
+.venv-sb2/
+# Phase-3 gen-2 worktree venv (the #64 env-pin migration,
+.venv-p3g2/
+# feature 022 worktree venv (pool-py gate: maturin develop + pytest)
+.venv-022/
+__pycache__/
+
+# iOS shell (feature 016, contracts/game-bundle.md 5 + distribution.md 1)
+# - the synced game bundle is a BUILD PRODUCT: the repo never contains a
+#   second copy of the game (FR-002)
+# - Signing.xcconfig is the owner's gitignored signing overlay (SC-008)
+# - the .xcodeproj is generated from ios/project.yml, never committed (R16)
+ios/App/Resources/web/
+ios/Signing.xcconfig
+ios/*.xcodeproj
+# xcodebuild -derivedDataPath default used by e2e-ios.mjs and ios.yml
+# (testflight-runbook §3) — a local build product, never committed
+ios/DerivedData/
+# SwiftPM build products (ios/ShellCore swift test)
+ios/ShellCore/.build/
+ios/ShellCore/.swiftpm/
+
+# macOS shell (feature 023, plan.md Project Structure)
+# - the .xcodeproj is generated from macos/project.yml, never committed (R2)
+# - Signing.xcconfig is the owner's gitignored signing overlay (R14)
+# - the mac target consumes the SAME gitignored synced bundle tree as iOS
+#   (ios/App/Resources/web/, already ignored above — research R5)
+macos/*.xcodeproj
+macos/Signing.xcconfig
+# local xcodebuild -derivedDataPath convention (the ios/DerivedData twin;
+macos/DerivedData/
+# SwiftPM build products (macos/MacShellCore swift test)
+macos/MacShellCore/.build/
+macos/MacShellCore/.swiftpm/
+
+# RL research runs (feature 019, research R15): contents ignored, the README
+# re-included — the dir/*-then-negate pattern, because git cannot re-include
+# a file beneath an excluded *directory* pattern
+
+# scenario-render runtime port markers (pid+token locks) — never committed:
+# a stale one makes an unrelated pid look like a concurrent renderer
+web/.scenario-render-server-*.pid
+web/.scenario-render-server-*.pid.*
+web/.scenario-render-nonce-*

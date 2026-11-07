@@ -1,0 +1,4950 @@
+{
+ "comment": [
+  "DO NOT REGENERATE (rules-corpus.json discipline; frozen at the",
+  "feature-026 review, GH-343). Per-discipline byte oracle for the",
+  "tenball-v1 conformance gate: every expect line harvested ONCE",
+  "from the pool-rules crate through the pool-cli judge leg at the",
+  "harvestedAt commit and reviewed case-by-case against its cited",
+  "clause (WPA Rules of Play eff. 2025-09-15, Section 6 -- 10-Ball;",
+  "the semantic source is",
+  "crates/pool-rules/tests/tenball_scenarios.rs). Post-freeze",
+  "changes ONLY via the erratum protocol: a pinned-clause proof",
+  "against the cited text -- NEVER a re-run to fix a red gate; a byte",
+  "diff at any conformance leg is resolved by fixing the code to",
+  "reproduce THESE bytes. Coverage floor: every foul code",
+  "(no-contact, wrong-first-ball, no-rail-after-contact,",
+  "illegal-break, ball-off-table, scratch, three-consecutive-fouls),",
+  "decisions 12+13 every branch + every error path, both terminals",
+  "(ten-ball-pocketed, three-consecutive-fouls), every phase",
+  "(break/pushout/play/over), the 6.4 push-out suspension, the 6.6",
+  "opponent option, the 6.8 spotted-10 paths (break/push/early/",
+  "jumped), the no-golden-break pin, and every tenball RulesError",
+  "text reachable through JSON-value inputs."
+ ],
+ "harvestedAt": "5d5d49a5b01eca0479364aa89f9b990c635ff3e9",
+ "slice": "wpa-10ball",
+ "ruleset": "tenball-v1",
+ "cases": [
+  {
+   "id": "wpa-10ball/initialState-001",
+   "ruleset": "tenball-v1",
+   "kind": "initialState",
+   "breaker": 1,
+   "comment": "Fresh rack at the opening-break address (6.2/6.3(a)).",
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}",
+   "expectSha256": "73cdeb46cd04848e132c5bf6af7eed0189c2e6895407a82f5c8535fe77a44623"
+  },
+  {
+   "id": "wpa-10ball/initialState-002",
+   "ruleset": "tenball-v1",
+   "kind": "initialState",
+   "breaker": 2,
+   "comment": "Seat 2 breaks.",
+   "expect": "{\"phase\":\"break\",\"shooter\":2,\"breaker\":2,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}",
+   "expectSha256": "08fe96ed7b8740a83e9911c2407911bbdeef6b2e8663cb7416b8439fd96e94cc"
+  },
+  {
+   "id": "wpa-10ball/judge-001-legal-dry-break",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 4
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "6.3(b): four object balls to rails, no pot -- legal; turn passes; the 6.4 window opens (phase pushout).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"pushout\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "7b4d5d0117577daffa9e62a97418d303c6ea5aaa1e90c7e750b17e00837f1ba6"
+  },
+  {
+   "id": "wpa-10ball/judge-002-illegal-break",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "6.3(b): dry break, three object balls driven -- illegal-break, BIH anywhere (6.9), window closed.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"illegal-break\",\"cite\":\"WPA 6.3(b)\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":1,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"illegal-break\",\"cite\":\"WPA 6.3(b)\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "0d137e2d841c2018b64007103420e6c6828b88971efaf0f6ff15ccd5793785d0"
+  },
+  {
+   "id": "wpa-10ball/judge-003-break-jumped-counts",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallOffTable": {
+        "ball": 4
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "6.3(b) via 2.7: a jumped ball counts toward the four; the jump itself stays a 3.5 foul; only the 10 ever spots (6.8).",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA 6.9 via 3.5\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":1,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA 6.9 via 3.5\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "78f23ccf343456bfca14e42986280377dfae9cd0bf34b7445b1a34d437814257"
+  },
+  {
+   "id": "wpa-10ball/judge-004-scoring-break-continues",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 2,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "6.7: a pot on a foul-free break keeps the table without a call (6.5 exempts the break).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[2],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"pushout\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "e23c076730988e92f9de9230bb4ed67401d9190535dea707e634b351c318ed31"
+  },
+  {
+   "id": "wpa-10ball/judge-005-ten-on-break-spots",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 10,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "6.8: the 10 pocketed on the break SPOTS -- no golden-break win; breaker continues.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[10],\"ballInHand\":\"none\",\"respot\":[10],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"pushout\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "da01e80a4020a9623a84571a326cd2023f7570da6a796cfb0f3c548a63da93c4"
+  },
+  {
+   "id": "wpa-10ball/judge-006-break-scratch",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "6.9 via 3.1: break scratch is a standard foul -- BIH ANYWHERE (no kitchen relief in 10-ball); window closed.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 6.9 via 3.1\"}],\"pocketed\":[3],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":1,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 6.9 via 3.1\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "a8aa180ba6a55fcebb08853f2ceb4c51d8c34a3b33c80f99297dbadba8edb09a"
+  },
+  {
+   "id": "wpa-10ball/judge-007-break-wrong-first",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 4
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "6.9 via 3.2 applies on the break: first contact must be the 1.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPA 6.9 via 3.2\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":1,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPA 6.9 via 3.2\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "65aa6fd0f1bff86fcc5341c78d67c0848344e0af66a2fe39b494950b15933c15"
+  },
+  {
+   "id": "wpa-10ball/judge-010-pushout-touch-nothing",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "pushout",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "push"
+   },
+   "comment": "6.4: a declared push out suspends 3.2/3.3 (contact requirement included) -- legal; decision 12 for the opponent; seat held.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"pushout_response\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":{\"kind\":\"pushout_response\",\"chooser\":2},\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "27001185e9aac793362b481517507ae4527beccb999ca519b3fb0b6e598138b3"
+  },
+  {
+   "id": "wpa-10ball/judge-011-pushout-pots-stay",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "pushout",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 4,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 10,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "push"
+   },
+   "comment": "6.4/6.7/6.8: balls pocketed on a push out stay down and never count; the 10 spots.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[4,10],\"ballInHand\":\"none\",\"respot\":[10],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"pushout_response\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,2,3,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":{\"kind\":\"pushout_response\",\"chooser\":2},\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "3b1511c83e3fd5af9ebc2fc6408e0e6ab9ba46e7b172de73fab2d3f02ef2b91a"
+  },
+  {
+   "id": "wpa-10ball/judge-012-pushout-scratch",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "pushout",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "push"
+   },
+   "comment": "6.4: 3.1 still applies on a push out -- standard foul, no decision, BIH anywhere.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 6.9 via 3.1\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":1,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 6.9 via 3.1\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "d0b22d64416fb2de9afc5b6733198ba6e3c96b9ffa7300317604fac4990919ee"
+  },
+  {
+   "id": "wpa-10ball/judge-013-window-consumed",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "pushout",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 1,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 1,
+    "pocket": 3
+   },
+   "comment": "A normal called shot in the 6.4 window consumes it (phase -> play).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[1],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"onTable\":[2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "b57780518fb7a648f3a6aa4a8903d93a590849368a4a974f25169726e7e3386b"
+  },
+  {
+   "id": "wpa-10ball/judge-020-wrong-first-ball",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "6.9 via 3.2: first contact must be the lowest ball.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPA 6.9 via 3.2\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":1,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPA 6.9 via 3.2\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "65aa6fd0f1bff86fcc5341c78d67c0848344e0af66a2fe39b494950b15933c15"
+  },
+  {
+   "id": "wpa-10ball/judge-021-lowest-follows-set",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     4,
+     7,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 4
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "Rotation follows the surviving set (lowest = 4).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[4,7,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "b7a55fd14cc65459c154ccf9d3682d9a26ed295811f11dfd75d622d9602e8718"
+  },
+  {
+   "id": "wpa-10ball/judge-022-no-contact",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "6.9 via 3.3 first sentence: the cue must contact an object ball.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA 6.9 via 3.3\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":1,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA 6.9 via 3.3\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "eafd4207bd932af21e3ce136b90efdf8d3024df5dc2d919172ec1a570e6bf4e1"
+  },
+  {
+   "id": "wpa-10ball/judge-023-no-rail-after-contact",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "6.9 via 3.3: after contact a ball must reach a rail (or pocket).",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-rail-after-contact\",\"cite\":\"WPA 6.9 via 3.3\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":1,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"no-rail-after-contact\",\"cite\":\"WPA 6.9 via 3.3\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "de4b6dfeb75e045dbefeb583a2e4b0da6cb4e4dcc3e1937cdafdf0b2d21859b1"
+  },
+  {
+   "id": "wpa-10ball/judge-030-made-call-continues",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 1,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 7,
+        "pocket": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 1,
+    "pocket": 3
+   },
+   "comment": "6.7: the made call keeps the table; extra balls stay down.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[1,7],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"onTable\":[2,3,4,5,6,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "df0987372601327efe783711cc5caa664534c6e58e959b934ddb4fd1b1368d99"
+  },
+  {
+   "id": "wpa-10ball/judge-031-combination-counts",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 1,
+        "b2": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 5,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 5,
+    "pocket": 2
+   },
+   "comment": "1.7: details irrelevant -- the called 5 off the 1 counts.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[5],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,2,3,4,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "f308674bceaeefdbda5480f28a63f50dd26da093cc8a483b158a3e6853468d04"
+  },
+  {
+   "id": "wpa-10ball/judge-032-wrong-pocket-wrongful",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 1,
+        "pocket": 4
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 1,
+    "pocket": 3
+   },
+   "comment": "6.6: called ball in the wrong pocket, no foul -- decision 13, ball stays down.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[1],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"wrongful_pot\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"onTable\":[2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":{\"kind\":\"wrongful_pot\",\"chooser\":2},\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "2567f1139562013c1d1f802d1baef67aced77d2cead4142f5137bc7682f8a652"
+  },
+  {
+   "id": "wpa-10ball/judge-033-uncalled-pot-wrongful",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 2,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "6.5/6.6: an uncalled pot on the declared no-call stance is wrongful.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[2],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"wrongful_pot\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":{\"kind\":\"wrongful_pot\",\"chooser\":2},\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "7194ace3befabab807b7b451f05b3901f2ceb85e0e6317653033cd59f7484ace"
+  },
+  {
+   "id": "wpa-10ball/judge-034-clean-no-call-passes",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "6.7: a clean no-call miss passes the turn -- the safety play of a no-safety-call game (6.5).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "e1eef140e05edb22dca8c62af321327c9c97b576f752e31aa02e30300113ec6e"
+  },
+  {
+   "id": "wpa-10ball/judge-035-foul-dominates",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 2,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 10,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "6.6 presupposes no foul: a foul + pot is just the foul -- no decision, balls stay (10 excepted).",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPA 6.9 via 3.2\"}],\"pocketed\":[2,10],\"ballInHand\":\"anywhere\",\"respot\":[10],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":1,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPA 6.9 via 3.2\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "7a315321b76bd702cecbead0b64340ec49868f08489f417590eac11c736fff71"
+  },
+  {
+   "id": "wpa-10ball/judge-036-lenient-kind-no-call",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "declare"
+   },
+   "comment": "eightball-v2 lenient-kind convention: an unknown non-call kind reads as the no-call stance.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "e1eef140e05edb22dca8c62af321327c9c97b576f752e31aa02e30300113ec6e"
+  },
+  {
+   "id": "wpa-10ball/judge-040-early-called-ten",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 1,
+        "b2": 10
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 10,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 10,
+    "pocket": 2
+   },
+   "comment": "Sec 6 intro + 6.7/6.8: an early called-and-made 10 is legal, spots, and continues -- NOT a win.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[10],\"ballInHand\":\"none\",\"respot\":[10],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "f4d4013b2421aab3157deae7890a5c201f7c302acf1ad47f91b22d9649bd977e"
+  },
+  {
+   "id": "wpa-10ball/judge-041-lone-ten-wins",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 10
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 10,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 10,
+    "pocket": 3
+   },
+   "comment": "6.7: the called lone 10 in the called pocket wins the rack.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[10],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":{\"winner\":1,\"reason\":\"ten-ball-pocketed\",\"cite\":\"WPA 6.7\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"onTable\":[],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":{\"winner\":1,\"reason\":\"ten-ball-pocketed\",\"cite\":\"WPA 6.7\"}}}",
+   "expectSha256": "12148fbd190944c4dab1781869e10ada0b5dd83f101b7dbaed32bd052967a2f8"
+  },
+  {
+   "id": "wpa-10ball/judge-042-lone-ten-wrong-pocket",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 10
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 10,
+        "pocket": 4
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 10,
+    "pocket": 3
+   },
+   "comment": "6.6/6.8: the lone 10 in the wrong pocket is a wrongful pot; the 10 spots; game on.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[10],\"ballInHand\":\"none\",\"respot\":[10],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"wrongful_pot\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"onTable\":[10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":{\"kind\":\"wrongful_pot\",\"chooser\":2},\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "ba275de492aeba4ffdd63f93591fbbeea247924b2f1febe945675b03cec15d06"
+  },
+  {
+   "id": "wpa-10ball/judge-043-lone-ten-scratch",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 10
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 10,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 10,
+    "pocket": 3
+   },
+   "comment": "The foul kills the win: called lone 10 made WITH a scratch -- 10 spots, BIH.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 6.9 via 3.1\"}],\"pocketed\":[10],\"ballInHand\":\"anywhere\",\"respot\":[10],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[10],\"consecutiveFouls\":{\"1\":1,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 6.9 via 3.1\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "04fb455632b14c5f88f9f864340de3f7c89b749d826ffd38283878dfe0820b7a"
+  },
+  {
+   "id": "wpa-10ball/judge-044-ten-off-table-spots",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallOffTable": {
+        "ball": 10
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "6.8 + 3.5: the jumped 10 spots, with the foul.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA 6.9 via 3.5\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[10],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":1,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA 6.9 via 3.5\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "22c6847b25ce00d26e490872ad1e9c090314597acfc43ba8f0d9b63626ff002c"
+  },
+  {
+   "id": "wpa-10ball/judge-045-other-off-table-stays",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallOffTable": {
+        "ball": 6
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "6.8: no other object ball is ever spotted -- the jumped 6 stays off.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA 6.9 via 3.5\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,7,8,9,10],\"consecutiveFouls\":{\"1\":1,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA 6.9 via 3.5\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "0912865dce978c9c5dedb09b647e838c060bbbd75d5fe906741a3df02113d0e5"
+  },
+  {
+   "id": "wpa-10ball/judge-050-second-foul-counts",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 1,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "3.13 counter: the second consecutive foul steps to 2 (warning surface is the HUD, not judged).",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA 6.9 via 3.3\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":2,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA 6.9 via 3.3\"}],\"by\":1},\"result\":null}}",
+   "expectSha256": "ce89444caa730fb3e68ba1cea35d8afb36563770f8e4d1eb02c0138c73c74610"
+  },
+  {
+   "id": "wpa-10ball/judge-051-third-foul-loses-rack",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 2,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "6.10 via 3.13: the third consecutive foul loses the RACK; the third foul carries the serious-foul cite.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA 6.9 via 3.3\"},{\"code\":\"three-consecutive-fouls\",\"cite\":\"WPA 6.10 via 3.13\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":2,\"reason\":\"three-consecutive-fouls\",\"cite\":\"WPA 6.10 via 3.13\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":3,\"2\":0},\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA 6.9 via 3.3\"},{\"code\":\"three-consecutive-fouls\",\"cite\":\"WPA 6.10 via 3.13\"}],\"by\":1},\"result\":{\"winner\":2,\"reason\":\"three-consecutive-fouls\",\"cite\":\"WPA 6.10 via 3.13\"}}}",
+   "expectSha256": "9dc97f63184dbfdc2f25f93496e21ed9865f2e979f06ba538b9b2c386cbb27d5"
+  },
+  {
+   "id": "wpa-10ball/judge-052-legal-resets-counter",
+   "ruleset": "tenball-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 2,
+     "2": 1
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "3.13: any legal shot resets the shooter counter.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":1},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}}",
+   "expectSha256": "fcf35960f50439e7cb17af1d6e36ea8b9b527db3c80f162ea9cc0b276afc8450"
+  },
+  {
+   "id": "wpa-10ball/judge-error-060-break-call",
+   "ruleset": "tenball-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 2,
+    "pocket": 3
+   },
+   "comment": "6.5: the break is never a called shot.",
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"tenball-v1: the break is not a called shot (WPA 6.5)\"}}",
+   "expectSha256": "38b74a039634133243c76a8f8b5cff29399d133f852805cab48040c25b731505"
+  },
+  {
+   "id": "wpa-10ball/judge-error-061-push-in-play",
+   "ruleset": "tenball-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "push"
+   },
+   "comment": "6.4: the push out exists only on the second shot of the rack.",
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"tenball-v1: a push out is only available on the shot immediately after a foul-free break (WPA 6.4)\"}}",
+   "expectSha256": "ef51893a42c7223622cdabc312ac95cfafd6145874937c6ac7b258629c3ac40c"
+  },
+  {
+   "id": "wpa-10ball/judge-error-062-push-on-break",
+   "ruleset": "tenball-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "push"
+   },
+   "comment": "The break cannot be a push out (the break gate rejects every non-null input).",
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"tenball-v1: the break is not a called shot (WPA 6.5)\"}}",
+   "expectSha256": "38b74a039634133243c76a8f8b5cff29399d133f852805cab48040c25b731505"
+  },
+  {
+   "id": "wpa-10ball/judge-error-063-missing-stance",
+   "ruleset": "tenball-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "6.5 via 1.7: every non-break shot requires an explicit stance.",
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"tenball-v1: every shot after the break requires a call or a declared no-call stance (WPA 6.5 via 1.7)\"}}",
+   "expectSha256": "7dd9c3a174eeeb9e1cceb89092b172227bf08bb7b49f8e39df76d65db302574e"
+  },
+  {
+   "id": "wpa-10ball/judge-error-064-ball-range",
+   "ruleset": "tenball-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 11,
+    "pocket": 0
+   },
+   "comment": "Called ball outside 1-10.",
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"tenball-v1: called ball 11 is not an object ball (1-10)\"}}",
+   "expectSha256": "6605998d13ada47b1f8ff5806980bf205381ac10980a4e020a69a3673e2dd97a"
+  },
+  {
+   "id": "wpa-10ball/judge-error-065-ball-not-on-table",
+   "ruleset": "tenball-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 9
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 0
+   },
+   "comment": "Called ball not on the table.",
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"tenball-v1: called ball 3 is not on the table\"}}",
+   "expectSha256": "53477ee7cfe4bc72e2acc10df6503e0ac6c2f8a5b8b8f84d1cbd1c3add6f38c8"
+  },
+  {
+   "id": "wpa-10ball/judge-error-066-pocket-missing",
+   "ruleset": "tenball-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 2
+   },
+   "comment": "Called pocket must be a kernel pocket index.",
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"tenball-v1: called pocket undefined is not a kernel pocket index\"}}",
+   "expectSha256": "15ba42ef632ba542578e0276612967ecaaf13da9f255baeae87f9c108cb90844"
+  },
+  {
+   "id": "wpa-10ball/judge-error-067-pending-guard",
+   "ruleset": "tenball-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": {
+     "kind": "wrongful_pot",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "P16 guard: judge refuses while a decision is pending.",
+   "expect": "{\"error\":{\"code\":\"decision-pending\",\"message\":\"tenball-v1: judge called while a rulebook decision is pending ('wrongful_pot') — resolve it via applyDecision\"}}",
+   "expectSha256": "2710f6ee0f9005171aa1bedc861ceb63be5dc20a2505f861684a5fbf8cc505d4"
+  },
+  {
+   "id": "wpa-10ball/judge-error-068-over-guard",
+   "ruleset": "tenball-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "over",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": {
+     "winner": 1,
+     "reason": "ten-ball-pocketed",
+     "cite": "WPA 6.7"
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "P17 guard: judge refuses after the match ended.",
+   "expect": "{\"error\":{\"code\":\"match-over\",\"message\":\"tenball-v1: judge called after the match ended (adapter contract)\"}}",
+   "expectSha256": "e6977c12f85e70c17984ca564dacad877ca31776a9e40701079fe1b94fffa2b1"
+  },
+  {
+   "id": "wpa-10ball/judge-error-069-empty-table",
+   "ruleset": "tenball-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "bad-state: empty onTable (the nineball guard precedent).",
+   "expect": "{\"error\":{\"code\":\"bad-state\",\"message\":\"tenball-v1: state.onTable is empty — no object balls on the table\"}}",
+   "expectSha256": "819fcb1e14f9dfed93e25eb3c2032f0b9ed4116c902e37c011a09d937d7d4df5"
+  },
+  {
+   "id": "wpa-10ball/applyDecision-070-pushout-1",
+   "ruleset": "tenball-v1",
+   "kind": "applyDecision",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": {
+     "kind": "pushout_response",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 12,
+    "choice": 1
+   },
+   "comment": "6.4 choice 1: the pusher shoots again.",
+   "expect": "{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}",
+   "expectSha256": "e3fdae27d4f9e384e09d96b5952169b9d64a3294fb9797234bd7dd4acc04addd"
+  },
+  {
+   "id": "wpa-10ball/applyDecision-071-pushout-2",
+   "ruleset": "tenball-v1",
+   "kind": "applyDecision",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": {
+     "kind": "pushout_response",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 12,
+    "choice": 2
+   },
+   "comment": "6.4 choice 2: the chooser takes the table.",
+   "expect": "{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}",
+   "expectSha256": "32427f28a7e5c5cca679cc07fad6675d8b8d367c2997d28738851c5c41a1b2b7"
+  },
+  {
+   "id": "wpa-10ball/applyDecision-072-wrongful-1",
+   "ruleset": "tenball-v1",
+   "kind": "applyDecision",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": {
+     "kind": "wrongful_pot",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 13,
+    "choice": 1
+   },
+   "comment": "6.6 choice 1: the shooter continues.",
+   "expect": "{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}",
+   "expectSha256": "e3fdae27d4f9e384e09d96b5952169b9d64a3294fb9797234bd7dd4acc04addd"
+  },
+  {
+   "id": "wpa-10ball/applyDecision-073-wrongful-2",
+   "ruleset": "tenball-v1",
+   "kind": "applyDecision",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": {
+     "kind": "wrongful_pot",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 13,
+    "choice": 2
+   },
+   "comment": "6.6 choice 2: the chooser takes the table.",
+   "expect": "{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"foulContext\":null,\"result\":null}",
+   "expectSha256": "32427f28a7e5c5cca679cc07fad6675d8b8d367c2997d28738851c5c41a1b2b7"
+  },
+  {
+   "id": "wpa-10ball/applyDecision-error-074-unknown-id",
+   "ruleset": "tenball-v1",
+   "kind": "applyDecision-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": {
+     "kind": "wrongful_pot",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 11,
+    "choice": 1
+   },
+   "comment": "Unknown decision id (11 belongs to 14.1).",
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"tenball-v1: unknown decision id 11 (only 12, pushout_response — WPA 6.4; 13, wrongful_pot — WPA 6.6)\"}}",
+   "expectSha256": "018684884e559782e3183e4298c0625301d907cbbf9e972d0abb104a21973bfb"
+  },
+  {
+   "id": "wpa-10ball/applyDecision-error-075-kind-mismatch",
+   "ruleset": "tenball-v1",
+   "kind": "applyDecision-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": {
+     "kind": "wrongful_pot",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 12,
+    "choice": 1
+   },
+   "comment": "Kind vs pending mismatch.",
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"tenball-v1: decision 'pushout_response' does not match the pending option ('wrongful_pot')\"}}",
+   "expectSha256": "71ad5906c84522165146bf6d292121c7eb79ba1b4e2e3faacfd5c2a763194574"
+  },
+  {
+   "id": "wpa-10ball/applyDecision-error-076-none-pending",
+   "ruleset": "tenball-v1",
+   "kind": "applyDecision-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 13,
+    "choice": 1
+   },
+   "comment": "No pending option.",
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"tenball-v1: decision 'wrongful_pot' does not match the pending option (none)\"}}",
+   "expectSha256": "f243f8013adcc69be6ae509b330d41bfd71789ca9099437d7767f36eecab65e0"
+  },
+  {
+   "id": "wpa-10ball/applyDecision-error-077-choice-range",
+   "ruleset": "tenball-v1",
+   "kind": "applyDecision-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": {
+     "kind": "pushout_response",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 12,
+    "choice": 3
+   },
+   "comment": "Choice out of range.",
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"tenball-v1: choice 3 out of range for 'pushout_response' (1 the shooter continues | 2 the chooser takes the table)\"}}",
+   "expectSha256": "629fe86de791be039db9914ed12c2494b071ddf3ea2f6592d818c7962dd83a04"
+  },
+  {
+   "id": "wpa-10ball/applyDecision-error-078-over-guard",
+   "ruleset": "tenball-v1",
+   "kind": "applyDecision-error",
+   "state": {
+    "phase": "over",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": {
+     "winner": 1,
+     "reason": "ten-ball-pocketed",
+     "cite": "WPA 6.7"
+    }
+   },
+   "decision": {
+    "decision": 12,
+    "choice": 1
+   },
+   "comment": "No decision after the match ended.",
+   "expect": "{\"error\":{\"code\":\"match-over\",\"message\":\"tenball-v1: no decision can be applied after the match ended\"}}",
+   "expectSha256": "daec4b8f88139ea65035867671535c2ee0cbc49de159979e65df393ff235f4e3"
+  },
+  {
+   "id": "wpa-10ball/hudState-080",
+   "ruleset": "tenball-v1",
+   "kind": "hudState",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     4,
+     7,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "scratch",
+       "cite": "WPA 6.9 via 3.1"
+      }
+     ],
+     "by": 2
+    },
+    "result": null
+   },
+   "comment": "HUD projects lowest (rotation target) + the {by, fouls} re-order.",
+   "expect": "{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"onTable\":[4,7,10],\"lowest\":4,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"by\":2,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 6.9 via 3.1\"}]}}",
+   "expectSha256": "f2db646ddd7203666bdd949a0b2775dbb991c7a1d33d91b3c2c202f7d8fffb07"
+  },
+  {
+   "id": "wpa-10ball/hudState-081",
+   "ruleset": "tenball-v1",
+   "kind": "hudState",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "comment": "Fresh-rack HUD: phase break, lowest 1, no foul context.",
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"lowest\":1,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"result\":null,\"foulContext\":null}",
+   "expectSha256": "c0f9001f04c42198df98233e65cf0fa36c841d8fd050a8d25c20224918d2e857"
+  },
+  {
+   "id": "wpa-10ball/hudState-082",
+   "ruleset": "tenball-v1",
+   "kind": "hudState",
+   "state": {
+    "phase": "over",
+    "shooter": 1,
+    "breaker": 1,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": {
+     "winner": 1,
+     "reason": "ten-ball-pocketed",
+     "cite": "WPA 6.7"
+    }
+   },
+   "comment": "Terminal HUD carries the result verbatim.",
+   "expect": "{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"onTable\":[1,2,3,4,5,6,7,8,9,10],\"lowest\":1,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"pendingDecision\":null,\"result\":{\"winner\":1,\"reason\":\"ten-ball-pocketed\",\"cite\":\"WPA 6.7\"},\"foulContext\":null}",
+   "expectSha256": "f02facfaff6d5baea2316305febed91722b04f125ce55f13b46647231d782ad9"
+  }
+ ]
+}

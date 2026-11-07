@@ -1,0 +1,429 @@
+% ===========================================================================
+% Section 3 — The simulator
+% Every quantitative statement traces to a pinned experiment output field
+% or to the study's ledger. Behavior is described via its published model
+% provenance and its verifiable outputs; this section contains no
+% source-code exposition.
+% ===========================================================================
+\section{The simulator}
+\label{sec:simulator}
+
+The instrument under study is an event-driven analytic rigid-body simulator
+for cue-sports mechanics. Between discrete events, every ball state evolves
+in closed form; events are detected by root-finding on low-degree
+polynomials and resolved by a catalog of impact models, each carrying an
+explicit published provenance and a frozen parameter set. The kernel ships
+as a single WebAssembly binary that this paper treats as the normative
+definition of the physics (Section~\ref{sec:simulator-determinism}).
+Consistent with that posture, this section describes the simulator through
+its model provenance and its verifiable outputs rather than through source
+code (public at a later revision; Section~\ref{sec:availability});
+Fig.~\ref{fig:F1} summarizes the architecture.
+
+\figstub{F1}{F1.pdf}{%
+  \textbf{Overview.} Architecture of the event-driven kernel. Between
+  events, each ball state
+  evolves in closed form under one of three independent cloth-friction
+  regimes (slide, roll, spin) or under ballistic flight; candidate event
+  times (ball--ball, ball--cushion, slide$\to$roll, roll$\to$rest, and
+  airborne transitions) are roots of polynomials of degree $\leq 4$,
+  located with the Algorithm~1010 quartic solver
+  \citep{orellana2020algorithm1010}. Each resolved event dispatches to a
+  provenance-tagged impact model from Table~\ref{tab:models}; break-scale
+  frozen clusters dispatch to the bounded compliant episode of
+  Section~\ref{sec:simulator-break}. Terminal rest projection closes the
+  round-trip law (Section~\ref{sec:simulator-robustness}), and the shipped
+  WebAssembly binary is the physics definition of record
+  (Section~\ref{sec:simulator-determinism}).}{F1}
+
+\subsection{Event-driven analytic core}
+\label{sec:simulator-core}
+
+The formulation descends from the event-based pool physics of
+\citet{leckie2006event}: rather than time-stepping, the kernel advances
+each ball along a closed-form trajectory determined by its current motion
+regime and solves for the earliest time at which any regime transition or
+contact occurs. Cloth interaction is modeled with three independent
+friction regimes---sliding, rolling, and spin about the vertical
+axis---each with its own coefficient, so that a ball's planar trajectory
+within a regime is exactly quadratic in time and airborne flight is exactly
+ballistic. The design deliberately excludes air drag and Magnus lift:
+admitting either would destroy the polynomial character of the
+trajectories, and with it the guarantee that every event time is a root of
+a polynomial of degree at most four (the degree-four case arising from
+ball--ball proximity between two quadratic trajectories).
+
+Quartic event detection uses the closed-form solver of
+\citet{orellana2020algorithm1010}, incorporating both published corrections
+\citep{demichele2022remark,demichele2024remark}. \citet{leckie2006event}
+already flagged root-finding fragility as the Achilles' heel of
+event-driven billiards simulation; the kernel's posture at the residual
+hard cases---structurally coincident roots at grazing and stick-onset
+configurations---is a deterministic first-crossing selection rule, discussed
+as a robustness property in Section~\ref{sec:simulator-robustness} and, as
+a case study of a defect this posture replaced, in
+Section~\ref{sec:oracle}. Each resolved event then dispatches to an impact
+model from the catalog of Section~\ref{sec:simulator-catalog}, and the
+resulting event stream---not any sampled rendering of it---is the
+simulator's output of record.
+
+\subsection{Model catalog with provenance}
+\label{sec:simulator-catalog}
+
+Table~\ref{tab:models} lists the physical channels, the model identifiers
+under which they are recorded in every battery output, their published
+sources, and their frozen parameters. The complete governing equations of
+every catalog row, with each source's deviations itemized and the frozen
+constants consolidated, are reproduced in Supplementary Material
+Section~S3. Two doctrinal points govern the
+catalog. First, a \emph{parameter freeze}: catalog values were frozen
+before any battery sweep ran, and every subsequent miss became a ledger row
+rather than a re-tune (Section~\ref{sec:methodology}). The worked example
+is the declared ball--ball restitution $e_b = 0.95$, which differs from the
+$e = 1$ idealization used by several reference derivations and produces a
+coherent, declared family of comparison errors across the battery,
+reported as declared model content, not error (quantified per experiment in
+Section~\ref{sec:results}). Second, \emph{provenance honesty}: where the
+sources themselves drift, both readings are recorded---the kernel's
+ball--ball friction curve $\mu(v_{\mathrm{rel}}) = 0.009951 + 0.108\,
+e^{-1.088\,v_{\mathrm{rel}}}$ follows the current revision of the
+velocity-dependent throw fit in Alciatore's technical-proof corpus
+\citep{alciatore_tp_a14}, while an earlier document in the same corpus
+prints a different decay constant; the discrepancy is ledgered as a
+source revision drift rather than silently harmonized.
+
+The ball--ball slip-friction impulse uses the Coulomb-cap law (slip
+impulse $\mu\,(1+e_b)/2\cdot v_n$, recorded in outputs as
+\code{CoulombCap}). This law is itself an outcome of the paper's
+methodology: the battery surfaced an inherited mis-scaled convention
+(the slip-law defect), the corrected law became the default, and the
+legacy law is
+retained behind an explicit option with byte-identical replay proofs
+(case study in Section~\ref{sec:oracle}).
+
+Cushion impact offers one default and three alternative models: the
+corrected Han carom impulse model as validation default
+\citep{han2005dynamics}, a compliant Stronge energetic-restitution
+alternative \citep{stronge2018impact}, and two fitted equipment presets
+carrying velocity-dependent restitution responses---the $e_c(v)$ hook
+that couples rebound speed and spin to approach conditions.
+Identifiers, frozen parameters, and---importantly---each preset's
+\emph{declared validity domain} are the corresponding rows of
+Table~\ref{tab:models}; the fitted presets are out-of-domain on several
+US-pool bank and lag observables (quantified in
+Section~\ref{sec:results}), and
+neither was re-tuned.
+
+Cushion \emph{geometry} deserves its own paragraph, because it is a
+documented trap. The kernel uses the US-pool cushion-nose height of
+63.5\% of ball diameter, per the WPA equipment specification;
+\citet{mathavan2010cushion} place the cushion contact at $7R/5$---70\% of
+ball diameter---which is correct for the snooker equipment their model was
+fit on and systematically skews US-pool bank angles if transplanted. We
+treat this as a domain separation between equipment classes, not a
+disagreement with the source; the fitted Mathavan preset accordingly pairs
+with the snooker table configuration, and the bank experiment sweeps nose
+height over a 0.60--0.67 sensitivity bracket around the specification
+value to bound the geometric channel. The remaining rows of
+Table~\ref{tab:models}---endmass squirt for stick--ball interaction
+\citep{cross2008squirt,alciatore_tp_a31,shepard2001squirt} and the
+three-coefficient cloth model verified against the closed-form kinematics
+of the technical-proof corpus \citep{alciatore_tp_catalog}---are exercised
+by experiment groups B and F respectively (Section~\ref{sec:results}).
+
+% Page-breakable longtable — the [review,12pt] float overflowed the page
+% by ~283pt and clipped the Stick-ball and Break-cluster rows.
+% Table typography: rotated to landscape (pdflscape) with ragged-right
+% columns, single-spaced rows (the tab:engines \baselinestretch idiom),
+% unbreakable model IDs, and longtable continuation furniture.
+\begin{landscape}
+{\def\baselinestretch{1}\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.10\linewidth}>{\raggedright\arraybackslash}p{0.17\linewidth}>{\raggedright\arraybackslash}p{0.17\linewidth}>{\raggedright\arraybackslash}p{0.195\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}@{}}
+  \caption{Model catalog with provenance: physical channel, model
+  identifier as recorded in every battery output, published source, frozen
+  catalog parameters, and validity-domain note. All parameters were frozen
+  before any battery sweep ran; deviations and domain boundaries are
+  ledger rows (Section~\ref{sec:methodology}), never re-tunes.}
+  \label{tab:models}\\
+    \toprule
+    Channel & Model ID & Source & Frozen parameters & Domain note \\
+    \midrule
+    \endfirsthead
+    \multicolumn{5}{@{}l}{Table~\ref{tab:models} \emph{(continued)}}\\
+    \toprule
+    Channel & Model ID & Source & Frozen parameters & Domain note \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{5}{r@{}}{\emph{Continued on next page}}\\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+    Ball--ball impact & \code{CoulombCap} slip law &
+      \citealp{alciatore_tp_a14}; TP A.5 \citep{alciatore_tp_catalog} &
+      $e_b = 0.95$; $\mu(v) = 0.009951 + 0.108\,e^{-1.088 v}$ &
+      corrected default after the slip-law fix; legacy law retained
+      as explicit
+      option \\
+    \addlinespace
+    Cloth friction & three-regime catalog &
+      TP closed forms \citep{alciatore_tp_catalog} &
+      $\mu_s = 0.20$, $\mu_r = 0.01$; independent spin decay &
+      one parameter set must satisfy lag and bank data jointly
+      (Section~\ref{sec:methodology}) \\
+    \addlinespace
+    Cushion (default) & \code{han2005_default} &
+      \citealp{han2005dynamics}, corrected &
+      kinematic $e_0 = 0.85$; flat $\mu_w = 0.20$ &
+      validation default; aim 1.0 banks 0.11 diamonds beyond the TP B.28
+      envelope \\
+    \addlinespace
+    Cushion (compliant) & \code{stronge_realistic} &
+      \citealp{stronge2018impact} &
+      spin ratio 1.8; calibrated $\mu(v_{\mathrm{slip}})$ &
+      sliding-bank calibration gaps ledgered \\
+    \addlinespace
+    Cushion (fitted) & \code{mathavan_fitted} &
+      \citealp{mathavan2010cushion} + video joint fit &
+      tangential compliance; $e_c(v)$ response, $ee_0 = 0.80$ &
+      in-domain: kick/rebound coupling, snooker pairing; out-of-domain:
+      shallow US-pool banks, lag \\
+    \addlinespace
+    Cushion (fitted) & \code{grip_fitted} &
+      first-party fit &
+      velocity-sloped $e_c(v)$ &
+      out-of-domain on banks/kicks in three frames \\
+    \addlinespace
+    Stick--ball & endmass squirt &
+      \citealp{cross2008squirt}; \citealp{alciatore_tp_a31};
+      \citealp{shepard2001squirt} &
+      per-shaft endmass catalog, 1.7--12.7\,g span &
+      commanded tip-center offset convention \\
+    \addlinespace
+    Break cluster & \code{CompliantChain} (default);
+      \code{SequentialImpulse} (legacy) &
+      \citealp{lankarani1990contact,lankarani1994continuous};
+      \citealp{stronge2018impact} &
+      frozen Hertz stiffness; $10^{-6}$\,s internal step, $\leq 3000$
+      steps per episode &
+      Section~\ref{sec:simulator-break};
+      frozen-pair throw excess open \\
+\end{longtable}
+}
+\end{landscape}
+
+\subsection{Compliant frozen-cluster break resolution (C3)}
+\label{sec:simulator-break}
+
+The break shot confronts an event-driven kernel with its degenerate case.
+A racked set of balls is a \emph{frozen-contact topology}: in the battery's
+recorded rack, the apex-wedge pairs sit at a surface separation of
+$0.5\,\mu$m---far below the $10\,\mu$m cluster-contact threshold---while
+seeded micro-gaps appear only at back-row boundaries (the battery's seed-0
+topology carries one open 0.16\,mm boundary between rows three and four,
+truncating the connected cluster at the cue ball plus six balls).
+Instantaneous pairwise impulse resolution is ill-posed on such clusters:
+conservation laws alone underdetermine the outcome of a simultaneous
+multi-ball impact \citep{cross2023oblique}. The failure mode is not
+hypothetical. Decomposing the break into a serial chain of pairwise
+impacts starves the multi-ball momentum exchange, and the battery's break
+experiment explicitly gates on the absence of the resulting defect class,
+in which the cue ball arrives at the rack and stops nearly dead (a settled
+squat fraction below 0.05); no such row appears anywhere on the registered
+grid under the shipped resolver.
+
+The kernel therefore embeds a bounded compliant episode inside the
+otherwise closed-form event stream. When an impact reaches a frozen
+cluster, the cluster is advanced with Hertz contact stiffness and
+Lankarani--Nikravesh hysteresis damping
+\citep{lankarani1990contact,lankarani1994continuous}, all contacts
+integrated concurrently in Jacobi fashion rather than sequentially, with
+friction applied as force-based Coulomb traction during the episode and
+restitution kept consistent with the energetic definition of
+\citet{stronge2018impact}. The episode is strictly bounded---a $10^{-6}$\,s
+internal step and at most 3000 steps, with the stiffness and damping
+constants frozen in the catalog and recorded in each output's parameter
+block---after which control returns to the analytic event loop. This
+placement distinguishes the design from both neighboring approaches. Smooth
+multibody treatments of pool impacts
+\citep{corral2020poolballs,gismerosmoreno2022multiple} integrate the
+\emph{entire} game with penalty time-stepping; we integrate only the
+degenerate cluster episode, preserving closed-form determinism everywhere
+else. At the other pole, pooltool documents a 10\% momentum-reduction
+workaround for the break \citep{kiefl2024pooltool}; the battery realizes
+that baseline class as the kernel's own \code{SequentialImpulse} legacy
+arm---a pairwise resolver retained as an explicit option---so the rejected
+alternative is runnable like-for-like rather than merely cited.
+
+The model contrast is quantified by experiments \expid{E1} and \expid{E3}
+(Figures~\ref{fig:F11} and \ref{fig:F12}; measured values in
+Section~\ref{sec:results-e}): the compliant resolver reproduces the
+ten-times-fuller kissed-ball slope and the qualitative effective-mass
+scaling seen in high-speed break footage, both of which the sequential
+arm erases---and the compliant rows survived the kernel's mid-program
+re-baseline bit-identically, because force-based Coulomb traction
+consumes no impulse cap. One compliant-side residual --- a speed-dependent
+frozen-pair combination-throw excess over the measured anchor, with no
+counterpart in the sequential arm --- remains open and is quantified
+where it is measured (Sections~\ref{sec:results-e} and~\ref{sec:limitations}).
+
+\subsection{Determinism doctrine: the canonical WebAssembly binary}
+\label{sec:simulator-determinism}
+
+The kernel's determinism contract attaches to a specific artifact: the
+shipped WebAssembly binary, version stamp \code{0.1.0+fb3425ad} (SHA-256
+prefix \code{5e3b6ee4}; full hash and manifest in Supplementary Material
+Section~S2), \emph{is} the physics definition of record, and native and
+Python builds of the same kernel are declared development conveniences,
+held to the binary by byte comparison where they are exercised but never
+themselves normative. The doctrine has one home,
+Section~\ref{sec:reproducibility}: why WebAssembly can carry the
+obligation, the stamp-lineage proof connecting the battery's native
+build to the canonical binary, the replay contract, the determinism
+audit matrix, and the measured platform sensitivity that makes the
+binary --- not the source --- the right canonical artifact.
+
+\subsection{Robustness: rest projection and event-detection continuity (C5)}
+\label{sec:simulator-robustness}
+
+Two engineering properties, sized deliberately below the headline claims,
+close the loop between the analytic core and the determinism doctrine.
+First, \emph{terminal rest projection}: every simulation ends by projecting
+all balls to exact rest states, so that any \code{simulate} output is a
+valid \code{simulate} input---the round-trip law. Combined with the no-NaN
+invariant, this makes arbitrarily long shot chains (replays, rule
+adjudication, and the battery's own multi-shot protocols) closed under the
+API with no accumulating representational debt. Second, \emph{continuity
+at structural double roots}: where an event polynomial's physical root is
+structurally coincident---the configuration class
+\citet{leckie2006event} identified as fragile---the kernel selects the
+first crossing by a deterministic fixed-resolution scan rather than by
+bracketing, which is continuous in the incidence parameters by
+construction. The value of this posture is measurable: the legacy
+bracketing selection produced the discontinuous bank arrivals of the
+branch-selection defect, and under first-crossing selection the
+discontinuous cell count fell
+from four to zero with the divergence class measured empty on every pinned
+artifact (case study in
+Section~\ref{sec:oracle}).
+
+\subsection{Computational performance}
+\label{sec:simulator-performance}
+
+Performance is an engineering property of the implementation, reported
+here for context; nothing in the paper's verification or validation
+claims depends on it. All timings in this subsection were measured on one
+stated host --- an Apple M2~Ultra (macOS~26.5, 128\,GB), single-threaded
+on both engines --- and are indicative rather than normative: unlike the
+battery outputs, the performance artifact is hardware-pinned and carries
+no expected hash.
+
+Table~\ref{tab:perf} summarizes the two measurements. The first block
+times the canonical WebAssembly binary of
+Section~\ref{sec:simulator-determinism} (stamp \code{0.1.0+fb3425ad},
+executed in Node.js through the same loader the application uses) on the
+kernel's continuously-gated budget workloads: a typical two-ball shot
+resolves in about 0.19\,ms at the median, a full 15-ball break in about
+7.9\,ms, the heaviest seeded break workload --- a 22-ball snooker break
+at its worst rack seed --- in about 14.5\,ms, and the gated any-shot
+ceiling workload --- the same break at the slider-maximum
+$v_0 = 12$\,m/s --- in about 16.6\,ms, while whole-table state
+sampling for rendering costs about 5\,$\mu$s per call. Per-shot cost is
+therefore three to four orders of magnitude below real time for
+interactive play, and a full re-simulation is cheap enough to be the
+replay and adjudication primitive of
+Section~\ref{sec:simulator-determinism}.
+
+The second block is a matched-scenario comparison against the oracle of
+Section~\ref{sec:oracle}: the 30-shot ORACLE-X \expid{A3} grid plus the
+five committed oracle fixtures, constructed verbatim under the
+parity-convention model registry. On these shots the two engines'
+event sequences agree 38/38 \emph{after} the declared time-zero
+normalization of Section~\ref{sec:oracle} --- on 15 rolling-strike cases
+pooltool additionally emits a zero-duration sliding-to-rolling
+transition at the strike instant, which that bookkeeping rule drops from
+both streams --- so the timed workloads are sequence-identical up to
+that documented rule. Each scenario was timed for 120 repeats after
+warm-up on both engines --- the kernel's native build through its Python
+binding (binding overhead included), pooltool 0.6.0 at the pinned oracle
+commit (Python 3.12, numba 0.62) --- and the entire measurement was run
+twice, with run-to-run median drift below 3\% on both engines. The kernel
+resolves these shots at 0.025--0.118\,ms per shot at the median
+(median of medians 0.064\,ms) against pooltool's 0.75--2.97\,ms (median
+1.62\,ms): a per-scenario ratio of 22--30$\times$ (median 26$\times$).
+pooltool's steady state deliberately excludes just-in-time compilation,
+which is a one-time cost of about 13.7\,s in a cold-cache process (0.15\,s
+with its default warm on-disk numba cache); the kernel has no
+corresponding warm-up.
+
+Three caveats keep this comparison honest. First, it is a comparison of
+implementations on one machine, not of formulations: pooltool is a
+JIT-compiled Python package whose stated design priorities include speed
+\citep{kiefl2024pooltool}, and its absolute per-shot cost of 1--3\,ms is
+itself far below real time; the ratio should be read as characterizing
+an ahead-of-time compiled kernel against a JIT-compiled interpreted-host
+package, on this host only. Second, the compared scenario set is the
+oracle registry's two- and three-ball verification grid, not a
+break-heavy workload; kernel break costs appear in the first block of
+Table~\ref{tab:perf} and no cross-engine break comparison is made,
+because the two engines deliberately differ in break-cluster resolution
+(Section~\ref{sec:simulator-break}). Third, for the closest prior art on
+the multibody side, \citet{gismerosmoreno2022multiple} report --- on
+different hardware, as published --- wall-clock costs of
+$2.4\times10^{4}$ to $1.0\times10^{5}$\,s for 3--4\,s of simulated
+four-ball play under their full MATLAB formulations (440--1{,}730\,s for
+their reduced variants); we cite their numbers as reported and draw no
+ratio against them, since neither hardware nor workload is matched. The
+architectural point stands independently of any specific figure: closed
+forms between events make per-shot cost proportional to the event count
+rather than to simulated time, which is what confining numerical
+integration to the bounded break episode
+(Section~\ref{sec:simulator-break}) preserves.
+
+% Numbers in this table and subsection trace to the study's performance
+% artifact (pass "a"; engineering-tier, machine-pinned, not hash-gated).
+% Wasm rows: the canonical 0.1.0+fb3425ad binary timed with
+% scripts/bench-wasm.mjs. Cross-engine rows: the artifact's summary block
+% (35 matched scenarios).
+\begin{table}[htbp]
+  \centering\small
+  \caption{Computational performance on the stated host (Apple M2~Ultra,
+  single-threaded). Top: canonical-binary budget workloads
+  (\code{0.1.0+fb3425ad}, Node.js). Bottom: matched-scenario cross-engine
+  comparison on the 35 ORACLE-X shots whose event sequences match 38/38
+  under the declared time-zero normalization
+  (Section~\ref{sec:oracle}); 120 timed repeats per scenario after
+  warm-up, JIT compilation excluded (reported in the text). Values are
+  medians; the full artifact records p95/min, both measurement passes
+  (run-to-run p50 drift $<3\%$), and host provenance.}
+  \label{tab:perf}
+  % Bounded ragged-right p-column for the workload labels: the unbounded
+  % l-column set the slider-max snooker row
+  % at natural width and pushed the tabular 35.46pt past the review-mode
+  % text block. The long labels now wrap inside 0.66\linewidth (0.70 left
+  % a 2.73pt residue next to the widest range cell).
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.66\linewidth}r@{}}
+    \toprule
+    \multicolumn{2}{@{}l}{\emph{Canonical WebAssembly binary, per-shot
+      p50}} \\
+    \midrule
+    Typical two-ball shot & 0.19\,ms \\
+    Carom power shot (3 balls, \mbox{$v_0 = 7$\,m/s}) & 0.09\,ms \\
+    15-ball pool break & 7.9\,ms \\
+    22-ball snooker break (worst of four rack seeds) & 14.5\,ms \\
+    22-ball snooker break, slider-max \mbox{$v_0=12$\,m/s}
+      (any-shot ceiling) & 16.6\,ms \\
+    Whole-table state sample (22 balls, per call) & 5.0\,$\mu$s \\
+    \midrule
+    \multicolumn{2}{@{}l}{\emph{Matched-scenario comparison, 35 shots,
+      per-shot p50 median (range)}} \\
+    \midrule
+    This work (native kernel, Python binding) &
+      0.064\,ms (0.025--0.118) \\
+    pooltool 0.6.0 (steady state, JIT excluded) &
+      1.62\,ms (0.75--2.97) \\
+    Per-scenario ratio & 26$\times$ (22--30$\times$) \\
+    \bottomrule
+  \end{tabular}
+\end{table}

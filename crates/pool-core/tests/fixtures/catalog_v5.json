@@ -1,0 +1,459 @@
+{
+  "version": 5,
+  "tables": [
+    {
+      "id": "wpa_generic_9ft",
+      "display_name": "Legacy 9-ft (pooltool-derived)",
+      "calibration": {
+        "Estimated": {
+          "note": "legacy compatibility geometry, NOT a WPA reference despite the frozen id: pooltool layout.py/specs.py PocketTableSpecs (measured from a 7-ft Showood HOME table) on the WPA 9-ft 100\"x50\" surface with the WPA 63.5% nose; effective mouths 5.07\"/5.94\" and facings 140.3/97.1 deg violate the WPA S9 bands (honesty baseline, docs/verification/table-dimension-audit.md); response docs/research/gap-k66-cushion-params.md"
+        }
+      },
+      "geometry": "Wpa9Ft",
+      "cushion_response": {
+        "e0": 0.85,
+        "k_v": 0.0,
+        "v_ref": 1.0,
+        "e_min": 0.6,
+        "e_max": 0.98
+      },
+      "recommended_cushion_model_id": "han2005_default",
+      "ui_hidden": true
+    },
+    {
+      "id": "wpa_spec_9ft",
+      "display_name": "WPA spec 9-ft (nominal)",
+      "calibration": {
+        "Literature": {
+          "source": "WPA Recommended Equipment Specifications (Nov 2001 ed., wpapool.com), nominal band values: 100\"x50\" surface (S5), nose 63.5% of ball diameter (S7 nominal), TRUE mouths 4.5625\"/5.0625\" (S9 band centers of 4.5-4.625 / 5-5.125), facings 142/104 deg (S9), shelves 1.625\"/3/16\" (S9 band centers); disc radii ~ throat/2 (BU TDF convention) — per-value notes on PocketTableSpec::wpa_spec_9ft; the stronge_realistic pairing is the diamond_proam_9ft precedent, not a WPA-specific fit"
+        }
+      },
+      "geometry": "WpaSpec9Ft",
+      "cushion_response": {
+        "e0": 0.85,
+        "k_v": 0.0,
+        "v_ref": 1.0,
+        "e_min": 0.6,
+        "e_max": 0.98
+      },
+      "recommended_cushion_model_id": "stronge_realistic"
+    },
+    {
+      "id": "diamond_redlabel_9ft",
+      "display_name": "Diamond Red Label 9-ft (older gen)",
+      "calibration": {
+        "Calibrated": {
+          "source": "geometry: AZB thread 48606 community measurement — 4 9/16\" corner mouth with single 1/8\" facings, the older-Diamond Red Label profile; side mouth 5 1/16\" DERIVED via Diamond's factory +1/2\" corner->side pairing (TrxR AZB 540288); nose 1 7/16\" + corner shelf 1 3/4\" inferred from the shared Pro-Am hardware dossier (docs/verification/table-dimension-audit.md D2/D7; RKC's AZB 465370 names the red-label subrail); facings 141/102 deg (catalog v5) are RKC's published Diamond FACTORY cuts (AZB 2010 thread 184759 post #4 + 2017 thread 445936, mechanic testimony covering the Red Label era — a brand-level assumption upgraded from the pre-v5 WPA 142/104 assumption; Diamond-authentic 102 sits OUTSIDE the WPA S9 104-105 band, wpa_spec_9ft keeps the spec as written); side shelf 3/16\" stays a WPA assumption (D8). Bank pairing CALIBRATED by this project: stronge_realistic matches the TP B.28 9' Red Label ladder 5/6 (docs/verification/banking-report.md)"
+        }
+      },
+      "geometry": "DiamondRedLabel9Ft",
+      "cushion_response": {
+        "e0": 0.85,
+        "k_v": 0.0,
+        "v_ref": 1.0,
+        "e_min": 0.6,
+        "e_max": 0.98
+      },
+      "recommended_cushion_model_id": "stronge_realistic"
+    },
+    {
+      "id": "diamond_proam_9ft",
+      "display_name": "Diamond Pro-Am 9-ft (Pro Cut)",
+      "calibration": {
+        "Literature": {
+          "source": "docs/verification/table-dimension-audit.md (feature 009 dossier D1-D13 + catalog-v5 facing repin): mouths 4.5\"/5.0\" (West State dealer sheet; TrxR/rexus31 AZB threads), nose 1 7/16\" (RKC factory target, AZB 465370), corner shelf 1 3/4\" (jay helfert measurements); facings 141/102 deg are RKC's published Diamond FACTORY cuts (AZB 2010 'diamond pockets' thread 184759 post #4; 2017 'Pocket angles' thread 445936; JoeyInCali angle-finder spread ~+-1 deg) — mechanic testimony, not an official sheet; Diamond-authentic 102 sits OUTSIDE the WPA S9 104-105 band (wpa_spec_9ft keeps the spec as written); side shelf 3/16\" stays a WPA assumption — per-value tiers on PocketTableSpec::diamond_proam_9ft"
+        }
+      },
+      "geometry": "DiamondProAm9Ft",
+      "cushion_response": {
+        "e0": 0.85,
+        "k_v": 0.0,
+        "v_ref": 1.0,
+        "e_min": 0.6,
+        "e_max": 0.98
+      },
+      "recommended_cushion_model_id": "stronge_realistic"
+    },
+    {
+      "id": "predator_apex_9ft",
+      "display_name": "Predator Apex 9-ft",
+      "calibration": {
+        "Estimated": {
+          "note": "mixed-tier record (docs/verification/table-dimension-audit.md P1-P10): OFFICIAL dealer numbers are the 100\"x50\" surface and the 4.25\"/108 mm corner + 5.0\"/127 mm side Pro Cut mouths (Knightshot/Beckmann spec tables + Predator email via AZB TrxR); facings 142/104 deg, nose 63.5 %, shelves 1.5\"/3/16\" are WPA assumptions (nothing published); no Apex bank data exists, so the recommended cushion model is the kernel default (estimate)"
+        }
+      },
+      "geometry": "PredatorApex9Ft",
+      "cushion_response": {
+        "e0": 0.85,
+        "k_v": 0.0,
+        "v_ref": 1.0,
+        "e_min": 0.6,
+        "e_max": 0.98
+      },
+      "recommended_cushion_model_id": "han2005_default"
+    }
+  ],
+  "cloths": [
+    {
+      "id": "simonis_860_tournament",
+      "display_name": "Simonis 860 tournament (new)",
+      "calibration": {
+        "Literature": {
+          "source": "Dr. Dave physical-properties FAQ u_s=0.2; Waldron stimpmeter u_r; pooltool default spin decay (docs/research/cloth-calibration.md) — identical to the kernel default"
+        }
+      },
+      "params": {
+        "u_s": 0.2,
+        "u_r": 0.01,
+        "u_sp_scale": 0.4444444444444444
+      }
+    },
+    {
+      "id": "simonis_760_fast",
+      "display_name": "Simonis 760 (fast)",
+      "calibration": {
+        "Estimated": {
+          "note": "u_r=0.008 from AzBilliards installer estimate (760 ~30% faster roll than 860, MEDIUM confidence); no published 760 u_s or spin-decay measurement (research GAP) — docs/research/cloth-calibration.md"
+        }
+      },
+      "params": {
+        "u_s": 0.2,
+        "u_r": 0.008,
+        "u_sp_scale": 0.4444444444444444
+      }
+    },
+    {
+      "id": "worn_slow",
+      "display_name": "Worn/dirty slow cloth",
+      "calibration": {
+        "Estimated": {
+          "note": "u_r=0.016 mid of Jewett-slow..Marlow band; u_s=0.25 direction from Dr. Dave cloth-effects FAQ, no instrumented number — docs/research/cloth-calibration.md"
+        }
+      },
+      "params": {
+        "u_s": 0.25,
+        "u_r": 0.016,
+        "u_sp_scale": 0.4444444444444444
+      }
+    },
+    {
+      "id": "snooker_napped",
+      "display_name": "Snooker napped wool",
+      "calibration": {
+        "Literature": {
+          "source": "Mathavan et al. 2010 first-hand measurements: u_s 0.178-0.245 (avg 0.212), u_r 0.0127-0.0129, sidespin decay 22 rad/s^2 — docs/research/literature.md"
+        }
+      },
+      "params": {
+        "u_s": 0.212,
+        "u_r": 0.0128,
+        "u_sp_scale": 0.8970438328236493
+      }
+    }
+  ],
+  "ballsets": [
+    {
+      "id": "aramith_pool",
+      "display_name": "Aramith pool (57.15 mm)",
+      "calibration": {
+        "Literature": {
+          "source": "Dr. Dave physical-properties FAQ / pooltool params.py POOL_GENERIC (m=0.170097 kg, R=28.575 mm) — the kernel default parameter set (crate::params provenance)"
+        }
+      },
+      "params": {
+        "m": 0.170097,
+        "r": 0.028575,
+        "u_s": 0.2,
+        "u_r": 0.01,
+        "u_sp": 0.0127,
+        "e_b": 0.95,
+        "e_c": 0.85,
+        "f_c": 0.2,
+        "e_t": 0.5
+      }
+    },
+    {
+      "id": "aramith_pool_worn",
+      "display_name": "Aramith pool, worn/used (57.15 mm)",
+      "calibration": {
+        "Calibrated": {
+          "source": "BallBallFriction::worn_fitted joint fit on the reference footage (examples/fit_mu_bb.rs over tools/staging/sp_mu_observables.json: topspin-hop apex 1.1-3.1 mm + both solved-camera cut throws + stun-B null, loss 0.49 vs 4.40 for the Marlow fit; report docs/research/sp-ball-friction-arbitration.md). Literature support for the raised floor: Alciatore TP B.3 Colenso-refit shape (ball condition unstated in TP B.3; worn/used is our inference) + 1.5-2.5x dirty-band (TP A-14 cling section), Mathavan 2014 constant mu=0.05, Dr. Dave BD Jul/Aug 2014 dirty-ball throw measurements"
+        }
+      },
+      "params": {
+        "m": 0.170097,
+        "r": 0.028575,
+        "u_s": 0.2,
+        "u_r": 0.01,
+        "u_sp": 0.0127,
+        "e_b": 0.95,
+        "e_c": 0.85,
+        "f_c": 0.2,
+        "e_t": 0.5
+      },
+      "bb_friction": {
+        "a": 0.035,
+        "b": 0.219,
+        "c": 0.691
+      }
+    },
+    {
+      "id": "snooker",
+      "display_name": "Snooker (52.5 mm)",
+      "calibration": {
+        "Literature": {
+          "source": "Mathavan et al. 2010: M=0.1406 kg, R=26.25 mm, cushion mu_w=0.14 (docs/research/softbody-cushion.md §1.3); restitutions keep kernel defaults (no snooker-specific measurement)"
+        }
+      },
+      "params": {
+        "m": 0.1406,
+        "r": 0.02625,
+        "u_s": 0.2,
+        "u_r": 0.01,
+        "u_sp": 0.0127,
+        "e_b": 0.95,
+        "e_c": 0.85,
+        "f_c": 0.14,
+        "e_t": 0.5
+      }
+    },
+    {
+      "id": "carom",
+      "display_name": "Carom (61.5 mm)",
+      "calibration": {
+        "Estimated": {
+          "note": "pooltool params.py BILLIARD_GENERIC (m=0.210 kg, R=30.75 mm, f_c=0.15); mass/diameter match the UMB norm, friction/restitution values are pooltool estimates (its own NOTE: not well-researched)"
+        }
+      },
+      "params": {
+        "m": 0.21,
+        "r": 0.03075,
+        "u_s": 0.2,
+        "u_r": 0.01,
+        "u_sp": 0.0127,
+        "e_b": 0.95,
+        "e_c": 0.85,
+        "f_c": 0.15,
+        "e_t": 0.5
+      }
+    }
+  ],
+  "cues": [
+    {
+      "id": "standard",
+      "display_name": "Standard maple cue",
+      "calibration": {
+        "Literature": {
+          "source": "Dr. Dave TP A-30/31 endmass squirt model: m=0.567 kg (20 oz), end_mass=m_ball/30 (~5.7 g, mid of Shepard 2001's real-cue Mb/Mtip 20-100 band) — CueParams::default provenance"
+        }
+      },
+      "params": {
+        "m": 0.567,
+        "tip_radius": 0.0106,
+        "end_mass": 0.0056699
+      }
+    },
+    {
+      "id": "low_deflection",
+      "display_name": "Low-deflection shaft",
+      "calibration": {
+        "Literature": {
+          "source": "Shepard 2001 squirt endmass table: Mb/Mtip=100 low-squirt end (squirt 0.49 deg @ b/R=3/8, pivot ~49\"), the carbon-fiber LD regime; Kim 2021 arXiv:2104.11232 endmass physics — docs/research/literature.md"
+        }
+      },
+      "params": {
+        "m": 0.567,
+        "tip_radius": 0.0106,
+        "end_mass": 0.00170097
+      }
+    },
+    {
+      "id": "predator_z2",
+      "display_name": "Predator Z-2 shaft (leather tip)",
+      "calibration": {
+        "Literature": {
+          "source": "Platinum Billiards 2008 robot test: pivot 14.1 in, squirt 1.3 deg (lowest of 48 shafts) -> end mass 6.11 g via the Shepard pivot inversion (end_mass_from_pivot_in); leather tip_cor 0.73 (HSV B.42, Dr. Dave cue-tip efficiency FAQ)"
+        }
+      },
+      "params": {
+        "m": 0.567,
+        "tip_radius": 0.0106,
+        "end_mass": 0.006111269461077844,
+        "tip_cor": 0.73
+      }
+    },
+    {
+      "id": "predator_314",
+      "display_name": "Predator 314 shaft (leather tip)",
+      "calibration": {
+        "Literature": {
+          "source": "Platinum Billiards 2008 robot test: pivot 11.8 in -> end mass 7.49 g via the Shepard pivot inversion; leather tip_cor 0.73 (HSV B.42)"
+        }
+      },
+      "params": {
+        "m": 0.567,
+        "tip_radius": 0.0106,
+        "end_mass": 0.007485931540342298,
+        "tip_cor": 0.73
+      }
+    },
+    {
+      "id": "meucci_reddot",
+      "display_name": "Meucci Red Dot shaft (leather tip)",
+      "calibration": {
+        "Literature": {
+          "source": "Platinum Billiards 2008 robot test: pivot 10.1 in -> end mass 8.98 g via the Shepard pivot inversion (matches Shepard's 10 in ~ 8.5 g anchor); leather tip_cor 0.73"
+        }
+      },
+      "params": {
+        "m": 0.567,
+        "tip_radius": 0.0106,
+        "end_mass": 0.008978727272727274,
+        "tip_cor": 0.73
+      }
+    },
+    {
+      "id": "break_phenolic",
+      "display_name": "Break cue (phenolic tip)",
+      "calibration": {
+        "Literature": {
+          "source": "Platinum Billiards 2008 robot test: break-cue pivot 7.6 in, squirt 2.3 deg (highest band) -> end mass 12.7 g via the Shepard pivot inversion; phenolic tip_cor 0.85 (TP B.22 0.81-0.87 band)"
+        }
+      },
+      "params": {
+        "m": 0.567,
+        "tip_radius": 0.0106,
+        "end_mass": 0.012704340248962656,
+        "tip_cor": 0.85
+      }
+    },
+    {
+      "id": "standard_dime_tip",
+      "display_name": "Standard maple cue, dime tip",
+      "calibration": {
+        "Literature": {
+          "source": "Dr. Dave TP B.1 tip curvature standards: dime radius 0.352 in = 8.95 mm (default entry = nickel 10.6 mm); all other parameters identical to the `standard` entry"
+        }
+      },
+      "params": {
+        "m": 0.567,
+        "tip_radius": 0.00895,
+        "end_mass": 0.0056699
+      }
+    }
+  ],
+  "cushion_models": [
+    {
+      "id": "han2005_default",
+      "display_name": "Han 2005 (kernel default)",
+      "calibration": {
+        "Literature": {
+          "source": "Han 2005 rigid-body impulse model with Kiefl's corrections (docs/research/literature.md); flat friction mu=f_c, constant kinematic e0=0.85 — the frozen v1 baseline"
+        }
+      },
+      "cushion_model": "Han2005",
+      "cushion_friction": {
+        "k": 0.0,
+        "v_ref": 1.0,
+        "mu_min": 0.0,
+        "mu_max": 1.0
+      },
+      "bb_hop_min_height": 0.005,
+      "bt_min_bounce_height": 0.005
+    },
+    {
+      "id": "stronge_realistic",
+      "display_name": "Stronge compliant (realistic)",
+      "calibration": {
+        "Calibrated": {
+          "source": "friction curve CushionFriction::sp_calibrated fitted on the reference slow-motion footage (params.rs provenance); omega_ratio=1.8 adopted from pooltool's shipped resolver default — the SC-002 kick anchors are all gross-slip and cannot calibrate it (resolve/cushion_stronge.rs provenance)"
+        }
+      },
+      "cushion_model": {
+        "StrongeCompliant": {
+          "omega_ratio": 1.8
+        }
+      },
+      "cushion_friction": {
+        "k": -0.4,
+        "v_ref": 1.0,
+        "mu_min": 0.2,
+        "mu_max": 0.4
+      },
+      "bb_hop_min_height": 0.00001,
+      "bt_min_bounce_height": 0.00001
+    },
+    {
+      "id": "mathavan_fitted",
+      "display_name": "Mathavan 2010 (HSV joint fit)",
+      "calibration": {
+        "Calibrated": {
+          "source": "eval_mathavan joint2 sweep (issue #9 stage 3): TangentialCompliance::hsv_fitted (chi=0.8, e_x=0.9) + CushionFriction::hsv_fitted + ee0=0.80 (CushionResponse::EE0_HSV_FITTED); gates/residuals on TangentialCompliance::hsv_fitted"
+        }
+      },
+      "cushion_model": {
+        "Mathavan2010": {
+          "max_steps": 1000,
+          "delta_p_scale": 0.1,
+          "tangential_compliance": {
+            "freq_ratio": 0.8,
+            "e_x": 0.9
+          }
+        }
+      },
+      "cushion_friction": {
+        "k": -0.4,
+        "v_ref": 1.0,
+        "mu_min": 0.16,
+        "mu_max": 0.28
+      },
+      "response_override": {
+        "e0": 0.85,
+        "k_v": 0.0,
+        "v_ref": 1.0,
+        "e_min": 0.6,
+        "e_max": 0.98,
+        "ee0": 0.8
+      },
+      "bb_hop_min_height": 0.00001,
+      "bt_min_bounce_height": 0.00001
+    },
+    {
+      "id": "grip_fitted",
+      "display_name": "Mathavan 2010 grip mode (cushion v5)",
+      "calibration": {
+        "Calibrated": {
+          "source": "eval_mathavan v5probe/v5fit sweeps (issues #9/#13): TangentialCompliance::grip_fitted (chi=1.2, e_x=0.9, grip_ratio=2.5, grip_capture=0.6) + CushionResponse::grip_fitted velocity-sloped energetic restitution; provenance on TangentialCompliance::grip_fitted"
+        }
+      },
+      "cushion_model": {
+        "Mathavan2010": {
+          "max_steps": 1000,
+          "delta_p_scale": 0.1,
+          "tangential_compliance": {
+            "freq_ratio": 1.2,
+            "e_x": 0.9,
+            "grip_ratio": 2.5,
+            "grip_capture": 0.6
+          }
+        }
+      },
+      "cushion_friction": {
+        "k": -0.4,
+        "v_ref": 1.0,
+        "mu_min": 0.16,
+        "mu_max": 0.28
+      },
+      "response_override": {
+        "e0": 0.85,
+        "k_v": 0.18,
+        "v_ref": 1.0,
+        "e_min": 0.5,
+        "e_max": 0.98,
+        "ee0": 0.65
+      },
+      "bb_hop_min_height": 0.00001,
+      "bt_min_bounce_height": 0.00001
+    }
+  ]
+}

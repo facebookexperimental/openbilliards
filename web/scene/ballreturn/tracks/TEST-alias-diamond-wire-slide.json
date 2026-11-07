@@ -1,0 +1,241 @@
+{
+  "schema": "openbilliards/ball-return-track/1",
+  "doc": {
+    "table_id": "diamond_proam_9ft",
+    "title": "ALIAS-ACTIVATION TEST ONLY — the wpa TEST wire slide re-bound to diamond_proam_9ft (NOT a Diamond read)",
+    "status": "TEST",
+    "revision": "alias-test-1",
+    "date": "2026-09-04",
+    "issue": "#650",
+    "sources": [
+      "web/scene/ballreturn/tracks/TEST-synthetic-wire-slide.json (geometry copied; entries shifted to the Diamond middle cups)",
+      "purpose: the browser gate activates the extension on diamond_proam_9ft AND on pool_pro_9ft_measured, one spec object in the catalog (review r3 P2); the Diamond gully export replaces this file"
+    ],
+    "notes": "ALIAS-ACTIVATION TEST PROP: geometry copied from the wpa TEST fixture with the two entry Z values moved to the diamond_proam_9ft middle cups (0, ±690.6, r 50.8). Nothing else was re-derived for this table — leg positions, corner cups (Diamond: ±1295.1 / ±660.1, r 48.3) and the pocket assembly are NOT read here. The D621 lane's gully export replaces this file."
+  },
+  "units": {
+    "length": "mm",
+    "angle": "deg"
+  },
+  "datum_frame": {
+    "id": "TCS-TBL-01",
+    "axes": {
+      "+X": "head rail toward foot rail",
+      "+Y": "up from the playing surface",
+      "+Z": "left to right viewed from head rail"
+    },
+    "runtime_mapping": "three.js (x, y, z) = (X, Y, Z) x 0.001; kernel (kx, ky, kz) = (Z, X, Y) x 0.001",
+    "pocket_order": "kernel order: 0 lb, 1 lc, 2 lt, 3 rb, 4 rc, 5 rt (l/r = sign of Z, b/c/t = -X / 0 / +X)"
+  },
+  "ball": {
+    "reference_diameter_mm": 57.15,
+    "provenance": {
+      "tag": "MFR",
+      "source": "WPA Equipment Specifications §16, 2 1/4 in pool ball (crates/pool-core default r 0.028575)"
+    }
+  },
+  "support": {
+    "kind": "twin-rail",
+    "gauge_mm": 40,
+    "rail_diameter_mm": 4,
+    "provenance": {
+      "tag": "TEST",
+      "source": "synthetic wire pair: gauge 40 < 57.15 + 4 (admits the ball, V9); derived h = sqrt(30.575^2 - 20^2) = 23.13, c = 20*28.575/30.575 = 18.69, rho = sqrt(28.575^2 - 18.69^2) = 21.61, k = 1/(1 + 0.4*(28.575/21.61)^2) = 0.5884"
+    }
+  },
+  "rolling_resistance": {
+    "class": "default",
+    "u_r": 0.01,
+    "provenance": {
+      "tag": "DERIVED",
+      "source": "PROXY: the kernel default class (params.rs ClothPreset::default, u_r 0.010 — Waldron stimpmeter roll-out, a first-hand cloth measurement) stands in for the unmeasured steel-wire class. On the twin rail the effective coefficient is (7/5)(r/ρ)·u_r = 1.4 × 1.322 × 0.010 = 0.0185 (track.js resistCoeff); drain margin at the shallowest edge: sin θ 0.0436 vs 0.0185."
+    }
+  },
+  "arrival": {
+    "restitution": 0,
+    "provenance": {
+      "tag": "DESIGN",
+      "source": "research.md R5 / the brief's 'inelastic arrival' and the owner's 「一个接一个堆」: arriving balls share a common velocity with the group they touch, the tray wall is infinite mass. A modelling decision, NOT a measurement — no ball-on-ball impact in a return tray has been captured in this repo; a measured e would enter through this block and a runtime law change (spec §7)."
+    }
+  },
+  "runways": [
+    {
+      "id": "rc-run",
+      "role": "entry",
+      "points_mm": [
+        [
+          0,
+          -263,
+          690.6
+        ],
+        [
+          -850,
+          -323,
+          690.6
+        ],
+        [
+          -1000,
+          -334,
+          560
+        ],
+        [
+          -1100,
+          -352,
+          200
+        ],
+        [
+          -1150,
+          -361,
+          0
+        ]
+      ],
+      "next": "trunk",
+      "notes": "entry directly under the right middle cup; runs toward the head end inside the apron hole (ball extent |Z| 732 < apron inner face 775.8), bends inboard before the head legs (leg X range −1372..−1160 at |Z| 525..737)",
+      "provenance": {
+        "tag": "TEST",
+        "source": "copied from the wpa TEST fixture; entry Z moved from ±703.5 to ±690.6 = the diamond_proam_9ft middle cup centres (table.js makeGeom); nothing here is a Diamond read"
+      }
+    },
+    {
+      "id": "lc-run",
+      "role": "entry",
+      "points_mm": [
+        [
+          0,
+          -263,
+          -690.6
+        ],
+        [
+          -850,
+          -323,
+          -690.6
+        ],
+        [
+          -1000,
+          -334,
+          -560
+        ],
+        [
+          -1100,
+          -352,
+          -200
+        ],
+        [
+          -1150,
+          -361,
+          0
+        ]
+      ],
+      "next": "trunk",
+      "notes": "mirror of rc-run in Z",
+      "provenance": {
+        "tag": "TEST",
+        "source": "copied from the wpa TEST fixture; entry Z moved from ±703.5 to ±690.6 = the diamond_proam_9ft middle cup centres (table.js makeGeom); nothing here is a Diamond read"
+      }
+    },
+    {
+      "id": "trunk",
+      "role": "trunk",
+      "points_mm": [
+        [
+          -1150,
+          -361,
+          0
+        ],
+        [
+          -1300,
+          -380.5,
+          0
+        ]
+      ],
+      "next": "tray",
+      "notes": "both entry runways land on the trunk's first vertex; the trunk descends under the head rail to the tray; the twin-rail → channel transition keeps the ball centre continuous (−380.5 + 23.13 = −386 + 28.575 − 0.05)",
+      "provenance": {
+        "tag": "TEST",
+        "source": "copied from the wpa TEST fixture; entry Z moved from ±703.5 to ±690.6 = the diamond_proam_9ft middle cup centres (table.js makeGeom); nothing here is a Diamond read"
+      }
+    },
+    {
+      "id": "tray",
+      "role": "tray",
+      "points_mm": [
+        [
+          -1300,
+          -386,
+          0
+        ],
+        [
+          -1600,
+          -386,
+          0
+        ]
+      ],
+      "next": null,
+      "support": {
+        "kind": "channel",
+        "width_mm": 80,
+        "provenance": {
+          "tag": "TEST",
+          "source": "synthetic drawer floor 80 wide (> ball 57.15); ball centre −357.4, top −328.9 < apron bottom −254 so the drawer passes under the head apron and hangs outside the body (|X| > 1462.8); room floor −790"
+        }
+      },
+      "notes": "level steel drawer floor; the wall is the last vertex (X −1600)",
+      "provenance": {
+        "tag": "TEST",
+        "source": "copied from the wpa TEST fixture; entry Z moved from ±703.5 to ±690.6 = the diamond_proam_9ft middle cup centres (table.js makeGeom); nothing here is a Diamond read"
+      }
+    }
+  ],
+  "hooks": [],
+  "pockets": [
+    {
+      "index": 1,
+      "entry_runway": "lc-run",
+      "notes": "Diamond middle cup (0, ±690.6) r 50.8 — alias-activation test only",
+      "exit_below_y_mm": -199,
+      "provenance": {
+        "tag": "TEST",
+        "source": "exit_below_y_mm copied from the wpa fixture as a TEST value; the Diamond boot geometry is the D621 lane's read, not this file's"
+      }
+    },
+    {
+      "index": 4,
+      "entry_runway": "rc-run",
+      "notes": "Diamond middle cup (0, ±690.6) r 50.8 — alias-activation test only",
+      "exit_below_y_mm": -199,
+      "provenance": {
+        "tag": "TEST",
+        "source": "exit_below_y_mm copied from the wpa fixture as a TEST value; the Diamond boot geometry is the D621 lane's read, not this file's"
+      }
+    }
+  ],
+  "unserved_pockets": [
+    {
+      "index": 0,
+      "reason": "not served by this TEST prop (copied from the wpa fixture; not re-derived for the Diamond corner cups ±1295.1 / ±660.1)"
+    },
+    {
+      "index": 2,
+      "reason": "not served by this TEST prop (copied from the wpa fixture; not re-derived for the Diamond corner cups ±1295.1 / ±660.1)"
+    },
+    {
+      "index": 3,
+      "reason": "not served by this TEST prop (copied from the wpa fixture; not re-derived for the Diamond corner cups ±1295.1 / ±660.1)"
+    },
+    {
+      "index": 5,
+      "reason": "not served by this TEST prop (copied from the wpa fixture; not re-derived for the Diamond corner cups ±1295.1 / ±660.1)"
+    }
+  ],
+  "tray": {
+    "runway": "tray",
+    "end": "wall",
+    "capacity_balls": 5,
+    "length_mm": 300,
+    "provenance": {
+      "tag": "TEST",
+      "source": "synthetic drawer 300 long; capacity = floor(300 / 57.15) = 5 balls (the V6 identity the loader enforces)"
+    }
+  },
+  "debug_visual": true
+}

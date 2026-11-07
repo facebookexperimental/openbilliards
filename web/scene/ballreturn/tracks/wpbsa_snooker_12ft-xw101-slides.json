@@ -1,0 +1,1794 @@
+{
+ "schema": "openbilliards/ball-return-track/1",
+ "doc": {
+  "table_id": "wpbsa_snooker_12ft",
+  "title": "XW101 / S101 ball-return SLIDES (加长 4 轨钢丝滑道): six independent four-wire chutes, one per pocket",
+  "status": "PROPOSAL",
+  "revision": "r4 (SNK-R34: the stop face at the runway polyline's lowest vertex — the drain's end — and the drain law measured at export; SNK-R33: the runway polyline generated from the builder; the upper guide pair at the derived half-spacing)",
+  "date": "2026-09-10",
+  "issue": "#489 (ORDER-CRAFT-R3-SNK-BODY1 ADDENDUM 2/3; ORDER-CRAFT-R3-BODY2 R1)",
+  "sources": [
+   "dossier-star-xw101/01-official/xpshop-2026061002300979.png (official spec: 回球 加长 4 轨钢丝滑道 + 金色铜钩 ×8 + 英式比赛金属抽屉 Q235 黑色)",
+   "dossier-star-xw101/01-official/official-xw101-side-elevation.png (heights, runs; 3.68 mm/px on the plank-cap ends)",
+   "dossier-star-xw101/01-official/xpshop-2025053000505073.jpg (corner chute: 4 wires = 2 levels × 2, up-turned stop)",
+   "dossier-star-xw101/01-official/xpshop-2025053000505411.jpg (the black drawer under the END apron: plate 390 ±40 × 68 ±10)",
+   "dossier-star-xw101/02-broadcast: masters-table-closeup.jpg, germanmasters-2025-10.jpg (WST tables: chutes + straps + rest hooks; no drawer)",
+   "web/scene/table.js SNK_SLIDE + snkSlideChutes (the built geometry; the runway points are its lower-pair midline, dumped by tools/render/dump-slide-chutes-489.mjs)",
+   "schema: ballreturn lane e6428cf3 docs/geometry/ball-return-track.schema.json (1.1, terminal-chutes) — copied read-only into docs/geometry/",
+   "/tmp/craftr3/body1/measure-track/REPORT.md + verify-track/VERDICT.md (Drive body1 pack)"
+  ],
+  "notes": "Schema 1.1 terminal-chutes (ballreturn lane e6428cf3; ORDER-CRAFT-R3-BODY2 ruling R1): the XW101 has SIX terminal four-wire chutes and no trunk or tray — balls queue in each chute against its strap-hung clamp and each other. One role-chute runway per served pocket with its stop block; no tray. The eight gold hooks are CUE-REST hooks on the apron faces (PHOTO: rests, spiders and a half-butt hung on them), not runway hangers; the hanger stations exported under `hooks` are the six leather straps. The black Q235 drawer is a separate ball box under the +X end apron (studio tables; WST arena tables carry none) — a STUDIO feature, not a collector."
+ },
+ "units": {
+  "length": "mm",
+  "angle": "deg"
+ },
+ "datum_frame": {
+  "id": "TCS-TBL-01",
+  "axes": {
+   "+X": "head rail toward foot rail",
+   "+Y": "up from the playing surface",
+   "+Z": "left to right viewed from head rail"
+  },
+  "runtime_mapping": "three.js (x, y, z) = (X, Y, Z) x 0.001; kernel (kx, ky, kz) = (Z, X, Y) x 0.001",
+  "pocket_order": "kernel order: 0 lb, 1 lc, 2 lt, 3 rb, 4 rc, 5 rt (l/r = sign of Z, b/c/t = -X / 0 / +X)"
+ },
+ "ball": {
+  "reference_diameter_mm": 52.5,
+  "provenance": {
+   "tag": "MFR",
+   "source": "WPBSA Section 1 Rule 2 (52.5 mm)"
+  }
+ },
+ "support": {
+  "kind": "twin-rail",
+  "gauge_mm": 28.0,
+  "rail_diameter_mm": 7.5,
+  "provenance": {
+   "tag": "PHOTO",
+   "source": "lower wire pair: gauge ~28 = 0.33 × the ring OD as the E10 montage anchors it (85 mm on that frame; the SEALED ring OD is the SE-bracket read 88 ±12 = SNK_SLIDE rRing 0.044, on which the same ratio gives 29.04, inside both bands — 28.0 carried, no re-pin) (OPEN ±30 %), wire OD 6–9 from the montage ratios anchored on the ring OD (OPEN; 7.5 carried with its band) — both named OPEN in the report ledger; the UPPER guide pair (not a support) sits 15 above at a lateral half-spacing of 27.64 mm — DERIVED (SNK-R33): the least half-spacing at which a ball riding the lower pair clears both guide wires over its whole reachable domain (the entry pivot over the wire ends under the ring, the lead's offset line, the arc over the convex P1 corner, the slope's offset line, the rest against the wire tips — the up-turned stop is too short for a two-leg rest, and the bend's own offset curve is unreachable for a 26 mm ball), sqrt((R + r_w)^2 - dxyMin^2) with the limiting piece 'lead' (dxyMin 11.66 = hSeat - levelGap: the ball standing on the wire ends, the upper wires starting levelGap above them; R 26.25 MFR, r_w 3.75 OPEN, gauge 28 OPEN, level gap 15 DERIVED, bend 3 r_w OPEN; table.js snkSlideWires / snkChuteCensus; the rest = 'tip' stop on every chute)"
+  }
+ },
+ "rolling_resistance": {
+  "class": "default",
+  "u_r": 0.01,
+  "provenance": {
+   "tag": "DERIVED",
+   "source": "PROXY: the kernel default cloth class u_r 0.010 stands in for steel wire on a chromed ball (research open item; the runtime scales it by (7/5)(r/ρ) on the twin rail)"
+  }
+ },
+ "arrival": {
+  "restitution": 0,
+  "provenance": {
+   "tag": "DESIGN",
+   "source": "spec 037 research R5 / the owner's 「一个接一个堆」: balls queue in the chute against the stop and each other"
+  }
+ },
+ "topology": "terminal-chutes",
+ "runways": [
+  {
+   "id": "p0-chute",
+   "role": "chute",
+   "points_mm": [
+    [
+     -1782.42,
+     -130.05,
+     -916.92
+    ],
+    [
+     -1779.59,
+     -130.43,
+     -916.92
+    ],
+    [
+     -1773.17,
+     -131.28,
+     -916.92
+    ],
+    [
+     -1766.74,
+     -132.14,
+     -916.92
+    ],
+    [
+     -1760.31,
+     -133.0,
+     -916.92
+    ],
+    [
+     -1754.34,
+     -134.91,
+     -916.92
+    ],
+    [
+     -1749.28,
+     -138.97,
+     -916.92
+    ],
+    [
+     -1744.22,
+     -143.02,
+     -916.92
+    ],
+    [
+     -1739.16,
+     -147.07,
+     -916.92
+    ],
+    [
+     -1734.1,
+     -151.12,
+     -916.92
+    ],
+    [
+     -1729.04,
+     -155.18,
+     -916.92
+    ],
+    [
+     -1723.98,
+     -159.23,
+     -916.92
+    ],
+    [
+     -1718.92,
+     -163.28,
+     -916.92
+    ],
+    [
+     -1713.86,
+     -167.34,
+     -916.92
+    ],
+    [
+     -1708.8,
+     -171.39,
+     -916.92
+    ],
+    [
+     -1703.74,
+     -175.44,
+     -916.92
+    ],
+    [
+     -1698.67,
+     -179.49,
+     -916.92
+    ],
+    [
+     -1693.61,
+     -183.55,
+     -916.92
+    ],
+    [
+     -1688.55,
+     -187.6,
+     -916.92
+    ],
+    [
+     -1683.49,
+     -191.65,
+     -916.92
+    ],
+    [
+     -1678.43,
+     -195.7,
+     -916.92
+    ],
+    [
+     -1673.37,
+     -199.76,
+     -916.92
+    ],
+    [
+     -1668.31,
+     -203.81,
+     -916.92
+    ],
+    [
+     -1663.25,
+     -207.86,
+     -916.92
+    ],
+    [
+     -1658.19,
+     -211.91,
+     -916.92
+    ],
+    [
+     -1653.13,
+     -215.97,
+     -916.92
+    ],
+    [
+     -1648.07,
+     -220.02,
+     -916.92
+    ],
+    [
+     -1643.01,
+     -224.07,
+     -916.92
+    ],
+    [
+     -1637.95,
+     -228.12,
+     -916.92
+    ],
+    [
+     -1632.89,
+     -232.18,
+     -916.92
+    ],
+    [
+     -1627.83,
+     -236.23,
+     -916.92
+    ],
+    [
+     -1622.77,
+     -240.28,
+     -916.92
+    ],
+    [
+     -1617.71,
+     -244.33,
+     -916.92
+    ],
+    [
+     -1612.65,
+     -248.39,
+     -916.92
+    ],
+    [
+     -1607.58,
+     -252.44,
+     -916.92
+    ],
+    [
+     -1602.52,
+     -256.49,
+     -916.92
+    ],
+    [
+     -1597.46,
+     -260.55,
+     -916.92
+    ],
+    [
+     -1592.4,
+     -264.6,
+     -916.92
+    ],
+    [
+     -1587.34,
+     -268.65,
+     -916.92
+    ],
+    [
+     -1582.28,
+     -272.7,
+     -916.92
+    ],
+    [
+     -1577.22,
+     -276.76,
+     -916.92
+    ],
+    [
+     -1572.16,
+     -280.81,
+     -916.92
+    ],
+    [
+     -1567.1,
+     -284.86,
+     -916.92
+    ],
+    [
+     -1562.04,
+     -288.91,
+     -916.92
+    ],
+    [
+     -1556.98,
+     -292.96,
+     -916.92
+    ],
+    [
+     -1551.21,
+     -295.78,
+     -916.92
+    ],
+    [
+     -1545.03,
+     -294.45,
+     -916.92
+    ],
+    [
+     -1540.47,
+     -289.88,
+     -916.92
+    ],
+    [
+     -1536.42,
+     -284.82,
+     -916.92
+    ]
+   ],
+   "next": null,
+   "notes": "one of SIX independent four-wire chutes (two levels × two; the ball rides the lower pair). Points = the BUILT lower pair's midline (web/scene/table.js snkSlideChutes via dump-slide-chutes-489.mjs) at its 49 stations from the landing station: the ring lead (P1 at -1756.0, -133.57), the slope, the tangent-continuous bend at the clamp corner (-1548.4, -299.82), the up-turn to -1536.4, -284.82. Under pocket 0, running +X along the long rail's underside for 276 mm (side law: SHORT); ring centre at Y -121.8 (162 under the rail top), clamp low point Y -299.8 (340), up-turned wire stop 15 up. First vertex = the landing station 30 mm down the chute (DERIVED; inside the kernel cup radius 88.9, schema 1.1 V5); the stop face is at arclength s 287.8 = the polyline's LOWEST vertex, the drain's end (SNK-R34: the clamp corner's continuous foot lies 1.87 mm further along, on the up-turn — a face there left a rising partial edge before the stop); the 19.3 mm beyond it is the up-turn (the stop's body, exempt from the drain law). The first ball's actual rest against the wire tips (the builder's census, stop 'tip') puts its slope contact at s 266.9, 5.3 mm past the one-radius-before-the-face convention (s 261.6) — DERIVED from census.rest and hSeat.",
+   "stop": {
+    "kind": "clamp",
+    "wall_s_mm": 287.8,
+    "capacity_balls": 5,
+    "provenance": {
+     "tag": "PHOTO",
+     "source": "official side elevation: the strap-hung brass clamp with the up-turned wire stop at the chute end (clamp low point 340 ±15 under the rail top; runs 276 ±20 / 453 ±25 / 280 ±20); capacity = floor(wall_s / 52.5) by the schema identity"
+    }
+   },
+   "provenance": {
+    "tag": "PHOTO",
+    "source": "official side elevation 01-official/official-xw101-side-elevation.png at 3.68 mm/px (plank-cap anchor 3850 mm): ring 162 ±15, clamp 340 ±15, runs 276 ±20 / 453 ±25 / 280 ±20; side law from xp-505073 + the MTC/Masters closeups (MEDIUM); measure-track REPORT.md + verify-track VERDICT.md"
+   }
+  },
+  {
+   "id": "p1-chute",
+   "role": "chute",
+   "points_mm": [
+    [
+     -30.0,
+     -130.05,
+     -940.59
+    ],
+    [
+     -32.89,
+     -130.44,
+     -940.59
+    ],
+    [
+     -39.38,
+     -131.3,
+     -940.59
+    ],
+    [
+     -45.88,
+     -132.17,
+     -940.59
+    ],
+    [
+     -52.37,
+     -133.03,
+     -940.59
+    ],
+    [
+     -58.35,
+     -135.1,
+     -940.59
+    ],
+    [
+     -63.5,
+     -139.15,
+     -940.59
+    ],
+    [
+     -68.65,
+     -143.2,
+     -940.59
+    ],
+    [
+     -73.8,
+     -147.24,
+     -940.59
+    ],
+    [
+     -78.95,
+     -151.29,
+     -940.59
+    ],
+    [
+     -84.1,
+     -155.34,
+     -940.59
+    ],
+    [
+     -89.25,
+     -159.38,
+     -940.59
+    ],
+    [
+     -94.4,
+     -163.43,
+     -940.59
+    ],
+    [
+     -99.55,
+     -167.47,
+     -940.59
+    ],
+    [
+     -104.7,
+     -171.52,
+     -940.59
+    ],
+    [
+     -109.85,
+     -175.57,
+     -940.59
+    ],
+    [
+     -115.0,
+     -179.61,
+     -940.59
+    ],
+    [
+     -120.15,
+     -183.66,
+     -940.59
+    ],
+    [
+     -125.3,
+     -187.71,
+     -940.59
+    ],
+    [
+     -130.45,
+     -191.75,
+     -940.59
+    ],
+    [
+     -135.6,
+     -195.8,
+     -940.59
+    ],
+    [
+     -140.75,
+     -199.84,
+     -940.59
+    ],
+    [
+     -145.9,
+     -203.89,
+     -940.59
+    ],
+    [
+     -151.05,
+     -207.94,
+     -940.59
+    ],
+    [
+     -156.2,
+     -211.98,
+     -940.59
+    ],
+    [
+     -161.35,
+     -216.03,
+     -940.59
+    ],
+    [
+     -166.5,
+     -220.08,
+     -940.59
+    ],
+    [
+     -171.65,
+     -224.12,
+     -940.59
+    ],
+    [
+     -176.8,
+     -228.17,
+     -940.59
+    ],
+    [
+     -181.95,
+     -232.22,
+     -940.59
+    ],
+    [
+     -187.1,
+     -236.26,
+     -940.59
+    ],
+    [
+     -192.25,
+     -240.31,
+     -940.59
+    ],
+    [
+     -197.4,
+     -244.35,
+     -940.59
+    ],
+    [
+     -202.55,
+     -248.4,
+     -940.59
+    ],
+    [
+     -207.7,
+     -252.45,
+     -940.59
+    ],
+    [
+     -212.85,
+     -256.49,
+     -940.59
+    ],
+    [
+     -218.0,
+     -260.54,
+     -940.59
+    ],
+    [
+     -223.15,
+     -264.59,
+     -940.59
+    ],
+    [
+     -228.3,
+     -268.63,
+     -940.59
+    ],
+    [
+     -233.45,
+     -272.68,
+     -940.59
+    ],
+    [
+     -238.6,
+     -276.72,
+     -940.59
+    ],
+    [
+     -243.75,
+     -280.77,
+     -940.59
+    ],
+    [
+     -248.91,
+     -284.82,
+     -940.59
+    ],
+    [
+     -254.06,
+     -288.86,
+     -940.59
+    ],
+    [
+     -259.21,
+     -292.91,
+     -940.59
+    ],
+    [
+     -265.02,
+     -295.79,
+     -940.59
+    ],
+    [
+     -271.28,
+     -294.52,
+     -940.59
+    ],
+    [
+     -275.91,
+     -289.93,
+     -940.59
+    ],
+    [
+     -280.0,
+     -284.82,
+     -940.59
+    ]
+   ],
+   "next": null,
+   "notes": "one of SIX independent four-wire chutes (two levels × two; the ball rides the lower pair). Points = the BUILT lower pair's midline (web/scene/table.js snkSlideChutes via dump-slide-chutes-489.mjs) at its 49 stations from the landing station: the ring lead (P1 at -56.4, -133.57), the slope, the tangent-continuous bend at the clamp corner (-268.0, -299.82), the up-turn to -280.0, -284.82. Under pocket 1, running −X along the long rail's underside for 280 mm (side law: MIDDLE, pointing at the short corner chute); ring centre at Y -121.8 (162 under the rail top), clamp low point Y -299.8 (340), up-turned wire stop 15 up. First vertex = the landing station 30 mm down the chute (DERIVED; inside the kernel cup radius 53.19, schema 1.1 V5); the stop face is at arclength s 290.8 = the polyline's LOWEST vertex, the drain's end (SNK-R34: the clamp corner's continuous foot lies 2.12 mm further along, on the up-turn — a face there left a rising partial edge before the stop); the 19.5 mm beyond it is the up-turn (the stop's body, exempt from the drain law). The first ball's actual rest against the wire tips (the builder's census, stop 'tip') puts its slope contact at s 270.2, 5.6 mm past the one-radius-before-the-face convention (s 264.6) — DERIVED from census.rest and hSeat.",
+   "stop": {
+    "kind": "clamp",
+    "wall_s_mm": 290.8,
+    "capacity_balls": 5,
+    "provenance": {
+     "tag": "PHOTO",
+     "source": "official side elevation: the strap-hung brass clamp with the up-turned wire stop at the chute end (clamp low point 340 ±15 under the rail top; runs 276 ±20 / 453 ±25 / 280 ±20); capacity = floor(wall_s / 52.5) by the schema identity"
+    }
+   },
+   "provenance": {
+    "tag": "PHOTO",
+    "source": "official side elevation 01-official/official-xw101-side-elevation.png at 3.68 mm/px (plank-cap anchor 3850 mm): ring 162 ±15, clamp 340 ±15, runs 276 ±20 / 453 ±25 / 280 ±20; side law from xp-505073 + the MTC/Masters closeups (MEDIUM); measure-track REPORT.md + verify-track VERDICT.md"
+   }
+  },
+  {
+   "id": "p2-chute",
+   "role": "chute",
+   "points_mm": [
+    [
+     1782.42,
+     -130.05,
+     -916.92
+    ],
+    [
+     1776.41,
+     -130.85,
+     -916.92
+    ],
+    [
+     1766.8,
+     -132.13,
+     -916.92
+    ],
+    [
+     1757.18,
+     -133.41,
+     -916.92
+    ],
+    [
+     1748.2,
+     -136.95,
+     -916.92
+    ],
+    [
+     1739.3,
+     -140.8,
+     -916.92
+    ],
+    [
+     1730.39,
+     -144.65,
+     -916.92
+    ],
+    [
+     1721.49,
+     -148.49,
+     -916.92
+    ],
+    [
+     1712.59,
+     -152.34,
+     -916.92
+    ],
+    [
+     1703.69,
+     -156.19,
+     -916.92
+    ],
+    [
+     1694.79,
+     -160.04,
+     -916.92
+    ],
+    [
+     1685.89,
+     -163.89,
+     -916.92
+    ],
+    [
+     1676.99,
+     -167.73,
+     -916.92
+    ],
+    [
+     1668.09,
+     -171.58,
+     -916.92
+    ],
+    [
+     1659.19,
+     -175.43,
+     -916.92
+    ],
+    [
+     1650.28,
+     -179.28,
+     -916.92
+    ],
+    [
+     1641.38,
+     -183.12,
+     -916.92
+    ],
+    [
+     1632.48,
+     -186.97,
+     -916.92
+    ],
+    [
+     1623.58,
+     -190.82,
+     -916.92
+    ],
+    [
+     1614.68,
+     -194.67,
+     -916.92
+    ],
+    [
+     1605.78,
+     -198.51,
+     -916.92
+    ],
+    [
+     1596.88,
+     -202.36,
+     -916.92
+    ],
+    [
+     1587.98,
+     -206.21,
+     -916.92
+    ],
+    [
+     1579.07,
+     -210.06,
+     -916.92
+    ],
+    [
+     1570.17,
+     -213.91,
+     -916.92
+    ],
+    [
+     1561.27,
+     -217.75,
+     -916.92
+    ],
+    [
+     1552.37,
+     -221.6,
+     -916.92
+    ],
+    [
+     1543.47,
+     -225.45,
+     -916.92
+    ],
+    [
+     1534.57,
+     -229.3,
+     -916.92
+    ],
+    [
+     1525.67,
+     -233.14,
+     -916.92
+    ],
+    [
+     1516.77,
+     -236.99,
+     -916.92
+    ],
+    [
+     1507.87,
+     -240.84,
+     -916.92
+    ],
+    [
+     1498.96,
+     -244.69,
+     -916.92
+    ],
+    [
+     1490.06,
+     -248.53,
+     -916.92
+    ],
+    [
+     1481.16,
+     -252.38,
+     -916.92
+    ],
+    [
+     1472.26,
+     -256.23,
+     -916.92
+    ],
+    [
+     1463.36,
+     -260.08,
+     -916.92
+    ],
+    [
+     1454.46,
+     -263.93,
+     -916.92
+    ],
+    [
+     1445.56,
+     -267.77,
+     -916.92
+    ],
+    [
+     1436.66,
+     -271.62,
+     -916.92
+    ],
+    [
+     1427.76,
+     -275.47,
+     -916.92
+    ],
+    [
+     1418.85,
+     -279.32,
+     -916.92
+    ],
+    [
+     1409.95,
+     -283.16,
+     -916.92
+    ],
+    [
+     1401.05,
+     -287.01,
+     -916.92
+    ],
+    [
+     1392.15,
+     -290.86,
+     -916.92
+    ],
+    [
+     1383.25,
+     -294.71,
+     -916.92
+    ],
+    [
+     1373.91,
+     -296.8,
+     -916.92
+    ],
+    [
+     1365.53,
+     -292.35,
+     -916.92
+    ],
+    [
+     1359.42,
+     -284.82,
+     -916.92
+    ]
+   ],
+   "next": null,
+   "notes": "one of SIX independent four-wire chutes (two levels × two; the ball rides the lower pair). Points = the BUILT lower pair's midline (web/scene/table.js snkSlideChutes via dump-slide-chutes-489.mjs) at its 49 stations from the landing station: the ring lead (P1 at 1756.0, -133.57), the slope, the tangent-continuous bend at the clamp corner (1371.4, -299.82), the up-turn to 1359.4, -284.82. Under pocket 2, running −X along the long rail's underside for 453 mm (side law: LONG); ring centre at Y -121.8 (162 under the rail top), clamp low point Y -299.8 (340), up-turned wire stop 15 up. First vertex = the landing station 30 mm down the chute (DERIVED; inside the kernel cup radius 88.9, schema 1.1 V5); the stop face is at arclength s 442.3 = the polyline's LOWEST vertex, the drain's end (SNK-R34: the clamp corner's continuous foot lies 0.78 mm further along, on the up-turn — a face there left a rising partial edge before the stop); the 19.2 mm beyond it is the up-turn (the stop's body, exempt from the drain law). The first ball's actual rest against the wire tips (the builder's census, stop 'tip') puts its slope contact at s 425.4, 9.3 mm past the one-radius-before-the-face convention (s 416.0) — DERIVED from census.rest and hSeat.",
+   "stop": {
+    "kind": "clamp",
+    "wall_s_mm": 442.3,
+    "capacity_balls": 8,
+    "provenance": {
+     "tag": "PHOTO",
+     "source": "official side elevation: the strap-hung brass clamp with the up-turned wire stop at the chute end (clamp low point 340 ±15 under the rail top; runs 276 ±20 / 453 ±25 / 280 ±20); capacity = floor(wall_s / 52.5) by the schema identity"
+    }
+   },
+   "provenance": {
+    "tag": "PHOTO",
+    "source": "official side elevation 01-official/official-xw101-side-elevation.png at 3.68 mm/px (plank-cap anchor 3850 mm): ring 162 ±15, clamp 340 ±15, runs 276 ±20 / 453 ±25 / 280 ±20; side law from xp-505073 + the MTC/Masters closeups (MEDIUM); measure-track REPORT.md + verify-track VERDICT.md"
+   }
+  },
+  {
+   "id": "p3-chute",
+   "role": "chute",
+   "points_mm": [
+    [
+     -1782.42,
+     -130.05,
+     916.92
+    ],
+    [
+     -1776.41,
+     -130.85,
+     916.92
+    ],
+    [
+     -1766.8,
+     -132.13,
+     916.92
+    ],
+    [
+     -1757.18,
+     -133.41,
+     916.92
+    ],
+    [
+     -1748.2,
+     -136.95,
+     916.92
+    ],
+    [
+     -1739.3,
+     -140.8,
+     916.92
+    ],
+    [
+     -1730.39,
+     -144.65,
+     916.92
+    ],
+    [
+     -1721.49,
+     -148.49,
+     916.92
+    ],
+    [
+     -1712.59,
+     -152.34,
+     916.92
+    ],
+    [
+     -1703.69,
+     -156.19,
+     916.92
+    ],
+    [
+     -1694.79,
+     -160.04,
+     916.92
+    ],
+    [
+     -1685.89,
+     -163.89,
+     916.92
+    ],
+    [
+     -1676.99,
+     -167.73,
+     916.92
+    ],
+    [
+     -1668.09,
+     -171.58,
+     916.92
+    ],
+    [
+     -1659.19,
+     -175.43,
+     916.92
+    ],
+    [
+     -1650.28,
+     -179.28,
+     916.92
+    ],
+    [
+     -1641.38,
+     -183.12,
+     916.92
+    ],
+    [
+     -1632.48,
+     -186.97,
+     916.92
+    ],
+    [
+     -1623.58,
+     -190.82,
+     916.92
+    ],
+    [
+     -1614.68,
+     -194.67,
+     916.92
+    ],
+    [
+     -1605.78,
+     -198.51,
+     916.92
+    ],
+    [
+     -1596.88,
+     -202.36,
+     916.92
+    ],
+    [
+     -1587.98,
+     -206.21,
+     916.92
+    ],
+    [
+     -1579.07,
+     -210.06,
+     916.92
+    ],
+    [
+     -1570.17,
+     -213.91,
+     916.92
+    ],
+    [
+     -1561.27,
+     -217.75,
+     916.92
+    ],
+    [
+     -1552.37,
+     -221.6,
+     916.92
+    ],
+    [
+     -1543.47,
+     -225.45,
+     916.92
+    ],
+    [
+     -1534.57,
+     -229.3,
+     916.92
+    ],
+    [
+     -1525.67,
+     -233.14,
+     916.92
+    ],
+    [
+     -1516.77,
+     -236.99,
+     916.92
+    ],
+    [
+     -1507.87,
+     -240.84,
+     916.92
+    ],
+    [
+     -1498.96,
+     -244.69,
+     916.92
+    ],
+    [
+     -1490.06,
+     -248.53,
+     916.92
+    ],
+    [
+     -1481.16,
+     -252.38,
+     916.92
+    ],
+    [
+     -1472.26,
+     -256.23,
+     916.92
+    ],
+    [
+     -1463.36,
+     -260.08,
+     916.92
+    ],
+    [
+     -1454.46,
+     -263.93,
+     916.92
+    ],
+    [
+     -1445.56,
+     -267.77,
+     916.92
+    ],
+    [
+     -1436.66,
+     -271.62,
+     916.92
+    ],
+    [
+     -1427.76,
+     -275.47,
+     916.92
+    ],
+    [
+     -1418.85,
+     -279.32,
+     916.92
+    ],
+    [
+     -1409.95,
+     -283.16,
+     916.92
+    ],
+    [
+     -1401.05,
+     -287.01,
+     916.92
+    ],
+    [
+     -1392.15,
+     -290.86,
+     916.92
+    ],
+    [
+     -1383.25,
+     -294.71,
+     916.92
+    ],
+    [
+     -1373.91,
+     -296.8,
+     916.92
+    ],
+    [
+     -1365.53,
+     -292.35,
+     916.92
+    ],
+    [
+     -1359.42,
+     -284.82,
+     916.92
+    ]
+   ],
+   "next": null,
+   "notes": "one of SIX independent four-wire chutes (two levels × two; the ball rides the lower pair). Points = the BUILT lower pair's midline (web/scene/table.js snkSlideChutes via dump-slide-chutes-489.mjs) at its 49 stations from the landing station: the ring lead (P1 at -1756.0, -133.57), the slope, the tangent-continuous bend at the clamp corner (-1371.4, -299.82), the up-turn to -1359.4, -284.82. Under pocket 3, running +X along the long rail's underside for 453 mm (side law: LONG); ring centre at Y -121.8 (162 under the rail top), clamp low point Y -299.8 (340), up-turned wire stop 15 up. First vertex = the landing station 30 mm down the chute (DERIVED; inside the kernel cup radius 88.9, schema 1.1 V5); the stop face is at arclength s 442.3 = the polyline's LOWEST vertex, the drain's end (SNK-R34: the clamp corner's continuous foot lies 0.78 mm further along, on the up-turn — a face there left a rising partial edge before the stop); the 19.2 mm beyond it is the up-turn (the stop's body, exempt from the drain law). The first ball's actual rest against the wire tips (the builder's census, stop 'tip') puts its slope contact at s 425.4, 9.3 mm past the one-radius-before-the-face convention (s 416.0) — DERIVED from census.rest and hSeat.",
+   "stop": {
+    "kind": "clamp",
+    "wall_s_mm": 442.3,
+    "capacity_balls": 8,
+    "provenance": {
+     "tag": "PHOTO",
+     "source": "official side elevation: the strap-hung brass clamp with the up-turned wire stop at the chute end (clamp low point 340 ±15 under the rail top; runs 276 ±20 / 453 ±25 / 280 ±20); capacity = floor(wall_s / 52.5) by the schema identity"
+    }
+   },
+   "provenance": {
+    "tag": "PHOTO",
+    "source": "official side elevation 01-official/official-xw101-side-elevation.png at 3.68 mm/px (plank-cap anchor 3850 mm): ring 162 ±15, clamp 340 ±15, runs 276 ±20 / 453 ±25 / 280 ±20; side law from xp-505073 + the MTC/Masters closeups (MEDIUM); measure-track REPORT.md + verify-track VERDICT.md"
+   }
+  },
+  {
+   "id": "p4-chute",
+   "role": "chute",
+   "points_mm": [
+    [
+     30.0,
+     -130.05,
+     940.59
+    ],
+    [
+     32.89,
+     -130.44,
+     940.59
+    ],
+    [
+     39.38,
+     -131.3,
+     940.59
+    ],
+    [
+     45.88,
+     -132.17,
+     940.59
+    ],
+    [
+     52.37,
+     -133.03,
+     940.59
+    ],
+    [
+     58.35,
+     -135.1,
+     940.59
+    ],
+    [
+     63.5,
+     -139.15,
+     940.59
+    ],
+    [
+     68.65,
+     -143.2,
+     940.59
+    ],
+    [
+     73.8,
+     -147.24,
+     940.59
+    ],
+    [
+     78.95,
+     -151.29,
+     940.59
+    ],
+    [
+     84.1,
+     -155.34,
+     940.59
+    ],
+    [
+     89.25,
+     -159.38,
+     940.59
+    ],
+    [
+     94.4,
+     -163.43,
+     940.59
+    ],
+    [
+     99.55,
+     -167.47,
+     940.59
+    ],
+    [
+     104.7,
+     -171.52,
+     940.59
+    ],
+    [
+     109.85,
+     -175.57,
+     940.59
+    ],
+    [
+     115.0,
+     -179.61,
+     940.59
+    ],
+    [
+     120.15,
+     -183.66,
+     940.59
+    ],
+    [
+     125.3,
+     -187.71,
+     940.59
+    ],
+    [
+     130.45,
+     -191.75,
+     940.59
+    ],
+    [
+     135.6,
+     -195.8,
+     940.59
+    ],
+    [
+     140.75,
+     -199.84,
+     940.59
+    ],
+    [
+     145.9,
+     -203.89,
+     940.59
+    ],
+    [
+     151.05,
+     -207.94,
+     940.59
+    ],
+    [
+     156.2,
+     -211.98,
+     940.59
+    ],
+    [
+     161.35,
+     -216.03,
+     940.59
+    ],
+    [
+     166.5,
+     -220.08,
+     940.59
+    ],
+    [
+     171.65,
+     -224.12,
+     940.59
+    ],
+    [
+     176.8,
+     -228.17,
+     940.59
+    ],
+    [
+     181.95,
+     -232.22,
+     940.59
+    ],
+    [
+     187.1,
+     -236.26,
+     940.59
+    ],
+    [
+     192.25,
+     -240.31,
+     940.59
+    ],
+    [
+     197.4,
+     -244.35,
+     940.59
+    ],
+    [
+     202.55,
+     -248.4,
+     940.59
+    ],
+    [
+     207.7,
+     -252.45,
+     940.59
+    ],
+    [
+     212.85,
+     -256.49,
+     940.59
+    ],
+    [
+     218.0,
+     -260.54,
+     940.59
+    ],
+    [
+     223.15,
+     -264.59,
+     940.59
+    ],
+    [
+     228.3,
+     -268.63,
+     940.59
+    ],
+    [
+     233.45,
+     -272.68,
+     940.59
+    ],
+    [
+     238.6,
+     -276.72,
+     940.59
+    ],
+    [
+     243.75,
+     -280.77,
+     940.59
+    ],
+    [
+     248.91,
+     -284.82,
+     940.59
+    ],
+    [
+     254.06,
+     -288.86,
+     940.59
+    ],
+    [
+     259.21,
+     -292.91,
+     940.59
+    ],
+    [
+     265.02,
+     -295.79,
+     940.59
+    ],
+    [
+     271.28,
+     -294.52,
+     940.59
+    ],
+    [
+     275.91,
+     -289.93,
+     940.59
+    ],
+    [
+     280.0,
+     -284.82,
+     940.59
+    ]
+   ],
+   "next": null,
+   "notes": "one of SIX independent four-wire chutes (two levels × two; the ball rides the lower pair). Points = the BUILT lower pair's midline (web/scene/table.js snkSlideChutes via dump-slide-chutes-489.mjs) at its 49 stations from the landing station: the ring lead (P1 at 56.4, -133.57), the slope, the tangent-continuous bend at the clamp corner (268.0, -299.82), the up-turn to 280.0, -284.82. Under pocket 4, running +X along the long rail's underside for 280 mm (side law: MIDDLE, pointing at the short corner chute); ring centre at Y -121.8 (162 under the rail top), clamp low point Y -299.8 (340), up-turned wire stop 15 up. First vertex = the landing station 30 mm down the chute (DERIVED; inside the kernel cup radius 53.19, schema 1.1 V5); the stop face is at arclength s 290.8 = the polyline's LOWEST vertex, the drain's end (SNK-R34: the clamp corner's continuous foot lies 2.12 mm further along, on the up-turn — a face there left a rising partial edge before the stop); the 19.5 mm beyond it is the up-turn (the stop's body, exempt from the drain law). The first ball's actual rest against the wire tips (the builder's census, stop 'tip') puts its slope contact at s 270.2, 5.6 mm past the one-radius-before-the-face convention (s 264.6) — DERIVED from census.rest and hSeat.",
+   "stop": {
+    "kind": "clamp",
+    "wall_s_mm": 290.8,
+    "capacity_balls": 5,
+    "provenance": {
+     "tag": "PHOTO",
+     "source": "official side elevation: the strap-hung brass clamp with the up-turned wire stop at the chute end (clamp low point 340 ±15 under the rail top; runs 276 ±20 / 453 ±25 / 280 ±20); capacity = floor(wall_s / 52.5) by the schema identity"
+    }
+   },
+   "provenance": {
+    "tag": "PHOTO",
+    "source": "official side elevation 01-official/official-xw101-side-elevation.png at 3.68 mm/px (plank-cap anchor 3850 mm): ring 162 ±15, clamp 340 ±15, runs 276 ±20 / 453 ±25 / 280 ±20; side law from xp-505073 + the MTC/Masters closeups (MEDIUM); measure-track REPORT.md + verify-track VERDICT.md"
+   }
+  },
+  {
+   "id": "p5-chute",
+   "role": "chute",
+   "points_mm": [
+    [
+     1782.42,
+     -130.05,
+     916.92
+    ],
+    [
+     1779.59,
+     -130.43,
+     916.92
+    ],
+    [
+     1773.17,
+     -131.28,
+     916.92
+    ],
+    [
+     1766.74,
+     -132.14,
+     916.92
+    ],
+    [
+     1760.31,
+     -133.0,
+     916.92
+    ],
+    [
+     1754.34,
+     -134.91,
+     916.92
+    ],
+    [
+     1749.28,
+     -138.97,
+     916.92
+    ],
+    [
+     1744.22,
+     -143.02,
+     916.92
+    ],
+    [
+     1739.16,
+     -147.07,
+     916.92
+    ],
+    [
+     1734.1,
+     -151.12,
+     916.92
+    ],
+    [
+     1729.04,
+     -155.18,
+     916.92
+    ],
+    [
+     1723.98,
+     -159.23,
+     916.92
+    ],
+    [
+     1718.92,
+     -163.28,
+     916.92
+    ],
+    [
+     1713.86,
+     -167.34,
+     916.92
+    ],
+    [
+     1708.8,
+     -171.39,
+     916.92
+    ],
+    [
+     1703.74,
+     -175.44,
+     916.92
+    ],
+    [
+     1698.67,
+     -179.49,
+     916.92
+    ],
+    [
+     1693.61,
+     -183.55,
+     916.92
+    ],
+    [
+     1688.55,
+     -187.6,
+     916.92
+    ],
+    [
+     1683.49,
+     -191.65,
+     916.92
+    ],
+    [
+     1678.43,
+     -195.7,
+     916.92
+    ],
+    [
+     1673.37,
+     -199.76,
+     916.92
+    ],
+    [
+     1668.31,
+     -203.81,
+     916.92
+    ],
+    [
+     1663.25,
+     -207.86,
+     916.92
+    ],
+    [
+     1658.19,
+     -211.91,
+     916.92
+    ],
+    [
+     1653.13,
+     -215.97,
+     916.92
+    ],
+    [
+     1648.07,
+     -220.02,
+     916.92
+    ],
+    [
+     1643.01,
+     -224.07,
+     916.92
+    ],
+    [
+     1637.95,
+     -228.12,
+     916.92
+    ],
+    [
+     1632.89,
+     -232.18,
+     916.92
+    ],
+    [
+     1627.83,
+     -236.23,
+     916.92
+    ],
+    [
+     1622.77,
+     -240.28,
+     916.92
+    ],
+    [
+     1617.71,
+     -244.33,
+     916.92
+    ],
+    [
+     1612.65,
+     -248.39,
+     916.92
+    ],
+    [
+     1607.58,
+     -252.44,
+     916.92
+    ],
+    [
+     1602.52,
+     -256.49,
+     916.92
+    ],
+    [
+     1597.46,
+     -260.55,
+     916.92
+    ],
+    [
+     1592.4,
+     -264.6,
+     916.92
+    ],
+    [
+     1587.34,
+     -268.65,
+     916.92
+    ],
+    [
+     1582.28,
+     -272.7,
+     916.92
+    ],
+    [
+     1577.22,
+     -276.76,
+     916.92
+    ],
+    [
+     1572.16,
+     -280.81,
+     916.92
+    ],
+    [
+     1567.1,
+     -284.86,
+     916.92
+    ],
+    [
+     1562.04,
+     -288.91,
+     916.92
+    ],
+    [
+     1556.98,
+     -292.96,
+     916.92
+    ],
+    [
+     1551.21,
+     -295.78,
+     916.92
+    ],
+    [
+     1545.03,
+     -294.45,
+     916.92
+    ],
+    [
+     1540.47,
+     -289.88,
+     916.92
+    ],
+    [
+     1536.42,
+     -284.82,
+     916.92
+    ]
+   ],
+   "next": null,
+   "notes": "one of SIX independent four-wire chutes (two levels × two; the ball rides the lower pair). Points = the BUILT lower pair's midline (web/scene/table.js snkSlideChutes via dump-slide-chutes-489.mjs) at its 49 stations from the landing station: the ring lead (P1 at 1756.0, -133.57), the slope, the tangent-continuous bend at the clamp corner (1548.4, -299.82), the up-turn to 1536.4, -284.82. Under pocket 5, running −X along the long rail's underside for 276 mm (side law: SHORT); ring centre at Y -121.8 (162 under the rail top), clamp low point Y -299.8 (340), up-turned wire stop 15 up. First vertex = the landing station 30 mm down the chute (DERIVED; inside the kernel cup radius 88.9, schema 1.1 V5); the stop face is at arclength s 287.8 = the polyline's LOWEST vertex, the drain's end (SNK-R34: the clamp corner's continuous foot lies 1.87 mm further along, on the up-turn — a face there left a rising partial edge before the stop); the 19.3 mm beyond it is the up-turn (the stop's body, exempt from the drain law). The first ball's actual rest against the wire tips (the builder's census, stop 'tip') puts its slope contact at s 266.9, 5.3 mm past the one-radius-before-the-face convention (s 261.6) — DERIVED from census.rest and hSeat.",
+   "stop": {
+    "kind": "clamp",
+    "wall_s_mm": 287.8,
+    "capacity_balls": 5,
+    "provenance": {
+     "tag": "PHOTO",
+     "source": "official side elevation: the strap-hung brass clamp with the up-turned wire stop at the chute end (clamp low point 340 ±15 under the rail top; runs 276 ±20 / 453 ±25 / 280 ±20); capacity = floor(wall_s / 52.5) by the schema identity"
+    }
+   },
+   "provenance": {
+    "tag": "PHOTO",
+    "source": "official side elevation 01-official/official-xw101-side-elevation.png at 3.68 mm/px (plank-cap anchor 3850 mm): ring 162 ±15, clamp 340 ±15, runs 276 ±20 / 453 ±25 / 280 ±20; side law from xp-505073 + the MTC/Masters closeups (MEDIUM); measure-track REPORT.md + verify-track VERDICT.md"
+   }
+  }
+ ],
+ "hooks": [
+  {
+   "id": "p0-strap",
+   "runway": "p0-chute",
+   "s_mm": 287.8,
+   "kind": "leather strap from the recess step to the brass clamp (32 × 3.5)",
+   "provenance": {
+    "tag": "PHOTO",
+    "source": "official side elevation: strap top 126 ±12 under the rail top (built at the step 129), clamp low point 340 ±15; the eight gold hooks are NOT hangers (see doc.notes)"
+   }
+  },
+  {
+   "id": "p1-strap",
+   "runway": "p1-chute",
+   "s_mm": 290.8,
+   "kind": "leather strap from the recess step to the brass clamp (32 × 3.5)",
+   "provenance": {
+    "tag": "PHOTO",
+    "source": "official side elevation: strap top 126 ±12 under the rail top (built at the step 129), clamp low point 340 ±15; the eight gold hooks are NOT hangers (see doc.notes)"
+   }
+  },
+  {
+   "id": "p2-strap",
+   "runway": "p2-chute",
+   "s_mm": 442.3,
+   "kind": "leather strap from the recess step to the brass clamp (32 × 3.5)",
+   "provenance": {
+    "tag": "PHOTO",
+    "source": "official side elevation: strap top 126 ±12 under the rail top (built at the step 129), clamp low point 340 ±15; the eight gold hooks are NOT hangers (see doc.notes)"
+   }
+  },
+  {
+   "id": "p3-strap",
+   "runway": "p3-chute",
+   "s_mm": 442.3,
+   "kind": "leather strap from the recess step to the brass clamp (32 × 3.5)",
+   "provenance": {
+    "tag": "PHOTO",
+    "source": "official side elevation: strap top 126 ±12 under the rail top (built at the step 129), clamp low point 340 ±15; the eight gold hooks are NOT hangers (see doc.notes)"
+   }
+  },
+  {
+   "id": "p4-strap",
+   "runway": "p4-chute",
+   "s_mm": 290.8,
+   "kind": "leather strap from the recess step to the brass clamp (32 × 3.5)",
+   "provenance": {
+    "tag": "PHOTO",
+    "source": "official side elevation: strap top 126 ±12 under the rail top (built at the step 129), clamp low point 340 ±15; the eight gold hooks are NOT hangers (see doc.notes)"
+   }
+  },
+  {
+   "id": "p5-strap",
+   "runway": "p5-chute",
+   "s_mm": 287.8,
+   "kind": "leather strap from the recess step to the brass clamp (32 × 3.5)",
+   "provenance": {
+    "tag": "PHOTO",
+    "source": "official side elevation: strap top 126 ±12 under the rail top (built at the step 129), clamp low point 340 ±15; the eight gold hooks are NOT hangers (see doc.notes)"
+   }
+  }
+ ],
+ "pockets": [
+  {
+   "index": 0,
+   "entry_runway": "p0-chute",
+   "exit_below_y_mm": -77.2,
+   "notes": "exit_below_y is DERIVED as the ball's TOP at the entry station (-77.3: wire line -130.1 + centre offset h 26.5 + r 26.25), not the hem: the XW101's lowest OPAQUE solid is the leather hem at -91.8 (PHOTO 132 ±15 under the rail top), but the bag below it is cord and the slide ring is open, so a ball queued at the ring station stands with its top 14.6 mm ABOVE the hem — visible through the net in reality. The schema's cup-floor premise (ball hidden until its top clears the lowest solid) does not fit an open funnel; the value used is the one that re-shows the ball exactly where it lands on the wires, and it satisfies the cull line (≤ −55).",
+   "provenance": {
+    "tag": "DERIVED",
+    "source": "ball top at the entry station = y_wire(entry) + sqrt((r + r_w)² − (g/2)²) + r over PHOTO ring 162 / clamp 340 / run 276 and OPEN gauge 28 / wire 7.5; hem −91.8 PHOTO for the comparison"
+   }
+  },
+  {
+   "index": 1,
+   "entry_runway": "p1-chute",
+   "exit_below_y_mm": -77.2,
+   "notes": "exit_below_y is DERIVED as the ball's TOP at the entry station (-77.3: wire line -130.0 + centre offset h 26.5 + r 26.25), not the hem: the XW101's lowest OPAQUE solid is the leather hem at -91.8 (PHOTO 132 ±15 under the rail top), but the bag below it is cord and the slide ring is open, so a ball queued at the ring station stands with its top 14.6 mm ABOVE the hem — visible through the net in reality. The schema's cup-floor premise (ball hidden until its top clears the lowest solid) does not fit an open funnel; the value used is the one that re-shows the ball exactly where it lands on the wires, and it satisfies the cull line (≤ −55).",
+   "provenance": {
+    "tag": "DERIVED",
+    "source": "ball top at the entry station = y_wire(entry) + sqrt((r + r_w)² − (g/2)²) + r over PHOTO ring 162 / clamp 340 / run 280 and OPEN gauge 28 / wire 7.5; hem −91.8 PHOTO for the comparison"
+   }
+  },
+  {
+   "index": 2,
+   "entry_runway": "p2-chute",
+   "exit_below_y_mm": -77.2,
+   "notes": "exit_below_y is DERIVED as the ball's TOP at the entry station (-77.3: wire line -130.0 + centre offset h 26.5 + r 26.25), not the hem: the XW101's lowest OPAQUE solid is the leather hem at -91.8 (PHOTO 132 ±15 under the rail top), but the bag below it is cord and the slide ring is open, so a ball queued at the ring station stands with its top 14.6 mm ABOVE the hem — visible through the net in reality. The schema's cup-floor premise (ball hidden until its top clears the lowest solid) does not fit an open funnel; the value used is the one that re-shows the ball exactly where it lands on the wires, and it satisfies the cull line (≤ −55).",
+   "provenance": {
+    "tag": "DERIVED",
+    "source": "ball top at the entry station = y_wire(entry) + sqrt((r + r_w)² − (g/2)²) + r over PHOTO ring 162 / clamp 340 / run 453 and OPEN gauge 28 / wire 7.5; hem −91.8 PHOTO for the comparison"
+   }
+  },
+  {
+   "index": 3,
+   "entry_runway": "p3-chute",
+   "exit_below_y_mm": -77.2,
+   "notes": "exit_below_y is DERIVED as the ball's TOP at the entry station (-77.3: wire line -130.0 + centre offset h 26.5 + r 26.25), not the hem: the XW101's lowest OPAQUE solid is the leather hem at -91.8 (PHOTO 132 ±15 under the rail top), but the bag below it is cord and the slide ring is open, so a ball queued at the ring station stands with its top 14.6 mm ABOVE the hem — visible through the net in reality. The schema's cup-floor premise (ball hidden until its top clears the lowest solid) does not fit an open funnel; the value used is the one that re-shows the ball exactly where it lands on the wires, and it satisfies the cull line (≤ −55).",
+   "provenance": {
+    "tag": "DERIVED",
+    "source": "ball top at the entry station = y_wire(entry) + sqrt((r + r_w)² − (g/2)²) + r over PHOTO ring 162 / clamp 340 / run 453 and OPEN gauge 28 / wire 7.5; hem −91.8 PHOTO for the comparison"
+   }
+  },
+  {
+   "index": 4,
+   "entry_runway": "p4-chute",
+   "exit_below_y_mm": -77.2,
+   "notes": "exit_below_y is DERIVED as the ball's TOP at the entry station (-77.3: wire line -130.0 + centre offset h 26.5 + r 26.25), not the hem: the XW101's lowest OPAQUE solid is the leather hem at -91.8 (PHOTO 132 ±15 under the rail top), but the bag below it is cord and the slide ring is open, so a ball queued at the ring station stands with its top 14.6 mm ABOVE the hem — visible through the net in reality. The schema's cup-floor premise (ball hidden until its top clears the lowest solid) does not fit an open funnel; the value used is the one that re-shows the ball exactly where it lands on the wires, and it satisfies the cull line (≤ −55).",
+   "provenance": {
+    "tag": "DERIVED",
+    "source": "ball top at the entry station = y_wire(entry) + sqrt((r + r_w)² − (g/2)²) + r over PHOTO ring 162 / clamp 340 / run 280 and OPEN gauge 28 / wire 7.5; hem −91.8 PHOTO for the comparison"
+   }
+  },
+  {
+   "index": 5,
+   "entry_runway": "p5-chute",
+   "exit_below_y_mm": -77.2,
+   "notes": "exit_below_y is DERIVED as the ball's TOP at the entry station (-77.3: wire line -130.1 + centre offset h 26.5 + r 26.25), not the hem: the XW101's lowest OPAQUE solid is the leather hem at -91.8 (PHOTO 132 ±15 under the rail top), but the bag below it is cord and the slide ring is open, so a ball queued at the ring station stands with its top 14.6 mm ABOVE the hem — visible through the net in reality. The schema's cup-floor premise (ball hidden until its top clears the lowest solid) does not fit an open funnel; the value used is the one that re-shows the ball exactly where it lands on the wires, and it satisfies the cull line (≤ −55).",
+   "provenance": {
+    "tag": "DERIVED",
+    "source": "ball top at the entry station = y_wire(entry) + sqrt((r + r_w)² − (g/2)²) + r over PHOTO ring 162 / clamp 340 / run 276 and OPEN gauge 28 / wire 7.5; hem −91.8 PHOTO for the comparison"
+   }
+  }
+ ],
+ "unserved_pockets": [],
+ "checks": {
+  "drain_monotonic": true
+ }
+}

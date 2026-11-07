@@ -1,0 +1,312 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* openbilliards design tokens — the single source of truth for every UI
+   surface (the ui-kit contract (feature 006, internal): kit.css and
+   module styles may only CONSUME --ob-* variables, never redefine them).
+   Register: product / restrained (impeccable colorize.md) — one chalk-blue
+   accent family for action+selection (brand hue 252, issue #59; felt green
+   lives only in the 3D scene), amber-red reserved for fouls/danger.
+   Dark-first, tuned to sit over the steel-gray "tournament" cloth render. */
+
+/* Space Grotesk variable = the brand family (009 brand alignment).
+   The fontsource latin subset's unicode-range is kept VERBATIM from
+   site/assets/site.css so CJK (ja/ko/zh) text never resolves to SG and
+   keeps today's Inter → system per-glyph fallthrough exactly. (The old
+   toolbar-glyph rationale — ⏮ ⏸ ⏭ ⚙ × riding the fallthrough — retired
+   with feature #49's ui/icons.js; the range still owns the CJK law.) */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("../../vendor/fonts/SpaceGroteskVariable-latin.woff2")
+       format("woff2-variations");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Inter var";
+  src: url("../../vendor/fonts/InterVariable-subset.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---- palette: brand slate + ball ivory (008, the design charter "Product-register
+          bridge"): bg family re-based on Slate Void (hue 165, 5%-L ladder and
+          glass alphas kept for product contrast); text re-inked in Ball Ivory
+          #efe9d8 steps at the same measured ratios. Semantics untouched. ---- */
+  --ob-bg-0: oklch(13.5% 0.009 165);          /* deepest well (inputs, wells) */
+  --ob-bg-1: oklch(18.5% 0.01 165);           /* panel body */
+  --ob-bg-2: oklch(23.5% 0.011 165);          /* raised / hover */
+  --ob-bg-3: oklch(28.5% 0.012 165);          /* active / pressed */
+  --ob-glass: oklch(15.5% 0.01 165 / 0.82);   /* overlay panels (+ blur) */
+  --ob-glass-thin: oklch(13.5% 0.01 165 / 0.62);/* transient banners */
+
+  --ob-line-0: oklch(97% 0.01 91 / 0.08);     /* hairline dividers */
+  --ob-line-1: oklch(97% 0.01 91 / 0.16);     /* control borders */
+  --ob-line-2: oklch(97% 0.01 91 / 0.28);     /* hover borders */
+
+  /* text: Ball Ivory + ivory-derived steps. #efe9d8 measures oklch(93.4%
+     0.0235 90.8) — the hue-91 family below IS the material hue, verified
+     (issue #49 token audit). Contrast receipts on --ob-bg-1: text-0 15.3:1,
+     text-1 8.7:1, text-2 4.9:1 (was 4.35 at 58% L — below the 4.5:1
+     body/label law while HUD row labels consume it; bumped to 61%; GH-668
+     B-K20 lifted it to 62% because the HOVER step --ob-bg-2 measured 4.39
+     under the same ink — a label cannot change colour on hover, so both
+     rest and hover grounds must clear).
+     GROUND LAW (GH-668 B-K02, the design charter G7; machine-checked by
+     web/tools/token-receipts.mjs): a receipt on --ob-bg-1 vouches for
+     --ob-bg-1 only. text-2 receipts per ground — bg-1 5.11, bg-2 4.57,
+     bg-3 3.93 (HOLE: hint copy never on the pressed step),
+     --ob-glass-solid over hall/felt/lit wood 5.07–5.3 (legal), 52 % shell
+     smoke over lit wood 3.26 (HOLE) and 82 % kit glass 4.64 modelled but
+     3.9–4.3 MEASURED on the shipped stills (the rendered ground is
+     brighter than its mean): on every translucent rung the hint ROLE is
+     --ob-text-1 (5.5–8.6 on every glass over every base). Never dim a
+     label by card opacity. */
+  --ob-text-0: #efe9d8;                       /* primary — ball ivory */
+  --ob-text-1: oklch(76% 0.018 91);           /* secondary/labels */
+  --ob-text-2: oklch(62% 0.02 91);            /* muted/hints — ≥4.5:1 on bg-1/bg-2/solid */
+
+  /* accent: brand Chalk Blue — action, selection, live values (issue #59:
+     hue 252 from site --bb-chalk oklch(64% 0.10 252); L/C retuned per rung
+     for product contrast — -hi drops 0.13→0.08 C and -text 0.09→0.06 C
+     because sRGB's blue gamut is narrower than green's at 84/88% L (0.13
+     clips; receipts below are the PAINTED 8-bit values). Contrast receipts
+     on --ob-bg-1: accent #76afee 8.1:1, accent-hi #a5cffe 11.5:1 (≥3:1
+     affordance law), accent-text #bcdbff 13.0:1 and 6.3:1 on the dim-3
+     pressed wash (≥4.5:1 body/label law). Felt green is scene-only now. */
+  --ob-accent: oklch(74% 0.11 252);
+  --ob-accent-hi: oklch(84% 0.08 252);
+  --ob-accent-text: oklch(88% 0.06 252);      /* accent-toned text on dark */
+  --ob-accent-dim: oklch(74% 0.11 252 / 0.16);/* 4–16% washes, selection tint */
+  --ob-accent-line: oklch(74% 0.11 252 / 0.45);
+
+  /* semantic */
+  --ob-warn: oklch(80% 0.13 85);              /* amber — cautions, slow-mo */
+  --ob-warn-dim: oklch(80% 0.13 85 / 0.12);
+  --ob-warn-line: oklch(80% 0.13 85 / 0.35);
+  --ob-danger: oklch(66% 0.18 28);            /* foul / destructive */
+  --ob-danger-dim: oklch(66% 0.18 28 / 0.18);
+  --ob-danger-line: oklch(66% 0.18 28 / 0.55);
+  --ob-danger-text: oklch(92% 0.05 28);      /* the danger READING ink:
+     .ob-btn--danger label + danger copy (GH-668 B-K20). Receipts: 7.3–11.5:1
+     on -dim/-dim-2/-dim-3 over bg-1/bg-2 and over 82 % kit glass on every
+     scene base; the hue token --ob-danger on the same washes measures
+     3.95–4.64 over glass (a documented HOLE — border + wash only). */
+  --ob-ok: var(--ob-accent);
+
+  /* info: the brand's Chalk Blue at site parity (--bb-chalk verbatim) —
+     links, citations, neutral info ONLY; never an action fill. Since #59
+     the ACTION accent shares hue 252: info is the QUIET rung of the same
+     chalk voice (64%/0.10 vs the accent's 74%/0.11 — links read dimmer
+     than affordances by design, one hue, two registers). -text is the
+     product-contrast reading step (8.1:1 on --ob-bg-1). */
+  --ob-info: oklch(64% 0.10 252);
+  --ob-info-hi: oklch(78% 0.07 252);
+  --ob-info-text: oklch(74% 0.08 252);
+  --ob-info-line: oklch(64% 0.10 252 / 0.45);
+
+  /* interaction washes + overlay scrim. The wash families step in fixed
+     +0.10 alpha rungs (dim < dim-2 < dim-3 = rest < hover < pressed) so the
+     kit's state ladder (kit.css button doctrine) always reads default <
+     hover < active inside ONE hue — a variant never borrows a neutral rung
+     mid-ladder (#49 review finding 2). */
+  --ob-accent-dim-2: oklch(74% 0.11 252 / 0.26); /* hover step above accent-dim */
+  --ob-accent-dim-3: oklch(74% 0.11 252 / 0.36); /* pressed step above dim-2 */
+  --ob-danger-dim-2: oklch(66% 0.18 28 / 0.28);  /* danger hover step */
+  --ob-danger-dim-3: oklch(66% 0.18 28 / 0.38);  /* danger pressed step */
+  --ob-scrim: oklch(13% 0.009 165 / 0.5);        /* modal backdrop — Slate
+     Void ink, never pure black (brand law; was oklch(0% 0 0 / 0.45)) */
+
+  /* ---- type: Space Grotesk (brand, latin subset) over Inter var (CJK +
+          glyph fallback), fixed rem scale (~1.16 ratio), 4 weights ---- */
+  --ob-font: "Space Grotesk", "Inter var", -apple-system, "SF Pro Text",
+             "Segoe UI Variable", system-ui, sans-serif;
+  --ob-fs--1: 0.75rem;   /* 12 — captions, badges */
+  /* the CJK arm of the caps role (GH-668 B-K13 / the design charter G7): uppercase
+     and tracking are no-ops in ja / ko / zh, so the 12 px caps voice is
+     simply small grey there — the arm drops both, takes one weight step
+     lighter and this 13 px size. The ONLY consumer is kit.css's
+     `:lang(ja|ko|zh)` rule; Latin caps stay at --ob-fs--1. */
+  --ob-fs--1-cjk: 0.8125rem;
+  --ob-fs-0: 0.875rem;   /* 14 — UI body, controls */
+  --ob-fs-1: 1rem;       /* 16 — panel titles, dialog body */
+  --ob-fs-2: 1.1875rem;  /* 19 — section headings */
+  --ob-fs-3: 1.5rem;     /* 24 — banner */
+  --ob-fs-4: 1.875rem;   /* 30 — hero banner (win) */
+  --ob-fw-reg: 430;      /* brand SG axis points, taste-panel-measured on
+                            the same slate-dark palette (was 440/540 Inter) */
+  --ob-fw-med: 560;
+  --ob-fw-semi: 620;
+  --ob-fw-bold: 700;
+  --ob-lh-tight: 1.2;
+  --ob-lh-body: 1.5;
+  /* the multi-line CONTROL rung (GH-668 B-K23 / the design charter G5): the line
+     height of a wrapped label inside an action row / tile — the value three
+     surface sheets invented as a literal 1.35 (atelier ×5, practice ×1).
+     Pills never wrap (G5), so single-line controls keep --ob-lh-body. */
+  --ob-lh-control: 1.35;
+  /* a single glyph centred in its own box — icon fallbacks, counters,
+     chips (the `line-height: 1` idiom). Named so the grep ban on bare
+     line-height literals (B-K23) has nothing left to excuse. */
+  --ob-lh-glyph: 1;
+  --ob-track-caps: 0.06em; /* uppercase micro-labels */
+  --ob-track-display: 0.02em; /* the banner voice (24 px+): display tracking, not caps */
+
+  /* ---- space: 4px grid ---- */
+  --ob-sp-1: 0.25rem;  /*  4 */
+  --ob-sp-2: 0.5rem;   /*  8 */
+  --ob-sp-3: 0.75rem;  /* 12 */
+  --ob-sp-4: 1rem;     /* 16 */
+  --ob-sp-5: 1.25rem;  /* 20 */
+  --ob-sp-6: 1.5rem;   /* 24 */
+  --ob-sp-7: 2rem;     /* 32 */
+  --ob-sp-8: 3rem;     /* 48 */
+
+  /* ---- shape ---- */
+  --ob-r-s: 6px;
+  --ob-r-m: 10px;
+  --ob-r-l: 12px; /* brand card pole (site --bb-r-card) */
+  --ob-r-full: 999px;
+
+  /* ---- control HEIGHT LADDER (GH-668 B-K11 / the design charter G10). Every kit
+          control renders at ONE of these rungs (audit predicate A7 reads
+          the rendered height ± 1 px): 20 toggle track · 28 compact chip /
+          badge row · 34 toolbar + icon pill · 40 control row (button,
+          select trigger, option, nav row — one padding math) · 44 the
+          coarse-pointer floor (stated ONCE under html.ob-touch /
+          (pointer: coarse), never per site) · 48 primary + coarse strip
+          segment · 64 gameplay thumb controls only. The S5 critique
+          counted eleven heights in one frame (20/29/34/36/37/38/39/44/48/
+          52/64) — 36/37/38/39 were four ways of saying "control row". ---- */
+  --ob-h-toggle: 20px;
+  --ob-h-compact: 28px;
+  --ob-h-toolbar: 34px;
+  --ob-h-control: 40px;
+  /* 44 had two jobs (uiaudit RC2): the coarse FLOOR every control is lifted
+     to under a finger, and the fine-pointer height of the ROW family (action
+     rows, option cards, strip segments). Same value, two names, so a change
+     to one job can never silently move the other. */
+  --ob-h-row: 44px;
+  --ob-h-coarse: 44px;
+  --ob-h-primary: 48px;
+  --ob-h-thumb: 64px;
+
+  /* ---- pill inline padding TRACKS HEIGHT (GH-667 / the design charter G6): for a
+          --ob-r-full box of height h the inline padding is ≥ 0.4 h, or the
+          label sits inside the end-cap curve (the one-line half of the
+          "blob pill" finding). Derived per rung from the ladder above so a
+          ratio change re-derives every pad; --ob-pill-pad (unsuffixed) is
+          the control-row rung. Custom properties resolve on the declaring
+          element, which is why the derivation is spelled per rung here and
+          not as one calc(var(--h) * 0.4) on :root. Kit consumers adopt in
+          the G6 step (B-K10); surfaces never set pill padding. ---- */
+  --ob-pill-pad-ratio: 0.4;
+  --ob-pill-pad-compact: calc(var(--ob-h-compact) * var(--ob-pill-pad-ratio));  /* 11.2 */
+  --ob-pill-pad-toolbar: calc(var(--ob-h-toolbar) * var(--ob-pill-pad-ratio));  /* 13.6 */
+  --ob-pill-pad-control: calc(var(--ob-h-control) * var(--ob-pill-pad-ratio));  /* 16 */
+  --ob-pill-pad-row: calc(var(--ob-h-row) * var(--ob-pill-pad-ratio));          /* 17.6 — the fine row family (strip segments) */
+  --ob-pill-pad-coarse: calc(var(--ob-h-coarse) * var(--ob-pill-pad-ratio));    /* 17.6 */
+  --ob-pill-pad-primary: calc(var(--ob-h-primary) * var(--ob-pill-pad-ratio));  /* 19.2 */
+  --ob-pill-pad-thumb: calc(var(--ob-h-thumb) * var(--ob-pill-pad-ratio));      /* 25.6 — the 64 rung (B-K16 .ob-btn--thumb) */
+  --ob-pill-pad: var(--ob-pill-pad-control);
+
+  /* ---- elevation: shadow + paired hairline (dark UIs read borders
+          before shadows) ---- */
+  --ob-el-1: 0 1px 2px oklch(0% 0 0 / 0.35);
+  --ob-el-2: 0 6px 20px oklch(0% 0 0 / 0.42), 0 1px 3px oklch(0% 0 0 / 0.3);
+  --ob-el-3: 0 12px 40px oklch(0% 0 0 / 0.55), 0 2px 6px oklch(0% 0 0 / 0.35);
+  /* floating-object drop shadow (feature 032 isolated product-render cards,
+     owner revision 2026-08-18): the alpha-render thumbs float on the card
+     well — a SUBTLE silhouette-following ground via
+     filter: drop-shadow(var(--ob-el-float)). Single layer by law:
+     drop-shadow() rejects comma lists and spread. */
+  --ob-el-float: 0 2px 3px oklch(0% 0 0 / 0.38);
+  --ob-blur: 14px;
+
+  /* ---- z SCALE (GH-668 B-K23): the stacking order as SEMANTIC rungs, not
+          integers placed by history (the base tree carried 1–9 / 40 41 42
+          45 50 55 59 60 69 70 71 80 89–95 across twenty files). Integers
+          are the shipped values so the migration is byte-neutral; the CI
+          token grep bans bare z-index integers in kit + surface sheets once
+          every consumer rides a rung (hygiene step). Order is the law —
+          token-receipts.mjs asserts it strictly increases. ---- */
+  --ob-z-raised: 3;    /* in-panel layers: scroll-edge fades, strip seams */
+  --ob-z-hud: 7;       /* HUD instrument panels over the canvas (widgets 4–6 below) */
+  --ob-z-shell: 8;     /* hall chrome: rail band, place cards, quick-play, atelier */
+  --ob-z-notice: 9;    /* the #err notice line */
+  --ob-z-chrome: 40;   /* toolbar, drawers, sheets, in-flow backdrops */
+  --ob-z-modal: 60;    /* export / share modal wrappers, touch modal */
+  --ob-z-scrim: 69;    /* the top backdrop under dialogs */
+  --ob-z-dialog: 70;   /* confirm, navmodal (settings), help, drills */
+  --ob-z-popover: 71;  /* select lists — must cover the dialog that hosts them */
+  --ob-z-top: 80;      /* device-level prompts (rotate-to-landscape) */
+
+  /* ---- smoked-glass material language (031 shell chrome — owner ruling
+          2026-08-15, contracts/shell.md §6 material note). The shell's
+          panels sit over the LIVE hall render: a dark low-opacity smoke
+          the warm key light visibly bleeds through (blur + saturate),
+          a 1px top-edge ivory specular, 2.5% noise against gradient
+          banding, and a chalk-blue hairline glow on the selected place.
+          -solid is the whole fallback ladder's panel (no backdrop-filter
+          support / prefers-reduced-transparency / body.ob-glass-off perf
+          tier): tinted near-opaque, ~80% visual parity, zero blur cost. */
+  --ob-glass-bg: oklch(14% 0.012 165 / 0.52);
+  --ob-glass-blur: 14px;                      /* owner spec: 12-16px */
+  --ob-glass-sat: 1.4;
+  --ob-glass-edge: oklch(97% 0.01 91 / 0.35); /* top specular hairline */
+  --ob-glass-solid: oklch(16.5% 0.011 165 / 0.94);
+  --ob-glass-glow: 0 0 0 1px oklch(74% 0.11 252 / 0.6),
+                   0 0 10px oklch(74% 0.11 252 / 0.3);
+  /* 2.5% fractal noise tile (~300 B inline SVG — the anti-banding grain) */
+  --ob-glass-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='96' height='96' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+
+  /* ---- motion (mirrored as JS constants in web/app/ui/motion.js —
+          change BOTH or choreography desyncs) ---- */
+  --ob-t-fast: 120ms;
+  --ob-t-med: 200ms;
+  --ob-t-slow: 320ms;
+  --ob-ease: cubic-bezier(0.22, 1, 0.36, 1);      /* decisive out */
+  --ob-ease-in: cubic-bezier(0.55, 0, 0.55, 0.2); /* exits */
+
+  /* ---- focus ---- */
+  --ob-focus-ring: oklch(74% 0.11 252 / 0.7); /* 4.6:1 on glass — ≥3:1 law */
+  --ob-focus: 0 0 0 2px var(--ob-bg-0), 0 0 0 4px var(--ob-focus-ring);
+
+  /* ---- GH-301 director strip: camera-family block identity -------------
+     NON-accent by law (the GH-255 accent-misuse ruling, restated in the
+     GH-301 contract §3.4): chalk accent stays action/selection/LIVE — the
+     SELECTED block/seam wears accent, a camera's identity color at rest
+     never does. The family derives from the ramps this sheet already owns:
+     the info hue (252) at low chroma for the lens presets, the neutral
+     slate/ivory hues (165/91) for chase/rail/close, all at dark-wash L so
+     the strip reads as timeline furniture under the ivory label ink. */
+  --ob-pb-strip-lane: oklch(97% 0.01 91 / 0.06);
+  --ob-pb-strip-ink: oklch(86% 0.015 91);
+  --ob-pb-strip-broadcast: oklch(37% 0.05 252);
+  --ob-pb-strip-chase: oklch(35% 0.02 165);
+  --ob-pb-strip-pov: oklch(44% 0.065 252);
+  --ob-pb-strip-overhead: oklch(31% 0.04 252);
+  --ob-pb-strip-rail: oklch(40% 0.028 165);
+  --ob-pb-strip-close: oklch(36% 0.032 91);
+  --ob-pb-strip-custom: oklch(42% 0.045 91);
+  --ob-pb-strip-seam: oklch(97% 0.01 91 / 0.85);
+  /* GH-314 D-lite: the strip's RESTING sliver — the painted bar thickness
+     while the director strip is collapsed (visual-only; hit geometry never
+     follows this token) */
+  --ob-pb-strip-sliver: 4px;
+  /* dip-to-black fade layer: rendered CONTENT (the export composites the
+     same black into the encoded frames), not chrome — pure black on purpose,
+     exempt from the never-pure-black scrim law which is about backdrops */
+  --ob-pb-fade: #000;
+}
+
+/* Utility hooks the kit and surfaces share. `.ob-caps` moved to kit.css's
+   G7 type-role block (GH-668 B-K13): one home for every role class, so the
+   CJK arm and the caps recipe cannot drift apart. tokens.css owns values. */
+.ob-nums { font-variant-numeric: tabular-nums; }

@@ -1,0 +1,142 @@
+{
+  "name": "jump",
+  "description": "Legal elevated jump shot (theta = 38.75 deg, jump-draw): the cue ball leaves the bed, clears the obstructing red/black pair, contacts the green target WHILE AIRBORNE (~8 mm above the bed), pots it toward the right-bottom corner, then the first slate bounce's backspin grip draws the cue ball back 0.5-1.5 diamonds. Demonstrates airborne physics (BallTable events, Airborne motion state).",
+  "provenance": "Layout and fitted shot constants from crates/pool-core/tests/fixtures/slowmo/jump.json (jump scenes 01..06 of the third-party slow-motion reference catalog, sec 5; fitted by examples/fit_slowmo.rs 'jump'). Ball ids: 0 cue, 1 green target, 2 obstructing red, 3 obstructing black.",
+  "system": {
+    "balls": [
+      {
+        "id": 0,
+        "params": {
+          "m": 0.170097,
+          "r": 0.028575,
+          "u_s": 0.2,
+          "u_r": 0.01,
+          "u_sp": 0.0127,
+          "e_b": 0.95,
+          "e_c": 0.85,
+          "f_c": 0.2
+        },
+        "state": {
+          "pos": {
+            "x": 0.57785,
+            "y": 0.25,
+            "z": 0.028575
+          },
+          "vel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "avel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "motion": "Stationary"
+        }
+      },
+      {
+        "id": 1,
+        "params": {
+          "m": 0.170097,
+          "r": 0.028575,
+          "u_s": 0.2,
+          "u_r": 0.01,
+          "u_sp": 0.0127,
+          "e_b": 0.95,
+          "e_c": 0.85,
+          "f_c": 0.2
+        },
+        "state": {
+          "pos": {
+            "x": 0.5349875,
+            "y": -0.385,
+            "z": 0.028575
+          },
+          "vel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "avel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "motion": "Stationary"
+        }
+      },
+      {
+        "id": 2,
+        "params": {
+          "m": 0.170097,
+          "r": 0.028575,
+          "u_s": 0.2,
+          "u_r": 0.01,
+          "u_sp": 0.0127,
+          "e_b": 0.95,
+          "e_c": 0.85,
+          "f_c": 0.2
+        },
+        "state": {
+          "pos": {
+            "x": 0.57785,
+            "y": -0.14687499999999998,
+            "z": 0.028575
+          },
+          "vel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "avel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "motion": "Stationary"
+        }
+      },
+      {
+        "id": 3,
+        "params": {
+          "m": 0.170097,
+          "r": 0.028575,
+          "u_s": 0.2,
+          "u_r": 0.01,
+          "u_sp": 0.0127,
+          "e_b": 0.95,
+          "e_c": 0.85,
+          "f_c": 0.2
+        },
+        "state": {
+          "pos": {
+            "x": 0.51927125,
+            "y": -0.20545374999999996,
+            "z": 0.028575
+          },
+          "vel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "avel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "motion": "Stationary"
+        }
+      }
+    ],
+    "table": "wpa_9ft"
+  },
+  "shot": {
+    "v0": 2.79,
+    "phi": -1.6556940905131363,
+    "theta": 0.6763150851478027,
+    "a": 0.0,
+    "b": -0.28,
+    "seed": 0
+  }
+}

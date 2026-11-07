@@ -1,0 +1,53 @@
+{
+  "tool": "tools/derive-cloth-traffic.mjs",
+  "kernel": "0.1.0+6adb7fd9",
+  "ensemble_from": "web/assets/cloth/traffic.json",
+  "ensemble_pixels_sha256": "eb30fdc2f7949cdc72181e1d8391729ecd9829896496e186ba2faefb3f0aa9fb",
+  "grid": {
+    "nx": 168,
+    "ny": 296,
+    "width_m": 1.666875,
+    "length_m": 2.936875,
+    "bed_width_m": 1.27,
+    "bed_length_m": 2.54,
+    "rail_band_m": 0.198438,
+    "rail_band_cite": "web/scene/table.js TABLE_SPECS default frameWidth 0.145 + WPA nominal 2\" cushion width 0.0508, rounded to 20 cells",
+    "cell_mm": 9.922,
+    "band_cells": 16960,
+    "blur_sigma_mm": 28.575
+  },
+  "encoding": "RGBA8, R=hand G=mouth, sqrt-encoded (v = s*s), row 0 = foot rail",
+  "model": {
+    "hand": {
+      "law": "one unit of dose per stroke, bridge-hand disc, rail band only",
+      "bridge_length_m": [
+        0.1524,
+        0.254
+      ],
+      "bridge_length_shape_cite": "NONE — stated-ignorance uniform prior over the taught 6-10 in range; no bridge station is cited anywhere in this repo",
+      "bridge_quadrature_nodes": 5,
+      "hand_radius_m": 0.035,
+      "hand_radius_cite": "NONE — modelled uniform disc (palm heel + finger pads); under the sigma = R_ball bake it carries no spectral content the Gaussian does not dominate",
+      "not_modelled": "hip and forearm lean on the rail — nothing published"
+    },
+    "mouth": {
+      "law": "one unit of dose per BallPocket event, continued 2R into the throat along the sampled entry heading",
+      "heading_window_s": 0.004
+    },
+    "beta": 1
+  },
+  "counts": {
+    "strokes": 41316,
+    "strokes_with_hand_on_rail": 10245,
+    "hand_on_rail_fraction": 0.247967,
+    "pocket_entries": 36788
+  },
+  "derived": {
+    "hand_band_mean_over_peak": 0.208302,
+    "mouth_band_mean_over_peak": 0.016399,
+    "bridge_prior_endpoint_pearson_r": 0.4259,
+    "removal_band_mean": 0.502065
+  },
+  "pixels_sha256": "01130a02faa7da63a50793d986baabcdaa3e77c0401880529245a64af0d4ef8b",
+  "sha256": "bcfdcd0fd9b2dd148e5e8c5e1f3ab88b5c77c34b5bbdc2c5c5f423b9aa0993e3"
+}

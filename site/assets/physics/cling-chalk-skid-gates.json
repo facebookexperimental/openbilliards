@@ -1,0 +1,264 @@
+{
+  "scenario": "cling-chalk-skid",
+  "title": "Cling / chalk-spot skid — the identical shot twice: only chalk friction differs — clean pots, chalked throws ×3 and misses (battery A7)",
+  "kernel": "0.1.0+dedc61cd",
+  "anchor": {
+    "lineOfCentersDeg": 40,
+    "cleanEdgeDeg": 42.5967,
+    "chalkedEdgeDeg": 47.748
+  },
+  "badge": {
+    "line1": "predicted 2.60° / 7.75° (friction ×3) · measured 2.60° / 7.75°",
+    "line2": "CLING / CHALK-SPOT SKID · DR. DAVE TP A.17 / TP A.14 BOTTOM · BATTERY A7 (EXP_A7_CLING) · 50° CUT · 1.34 M/S STUN · CHALK FRICTION ×3"
+  },
+  "segments": [
+    {
+      "id": "clean",
+      "batterySha": "b47a5b6e67935bad22ca46b50c8c9a6e0419a6c7baaf673c1c788082d143415d",
+      "videoSha": "209bf104c55958019ad4fc15609ed4a9c9bd7275a78db2b8455d9b8413931029",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tImpact": 0.3566473864127054,
+        "SThrowDeg": 2.5969871768459143,
+        "DTpDeg": 2.5967,
+        "obHeadingDeg": 42.59698717684597,
+        "obExitSpeed": 0.839454997845783,
+        "cbHeadingDeg": 128.7519565147896,
+        "tRollOb": 0.47882865101993954,
+        "tPot": 1.8284645415709269,
+        "tEnd": 2.228465,
+        "cbCushionTimes": [
+          1.42229031822467,
+          1.895495350306986
+        ],
+        "contactCb": [
+          -0.019728519464876186,
+          0.6739026248747828
+        ],
+        "obStart": [
+          0.024050920459373404,
+          0.7106379367683685
+        ],
+        "cbStart": [
+          -0.019728519464876186,
+          0.07190262487478283
+        ],
+        "approachTravelM": 0.6,
+        "rhoPre": -0.006569964424911077,
+        "minPairMm": 57.15000000000056,
+        "minPairAt": 0.3566473864127054,
+        "minPair": [
+          0,
+          1
+        ]
+      },
+      "plan": {
+        "frames": 532,
+        "outputSec": 8.866666666666667,
+        "maxCutlessStepRatio": 1.074889663087409,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              220,
+              244
+            ]
+          ],
+          "deliveredFrames": 508,
+          "deliveredSec": 8.466666666666667,
+          "firstReplayFrame": 220,
+          "recoveredFrames": 86,
+          "dissolveS": 0.4
+        }
+      }
+    },
+    {
+      "id": "chalked",
+      "batterySha": "b34fb8335a47610bcc351ba265d685a0254864d70a433a27de7cf3a08196e40b",
+      "videoSha": "c4b4ee50860a95dfaf6fa026e21563cce90264077b84e28f9b88b10e8a29d77b",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tImpact": 0.3566473864127054,
+        "SThrowDeg": 7.748711771137778,
+        "DTpDeg": 7.748,
+        "obHeadingDeg": 47.748711771137735,
+        "obExitSpeed": 0.8463206526299791,
+        "cbHeadingDeg": 128.64776712828427,
+        "tRollOb": 0.47970294577962963,
+        "tMiss": 1.6238010110071759,
+        "missPos": [
+          0.5062806891180663,
+          1.2414250000000002
+        ],
+        "missClearanceM": 0.168699,
+        "tObNextCushion": 2.0429423655185674,
+        "tEnd": 1.922942,
+        "cbCushionTimes": [
+          1.5322377720383127,
+          2.0826511962418315
+        ],
+        "contactCb": [
+          -0.019728519464876186,
+          0.6739026248747828
+        ],
+        "obStart": [
+          0.024050920459373404,
+          0.7106379367683685
+        ],
+        "cbStart": [
+          -0.019728519464876186,
+          0.07190262487478283
+        ],
+        "approachTravelM": 0.6,
+        "rhoPre": -0.006569964424911077,
+        "minPairMm": 57.15000000000056,
+        "minPairAt": 0.3566473864127054,
+        "minPair": [
+          0,
+          1
+        ]
+      },
+      "plan": {
+        "frames": 468,
+        "outputSec": 7.8,
+        "maxCutlessStepRatio": 1.074889663087409,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              728,
+              752
+            ]
+          ],
+          "deliveredFrames": 444,
+          "deliveredSec": 7.4,
+          "firstReplayFrame": 728,
+          "recoveredFrames": 58,
+          "dissolveS": 0.4
+        }
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 2,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 1.4066666666666667,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 2.006666666666667,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "2.60°",
+              "clean ball · throws — and pots"
+            ],
+            "availSec": 3.3666666666666667,
+            "spanSec": 1.3599999999999999,
+            "entrySec": 0.98,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.3599999999999999,
+            "settledSec": 2.006666666666667,
+            "needScale": 0.44347826086956516,
+            "settledFrames": 120
+          }
+        ],
+        "refused": false
+      },
+      {
+        "segIdx": 1,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 1.4066666666666667,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "7.75°",
+              "cling — chalk spot, friction ×3 · skids 169 mm wide"
+            ],
+            "availSec": 2.7666666666666666,
+            "spanSec": 1.3599999999999999,
+            "entrySec": 0.98,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.3599999999999999,
+            "settledSec": 1.4066666666666667,
+            "needScale": 0.5513513513513513,
+            "settledFrames": 84
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "clean",
+      "frames": 532,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "214ebae807bc5d2e321389d13c252b3f5eb06fa145efe9ba703042bbe5792e78",
+      "sha256_last": "a5b676fa4edcb7af4decef3376a004f41ca69cb4fca2b3c3687f57aa0ccb2885"
+    },
+    {
+      "segment": "chalked",
+      "frames": 468,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "214ebae807bc5d2e321389d13c252b3f5eb06fa145efe9ba703042bbe5792e78",
+      "sha256_last": "c799dc9a5e50a11f3e22084f791a420667f0cde94934953ea55baa523372ae39"
+    }
+  ],
+  "titleCard": {
+    "value": "Cling / chalk-spot skid",
+    "claim": "the identical shot twice: only chalk friction differs — clean pots, chalked throws ×3 and misses (battery A7)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "c20175a501fe6f5d26d54acee10efc62ed8eea9bbdfa1a0a1a3c1b7982e53d89",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "1bf601c12ac5316479af0ecd92bb2a7ab49dec7ad2c264db1f3fbf752ae289a5"
+  }
+}

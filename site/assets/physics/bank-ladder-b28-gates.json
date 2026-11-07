@@ -1,0 +1,409 @@
+{
+  "scenario": "bank-ladder-b28",
+  "title": "Bank through-diamond ladder — TP B.28 five-table envelope (battery C1)",
+  "kernel": "0.1.0+208e1dc4",
+  "anchor": {},
+  "badge": {
+    "line1": "predicted 5.07–6.22 · measured 5.32",
+    "line2": "BANK THROUGH-DIAMOND LADDER · TP B.27/B.28 (5 MEASURED TABLES) · BATTERY C1 (EXP_C1_BANKS) · HAN2005 · STUN 2.0 M/S · AIMS 2.0/2.5/3.0"
+  },
+  "segments": [
+    {
+      "id": "aim2.0",
+      "batterySha": "544943e3e156e51dbe9a9559203d62f49c68e223dff6cca6e1abed94399c0517",
+      "videoSha": "29fa4f25dbbcc5599d52c08ddc570896e880619724c066036049381e06aa7d81",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tContact": 0.45200799971935524,
+        "tSettled": 0.6515700986613142,
+        "tPot": 1.7892483453241306,
+        "duration": 1.7892483453241306,
+        "contactPos": {
+          "x": 0.6064250000000001,
+          "y": -0.5514184598901726,
+          "z": 0.028575
+        },
+        "settledPos": {
+          "x": 0.3952545702567678,
+          "y": -0.6886899570888283,
+          "z": 0.028575
+        },
+        "settledVel": {
+          "x": -0.9324992669582572,
+          "y": -0.5377530365916541,
+          "z": 0
+        },
+        "wzPre": -1.3845686456488323e-12,
+        "referenceLine": {
+          "throughDiamondCrossing_S": 5.319861698150635,
+          "published_crossing_S": 5.31986,
+          "unitDirection_u": [
+            0.8072073382594487,
+            -0.5902680010470633
+          ],
+          "envelope": [
+            5.07,
+            6.22
+          ],
+          "twicePlusTenths": 5.1564,
+          "insideEnvelope": true
+        },
+        "tEnd": 1.7892483453241306,
+        "tailLawEnd": 2.0734150119907975,
+        "minPairMm": "n/a (single-ball record — no pairs)",
+        "minPairAt": null,
+        "minPair": null
+      },
+      "plan": {
+        "frames": 512,
+        "outputSec": 8.533333333333333,
+        "maxCutlessStepRatio": 1.0748538884356098,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              277,
+              301
+            ]
+          ],
+          "deliveredFrames": 488,
+          "deliveredSec": 8.133333333333333,
+          "firstReplayFrame": 277,
+          "recoveredFrames": 91,
+          "dissolveS": 0.4
+        }
+      }
+    },
+    {
+      "id": "aim2.5",
+      "batterySha": "5b8a7a70bda0dfee0f1f66bc4c361c4ce1eda7d2ecee6c89d6981679ef9e6374",
+      "videoSha": "5731455fadfa926e2ed1f42cd547c537e245ce35a315ea628d6a60a4f7f1c9ba",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tContact": 0.4520079997193551,
+        "tSettled": 0.6625536898015636,
+        "tPot": 1.926201944947582,
+        "duration": 1.926201944947582,
+        "contactPos": {
+          "x": 0.6064249999999999,
+          "y": -0.37168209712620875,
+          "z": 0.028575
+        },
+        "settledPos": {
+          "x": 0.40278338677797654,
+          "y": -0.5372979191121574,
+          "z": 0.028575
+        },
+        "settledVel": {
+          "x": -0.8523414941019484,
+          "y": -0.6149446573986916,
+          "z": 0
+        },
+        "wzPre": 0,
+        "referenceLine": {
+          "throughDiamondCrossing_S": 6.653440761566162,
+          "published_crossing_S": 6.65344,
+          "unitDirection_u": [
+            0.7378196778495845,
+            -0.6749978688691805
+          ],
+          "envelope": [
+            6.38,
+            7.55
+          ],
+          "twicePlusTenths": 6.4455,
+          "insideEnvelope": true
+        },
+        "tEnd": 1.926201944947582,
+        "tailLawEnd": 2.210368611614249,
+        "minPairMm": "n/a (single-ball record — no pairs)",
+        "minPairAt": null,
+        "minPair": null
+      },
+      "plan": {
+        "frames": 501,
+        "outputSec": 8.35,
+        "maxCutlessStepRatio": 1.0748538884356098,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              768,
+              792
+            ]
+          ],
+          "deliveredFrames": 477,
+          "deliveredSec": 7.95,
+          "firstReplayFrame": 768,
+          "recoveredFrames": 63,
+          "dissolveS": 0.4
+        }
+      }
+    },
+    {
+      "id": "aim3.0",
+      "batterySha": "b1f2e239a69d1e38cd27f455188425884d1b8bde468441f71deca16f9d212afb",
+      "videoSha": "1ee06cf934bb1d7e52cd06a83a3881cf6c38733a5630254174fac5c7e0722133",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tContact": 0.4520079997193553,
+        "tSettled": 0.6714922000296406,
+        "tPot": 2.0832407836955733,
+        "duration": 2.0832407836955733,
+        "contactPos": {
+          "x": 0.606425,
+          "y": -0.191873056376033,
+          "z": 0.028575
+        },
+        "settledPos": {
+          "x": 0.4127952996122009,
+          "y": -0.38106021941684665,
+          "z": 0.028575
+        },
+        "settledVel": {
+          "x": -0.7774315638946889,
+          "y": -0.6738588959008667,
+          "z": 0
+        },
+        "wzPre": 6.465600528555642e-13,
+        "referenceLine": {
+          "throughDiamondCrossing_S": 7.989906597137452,
+          "published_crossing_S": 7.98991,
+          "unitDirection_u": [
+            0.6729747524813916,
+            -0.7396654531087753
+          ],
+          "envelope": [
+            7.54,
+            8.59
+          ],
+          "twicePlusTenths": 7.7346,
+          "insideEnvelope": true
+        },
+        "tEnd": 2.0832407836955733,
+        "tailLawEnd": 2.36740745036224,
+        "minPairMm": "n/a (single-ball record — no pairs)",
+        "minPairAt": null,
+        "minPair": null
+      },
+      "plan": {
+        "frames": 520,
+        "outputSec": 8.666666666666666,
+        "maxCutlessStepRatio": 1.0748538884356098,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              1248,
+              1272
+            ]
+          ],
+          "deliveredFrames": 496,
+          "deliveredSec": 8.266666666666667,
+          "firstReplayFrame": 1248,
+          "recoveredFrames": 63,
+          "dissolveS": 0.4
+        }
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 6,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 0.6600000000000001,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.6600000000000001,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "5.32",
+              "through-diamond crossing · TP B.28 5.07–6.22"
+            ],
+            "availSec": 2,
+            "spanSec": 1.3399999999999999,
+            "entrySec": 0.96,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.3399999999999999,
+            "settledSec": 0.6600000000000001,
+            "needScale": 0.788235294117647,
+            "settledFrames": 39
+          },
+          {
+            "text": [
+              "aim 2.0 · five-table envelope"
+            ],
+            "availSec": 2,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.1800000000000002,
+            "settledSec": 0.8199999999999998,
+            "needScale": 0.6941176470588236,
+            "settledFrames": 49
+          }
+        ],
+        "refused": false
+      },
+      {
+        "segIdx": 1,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.8933333333333335,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "6.65",
+              "through-diamond crossing · TP B.28 6.38–7.55"
+            ],
+            "availSec": 2.2333333333333334,
+            "spanSec": 1.3399999999999999,
+            "entrySec": 0.96,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.3399999999999999,
+            "settledSec": 0.8933333333333335,
+            "needScale": 0.693103448275862,
+            "settledFrames": 53
+          },
+          {
+            "text": [
+              "aim 2.5 · five-table envelope"
+            ],
+            "availSec": 2.2333333333333334,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.1800000000000002,
+            "settledSec": 1.0533333333333332,
+            "needScale": 0.610344827586207,
+            "settledFrames": 63
+          }
+        ],
+        "refused": false
+      },
+      {
+        "segIdx": 2,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 1.1600000000000001,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "7.99",
+              "through-diamond crossing · TP B.28 7.54–8.59"
+            ],
+            "availSec": 2.5,
+            "spanSec": 1.3399999999999999,
+            "entrySec": 0.96,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.3399999999999999,
+            "settledSec": 1.1600000000000001,
+            "needScale": 0.609090909090909,
+            "settledFrames": 69
+          },
+          {
+            "text": [
+              "aim 3.0 · five-table envelope"
+            ],
+            "availSec": 2.5,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.1800000000000002,
+            "settledSec": 1.3199999999999998,
+            "needScale": 0.5363636363636364,
+            "settledFrames": 79
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "aim2.0",
+      "frames": 512,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "94471509b1ca36a732f5c36c61c1d5b38343b013f346d86a665f91502c5eb756",
+      "sha256_last": "a463b31df5384e3ddd6a51cb7b1eafcb9d51ea1e8d8193592b0d601835132cdc"
+    },
+    {
+      "segment": "aim2.5",
+      "frames": 501,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "e5062a12a3c1e49d497a6f314fae348bb11ab228137271a588be783165686037",
+      "sha256_last": "8b00722a4157a8c5259ff6f495c340ef7e3080b8768ec863e2614c7a5a4fe078"
+    },
+    {
+      "segment": "aim3.0",
+      "frames": 520,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "2223928df4fa3ba3ec769a447d9758fc951bcccbfbf36e612461a6565e06bd9b",
+      "sha256_last": "781c35b45a45cbcfc01e25b865bb9e1afb9da50177488d9b55762c9517cdd110"
+    }
+  ],
+  "titleCard": {
+    "value": "Bank through-diamond ladder",
+    "claim": "TP B.28 five-table envelope (battery C1)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "261842ee4f34b8155ea339d9372122fc2374bf25004c46ee6591b2b4cd33059c",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "770aac20125f9e33fcf75bb57b0a27f43c69586377aef84d64f9c6d11de21eea"
+  }
+}

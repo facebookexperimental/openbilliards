@@ -1,0 +1,20 @@
+{
+  "_what": "GH-1042 old-stamp snooker share link + its SENDER capture (e2e-settings D2g)",
+  "_how": "node web/tools/gen-discipline-cue-1042-fixture.mjs --rev 40741402 (pre-fix app: snooker racked on the kernel default pairing while the link encodes the selected spec)",
+  "snooker": {
+    "hash": "#r=TY5bDoIwEEX3Mr8OzUzpQ9bSNE2RNhgRCFTdvkGJkvt37iPXWQQSLOgkyVxSqzUgrOM03dICyOjgNbdrDDsKLHP5J8IY5zl1x8rPimsPCPdY-viMY8jXUlIHHp2rkYW2ZBtTS2MbdW6MQdrkN5uQBCuDFQtSVnt_WHcev4eqHVX5MQwfTsj-DQ",
+    "kernel_version": "0.1.0+206ceb55",
+    "selected_cue": "snooker_ash",
+    "sender_cue": "standard",
+    "sender_has_options_cue": false,
+    "shot": {
+      "v0": 3,
+      "phi": 1.5707963267948966,
+      "theta": 0,
+      "a": 0,
+      "b": 0
+    },
+    "sender_events_sha256": "1dc72fef46ffe231e35263e6e8219714e59dc4d4d6e235b6934582c0d74afd5a",
+    "sender_n_events": 56
+  }
+}

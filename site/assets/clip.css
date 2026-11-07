@@ -1,0 +1,89 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* ============================================================
+   clip.css — bb-clip, the design-system in-place video clip
+   (companion of assets/clip.js; contract + budget in the design system
+   "bb-clip"). Styles ONLY what the component owns: the video
+   layer that covers the poster, the play/pause hit surface, the
+   click-to-play glyph and the fullscreen affordance. The HOST
+   element (e.g. .ph-media) keeps its page-scoped look — bb-clip
+   is additive and mints no new colors.
+   ============================================================ */
+
+/* host: the resting markup's poster box. position guard only —
+   galleries already position it; a future host might not. */
+.bb-clip { position: relative; }
+
+/* the in-place video covers the poster in the SAME box; the
+   poster <img> stays underneath, so releasing the video (decoder
+   reclaim on stage exit) uncovers it again with zero reflow. */
+.bb-clip video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--bb-t-hover) ease;
+}
+.bb-clip.is-live video { opacity: 1; }
+
+/* whole-tile play/pause control: a real button (keyboard + AT),
+   transparent — the poster and chips are the visible face. */
+.bb-clip-hit {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border-radius: inherit;
+}
+/* the hit surface exactly fills a host that clips its overflow, so the
+   global +3px-offset ring would be invisible: draw it INSIDE (review r1) */
+.bb-clip-hit:focus-visible {
+  outline: 2px solid var(--bb-ivory);
+  outline-offset: -3px;
+  border-radius: inherit;
+}
+
+/* play glyph — the visible click-to-play affordance. Shown in
+   the click-to-play register (reduced-motion / Save-Data /
+   autoplay refused) and whenever a staged clip sits paused;
+   never while the clip is live. Pill pole: clickable promise. */
+.bb-clip-glyph {
+  position: absolute; left: 50%; top: 50%;
+  width: 56px; height: 56px;
+  margin: -28px 0 0 -28px;
+  border-radius: var(--bb-r-pill);
+  background: oklch(19% 0.012 163 / 0.82); /* Felt Riser @ ~80% */
+  border: 1px solid var(--bb-line);
+  pointer-events: none;
+  transition: opacity var(--bb-t-hover) ease;
+}
+.bb-clip-glyph::after {
+  content: "";
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-40%, -50%);
+  border-style: solid;
+  border-width: 9px 0 9px 15px;
+  border-color: transparent transparent transparent var(--bb-ivory);
+}
+.bb-clip:not(.is-cta) .bb-clip-glyph,
+.bb-clip.is-playing .bb-clip-glyph { opacity: 0; }
+.bb-clip-hit:is(:hover, :focus-visible) ~ .bb-clip-glyph { border-color: var(--bb-ivory-2); }
+
+/* fullscreen affordance — its own button beside the hit surface
+   (later in DOM, so it wins the corner's clicks). Top-right; the
+   duration chip owns bottom-right, the name plate top-left. */
+.bb-clip-fs {
+  position: absolute; right: 12px; top: 12px;
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  border-radius: var(--bb-r-pill);
+  background: oklch(19% 0.012 163 / 0.82);
+  border: 1px solid var(--bb-line);
+  color: var(--bb-ivory-2);
+  transition: color var(--bb-t-hover) ease, border-color var(--bb-t-hover) ease;
+}
+.bb-clip-fs:is(:hover, :focus-visible) { color: var(--bb-chalk); border-color: var(--bb-chalk); }
+.bb-clip-fs svg { display: block; }
+
+/* the reduced-motion law is absolute: state changes land instantly */
+@media (prefers-reduced-motion: reduce) {
+  .bb-clip video, .bb-clip-glyph, .bb-clip-fs { transition: none; }
+}

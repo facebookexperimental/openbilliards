@@ -1,0 +1,437 @@
+{
+  "scenario": "gearing-zero-throw",
+  "title": "Gearing english — outside spin at the gearing ratio cancels cut-induced throw: the balls mesh like gears (battery A5)",
+  "kernel": "0.1.0+dedc61cd",
+  "anchor": {
+    "S_pct_throw_cross": 68.83512230026318,
+    "D_pct_actual_phi": 68.96920938220123,
+    "D_pct_nominal_rule": 70,
+    "E_pct_vs_actual_phi": -0.1340870819380484
+  },
+  "badge": {
+    "line1": "predicted 68.97% · measured 68.84%",
+    "line2": "GEARING ENGLISH ZERO-THROW · DR. DAVE TP A.26 · BATTERY A5 (EXP_A5_GEARING) · FULLNESS 0.125 · CROSSINGS COINCIDE 0.0075 PP"
+  },
+  "segments": [
+    {
+      "id": "stun",
+      "batterySha": "ce62ab15ce5a73161edad65cf68e8ed1a5517ed0742aa88528f909cf45933905",
+      "videoSha": "20d242220f0fbe8a236b2433d03ffb998513e0ffac579a032909eae5d3c03d1b",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tImpact": 0.3237154058460087,
+        "throwDeg": 2.0032424984174213,
+        "obSpinPickupRadS": -2.218549601680914,
+        "phiDegPre": 61.04497562813926,
+        "speedPre": 1.5365036926187625,
+        "aimHeadingDeg": 90,
+        "cbStart": [
+          0.06980631048330146,
+          -0.9518933993633015
+        ],
+        "contactCb": [
+          0.06980631048330153,
+          -0.3518933993633025
+        ],
+        "approachTravelM": 0.599999999999999,
+        "strikeSpinRadS": {
+          "x": 62.471425178345854,
+          "y": -7.650543088283462e-15,
+          "z": 0
+        },
+        "srfStrike": 0,
+        "thetaDeg": 6.874607425630092,
+        "kissCbAvel": {
+          "x": -0.22086483046860408,
+          "y": -0.004462709412920929,
+          "z": -2.218549601680914
+        },
+        "swerveMaxLateralDevMm": 1.655162339334423e-14,
+        "pairClearanceMinMm": 57.15000000000041,
+        "pairClearanceAtS": 0.3237154058460087,
+        "tEnd": 1.5627154058460089,
+        "tFreezeStory": 1.5627154058460089,
+        "mouthOrJawLateralM": 0.0196322191880208,
+        "postStory": {
+          "firstEventAfterFreezeT": 1.6043848321328007,
+          "gapS": 0.04166942628679182,
+          "outcome": "OB still pots off-center at +0.042s (outside the captured window)"
+        },
+        "minPairMm": 57.15000000000041,
+        "minPairAt": 0.3237154058460087,
+        "minPair": [
+          0,
+          9
+        ]
+      },
+      "plan": {
+        "frames": 510,
+        "outputSec": 8.5,
+        "maxCutlessStepRatio": 1.0745935103046194,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 3,
+          "dissolveSpans": [
+            [
+              227,
+              251
+            ]
+          ],
+          "deliveredFrames": 486,
+          "deliveredSec": 8.1,
+          "firstReplayFrame": 227,
+          "recoveredFrames": 112,
+          "dissolveS": 0.4
+        }
+      }
+    },
+    {
+      "id": "gearing",
+      "batterySha": "d397c22e531d5cf50d77c3f56b70a2b13abfcf15b5330969ae5eeb16bd02152c",
+      "videoSha": "751d04091024339a8d228532f3063883e55e2f97e360fab4a005c2646f9c8c1e",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tImpact": 0.3716984244851999,
+        "throwDeg": -0.00018508442781239864,
+        "obSpinPickupRadS": 0.00017453623005029125,
+        "phiDegPre": 59.5534884853718,
+        "speedPre": 1.2506088330978102,
+        "aimHeadingDeg": 88.60490036057148,
+        "cbStart": [
+          0.048564858463756994,
+          -0.9516370963438303
+        ],
+        "contactCb": [
+          0.0698529258939635,
+          -0.3519774846518609
+        ],
+        "approachTravelM": 0.6000373585948433,
+        "strikeSpinRadS": {
+          "x": 66.78858676226672,
+          "y": -7.101714832533036,
+          "z": -41.765423649719224
+        },
+        "srfStrike": -0.5801501254753559,
+        "thetaDeg": 7.2436559167504315,
+        "kissCbAvel": {
+          "x": -3.662280144384572,
+          "y": -1.93638572150164,
+          "z": -37.713736297500496
+        },
+        "swerveMaxLateralDevMm": 1.2962373472264668,
+        "pairClearanceMinMm": 57.150000000000844,
+        "pairClearanceAtS": 0.3716984244851999,
+        "tEnd": 2.210909833554086,
+        "pot": {
+          "t": 1.9781051615157805,
+          "ball": 9,
+          "pocket": 4
+        },
+        "tMouth": 1.9316984244852,
+        "mouthLateralM": -2.7755575615628914e-16,
+        "firstCushionT": 2.3309098335540863,
+        "minPairMm": 57.150000000000844,
+        "minPairAt": 0.3716984244851999,
+        "minPair": [
+          0,
+          9
+        ]
+      },
+      "plan": {
+        "frames": 576,
+        "outputSec": 9.6,
+        "maxCutlessStepRatio": 1.0756611403764642,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 3,
+          "dissolveSpans": [
+            [
+              716,
+              740
+            ]
+          ],
+          "deliveredFrames": 552,
+          "deliveredSec": 9.2,
+          "firstReplayFrame": 716,
+          "recoveredFrames": 87,
+          "dissolveS": 0.4
+        }
+      }
+    },
+    {
+      "id": "over",
+      "batterySha": "735b9b62063bac96e8b626150616c51b8dfbbc7c66edefce59e5044384b2b8f8",
+      "videoSha": "c797691384079b78c3c0ab1c17ce95a08028141e03bee6e5d14abf0c674b4634",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tImpact": 0.4159467382355211,
+        "throwDeg": -4.519948062918843,
+        "obSpinPickupRadS": 3.592774672050171,
+        "phiDegPre": 59.02829002146461,
+        "speedPre": 1.0359778436377016,
+        "aimHeadingDeg": 88.11179397131258,
+        "cbStart": [
+          0.03860228554602951,
+          -0.9513011087029585
+        ],
+        "contactCb": [
+          0.06986847780596378,
+          -0.35200546330633775
+        ],
+        "approachTravelM": 0.6001106942638061,
+        "strikeSpinRadS": {
+          "x": 73.7966572281551,
+          "y": -9.94307924585033,
+          "z": -49.96295707398571
+        },
+        "srfStrike": -0.7403028614667501,
+        "thetaDeg": 7.693139832913875,
+        "kissCbAvel": {
+          "x": -4.022334188554096,
+          "y": -2.0992591672298317,
+          "z": -41.836362966068364
+        },
+        "swerveMaxLateralDevMm": 2.0678813902016215,
+        "pairClearanceMinMm": 57.15000000000035,
+        "pairClearanceAtS": 0.4159467382355211,
+        "tEnd": 2.5944059615819093,
+        "mouthOrJawLateralM": -0.04188220598915038,
+        "tFreezeStory": 2.244405961581909,
+        "tJaw": 2.244405961581909,
+        "jawSeg": 14,
+        "jawPos": [
+          0.606425,
+          -0.10185093963873681
+        ],
+        "postStory": {
+          "outcome": "jaw rejection at 2.244s; OB rebounds and rests on the cloth (no pot in the record)"
+        },
+        "minPairMm": 57.15000000000035,
+        "minPairAt": 0.4159467382355211,
+        "minPair": [
+          0,
+          9
+        ]
+      },
+      "plan": {
+        "frames": 634,
+        "outputSec": 10.566666666666666,
+        "maxCutlessStepRatio": 1.0745935103046194,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 3,
+          "dissolveSpans": [
+            [
+              1272,
+              1296
+            ]
+          ],
+          "deliveredFrames": 610,
+          "deliveredSec": 10.166666666666666,
+          "firstReplayFrame": 1272,
+          "recoveredFrames": 87,
+          "dissolveS": 0.4
+        }
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 6,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 0.30000000000000004,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1.536842105263158,
+        "wanted": 1.536842105263158,
+        "dropSec": 0.5856164383561644,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.30000000000000004,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "PE 0",
+              "no sidespin — plain drag stun"
+            ],
+            "availSec": 1.9166666666666667,
+            "spanSec": 1.32,
+            "entrySec": 0.9400000000000001,
+            "exitSec": 0.38,
+            "scaledSpanSec": 0.8589041095890411,
+            "settledSec": 1.0577625570776257,
+            "needScale": 0.8164948453608247,
+            "settledFrames": 63
+          },
+          {
+            "text": [
+              "throw 2.00°",
+              "PE 0 · plain stun"
+            ],
+            "availSec": 1.25,
+            "spanSec": 1.46,
+            "entrySec": 1.08,
+            "exitSec": 0.38,
+            "scaledSpanSec": 0.95,
+            "settledSec": 0.30000000000000004,
+            "needScale": 1.536842105263158,
+            "settledFrames": 17
+          }
+        ],
+        "refused": false
+      },
+      {
+        "segIdx": 1,
+        "scale": 1.2845070422535212,
+        "wanted": 1.2845070422535212,
+        "dropSec": 0.700657894736842,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.30000000000000004,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "PE −68.8",
+              "outside english rides the approach to contact"
+            ],
+            "availSec": 1.95,
+            "spanSec": 1.4,
+            "entrySec": 1.02,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.0899122807017543,
+            "settledSec": 0.8600877192982457,
+            "needScale": 0.8484848484848485,
+            "settledFrames": 51
+          },
+          {
+            "text": [
+              "throw -0.0002°",
+              "PE −68.8 · gearing"
+            ],
+            "availSec": 1.4833333333333334,
+            "spanSec": 1.52,
+            "entrySec": 1.1400000000000001,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.1833333333333333,
+            "settledSec": 0.30000000000000004,
+            "needScale": 1.2845070422535212,
+            "settledFrames": 17
+          }
+        ],
+        "refused": false
+      },
+      {
+        "segIdx": 2,
+        "scale": 1.0325581395348837,
+        "wanted": 1.0325581395348837,
+        "dropSec": 0.8716216216216216,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.30000000000000004,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "PE −100",
+              "full outside english rides to contact"
+            ],
+            "availSec": 2.0833333333333335,
+            "spanSec": 1.38,
+            "entrySec": 1,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.3364864864864863,
+            "settledSec": 0.7468468468468472,
+            "needScale": 0.7738317757009344,
+            "settledFrames": 44
+          },
+          {
+            "text": [
+              "throw -4.52°",
+              "PE −100 · over-geared"
+            ],
+            "availSec": 1.7333333333333334,
+            "spanSec": 1.48,
+            "entrySec": 1.1,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.4333333333333333,
+            "settledSec": 0.30000000000000004,
+            "needScale": 1.0325581395348837,
+            "settledFrames": 18
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "stun",
+      "frames": 510,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "ac8507684fa697d2fb846278533d206552c66b243099c6800ba0aebcf6c1ae85",
+      "sha256_last": "80332fc8dc6670c2441bfea799d5e8e5eb1ecaaf77b9a6a8a4a3e596f39fb0a9"
+    },
+    {
+      "segment": "gearing",
+      "frames": 576,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "7f392332a11e50539c28f988ec3a25cb2aae2152247e643ec325ace23f611611",
+      "sha256_last": "3aa9418fa67d389d4230939e1a68ced82af16baef36606eb601e1f44d1face28"
+    },
+    {
+      "segment": "over",
+      "frames": 634,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "be360e93029134201670c44763c154b5c0fa797c6b5548714a5c41def689bc73",
+      "sha256_last": "97cdaa5bc4f7a2192b146c1cd58c4ac9a60a0bada1d99e35610a355b6f8c5f06"
+    }
+  ],
+  "titleCard": {
+    "value": "Gearing english",
+    "claim": "outside spin at the gearing ratio cancels cut-induced throw: the balls mesh like gears (battery A5)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "e22ae3f91f4bb55e6f88e9a1b9357462c857affd8783a0e6dca91bf9a8adbdce",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "695f7d6eb0386969d8eae34134086fd49c1795ef913c6795d03abb59a6945b14"
+  }
+}

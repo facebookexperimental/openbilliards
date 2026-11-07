@@ -1,0 +1,1588 @@
+{
+ "tool": "tools/render/check-coplanar-pairs.mjs --expect-baseline",
+ "note": "ORDER-CN8-SLIT-FIX (GH-666 follow-up; refs #728): the coplanar pairs the two cn8 tables still carry after the plank cut-face trim removed the cushion|plank class (4 rows, 184.97 mm\u00b2 each). Pinned, owned red, not an allowlist: every row is a defect outside the plank/cap class awaiting its own derivation; a row appearing or vanishing fails the battery row. Characterisation by family in SPIKE-REPORT-CRAFT.md \u00a7GH-666 SLIT-FIX.",
+ "issue": "pending \u2014 characterisation handed to the orchestrator in the SLIT-FIX report (the #671 pattern); the orchestrator opens one consolidated family issue",
+ "pinnedAt": "cn8-slit-fix-2026-09 FIX1 (main bba046aa + the plank cut-face trim) \u2014 re-pinned by mesh IDENTITY (review round 1 on #731 P2 (a)); the fixed tree's live census, chrome-headless-shell, 2026-09-08",
+ "perTable": {
+  "chinese8_pro_9ft": {
+   "pairs": 52,
+   "mm2": 87223.66
+  },
+  "joy_q8_9ft": {
+   "pairs": 52,
+   "mm2": 87223.66
+  }
+ },
+ "families": {
+  "B1 sub-rail beam deck top vs beam top at the seat plane y = 6 mm": 12,
+  "C corner cup vs cup wing at y = \u22124.5 mm": 8,
+  "B2 plank bottom lid (an inverted triangle of the plan triangulation) vs beam deck top at the seat plane": 12,
+  "B1b sub-rail beam deck vs beam long: vertical end faces at x = \u00b145.92 mm": 8,
+  "D rail-end plate faces vs blind / beam / plank faces": 24,
+  "E corner tongue top vs the cushion deck at z = 42": 16,
+  "B3 beam deck vs body web end faces": 24
+ },
+ "rows": [
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l0",
+   "b": "cn8-beam-long-nW",
+   "aid": "obTable#0/cn8-beam-deck-l0#0",
+   "bid": "obTable#0/cn8-beam-long-nW#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 13441.5109,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l1",
+   "b": "cn8-beam-long-nE",
+   "aid": "obTable#0/cn8-beam-deck-l1#0",
+   "bid": "obTable#0/cn8-beam-long-nE#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 13441.5109,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l2",
+   "b": "cn8-beam-long-pW",
+   "aid": "obTable#0/cn8-beam-deck-l2#0",
+   "bid": "obTable#0/cn8-beam-long-pW#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 13441.5109,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l3",
+   "b": "cn8-beam-long-pE",
+   "aid": "obTable#0/cn8-beam-deck-l3#0",
+   "bid": "obTable#0/cn8-beam-long-pE#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 13441.5109,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-en",
+   "b": "cn8-beam-end-n",
+   "aid": "obTable#0/cn8-beam-deck-en#0",
+   "bid": "obTable#0/cn8-beam-end-n#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 13337.9984,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-ep",
+   "b": "cn8-beam-end-p",
+   "aid": "obTable#0/cn8-beam-deck-ep#0",
+   "bid": "obTable#0/cn8-beam-end-p#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 13337.9984,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8r82-cup-0",
+   "b": "cn8r82-cup-wing-0",
+   "aid": "obTable#0/cn8r82-cup-0#0",
+   "bid": "obTable#0/cn8r82-cup-wing-0#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.0045,
+   "mm2": 1438.7386,
+   "tris": 176
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8r82-cup-2",
+   "b": "cn8r82-cup-wing-2",
+   "aid": "obTable#0/cn8r82-cup-2#0",
+   "bid": "obTable#0/cn8r82-cup-wing-2#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.0045,
+   "mm2": 1438.7386,
+   "tris": 191
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8r82-cup-3",
+   "b": "cn8r82-cup-wing-3",
+   "aid": "obTable#0/cn8r82-cup-3#0",
+   "bid": "obTable#0/cn8r82-cup-wing-3#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.0045,
+   "mm2": 1438.7386,
+   "tris": 191
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8r82-cup-5",
+   "b": "cn8r82-cup-wing-5",
+   "aid": "obTable#0/cn8r82-cup-5#0",
+   "bid": "obTable#0/cn8r82-cup-wing-5#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.0045,
+   "mm2": 1438.7386,
+   "tris": 176
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-en",
+   "b": "cn8-plank-4",
+   "aid": "obTable#0/cn8-beam-deck-en#0",
+   "bid": "obTable#0/cn8-plank-4#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 134.5254,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-ep",
+   "b": "cn8-plank-5",
+   "aid": "obTable#0/cn8-beam-deck-ep#0",
+   "bid": "obTable#0/cn8-plank-5#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 134.5254,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l0",
+   "b": "cn8-plank-0",
+   "aid": "obTable#0/cn8-beam-deck-l0#0",
+   "bid": "obTable#0/cn8-plank-0#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 69.2917,
+   "tris": 1
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l1",
+   "b": "cn8-plank-1",
+   "aid": "obTable#0/cn8-beam-deck-l1#0",
+   "bid": "obTable#0/cn8-plank-1#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 69.2917,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l2",
+   "b": "cn8-plank-2",
+   "aid": "obTable#0/cn8-beam-deck-l2#0",
+   "bid": "obTable#0/cn8-plank-2#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 69.2917,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l3",
+   "b": "cn8-plank-3",
+   "aid": "obTable#0/cn8-beam-deck-l3#0",
+   "bid": "obTable#0/cn8-plank-3#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 69.2917,
+   "tris": 1
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l0",
+   "b": "cn8-beam-long-nW",
+   "aid": "obTable#0/cn8-beam-deck-l0#0",
+   "bid": "obTable#0/cn8-beam-long-nW#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.04592,
+   "mm2": 66.12,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l1",
+   "b": "cn8-beam-long-nE",
+   "aid": "obTable#0/cn8-beam-deck-l1#0",
+   "bid": "obTable#0/cn8-beam-long-nE#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.04592,
+   "mm2": 66.12,
+   "tris": 4
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l2",
+   "b": "cn8-beam-long-pW",
+   "aid": "obTable#0/cn8-beam-deck-l2#0",
+   "bid": "obTable#0/cn8-beam-long-pW#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.04592,
+   "mm2": 66.12,
+   "tris": 4
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l3",
+   "b": "cn8-beam-long-pE",
+   "aid": "obTable#0/cn8-beam-deck-l3#0",
+   "bid": "obTable#0/cn8-beam-long-pE#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.04592,
+   "mm2": 66.12,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-blind-long-nE",
+   "b": "cn8-railend-plate-mEn",
+   "aid": "obTable#0/cn8-blind-long-nE#0",
+   "bid": "obTable#0/cn8-railend-plate-mEn#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.754,
+   "mm2": 16.2508,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-blind-long-nW",
+   "b": "cn8-railend-plate-mWn",
+   "aid": "obTable#0/cn8-blind-long-nW#0",
+   "bid": "obTable#0/cn8-railend-plate-mWn#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.754,
+   "mm2": 16.2508,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-blind-long-pE",
+   "b": "cn8-railend-plate-mEp",
+   "aid": "obTable#0/cn8-blind-long-pE#0",
+   "bid": "obTable#0/cn8-railend-plate-mEp#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.754,
+   "mm2": 16.2508,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-blind-long-pW",
+   "b": "cn8-railend-plate-mWp",
+   "aid": "obTable#0/cn8-blind-long-pW#0",
+   "bid": "obTable#0/cn8-railend-plate-mWp#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.754,
+   "mm2": 16.2508,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-long-nE",
+   "b": "cn8-railend-plate-mEn",
+   "aid": "obTable#0/cn8-beam-long-nE#0",
+   "bid": "obTable#0/cn8-railend-plate-mEn#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.754,
+   "mm2": 9.7505,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-long-nW",
+   "b": "cn8-railend-plate-mWn",
+   "aid": "obTable#0/cn8-beam-long-nW#0",
+   "bid": "obTable#0/cn8-railend-plate-mWn#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.754,
+   "mm2": 9.7505,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-long-pE",
+   "b": "cn8-railend-plate-mEp",
+   "aid": "obTable#0/cn8-beam-long-pE#0",
+   "bid": "obTable#0/cn8-railend-plate-mEp#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.754,
+   "mm2": 9.7505,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-long-pW",
+   "b": "cn8-railend-plate-mWp",
+   "aid": "obTable#0/cn8-beam-long-pW#0",
+   "bid": "obTable#0/cn8-railend-plate-mWp#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.754,
+   "mm2": 9.7505,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-cushion-4",
+   "b": "cn8r82-tongue-0-a",
+   "aid": "obTable#0/cn8-cushion-4#0",
+   "bid": "obTable#0/cn8r82-tongue-0-a#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1251,
+   "tris": 8
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-cushion-4",
+   "b": "cn8r82-tongue-3-a",
+   "aid": "obTable#0/cn8-cushion-4#0",
+   "bid": "obTable#0/cn8r82-tongue-3-a#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1251,
+   "tris": 9
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-cushion-5",
+   "b": "cn8r82-tongue-2-a",
+   "aid": "obTable#0/cn8-cushion-5#0",
+   "bid": "obTable#0/cn8r82-tongue-2-a#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1251,
+   "tris": 9
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-cushion-5",
+   "b": "cn8r82-tongue-5-a",
+   "aid": "obTable#0/cn8-cushion-5#0",
+   "bid": "obTable#0/cn8r82-tongue-5-a#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1251,
+   "tris": 8
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-cushion-0",
+   "b": "cn8r82-tongue-0-b",
+   "aid": "obTable#0/cn8-cushion-0#0",
+   "bid": "obTable#0/cn8r82-tongue-0-b#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1245,
+   "tris": 8
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-cushion-1",
+   "b": "cn8r82-tongue-2-b",
+   "aid": "obTable#0/cn8-cushion-1#0",
+   "bid": "obTable#0/cn8r82-tongue-2-b#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1245,
+   "tris": 10
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-cushion-2",
+   "b": "cn8r82-tongue-3-b",
+   "aid": "obTable#0/cn8-cushion-2#0",
+   "bid": "obTable#0/cn8r82-tongue-3-b#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1245,
+   "tris": 10
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-cushion-3",
+   "b": "cn8r82-tongue-5-b",
+   "aid": "obTable#0/cn8-cushion-3#0",
+   "bid": "obTable#0/cn8r82-tongue-5-b#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1245,
+   "tris": 8
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-plank-0",
+   "b": "cn8-railend-plate-mWn",
+   "aid": "obTable#0/cn8-plank-0#0",
+   "bid": "obTable#0/cn8-railend-plate-mWn#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.6715,
+   "mm2": 8,
+   "tris": 4
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-plank-1",
+   "b": "cn8-railend-plate-mEn",
+   "aid": "obTable#0/cn8-plank-1#0",
+   "bid": "obTable#0/cn8-railend-plate-mEn#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.6715,
+   "mm2": 8,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-plank-2",
+   "b": "cn8-railend-plate-mWp",
+   "aid": "obTable#0/cn8-plank-2#0",
+   "bid": "obTable#0/cn8-railend-plate-mWp#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.6715,
+   "mm2": 8,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-plank-3",
+   "b": "cn8-railend-plate-mEp",
+   "aid": "obTable#0/cn8-plank-3#0",
+   "bid": "obTable#0/cn8-railend-plate-mEp#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.6715,
+   "mm2": 8,
+   "tris": 4
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-en",
+   "b": "cn8-bodyweb-en",
+   "aid": "obTable#0/cn8-beam-deck-en#0",
+   "bid": "obTable#0/cn8-bodyweb-en#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.59,
+   "mm2": 0.58,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-en",
+   "b": "cn8-bodyweb-en",
+   "aid": "obTable#0/cn8-beam-deck-en#0",
+   "bid": "obTable#0/cn8-bodyweb-en#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.59,
+   "mm2": 0.58,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-ep",
+   "b": "cn8-bodyweb-ep",
+   "aid": "obTable#0/cn8-beam-deck-ep#0",
+   "bid": "obTable#0/cn8-bodyweb-ep#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.59,
+   "mm2": 0.58,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-ep",
+   "b": "cn8-bodyweb-ep",
+   "aid": "obTable#0/cn8-beam-deck-ep#0",
+   "bid": "obTable#0/cn8-bodyweb-ep#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.59,
+   "mm2": 0.58,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l0",
+   "b": "cn8-bodyweb-l0",
+   "aid": "obTable#0/cn8-beam-deck-l0#0",
+   "bid": "obTable#0/cn8-bodyweb-l0#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.23,
+   "mm2": 0.58,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l0",
+   "b": "cn8-bodyweb-l0",
+   "aid": "obTable#0/cn8-beam-deck-l0#0",
+   "bid": "obTable#0/cn8-bodyweb-l0#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.04592,
+   "mm2": 0.58,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l1",
+   "b": "cn8-bodyweb-l1",
+   "aid": "obTable#0/cn8-beam-deck-l1#0",
+   "bid": "obTable#0/cn8-bodyweb-l1#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.04592,
+   "mm2": 0.58,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l1",
+   "b": "cn8-bodyweb-l1",
+   "aid": "obTable#0/cn8-beam-deck-l1#0",
+   "bid": "obTable#0/cn8-bodyweb-l1#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.23,
+   "mm2": 0.58,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l2",
+   "b": "cn8-bodyweb-l2",
+   "aid": "obTable#0/cn8-beam-deck-l2#0",
+   "bid": "obTable#0/cn8-bodyweb-l2#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.23,
+   "mm2": 0.58,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l2",
+   "b": "cn8-bodyweb-l2",
+   "aid": "obTable#0/cn8-beam-deck-l2#0",
+   "bid": "obTable#0/cn8-bodyweb-l2#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.04592,
+   "mm2": 0.58,
+   "tris": 2
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l3",
+   "b": "cn8-bodyweb-l3",
+   "aid": "obTable#0/cn8-beam-deck-l3#0",
+   "bid": "obTable#0/cn8-bodyweb-l3#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.04592,
+   "mm2": 0.58,
+   "tris": 3
+  },
+  {
+   "table": "chinese8_pro_9ft",
+   "a": "cn8-beam-deck-l3",
+   "b": "cn8-bodyweb-l3",
+   "aid": "obTable#0/cn8-beam-deck-l3#0",
+   "bid": "obTable#0/cn8-bodyweb-l3#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.23,
+   "mm2": 0.58,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l0",
+   "b": "cn8-beam-long-nW",
+   "aid": "obTable#0/cn8-beam-deck-l0#0",
+   "bid": "obTable#0/cn8-beam-long-nW#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 13441.5109,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l1",
+   "b": "cn8-beam-long-nE",
+   "aid": "obTable#0/cn8-beam-deck-l1#0",
+   "bid": "obTable#0/cn8-beam-long-nE#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 13441.5109,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l2",
+   "b": "cn8-beam-long-pW",
+   "aid": "obTable#0/cn8-beam-deck-l2#0",
+   "bid": "obTable#0/cn8-beam-long-pW#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 13441.5109,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l3",
+   "b": "cn8-beam-long-pE",
+   "aid": "obTable#0/cn8-beam-deck-l3#0",
+   "bid": "obTable#0/cn8-beam-long-pE#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 13441.5109,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-en",
+   "b": "cn8-beam-end-n",
+   "aid": "obTable#0/cn8-beam-deck-en#0",
+   "bid": "obTable#0/cn8-beam-end-n#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 13337.9984,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-ep",
+   "b": "cn8-beam-end-p",
+   "aid": "obTable#0/cn8-beam-deck-ep#0",
+   "bid": "obTable#0/cn8-beam-end-p#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 13337.9984,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8r82-cup-0",
+   "b": "cn8r82-cup-wing-0",
+   "aid": "obTable#0/cn8r82-cup-0#0",
+   "bid": "obTable#0/cn8r82-cup-wing-0#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.0045,
+   "mm2": 1438.7386,
+   "tris": 176
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8r82-cup-2",
+   "b": "cn8r82-cup-wing-2",
+   "aid": "obTable#0/cn8r82-cup-2#0",
+   "bid": "obTable#0/cn8r82-cup-wing-2#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.0045,
+   "mm2": 1438.7386,
+   "tris": 191
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8r82-cup-3",
+   "b": "cn8r82-cup-wing-3",
+   "aid": "obTable#0/cn8r82-cup-3#0",
+   "bid": "obTable#0/cn8r82-cup-wing-3#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.0045,
+   "mm2": 1438.7386,
+   "tris": 191
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8r82-cup-5",
+   "b": "cn8r82-cup-wing-5",
+   "aid": "obTable#0/cn8r82-cup-5#0",
+   "bid": "obTable#0/cn8r82-cup-wing-5#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": -0.0045,
+   "mm2": 1438.7386,
+   "tris": 176
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-en",
+   "b": "cn8-plank-4",
+   "aid": "obTable#0/cn8-beam-deck-en#0",
+   "bid": "obTable#0/cn8-plank-4#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 134.5254,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-ep",
+   "b": "cn8-plank-5",
+   "aid": "obTable#0/cn8-beam-deck-ep#0",
+   "bid": "obTable#0/cn8-plank-5#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 134.5254,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l0",
+   "b": "cn8-plank-0",
+   "aid": "obTable#0/cn8-beam-deck-l0#0",
+   "bid": "obTable#0/cn8-plank-0#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 69.2917,
+   "tris": 1
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l1",
+   "b": "cn8-plank-1",
+   "aid": "obTable#0/cn8-beam-deck-l1#0",
+   "bid": "obTable#0/cn8-plank-1#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 69.2917,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l2",
+   "b": "cn8-plank-2",
+   "aid": "obTable#0/cn8-beam-deck-l2#0",
+   "bid": "obTable#0/cn8-plank-2#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 69.2917,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l3",
+   "b": "cn8-plank-3",
+   "aid": "obTable#0/cn8-beam-deck-l3#0",
+   "bid": "obTable#0/cn8-plank-3#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.006,
+   "mm2": 69.2917,
+   "tris": 1
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l0",
+   "b": "cn8-beam-long-nW",
+   "aid": "obTable#0/cn8-beam-deck-l0#0",
+   "bid": "obTable#0/cn8-beam-long-nW#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.04592,
+   "mm2": 66.12,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l1",
+   "b": "cn8-beam-long-nE",
+   "aid": "obTable#0/cn8-beam-deck-l1#0",
+   "bid": "obTable#0/cn8-beam-long-nE#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.04592,
+   "mm2": 66.12,
+   "tris": 4
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l2",
+   "b": "cn8-beam-long-pW",
+   "aid": "obTable#0/cn8-beam-deck-l2#0",
+   "bid": "obTable#0/cn8-beam-long-pW#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.04592,
+   "mm2": 66.12,
+   "tris": 4
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l3",
+   "b": "cn8-beam-long-pE",
+   "aid": "obTable#0/cn8-beam-deck-l3#0",
+   "bid": "obTable#0/cn8-beam-long-pE#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.04592,
+   "mm2": 66.12,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-blind-long-nE",
+   "b": "cn8-railend-plate-mEn",
+   "aid": "obTable#0/cn8-blind-long-nE#0",
+   "bid": "obTable#0/cn8-railend-plate-mEn#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.754,
+   "mm2": 16.2508,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-blind-long-nW",
+   "b": "cn8-railend-plate-mWn",
+   "aid": "obTable#0/cn8-blind-long-nW#0",
+   "bid": "obTable#0/cn8-railend-plate-mWn#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.754,
+   "mm2": 16.2508,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-blind-long-pE",
+   "b": "cn8-railend-plate-mEp",
+   "aid": "obTable#0/cn8-blind-long-pE#0",
+   "bid": "obTable#0/cn8-railend-plate-mEp#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.754,
+   "mm2": 16.2508,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-blind-long-pW",
+   "b": "cn8-railend-plate-mWp",
+   "aid": "obTable#0/cn8-blind-long-pW#0",
+   "bid": "obTable#0/cn8-railend-plate-mWp#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.754,
+   "mm2": 16.2508,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-long-nE",
+   "b": "cn8-railend-plate-mEn",
+   "aid": "obTable#0/cn8-beam-long-nE#0",
+   "bid": "obTable#0/cn8-railend-plate-mEn#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.754,
+   "mm2": 9.7505,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-long-nW",
+   "b": "cn8-railend-plate-mWn",
+   "aid": "obTable#0/cn8-beam-long-nW#0",
+   "bid": "obTable#0/cn8-railend-plate-mWn#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.754,
+   "mm2": 9.7505,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-long-pE",
+   "b": "cn8-railend-plate-mEp",
+   "aid": "obTable#0/cn8-beam-long-pE#0",
+   "bid": "obTable#0/cn8-railend-plate-mEp#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.754,
+   "mm2": 9.7505,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-long-pW",
+   "b": "cn8-railend-plate-mWp",
+   "aid": "obTable#0/cn8-beam-long-pW#0",
+   "bid": "obTable#0/cn8-railend-plate-mWp#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.754,
+   "mm2": 9.7505,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-cushion-4",
+   "b": "cn8r82-tongue-0-a",
+   "aid": "obTable#0/cn8-cushion-4#0",
+   "bid": "obTable#0/cn8r82-tongue-0-a#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1251,
+   "tris": 8
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-cushion-4",
+   "b": "cn8r82-tongue-3-a",
+   "aid": "obTable#0/cn8-cushion-4#0",
+   "bid": "obTable#0/cn8r82-tongue-3-a#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1251,
+   "tris": 9
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-cushion-5",
+   "b": "cn8r82-tongue-2-a",
+   "aid": "obTable#0/cn8-cushion-5#0",
+   "bid": "obTable#0/cn8r82-tongue-2-a#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1251,
+   "tris": 9
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-cushion-5",
+   "b": "cn8r82-tongue-5-a",
+   "aid": "obTable#0/cn8-cushion-5#0",
+   "bid": "obTable#0/cn8r82-tongue-5-a#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1251,
+   "tris": 8
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-cushion-0",
+   "b": "cn8r82-tongue-0-b",
+   "aid": "obTable#0/cn8-cushion-0#0",
+   "bid": "obTable#0/cn8r82-tongue-0-b#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1245,
+   "tris": 8
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-cushion-1",
+   "b": "cn8r82-tongue-2-b",
+   "aid": "obTable#0/cn8-cushion-1#0",
+   "bid": "obTable#0/cn8r82-tongue-2-b#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1245,
+   "tris": 10
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-cushion-2",
+   "b": "cn8r82-tongue-3-b",
+   "aid": "obTable#0/cn8-cushion-2#0",
+   "bid": "obTable#0/cn8r82-tongue-3-b#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1245,
+   "tris": 10
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-cushion-3",
+   "b": "cn8r82-tongue-5-b",
+   "aid": "obTable#0/cn8-cushion-3#0",
+   "bid": "obTable#0/cn8r82-tongue-5-b#0",
+   "n": [
+    0,
+    1,
+    0
+   ],
+   "d": 0.0420002,
+   "mm2": 9.1245,
+   "tris": 8
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-plank-0",
+   "b": "cn8-railend-plate-mWn",
+   "aid": "obTable#0/cn8-plank-0#0",
+   "bid": "obTable#0/cn8-railend-plate-mWn#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.6715,
+   "mm2": 8,
+   "tris": 4
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-plank-1",
+   "b": "cn8-railend-plate-mEn",
+   "aid": "obTable#0/cn8-plank-1#0",
+   "bid": "obTable#0/cn8-railend-plate-mEn#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.6715,
+   "mm2": 8,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-plank-2",
+   "b": "cn8-railend-plate-mWp",
+   "aid": "obTable#0/cn8-plank-2#0",
+   "bid": "obTable#0/cn8-railend-plate-mWp#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.6715,
+   "mm2": 8,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-plank-3",
+   "b": "cn8-railend-plate-mEp",
+   "aid": "obTable#0/cn8-plank-3#0",
+   "bid": "obTable#0/cn8-railend-plate-mEp#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.6715,
+   "mm2": 8,
+   "tris": 4
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-en",
+   "b": "cn8-bodyweb-en",
+   "aid": "obTable#0/cn8-beam-deck-en#0",
+   "bid": "obTable#0/cn8-bodyweb-en#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.59,
+   "mm2": 0.58,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-en",
+   "b": "cn8-bodyweb-en",
+   "aid": "obTable#0/cn8-beam-deck-en#0",
+   "bid": "obTable#0/cn8-bodyweb-en#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.59,
+   "mm2": 0.58,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-ep",
+   "b": "cn8-bodyweb-ep",
+   "aid": "obTable#0/cn8-beam-deck-ep#0",
+   "bid": "obTable#0/cn8-bodyweb-ep#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": -0.59,
+   "mm2": 0.58,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-ep",
+   "b": "cn8-bodyweb-ep",
+   "aid": "obTable#0/cn8-beam-deck-ep#0",
+   "bid": "obTable#0/cn8-bodyweb-ep#0",
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "d": 0.59,
+   "mm2": 0.58,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l0",
+   "b": "cn8-bodyweb-l0",
+   "aid": "obTable#0/cn8-beam-deck-l0#0",
+   "bid": "obTable#0/cn8-bodyweb-l0#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.23,
+   "mm2": 0.58,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l0",
+   "b": "cn8-bodyweb-l0",
+   "aid": "obTable#0/cn8-beam-deck-l0#0",
+   "bid": "obTable#0/cn8-bodyweb-l0#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.04592,
+   "mm2": 0.58,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l1",
+   "b": "cn8-bodyweb-l1",
+   "aid": "obTable#0/cn8-beam-deck-l1#0",
+   "bid": "obTable#0/cn8-bodyweb-l1#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.04592,
+   "mm2": 0.58,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l1",
+   "b": "cn8-bodyweb-l1",
+   "aid": "obTable#0/cn8-beam-deck-l1#0",
+   "bid": "obTable#0/cn8-bodyweb-l1#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.23,
+   "mm2": 0.58,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l2",
+   "b": "cn8-bodyweb-l2",
+   "aid": "obTable#0/cn8-beam-deck-l2#0",
+   "bid": "obTable#0/cn8-bodyweb-l2#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -1.23,
+   "mm2": 0.58,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l2",
+   "b": "cn8-bodyweb-l2",
+   "aid": "obTable#0/cn8-beam-deck-l2#0",
+   "bid": "obTable#0/cn8-bodyweb-l2#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": -0.04592,
+   "mm2": 0.58,
+   "tris": 2
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l3",
+   "b": "cn8-bodyweb-l3",
+   "aid": "obTable#0/cn8-beam-deck-l3#0",
+   "bid": "obTable#0/cn8-bodyweb-l3#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 0.04592,
+   "mm2": 0.58,
+   "tris": 3
+  },
+  {
+   "table": "joy_q8_9ft",
+   "a": "cn8-beam-deck-l3",
+   "b": "cn8-bodyweb-l3",
+   "aid": "obTable#0/cn8-beam-deck-l3#0",
+   "bid": "obTable#0/cn8-bodyweb-l3#0",
+   "n": [
+    1,
+    0,
+    0
+   ],
+   "d": 1.23,
+   "mm2": 0.58,
+   "tris": 2
+  }
+ ],
+ "rowFormat": "rows are objects {table, a, b, aid, bid, n, d, mm2, tris}; a/b are name LABELS, aid/bid the mesh IDENTITIES (scene-graph path + same-name ordinal, e.g. obTable#0/obSnkPanel#3); check-coplanar-pairs.mjs --expect-baseline matches a live row by table + aid + bid + the census plane test (re-normalised normals) + mm\u00b2 to 0.01 + the triangle-pair count"
+}

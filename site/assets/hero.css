@@ -1,0 +1,262 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* ============================================================
+   hero.css — page-scoped styles for site/index.html (hero wave).
+   Additive only; tokens and components come from site.css.
+   Imagery references the agreed names from the imagery wave
+   (assets/img/...). Missing files degrade to plain slate — the
+   corner plates keep the composition intentional either way.
+   ============================================================ */
+
+/* anchored bands stop below the fixed nav */
+section[id] { scroll-margin-top: var(--bb-nav-h); }
+
+/* dashed hairline between bands, inside the gutter */
+.divider { padding: 0 var(--bb-gutter); }
+
+/* ---- hero ---------------------------------------------------- */
+.hero { overflow: hidden; }
+
+/* full-bleed hero loop behind the type; the top-fade is a
+   legibility scrim on the imagery (slate → transparent), not
+   chrome decoration. With no image yet it is invisible on slate. */
+.hero-media { position: absolute; inset: 0; z-index: -1; background: var(--bb-slate); }
+.hero-media video { width: 100%; height: 100%; object-fit: cover; }
+.hero-media::after {
+  content: "";
+  position: absolute; inset: 0;
+  /* two layers: on top of the original bottom-anchored legibility
+     gradient sits a persistent low-opacity slate wash, heaviest
+     across the mid band — so NO frame of the loop can lift the
+     viewport out of felt-dark (the massé close-up grades pale and
+     used to flood the page for a third of every cycle). Flat-ish by
+     design: it must hold for any beat order. */
+  background:
+    linear-gradient(to top,
+      oklch(13% 0.009 165 / 0) 0%,
+      oklch(13% 0.009 165 / 0.40) 30%,
+      oklch(13% 0.009 165 / 0.40) 75%,
+      oklch(13% 0.009 165 / 0.32) 100%),
+    linear-gradient(to top,
+      oklch(13% 0.009 165 / 0.94) 0%,
+      oklch(13% 0.009 165 / 0.55) 55%,
+      oklch(13% 0.009 165 / 0.30) 100%);
+}
+
+/* the lockup is a graphic object: one word spanning the measure.
+   <wbr> after "OPEN" lets it stack on narrow viewports. */
+.hero-lockup {
+  font-weight: 560;
+  text-transform: uppercase;
+  line-height: var(--bb-display-lh);
+  letter-spacing: -0.012em;
+  font-size: clamp(46px, 11.55vw, 330px);
+  margin: 20px 0 0;
+  max-width: 100%;
+}
+.hero-tag { max-width: 40em; }
+
+.hero-foot {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 48px 72px; flex-wrap: wrap;
+  margin-top: 6vh;
+}
+.hero-intro { max-width: 34em; flex: 1 1 30em; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 40px; }
+
+/* museum spec plate: three dashed rows, right flank of the foot */
+.hero-specs { margin: 0; flex: 0 1 380px; min-width: 300px; }
+.hero-specs > div {
+  display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 4px 24px; align-items: baseline;
+  padding: 12px 0;
+  border-top: 1px dashed var(--bb-line);
+}
+.hero-specs dd { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+/* values keep their written case: text-transform would corrupt
+   SI unit symbols (µs -> ΜS). Word values are hand-uppercased. */
+.spec-v {
+  font-weight: 560; font-size: var(--bb-t-body-s);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.hero-scroll { margin-top: 7vh; }
+.bb-link--quiet { text-decoration: none; color: inherit; }
+.bb-link--quiet:hover { color: var(--bb-chalk); }
+
+/* entrance pacing (motion pages only): copy, CTAs and the spec
+   plate land AFTER the lockup's glyph drop settles (its last glyph
+   starts falling ~620ms in) — label → headline → evidence, instead
+   of everything chording in the site's default 60ms ladder. */
+html.motion .hero .bb-d2 { transition-delay: 250ms; }
+html.motion .hero .bb-d3 { transition-delay: 350ms; }
+html.motion .hero .bb-d4 { transition-delay: 450ms; }
+
+/* ---- bands --------------------------------------------------- */
+.band { padding-top: 12vh; padding-bottom: 12vh; }
+.band-display { margin: 24px 0 0; max-width: 10.5em; }
+
+.band-body {
+  display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 48px 72px; align-items: end;
+  margin-top: 7vh;
+}
+.band-body.no-fig { grid-template-columns: minmax(0, 1fr); }
+.band-copy { max-width: 36em; }
+.band-copy p + p { margin-top: 20px; }
+
+/* figure-less bands: paragraphs sit as two editorial columns */
+.band-body.no-fig .band-copy {
+  max-width: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(26em, 100%), 1fr));
+  gap: 32px 64px;
+  align-items: start;
+}
+.band-body.no-fig .band-copy p { max-width: 36em; }
+.band-body.no-fig .band-copy p + p { margin-top: 0; }
+
+/* flanked void-mode object — never boxed, media radius only */
+.band-figure {
+  position: relative;
+  min-height: 340px;
+  margin: 0;
+  border-radius: var(--bb-r-card);
+  overflow: hidden;
+  background-color: var(--bb-slate);
+  background-size: cover; background-position: center;
+}
+.fig-void-cueball { background-image: url("img/void-cueball.webp"); }
+.fig-void-rack    { background-image: url("img/void-rack.webp"); }
+.fig-detail-cushion { background-image: url("img/detail-cushion.webp"); }
+
+/* corner plate: the museum label, over imagery or awaiting it.
+   The riser scrim guarantees legibility over ANY render content —
+   a site-wide rule, not a per-figure crop hack (audit r1). */
+.figure-plate {
+  position: absolute; left: 20px; top: 20px;
+  background: oklch(19% 0.012 163 / 0.82); /* Felt Riser @ ~80% */
+  padding: 5px 10px 4px;
+  border-radius: 0; /* chip pole — plates are not clickable */
+}
+.figure-plate::before {
+  content: "\25C6\00a0\00a0";
+  content: "\25C6\00a0\00a0" / ""; /* silent for AT */
+  font-size: 8px; vertical-align: 2px;
+}
+
+/* ---- claim rows: the spec-sheet layer ------------------------ */
+.claims { margin-top: 9vh; border-bottom: 1px dashed var(--bb-line); }
+.claim {
+  display: grid;
+  grid-template-columns: minmax(200px, 1.05fr) minmax(200px, 0.95fr) minmax(0, 1.7fr) minmax(200px, 0.65fr);
+  gap: 8px 32px; align-items: baseline;
+  padding: 24px 0;
+  border-top: 1px dashed var(--bb-line);
+}
+.claim-v { /* no text-transform: µs must not become ΜS */
+  font-weight: 560; line-height: 1;
+  font-size: clamp(24px, 2.3vw, 40px);
+  text-wrap: balance;
+}
+.claim .bb-cite { justify-self: start; }
+.claim-c { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+
+/* ---- full-bleed table-mode strips ---------------------------- */
+.strip {
+  position: relative;
+  min-height: 60vh;
+  margin: 0;
+  border-top: 1px dashed var(--bb-line);
+  border-bottom: 1px dashed var(--bb-line);
+  background-color: var(--bb-slate);
+  background-size: cover; background-position: center;
+}
+.fig-table-break { background-image: url("img/table-break.webp"); }
+.fig-table-wide  { background-image: url("img/table-wide.webp"); }
+.strip .figure-plate { left: var(--bb-gutter); top: 32px; }
+/* the footer brings its own dashed top rule — avoid a double line */
+main > .strip:last-child { border-bottom: 0; }
+
+/* ---- reproduced from reality: three loop tiles ---------------
+   Venom re-creation clips (assets/img/repro-*.webm). Same media
+   grammar as the band figures: card radius, corner plate, never
+   boxed. Posters carry the resting page; the inline script plays
+   the loops only near the viewport. */
+.repro-grid {
+  display: grid; gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  margin-top: 7vh;
+}
+.repro-tile { position: relative; margin: 0; min-width: 0; }
+.repro-tile video {
+  width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+  border-radius: var(--bb-r-card);
+  background-color: var(--bb-slate);
+}
+.repro-note { margin-top: 12px; max-width: 44ch; }
+.repro-prov { margin-top: 6vh; max-width: 62em; }
+
+/* ---- sdk band: copy flanks the code well --------------------- */
+.sdk-body {
+  display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 2.4fr);
+  gap: 48px 72px; align-items: start;
+  margin-top: 7vh;
+}
+.sdk-body .bb-code { margin: 0; }
+
+/* ---- the field: three cards + fine print --------------------- */
+.compare-grid {
+  display: grid; gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  margin-top: 7vh;
+}
+.compare-grid .bb-heading-s { margin-bottom: 12px; }
+.compare-grid .bb-card > .bb-label { margin-bottom: 16px; }
+.fineprint { margin-top: 10vh; max-width: 62em; }
+.fineprint .bb-list { margin-top: 24px; }
+.fineprint li + li { margin-top: 16px; }
+
+/* ---- responsive ---------------------------------------------- */
+@media (max-width: 1080px) {
+  .claim { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .claim .claim-n { grid-column: 1 / -1; }
+  .band-body, .sdk-body { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .band-figure { min-height: 300px; }
+}
+
+@media (max-width: 760px) {
+  .band { padding-top: 10vh; padding-bottom: 10vh; }
+  .hero-foot { margin-top: 48px; }
+  /* the mobile crop parks the CTA row on the brightest part of the
+     break render: deepen the legibility scrim and give the ghost
+     pill a translucent slate backing so its label always reads */
+  .hero-media::after {
+    background:
+      linear-gradient(to top,
+        oklch(13% 0.009 165 / 0) 0%,
+        oklch(13% 0.009 165 / 0.40) 30%,
+        oklch(13% 0.009 165 / 0.40) 75%,
+        oklch(13% 0.009 165 / 0.32) 100%),
+      linear-gradient(to top,
+        oklch(13% 0.009 165 / 0.96) 0%,
+        oklch(13% 0.009 165 / 0.74) 55%,
+        oklch(13% 0.009 165 / 0.35) 100%);
+  }
+  .hero-ctas .bb-pill:not(.bb-pill--fill):not(:hover) {
+    background: oklch(13% 0.009 165 / 0.8);
+  }
+  .hero-specs { flex-basis: 100%; }
+  .hero-scroll { margin-top: 56px; }
+  .claims { margin-top: 56px; }
+  .repro-grid { margin-top: 56px; }
+  .claim { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 20px 0; }
+  .strip { min-height: 44vh; }
+  .band-figure { min-height: 220px; }
+}
+
+@media (min-width: 2000px) {
+  .band-figure { min-height: 460px; }
+}
+

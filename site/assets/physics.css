@@ -1,0 +1,100 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* ============================================================
+   physics.css — page-scoped styles for the validated-physics
+   scenario gallery (site wave): the #scenarios section on
+   docs/physics.html and the #validated teaser on index.html.
+   Additive only; tokens and components come from site.css. Tile
+   markup between the generated markers is owned by
+   scripts/site-physics-data.mjs.
+   ============================================================ */
+
+/* ---- tile grid (repro-grid grammar: media + corner plate,
+        never boxed, card radius on media only) ---------------- */
+.ph-gallery { margin-top: 40px; }
+.ph-group + .ph-group { margin-top: 56px; }
+.ph-group > .bb-label { margin-bottom: 20px; }
+.ph-grid {
+  display: grid; gap: 32px 24px;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+/* a lone-orphan row reads as a defect at the docs measure: the
+   two-entry group holds two columns wherever two fit */
+.ph-grid { align-items: start; }
+
+.ph-tile { position: relative; margin: 0; min-width: 0; }
+.ph-media {
+  display: block; position: relative;
+  border-radius: var(--bb-r-card);
+  overflow: hidden;
+  background: var(--bb-riser);
+}
+.ph-media img {
+  /* height:auto — the markup's height="1080" attribute would otherwise
+     defeat aspect-ratio and force a tall center crop */
+  width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
+  background: var(--bb-riser);
+  transition: transform var(--bb-t-hover) ease;
+}
+.ph-media:is(:hover, :focus-visible) img { transform: scale(1.03); }
+/* duration chip — the figure-plate treatment, parked bottom-right
+   so it never collides with the top-left name plate */
+.ph-dur {
+  position: absolute; right: 12px; bottom: 12px;
+  background: oklch(19% 0.012 163 / 0.82); /* Felt Riser @ ~80% */
+  padding: 5px 10px 4px;
+  color: var(--bb-ivory);
+  /* keep the SI second symbol lowercase: the label voice's uppercase
+     would print "8.8 S" — siemens, not seconds (break-prov precedent) */
+  text-transform: none;
+}
+/* the name plate sits over the media's top-left corner (site-wide
+   figure grammar); the tile is the positioning context. The plate
+   styles are restated here because hero.css (their home) is
+   index-scoped and the gallery lives on a docs page — values verbatim
+   from hero.css .figure-plate so index renders identically. */
+.ph-tile > .figure-plate {
+  pointer-events: none;
+  position: absolute; left: 20px; top: 20px;
+  background: oklch(19% 0.012 163 / 0.82); /* Felt Riser @ ~80% */
+  padding: 5px 10px 4px;
+  border-radius: 0; /* chip pole — plates are not clickable */
+}
+.ph-tile > .figure-plate::before {
+  content: "\25C6\00a0\00a0";
+  content: "\25C6\00a0\00a0" / ""; /* silent for AT */
+  font-size: 8px; vertical-align: 2px;
+}
+
+/* claim line: the entry's own corner badge, quoted digit for digit —
+   the tile's one ivory-weight line below the media */
+.ph-claim {
+  margin: 12px 0 0;
+  font-weight: 560;
+  letter-spacing: 0.01em;
+}
+.ph-claim .bb-cite { margin-left: 6px; }
+.ph-note { margin: 4px 0 0; max-width: 44ch; }
+
+/* provenance footer under the grid */
+.ph-prov {
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--bb-line);
+  max-width: 68ch;
+}
+.ph-prov .ph-kernel { font-family: var(--bb-mono); }
+
+/* ---- index teaser -------------------------------------------- */
+.ph-teaser { margin-top: 7vh; }
+.ph-more { margin-top: 40px; }
+
+/* (the former <dialog> lightbox was retired with the bb-clip in-place
+   player — playback lives in the tile, fullscreen is the big view;
+   decision recorded in the design system "bb-clip") */
+
+@media (max-width: 760px) {
+  .ph-gallery { margin-top: 32px; }
+  .ph-group + .ph-group { margin-top: 48px; }
+  .ph-teaser { margin-top: 56px; }
+}

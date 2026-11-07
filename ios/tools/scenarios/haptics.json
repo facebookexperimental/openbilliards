@@ -1,0 +1,75 @@
+{
+  "v": 1,
+  "name": "haptics",
+  "notes": [
+    "016 T023 (lane V). SC-005 in-shell arm: the same scripted break as the",
+    "determinism table runs with the bridge live; the shell's StatusSeam",
+    "(T025, lane S) mirrors the post-rate-bound cue log to",
+    "Documents/e2e/haptics-log.json, and this table additionally captures",
+    "the page-side derivation for the SAME record — deriveCues imported",
+    "IN PAGE from /app/sound.js (single source, never copied) over the",
+    "captured record-1.json bytes. ios/tools/e2e-ios.mjs then compares the",
+    "log against the derivation under the frozen rate-bound model",
+    "(haptics-bridge.md par.5: COALESCE_MS 50 JS-side, minGap 40 /",
+    "globalMinGap 16 native-side): every logged cue must match a derived",
+    "cue 1:1 in class + clamped gain (order-preserving), and every derived",
+    "cue missing from the log must be rate-bound-explicable. Exact 1:1",
+    "equality WITHOUT the rate envelope is the seam gate",
+    "(web/tools/e2e-haptics.mjs --seam, lane W) — contracts/haptics-bridge",
+    "par.6 splits the two arms exactly this way.",
+    "FRAME CLOCK (016 L3 round 1): drop explicability needs the REAL frame",
+    "cadence — haptics.js posts cue c at the first PLAYBACK frame t in",
+    "[c.t - LOOKAHEAD 0.15, c.t + STALE 0.05], so a frame hitch > ~0.2 s",
+    "stale-skips cues page-side (they never reach the bridge), and cues",
+    "posted in the SAME frame arrive at the native gate ~simultaneously",
+    "(wall deltas ~0, so the 16/40 ms bounds drop all but the first of a",
+    "burst even when SHOT-time deltas look wide). The rAF sampler below",
+    "captures [rafTs, playbackClock] per PLAYBACK frame; the page exposes",
+    "no clock getter, so the sampler RECONSTRUCTS it with the game's own",
+    "advancement law clock += min(0.1, rafDelta) from the shared rAF",
+    "timestamps (main.js frame() dt clamp + game.js update(), rate 1.0,",
+    "clock = 0 at the PLAYBACK flip) — identical arithmetic, so the",
+    "reconstruction tracks game.clock to within one frame. The comparator",
+    "models both effects on measured data instead of the shot-time proxy",
+    "(run-14 evidence: 7 inexplicable drops incl. the t=0 cue strike, all",
+    "cadence-shaped).",
+    "GESTURE-FREE by design (same law as the determinism table)."
+  ],
+  "source": "web/tools/e2e-touch.mjs sc13 setup recipe, web/app/sound.js deriveCues, contracts/haptics-bridge.md par.5-6",
+  "viewport": { "width": 844, "height": 390 },
+  "boot": { "query": "obtool&norec&seed=1", "ephemeralStore": true, "statusSeam": true },
+  "phases": [
+    {
+      "name": "scripted-shot",
+      "setup": [
+        "window.__e2e = {}; true",
+        "(async () => { for (let i = 0; i < 20; i++) { if (window.__rules?.game?.() !== 'eight_ball' || !window.__rules?.matchState?.()) { if ((await window.__rules?.setGame?.('eight_ball')) !== true) { await new Promise((r) => setTimeout(r, 200)); continue; } } __test.rerack(1); if (window.__rules?.setMatchState?.({ shooter: 1, breaker: 1 }) === true) return true; await new Promise((r) => setTimeout(r, 200)); } throw new Error('GH-566: could not (re)establish the scripted match (game=' + (window.__rules?.game?.() ?? '?') + ', fold=' + String(!!window.__rules?.matchState?.()) + ') \u2014 a mid-scenario page reload (WebContent recycle, the #514 class) or a rules-chain failure; each attempt re-selects eight_ball, re-stages the scene and re-injects the state, so this throw means 4 s of failed recovery, not one lost race'); })()"
+      ],
+      "steps": [
+        { "kind": "assertEval", "name": "the shell bridge is live (obHaptics message handler installed)",
+          "js": "!!window.webkit?.messageHandlers?.obHaptics" },
+        { "kind": "eval", "js": "(() => { window.__e2e.fc = []; let clk = null; let lastTs = null; let n = 0; const loop = (ts) => { if (window.__test?.state?.() === 'PLAYBACK') { const dt = lastTs === null ? 0.017 : Math.min(0.1, (ts - lastTs) / 1000); clk = (clk === null ? 0 : clk) + dt; window.__e2e.fc.push([ts, clk]); } lastTs = ts; if (++n < 4500) requestAnimationFrame(loop); }; requestAnimationFrame(loop); return true; })()" },
+        { "kind": "assertEval", "name": "scripted break accepted",
+          "js": "(() => { const err = __test.shoot({ v0: 8.5, phi: Math.PI / 2, theta: 0, a: 0, b: -0.1 }); return err == null; })()" },
+        { "kind": "waitEval", "js": "['SIMULATING', 'PLAYBACK'].includes(__test.state())", "tries": 60 },
+        { "kind": "waitEval", "js": "!['SIMULATING', 'PLAYBACK'].includes(__test.state())", "tries": 400 },
+        { "kind": "assertEval", "name": "exactly one record logged",
+          "js": "(window.__share?.records?.() ?? []).length === 1" },
+        { "kind": "eval", "js": "window.__share.records()[0]", "saveAs": "record-1.json" },
+        { "kind": "eval", "js": "import('/app/sound.js').then((m) => { const r = window.__share.records()[0]; return JSON.stringify(m.deriveCues(typeof r === 'string' ? JSON.parse(r) : r)); })",
+          "saveAs": "derived-cues.json" },
+        { "kind": "eval", "js": "JSON.stringify(window.__e2e.fc)",
+          "saveAs": "frame-clock.json" },
+        { "kind": "sleep", "ms": 800 },
+        { "kind": "eval", "js": "window.__rules?.matchState?.()?.pendingDecision != null ? (window.__rules.decide(1), true) : true" }
+      ]
+    }
+  ],
+  "asserts": [
+    { "kind": "hapticsLogCompare", "log": "haptics-log.json", "derived": "derived-cues.json",
+      "frames": "frame-clock.json", "stats": "haptics-stats.json",
+      "coalesceMs": 50, "minGapMs": 40, "globalMinGapMs": 16,
+      "note": "SC-005 in-shell: log matches deriveCues 1:1 in class + clamped gain, order-preserving; drops reconciled via the native gate counters (validated/droppedDecode/admitted — StatusSeam mirror), frame cadence kept as diagnostics/fallback" },
+    { "kind": "zeroNonAppRequests", "note": "SC-001 arm when run under e2e-ios --airplane" }
+  ]
+}

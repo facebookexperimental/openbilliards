@@ -1,0 +1,22 @@
+pooltool
+========
+
+Parts of the OpenBilliards physics kernel are derived from pooltool,
+main @ 9a8abfe0da4c3b588dd7779e7f8530123170e742 (v0.6.0-39-g9a8abfe),
+https://github.com/ekiefl/pooltool
+
+Copyright (c) Evan Kiefl and contributors.
+Licensed under the Apache License, Version 2.0 (see LICENSE-Apache-2.0.txt
+next to this file, or http://www.apache.org/licenses/LICENSE-2.0).
+
+The derived code was translated to Rust and JavaScript and modified by the
+OpenBilliards authors. It is compiled into the physics kernel binaries (the
+WebAssembly kernel pool_wasm_bg.wasm and the pool_py extension module of the
+openbilliards wheels) and mirrored in the table geometry of the web app
+(web/scene/table.js, web/scene/cuestick.js). The list of derived files is in
+THIRD_PARTY_NOTICES.md at the root of the OpenBilliards source tree.
+
+pooltool is described in:
+  Kiefl, E. (2024). Pooltool: A Python package for realistic billiards
+  simulation. Journal of Open Source Software, 9(101), 7301.
+  https://doi.org/10.21105/joss.07301

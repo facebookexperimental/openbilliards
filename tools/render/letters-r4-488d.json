@@ -1,0 +1,3334 @@
+{
+ "tool": "asmodeled-drawings-488d/1.0.0",
+ "table": "diamond_proam_9ft",
+ "url": "http://127.0.0.1:9900/app.html?table=diamond_proam_9ft&cinema=1&seed=7&look=default",
+ "run_at": "2026-09-02T10:01:51.960Z",
+ "spec_source": "docs/geometry/diamond-proam-9ft-table-definition.json",
+ "spec_sha256": "c0d7a9b4eacaae7bc2c3ff101d6a438f426c1cfc43080334b46645593e1363bd",
+ "spec_sha256_expected": "c0d7a9b4eacaae7bc2c3ff101d6a438f426c1cfc43080334b46645593e1363bd",
+ "spec_verified": "sha256-verified",
+ "spec_binding": "canonical",
+ "mesh_source": "/tmp/d621/look2/export-e2202bfe/web",
+ "mesh_binding": "candidate tree (NON-CANONICAL)",
+ "doc": "OB-488D-GEO-001 r4",
+ "twin": {
+  "file": "gh488d-solved-r4.json",
+  "generator": "gh488d-drawing/1.0.0",
+  "source_sha256": "c0d7a9b4eacaae7bc2c3ff101d6a438f426c1cfc43080334b46645593e1363bd",
+  "derived": {
+   "a_corner_nose_offset": 80.82230508962238,
+   "depth_corner": 35.56000000000001,
+   "depth_side": 55.5625
+  },
+  "declared_checks": [
+   {
+    "name": "CP-02 miter",
+    "pass": true,
+    "detail": "135 + 6.0 = 141.0"
+   },
+   {
+    "name": "SP-02 miter",
+    "pass": true,
+    "detail": "90 + 12.0 = 102.0"
+   },
+   {
+    "name": "CU-03 nose fraction",
+    "pass": true,
+    "detail": "36.5125 / 57.15 = kernel noseHeightFrac 0.638889"
+   },
+   {
+    "name": "CP-08 corner depth",
+    "pass": true,
+    "detail": "shelf + r − mouth/2 = 35.56000000000001"
+   },
+   {
+    "name": "SP-08 side depth",
+    "pass": true,
+    "detail": "shelf + r = 55.5625"
+   },
+   {
+    "name": "CP-05 mouth−throat",
+    "pass": true,
+    "detail": "mouth − throat = 17.78 (BU TDF band 5/8–3/4 in)"
+   },
+   {
+    "name": "EN-01 envelope L",
+    "pass": true,
+    "detail": "2540.0 + 2×177.8 = 2895.6"
+   },
+   {
+    "name": "EN-01 envelope W",
+    "pass": true,
+    "detail": "1270.0 + 2×177.8 = 1625.6"
+   },
+   {
+    "name": "EN-04 rail stack",
+    "pass": true,
+    "detail": "812.8 − 762.0 = 50.799999999999955"
+   },
+   {
+    "name": "C4 plane order",
+    "pass": true,
+    "detail": "rubber plane < rail top <= stack extreme"
+   },
+   {
+    "name": "RB-02 = EN-04 one plane",
+    "pass": true,
+    "detail": "render twin 50.8 = envelope anchor 50.8"
+   },
+   {
+    "name": "RB-02 rail cap",
+    "pass": true,
+    "detail": "50.8 − 44.45 = 6.349999999999994 = 0.250 in"
+   },
+   {
+    "name": "RB-04 sight spacing",
+    "pass": true,
+    "detail": "2540.0/8 = 317.5"
+   },
+   {
+    "name": "CP-01 mouth chord",
+    "pass": true,
+    "detail": "|P_L − P_S| for nose offsets a = m/√2 = 80.82230508962238"
+   },
+   {
+    "name": "SP-04 shelf edge",
+    "pass": true,
+    "detail": "disc near edge at y = -4.762500000000003 = −shelf"
+   },
+   {
+    "name": "CP-06 jaw tangency",
+    "pass": true,
+    "detail": "corner jaw arc tangent to nose at P and to the facing at F (|PJ| = |FJ| = rc)"
+   },
+   {
+    "name": "SP-06 jaw tangency",
+    "pass": true,
+    "detail": "side jaw arc tangent to nose at P and to the facing at F (|PJ| = |FJ| = rs)"
+   },
+   {
+    "name": "CP-06 facing orthogonality",
+    "pass": true,
+    "detail": "radius J→F ⊥ facing F→E (dot = -6.821e-13) — true tangency, not just |FJ| = r"
+   },
+   {
+    "name": "SP-06 facing orthogonality",
+    "pass": true,
+    "detail": "radius J→F ⊥ facing F→E (dot = 1.563e-13) — true tangency, not just |FJ| = r"
+   }
+  ]
+ },
+ "datums_mm": {
+  "bed_y": 0,
+  "nose_x": [
+   -1270,
+   1270
+  ],
+  "nose_z": [
+   -635,
+   635
+  ],
+  "nose_crest_y": 36.513,
+  "floor_y": -762,
+  "section_station_x": 626.339,
+  "envelope_bb_mm": [
+   -1447.8,
+   -762,
+   -812.8,
+   1447.8,
+   56.8,
+   812.8
+  ]
+ },
+ "crest_chains": {
+  "corner": [
+   [
+    80.822,
+    0
+   ],
+   [
+    78.451,
+    0.135
+   ],
+   [
+    76.11,
+    0.537
+   ],
+   [
+    73.829,
+    1.202
+   ],
+   [
+    71.639,
+    2.12
+   ],
+   [
+    69.566,
+    3.281
+   ],
+   [
+    67.638,
+    4.669
+   ],
+   [
+    14.932,
+    47.349
+   ]
+  ],
+  "side": [
+   [
+    63.5,
+    0
+   ],
+   [
+    61.712,
+    0.204
+   ],
+   [
+    60.015,
+    0.805
+   ],
+   [
+    58.497,
+    1.772
+   ],
+   [
+    57.235,
+    3.056
+   ],
+   [
+    56.295,
+    4.59
+   ],
+   [
+    55.724,
+    6.297
+   ],
+   [
+    46.998,
+    47.349
+   ]
+  ]
+ },
+ "cushion_profile_mm": [
+  [
+   22.9,
+   0
+  ],
+  [
+   22.552,
+   0.795
+  ],
+  [
+   22.2,
+   1.6
+  ],
+  [
+   11.535,
+   17.797
+  ],
+  [
+   0.659,
+   34.313
+  ],
+  [
+   0.608,
+   34.395
+  ],
+  [
+   0.556,
+   34.477
+  ],
+  [
+   0.509,
+   34.562
+  ],
+  [
+   0.462,
+   34.647
+  ],
+  [
+   0.418,
+   34.734
+  ],
+  [
+   0.375,
+   34.821
+  ],
+  [
+   0.336,
+   34.91
+  ],
+  [
+   0.298,
+   34.998
+  ],
+  [
+   0.263,
+   35.089
+  ],
+  [
+   0.229,
+   35.18
+  ],
+  [
+   0.198,
+   35.272
+  ],
+  [
+   0.168,
+   35.364
+  ],
+  [
+   0.143,
+   35.458
+  ],
+  [
+   0.117,
+   35.552
+  ],
+  [
+   0.096,
+   35.646
+  ],
+  [
+   0.075,
+   35.741
+  ],
+  [
+   0.059,
+   35.837
+  ],
+  [
+   0.042,
+   35.932
+  ],
+  [
+   0.031,
+   36.029
+  ],
+  [
+   0.019,
+   36.125
+  ],
+  [
+   0.012,
+   36.222
+  ],
+  [
+   0.005,
+   36.318
+  ],
+  [
+   0.002,
+   36.415
+  ],
+  [
+   0,
+   36.513
+  ],
+  [
+   0.014,
+   36.751
+  ],
+  [
+   0.029,
+   36.99
+  ],
+  [
+   0.071,
+   37.225
+  ],
+  [
+   0.114,
+   37.46
+  ],
+  [
+   0.184,
+   37.688
+  ],
+  [
+   0.255,
+   37.917
+  ],
+  [
+   0.352,
+   38.135
+  ],
+  [
+   0.449,
+   38.354
+  ],
+  [
+   0.571,
+   38.559
+  ],
+  [
+   0.694,
+   38.764
+  ],
+  [
+   0.84,
+   38.953
+  ],
+  [
+   0.986,
+   39.142
+  ],
+  [
+   1.153,
+   39.313
+  ],
+  [
+   1.321,
+   39.483
+  ],
+  [
+   1.508,
+   39.632
+  ],
+  [
+   1.695,
+   39.781
+  ],
+  [
+   1.898,
+   39.907
+  ],
+  [
+   2.101,
+   40.033
+  ],
+  [
+   2.318,
+   40.134
+  ],
+  [
+   2.534,
+   40.234
+  ],
+  [
+   2.762,
+   40.308
+  ],
+  [
+   2.989,
+   40.383
+  ],
+  [
+   3.223,
+   40.429
+  ],
+  [
+   3.458,
+   40.476
+  ],
+  [
+   18.029,
+   42.469
+  ],
+  [
+   32.5,
+   44.45
+  ]
+ ],
+ "cushion_rear_run_mm": [
+  [
+   50.8,
+   44.45
+  ],
+  [
+   49.994,
+   42.596
+  ],
+  [
+   49.072,
+   40.476
+  ],
+  [
+   49.053,
+   40.431
+  ],
+  [
+   49.032,
+   40.383
+  ],
+  [
+   49.001,
+   40.312
+  ],
+  [
+   48.967,
+   40.234
+  ],
+  [
+   48.925,
+   40.138
+  ],
+  [
+   48.88,
+   40.033
+  ],
+  [
+   48.827,
+   39.912
+  ],
+  [
+   48.77,
+   39.781
+  ],
+  [
+   48.708,
+   39.638
+  ],
+  [
+   48.64,
+   39.483
+  ],
+  [
+   48.569,
+   39.32
+  ],
+  [
+   48.492,
+   39.142
+  ],
+  [
+   48.414,
+   38.961
+  ],
+  [
+   48.328,
+   38.764
+  ],
+  [
+   48.242,
+   38.567
+  ],
+  [
+   48.149,
+   38.354
+  ],
+  [
+   48.058,
+   38.144
+  ],
+  [
+   47.96,
+   37.917
+  ],
+  [
+   47.864,
+   37.698
+  ],
+  [
+   47.761,
+   37.46
+  ],
+  [
+   47.663,
+   37.234
+  ],
+  [
+   47.556,
+   36.99
+  ],
+  [
+   47.457,
+   36.761
+  ],
+  [
+   47.349,
+   36.513
+  ],
+  [
+   47.308,
+   36.419
+  ],
+  [
+   47.265,
+   36.318
+  ],
+  [
+   47.224,
+   36.226
+  ],
+  [
+   47.18,
+   36.125
+  ],
+  [
+   47.14,
+   36.032
+  ],
+  [
+   47.097,
+   35.932
+  ],
+  [
+   47.057,
+   35.84
+  ],
+  [
+   47.013,
+   35.741
+  ],
+  [
+   46.974,
+   35.65
+  ],
+  [
+   46.931,
+   35.552
+  ],
+  [
+   46.892,
+   35.462
+  ],
+  [
+   46.85,
+   35.364
+  ],
+  [
+   46.811,
+   35.276
+  ],
+  [
+   46.769,
+   35.18
+  ],
+  [
+   46.732,
+   35.093
+  ],
+  [
+   46.69,
+   34.998
+  ],
+  [
+   46.653,
+   34.913
+  ],
+  [
+   46.613,
+   34.821
+  ],
+  [
+   46.577,
+   34.737
+  ],
+  [
+   46.538,
+   34.647
+  ],
+  [
+   46.502,
+   34.565
+  ],
+  [
+   46.464,
+   34.477
+  ],
+  [
+   46.43,
+   34.398
+  ],
+  [
+   46.392,
+   34.313
+  ],
+  [
+   39.168,
+   17.697
+  ],
+  [
+   32.169,
+   1.6
+  ],
+  [
+   31.825,
+   0.81
+  ],
+  [
+   31.473,
+   0
+  ]
+ ],
+ "cushion_section_loop_pts": 112,
+ "boot_collars_mm": {
+  "corner": {
+   "u_in": [
+    -0.707,
+    -0.707
+   ],
+   "rmin": 48.46,
+   "rmax": 87.96,
+   "ymax_above_bed": 56.8,
+   "n_arc": 1621,
+   "n_all": 2301,
+   "s_max_all": 72,
+   "leg": {
+    "s_max": 72,
+    "l_min": 48.46,
+    "l_max": 87.96,
+    "n": 648,
+    "n_off_arc": 236
+   }
+  },
+  "side": {
+   "u_in": [
+    0,
+    -1
+   ],
+   "rmin": 51,
+   "rmax": 102,
+   "ymax_above_bed": 56.8,
+   "n_arc": 1653,
+   "n_all": 2349,
+   "s_max_all": 20,
+   "leg": {
+    "s_max": 20,
+    "l_min": 51,
+    "l_max": 102,
+    "n": 696,
+    "n_off_arc": 34
+   }
+  }
+ },
+ "rows": [
+  {
+   "letter": "A",
+   "feature": "PF-01",
+   "measures": "playfield length, nose plane to nose plane (x)",
+   "scope": "kernel-collision",
+   "spec": 2540,
+   "as_modeled": 2540,
+   "delta": 0,
+   "tol": 0.2,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "B",
+   "feature": "PF-01",
+   "measures": "playfield width, nose plane to nose plane (z)",
+   "scope": "kernel-collision",
+   "spec": 1270,
+   "as_modeled": 1270,
+   "delta": 0,
+   "tol": 0.2,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "C",
+   "feature": "CU-03",
+   "measures": "cushion nose crest height above the bed",
+   "scope": "kernel-collision",
+   "spec": 36.513,
+   "as_modeled": 36.513,
+   "delta": 0,
+   "tol": 0.15,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "D",
+   "feature": "CU-04",
+   "measures": "cushion width, nose plane to back plane",
+   "scope": "kernel-collision",
+   "spec": 50.8,
+   "as_modeled": 50.8,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "E",
+   "feature": "CU-09",
+   "measures": "rubber-rail top plane above the bed",
+   "scope": "render-only",
+   "spec": 44.45,
+   "as_modeled": 44.45,
+   "delta": -0.001,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "F",
+   "feature": "CU-11",
+   "measures": "nose edge radius (circle fit over the crest arc rows)",
+   "scope": "render-only",
+   "spec": 4,
+   "as_modeled": 4.001,
+   "delta": 0.001,
+   "tol": 0.3,
+   "pass": true,
+   "note": "fit rms 0.003 mm over 49 rows, centre (4.003, 36.509)"
+  },
+  {
+   "letter": "G",
+   "feature": "CU-12",
+   "measures": "section base station, depth at the bed",
+   "scope": "render-only",
+   "spec": 22.9,
+   "as_modeled": 22.9,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "H",
+   "feature": "CU-12",
+   "measures": "section top station, depth at the rubber top",
+   "scope": "render-only",
+   "spec": 32.5,
+   "as_modeled": 32.5,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "I",
+   "feature": "CU-08",
+   "measures": "cloth-relief crease height above the bed",
+   "scope": "render-only",
+   "spec": 1.588,
+   "as_modeled": 1.6,
+   "delta": 0.013,
+   "tol": 0.1,
+   "pass": true,
+   "note": "slope-break vertex of the front profile, turn 9.735 deg; the CU-12 render trace rounds the crease to 1.6 mm — the 0.0125 mm delta is DISCLOSED on sheet S3"
+  },
+  {
+   "letter": "J",
+   "feature": "CU-10",
+   "measures": "sub-rail bevel of the cushion rear face (deg)",
+   "scope": "render-only",
+   "spec": 23.5,
+   "as_modeled": 23.5,
+   "delta": 0,
+   "tol": 2,
+   "pass": true,
+   "note": "rear run 55 pts, o 50.8..31.473 over y 44.45..0 (0 deg = the rear glue face is modeled VERTICAL)"
+  },
+  {
+   "letter": "K",
+   "feature": "RB-01",
+   "measures": "rail band, nose plane to rail-top outer edge",
+   "scope": "render-only",
+   "spec": 177.8,
+   "as_modeled": 177.8,
+   "delta": 0,
+   "tol": 0.3,
+   "pass": true,
+   "note": "conflict C3: poster 7-1/4 in (184.15) vs official (64-50)/2 = 7 in (177.8)"
+  },
+  {
+   "letter": "L",
+   "feature": "RB-02",
+   "measures": "rail-top plane above the bed",
+   "scope": "render-only",
+   "spec": 50.8,
+   "as_modeled": 50.8,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "M",
+   "feature": "RB-03",
+   "measures": "sight inset from the nose line (long rail)",
+   "scope": "render-only",
+   "spec": 93.663,
+   "as_modeled": 93.663,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "N",
+   "feature": "RB-03",
+   "measures": "sight inset from the nose line (short rail)",
+   "scope": "render-only",
+   "spec": 93.663,
+   "as_modeled": 93.662,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "O",
+   "feature": "RB-04",
+   "measures": "sight pitch along the long rail (median of the run)",
+   "scope": "render-only",
+   "spec": 317.5,
+   "as_modeled": 317.5,
+   "delta": 0,
+   "tol": 0.3,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "P",
+   "feature": "RB-05",
+   "measures": "sight rhombus long axis",
+   "scope": "render-only",
+   "spec": 22,
+   "as_modeled": 22,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "Q",
+   "feature": "RB-05",
+   "measures": "sight rhombus short axis",
+   "scope": "render-only",
+   "spec": 14,
+   "as_modeled": 14,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "R",
+   "feature": "CP-01",
+   "measures": "corner mouth chord, crest tangency P to P",
+   "scope": "kernel-collision",
+   "spec": 114.3,
+   "as_modeled": 114.3,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "S",
+   "feature": "CP-02",
+   "measures": "corner facing (miter) angle, 90 + facing tilt (deg)",
+   "scope": "kernel-collision",
+   "spec": 141,
+   "as_modeled": 141,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "T",
+   "feature": "CP-06",
+   "measures": "corner jaw radius implied by the P/F tangency construction",
+   "scope": "kernel-collision",
+   "spec": 20.95,
+   "as_modeled": 20.95,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": "tangent to the nose line at P, normal to the facing at F — the construction is recovered from the mesh, not read from the spec"
+  },
+  {
+   "letter": "U",
+   "feature": "CP-06",
+   "measures": "corner jaw arc sagitta realized between P and F",
+   "scope": "kernel-collision",
+   "spec": 1.202,
+   "as_modeled": 1.202,
+   "delta": 0,
+   "tol": 0.15,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "V",
+   "feature": "CP-07",
+   "measures": "corner fall-wall radius (CP-07 + CP-11 wall offset)",
+   "scope": "kernel-collision",
+   "spec": 52.26,
+   "as_modeled": 52.26,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": "the fall lip is the radial datum: rw = capture radius + wall_offset"
+  },
+  {
+   "letter": "W",
+   "feature": "CP-08",
+   "measures": "corner pocket depth, nose-line intersection to capture centre",
+   "scope": "kernel-collision",
+   "spec": 35.56,
+   "as_modeled": 35.56,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "X",
+   "feature": "CP-04",
+   "measures": "corner shelf implied by depth + mouth/2 - capture radius",
+   "scope": "kernel-collision",
+   "spec": 44.45,
+   "as_modeled": 44.45,
+   "delta": 0,
+   "tol": 0.3,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "Y",
+   "feature": "CP-09",
+   "measures": "facing under-cut from vertical, below the nose plane (deg)",
+   "scope": "render-only",
+   "spec": 15,
+   "as_modeled": 15,
+   "delta": 0,
+   "tol": 1,
+   "pass": true,
+   "note": "fitted over 28 facing-end rows"
+  },
+  {
+   "letter": "Z",
+   "feature": "CP-10",
+   "measures": "casting upper-tier inner arc radius about the capture centre",
+   "scope": "render-only",
+   "spec": 64.26,
+   "as_modeled": 64.26,
+   "delta": 0,
+   "tol": 0.4,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AA",
+   "feature": "CP-11",
+   "measures": "boot-collar lip radius (rw - lip overhang)",
+   "scope": "render-only",
+   "spec": 48.46,
+   "as_modeled": 48.46,
+   "delta": 0,
+   "tol": 0.3,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AB",
+   "feature": "CP-11",
+   "measures": "boot-collar outer landing radius (rw + outer landing)",
+   "scope": "render-only",
+   "spec": 87.96,
+   "as_modeled": 87.96,
+   "delta": 0,
+   "tol": 0.3,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AC",
+   "feature": "CP-11",
+   "measures": "boot-collar visible radial band above the bed",
+   "scope": "render-only",
+   "spec": 39.5,
+   "as_modeled": 39.5,
+   "delta": 0,
+   "tol": 0.3,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AD",
+   "feature": "CP-11",
+   "measures": "boot-collar crest proud of the casting shelf",
+   "scope": "render-only",
+   "spec": 6,
+   "as_modeled": 6,
+   "delta": 0,
+   "tol": 0.2,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AE",
+   "feature": "CP-11",
+   "measures": "boot-collar leg run along the pocket axis from the tangent points to the tip",
+   "scope": "render-only",
+   "spec": 72,
+   "as_modeled": 72,
+   "delta": 0,
+   "tol": 0.5,
+   "pass": true,
+   "note": "tip \"mitre-rail-parallel\"; leg lateral span 48.46..87.96 mm over 648 vertices, 236 of them off the arc circle (the straight-run witness)"
+  },
+  {
+   "letter": "AF",
+   "feature": "SP-01",
+   "measures": "side mouth chord, crest tangency P to P",
+   "scope": "kernel-collision",
+   "spec": 127,
+   "as_modeled": 127,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AG",
+   "feature": "SP-02",
+   "measures": "side facing (miter) angle, 90 + facing tilt (deg)",
+   "scope": "kernel-collision",
+   "spec": 102,
+   "as_modeled": 102,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AH",
+   "feature": "SP-06",
+   "measures": "side jaw radius implied by the P/F tangency construction",
+   "scope": "kernel-collision",
+   "spec": 7.95,
+   "as_modeled": 7.95,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AI",
+   "feature": "SP-06",
+   "measures": "side jaw arc sagitta realized between P and F",
+   "scope": "kernel-collision",
+   "spec": 1.772,
+   "as_modeled": 1.772,
+   "delta": 0,
+   "tol": 0.2,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AJ",
+   "feature": "SP-07",
+   "measures": "side fall-wall radius (SP-07 + CP-11 wall offset)",
+   "scope": "kernel-collision",
+   "spec": 54.8,
+   "as_modeled": 54.8,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AK",
+   "feature": "SP-08",
+   "measures": "side pocket depth, nose line to capture centre",
+   "scope": "kernel-collision",
+   "spec": 55.563,
+   "as_modeled": 55.563,
+   "delta": 0,
+   "tol": 0.25,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AL",
+   "feature": "SP-04",
+   "measures": "side shelf implied by depth - capture radius",
+   "scope": "kernel-collision",
+   "spec": 4.763,
+   "as_modeled": 4.763,
+   "delta": 0,
+   "tol": 0.3,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AM",
+   "feature": "SP-11",
+   "measures": "side liner inner radius (SP-07 + tier setback)",
+   "scope": "render-only",
+   "spec": 66.8,
+   "as_modeled": 66.8,
+   "delta": 0,
+   "tol": 0.3,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AN",
+   "feature": "SP-11",
+   "measures": "side liner outer radius (inner + channel width)",
+   "scope": "render-only",
+   "spec": 86.8,
+   "as_modeled": 86.8,
+   "delta": 0,
+   "tol": 0.3,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AO",
+   "feature": "SP-11",
+   "measures": "side liner end clamp behind the nose line",
+   "scope": "render-only",
+   "spec": 52,
+   "as_modeled": 52,
+   "delta": 0,
+   "tol": 0.4,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AP",
+   "feature": "SP-10",
+   "measures": "side boot-collar leg run along the pocket axis from the tangent points to the tip",
+   "scope": "render-only",
+   "spec": 20,
+   "as_modeled": 20,
+   "delta": 0,
+   "tol": 0.5,
+   "pass": true,
+   "note": "tip \"flat\"; leg lateral span 51..102 mm over 696 vertices, 34 of them off the arc circle (the straight-run witness)"
+  },
+  {
+   "letter": "AQ",
+   "feature": "EN-01",
+   "measures": "assembly hard extreme, length",
+   "scope": "envelope",
+   "spec": 2895.6,
+   "as_modeled": 2895.6,
+   "delta": 0,
+   "tol": 1,
+   "pass": true,
+   "note": "set by dm-railtop-2, dm-railtop-3, dm-ballreturn-door, dm-casting-corner-0, dm-casting-corner-1, dm-casting-corner-2, dm-casting-corner-3"
+  },
+  {
+   "letter": "AR",
+   "feature": "EN-01",
+   "measures": "assembly hard extreme, width",
+   "scope": "envelope",
+   "spec": 1625.6,
+   "as_modeled": 1625.6,
+   "delta": 0,
+   "tol": 1,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AS",
+   "feature": "EN-02",
+   "measures": "rail-stack extreme above the floor",
+   "scope": "envelope",
+   "spec": 812.8,
+   "as_modeled": 813,
+   "delta": 0.2,
+   "tol": 2,
+   "pass": true,
+   "note": "stack top set by dm-sight-long-lh1, dm-sight-long-rh1, dm-sight-long-lh2, dm-sight-long-rh2, dm-sight-long-lh3, dm-sight-long-rh3, dm-sight-short-hl, dm-sight-short-fl, dm-sight-long-lf1, dm-sight-long-rf1, dm-sight-long-lf2, dm-sight-long-rf2, dm-sight-long-lf3, dm-sight-long-rf3, dm-sight-short-hr, dm-sight-short-fr, dm-sight-short-hc, dm-sight-short-fc; decal planes (dm-shelfshadow / dm-tongueao / dm-spot) excluded from the furniture stack"
+  },
+  {
+   "letter": "AT",
+   "feature": "EN-03",
+   "measures": "bed (playing surface) above the floor",
+   "scope": "envelope",
+   "spec": 762,
+   "as_modeled": 762,
+   "delta": 0,
+   "tol": 2,
+   "pass": true,
+   "note": "floor = the leveler foot plane"
+  },
+  {
+   "letter": "AU",
+   "feature": "EN-04",
+   "measures": "rail stack, bed to rail-top extreme",
+   "scope": "envelope",
+   "spec": 50.8,
+   "as_modeled": 51,
+   "delta": 0.2,
+   "tol": 0.4,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AV",
+   "feature": "EN-05",
+   "measures": "leg footprint spacing, long axis (leg outer faces at the floor: leveler centres + the columns' sole width)",
+   "scope": "envelope",
+   "spec": 2533.65,
+   "as_modeled": 2533.651,
+   "delta": 0.001,
+   "tol": 3,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AW",
+   "feature": "EN-05",
+   "measures": "leg footprint spacing, short axis (leg outer faces at the floor: leveler centres + the columns' sole width)",
+   "scope": "envelope",
+   "spec": 1263.65,
+   "as_modeled": 1263.651,
+   "delta": 0.001,
+   "tol": 3,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "letter": "AX",
+   "feature": "EN-06",
+   "measures": "underside clearance, floor to skirt bottom",
+   "scope": "envelope",
+   "spec": 381,
+   "as_modeled": 381,
+   "delta": 0,
+   "tol": 3,
+   "pass": true,
+   "note": ""
+  }
+ ],
+ "identities": [
+  {
+   "n": 0,
+   "text": "CP-02: 135 + kernel_deviation = 141",
+   "witness": "mesh",
+   "status": "HOLDS",
+   "detail": "mesh corner facing angle 90 + 51 = 141 deg vs 135 + 6"
+  },
+  {
+   "n": 1,
+   "text": "SP-02: 90 + kernel_deviation = 102",
+   "witness": "mesh",
+   "status": "HOLDS",
+   "detail": "mesh side facing angle 102 deg vs 90 + 12"
+  },
+  {
+   "n": 2,
+   "text": "CU-03: value / PF-04 = 0.638889 (kernel noseHeightFrac)",
+   "witness": "mesh(CU-03) + spec(PF-04)",
+   "status": "HOLDS",
+   "detail": "mesh nose height 36.513 / PF-04 57.15 = 0.638889 vs kernel noseHeightFrac 0.638889 — NO BALL MESH IN THE SCENE: the ball diameter has no runtime witness, so the divisor is spec-side (disclosed)"
+  },
+  {
+   "n": 3,
+   "text": "CP-08: CP-04 + CP-07 − CP-01/2 = 35.56",
+   "witness": "mesh",
+   "status": "HOLDS",
+   "detail": "mesh corner depth (fall-lip capture centre vs nose-line intersection) 35.56 vs CP-04 + CP-07 - CP-01/2 = 35.56"
+  },
+  {
+   "n": 4,
+   "text": "SP-08: SP-04 + SP-07 = 55.5625",
+   "witness": "mesh",
+   "status": "HOLDS",
+   "detail": "mesh side depth 55.563 vs SP-04 + SP-07 = 55.563"
+  },
+  {
+   "n": 5,
+   "text": "CP-05: CP-01 − CP-05 = 17.78 (0.7 in, BU TDF band 5/8-3/4)",
+   "witness": "mesh(CP-01) + spec(CP-05)",
+   "status": "HOLDS",
+   "detail": "mesh mouth 114.3 - CP-05 throat 96.52 = 17.78 vs 17.78 — CP-05 is a kernel-collision DERIVED consistency value: the 96.52 plane sits at t = 0.375 along the facing, which is not a construction point, so it has no independent mesh witness"
+  },
+  {
+   "n": 6,
+   "text": "EN-01: PF-01 + 2 × RB-01 = EN-01 on both axes",
+   "witness": "mesh",
+   "status": "HOLDS",
+   "detail": "mesh envelope 2895.6 x 1625.6 vs mesh PF-01 + 2 x mesh RB-01 = 2895.6 x 1625.6 — the identity is MESH-INTERNAL; whether the two sides also land on the spec pair 2895.6 x 1625.6 is the EN-01/RB-01 letters' business, not this identity's"
+  },
+  {
+   "n": 7,
+   "text": "EN-04: EN-02 − EN-03 = 50.8; CU-09 < RB-02 = EN-04 (r2: two planes — the rubber plane strictly below the rail top, which RB-02 and EN-04 both name; the generator asserts CU-09 < RB-02 <= EN-04)",
+   "witness": "mesh",
+   "status": "HOLDS",
+   "detail": "mesh EN-02 - EN-03 = 813 - 762 = 51 (= mesh EN-04 51: consistent) vs 50.8: ok; plane order CU-09 44.45 < RB-02 50.8 <= EN-04 51 (+0.25 for the sight z-fight guard): holds"
+  },
+  {
+   "n": 8,
+   "text": "RB-04: PF-01.length / 8 = 317.5",
+   "witness": "mesh",
+   "status": "HOLDS",
+   "detail": "mesh sight pitch 317.5 vs mesh PF-01 length / 8 = 317.5 (both sides of this identity are measured off the mesh)"
+  },
+  {
+   "n": 9,
+   "text": "CP-06: kernel corner jaw arc (from_pocket_spec '1t') tangent to the nose line at the mouth point P and to the facing at F (|PJ| = |FJ| = 20.95)",
+   "witness": "mesh",
+   "status": "HOLDS",
+   "detail": "tangency construction recovered from the mesh gives rc = 20.95 vs pinned 20.95 (holds); realized sagitta between P (80.822,0) and F = 1.202 mm vs the construction's 1.202 mm (arc realized)"
+  },
+  {
+   "n": 10,
+   "text": "SP-06: kernel side jaw arc ('4t', exact_side_facing) tangent at P and F (|PJ| = |FJ| = 7.95)",
+   "witness": "mesh",
+   "status": "HOLDS",
+   "detail": "tangency construction gives rs = 7.95 vs pinned 7.95 (holds); realized sagitta 1.772 mm vs the construction's 1.772 mm (arc realized)"
+  },
+  {
+   "n": 11,
+   "text": "RB-02 (r2): RB-02 = EN-04 to the last digit — one plane, two ids, EN-04 the anchor and RB-02 its render-only twin — and RB-02 − CU-09 = 6.35 = 0.250 in, the finished rail cap. This entry exists so the headline r2 claim is machine-asserted: without it, a later edit to CU-09 or EN-04 would silently falsify the cap thickness while every other identity still passed. It asserts the ARITHMETIC only; whether that 6.35 layer is CU-13 is open item O6 and is deliberately not asserted here.",
+   "witness": "mesh",
+   "status": "HOLDS",
+   "detail": "mesh rail cap = RB-02 50.8 - CU-09 44.45 = 6.35 vs 6.35 (0.250 in): holds; one plane RB-02 50.8 vs EN-04 51: holds — arithmetic only; whether that layer is CU-13 is open item O6 and is not tested here"
+  }
+ ],
+ "evidence_starved": [],
+ "gi_state": "gi-settled",
+ "inventory": [
+  {
+   "name": "dm-bed-cloth",
+   "nt": 496,
+   "bb_mm": [
+    -1420.8,
+    0,
+    -785.8,
+    1420.8,
+    0,
+    785.8
+   ]
+  },
+  {
+   "name": "dm-cushion-0",
+   "nt": 868,
+   "bb_mm": [
+    -1255.417,
+    0,
+    -685.8,
+    -46.983,
+    44.45,
+    -635
+   ]
+  },
+  {
+   "name": "dm-subrail-0",
+   "nt": 188,
+   "bb_mm": [
+    -1256.859,
+    0,
+    -683.8,
+    -46.689,
+    39.85,
+    -666.473
+   ]
+  },
+  {
+   "name": "dm-cushion-1",
+   "nt": 868,
+   "bb_mm": [
+    46.983,
+    0,
+    -685.8,
+    1255.417,
+    44.45,
+    -635
+   ]
+  },
+  {
+   "name": "dm-subrail-1",
+   "nt": 188,
+   "bb_mm": [
+    46.69,
+    0,
+    -683.8,
+    1256.859,
+    39.85,
+    -666.473
+   ]
+  },
+  {
+   "name": "dm-cushion-2",
+   "nt": 868,
+   "bb_mm": [
+    -1255.417,
+    0,
+    635,
+    -46.983,
+    44.45,
+    685.8
+   ]
+  },
+  {
+   "name": "dm-subrail-2",
+   "nt": 188,
+   "bb_mm": [
+    -1256.859,
+    0,
+    666.473,
+    -46.689,
+    39.85,
+    683.8
+   ]
+  },
+  {
+   "name": "dm-cushion-3",
+   "nt": 868,
+   "bb_mm": [
+    46.983,
+    0,
+    635,
+    1255.417,
+    44.45,
+    685.8
+   ]
+  },
+  {
+   "name": "dm-subrail-3",
+   "nt": 188,
+   "bb_mm": [
+    46.69,
+    0,
+    666.473,
+    1256.859,
+    39.85,
+    683.8
+   ]
+  },
+  {
+   "name": "dm-cushion-4",
+   "nt": 868,
+   "bb_mm": [
+    -1320.8,
+    0,
+    -620.417,
+    -1270,
+    44.45,
+    620.417
+   ]
+  },
+  {
+   "name": "dm-subrail-4",
+   "nt": 188,
+   "bb_mm": [
+    -1318.8,
+    0,
+    -621.859,
+    -1301.473,
+    39.85,
+    621.859
+   ]
+  },
+  {
+   "name": "dm-cushion-5",
+   "nt": 868,
+   "bb_mm": [
+    1270,
+    0,
+    -620.417,
+    1320.8,
+    44.45,
+    620.417
+   ]
+  },
+  {
+   "name": "dm-subrail-5",
+   "nt": 188,
+   "bb_mm": [
+    1301.473,
+    0,
+    -621.859,
+    1318.8,
+    39.85,
+    621.859
+   ]
+  },
+  {
+   "name": "dm-bootsleeve-c0-0",
+   "nt": 714,
+   "bb_mm": [
+    -1255.692,
+    0.141,
+    -685.8,
+    -1180.239,
+    44.45,
+    -644.18
+   ]
+  },
+  {
+   "name": "dm-bootsleeve-s1-0",
+   "nt": 1014,
+   "bb_mm": [
+    -92.152,
+    0.141,
+    -685.8,
+    -46.931,
+    44.45,
+    -636.02
+   ]
+  },
+  {
+   "name": "dm-bootsleeve-s1-1",
+   "nt": 1014,
+   "bb_mm": [
+    46.931,
+    0.141,
+    -685.8,
+    92.152,
+    44.45,
+    -636.02
+   ]
+  },
+  {
+   "name": "dm-bootsleeve-c2-0",
+   "nt": 714,
+   "bb_mm": [
+    1180.239,
+    0.141,
+    -685.8,
+    1255.692,
+    44.45,
+    -644.18
+   ]
+  },
+  {
+   "name": "dm-bootsleeve-s4-0",
+   "nt": 1014,
+   "bb_mm": [
+    -92.152,
+    0.141,
+    636.02,
+    -46.931,
+    44.45,
+    685.8
+   ]
+  },
+  {
+   "name": "dm-bootsleeve-c3-0",
+   "nt": 714,
+   "bb_mm": [
+    -1255.692,
+    0.141,
+    644.18,
+    -1180.239,
+    44.45,
+    685.8
+   ]
+  },
+  {
+   "name": "dm-bootsleeve-c5-0",
+   "nt": 714,
+   "bb_mm": [
+    1180.239,
+    0.141,
+    644.18,
+    1255.692,
+    44.45,
+    685.8
+   ]
+  },
+  {
+   "name": "dm-bootsleeve-s4-1",
+   "nt": 1014,
+   "bb_mm": [
+    46.931,
+    0.141,
+    636.02,
+    92.152,
+    44.45,
+    685.8
+   ]
+  },
+  {
+   "name": "dm-bootsleeve-c0-1",
+   "nt": 714,
+   "bb_mm": [
+    -1320.8,
+    0.141,
+    -620.692,
+    -1279.18,
+    44.45,
+    -545.239
+   ]
+  },
+  {
+   "name": "dm-bootsleeve-c3-1",
+   "nt": 714,
+   "bb_mm": [
+    -1320.8,
+    0.141,
+    545.239,
+    -1279.18,
+    44.45,
+    620.692
+   ]
+  },
+  {
+   "name": "dm-bootsleeve-c5-1",
+   "nt": 714,
+   "bb_mm": [
+    1279.18,
+    0.141,
+    545.239,
+    1320.8,
+    44.45,
+    620.692
+   ]
+  },
+  {
+   "name": "dm-bootsleeve-c2-1",
+   "nt": 714,
+   "bb_mm": [
+    1279.18,
+    0.141,
+    -620.692,
+    1320.8,
+    44.45,
+    -545.239
+   ]
+  },
+  {
+   "name": "dm-railtop-0",
+   "nt": 776,
+   "bb_mm": [
+    -1253.2,
+    0,
+    -812.8,
+    1253.2,
+    50.8,
+    -683.8
+   ]
+  },
+  {
+   "name": "dm-railtop-1",
+   "nt": 776,
+   "bb_mm": [
+    -1253.2,
+    0,
+    683.8,
+    1253.2,
+    50.8,
+    812.8
+   ]
+  },
+  {
+   "name": "dm-railtop-2",
+   "nt": 44,
+   "bb_mm": [
+    -1447.8,
+    0,
+    -618.2,
+    -1318.8,
+    50.8,
+    618.2
+   ]
+  },
+  {
+   "name": "dm-railtop-3",
+   "nt": 44,
+   "bb_mm": [
+    1318.8,
+    0,
+    -618.2,
+    1447.8,
+    50.8,
+    618.2
+   ]
+  },
+  {
+   "name": "dm-apron-skirt",
+   "nt": 672,
+   "bb_mm": [
+    -1444.8,
+    -381,
+    -809.8,
+    1444.8,
+    0,
+    809.8
+   ]
+  },
+  {
+   "name": "dm-ballreturn-door",
+   "nt": 12,
+   "bb_mm": [
+    -1447.8,
+    -220,
+    -170,
+    -1435.8,
+    -120,
+    170
+   ]
+  },
+  {
+   "name": "dm-leg-hl",
+   "nt": 140,
+   "bb_mm": [
+    -1302.18,
+    -712,
+    -667.18,
+    -1054.693,
+    -267,
+    -419.693
+   ]
+  },
+  {
+   "name": "dm-leveler-hl",
+   "nt": 48,
+   "bb_mm": [
+    -1214.437,
+    -762,
+    -579.437,
+    -1142.437,
+    -712,
+    -507.437
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    -1290.382,
+    -431.451,
+    -604.492,
+    -1289.511,
+    -420.486,
+    -593.492
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    -1293.17,
+    -430.163,
+    -602.629,
+    -1289.514,
+    -421.552,
+    -595.355
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    -1290.382,
+    -431.451,
+    -522.27,
+    -1289.511,
+    -420.486,
+    -511.27
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    -1293.17,
+    -430.163,
+    -520.407,
+    -1289.514,
+    -421.552,
+    -513.133
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    -1239.492,
+    -431.451,
+    -655.382,
+    -1228.492,
+    -420.486,
+    -654.511
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    -1237.629,
+    -430.163,
+    -658.17,
+    -1230.355,
+    -421.552,
+    -654.514
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    -1157.27,
+    -431.451,
+    -655.382,
+    -1146.27,
+    -420.486,
+    -654.511
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    -1155.407,
+    -430.163,
+    -658.17,
+    -1148.133,
+    -421.552,
+    -654.514
+   ]
+  },
+  {
+   "name": "dm-leg-hr",
+   "nt": 140,
+   "bb_mm": [
+    -1302.18,
+    -712,
+    419.693,
+    -1054.693,
+    -267,
+    667.18
+   ]
+  },
+  {
+   "name": "dm-leveler-hr",
+   "nt": 48,
+   "bb_mm": [
+    -1214.437,
+    -762,
+    507.437,
+    -1142.437,
+    -712,
+    579.437
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    -1290.382,
+    -431.451,
+    593.492,
+    -1289.511,
+    -420.486,
+    604.492
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    -1293.17,
+    -430.163,
+    595.355,
+    -1289.514,
+    -421.552,
+    602.63
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    -1290.382,
+    -431.451,
+    511.27,
+    -1289.511,
+    -420.486,
+    522.27
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    -1293.17,
+    -430.163,
+    513.133,
+    -1289.514,
+    -421.552,
+    520.407
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    -1128.381,
+    -431.451,
+    654.511,
+    -1117.381,
+    -420.486,
+    655.382
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    -1126.518,
+    -430.163,
+    654.514,
+    -1119.244,
+    -421.552,
+    658.17
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    -1210.603,
+    -431.451,
+    654.511,
+    -1199.603,
+    -420.486,
+    655.382
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    -1208.741,
+    -430.163,
+    654.514,
+    -1201.466,
+    -421.552,
+    658.17
+   ]
+  },
+  {
+   "name": "dm-leg-fl",
+   "nt": 140,
+   "bb_mm": [
+    1054.693,
+    -712,
+    -667.18,
+    1302.18,
+    -267,
+    -419.693
+   ]
+  },
+  {
+   "name": "dm-leveler-fl",
+   "nt": 48,
+   "bb_mm": [
+    1142.437,
+    -762,
+    -579.437,
+    1214.437,
+    -712,
+    -507.437
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    1289.511,
+    -431.451,
+    -493.381,
+    1290.382,
+    -420.486,
+    -482.381
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    1289.514,
+    -430.163,
+    -491.518,
+    1293.17,
+    -421.552,
+    -484.244
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    1289.511,
+    -431.451,
+    -575.603,
+    1290.382,
+    -420.486,
+    -564.603
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    1289.514,
+    -430.163,
+    -573.741,
+    1293.17,
+    -421.552,
+    -566.466
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    1228.492,
+    -431.451,
+    -655.382,
+    1239.492,
+    -420.486,
+    -654.511
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    1230.355,
+    -430.163,
+    -658.17,
+    1237.63,
+    -421.552,
+    -654.514
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    1146.27,
+    -431.451,
+    -655.382,
+    1157.27,
+    -420.486,
+    -654.511
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    1148.133,
+    -430.163,
+    -658.17,
+    1155.407,
+    -421.552,
+    -654.514
+   ]
+  },
+  {
+   "name": "dm-leg-fr",
+   "nt": 140,
+   "bb_mm": [
+    1054.693,
+    -712,
+    419.693,
+    1302.18,
+    -267,
+    667.18
+   ]
+  },
+  {
+   "name": "dm-leveler-fr",
+   "nt": 48,
+   "bb_mm": [
+    1142.437,
+    -762,
+    507.437,
+    1214.437,
+    -712,
+    579.437
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    1289.511,
+    -431.451,
+    482.381,
+    1290.382,
+    -420.486,
+    493.381
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    1289.514,
+    -430.163,
+    484.244,
+    1293.17,
+    -421.552,
+    491.518
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    1289.511,
+    -431.451,
+    564.603,
+    1290.382,
+    -420.486,
+    575.603
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    1289.514,
+    -430.163,
+    566.466,
+    1293.17,
+    -421.552,
+    573.741
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    1117.381,
+    -431.451,
+    654.511,
+    1128.381,
+    -420.486,
+    655.382
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    1119.244,
+    -430.163,
+    654.514,
+    1126.518,
+    -421.552,
+    658.17
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 16,
+   "bb_mm": [
+    1199.603,
+    -431.451,
+    654.511,
+    1210.603,
+    -420.486,
+    655.382
+   ]
+  },
+  {
+   "name": "(anon)",
+   "nt": 24,
+   "bb_mm": [
+    1201.466,
+    -430.163,
+    654.514,
+    1208.741,
+    -421.552,
+    658.17
+   ]
+  },
+  {
+   "name": "dm-casting-corner-0",
+   "nt": 668,
+   "bb_mm": [
+    -1447.8,
+    -22.5,
+    -812.8,
+    -1124.2,
+    50.8,
+    -489.2
+   ]
+  },
+  {
+   "name": "dm-casting-corner-1",
+   "nt": 668,
+   "bb_mm": [
+    -1447.8,
+    -22.5,
+    489.2,
+    -1124.2,
+    50.8,
+    812.8
+   ]
+  },
+  {
+   "name": "dm-casting-corner-2",
+   "nt": 668,
+   "bb_mm": [
+    1124.2,
+    -22.5,
+    -812.8,
+    1447.8,
+    50.8,
+    -489.2
+   ]
+  },
+  {
+   "name": "dm-casting-corner-3",
+   "nt": 668,
+   "bb_mm": [
+    1124.2,
+    -22.5,
+    489.2,
+    1447.8,
+    50.8,
+    812.8
+   ]
+  },
+  {
+   "name": "dm-liner-side-0",
+   "nt": 1948,
+   "bb_mm": [
+    -86.793,
+    -22.5,
+    -777.362,
+    86.793,
+    50.8,
+    -687
+   ]
+  },
+  {
+   "name": "dm-liner-side-1",
+   "nt": 1948,
+   "bb_mm": [
+    -86.793,
+    -22.5,
+    687,
+    86.793,
+    50.8,
+    777.363
+   ]
+  },
+  {
+   "name": "dm-falllip-c0",
+   "nt": 800,
+   "bb_mm": [
+    -1352.205,
+    -4.8,
+    -717.205,
+    -1238.085,
+    0,
+    -603.085
+   ]
+  },
+  {
+   "name": "dm-bootrim-c0",
+   "nt": 864,
+   "bb_mm": [
+    -1353.405,
+    -25,
+    -718.405,
+    -1236.885,
+    -9,
+    -601.885
+   ]
+  },
+  {
+   "name": "dm-bootbowl-c0",
+   "nt": 216,
+   "bb_mm": [
+    -1351.405,
+    -33,
+    -716.405,
+    -1238.885,
+    -19,
+    -603.885
+   ]
+  },
+  {
+   "name": "dm-bootstitch-c0",
+   "nt": 12,
+   "bb_mm": [
+    -1.7,
+    -0.65,
+    -0.45,
+    1.7,
+    0.65,
+    0.45
+   ]
+  },
+  {
+   "name": "dm-bootskirt-c0",
+   "nt": 432,
+   "bb_mm": [
+    -1345.605,
+    -132.5,
+    -710.605,
+    -1244.685,
+    -32.4,
+    -609.685
+   ]
+  },
+  {
+   "name": "dm-boothem-c0",
+   "nt": 144,
+   "bb_mm": [
+    -1326.566,
+    -135.8,
+    -691.566,
+    -1263.723,
+    -132.5,
+    -628.723
+   ]
+  },
+  {
+   "name": "dm-returnshaft-c0",
+   "nt": 56,
+   "bb_mm": [
+    -1329.066,
+    -203.5,
+    -694.066,
+    -1261.223,
+    -128.5,
+    -626.223
+   ]
+  },
+  {
+   "name": "dm-returnfloor-c0",
+   "nt": 28,
+   "bb_mm": [
+    -1329.066,
+    -175,
+    -694.066,
+    -1261.223,
+    -175,
+    -626.223
+   ]
+  },
+  {
+   "name": "dm-bootcollar-c0",
+   "nt": 5080,
+   "bb_mm": [
+    -1383.105,
+    -13.8,
+    -748.105,
+    -1182.036,
+    56.8,
+    -547.036
+   ]
+  },
+  {
+   "name": "dm-shelfshadow-c0",
+   "nt": 152,
+   "bb_mm": [
+    -1387.104,
+    51.05,
+    -752.104,
+    -1179.207,
+    51.05,
+    -544.207
+   ]
+  },
+  {
+   "name": "dm-tongueao-c0",
+   "nt": 560,
+   "bb_mm": [
+    -1298.305,
+    0.2,
+    -663.305,
+    -1206.109,
+    0.2,
+    -571.109
+   ]
+  },
+  {
+   "name": "dm-falllip-s1",
+   "nt": 800,
+   "bb_mm": [
+    -59.6,
+    -4.8,
+    -750.162,
+    59.6,
+    0,
+    -630.962
+   ]
+  },
+  {
+   "name": "dm-bootrim-s1",
+   "nt": 864,
+   "bb_mm": [
+    -60.8,
+    -25,
+    -751.362,
+    60.8,
+    -9,
+    -629.762
+   ]
+  },
+  {
+   "name": "dm-bootbowl-s1",
+   "nt": 216,
+   "bb_mm": [
+    -58.8,
+    -33,
+    -749.362,
+    58.8,
+    -19,
+    -631.762
+   ]
+  },
+  {
+   "name": "dm-bootstitch-s1",
+   "nt": 12,
+   "bb_mm": [
+    -1.7,
+    -0.65,
+    -0.45,
+    1.7,
+    0.65,
+    0.45
+   ]
+  },
+  {
+   "name": "dm-bootskirt-s1",
+   "nt": 432,
+   "bb_mm": [
+    -53,
+    -132.5,
+    -743.562,
+    53,
+    -32.4,
+    -637.562
+   ]
+  },
+  {
+   "name": "dm-boothem-s1",
+   "nt": 144,
+   "bb_mm": [
+    -32.996,
+    -135.8,
+    -723.558,
+    32.996,
+    -132.5,
+    -657.566
+   ]
+  },
+  {
+   "name": "dm-returnshaft-s1",
+   "nt": 56,
+   "bb_mm": [
+    -35.496,
+    -203.5,
+    -726.058,
+    35.496,
+    -128.5,
+    -655.066
+   ]
+  },
+  {
+   "name": "dm-returnfloor-s1",
+   "nt": 28,
+   "bb_mm": [
+    -35.496,
+    -175,
+    -726.058,
+    35.496,
+    -175,
+    -655.066
+   ]
+  },
+  {
+   "name": "dm-bootcollar-s1",
+   "nt": 5080,
+   "bb_mm": [
+    -102,
+    -13.8,
+    -792.562,
+    102,
+    56.8,
+    -670.562
+   ]
+  },
+  {
+   "name": "dm-shelfshadow-s1",
+   "nt": 152,
+   "bb_mm": [
+    -106,
+    51.05,
+    -796.562,
+    106,
+    51.05,
+    -670.562
+   ]
+  },
+  {
+   "name": "dm-tongueao-s1",
+   "nt": 560,
+   "bb_mm": [
+    -72.757,
+    0.2,
+    -654.354,
+    72.757,
+    0.2,
+    -598.962
+   ]
+  },
+  {
+   "name": "dm-falllip-c2",
+   "nt": 800,
+   "bb_mm": [
+    1238.085,
+    -4.8,
+    -717.205,
+    1352.205,
+    0,
+    -603.085
+   ]
+  },
+  {
+   "name": "dm-bootrim-c2",
+   "nt": 864,
+   "bb_mm": [
+    1236.885,
+    -25,
+    -718.405,
+    1353.405,
+    -9,
+    -601.885
+   ]
+  },
+  {
+   "name": "dm-bootbowl-c2",
+   "nt": 216,
+   "bb_mm": [
+    1238.885,
+    -33,
+    -716.405,
+    1351.405,
+    -19,
+    -603.885
+   ]
+  },
+  {
+   "name": "dm-bootstitch-c2",
+   "nt": 12,
+   "bb_mm": [
+    -1.7,
+    -0.65,
+    -0.45,
+    1.7,
+    0.65,
+    0.45
+   ]
+  },
+  {
+   "name": "dm-bootskirt-c2",
+   "nt": 432,
+   "bb_mm": [
+    1244.685,
+    -132.5,
+    -710.605,
+    1345.605,
+    -32.4,
+    -609.685
+   ]
+  },
+  {
+   "name": "dm-boothem-c2",
+   "nt": 144,
+   "bb_mm": [
+    1263.724,
+    -135.8,
+    -691.566,
+    1326.566,
+    -132.5,
+    -628.723
+   ]
+  },
+  {
+   "name": "dm-returnshaft-c2",
+   "nt": 56,
+   "bb_mm": [
+    1261.224,
+    -203.5,
+    -694.066,
+    1329.066,
+    -128.5,
+    -626.223
+   ]
+  },
+  {
+   "name": "dm-returnfloor-c2",
+   "nt": 28,
+   "bb_mm": [
+    1261.224,
+    -175,
+    -694.066,
+    1329.066,
+    -175,
+    -626.223
+   ]
+  },
+  {
+   "name": "dm-bootcollar-c2",
+   "nt": 5080,
+   "bb_mm": [
+    1182.036,
+    -13.8,
+    -748.105,
+    1383.105,
+    56.8,
+    -547.036
+   ]
+  },
+  {
+   "name": "dm-shelfshadow-c2",
+   "nt": 152,
+   "bb_mm": [
+    1179.207,
+    51.05,
+    -752.104,
+    1387.104,
+    51.05,
+    -544.207
+   ]
+  },
+  {
+   "name": "dm-tongueao-c2",
+   "nt": 560,
+   "bb_mm": [
+    1206.109,
+    0.2,
+    -663.305,
+    1298.305,
+    0.2,
+    -571.109
+   ]
+  },
+  {
+   "name": "dm-falllip-c3",
+   "nt": 800,
+   "bb_mm": [
+    -1352.205,
+    -4.8,
+    603.085,
+    -1238.085,
+    0,
+    717.205
+   ]
+  },
+  {
+   "name": "dm-bootrim-c3",
+   "nt": 864,
+   "bb_mm": [
+    -1353.405,
+    -25,
+    601.885,
+    -1236.885,
+    -9,
+    718.405
+   ]
+  },
+  {
+   "name": "dm-bootbowl-c3",
+   "nt": 216,
+   "bb_mm": [
+    -1351.405,
+    -33,
+    603.885,
+    -1238.885,
+    -19,
+    716.405
+   ]
+  },
+  {
+   "name": "dm-bootstitch-c3",
+   "nt": 12,
+   "bb_mm": [
+    -1.7,
+    -0.65,
+    -0.45,
+    1.7,
+    0.65,
+    0.45
+   ]
+  },
+  {
+   "name": "dm-bootskirt-c3",
+   "nt": 432,
+   "bb_mm": [
+    -1345.605,
+    -132.5,
+    609.685,
+    -1244.685,
+    -32.4,
+    710.605
+   ]
+  },
+  {
+   "name": "dm-boothem-c3",
+   "nt": 144,
+   "bb_mm": [
+    -1326.566,
+    -135.8,
+    628.724,
+    -1263.723,
+    -132.5,
+    691.566
+   ]
+  },
+  {
+   "name": "dm-returnshaft-c3",
+   "nt": 56,
+   "bb_mm": [
+    -1329.066,
+    -203.5,
+    626.224,
+    -1261.223,
+    -128.5,
+    694.066
+   ]
+  },
+  {
+   "name": "dm-returnfloor-c3",
+   "nt": 28,
+   "bb_mm": [
+    -1329.066,
+    -175,
+    626.224,
+    -1261.223,
+    -175,
+    694.066
+   ]
+  },
+  {
+   "name": "dm-bootcollar-c3",
+   "nt": 5080,
+   "bb_mm": [
+    -1383.105,
+    -13.8,
+    547.036,
+    -1182.036,
+    56.8,
+    748.105
+   ]
+  },
+  {
+   "name": "dm-shelfshadow-c3",
+   "nt": 152,
+   "bb_mm": [
+    -1387.104,
+    51.05,
+    544.208,
+    -1179.207,
+    51.05,
+    752.104
+   ]
+  },
+  {
+   "name": "dm-tongueao-c3",
+   "nt": 560,
+   "bb_mm": [
+    -1298.305,
+    0.2,
+    571.109,
+    -1206.109,
+    0.2,
+    663.305
+   ]
+  },
+  {
+   "name": "dm-falllip-s4",
+   "nt": 800,
+   "bb_mm": [
+    -59.6,
+    -4.8,
+    630.963,
+    59.6,
+    0,
+    750.163
+   ]
+  },
+  {
+   "name": "dm-bootrim-s4",
+   "nt": 864,
+   "bb_mm": [
+    -60.8,
+    -25,
+    629.763,
+    60.8,
+    -9,
+    751.363
+   ]
+  },
+  {
+   "name": "dm-bootbowl-s4",
+   "nt": 216,
+   "bb_mm": [
+    -58.8,
+    -33,
+    631.763,
+    58.8,
+    -19,
+    749.363
+   ]
+  },
+  {
+   "name": "dm-bootstitch-s4",
+   "nt": 12,
+   "bb_mm": [
+    -1.7,
+    -0.65,
+    -0.45,
+    1.7,
+    0.65,
+    0.45
+   ]
+  },
+  {
+   "name": "dm-bootskirt-s4",
+   "nt": 432,
+   "bb_mm": [
+    -53,
+    -132.5,
+    637.563,
+    53,
+    -32.4,
+    743.563
+   ]
+  },
+  {
+   "name": "dm-boothem-s4",
+   "nt": 144,
+   "bb_mm": [
+    -32.996,
+    -135.8,
+    657.567,
+    32.996,
+    -132.5,
+    723.559
+   ]
+  },
+  {
+   "name": "dm-returnshaft-s4",
+   "nt": 56,
+   "bb_mm": [
+    -35.496,
+    -203.5,
+    655.067,
+    35.496,
+    -128.5,
+    726.059
+   ]
+  },
+  {
+   "name": "dm-returnfloor-s4",
+   "nt": 28,
+   "bb_mm": [
+    -35.496,
+    -175,
+    655.067,
+    35.496,
+    -175,
+    726.059
+   ]
+  },
+  {
+   "name": "dm-bootcollar-s4",
+   "nt": 5080,
+   "bb_mm": [
+    -102,
+    -13.8,
+    670.563,
+    102,
+    56.8,
+    792.563
+   ]
+  },
+  {
+   "name": "dm-shelfshadow-s4",
+   "nt": 152,
+   "bb_mm": [
+    -106,
+    51.05,
+    670.563,
+    106,
+    51.05,
+    796.563
+   ]
+  },
+  {
+   "name": "dm-tongueao-s4",
+   "nt": 560,
+   "bb_mm": [
+    -72.757,
+    0.2,
+    598.963,
+    72.757,
+    0.2,
+    654.354
+   ]
+  },
+  {
+   "name": "dm-falllip-c5",
+   "nt": 800,
+   "bb_mm": [
+    1238.085,
+    -4.8,
+    603.085,
+    1352.205,
+    0,
+    717.205
+   ]
+  },
+  {
+   "name": "dm-bootrim-c5",
+   "nt": 864,
+   "bb_mm": [
+    1236.885,
+    -25,
+    601.885,
+    1353.405,
+    -9,
+    718.405
+   ]
+  },
+  {
+   "name": "dm-bootbowl-c5",
+   "nt": 216,
+   "bb_mm": [
+    1238.885,
+    -33,
+    603.885,
+    1351.405,
+    -19,
+    716.405
+   ]
+  },
+  {
+   "name": "dm-bootstitch-c5",
+   "nt": 12,
+   "bb_mm": [
+    -1.7,
+    -0.65,
+    -0.45,
+    1.7,
+    0.65,
+    0.45
+   ]
+  },
+  {
+   "name": "dm-bootskirt-c5",
+   "nt": 432,
+   "bb_mm": [
+    1244.685,
+    -132.5,
+    609.685,
+    1345.605,
+    -32.4,
+    710.605
+   ]
+  },
+  {
+   "name": "dm-boothem-c5",
+   "nt": 144,
+   "bb_mm": [
+    1263.724,
+    -135.8,
+    628.724,
+    1326.566,
+    -132.5,
+    691.566
+   ]
+  },
+  {
+   "name": "dm-returnshaft-c5",
+   "nt": 56,
+   "bb_mm": [
+    1261.224,
+    -203.5,
+    626.224,
+    1329.066,
+    -128.5,
+    694.066
+   ]
+  },
+  {
+   "name": "dm-returnfloor-c5",
+   "nt": 28,
+   "bb_mm": [
+    1261.224,
+    -175,
+    626.224,
+    1329.066,
+    -175,
+    694.066
+   ]
+  },
+  {
+   "name": "dm-bootcollar-c5",
+   "nt": 5080,
+   "bb_mm": [
+    1182.036,
+    -13.8,
+    547.036,
+    1383.105,
+    56.8,
+    748.105
+   ]
+  },
+  {
+   "name": "dm-shelfshadow-c5",
+   "nt": 152,
+   "bb_mm": [
+    1179.207,
+    51.05,
+    544.208,
+    1387.104,
+    51.05,
+    752.104
+   ]
+  },
+  {
+   "name": "dm-tongueao-c5",
+   "nt": 560,
+   "bb_mm": [
+    1206.109,
+    0.2,
+    571.109,
+    1298.305,
+    0.2,
+    663.305
+   ]
+  },
+  {
+   "name": "dm-spot-foot",
+   "nt": 20,
+   "bb_mm": [
+    628.2,
+    0.7,
+    -6.8,
+    641.8,
+    0.7,
+    6.8
+   ]
+  },
+  {
+   "name": "dm-sight-long-lh1",
+   "nt": 4,
+   "bb_mm": [
+    -328.5,
+    51,
+    -735.662,
+    -306.5,
+    51,
+    -721.662
+   ]
+  },
+  {
+   "name": "dm-sight-long-rh1",
+   "nt": 4,
+   "bb_mm": [
+    -328.5,
+    51,
+    721.663,
+    -306.5,
+    51,
+    735.663
+   ]
+  },
+  {
+   "name": "dm-sight-long-lh2",
+   "nt": 4,
+   "bb_mm": [
+    -646,
+    51,
+    -735.662,
+    -624,
+    51,
+    -721.662
+   ]
+  },
+  {
+   "name": "dm-sight-long-rh2",
+   "nt": 4,
+   "bb_mm": [
+    -646,
+    51,
+    721.663,
+    -624,
+    51,
+    735.663
+   ]
+  },
+  {
+   "name": "dm-sight-long-lh3",
+   "nt": 4,
+   "bb_mm": [
+    -963.5,
+    51,
+    -735.662,
+    -941.5,
+    51,
+    -721.662
+   ]
+  },
+  {
+   "name": "dm-sight-long-rh3",
+   "nt": 4,
+   "bb_mm": [
+    -963.5,
+    51,
+    721.663,
+    -941.5,
+    51,
+    735.663
+   ]
+  },
+  {
+   "name": "dm-sight-short-hl",
+   "nt": 4,
+   "bb_mm": [
+    -1370.662,
+    51,
+    -328.5,
+    -1356.662,
+    51,
+    -306.5
+   ]
+  },
+  {
+   "name": "dm-sight-short-fl",
+   "nt": 4,
+   "bb_mm": [
+    1356.663,
+    51,
+    -328.5,
+    1370.663,
+    51,
+    -306.5
+   ]
+  },
+  {
+   "name": "dm-sight-long-lf1",
+   "nt": 4,
+   "bb_mm": [
+    306.5,
+    51,
+    -735.662,
+    328.5,
+    51,
+    -721.662
+   ]
+  },
+  {
+   "name": "dm-sight-long-rf1",
+   "nt": 4,
+   "bb_mm": [
+    306.5,
+    51,
+    721.663,
+    328.5,
+    51,
+    735.663
+   ]
+  },
+  {
+   "name": "dm-sight-long-lf2",
+   "nt": 4,
+   "bb_mm": [
+    624,
+    51,
+    -735.662,
+    646,
+    51,
+    -721.662
+   ]
+  },
+  {
+   "name": "dm-sight-long-rf2",
+   "nt": 4,
+   "bb_mm": [
+    624,
+    51,
+    721.663,
+    646,
+    51,
+    735.663
+   ]
+  },
+  {
+   "name": "dm-sight-long-lf3",
+   "nt": 4,
+   "bb_mm": [
+    941.5,
+    51,
+    -735.662,
+    963.5,
+    51,
+    -721.662
+   ]
+  },
+  {
+   "name": "dm-sight-long-rf3",
+   "nt": 4,
+   "bb_mm": [
+    941.5,
+    51,
+    721.663,
+    963.5,
+    51,
+    735.663
+   ]
+  },
+  {
+   "name": "dm-sight-short-hr",
+   "nt": 4,
+   "bb_mm": [
+    -1370.662,
+    51,
+    306.5,
+    -1356.662,
+    51,
+    328.5
+   ]
+  },
+  {
+   "name": "dm-sight-short-fr",
+   "nt": 4,
+   "bb_mm": [
+    1356.663,
+    51,
+    306.5,
+    1370.663,
+    51,
+    328.5
+   ]
+  },
+  {
+   "name": "dm-sight-short-hc",
+   "nt": 4,
+   "bb_mm": [
+    -1370.662,
+    51,
+    -11,
+    -1356.662,
+    51,
+    11
+   ]
+  },
+  {
+   "name": "dm-sight-short-fc",
+   "nt": 4,
+   "bb_mm": [
+    1356.663,
+    51,
+    -11,
+    1370.663,
+    51,
+    11
+   ]
+  }
+ ]
+}

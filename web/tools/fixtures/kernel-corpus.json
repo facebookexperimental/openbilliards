@@ -1,0 +1,163 @@
+{
+ "_readme": [
+  "Gate G-KERNEL old-side capture (feature 012 T003, SC-003/FR-009).",
+  "Event-stream byte pins of every legacy-links.json scenario + the",
+  "committed pool-wasm break fixture, re-simulated on the pre-012",
+  "canonical wasm (0.1.0+5bd2803) at commit ce8f9db7b2f8657dee05aa392ac3f10996b56294.",
+  "events_sha256 = sha256 over JSON.stringify(record.events) — the",
+  "ECMAScript-normalized event-stream serialization (version-free, so",
+  "it must stay BYTE-IDENTICAL across the additive-only 012 kernel",
+  "rebuild). The pre-012 wasm binary + glue are archived at",
+  "web/tools/fixtures/pre012-wasm/ so e2e-share.mjs --corpus can",
+  "re-simulate the old side directly. DO NOT regenerate — this file is",
+  "the oracle for the 012 determinism cascade.",
+  "",
+  "FEATURE-018 DEFAULT FLIP REPIN (flip-cascade.md §3, 2026-07-11):",
+  "ONLY the pool-wasm-break-fixture entry moved — the kernel default",
+  "cluster model flipped to CompliantChain (commit 3856cb9), so the",
+  "fixture’s default event stream legitimately changed (114 → 195",
+  "events; honest diff, NOT additive). The 13 legacy-links pins are",
+  "version-pinned to their own kernels and DID NOT move. Four of them",
+  "(the sessions’ break shots: v1-default-two-shots#0,",
+  "v2-grip-worn-foul-bih#0, v2-mathavan-default-cloth#0,",
+  "v3-full-equipment-foul-bih#0) also",
+  "diverge under the flipped default — e2e-share.mjs --corpus admits a",
+  "divergence ONLY when the EXPLICIT SequentialImpulse scenario on the",
+  "new wasm reproduces the pinned stream byte-identically, proving the",
+  "delta is attributable exactly to the flipped cluster default and the",
+  "legacy resolver is untouched (research R12). The break-fixture entry",
+  "keeps pre_flip_events_sha256 so the arm also proves the archived",
+  "pre-012 wasm still reproduces the old stream. The (old, new) kernel",
+  "pair is NOT in KERNEL_COMPAT_LINEAGE: byte identity cannot be proven",
+  "for break records, so cross-version opens show the standard warning +",
+  "view-anyway (generalization-audit row 12 posture).",
+  "",
+  "ISSUE-87 SLIP-LAW REPIN (2026-07-22, refs #77 #83 #87): ONLY the",
+  "pool-wasm-break-fixture entry moved again — the ball-ball slip-branch",
+  "friction impulse was corrected to the (1+e_b)/2 Coulomb cap (#77,",
+  "default BallBallSlipLaw::CoulombCap) and the Stronge terminal",
+  "stick→slip root selection was made continuous in incidence (#83,",
+  "default StrongeSlipSelect::FirstCrossing), so the fixture’s default",
+  "event stream legitimately changed (195 → 189 events; honest diff).",
+  "The pre-#77 default stream is RETAINED as pre_77_events_sha256 /",
+  "pre_77_n_events (018-flip discipline): the NEW kernel reproduces it",
+  "byte-identically with the explicit legacy pin",
+  "ball_ball_slip_law: PostImpactNormalDelta (Han2005 cushion — #83 is",
+  "not in play for this fixture; StrongeCompliant scenarios additionally",
+  "pin slip_select: LegacyBracket). The 13 legacy-links pins are",
+  "version-pinned to their own kernels and DID NOT move. The four",
+  "sessions’ break shots (v1-default-two-shots#0, v2-grip-worn-foul-bih#0,",
+  "v2-mathavan-default-cloth#0, v3-full-equipment-foul-bih#0) diverge",
+  "additionally under the corrected slip law — e2e-share.mjs --corpus",
+  "admits each divergence ONLY when the EXPLICIT legacy-options scenario",
+  "(SequentialImpulse + Planar + PostImpactNormalDelta + LegacyBracket",
+  "where StrongeCompliant) on the new wasm reproduces the pinned stream",
+  "byte-identically (proven 5/5 at the repin; the slip-only pins",
+  "PostImpactNormalDelta/LegacyBracket also reproduce the pre-fix",
+  "0.1.0+b40cc77 DEFAULT streams byte-identically — the delta is",
+  "attributable exactly to #77/#83). The (old, new) kernel pair stays out",
+  "of KERNEL_COMPAT_LINEAGE (ballball-slip-cap-compat.md (internal)).",
+  "#789 LEGACY ENTRY v7-retired-table-id-b6b5dc3f: event-stream pins of its scenarios computed on the build-18 canonical wasm 0.1.0+b6b5dc3f (own-kernel: capture_kernel_version routes each pin to the archived web/tools/fixtures/b6b5dc3f-wasm) (gen-legacy-corpus.mjs --kernel-corpus pin formula), inserted before the break fixture"
+ ],
+ "captured_commit": "ce8f9db7b2f8657dee05aa392ac3f10996b56294",
+ "captured_at": "2026-07-09T05:15:09.330Z",
+ "kernel_version": "0.1.0+5bd2803",
+ "scenarios": [
+  {
+   "name": "v1-realistic-foul-bih#0",
+   "scenario_sha256": "be63b511702c3b4cac54ed0e52f0cb05b8ffafe3525724b72c422249bcf05d24",
+   "events_sha256": "931b16af835ae7017b3d2d68af12f24ea5a67dfd0a39136bcb573995c2e75869",
+   "n_events": 7
+  },
+  {
+   "name": "v1-realistic-foul-bih#1",
+   "scenario_sha256": "90b7d63a6412ef27ca15d44e27bc552aa27ae180d775e4fdfb43734a01d3a3ff",
+   "events_sha256": "62405d90bd00456119d66cb1f630092463dcbf0b43860fa5f9fa48ed72624ccf",
+   "n_events": 4
+  },
+  {
+   "name": "v1-realistic-foul-bih#2",
+   "scenario_sha256": "6ecccf38766b5a62def613b8b36a83ed558cec4f7fe43ad34b3ff54c33704082",
+   "events_sha256": "c2e2972610c1486729a22f383fb2caf539fb589e83b4de88828c24d226fc475a",
+   "n_events": 9
+  },
+  {
+   "name": "v1-default-two-shots#0",
+   "scenario_sha256": "219abafeef1f637bf48618e3c0352f3061e5e00fad172d2a311fd04c6611f6e9",
+   "events_sha256": "817b0fc8bad0b6fc1e92cedd6308189e05a5d67c33c0f58d5729e4d3003a08f7",
+   "n_events": 73
+  },
+  {
+   "name": "v1-default-two-shots#1",
+   "scenario_sha256": "5786e985a17ff3de019fece56db6d1ef13a6a7c81e7b66e6e507f1ec426aecde",
+   "events_sha256": "f51cd8030c5387525c65338f44be6af9ff2ea78cf47fbb480078cc6710555d98",
+   "n_events": 10
+  },
+  {
+   "name": "v2-grip-worn-foul-bih#0",
+   "scenario_sha256": "d026eb626a900f33a8057fd1d0c736f9de2c8af61a44cc1af67ca07c83930b3c",
+   "events_sha256": "5975ff1b9dc6ee614ed4dd13b4705cad0dcce1658c50ed53af120f58f4698327",
+   "n_events": 36
+  },
+  {
+   "name": "v2-grip-worn-foul-bih#1",
+   "scenario_sha256": "edbdf04f22754f499fe0cfd61d74b06dc410c2029be0d0fda6ff271f5f0165de",
+   "events_sha256": "e4338ac647f4ffdb35446c5514a21abe8ec64c8e2d98fb954200f4d2944694a5",
+   "n_events": 4
+  },
+  {
+   "name": "v2-grip-worn-foul-bih#2",
+   "scenario_sha256": "067643dbc7646befb277373f5e15c2ede83374b6adb6432db70547c86b1e92d5",
+   "events_sha256": "39fc5f8b4e79093ed9e0c1ec6aebec5e607a1802c838deb00c631e8a2f448e16",
+   "n_events": 6
+  },
+  {
+   "name": "v2-mathavan-default-cloth#0",
+   "scenario_sha256": "cda519800f51ec2c6b8ff5cdeeeda9e999a112928621b63028cec3e47e734613",
+   "events_sha256": "53454a4e031b6a89e5f7ab45c5d1aa6d3b5b22919aacabf83f0c53347256efbe",
+   "n_events": 74
+  },
+  {
+   "name": "v2-mathavan-default-cloth#1",
+   "scenario_sha256": "90562ee02e5a38efec6da5dad4b431e957d81eaed04718aa6d1b03b562d71def",
+   "events_sha256": "4f481a8ff181e1b1a8a453e474d6d02a59de8362b04892f5eab86ace21faf5a2",
+   "n_events": 6
+  },
+  {
+   "name": "v3-full-equipment-foul-bih#0",
+   "scenario_sha256": "aae41102873264e86f35f6f8cd7259abbabad9bb7cf9804e3e86ae5cfd0f2aa1",
+   "events_sha256": "a3c9ed31800ae2fca0cd0795f881dea1d9abf4f574a2dacbcd1afdfc3f8ebc26",
+   "n_events": 64
+  },
+  {
+   "name": "v3-full-equipment-foul-bih#1",
+   "scenario_sha256": "8f1f5c80985418b5f1fbfeeef3b81fa1a6e3518c88250dde4d82bfc214bcd8ef",
+   "events_sha256": "b10e34bef21b18eec4ac1f8a4afa135a8aeb00c0c61ac9d4e4c790aa7401e246",
+   "n_events": 4
+  },
+  {
+   "name": "v3-full-equipment-foul-bih#2",
+   "scenario_sha256": "594926aa3dae1b66240acb7924c663ead6553b45e998fec42ce0436571569d31",
+   "events_sha256": "7c8d32ed3696f51927059edf4f11ee86b5a7b84da4ccf41ccbdcb7e1e72c2bba",
+   "n_events": 32
+  },
+  {
+   "name": "v7-retired-table-id-b6b5dc3f#0",
+   "scenario_sha256": "1e65e271ba74f40d15b33eac122573a592138174e81e77694674c3cfb8f05492",
+   "events_sha256": "231e62ffe8ec741edf326f5f6a6e091eeff168d5e98f2093f09207ff92eea2fe",
+   "n_events": 10,
+   "capture_kernel_version": "0.1.0+b6b5dc3f"
+  },
+  {
+   "name": "pool-wasm-break-fixture",
+   "scenario_sha256": "86b26946dbdcc5f551c985ff72f81e5602d2e7e3b44f05da2fdfebb42f479987",
+   "events_sha256": "9ab60f33731bcab6061baf7f4888350a878b6ef3f752b80b9479a67b4ce3e904",
+   "n_events": 189,
+   "pinned_kernel_version": "0.1.0+snapshot",
+   "pre_flip_events_sha256": "cd3ddc4c71be75820ada1623dca4589dc7d20d3fe85b230584679ea55f347555",
+   "pre_flip_n_events": 114,
+   "pre_77_events_sha256": "6da2f3faf595a1aa7440650e77e5d37675c02fbebd8e11ec9e2e8c704102264f",
+   "pre_77_n_events": 195
+  }
+ ]
+}

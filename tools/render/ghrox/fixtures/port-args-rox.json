@@ -1,0 +1,17 @@
+{
+  "valid": [
+    { "name": "non-port arguments remain intact", "args": ["--out", "result.json", "--shots", ""], "expected": ["--out", "result.json", "--shots", ""] },
+    { "name": "legacy HTTP alias feeds the canonical shared role", "args": ["--http", "52180", "--cdp", "52181"], "expected": ["--port", "52180", "--cdp", "52181"] },
+    { "name": "equals forms reach the same readers", "args": ["--http=52180", "--cdp=52181"], "expected": ["--port", "52180", "--cdp", "52181"] },
+    { "name": "canonical shared flags need no alias", "args": ["--port", "52180", "--cdp", "52181"], "expected": ["--port", "52180", "--cdp", "52181"] }
+  ],
+  "invalid": [
+    { "name": "duplicate aliases refuse", "args": ["--http", "52180", "--port", "52181"], "message": "duplicate --port" },
+    { "name": "duplicate CDP refuses", "args": ["--cdp", "52180", "--cdp=52181"], "message": "duplicate --cdp" },
+    { "name": "missing value refuses", "args": ["--http"], "message": "requires an integer port" },
+    { "name": "fractional value refuses", "args": ["--http", "52180.5"], "message": "requires an integer port" },
+    { "name": "shared lower bound refuses", "args": ["--http", "1023"], "message": "ports are 1024..65535" },
+    { "name": "shared upper bound refuses", "args": ["--cdp", "65536"], "message": "ports are 1024..65535" },
+    { "name": "unknown port role refuses in shared library", "args": ["--unlisted-port", "52180"], "message": "declares no role" }
+  ]
+}

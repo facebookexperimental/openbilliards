@@ -1,0 +1,230 @@
+% ===========================================================================
+% main.tex — OpenBilliards simulator paper, venue-agnostic LaTeX master
+%
+% The registered results are those of the 0.1.0+fb3425ad battery; checks
+% on later canonical stamps state their stamp. Section "Reproducibility"
+% states what the public repository can and cannot reproduce.
+%
+% CLASS PROVENANCE: elsarticle.cls is Elsevier's official article class,
+% distributed on CTAN under LPPL 1.2 (not vendored into this repo; supplied
+% by the TeX distribution — TeX Live / tectonic bundle). The target venue,
+% SIMPAT (Simulation Modelling Practice and Theory, Elsevier), accepts
+% elsarticle; we build in single-column double-spaced review mode
+% ([review,12pt]), switching to the production options (1p/3p/5p) only at
+% acceptance. An IEEE Transactions on Games version would require
+% retargeting to IEEEtran.
+%
+% BUILD: `make` in this directory (latexmk preferred; tectonic fallback;
+% raw pdflatex+bibtex fallback in the Makefile) builds main.pdf AND
+% supplement.pdf (the declared Supplementary Material document,
+% supplement-main.tex — provenance map, reproduction mechanics, model
+% equations, extended group B/D results, full predicted-shift table).
+% Gate: `make check` (both documents).
+% ===========================================================================
+\documentclass[review,12pt,authoryear]{elsarticle}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+% narrow ragged-right p-columns for the capability matrix (tab:engines)
+\usepackage{array}
+% \RaggedRight for narrow prose p-columns (keeps hyphenation, kills
+% justification rivers) — table typography
+\usepackage{ragged2e}
+% landscape rotation for the two wide provenance/domain tables
+% (tab:models, tab:domains); pdflscape is the single sanctioned landscape
+% mechanism repo-wide and is longtable-compatible
+\usepackage{pdflscape}
+\usepackage{url}
+\usepackage{lineno}
+\modulolinenumbers[5]
+% Long unbreakable typewriter tokens (hashes, model IDs) need extra
+% justification headroom or their lines go overfull into the margin and
+% clip.
+\setlength{\emergencystretch}{3em}
+% Navigation for the long review-mode manuscript: clickable cross-refs,
+% citations, and a PDF bookmark tree. hyperref loads last per convention;
+% muted link color keeps print output readable.
+\usepackage{xcolor}
+\definecolor{obLink}{RGB}{28,60,138}
+% (pdfusetitle omitted: it conflicts with elsarticle's author machinery)
+\usepackage[colorlinks=true, allcolors=obLink, bookmarksnumbered=true,
+            bookmarksopen=true, bookmarksopenlevel=1]{hyperref}
+
+\journal{Simulation Modelling Practice and Theory}
+% The paper has not been submitted: the first-page footer reads
+% "Preprint" instead of elsarticle's "Preprint submitted to <journal>".
+\makeatletter
+\def\ps@pprintTitle{%
+  \let\@oddhead\@empty
+  \let\@evenhead\@empty
+  \def\@oddfoot{\footnotesize\itshape Preprint\hfill\today}%
+  \let\@evenfoot\@oddfoot}
+\makeatother
+
+% --------------------------------------------------------------------------
+% Manuscript macros
+% --------------------------------------------------------------------------
+% \figstub{slot}{file.pdf}{caption}{label}
+%   Figure-slot contract: each figure is a file figures/F<n>.pdf;
+%   \IfFileExists picks the graphic up, and a framed placeholder renders
+%   in its place if the file is missing. Slot namespace note: figure slots
+%   F0-F14 are distinct from experiment IDs F1-F3 (kinematics group); prose
+%   always disambiguates as "slot F13" vs "experiment F1".
+%   PRINT CONTRACT: every PDF is authored at
+%   its declared final width (7.0 in full-width / 3.5 in single-column)
+%   with a 7 pt minimum text size, and is included here at NATURAL size --
+%   no \includegraphics downscaling, so printed text size equals authored
+%   text size. \makebox centers artwork wider than the review-mode text
+%   block (390 pt) without overfull-hbox noise; production column widths
+%   are >= the authored widths, so no build downsizes the artwork.
+%   Captions are set \small at near-production leading (setspace stretch
+%   1.05) so a final-size figure plus its caption fits the review-mode
+%   float page (548 pt text height); the review build's double spacing
+%   applies to body text only.
+\newcommand{\figstub}[4]{%
+\begin{figure}[htbp]
+  \centering
+  \IfFileExists{figures/#2}{%
+    \makebox[\linewidth][c]{\includegraphics{figures/#2}}%
+  }{%
+    \fbox{\parbox[c][0.28\linewidth][c]{0.88\linewidth}{\centering
+      \textbf{Figure slot #1} --- placeholder\\[2pt]
+      \texttt{\detokenize{figures/#2}} (figure file missing)}}%
+  }
+  {\def\baselinestretch{1.05}\small
+   \caption{#3}\label{fig:#4}}
+\end{figure}}
+
+% Experiment/battery shorthand
+\newcommand{\expid}[1]{\textsf{#1}}
+\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
+
+\begin{document}
+
+\begin{frontmatter}
+
+% Venue note (build-time only, not manuscript content): the project name
+% would be masked for a double-anonymous venue.
+\title{OpenBilliards: a validated, bit-exact event-driven simulator for
+cue-sports mechanics, with a systematic assessment of the empirical laws of
+pool}
+
+\author{OpenBilliards contributors}
+
+\begin{abstract}
+To our knowledge, this paper presents the first systematic
+domains-of-validity assessment of the empirical laws of pool---the
+$30^\circ$ and $90^\circ$ rules, the throw, squirt, and swerve laws,
+gearing english, the ten-times-fuller and trisect systems, and the
+bank/kick diamond systems. The instrument is OpenBilliards, a validated
+event-driven analytic rigid-body simulator for cue-sports mechanics
+whose shipped WebAssembly binary is bit-exact across tested platforms at
+sub-millisecond typical per-shot cost and serves as the paper's
+normative physics definition. A battery of 24
+experiments, internally registered as frozen designs before any sweep
+ran,
+executed 16{,}933 recorded simulations, distilled into 25 byte-stable
+pinned outputs that include a cross-simulator oracle run against the
+open simulator pooltool. Results are reported in ASME V\&V~20
+vocabulary---comparison error $E = S - D$ with validation uncertainty
+$u_{\mathrm{val}}$---with every anchor classified as measured datum,
+derived reference form, or practitioner lore (``validated'' claims rest
+on the measured class), and every registered-band miss is recorded in a
+machine-readable waiver ledger (38 rows, seven of them registered-band
+misses) rather than silently re-tuned.
+Two headline findings illustrate the method. The trisect ``$3\times$
+cut'' rule is exact only at its half-ball calibration point: the
+measured ratio declines from 3.99 to 2.59 over $5$--$45^\circ$ cuts and
+stays within 10\% of 3 only for $22.5$--$40^\circ$ cuts. The battery
+also uncovered two inherited defects in our own kernel---a ball--ball
+slip-impulse law leaving slip-regime throw about 2.6\% low, and a
+discontinuous cushion rebound-branch selection shifting bank arrivals
+by up to 0.85 diamonds---each fixed and confirmed by predicted-shift
+verification. Every figure regenerates from pinned outputs whose physics
+is proven identical to the shipped canonical binary: all 16{,}933
+recorded simulations replay through that binary with stamp-normalized
+trajectory-digest equality (16{,}933/16{,}933), and successful
+reproduction is defined by hash equality. The kernel source is public
+under the MIT license, with the portions derived from pooltool under the
+Apache License~2.0; the canonical kernel revision of this paper, the
+experiment harness, and the pinned outputs are not part of that release.
+\end{abstract}
+
+\begin{keyword}
+cue sports \sep billiards \sep event-driven simulation \sep verification and
+validation \sep reproducibility \sep multibody impact \sep WebAssembly
+determinism
+\end{keyword}
+
+\end{frontmatter}
+
+% Review-copy navigation aid for the full-length manuscript;
+% remove at production if the journal's typesetting objects.
+\tableofcontents
+\clearpage
+
+
+\linenumbers
+
+% ---------------------------------------------------------------------------
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-simulator}
+\input{sections/04-methodology}
+\input{sections/05-results}
+\input{sections/06-cross-simulator}
+\input{sections/07-reproducibility}
+\input{sections/08-limitations}
+\input{sections/09-future-work}
+\input{sections/10-acknowledgments}
+
+% ---------------------------------------------------------------------------
+% Supplementary material declaration: the appendices compile into a
+% separate supplement.pdf (supplement-main.tex; `make supplement`).
+% Main-text pointers below are prose ("Section S<n>"), never \ref: the
+% labels live in the other PDF.
+\section*{Supplementary material}
+\label{sec:supplementary}
+
+Supplementary material associated with this article is distributed as a
+separate Supplementary Material document, built from the same sources
+(sections numbered S1--S6).
+
+\emph{Section~S1 (data provenance)} maps every figure and table of this
+paper to its experiment ID, pinned output hash (SHA-256 prefix), and
+registered source, and derives the abstract's 16{,}933-simulation count
+from the replay corpus.
+
+\emph{Section~S2 (tier-1 reproduction mechanics)} states the artifact
+bundle inventory, the five-step reproduction procedure, the
+physics-identity checker semantics, the reproducibility caveats, and the
+licensing terms summarized in Section~\ref{sec:reproducibility}.
+
+\emph{Section~S3 (governing equations and frozen constants)} reproduces
+the complete governing equations of every model-catalog row of
+Table~\ref{tab:models}, with each source's deviations itemized and every
+frozen constant consolidated with units and provenance.
+
+\emph{Section~S4 (extended results, groups B and D)} carries the
+per-experiment result prose for the stick--ball and curved-path groups,
+whose summary tables and non-obvious findings remain in
+Sections~\ref{sec:results-b} and~\ref{sec:results-d}.
+
+\emph{Section~S5 (predicted-shift verification)} transcribes the full
+seven-class predicted-shift table behind the two-row extract of
+Section~\ref{sec:oracle} (Table~\ref{tab:predicted-shifts}).
+
+\emph{Section~S6 (video-artifact presentation methods)} documents the
+deterministic time-remap and shutter synthesis behind the artifact
+bundle's validated-scenario video pack
+(Section~\ref{sec:reproducibility}); the videos present
+already-verified kernel records, and no claim of this paper rests on
+them.
+
+% ---------------------------------------------------------------------------
+\bibliographystyle{elsarticle-harv}
+\bibliography{references}
+
+\end{document}

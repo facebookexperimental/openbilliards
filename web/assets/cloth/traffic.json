@@ -1,0 +1,200 @@
+{
+  "tool": "tools/derive-cloth-traffic.mjs",
+  "kernel": "0.1.0+6adb7fd9",
+  "rules": {
+    "ruleset": "nineball-v1",
+    "artifact": "web/dist/pool-rules (committed)",
+    "version": "0.1.10+6adb7fd9",
+    "authority": "WPA \"Rules of Play\" eff. 2025-09-15 (clause audit: docs/research/rules-audit/audit-9ball.md)",
+    "overlay": "WPA 3.5 ball-driven-off-the-table foul, absent from v1 (audit-9ball.md §6) — applied here"
+  },
+  "grid": {
+    "nx": 128,
+    "ny": 256,
+    "width_m": 1.27,
+    "length_m": 2.54,
+    "cell_mm": 9.922,
+    "blur_sigma_cells": 2.88,
+    "blur_sigma_mm": 28.575
+  },
+  "encoding": "RGBA8, R=abrasion G=deposit, sqrt-encoded (v = s*s), row 0 = foot rail",
+  "ensemble": {
+    "racks": 32,
+    "break": {
+      "cue_x_m": {
+        "law": "uniform, stratified at stratum centres",
+        "support_m": [
+          -0.606424,
+          0.606424
+        ],
+        "support_cite": "the shipped kitchen clamp, web/app/game.js placeCue (|x| <= LX/2 - R - eps); WPA 2.1/3.10 head-string rights",
+        "shape_cite": "NONE — stated-ignorance prior over the cited support",
+        "strata": 22,
+        "stratum_rule": "comb ripple <= 0.01 against the bake blur (sigma = 28.575 mm)",
+        "spacing_mm": 55.129,
+        "residual_ripple": 0.009952,
+        "centres_m": [
+          -0.578859,
+          -0.52373,
+          -0.4686,
+          -0.413471,
+          -0.358341,
+          -0.303212,
+          -0.248083,
+          -0.192953,
+          -0.137824,
+          -0.082694,
+          -0.027565,
+          0.027565,
+          0.082694,
+          0.137824,
+          0.192953,
+          0.248083,
+          0.303212,
+          0.358341,
+          0.413471,
+          0.4686,
+          0.52373,
+          0.578859
+        ]
+      },
+      "fullness_m": {
+        "law": "uniform, stratified at stratum centres",
+        "support_m": [
+          -0.0142875,
+          0.0142875
+        ],
+        "support_cite": "examples/paper/exp_e3_break.py:150-153 FULLNESS — square (0) to quarter_off (R/2, a 3/4-full hit, cut angle asin(0.25) ~ 14.5 deg, HSV 7.7); signed here",
+        "shape_cite": "NONE — stated-ignorance prior over the cited support",
+        "strata": 6,
+        "stratum_rule": "comb ripple <= 0.01 against the ICGA aim error read at the apex (sigma = 2.771 mm)",
+        "spacing_mm": 4.763,
+        "residual_ripple": 0.002509,
+        "centres_m": [
+          -0.011906,
+          -0.007144,
+          -0.002381,
+          0.002381,
+          0.007144,
+          0.011906
+        ]
+      },
+      "ball_speed_ms": {
+        "law": "uniform, continuous",
+        "support_ms": [
+          10.729,
+          13.4112
+        ],
+        "support_cite": "docs/research/gap-break-multibody.md:35 (24 mph) and break-cueball-rebound-evidence.md:55 (Dr. Dave, 30 mph)",
+        "shape_cite": "NONE — stated-ignorance prior over the cited support"
+      },
+      "aim_error_deg": {
+        "law": "gaussian, zero mean",
+        "sigma_deg": 0.125,
+        "cite": "ICGA skill model 1x — Archibald, Altman & Shoham, AAMAS 2010 Sec 2.2.1; adopted as canonical in rl-agent-program.md:840, units verified at :3837.  1x is CONSERVATIVE for a break."
+      },
+      "tip_a_r": {
+        "law": "gaussian",
+        "mean_r": 0,
+        "sigma_mm": 0.5,
+        "cite": "intended 0 (no citation exists for deliberate sidespin on a break); sigma = ICGA sigma_a"
+      },
+      "tip_b_r": {
+        "law": "gaussian",
+        "mean_r": -0.15,
+        "sigma_mm": 0.5,
+        "cite": "mean = the shipped break gate pin, exp_e3_break.py:155-157 (HSV B.43 scenario 1, \"stun (very slight draw)\"); sigma = ICGA sigma_b"
+      },
+      "elevation_deg": {
+        "law": "fixed 0",
+        "cite": "ICGA sigma_theta = 0.1 deg NOT applied — this ensemble models no cue elevation anywhere, and elevating the break alone would make it the only elevated stroke in the field"
+      },
+      "sequence": "Halton radical inverse, bases 2 (speed), 3+5 and 7+11 (Box-Muller pairs for the normals); index = (seed * break-x strata + xi) * fullness strata + fi, so a disjoint rack-seed block moves the execution axes too",
+      "sequence_independence": "NOT independent between batches. Halton here is deterministic and unscrambled, so disjoint seed blocks are disjoint index ranges of one sequence, with no randomisation and therefore no sampling distribution: \"standard error\" is undefined for them, not merely optimistic. A two-batch diff measures how far apart those two specified blocks land and bounds the integration error in NEITHER direction. Estimating an error needs several randomised QMC replicates (Owen scrambles or Cranley-Patterson shifts) with the spread taken across them — several, not one: R1 followup, not implemented. The rack axis is exempt — micro-gaps come from the kernel seeded generator.",
+      "games": 4224
+    },
+    "play_ball_speed_ladder_ms": [
+      0.6706,
+      1.0014,
+      1.9938,
+      3.6479,
+      5.9635,
+      8.9408
+    ],
+    "shots": 41316,
+    "potted": 24304,
+    "missed": 12788,
+    "rejected": 0,
+    "breaks": 4224,
+    "nine_legal_rack_over": 3450,
+    "nine_fouled_and_spotted": 609,
+    "fouls": {
+      "ball-off-table (WPA 3.5 overlay)": 185,
+      "no-contact": 31,
+      "no-rail-after-contact": 2,
+      "scratch": 4155,
+      "wrong-first-ball": 4402
+    },
+    "foul_cites": {
+      "no-contact": "WPA 3.3",
+      "wrong-first-ball": "WPA 3.2",
+      "no-rail-after-contact": "WPA 3.3",
+      "scratch": "WPA 3.1",
+      "ball-off-table (WPA 3.5 overlay)": "WPA 3.5 (overlay, see rules.overlay)"
+    },
+    "off_table_shots": 185,
+    "rule_35_overlay_fouls": 158,
+    "off_table_already_foul_under_v1": 27,
+    "rule_35_overlay_changed_nine": 0
+  },
+  "invariants": {
+    "shot_accounting": "24304 potted + 12788 missed + 0 rejected + 4224 breaks = 41316 shots",
+    "shot_accounting_ok": true,
+    "racks_checked": 4224,
+    "rack_worst_gap_mm": 0.0005,
+    "rack_worst_cushion_clearance_mm": 27.5657,
+    "respots_legal": 609,
+    "respots_no_room": 0,
+    "respot_predicate": "pool-sdk rules/respot.js placementFits (WPA 1.5 order, r/4 steps, PLACE_CLEARANCE daylight)",
+    "break_draw": {
+      "ball_speed_ms": {
+        "mean": 12.069477,
+        "sd": 0.774281,
+        "min": 10.729327,
+        "max": 13.410545
+      },
+      "aim_error_deg": {
+        "mean": -0.00013,
+        "sd": 0.124917,
+        "min": -0.524073,
+        "max": 0.415011
+      },
+      "tip_a_r": {
+        "mean": -0.000002,
+        "sd": 0.017537,
+        "min": -0.063516,
+        "max": 0.060513
+      },
+      "tip_b_r": {
+        "mean": -0.150005,
+        "sd": 0.017512,
+        "min": -0.218231,
+        "max": -0.088258
+      },
+      "cited_sigma": {
+        "aim_error_deg": 0.125,
+        "tip_a_r": 0.017498,
+        "tip_b_r": 0.017498
+      }
+    }
+  },
+  "derived": {
+    "abrasion_mean_over_peak": 0.398888,
+    "deposit_mean_over_peak": 0.627906,
+    "cue_ball_only_deposit_pearson_r": 0.5228,
+    "tau_slide_check_slides": 408623,
+    "tau_slide_check_worst_s": 8.882e-16
+  },
+  "pixels_sha256": "eb30fdc2f7949cdc72181e1d8391729ecd9829896496e186ba2faefb3f0aa9fb",
+  "sha256": "076f8bb7f776245cae3b49531f1287979e341ca41ef15706fc33cd9ac50b7665"
+}

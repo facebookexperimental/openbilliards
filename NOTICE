@@ -1,0 +1,22 @@
+OpenBilliards
+Copyright (c) Meta Platforms, Inc. and affiliates.
+
+This software contains third-party components:
+
+- pooltool (https://github.com/ekiefl/pooltool), Copyright (c) Evan Kiefl
+  and contributors, Apache License 2.0. Parts of the physics kernel are
+  derived from pooltool: translated from Python to Rust and JavaScript and
+  modified. The derived portions remain under the Apache License 2.0.
+  Licence text: web/vendor/LICENSE-Apache-2.0.txt; notice:
+  web/vendor/NOTICE-pooltool.txt; derived files: THIRD_PARTY_NOTICES.md.
+- three.js r170 (MIT) — 3D rendering. https://threejs.org
+- mp4-muxer 5.2.2 (MIT), webm-muxer 5.1.4 (MIT) — video export containers.
+- Inter, Space Grotesk fonts (SIL Open Font License 1.1).
+- Rust crates and the Rust standard library compiled into the WebAssembly
+  binaries, under MIT or MIT-compatible terms: their versions and notices,
+  verbatim, are in web/vendor/LICENSE-rust-crates.txt. The optional Python
+  bindings also link pyo3 (MIT OR Apache-2.0) and rust-numpy (BSD).
+
+Full texts and per-file inventory: web/vendor/LICENSES.md,
+THIRD_PARTY_NOTICES.md and the LICENSE files alongside each vendored
+component.

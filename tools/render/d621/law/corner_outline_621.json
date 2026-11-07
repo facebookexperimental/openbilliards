@@ -1,0 +1,4587 @@
+{
+  "schema": "d621-corner-outline-fit/1",
+  "tag": "DERIVED",
+  "method": "Horizontal triangle sections, fixed model datum, outward support line then TLS; no ICP, scale or circle fit for the chamfer.",
+  "source": {
+    "obj_files": [
+      {
+        "name": "pool_kant01",
+        "file": "node_2031_pool_kant01.obj",
+        "sha256": "606e387d3be495138db6e40b73957b785d0401fe21826fe6b483913a255a97eb"
+      },
+      {
+        "name": "pool_kant02",
+        "file": "node_2009_pool_kant02.obj",
+        "sha256": "cd79585b617bf7bc3d8e77900c0a4321293e95598efb144322c539d1c938dd1b"
+      },
+      {
+        "name": "pool_kant03",
+        "file": "node_2020_pool_kant03.obj",
+        "sha256": "3398145cb9d8839753b7bf59a699523ee2a03b5393a591beaf1801852279b0a7"
+      },
+      {
+        "name": "pool_kant04",
+        "file": "node_1013_pool_kant04.obj",
+        "sha256": "3533ed34afba533c09218a7d0bb9192e8b7fe4210fe9337876fffc1153b87505"
+      },
+      {
+        "name": "pool_kant05",
+        "file": "node_1024_pool_kant05.obj",
+        "sha256": "ef755e27883856f839349bbe752fa27e7306cf34e9b39e6a97c162612420346b"
+      },
+      {
+        "name": "pool_kant06",
+        "file": "node_1035_pool_kant06.obj",
+        "sha256": "e94d5ecf7dc9393ac57b3b57578964ead26b9dcc44ecb23425a97bddb2f05a22"
+      },
+      {
+        "name": "pool_kant07",
+        "file": "node_0917_pool_kant07.obj",
+        "sha256": "ce0f87eca7d2b30fd32696679b599c37a29982ea8cbd235370849f28f85ce6bc"
+      },
+      {
+        "name": "pool_kant08",
+        "file": "node_0932_pool_kant08.obj",
+        "sha256": "0f4dc53c695b3d1d88dca77bacdf22676d87dbfa2deecce7449c91540e18257a"
+      },
+      {
+        "name": "pool_kant09",
+        "file": "node_0950_pool_kant09.obj",
+        "sha256": "28386c95d86d780c59414a600c5f86fbf3d95ce2563843810e87b07352dcd10b"
+      },
+      {
+        "name": "pool_kant10",
+        "file": "node_0961_pool_kant10.obj",
+        "sha256": "766f1697e4c3d6c546fc09eb459e0bed72fe98ce66f87b8b15985f8b6da3dfa9"
+      },
+      {
+        "name": "pool_kant_side01",
+        "file": "node_0900_pool_kant_side01.obj",
+        "sha256": "d2bc6ebf2b55a5b6299a21c51cf4de3526022699c821344ef3703998b10d28dd"
+      },
+      {
+        "name": "pool_kant_side02",
+        "file": "node_1904_pool_kant_side02.obj",
+        "sha256": "a702502b4f37e18fefcbec08578358e1d846df056eb322a9d1fb569b501994db"
+      },
+      {
+        "name": "pool_kant_support",
+        "file": "node_2045_pool_kant_support.obj",
+        "sha256": "9de6fd2562e092e3aed6d053f075b0f81809aa1542fec9d0074e457efb46c902"
+      }
+    ],
+    "units": "mm",
+    "up": "Z",
+    "bed_z_mm": 770.0,
+    "cap_outer_half_extents_mm": [
+      1330.743,
+      754.743
+    ],
+    "modifier_status": "TurboSmooth unapplied on caps. C7 CROSS-CHECK accepts the straight PLAN dimensions; radii are estimates.",
+    "max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+    "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e"
+  },
+  "records": [
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 770.001,
+      "above_bed_mm": 0.0009999999999763531,
+      "outer_x_mm": 1315.490162992331,
+      "outer_y_mm": 739.4901629923311,
+      "virtual_chamfer_leg_mm": 68.22255716411019,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071058120066689,
+          0.7071077503650978
+        ],
+        "intercept_mm": 1404.8488981852477,
+        "angle_deg": -44.9999214688926,
+        "span_mm": 96.48267764352187,
+        "rms_mm": 0.00033910935749246584,
+        "max_mm": 0.0004705199843257901
+      },
+      "axis_setback_mm": 68.22355562883422,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 68.2235556288341,
+      "rail_outer_inset_mm": 13.60684928987763,
+      "block_inset_from_rail_mm": 1.6459877177912858,
+      "rail_end_setback_mm": 74.54951571165617
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 772,
+      "above_bed_mm": 2.0,
+      "outer_x_mm": 1324.0239580417945,
+      "outer_y_mm": 748.0239580417945,
+      "virtual_chamfer_leg_mm": 73.2343314171776,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071030032340762,
+          0.7071105591188339
+        ],
+        "intercept_mm": 1413.3720038035926,
+        "angle_deg": -44.99969387911513,
+        "span_mm": 103.5697682890745,
+        "rms_mm": 0.00017491096976023296,
+        "max_mm": 0.00038748540162458767
+      },
+      "axis_setback_mm": 73.23443954639572,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 73.23488548178676,
+      "rail_outer_inset_mm": 5.0825419582055815,
+      "block_inset_from_rail_mm": 1.6364999999999554,
+      "rail_end_setback_mm": 79.53072328796003
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 775,
+      "above_bed_mm": 5.0,
+      "outer_x_mm": 1324.6832140782074,
+      "outer_y_mm": 748.6832140782072,
+      "virtual_chamfer_leg_mm": 73.6210732502991,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071077755712755,
+          0.7071057868004212
+        ],
+        "intercept_mm": 1414.033756282613,
+        "angle_deg": -45.000080573528216,
+        "span_mm": 104.11727744475147,
+        "rms_mm": 0.00032900885291209137,
+        "max_mm": 0.00043421517748853944
+      },
+      "axis_setback_mm": 73.62203291993774,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 73.62203291993774,
+      "rail_outer_inset_mm": 4.4234472432383996,
+      "block_inset_from_rail_mm": 1.6363386785542957,
+      "rail_end_setback_mm": 79.91600862523933
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 780,
+      "above_bed_mm": 10.0,
+      "outer_x_mm": 1325.7827234128172,
+      "outer_y_mm": 749.7827234128172,
+      "virtual_chamfer_leg_mm": 74.26701628524415,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071069123680955,
+          0.7071066500049751
+        ],
+        "intercept_mm": 1415.1315144857208,
+        "angle_deg": -45.00001062944092,
+        "span_mm": 105.03035573219142,
+        "rms_mm": 0.00021384637972038522,
+        "max_mm": 0.0002618761168093897
+      },
+      "axis_setback_mm": 74.26767676866928,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 74.26767676866922,
+      "rail_outer_inset_mm": 3.3251346534825075,
+      "block_inset_from_rail_mm": 1.6351419337003108,
+      "rail_end_setback_mm": 80.55776305319534
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 785,
+      "above_bed_mm": 15.0,
+      "outer_x_mm": 1326.882232747427,
+      "outer_y_mm": 750.882232747427,
+      "virtual_chamfer_leg_mm": 74.91295932018897,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071061333283696,
+          0.7071074290441319
+        ],
+        "intercept_mm": 1416.2293211656884,
+        "angle_deg": -44.999947505068114,
+        "span_mm": 105.94343401948744,
+        "rms_mm": 0.00015837997534847424,
+        "max_mm": 0.0002401425687246217
+      },
+      "axis_setback_mm": 74.91332061740059,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 74.91332061740059,
+      "rail_outer_inset_mm": 2.2268220637266722,
+      "block_inset_from_rail_mm": 1.633945188846326,
+      "rail_end_setback_mm": 81.19951748115125
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 790,
+      "above_bed_mm": 20.0,
+      "outer_x_mm": 1327.9817420820366,
+      "outer_y_mm": 751.9817420820369,
+      "virtual_chamfer_leg_mm": 75.5589023551338,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071055109579066,
+          0.7071080514129067
+        ],
+        "intercept_mm": 1417.3272180864005,
+        "angle_deg": -44.999897075411084,
+        "span_mm": 106.85651230669816,
+        "rms_mm": 0.00022093329623670683,
+        "max_mm": 0.0004936466121137073
+      },
+      "axis_setback_mm": 75.55896446613212,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 75.55896446613195,
+      "rail_outer_inset_mm": 1.1285094739707802,
+      "block_inset_from_rail_mm": 1.6327484439924547,
+      "rail_end_setback_mm": 81.84127190910726
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 795.136,
+      "above_bed_mm": 25.135999999999967,
+      "outer_x_mm": 1329.1109999832688,
+      "outer_y_mm": 753.1109999834835,
+      "virtual_chamfer_leg_mm": 76.22199999013264,
+      "facet": {
+        "n": 17,
+        "normal": [
+          0.7071067811834344,
+          0.7071067811896606
+        ],
+        "intercept_mm": 1418.4562019863688,
+        "angle_deg": -44.99999999974775,
+        "span_mm": 107.79418613739952,
+        "rms_mm": 2.7344609413755472e-06,
+        "max_mm": 7.480335380449787e-06
+      },
+      "axis_setback_mm": 76.2219999903474,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 76.22200351909044,
+      "rail_outer_inset_mm": 1.6731064533814788e-08,
+      "block_inset_from_rail_mm": 1.6319999998927983,
+      "rail_end_setback_mm": 82.50099999013293
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 800,
+      "above_bed_mm": 30.0,
+      "outer_x_mm": 1328.9198490639096,
+      "outer_y_mm": 752.9207948208915,
+      "virtual_chamfer_leg_mm": 76.10955230263107,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071106050094379,
+          0.7071029573429789
+        ],
+        "intercept_mm": 1418.2677441768196,
+        "angle_deg": -45.000309839350216,
+        "span_mm": 107.63582984574344,
+        "rms_mm": 0.00018844556790584057,
+        "max_mm": 0.0003038133260542253
+      },
+      "axis_setback_mm": 76.11049805961318,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 76.11002518112224,
+      "rail_outer_inset_mm": 0.19104245005365783,
+      "block_inset_from_rail_mm": 1.6316356075457747,
+      "rail_end_setback_mm": 82.38893200375946
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 803,
+      "above_bed_mm": 33.0,
+      "outer_x_mm": 1327.2393979360902,
+      "outer_y_mm": 751.2395381076799,
+      "virtual_chamfer_leg_mm": 75.12271019736795,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071072516753396,
+          0.7071063106974422
+        ],
+        "intercept_mm": 1416.5869671862602,
+        "angle_deg": -45.00003812299894,
+        "span_mm": 106.23965471966595,
+        "rms_mm": 3.0765933667310235e-05,
+        "max_mm": 5.4552508224503526e-05
+      },
+      "axis_setback_mm": 75.12285036895798,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 75.1227802831632,
+      "rail_outer_inset_mm": 1.8698824070891646,
+      "block_inset_from_rail_mm": 1.633649571025785,
+      "rail_end_setback_mm": 81.40772899624056
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 805,
+      "above_bed_mm": 35.0,
+      "outer_x_mm": 1324.3643951845636,
+      "outer_y_mm": 748.3643951845637,
+      "virtual_chamfer_leg_mm": 73.43473818791904,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.707106781186547,
+          0.7071067811865479
+        ],
+        "intercept_mm": 1413.7143818832628,
+        "angle_deg": -44.999999999999964,
+        "span_mm": 103.85240269467295,
+        "rms_mm": 1.5322043120742216e-13,
+        "max_mm": 2.291500322826323e-13
+      },
+      "axis_setback_mm": 73.43473818791938,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 73.43473818791932,
+      "rail_outer_inset_mm": 4.7421249479866106,
+      "block_inset_from_rail_mm": 1.6364798674497365,
+      "rail_end_setback_mm": 79.7295948573825
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 808,
+      "above_bed_mm": 38.0,
+      "outer_x_mm": 1311.6984575131935,
+      "outer_y_mm": 735.6984575131933,
+      "virtual_chamfer_leg_mm": 65.99603839956944,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.70710938013714,
+          0.7071041822264028
+        ],
+        "intercept_mm": 1401.0629614737668,
+        "angle_deg": -45.000210589373104,
+        "span_mm": 93.333749137191,
+        "rms_mm": 0.00018825934550407267,
+        "max_mm": 0.00036704932916364896
+      },
+      "axis_setback_mm": 65.99692692891756,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 65.99692692891762,
+      "rail_outer_inset_mm": 17.395260574313454,
+      "block_inset_from_rail_mm": 1.6492819124931657,
+      "rail_end_setback_mm": 72.33533001965526
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 810,
+      "above_bed_mm": 40.0,
+      "outer_x_mm": 1298.7936751497086,
+      "outer_y_mm": 722.7936751497083,
+      "virtual_chamfer_leg_mm": 58.419081535968644,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071067811826759,
+          0.7071067811904193
+        ],
+        "intercept_mm": 1388.1695460986311,
+        "angle_deg": -44.99999999968628,
+        "span_mm": 82.61705740954692,
+        "rms_mm": 7.402804145912768e-05,
+        "max_mm": 0.00011104219233182278
+      },
+      "axis_setback_mm": 58.41908153596876,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 58.41908153596893,
+      "rail_outer_inset_mm": 30.286989456578,
+      "block_inset_from_rail_mm": 1.6623353937135334,
+      "rail_end_setback_mm": 64.80222187459498
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        1
+      ],
+      "source": "pool_kant06",
+      "z_mm": 812,
+      "above_bed_mm": 42.0,
+      "outer_x_mm": 1281.009985274033,
+      "outer_y_mm": 705.0099852740328,
+      "virtual_chamfer_leg_mm": 47.98473540277678,
+      "facet": {
+        "n": 8,
+        "normal": [
+          0.7071067811865477,
+          0.7071067811865474
+        ],
+        "intercept_mm": 1370.396802538664,
+        "angle_deg": -45.00000000000002,
+        "span_mm": 67.86482184467499,
+        "rms_mm": 0.00102492968699892,
+        "max_mm": 0.001054411035106284
+      },
+      "axis_setback_mm": 47.98767573038663,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 47.98767573038663,
+      "rail_outer_inset_mm": 48.0070004174753,
+      "block_inset_from_rail_mm": 1.7260143084918127,
+      "rail_end_setback_mm": 113.12396883495188
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 645,
+      "above_bed_mm": -125.0,
+      "outer_x_mm": 1297.4267600573364,
+      "outer_y_mm": 721.4267600573365,
+      "virtual_chamfer_leg_mm": 60.332558385124,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071129942878331,
+          0.7071005680306692
+        ],
+        "intercept_mm": 1384.8866810969337,
+        "angle_deg": -45.00050344029331,
+        "span_mm": 79.78006726429425,
+        "rms_mm": 7.570349634991011e-06,
+        "max_mm": 9.393458828554913e-06
+      },
+      "axis_setback_mm": 63.10651595693082,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 56.41302656397892,
+      "outer_inset_from_cap_mm": 33.316239942663515,
+      "inner": {
+        "outer_x_mm": 1288.4033212417653,
+        "outer_y_mm": 712.4023212417654,
+        "virtual_chamfer_leg_mm": 55.04728187346973,
+        "facet": {
+          "n": 4,
+          "normal": [
+            0.7071038788053151,
+            0.7071096835558669
+          ],
+          "intercept_mm": 1375.8564130056752,
+          "angle_deg": -44.999764824976516,
+          "span_mm": 72.31505568835665,
+          "rms_mm": 0.0012151483908886698,
+          "max_mm": 0.0019823710858659638
+        },
+        "axis_setback_mm": 57.81928187346955,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 51.13446625295245,
+        "outer_inset_from_cap_mm": 42.34017875823463
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 670,
+      "above_bed_mm": -100.0,
+      "outer_x_mm": 1302.349865072756,
+      "outer_y_mm": 726.3498650727561,
+      "virtual_chamfer_leg_mm": 63.21662752974362,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071117652161532,
+          0.7071017971218118
+        ],
+        "intercept_mm": 1389.8089813323866,
+        "angle_deg": -45.00040384970895,
+        "span_mm": 83.8583265693562,
+        "rms_mm": 6.635603534029758e-05,
+        "max_mm": 9.058712861342855e-05
+      },
+      "axis_setback_mm": 65.9901793232674,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 59.29679137488631,
+      "outer_inset_from_cap_mm": 28.39313492724392,
+      "inner": {
+        "outer_x_mm": 1293.1243060357062,
+        "outer_y_mm": 717.1235047638787,
+        "virtual_chamfer_leg_mm": 57.81270316504333,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071124392866495,
+            0.7071011230411705
+          ],
+          "intercept_mm": 1380.5831219127874,
+          "angle_deg": -45.00045846901992,
+          "span_mm": 76.21522514630226,
+          "rms_mm": 6.160717143032365e-05,
+          "max_mm": 8.346664251224212e-05
+        },
+        "axis_setback_mm": 60.584901893215715,
+        "shoulder_inset_mm": 1.9608012718276768,
+        "facet_leg_mm": 53.892302529129324,
+        "outer_inset_from_cap_mm": 37.61909460020752
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 700,
+      "above_bed_mm": -70.0,
+      "outer_x_mm": 1308.2575910912597,
+      "outer_y_mm": 732.2575910912595,
+      "virtual_chamfer_leg_mm": 66.67751050328707,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.707109730554689,
+          0.707103831806104
+        ],
+        "intercept_mm": 1395.7154474899496,
+        "angle_deg": -45.00023898328182,
+        "span_mm": 88.75223773590594,
+        "rms_mm": 9.295383249779344e-05,
+        "max_mm": 0.00013140631812291748
+      },
+      "axis_setback_mm": 69.45057536287129,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 62.75730914797521,
+      "outer_inset_from_cap_mm": 22.485408908740396,
+      "inner": {
+        "outer_x_mm": 1298.7894930405962,
+        "outer_y_mm": 722.7889249904146,
+        "virtual_chamfer_leg_mm": 61.131213967092435,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071103078286896,
+            0.7071032545268165
+          ],
+          "intercept_mm": 1386.2474086512764,
+          "angle_deg": -45.00028575912416,
+          "span_mm": 80.90847304095286,
+          "rms_mm": 9.334235120914067e-05,
+          "max_mm": 0.0001320016797661805
+        },
+        "axis_setback_mm": 63.90364591691093,
+        "shoulder_inset_mm": 1.960568050181564,
+        "facet_leg_mm": 57.21092994200171,
+        "outer_inset_from_cap_mm": 31.953790984494617
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 730,
+      "above_bed_mm": -40.0,
+      "outer_x_mm": 1314.1653171097632,
+      "outer_y_mm": 738.165317109763,
+      "virtual_chamfer_leg_mm": 70.13839347683052,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071079593447197,
+          0.7071056030264123
+        ],
+        "intercept_mm": 1401.6221041750484,
+        "angle_deg": -45.00009546443182,
+        "span_mm": 93.64614890285355,
+        "rms_mm": 6.97708579980873e-05,
+        "max_mm": 9.464883719090267e-05
+      },
+      "axis_setback_mm": 72.9109714024753,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 66.2178269210641,
+      "outer_inset_from_cap_mm": 16.577682890236872,
+      "inner": {
+        "outer_x_mm": 1304.4546800454862,
+        "outer_y_mm": 728.4543452169505,
+        "virtual_chamfer_leg_mm": 64.44972476914177,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071083540646778,
+            0.7071052083049186
+          ],
+          "intercept_mm": 1391.9117607309875,
+          "angle_deg": -45.00012744804771,
+          "span_mm": 85.60172093601771,
+          "rms_mm": 7.767034262822146e-05,
+          "max_mm": 0.00010653316848507899
+        },
+        "axis_setback_mm": 67.22238994060615,
+        "shoulder_inset_mm": 1.9603348285356788,
+        "facet_leg_mm": 60.52955735487393,
+        "outer_inset_from_cap_mm": 26.28848736878166
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 760,
+      "above_bed_mm": -10.0,
+      "outer_x_mm": 1320.0730886241197,
+      "outer_y_mm": 744.0730431282666,
+      "virtual_chamfer_leg_mm": 73.59932194622684,
+      "facet": {
+        "n": 4,
+        "normal": [
+          0.7071068678534516,
+          0.707106694519633
+        ],
+        "intercept_mm": 1407.5291704774222,
+        "angle_deg": -45.000007022486926,
+        "span_mm": 98.5400600701816,
+        "rms_mm": 1.2960990883612612e-05,
+        "max_mm": 2.0887169332794997e-05
+      },
+      "axis_setback_mm": 76.3713674420793,
+      "shoulder_inset_mm": 1.9600454958531373,
+      "facet_leg_mm": 69.67834469415288,
+      "outer_inset_from_cap_mm": 10.669934123806854,
+      "inner": {
+        "outer_x_mm": 1310.1198670503761,
+        "outer_y_mm": 734.1197654434865,
+        "virtual_chamfer_leg_mm": 67.76823557119133,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071071099089659,
+            0.7071064524639763
+          ],
+          "intercept_mm": 1397.5764988393778,
+          "angle_deg": -45.0000266358803,
+          "span_mm": 90.29496883147374,
+          "rms_mm": 2.8013854589483073e-05,
+          "max_mm": 3.5667092205926565e-05
+        },
+        "axis_setback_mm": 70.54113396430148,
+        "shoulder_inset_mm": 1.960101606889566,
+        "facet_leg_mm": 63.84818476774632,
+        "outer_inset_from_cap_mm": 20.6231837530687
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 766,
+      "above_bed_mm": -4.0,
+      "outer_x_mm": 1321.2545900794944,
+      "outer_y_mm": 745.2545900794942,
+      "virtual_chamfer_leg_mm": 74.29120156007275,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071067811865468,
+          0.7071067811865483
+        ],
+        "intercept_mm": 1408.7108422690494,
+        "angle_deg": -44.999999999999936,
+        "span_mm": 99.51899677695664,
+        "rms_mm": 5.115835738066893e-14,
+        "max_mm": 7.016609515630989e-14
+      },
+      "axis_setback_mm": 77.06355747786813,
+      "shoulder_inset_mm": 1.9600000000002638,
+      "facet_leg_mm": 70.3705574778682,
+      "outer_inset_from_cap_mm": 9.488409920505717,
+      "inner": {
+        "outer_x_mm": 1311.252904451354,
+        "outer_y_mm": 735.2528494887937,
+        "virtual_chamfer_leg_mm": 68.43193773160101,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071069451722184,
+            0.7071066172008387
+          ],
+          "intercept_mm": 1398.7094938490518,
+          "angle_deg": -45.0000132875093,
+          "span_mm": 91.23361841060589,
+          "rms_mm": 1.5502018522224317e-05,
+          "max_mm": 1.9393822242363967e-05
+        },
+        "axis_setback_mm": 71.20488276904064,
+        "shoulder_inset_mm": 1.9600549625604344,
+        "facet_leg_mm": 64.51191025032062,
+        "outer_inset_from_cap_mm": 19.490123029926167
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 770,
+      "above_bed_mm": 0.0,
+      "outer_x_mm": 1322.144654762045,
+      "outer_y_mm": 746.1446547620451,
+      "virtual_chamfer_leg_mm": 74.8121427803494,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071067811865469,
+          0.707106781186548
+        ],
+        "intercept_mm": 1409.6012227450447,
+        "angle_deg": -44.99999999999996,
+        "span_mm": 100.25662978565984,
+        "rms_mm": 2.965327900395426e-14,
+        "max_mm": 3.552713678800501e-14
+      },
+      "axis_setback_mm": 77.58514278034932,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 70.89214278034927,
+      "outer_inset_from_cap_mm": 8.598345237954902,
+      "inner": {
+        "outer_x_mm": 1312.0082627186728,
+        "outer_y_mm": 736.0082388523318,
+        "virtual_chamfer_leg_mm": 68.87440583854095,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071068485998389,
+            0.7071067137732499
+          ],
+          "intercept_mm": 1399.4648314337064,
+          "angle_deg": -45.000005462396004,
+          "span_mm": 91.85938479670025,
+          "rms_mm": 6.823455020522853e-06,
+          "max_mm": 8.434999342554761e-06
+        },
+        "axis_setback_mm": 71.64738197220004,
+        "shoulder_inset_mm": 1.9600238663410892,
+        "facet_leg_mm": 64.95439390537035,
+        "outer_inset_from_cap_mm": 18.734749214497697
+      }
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 637.226,
+      "above_bed_mm": -132.774,
+      "outer_x_mm": 1297.9361269999997,
+      "outer_y_mm": 721.9361269999997,
+      "virtual_chamfer_leg_mm": 60.63192799999979,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071067744449204,
+          0.7071067879281746
+        ],
+        "intercept_mm": 1385.392110090266,
+        "angle_deg": -44.99999945373629,
+        "span_mm": 78.39409191774601,
+        "rms_mm": 4.136636068750205e-06,
+        "max_mm": 6.8890071105442985e-06
+      },
+      "axis_setback_mm": 64.3081739999999,
+      "shoulder_inset_mm": 2.599467000000004,
+      "facet_leg_mm": 55.432993999999724,
+      "outer_inset_from_cap_mm": 32.80687300000028
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 640,
+      "above_bed_mm": -130.0,
+      "outer_x_mm": 1299.490266414607,
+      "outer_y_mm": 723.4912588219947,
+      "virtual_chamfer_leg_mm": 61.54129028627926,
+      "facet": {
+        "n": 9,
+        "normal": [
+          0.7071058455961675,
+          0.7071077167756896
+        ],
+        "intercept_mm": 1386.9463985009827,
+        "angle_deg": -44.99992419059456,
+        "span_mm": 79.8362925490769,
+        "rms_mm": 0.000679292715270874,
+        "max_mm": 0.0016893892808411692
+      },
+      "axis_setback_mm": 65.14428269366704,
+      "shoulder_inset_mm": 2.546007592612341,
+      "facet_leg_mm": 56.45278384461619,
+      "outer_inset_from_cap_mm": 31.252237381699103
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 645,
+      "above_bed_mm": -125.0,
+      "outer_x_mm": 1300.4749223647943,
+      "outer_y_mm": 724.4758750619084,
+      "virtual_chamfer_leg_mm": 62.11812172410873,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071109203131475,
+          0.7071026420357186
+        ],
+        "intercept_mm": 1387.934208902792,
+        "angle_deg": -45.00033538807076,
+        "span_mm": 80.6469809576258,
+        "rms_mm": 0.00020547261846824862,
+        "max_mm": 0.0004391560576628706
+      },
+      "axis_setback_mm": 65.72107442122285,
+      "shoulder_inset_mm": 2.5460473028858814,
+      "facet_leg_mm": 57.02602711833657,
+      "outer_inset_from_cap_mm": 30.26760128664864
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 670,
+      "above_bed_mm": -100.0,
+      "outer_x_mm": 1305.3982021157315,
+      "outer_y_mm": 729.3989562614763,
+      "virtual_chamfer_leg_mm": 65.00227891325676,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.707110428041579,
+          0.7071031343127075
+        ],
+        "intercept_mm": 1392.8569502092528,
+        "angle_deg": -45.000295499839886,
+        "span_mm": 84.72523358271118,
+        "rms_mm": 0.00016836143454633445,
+        "max_mm": 0.0002845628066516781
+      },
+      "axis_setback_mm": 68.60503305900158,
+      "shoulder_inset_mm": 2.546245854255176,
+      "facet_leg_mm": 59.90978720474607,
+      "outer_inset_from_cap_mm": 25.344420811396105
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 700,
+      "above_bed_mm": -70.0,
+      "outer_x_mm": 1311.306137816856,
+      "outer_y_mm": 735.3066537009579,
+      "virtual_chamfer_leg_mm": 68.46326754023448,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071095666167583,
+          0.7071039957453643
+        ],
+        "intercept_mm": 1398.7640887471266,
+        "angle_deg": -45.000225699588505,
+        "span_mm": 89.61913673293942,
+        "rms_mm": 0.00018675649822640517,
+        "max_mm": 0.0002837577597851748
+      },
+      "axis_setback_mm": 72.06578342433613,
+      "shoulder_inset_mm": 2.546484115898238,
+      "facet_leg_mm": 63.37029930843755,
+      "outer_inset_from_cap_mm": 19.436604241092994
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 730,
+      "above_bed_mm": -40.0,
+      "outer_x_mm": 1317.2140735179808,
+      "outer_y_mm": 741.2143511404394,
+      "virtual_chamfer_leg_mm": 71.9242561672122,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.707108622052255,
+          0.7071049403160475
+        ],
+        "intercept_mm": 1404.6711872770873,
+        "angle_deg": -45.00014916272307,
+        "span_mm": 94.51303988311113,
+        "rms_mm": 0.00025041206089310755,
+        "max_mm": 0.0003681716435046667
+      },
+      "axis_setback_mm": 75.52653378967057,
+      "shoulder_inset_mm": 2.5467223775415277,
+      "facet_leg_mm": 66.83081141212898,
+      "outer_inset_from_cap_mm": 13.528787670789939
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 760,
+      "above_bed_mm": -10.0,
+      "outer_x_mm": 1323.1220092191054,
+      "outer_y_mm": 747.1220485799209,
+      "virtual_chamfer_leg_mm": 75.38524479418993,
+      "facet": {
+        "n": 8,
+        "normal": [
+          0.7071072814088499,
+          0.707106280963891
+        ],
+        "intercept_mm": 1410.5780287591317,
+        "angle_deg": -45.000040532261394,
+        "span_mm": 99.40694303320319,
+        "rms_mm": 0.00032920268215318204,
+        "max_mm": 0.00046088313068537445
+      },
+      "axis_setback_mm": 78.98728415500511,
+      "shoulder_inset_mm": 2.54696063918459,
+      "facet_leg_mm": 70.29132351582041,
+      "outer_inset_from_cap_mm": 7.620971100486827
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 766,
+      "above_bed_mm": -4.0,
+      "outer_x_mm": 1324.3032645428032,
+      "outer_y_mm": 748.3032645428034,
+      "virtual_chamfer_leg_mm": 76.0768194938853,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071100749649184,
+          0.7071034873928337
+        ],
+        "intercept_mm": 1411.7613584551127,
+        "angle_deg": -45.000266890438425,
+        "span_mm": 100.38486602264473,
+        "rms_mm": 0.00021810366146417123,
+        "max_mm": 0.0004690452662217126
+      },
+      "axis_setback_mm": 79.67881949388516,
+      "shoulder_inset_mm": 2.546999999999798,
+      "facet_leg_mm": 70.98281949388524,
+      "outer_inset_from_cap_mm": 6.4397354571967185
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 768,
+      "above_bed_mm": -2.0,
+      "outer_x_mm": 1320.1668112360533,
+      "outer_y_mm": 744.1668112360533,
+      "virtual_chamfer_leg_mm": 73.65386090840957,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.707106781186547,
+          0.7071067811865481
+        ],
+        "intercept_mm": 1407.6231585725095,
+        "angle_deg": -44.99999999999996,
+        "span_mm": 96.80837849347452,
+        "rms_mm": 5.800909612158056e-14,
+        "max_mm": 1.2079226507921703e-13
+      },
+      "axis_setback_mm": 77.3308609084097,
+      "shoulder_inset_mm": 2.599999999999909,
+      "facet_leg_mm": 68.45386090840975,
+      "outer_inset_from_cap_mm": 10.576188763946732
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 769,
+      "above_bed_mm": -1.0,
+      "outer_x_mm": 1315.8325064900084,
+      "outer_y_mm": 739.8325064900084,
+      "virtual_chamfer_leg_mm": 71.11514317318893,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071067811865465,
+          0.7071067811865486
+        ],
+        "intercept_mm": 1403.2886705432873,
+        "angle_deg": -44.999999999999915,
+        "span_mm": 93.21808944128827,
+        "rms_mm": 1.5588190969162456e-13,
+        "max_mm": 2.2737367544323206e-13
+      },
+      "axis_setback_mm": 74.79214317318917,
+      "shoulder_inset_mm": 2.599999999999909,
+      "facet_leg_mm": 65.91514317318905,
+      "outer_inset_from_cap_mm": 14.910493509991568
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 770,
+      "above_bed_mm": 0.0,
+      "outer_x_mm": 1311.4981485578514,
+      "outer_y_mm": 735.4981485578513,
+      "virtual_chamfer_leg_mm": 68.57608423553756,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071067811865474,
+          0.7071067811865477
+        ],
+        "intercept_mm": 1398.9543485640975,
+        "angle_deg": -44.999999999999986,
+        "span_mm": 89.62731785599647,
+        "rms_mm": 2.349669612418554e-13,
+        "max_mm": 3.126388037344441e-13
+      },
+      "axis_setback_mm": 72.25308423553724,
+      "shoulder_inset_mm": 2.6000000000001364,
+      "facet_leg_mm": 63.376084235537235,
+      "outer_inset_from_cap_mm": 19.244851442148615
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 770.001,
+      "above_bed_mm": 0.0009999999999763531,
+      "outer_x_mm": 1315.490162992331,
+      "outer_y_mm": 739.4901629923311,
+      "virtual_chamfer_leg_mm": 68.22255716411019,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071058120066689,
+          0.7071077503650978
+        ],
+        "intercept_mm": 1404.8488981852477,
+        "angle_deg": -44.9999214688926,
+        "span_mm": 96.48267764352187,
+        "rms_mm": 0.00033910935749246584,
+        "max_mm": 0.0004705199843257901
+      },
+      "axis_setback_mm": 68.22355562883422,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 68.2235556288341,
+      "rail_outer_inset_mm": 13.60684928987763,
+      "block_inset_from_rail_mm": 1.6459877177912858,
+      "rail_end_setback_mm": 74.54951571165617
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 772,
+      "above_bed_mm": 2.0,
+      "outer_x_mm": 1324.0239580417945,
+      "outer_y_mm": 748.0239580417945,
+      "virtual_chamfer_leg_mm": 73.2344395463956,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.707103245743886,
+          0.7071103166115323
+        ],
+        "intercept_mm": 1413.372131728091,
+        "angle_deg": -44.99971352921199,
+        "span_mm": 103.56976828904192,
+        "rms_mm": 0.0001634059866984506,
+        "max_mm": 0.00036670332934640726
+      },
+      "axis_setback_mm": 73.23443954639572,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 73.23488548178676,
+      "rail_outer_inset_mm": 5.0820419582055365,
+      "block_inset_from_rail_mm": 1.6370000000000005,
+      "rail_end_setback_mm": 79.5311151587423
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 775,
+      "above_bed_mm": 5.0,
+      "outer_x_mm": 1324.6832140782074,
+      "outer_y_mm": 748.6832140782072,
+      "virtual_chamfer_leg_mm": 73.6210732502991,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071098167064755,
+          0.7071037456535884
+        ],
+        "intercept_mm": 1414.0348275691322,
+        "angle_deg": -45.00024596405868,
+        "span_mm": 104.11727744389505,
+        "rms_mm": 0.0002689732963366679,
+        "max_mm": 0.0004800890536280633
+      },
+      "axis_setback_mm": 73.62203291993774,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 73.62203291993774,
+      "rail_outer_inset_mm": 4.422947243238468,
+      "block_inset_from_rail_mm": 1.636838678554227,
+      "rail_end_setback_mm": 79.91554895560063
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 780,
+      "above_bed_mm": 10.0,
+      "outer_x_mm": 1325.7827234128172,
+      "outer_y_mm": 749.7827234128172,
+      "virtual_chamfer_leg_mm": 74.26701628524415,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071083327195158,
+          0.7071052296501749
+        ],
+        "intercept_mm": 1415.1322607541185,
+        "angle_deg": -45.0001257184781,
+        "span_mm": 105.03035573194042,
+        "rms_mm": 0.00017298373497982077,
+        "max_mm": 0.00032433902286968866
+      },
+      "axis_setback_mm": 74.26767676866928,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 74.26767676866922,
+      "rail_outer_inset_mm": 3.3246346534825193,
+      "block_inset_from_rail_mm": 1.635641933700299,
+      "rail_end_setback_mm": 80.55760256977015
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 785,
+      "above_bed_mm": 15.0,
+      "outer_x_mm": 1326.882232747427,
+      "outer_y_mm": 750.882232747427,
+      "virtual_chamfer_leg_mm": 74.91295932018897,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.707106902730302,
+          0.7071066596427722
+        ],
+        "intercept_mm": 1416.2297250374163,
+        "angle_deg": -45.000009848505115,
+        "span_mm": 105.94343401953034,
+        "rms_mm": 0.00014180015938780035,
+        "max_mm": 0.00023093138446839134
+      },
+      "axis_setback_mm": 74.91332061740059,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 74.91332061740059,
+      "rail_outer_inset_mm": 2.226322063726684,
+      "block_inset_from_rail_mm": 1.634445188846314,
+      "rail_end_setback_mm": 81.19965618393962
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 790,
+      "above_bed_mm": 20.0,
+      "outer_x_mm": 1327.9817420820366,
+      "outer_y_mm": 751.9817420820369,
+      "virtual_chamfer_leg_mm": 75.5589023551338,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071056386748,
+          0.7071079236964491
+        ],
+        "intercept_mm": 1417.3272848948202,
+        "angle_deg": -44.99990742409769,
+        "span_mm": 106.8565123067311,
+        "rms_mm": 0.00021982709450519086,
+        "max_mm": 0.0004916398283842938
+      },
+      "axis_setback_mm": 75.55896446613212,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 75.55896446613195,
+      "rail_outer_inset_mm": 1.1280094739707351,
+      "block_inset_from_rail_mm": 1.6332484439924997,
+      "rail_end_setback_mm": 81.84170979810915
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 795.136,
+      "above_bed_mm": 25.135999999999967,
+      "outer_x_mm": 1329.1109999832688,
+      "outer_y_mm": 753.1109999834835,
+      "virtual_chamfer_leg_mm": 76.22199999013264,
+      "facet": {
+        "n": 17,
+        "normal": [
+          0.7071067811835153,
+          0.7071067811895796
+        ],
+        "intercept_mm": 1418.4562019864065,
+        "angle_deg": -44.999999999754316,
+        "span_mm": 107.7941861373995,
+        "rms_mm": 2.7344574997665465e-06,
+        "max_mm": 7.4803326306494e-06
+      },
+      "axis_setback_mm": 76.2219999903474,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 76.22200351909044,
+      "rail_outer_inset_mm": 1.6731064533814788e-08,
+      "block_inset_from_rail_mm": 1.6319999998927983,
+      "rail_end_setback_mm": 82.50099999013293
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 800,
+      "above_bed_mm": 30.0,
+      "outer_x_mm": 1328.9198490639096,
+      "outer_y_mm": 752.9207948208915,
+      "virtual_chamfer_leg_mm": 76.10955230263107,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071080859154958,
+          0.707105476455192
+        ],
+        "intercept_mm": 1418.2661903077242,
+        "angle_deg": -45.00010572028596,
+        "span_mm": 107.63582984475158,
+        "rms_mm": 0.0001632404071494306,
+        "max_mm": 0.0005180052158486603
+      },
+      "axis_setback_mm": 76.11049805961318,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 76.11002518112224,
+      "rail_outer_inset_mm": 0.19104245005365783,
+      "block_inset_from_rail_mm": 1.6316356075457747,
+      "rail_end_setback_mm": 82.38893200375946
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 803,
+      "above_bed_mm": 33.0,
+      "outer_x_mm": 1327.2393979360902,
+      "outer_y_mm": 751.2395381076799,
+      "virtual_chamfer_leg_mm": 75.12271019736818,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071069401923431,
+          0.7071066221807162
+        ],
+        "intercept_mm": 1416.5867725236276,
+        "angle_deg": -45.00001288399754,
+        "span_mm": 106.23965471964313,
+        "rms_mm": 2.4627068147413483e-05,
+        "max_mm": 7.954699447054736e-05
+      },
+      "axis_setback_mm": 75.12285036895798,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 75.1227802831632,
+      "rail_outer_inset_mm": 1.8698824070891646,
+      "block_inset_from_rail_mm": 1.633649571025785,
+      "rail_end_setback_mm": 81.40772899624056
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 805,
+      "above_bed_mm": 35.0,
+      "outer_x_mm": 1324.3643951845636,
+      "outer_y_mm": 748.3643951845637,
+      "virtual_chamfer_leg_mm": 73.43473818791904,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071075732896559,
+          0.7071059890825517
+        ],
+        "intercept_mm": 1413.7146839771738,
+        "angle_deg": -45.000064182937685,
+        "span_mm": 103.85240269460778,
+        "rms_mm": 0.0002267212857333205,
+        "max_mm": 0.0003763117187993714
+      },
+      "axis_setback_mm": 73.43473818791938,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 73.43473818791932,
+      "rail_outer_inset_mm": 4.741770681208095,
+      "block_inset_from_rail_mm": 1.636834134228252,
+      "rail_end_setback_mm": 79.72994912416101
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 808,
+      "above_bed_mm": 38.0,
+      "outer_x_mm": 1311.6984575131935,
+      "outer_y_mm": 735.6984575131933,
+      "virtual_chamfer_leg_mm": 65.99603839956944,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.70710938013714,
+          0.7071041822264028
+        ],
+        "intercept_mm": 1401.0629614737668,
+        "angle_deg": -45.000210589373104,
+        "span_mm": 93.333749137191,
+        "rms_mm": 0.00018825934550407267,
+        "max_mm": 0.00036704932916364896
+      },
+      "axis_setback_mm": 65.99692692891756,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 65.99692692891762,
+      "rail_outer_inset_mm": 17.395204838987638,
+      "block_inset_from_rail_mm": 1.6493376478189816,
+      "rail_end_setback_mm": 72.33538575498108
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 810,
+      "above_bed_mm": 40.0,
+      "outer_x_mm": 1298.7936751497086,
+      "outer_y_mm": 722.7936751497083,
+      "virtual_chamfer_leg_mm": 58.419081535968644,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071067811826759,
+          0.7071067811904193
+        ],
+        "intercept_mm": 1388.1695460986311,
+        "angle_deg": -44.99999999968628,
+        "span_mm": 82.61705740954692,
+        "rms_mm": 7.402804145912768e-05,
+        "max_mm": 0.00011104219233182278
+      },
+      "axis_setback_mm": 58.41908153596876,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 58.41908153596893,
+      "rail_outer_inset_mm": 30.28660287232657,
+      "block_inset_from_rail_mm": 1.6627219779649636,
+      "rail_end_setback_mm": 64.80260845884641
+    },
+    {
+      "family": "cap",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": "pool_kant08",
+      "z_mm": 812,
+      "above_bed_mm": 42.0,
+      "outer_x_mm": 1281.009985274033,
+      "outer_y_mm": 705.0099852740328,
+      "virtual_chamfer_leg_mm": 47.98473540277678,
+      "facet": {
+        "n": 8,
+        "normal": [
+          0.7071032513441418,
+          0.7071103110113326
+        ],
+        "intercept_mm": 1370.394611704004,
+        "angle_deg": -44.99971398298987,
+        "span_mm": 67.86545238386056,
+        "rms_mm": 0.0011922513307416943,
+        "max_mm": 0.0013721633611432082
+      },
+      "axis_setback_mm": 47.98767573038663,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 47.98812158729277,
+      "rail_outer_inset_mm": 48.00684022249146,
+      "block_inset_from_rail_mm": 1.7261745034756473,
+      "rail_end_setback_mm": 113.12396883495194
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 645,
+      "above_bed_mm": -125.0,
+      "outer_x_mm": 1297.4277388432397,
+      "outer_y_mm": 721.4267600573365,
+      "virtual_chamfer_leg_mm": 60.333537171027274,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071129943969616,
+          0.7071005679215387
+        ],
+        "intercept_mm": 1384.886690559414,
+        "angle_deg": -45.000503449135905,
+        "span_mm": 79.77868305199532,
+        "rms_mm": 7.5704826749887105e-06,
+        "max_mm": 9.393626218212603e-06
+      },
+      "axis_setback_mm": 63.106537171027526,
+      "shoulder_inset_mm": 1.9609787859033077,
+      "facet_leg_mm": 56.4120477780757,
+      "outer_inset_from_cap_mm": 33.31575054971188,
+      "inner": {
+        "outer_x_mm": 1288.4033212417653,
+        "outer_y_mm": 712.4023212417653,
+        "virtual_chamfer_leg_mm": 55.047281873469274,
+        "facet": {
+          "n": 4,
+          "normal": [
+            0.7071166012028383,
+            0.7070969610338784
+          ],
+          "intercept_mm": 1375.8640913756399,
+          "angle_deg": -45.00079570640552,
+          "span_mm": 72.31435480458646,
+          "rms_mm": 0.0012149267063646255,
+          "max_mm": 0.0019820099070457786
+        },
+        "axis_setback_mm": 57.82027749666895,
+        "shoulder_inset_mm": 1.9544231066188331,
+        "facet_leg_mm": 51.13397063511593,
+        "outer_inset_from_cap_mm": 42.340178758234686
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 670,
+      "above_bed_mm": -100.0,
+      "outer_x_mm": 1302.350640969518,
+      "outer_y_mm": 726.3498650727561,
+      "virtual_chamfer_leg_mm": 63.2174034265056,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071117652814619,
+          0.7071017970565021
+        ],
+        "intercept_mm": 1389.809071961684,
+        "angle_deg": -45.000403855000854,
+        "span_mm": 83.85722928563266,
+        "rms_mm": 6.635697076446175e-05,
+        "max_mm": 9.058849717469286e-05
+      },
+      "axis_setback_mm": 65.99040342650551,
+      "shoulder_inset_mm": 1.9607758967620157,
+      "facet_leg_mm": 59.2960154781245,
+      "outer_inset_from_cap_mm": 28.39274697886293,
+      "inner": {
+        "outer_x_mm": 1293.1245047638786,
+        "outer_y_mm": 717.1235047638786,
+        "virtual_chamfer_leg_mm": 57.81290189321521,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071077709374423,
+            0.7071057914342675
+          ],
+          "intercept_mm": 1380.5806369096197,
+          "angle_deg": -45.00008019805527,
+          "span_mm": 76.21479908162596,
+          "rms_mm": 4.818098711480939e-05,
+          "max_mm": 6.52766424584783e-05
+        },
+        "axis_setback_mm": 60.58570316504324,
+        "shoulder_inset_mm": 1.9601987281723723,
+        "facet_leg_mm": 53.89200125730167,
+        "outer_inset_from_cap_mm": 37.61899523612141
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 700,
+      "above_bed_mm": -70.0,
+      "outer_x_mm": 1308.2581235210519,
+      "outer_y_mm": 732.2575910912595,
+      "virtual_chamfer_leg_mm": 66.67804293307927,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071097305699924,
+          0.7071038317908007
+        ],
+        "intercept_mm": 1395.7155789071917,
+        "angle_deg": -45.00023898452183,
+        "span_mm": 88.75148476647281,
+        "rms_mm": 9.295460789537436e-05,
+        "max_mm": 0.00013140739544947877
+      },
+      "axis_setback_mm": 69.45104293307907,
+      "shoulder_inset_mm": 1.960532429792238,
+      "facet_leg_mm": 62.756776718183005,
+      "outer_inset_from_cap_mm": 22.485142693844296,
+      "inner": {
+        "outer_x_mm": 1298.7899249904146,
+        "outer_y_mm": 722.7889249904146,
+        "virtual_chamfer_leg_mm": 61.13164591691066,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071094378950533,
+            0.7071041244680601
+          ],
+          "intercept_mm": 1386.2469413121216,
+          "angle_deg": -45.00021526942575,
+          "span_mm": 80.90837680304259,
+          "rms_mm": 7.299965823130851e-05,
+          "max_mm": 0.00010323371756582045
+        },
+        "axis_setback_mm": 63.90421396709246,
+        "shoulder_inset_mm": 1.960431949818485,
+        "facet_leg_mm": 57.210861891820116,
+        "outer_inset_from_cap_mm": 31.953575009585393
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 730,
+      "above_bed_mm": -40.0,
+      "outer_x_mm": 1314.1656060725857,
+      "outer_y_mm": 738.165317109763,
+      "virtual_chamfer_leg_mm": 70.13868243965248,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071079593443117,
+          0.7071056030268204
+        ],
+        "intercept_mm": 1401.6221988241002,
+        "angle_deg": -45.00009546439876,
+        "span_mm": 93.64574024771073,
+        "rms_mm": 6.977109046302384e-05,
+        "max_mm": 9.464905496248122e-05
+      },
+      "axis_setback_mm": 72.91168243965262,
+      "shoulder_inset_mm": 1.9602889628224602,
+      "facet_leg_mm": 66.21753795824145,
+      "outer_inset_from_cap_mm": 16.57753840882566,
+      "inner": {
+        "outer_x_mm": 1304.4553452169505,
+        "outer_y_mm": 728.4543452169505,
+        "virtual_chamfer_leg_mm": 64.45038994060633,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071109658520166,
+            0.7071025964963134
+          ],
+          "intercept_mm": 1391.913136706785,
+          "angle_deg": -45.00033907803729,
+          "span_mm": 85.60195452471265,
+          "rms_mm": 6.0742851188725334e-05,
+          "max_mm": 8.331522624693832e-05
+        },
+        "axis_setback_mm": 67.22272476914168,
+        "shoulder_inset_mm": 1.9606651714645977,
+        "facet_leg_mm": 60.5297225263385,
+        "outer_inset_from_cap_mm": 26.288154783049492
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 760,
+      "above_bed_mm": -10.0,
+      "outer_x_mm": 1320.0730886241197,
+      "outer_y_mm": 744.0730431282666,
+      "virtual_chamfer_leg_mm": 73.59932194622638,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071069052178175,
+          0.7071066571552559
+        ],
+        "intercept_mm": 1407.5292108715105,
+        "angle_deg": -45.00001005006472,
+        "span_mm": 98.5399957293302,
+        "rms_mm": 1.2881720071465056e-05,
+        "max_mm": 1.6062832862928644e-05
+      },
+      "axis_setback_mm": 76.3723219462263,
+      "shoulder_inset_mm": 1.9600454958531373,
+      "facet_leg_mm": 69.6782991982999,
+      "outer_inset_from_cap_mm": 10.669934123806854,
+      "inner": {
+        "outer_x_mm": 1310.1207654434866,
+        "outer_y_mm": 734.1197654434865,
+        "virtual_chamfer_leg_mm": 67.76913396430155,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071119388402783,
+            0.7071016234951963
+          ],
+          "intercept_mm": 1397.5789946877567,
+          "angle_deg": -45.00041791830679,
+          "span_mm": 90.29553224662185,
+          "rms_mm": 2.1908440349241826e-05,
+          "max_mm": 2.7893694523939416e-05
+        },
+        "axis_setback_mm": 70.5412355711909,
+        "shoulder_inset_mm": 1.9608983931107105,
+        "facet_leg_mm": 63.84858316085689,
+        "outer_inset_from_cap_mm": 20.62273455651348
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 766,
+      "above_bed_mm": -4.0,
+      "outer_x_mm": 1321.2545900794944,
+      "outer_y_mm": 745.2545900794942,
+      "virtual_chamfer_leg_mm": 74.29120156007275,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.707105207565928,
+          0.7071083548036651
+        ],
+        "intercept_mm": 1408.7098625752474,
+        "angle_deg": -44.99987249207315,
+        "span_mm": 99.51874510538332,
+        "rms_mm": 7.533458624260327e-05,
+        "max_mm": 0.00010510278320374766
+      },
+      "axis_setback_mm": 77.06420156007232,
+      "shoulder_inset_mm": 1.9600000000002638,
+      "facet_leg_mm": 70.37037951897031,
+      "outer_inset_from_cap_mm": 9.488409920505717,
+      "inner": {
+        "outer_x_mm": 1311.2538494887935,
+        "outer_y_mm": 735.2528494887937,
+        "virtual_chamfer_leg_mm": 68.43288276904059,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071120676716935,
+            0.7071014946618784
+          ],
+          "intercept_mm": 1398.7121275817753,
+          "angle_deg": -45.00042835739614,
+          "span_mm": 91.23424779102876,
+          "rms_mm": 1.2123462077848038e-05,
+          "max_mm": 1.5167069193466887e-05
+        },
+        "axis_setback_mm": 71.20493773160081,
+        "shoulder_inset_mm": 1.960945037439842,
+        "facet_leg_mm": 64.5123552877605,
+        "outer_inset_from_cap_mm": 19.489650511206378
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 770,
+      "above_bed_mm": 0.0,
+      "outer_x_mm": 1322.144654762045,
+      "outer_y_mm": 746.1446547620451,
+      "virtual_chamfer_leg_mm": 74.8121427803494,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.707105505047064,
+          0.7071080573237278
+        ],
+        "intercept_mm": 1409.6003306195857,
+        "angle_deg": -44.99989659646543,
+        "span_mm": 100.25641168830253,
+        "rms_mm": 6.958243901553657e-05,
+        "max_mm": 9.603698759086399e-05
+      },
+      "axis_setback_mm": 77.58514278034932,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 70.8919885620661,
+      "outer_inset_from_cap_mm": 8.598345237954902,
+      "inner": {
+        "outer_x_mm": 1312.0092388523317,
+        "outer_y_mm": 736.0082388523318,
+        "virtual_chamfer_leg_mm": 68.8753819722001,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.707112143195568,
+            0.7071014191368664
+          ],
+          "intercept_mm": 1399.4675434986816,
+          "angle_deg": -45.00043447702611,
+          "span_mm": 91.86005815397056,
+          "rms_mm": 5.336329448522108e-06,
+          "max_mm": 6.596647656564869e-06
+        },
+        "axis_setback_mm": 71.64740583854064,
+        "shoulder_inset_mm": 1.9609761336591873,
+        "facet_leg_mm": 64.95487003902969,
+        "outer_inset_from_cap_mm": 18.734261147668235
+      }
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 637.226,
+      "above_bed_mm": -132.774,
+      "outer_x_mm": 1297.9361269999997,
+      "outer_y_mm": 721.9361269999997,
+      "virtual_chamfer_leg_mm": 60.63192799999979,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071067879281734,
+          0.7071067744449216
+        ],
+        "intercept_mm": 1385.3921178566197,
+        "angle_deg": -45.00000054626362,
+        "span_mm": 78.39409191774601,
+        "rms_mm": 4.1366360751100914e-06,
+        "max_mm": 6.88900705370088e-06
+      },
+      "axis_setback_mm": 64.3081739999999,
+      "shoulder_inset_mm": 2.599467000000004,
+      "facet_leg_mm": 55.432993999999724,
+      "outer_inset_from_cap_mm": 32.80687300000028
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 640,
+      "above_bed_mm": -130.0,
+      "outer_x_mm": 1299.490266414607,
+      "outer_y_mm": 723.4912512293824,
+      "virtual_chamfer_leg_mm": 61.542275101054656,
+      "facet": {
+        "n": 8,
+        "normal": [
+          0.70711085148988,
+          0.7071027108597853
+        ],
+        "intercept_mm": 1386.9491067000188,
+        "angle_deg": -45.000329811394415,
+        "span_mm": 79.8362979222521,
+        "rms_mm": 0.0005492733400652159,
+        "max_mm": 0.0013426003561463062
+      },
+      "axis_setback_mm": 65.14427510105475,
+      "shoulder_inset_mm": 2.5437674656679974,
+      "facet_leg_mm": 56.45278763926484,
+      "outer_inset_from_cap_mm": 31.25224117800525
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 645,
+      "above_bed_mm": -125.0,
+      "outer_x_mm": 1300.4749223647943,
+      "outer_y_mm": 724.4758277590222,
+      "virtual_chamfer_leg_mm": 62.119027118336135,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071066585921397,
+          0.7071069037809341
+        ],
+        "intercept_mm": 1387.9315328189175,
+        "angle_deg": -44.99999006636376,
+        "span_mm": 80.64698095900629,
+        "rms_mm": 1.5123806747317041e-05,
+        "max_mm": 2.5223010649000344e-05
+      },
+      "axis_setback_mm": 65.72102711833668,
+      "shoulder_inset_mm": 2.5460473028858814,
+      "facet_leg_mm": 57.02602711833657,
+      "outer_inset_from_cap_mm": 30.26762493809173
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 670,
+      "above_bed_mm": -100.0,
+      "outer_x_mm": 1305.3982021157315,
+      "outer_y_mm": 729.398710407221,
+      "virtual_chamfer_leg_mm": 65.0027872047458,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071062187915907,
+          0.7071073435810571
+        ],
+        "intercept_mm": 1392.854362287843,
+        "angle_deg": -44.99995443001611,
+        "span_mm": 84.7252335838112,
+        "rms_mm": 8.018281765582664e-05,
+        "max_mm": 0.00013101922677805078
+      },
+      "axis_setback_mm": 68.60478720474623,
+      "shoulder_inset_mm": 2.546245854255176,
+      "facet_leg_mm": 59.90978720474607,
+      "outer_inset_from_cap_mm": 25.344543738523782
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 700,
+      "above_bed_mm": -70.0,
+      "outer_x_mm": 1311.306137816856,
+      "outer_y_mm": 735.3061695850594,
+      "virtual_chamfer_leg_mm": 68.4632993084374,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071059022350414,
+          0.707107660136961
+        ],
+        "intercept_mm": 1398.7618752729977,
+        "angle_deg": -44.99992877994988,
+        "span_mm": 89.61913673356551,
+        "rms_mm": 0.0001615607494977632,
+        "max_mm": 0.00025196989516018675
+      },
+      "axis_setback_mm": 72.0652993084376,
+      "shoulder_inset_mm": 2.546484115898238,
+      "facet_leg_mm": 63.37029930843755,
+      "outer_inset_from_cap_mm": 19.43684629904226
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 730,
+      "above_bed_mm": -40.0,
+      "outer_x_mm": 1317.2140735179808,
+      "outer_y_mm": 741.2136287628979,
+      "virtual_chamfer_leg_mm": 71.923811412129,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071058181604485,
+          0.7071077442113349
+        ],
+        "intercept_mm": 1404.6695206075537,
+        "angle_deg": -44.99992196752325,
+        "span_mm": 94.51303988334377,
+        "rms_mm": 0.00024555854642823485,
+        "max_mm": 0.00036113501425916184
+      },
+      "axis_setback_mm": 75.52581141212909,
+      "shoulder_inset_mm": 2.5467223775415277,
+      "facet_leg_mm": 66.83081141212898,
+      "outer_inset_from_cap_mm": 13.529148859560678
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 760,
+      "above_bed_mm": -10.0,
+      "outer_x_mm": 1323.1220092191054,
+      "outer_y_mm": 747.1210879407364,
+      "virtual_chamfer_leg_mm": 75.3843235158206,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071059009903891,
+          0.7071076613816104
+        ],
+        "intercept_mm": 1410.5772629216478,
+        "angle_deg": -44.99992867909773,
+        "span_mm": 99.40694303315108,
+        "rms_mm": 0.00033077318712553715,
+        "max_mm": 0.0004583078695823417
+      },
+      "axis_setback_mm": 78.98632351582057,
+      "shoulder_inset_mm": 2.54696063918459,
+      "facet_leg_mm": 70.29132351582041,
+      "outer_inset_from_cap_mm": 7.621451420079097
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 766,
+      "above_bed_mm": -4.0,
+      "outer_x_mm": 1324.3032645428032,
+      "outer_y_mm": 748.3032466698024,
+      "virtual_chamfer_leg_mm": 76.07778374788313,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071067957629614,
+          0.7071067666101333
+        ],
+        "intercept_mm": 1411.7590051427267,
+        "angle_deg": -45.00000118110451,
+        "span_mm": 100.38625496105571,
+        "rms_mm": 6.173476594188445e-06,
+        "max_mm": 8.369756162807107e-06
+      },
+      "axis_setback_mm": 79.6788016208842,
+      "shoulder_inset_mm": 2.546999999999798,
+      "facet_leg_mm": 70.98380162088421,
+      "outer_inset_from_cap_mm": 6.439744393697197
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 768,
+      "above_bed_mm": -2.0,
+      "outer_x_mm": 1320.1668112360533,
+      "outer_y_mm": 744.1668112360533,
+      "virtual_chamfer_leg_mm": 73.65386090840957,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.707106781186547,
+          0.7071067811865481
+        ],
+        "intercept_mm": 1407.6231585725095,
+        "angle_deg": -44.99999999999996,
+        "span_mm": 96.80837849347452,
+        "rms_mm": 5.662491939489467e-14,
+        "max_mm": 1.1368683772161603e-13
+      },
+      "axis_setback_mm": 77.3308609084097,
+      "shoulder_inset_mm": 2.599999999999909,
+      "facet_leg_mm": 68.45386090840975,
+      "outer_inset_from_cap_mm": 10.576188763946732
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 769,
+      "above_bed_mm": -1.0,
+      "outer_x_mm": 1315.8325064900084,
+      "outer_y_mm": 739.8325064900084,
+      "virtual_chamfer_leg_mm": 71.11514317318893,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071067811865468,
+          0.7071067811865482
+        ],
+        "intercept_mm": 1403.2886705432875,
+        "angle_deg": -44.99999999999994,
+        "span_mm": 93.21808944128827,
+        "rms_mm": 9.118748495876296e-14,
+        "max_mm": 1.3145040611561853e-13
+      },
+      "axis_setback_mm": 74.79214317318917,
+      "shoulder_inset_mm": 2.599999999999909,
+      "facet_leg_mm": 65.91514317318905,
+      "outer_inset_from_cap_mm": 14.910493509991568
+    },
+    {
+      "family": "apron",
+      "corner": [
+        1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 770,
+      "above_bed_mm": 0.0,
+      "outer_x_mm": 1311.4981485578514,
+      "outer_y_mm": 735.4981485578513,
+      "virtual_chamfer_leg_mm": 68.57608423553756,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071067811865471,
+          0.7071067811865479
+        ],
+        "intercept_mm": 1398.9543485640975,
+        "angle_deg": -44.999999999999964,
+        "span_mm": 89.62731785599647,
+        "rms_mm": 2.3479347027326146e-13,
+        "max_mm": 2.984279490192421e-13
+      },
+      "axis_setback_mm": 72.25308423553724,
+      "shoulder_inset_mm": 2.6000000000001364,
+      "facet_leg_mm": 63.376084235537235,
+      "outer_inset_from_cap_mm": 19.244851442148615
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 770.001,
+      "above_bed_mm": 0.0009999999999763531,
+      "outer_x_mm": 1315.490162992331,
+      "outer_y_mm": 739.4901629923311,
+      "virtual_chamfer_leg_mm": 68.22255716411019,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071055136382366,
+          0.7071080487325863
+        ],
+        "intercept_mm": 1404.8485632287943,
+        "angle_deg": -44.99989729259373,
+        "span_mm": 96.48267764345748,
+        "rms_mm": 0.00024433959145908266,
+        "max_mm": 0.0005504996036993504
+      },
+      "axis_setback_mm": 68.22355562883422,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 68.2235556288341,
+      "rail_outer_inset_mm": 13.606840725584107,
+      "block_inset_from_rail_mm": 1.645996282084809,
+      "rail_end_setback_mm": 74.54952071604305
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 772,
+      "above_bed_mm": 2.0,
+      "outer_x_mm": 1324.0239580417945,
+      "outer_y_mm": 748.0230661710123,
+      "virtual_chamfer_leg_mm": 73.2344395463956,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071039841548631,
+          0.7071095782071681
+        ],
+        "intercept_mm": 1413.371970496613,
+        "angle_deg": -44.99977336125464,
+        "span_mm": 103.56976828886756,
+        "rms_mm": 0.00026796995333822895,
+        "max_mm": 0.0004597898824609814
+      },
+      "axis_setback_mm": 73.2344395463956,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 73.2348854817867,
+      "rail_outer_inset_mm": 5.0820419582055365,
+      "block_inset_from_rail_mm": 1.6374459353910993,
+      "rail_end_setback_mm": 79.53116922335118
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 775,
+      "above_bed_mm": 5.0,
+      "outer_x_mm": 1324.6832140782074,
+      "outer_y_mm": 748.6832140782072,
+      "virtual_chamfer_leg_mm": 73.62203291993774,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.707107817669587,
+          0.7071057447019887
+        ],
+        "intercept_mm": 1414.0332997711307,
+        "angle_deg": -45.000083984694825,
+        "span_mm": 104.11727744474257,
+        "rms_mm": 0.0002429762774525301,
+        "max_mm": 0.0005503590445954387
+      },
+      "axis_setback_mm": 73.62203291993774,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 73.62203291993774,
+      "rail_outer_inset_mm": 4.422947243238468,
+      "block_inset_from_rail_mm": 1.636838678554227,
+      "rail_end_setback_mm": 79.91602879041994
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 780,
+      "above_bed_mm": 10.0,
+      "outer_x_mm": 1325.7827234128172,
+      "outer_y_mm": 749.7827234128172,
+      "virtual_chamfer_leg_mm": 74.26767676866893,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071071815765676,
+          0.7071063807963007
+        ],
+        "intercept_mm": 1415.131253883476,
+        "angle_deg": -45.000032442999306,
+        "span_mm": 105.03035573217642,
+        "rms_mm": 0.0002410591541558441,
+        "max_mm": 0.0004961495081126088
+      },
+      "axis_setback_mm": 74.26767676866928,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 74.26767676866922,
+      "rail_outer_inset_mm": 3.3246346534825193,
+      "block_inset_from_rail_mm": 1.635641933700299,
+      "rail_end_setback_mm": 80.55793281148271
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 785,
+      "above_bed_mm": 15.0,
+      "outer_x_mm": 1326.882232747427,
+      "outer_y_mm": 750.882232747427,
+      "virtual_chamfer_leg_mm": 74.91332061740059,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.707106443084882,
+          0.7071071192880513
+        ],
+        "intercept_mm": 1416.2291490133632,
+        "angle_deg": -44.999972604146414,
+        "span_mm": 105.9434340195198,
+        "rms_mm": 0.00027425872372138755,
+        "max_mm": 0.00043719140572129334
+      },
+      "axis_setback_mm": 74.91332061740059,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 74.91332061740059,
+      "rail_outer_inset_mm": 2.226322063726684,
+      "block_inset_from_rail_mm": 1.634445188846314,
+      "rail_end_setback_mm": 81.19983683254543
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 790,
+      "above_bed_mm": 20.0,
+      "outer_x_mm": 1327.9817420820366,
+      "outer_y_mm": 751.9817420820369,
+      "virtual_chamfer_leg_mm": 75.55896446613178,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071056325770219,
+          0.7071079297942073
+        ],
+        "intercept_mm": 1417.3270026607493,
+        "angle_deg": -44.999906930004876,
+        "span_mm": 106.85651230672958,
+        "rms_mm": 0.000331327586928469,
+        "max_mm": 0.00045064588649523785
+      },
+      "axis_setback_mm": 75.55896446613212,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 75.55896446613195,
+      "rail_outer_inset_mm": 1.1280094739707351,
+      "block_inset_from_rail_mm": 1.6332484439924997,
+      "rail_end_setback_mm": 81.8417408536082
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 795.136,
+      "above_bed_mm": 25.135999999999967,
+      "outer_x_mm": 1329.1109999832688,
+      "outer_y_mm": 753.1109999832689,
+      "virtual_chamfer_leg_mm": 76.22199999013264,
+      "facet": {
+        "n": 17,
+        "normal": [
+          0.7071067811903312,
+          0.7071067811827637
+        ],
+        "intercept_mm": 1418.4562019903046,
+        "angle_deg": -45.00000000030659,
+        "span_mm": 107.79418613724782,
+        "rms_mm": 2.734448315413998e-06,
+        "max_mm": 7.48024744368081e-06
+      },
+      "axis_setback_mm": 76.22199999013287,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 76.22200351898317,
+      "rail_outer_inset_mm": 1.6518242773599923e-08,
+      "block_inset_from_rail_mm": 1.6320000002128836,
+      "rail_end_setback_mm": 82.50049999045376
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 800,
+      "above_bed_mm": 30.0,
+      "outer_x_mm": 1328.9198490639096,
+      "outer_y_mm": 752.9198490639097,
+      "virtual_chamfer_leg_mm": 76.10955230263107,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071069303427245,
+          0.7071066320303391
+        ],
+        "intercept_mm": 1418.265458505055,
+        "angle_deg": -45.00001208589786,
+        "span_mm": 107.6351610925233,
+        "rms_mm": 1.677618318401455e-05,
+        "max_mm": 2.610436489192125e-05
+      },
+      "axis_setback_mm": 76.10955230263141,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 76.10955230263136,
+      "rail_outer_inset_mm": 0.19037663399581106,
+      "block_inset_from_rail_mm": 1.6327743020945036,
+      "rail_end_setback_mm": 82.38971409264224
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 803,
+      "above_bed_mm": 33.0,
+      "outer_x_mm": 1327.2393979360902,
+      "outer_y_mm": 751.2393979360902,
+      "virtual_chamfer_leg_mm": 75.12271019736818,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071094937166845,
+          0.7071040686460051
+        ],
+        "intercept_mm": 1416.5880018801483,
+        "angle_deg": -45.00021979258421,
+        "span_mm": 106.23955560256024,
+        "rms_mm": 0.00024695654238600427,
+        "max_mm": 0.0004376147884741499
+      },
+      "axis_setback_mm": 75.12271019736829,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 75.12271019736835,
+      "rail_outer_inset_mm": 1.8700221764231628,
+      "block_inset_from_rail_mm": 1.6335798874866327,
+      "rail_end_setback_mm": 81.40770549973138
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 805,
+      "above_bed_mm": 35.0,
+      "outer_x_mm": 1324.3643951845636,
+      "outer_y_mm": 748.3636866510067,
+      "virtual_chamfer_leg_mm": 73.43402965436235,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071054403815625,
+          0.70710812198899
+        ],
+        "intercept_mm": 1413.7132288274186,
+        "angle_deg": -44.99989135672858,
+        "span_mm": 103.85190168655336,
+        "rms_mm": 0.000234083484547447,
+        "max_mm": 0.0004306161948655074
+      },
+      "axis_setback_mm": 73.43402965436235,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 73.4343839211408,
+      "rail_outer_inset_mm": 4.742024928768842,
+      "block_inset_from_rail_mm": 1.6369341534460204,
+      "rail_end_setback_mm": 79.72980059777768
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 808,
+      "above_bed_mm": 38.0,
+      "outer_x_mm": 1311.6984575131935,
+      "outer_y_mm": 735.6984575131933,
+      "virtual_chamfer_leg_mm": 65.99692692891745,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071106788688606,
+          0.7071028834827497
+        ],
+        "intercept_mm": 1401.063383180786,
+        "angle_deg": -45.00031582409879,
+        "span_mm": 93.3337491364035,
+        "rms_mm": 0.0002081386408938664,
+        "max_mm": 0.00048693155769541363
+      },
+      "axis_setback_mm": 65.99692692891756,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 65.99692692891762,
+      "rail_outer_inset_mm": 17.394658259075925,
+      "block_inset_from_rail_mm": 1.6498842277306949,
+      "rail_end_setback_mm": 72.3360744659795
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 810,
+      "above_bed_mm": 40.0,
+      "outer_x_mm": 1298.7936751497086,
+      "outer_y_mm": 722.7934483182113,
+      "virtual_chamfer_leg_mm": 58.41908153596887,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071049039670569,
+          0.7071086584010545
+        ],
+        "intercept_mm": 1388.1681261235426,
+        "angle_deg": -44.99984789198164,
+        "span_mm": 82.61705740925586,
+        "rms_mm": 0.00023753218135214263,
+        "max_mm": 0.00039044567938795183
+      },
+      "axis_setback_mm": 58.41908153596887,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 58.419081535968985,
+      "rail_outer_inset_mm": 30.290566579390713,
+      "block_inset_from_rail_mm": 1.65887168664932,
+      "rail_end_setback_mm": 64.80029219183416
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": "pool_kant03",
+      "z_mm": 812,
+      "above_bed_mm": 42.0,
+      "outer_x_mm": 1281.009985274033,
+      "outer_y_mm": 705.009876987845,
+      "virtual_chamfer_leg_mm": 47.984627116588854,
+      "facet": {
+        "n": 8,
+        "normal": [
+          0.707110682314356,
+          0.7071028800372162
+        ],
+        "intercept_mm": 1370.3988558026413,
+        "angle_deg": -45.000316103283545,
+        "span_mm": 67.86545238400423,
+        "rms_mm": 0.001213605650574511,
+        "max_mm": 0.0013657512680538275
+      },
+      "axis_setback_mm": 47.98856744419868,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 47.98812158729265,
+      "rail_outer_inset_mm": 48.006680027507684,
+      "block_inset_from_rail_mm": 1.7263888415533302,
+      "rail_end_setback_mm": 113.12412902993572
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 645,
+      "above_bed_mm": -125.0,
+      "outer_x_mm": 1297.4267600573364,
+      "outer_y_mm": 721.4267600573365,
+      "virtual_chamfer_leg_mm": 60.332558385123775,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071129943969616,
+          0.7071005679215387
+        ],
+        "intercept_mm": 1384.886690559414,
+        "angle_deg": -45.000503449135905,
+        "span_mm": 79.77868305199532,
+        "rms_mm": 7.5704826749887105e-06,
+        "max_mm": 9.393626218212603e-06
+      },
+      "axis_setback_mm": 63.10651595693082,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 56.4120477780757,
+      "outer_inset_from_cap_mm": 33.316239942663515,
+      "inner": {
+        "outer_x_mm": 1288.4033212417653,
+        "outer_y_mm": 712.4023212417653,
+        "virtual_chamfer_leg_mm": 55.047281873469274,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071136853834734,
+            0.7070998769222084
+          ],
+          "intercept_mm": 1375.8625551241,
+          "angle_deg": -45.00055943923401,
+          "span_mm": 72.3027772106818,
+          "rms_mm": 1.6110343922576815e-06,
+          "max_mm": 1.978612731434737e-06
+        },
+        "axis_setback_mm": 57.82027749666895,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 51.125784061869695,
+        "outer_inset_from_cap_mm": 42.340178758234686
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 670,
+      "above_bed_mm": -100.0,
+      "outer_x_mm": 1302.349865072756,
+      "outer_y_mm": 726.3498650727561,
+      "virtual_chamfer_leg_mm": 63.21662752974362,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071117652814619,
+          0.7071017970565021
+        ],
+        "intercept_mm": 1389.809071961684,
+        "angle_deg": -45.000403855000854,
+        "span_mm": 83.85722928563266,
+        "rms_mm": 6.635697076446175e-05,
+        "max_mm": 9.058849717469286e-05
+      },
+      "axis_setback_mm": 65.9901793232674,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 59.2960154781245,
+      "outer_inset_from_cap_mm": 28.39313492724392,
+      "inner": {
+        "outer_x_mm": 1293.1245047638786,
+        "outer_y_mm": 717.1235047638786,
+        "virtual_chamfer_leg_mm": 57.81290189321521,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071124393721142,
+            0.7071011229557043
+          ],
+          "intercept_mm": 1380.5830384991903,
+          "angle_deg": -45.00045847594505,
+          "span_mm": 76.2140919768164,
+          "rms_mm": 6.160815740768262e-05,
+          "max_mm": 8.346807295911418e-05
+        },
+        "axis_setback_mm": 60.58570316504324,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 53.89150125730163,
+        "outer_inset_from_cap_mm": 37.61899523612141
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 700,
+      "above_bed_mm": -70.0,
+      "outer_x_mm": 1308.2575910912597,
+      "outer_y_mm": 732.2575910912595,
+      "virtual_chamfer_leg_mm": 66.67751050328707,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071097305699924,
+          0.7071038317908007
+        ],
+        "intercept_mm": 1395.7155789071917,
+        "angle_deg": -45.00023898452183,
+        "span_mm": 88.75148476647281,
+        "rms_mm": 9.295460789537436e-05,
+        "max_mm": 0.00013140739544947877
+      },
+      "axis_setback_mm": 69.45057536287129,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 62.756776718183005,
+      "outer_inset_from_cap_mm": 22.485408908740396,
+      "inner": {
+        "outer_x_mm": 1298.7899249904146,
+        "outer_y_mm": 722.7889249904146,
+        "virtual_chamfer_leg_mm": 61.13164591691066,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071103078525768,
+            0.7071032545029291
+          ],
+          "intercept_mm": 1386.2472766646972,
+          "angle_deg": -45.000285761059715,
+          "span_mm": 80.90766969668195,
+          "rms_mm": 9.334328231286611e-05,
+          "max_mm": 0.00013200300284477162
+        },
+        "axis_setback_mm": 63.90421396709246,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 57.21036189182013,
+        "outer_inset_from_cap_mm": 31.953575009585393
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 730,
+      "above_bed_mm": -40.0,
+      "outer_x_mm": 1314.1653171097632,
+      "outer_y_mm": 738.165317109763,
+      "virtual_chamfer_leg_mm": 70.13839347683029,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071079593443117,
+          0.7071056030268204
+        ],
+        "intercept_mm": 1401.6221988241002,
+        "angle_deg": -45.00009546439876,
+        "span_mm": 93.64574024771073,
+        "rms_mm": 6.977109046302384e-05,
+        "max_mm": 9.464905496248122e-05
+      },
+      "axis_setback_mm": 72.9109714024753,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 66.21753795824145,
+      "outer_inset_from_cap_mm": 16.577682890236872,
+      "inner": {
+        "outer_x_mm": 1304.4553452169505,
+        "outer_y_mm": 728.4543452169505,
+        "virtual_chamfer_leg_mm": 64.45038994060633,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071083540651039,
+            0.7071052083044924
+          ],
+          "intercept_mm": 1391.9116541984115,
+          "angle_deg": -45.00012744808224,
+          "span_mm": 85.60124741696185,
+          "rms_mm": 7.767068816638513e-05,
+          "max_mm": 0.00010653352714395936
+        },
+        "axis_setback_mm": 67.22272476914168,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 60.529222526338515,
+        "outer_inset_from_cap_mm": 26.288154783049492
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 760,
+      "above_bed_mm": -10.0,
+      "outer_x_mm": 1320.0730431282666,
+      "outer_y_mm": 744.0730431282666,
+      "virtual_chamfer_leg_mm": 73.59927645037328,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071069052178175,
+          0.7071066571552559
+        ],
+        "intercept_mm": 1407.5292108715105,
+        "angle_deg": -45.00001005006472,
+        "span_mm": 98.5399957293302,
+        "rms_mm": 1.2881720071465056e-05,
+        "max_mm": 1.6062832862928644e-05
+      },
+      "axis_setback_mm": 76.3713674420793,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 69.6782991982999,
+      "outer_inset_from_cap_mm": 10.669956871733405,
+      "inner": {
+        "outer_x_mm": 1310.1207654434866,
+        "outer_y_mm": 734.1197654434865,
+        "virtual_chamfer_leg_mm": 67.76913396430177,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071071099086093,
+            0.707106452464333
+          ],
+          "intercept_mm": 1397.5764631721088,
+          "angle_deg": -45.000026635851405,
+          "span_mm": 90.29482513763278,
+          "rms_mm": 2.8013880605375293e-05,
+          "max_mm": 3.5667101597525175e-05
+        },
+        "axis_setback_mm": 70.5412355711909,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 63.84808316085696,
+        "outer_inset_from_cap_mm": 20.62273455651348
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 766,
+      "above_bed_mm": -4.0,
+      "outer_x_mm": 1321.2545900794944,
+      "outer_y_mm": 745.2545900794942,
+      "virtual_chamfer_leg_mm": 74.29120156007275,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.707105207565928,
+          0.7071083548036651
+        ],
+        "intercept_mm": 1408.7098625752474,
+        "angle_deg": -44.99987249207315,
+        "span_mm": 99.51874510538332,
+        "rms_mm": 7.533458624260327e-05,
+        "max_mm": 0.00010510278320374766
+      },
+      "axis_setback_mm": 77.06355747786813,
+      "shoulder_inset_mm": 1.9600000000002638,
+      "facet_leg_mm": 70.37037951897031,
+      "outer_inset_from_cap_mm": 9.488409920505717,
+      "inner": {
+        "outer_x_mm": 1311.2538494887935,
+        "outer_y_mm": 735.2528494887937,
+        "virtual_chamfer_leg_mm": 68.43288276904059,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.707106945172103,
+            0.7071066172009541
+          ],
+          "intercept_mm": 1398.7094744551714,
+          "angle_deg": -45.00001328749995,
+          "span_mm": 91.23354068180787,
+          "rms_mm": 1.5502025677927624e-05,
+          "max_mm": 1.93938237185165e-05
+        },
+        "axis_setback_mm": 71.20493773160081,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 64.51185528776045,
+        "outer_inset_from_cap_mm": 19.489650511206378
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 770,
+      "above_bed_mm": 0.0,
+      "outer_x_mm": 1322.144654762045,
+      "outer_y_mm": 746.1446547620451,
+      "virtual_chamfer_leg_mm": 74.8121427803494,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.707105505047064,
+          0.7071080573237278
+        ],
+        "intercept_mm": 1409.6003306195857,
+        "angle_deg": -44.99989659646543,
+        "span_mm": 100.25641168830253,
+        "rms_mm": 6.958243901553657e-05,
+        "max_mm": 9.603698759086399e-05
+      },
+      "axis_setback_mm": 77.58514278034932,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 70.8919885620661,
+      "outer_inset_from_cap_mm": 8.598345237954902,
+      "inner": {
+        "outer_x_mm": 1312.0092388523317,
+        "outer_y_mm": 736.0082388523318,
+        "virtual_chamfer_leg_mm": 68.8753819722001,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071068485998159,
+            0.7071067137732727
+          ],
+          "intercept_mm": 1399.4648229986951,
+          "angle_deg": -45.00000546239415,
+          "span_mm": 91.85935104459745,
+          "rms_mm": 6.823456387606711e-06,
+          "max_mm": 8.434999619666428e-06
+        },
+        "axis_setback_mm": 71.64740583854064,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 64.95437003902958,
+        "outer_inset_from_cap_mm": 18.734261147668235
+      }
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 637.226,
+      "above_bed_mm": -132.774,
+      "outer_x_mm": 1297.9361269999997,
+      "outer_y_mm": 721.9351399999998,
+      "virtual_chamfer_leg_mm": 60.63094099999989,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.707102461038906,
+          0.7071111013077949
+        ],
+        "intercept_mm": 1385.3893962356065,
+        "angle_deg": -44.99964994612245,
+        "span_mm": 78.39339400615393,
+        "rms_mm": 0.00021216743547657651,
+        "max_mm": 0.0004601615620778432
+      },
+      "axis_setback_mm": 64.307187,
+      "shoulder_inset_mm": 2.599467000000004,
+      "facet_leg_mm": 55.432500499999776,
+      "outer_inset_from_cap_mm": 32.80736650000023
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 640,
+      "above_bed_mm": -130.0,
+      "outer_x_mm": 1299.4912588219947,
+      "outer_y_mm": 723.4902588219948,
+      "virtual_chamfer_leg_mm": 61.54228269366695,
+      "facet": {
+        "n": 8,
+        "normal": [
+          0.7071045563178904,
+          0.7071090060482045
+        ],
+        "intercept_mm": 1386.9451269566462,
+        "angle_deg": -44.99981972258381,
+        "span_mm": 79.83559080260318,
+        "rms_mm": 0.0005499757784097733,
+        "max_mm": 0.0013442672516816856
+      },
+      "axis_setback_mm": 65.14427510105486,
+      "shoulder_inset_mm": 2.544759873055682,
+      "facet_leg_mm": 56.45228763926485,
+      "outer_inset_from_cap_mm": 31.25224117800525
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 645,
+      "above_bed_mm": -125.0,
+      "outer_x_mm": 1300.4758750619085,
+      "outer_y_mm": 724.4748750619084,
+      "virtual_chamfer_leg_mm": 62.11907442122265,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071007123411412,
+          0.7071128499798676
+        ],
+        "intercept_mm": 1387.9277512026513,
+        "angle_deg": -44.99950825286167,
+        "span_mm": 80.6463073032294,
+        "rms_mm": 1.5266791284703403e-05,
+        "max_mm": 3.453494989180683e-05
+      },
+      "axis_setback_mm": 65.72102711833679,
+      "shoulder_inset_mm": 2.5470000000000255,
+      "facet_leg_mm": 57.02555076977967,
+      "outer_inset_from_cap_mm": 30.267624938091558
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 670,
+      "above_bed_mm": -100.0,
+      "outer_x_mm": 1305.3989562614763,
+      "outer_y_mm": 729.3979562614763,
+      "virtual_chamfer_leg_mm": 65.00303305900161,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.707102122910224,
+          0.7071114394321836
+        ],
+        "intercept_mm": 1392.851638477238,
+        "angle_deg": -44.999622548247146,
+        "span_mm": 84.72470032394253,
+        "rms_mm": 5.433457245596243e-05,
+        "max_mm": 0.00013136031548999227
+      },
+      "axis_setback_mm": 68.60478720474634,
+      "shoulder_inset_mm": 2.5470000000000255,
+      "facet_leg_mm": 59.909410131873756,
+      "outer_inset_from_cap_mm": 25.34454373852367
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 700,
+      "above_bed_mm": -70.0,
+      "outer_x_mm": 1311.306653700958,
+      "outer_y_mm": 735.3056537009578,
+      "virtual_chamfer_leg_mm": 68.46378342433582,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071039036400243,
+          0.7071096587213608
+        ],
+        "intercept_mm": 1398.7603674189334,
+        "angle_deg": -44.99976683728674,
+        "span_mm": 89.61877194923073,
+        "rms_mm": 6.90033099542382e-05,
+        "max_mm": 0.000168889608895606
+      },
+      "axis_setback_mm": 72.06529930843772,
+      "shoulder_inset_mm": 2.5470000000000255,
+      "facet_leg_mm": 63.37004136638683,
+      "outer_inset_from_cap_mm": 19.436846299042145
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 730,
+      "above_bed_mm": -40.0,
+      "outer_x_mm": 1317.2143511404392,
+      "outer_y_mm": 741.2133511404394,
+      "virtual_chamfer_leg_mm": 71.92453378967048,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071054570147189,
+          0.7071081053558963
+        ],
+        "intercept_mm": 1404.66897966226,
+        "angle_deg": -44.99989270448523,
+        "span_mm": 94.51284357491029,
+        "rms_mm": 5.132452519552861e-05,
+        "max_mm": 0.00012331032309909062
+      },
+      "axis_setback_mm": 75.5258114121292,
+      "shoulder_inset_mm": 2.5470000000000255,
+      "facet_leg_mm": 66.83067260089973,
+      "outer_inset_from_cap_mm": 13.529148859560678
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 760,
+      "above_bed_mm": -10.0,
+      "outer_x_mm": 1323.1220485799208,
+      "outer_y_mm": 747.1210485799209,
+      "virtual_chamfer_leg_mm": 75.38528415500468,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071066259397417,
+          0.7071069364333192
+        ],
+        "intercept_mm": 1410.5773802916963,
+        "angle_deg": -44.99998742059048,
+        "span_mm": 99.4069152009323,
+        "rms_mm": 8.836003959826788e-06,
+        "max_mm": 2.043739407397993e-05
+      },
+      "axis_setback_mm": 78.98632351582057,
+      "shoulder_inset_mm": 2.5470000000000255,
+      "facet_leg_mm": 70.29130383541269,
+      "outer_inset_from_cap_mm": 7.621451420079154
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 766,
+      "above_bed_mm": -4.0,
+      "outer_x_mm": 1324.3032645428032,
+      "outer_y_mm": 748.3032466698024,
+      "virtual_chamfer_leg_mm": 76.07681949388507,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071084720451666,
+          0.7071050903238852
+        ],
+        "intercept_mm": 1411.7600786511894,
+        "angle_deg": -45.00013700784808,
+        "span_mm": 100.38556049376845,
+        "rms_mm": 0.00021342099259317337,
+        "max_mm": 0.0004591130724378445
+      },
+      "axis_setback_mm": 79.67978374788333,
+      "shoulder_inset_mm": 2.546999999999798,
+      "facet_leg_mm": 70.98331055738475,
+      "outer_inset_from_cap_mm": 6.439744393697197
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 768,
+      "above_bed_mm": -2.0,
+      "outer_x_mm": 1320.1668112360533,
+      "outer_y_mm": 744.166589337219,
+      "virtual_chamfer_leg_mm": 73.65363900957527,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071077359736828,
+          0.707105826398123
+        ],
+        "intercept_mm": 1407.623534924073,
+        "angle_deg": -45.000077364991505,
+        "span_mm": 96.80877178835746,
+        "rms_mm": 0.00015898761275137525,
+        "max_mm": 0.00031123604308191943
+      },
+      "axis_setback_mm": 77.33141711074109,
+      "shoulder_inset_mm": 2.599999999999909,
+      "facet_leg_mm": 68.45413900957539,
+      "outer_inset_from_cap_mm": 10.57629971336388
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 769,
+      "above_bed_mm": -1.0,
+      "outer_x_mm": 1315.8325064900084,
+      "outer_y_mm": 739.8318682714405,
+      "virtual_chamfer_leg_mm": 71.114504954621,
+      "facet": {
+        "n": 8,
+        "normal": [
+          0.7071064241758823,
+          0.7071071381970325
+        ],
+        "intercept_mm": 1403.2881495314396,
+        "angle_deg": -44.99997107197988,
+        "span_mm": 93.2178939708019,
+        "rms_mm": 0.00019089512769910363,
+        "max_mm": 0.00033832110273834815
+      },
+      "axis_setback_mm": 74.7918667360533,
+      "shoulder_inset_mm": 2.599999999999909,
+      "facet_leg_mm": 65.91500495462122,
+      "outer_inset_from_cap_mm": 14.910812619275532
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 770,
+      "above_bed_mm": 0.0,
+      "outer_x_mm": 1311.4981485578514,
+      "outer_y_mm": 735.4976898842975,
+      "virtual_chamfer_leg_mm": 68.57562556198354,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071075942110859,
+          0.7071059681610743
+        ],
+        "intercept_mm": 1398.9546784253878,
+        "angle_deg": -45.000065878171036,
+        "span_mm": 89.62699352438415,
+        "rms_mm": 0.00015342087441761878,
+        "max_mm": 0.0002374169598660103
+      },
+      "axis_setback_mm": 72.25262556198345,
+      "shoulder_inset_mm": 2.6000000000001364,
+      "facet_leg_mm": 63.375854898760394,
+      "outer_inset_from_cap_mm": 19.245080778925512
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 770.001,
+      "above_bed_mm": 0.0009999999999763531,
+      "outer_x_mm": 1315.490162992331,
+      "outer_y_mm": 739.4901629923311,
+      "virtual_chamfer_leg_mm": 68.22255562883402,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071067811865485,
+          0.7071067811865467
+        ],
+        "intercept_mm": 1404.8494566840216,
+        "angle_deg": -45.00000000000008,
+        "span_mm": 96.4826776436125,
+        "rms_mm": 0.000343799355885537,
+        "max_mm": 0.0004353096505500531
+      },
+      "axis_setback_mm": 68.22355562883422,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 68.2235556288341,
+      "rail_outer_inset_mm": 13.60684928987763,
+      "block_inset_from_rail_mm": 1.6459877177912858,
+      "rail_end_setback_mm": 74.54901647929415
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 772,
+      "above_bed_mm": 2.0,
+      "outer_x_mm": 1324.0239580417945,
+      "outer_y_mm": 748.0239580417945,
+      "virtual_chamfer_leg_mm": 73.23433141717783,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071067811865468,
+          0.7071067811865482
+        ],
+        "intercept_mm": 1413.3740461459993,
+        "angle_deg": -44.99999999999994,
+        "span_mm": 103.57039893506126,
+        "rms_mm": 0.00017361602771199137,
+        "max_mm": 0.0005938994109878127
+      },
+      "axis_setback_mm": 73.2353314171778,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 73.2353314171778,
+      "rail_outer_inset_mm": 5.0825419582055815,
+      "block_inset_from_rail_mm": 1.6364999999999554,
+      "rail_end_setback_mm": 79.53016922335121
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 775,
+      "above_bed_mm": 5.0,
+      "outer_x_mm": 1324.6832140782074,
+      "outer_y_mm": 748.6832140782072,
+      "virtual_chamfer_leg_mm": 73.6210732502991,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071067811860069,
+          0.7071067811870883
+        ],
+        "intercept_mm": 1414.0332923035146,
+        "angle_deg": -44.99999999995619,
+        "span_mm": 104.11727744485444,
+        "rms_mm": 0.00031319488115853187,
+        "max_mm": 0.00046979236141808656
+      },
+      "axis_setback_mm": 73.62203291993774,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 73.62203291993774,
+      "rail_outer_inset_mm": 4.4234472432383996,
+      "block_inset_from_rail_mm": 1.6363386785542957,
+      "rail_end_setback_mm": 79.91502879041997
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 780,
+      "above_bed_mm": 10.0,
+      "outer_x_mm": 1325.7827234128172,
+      "outer_y_mm": 749.7827234128172,
+      "virtual_chamfer_leg_mm": 74.26701628524393,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071067811831498,
+          0.7071067811899453
+        ],
+        "intercept_mm": 1415.1315477088988,
+        "angle_deg": -44.99999999972469,
+        "span_mm": 105.03035573219326,
+        "rms_mm": 0.0002155533732615436,
+        "max_mm": 0.00032333031236575493
+      },
+      "axis_setback_mm": 74.26767676866928,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 74.26767676866922,
+      "rail_outer_inset_mm": 3.3251346534825075,
+      "block_inset_from_rail_mm": 1.6351419337003108,
+      "rail_end_setback_mm": 80.55693281148268
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 785,
+      "above_bed_mm": 15.0,
+      "outer_x_mm": 1326.882232747427,
+      "outer_y_mm": 750.882232747427,
+      "virtual_chamfer_leg_mm": 74.91295932018875,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071067811828161,
+          0.7071067811902789
+        ],
+        "intercept_mm": 1416.2298031157363,
+        "angle_deg": -44.99999999969765,
+        "span_mm": 105.9434340195319,
+        "rms_mm": 0.00011791186539163922,
+        "max_mm": 0.00017686807756689404
+      },
+      "axis_setback_mm": 74.91332061740059,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 74.91332061740059,
+      "rail_outer_inset_mm": 2.2268220637266722,
+      "block_inset_from_rail_mm": 1.633945188846326,
+      "rail_end_setback_mm": 81.19883683254545
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 790,
+      "above_bed_mm": 20.0,
+      "outer_x_mm": 1327.9817420820366,
+      "outer_y_mm": 751.9817420820369,
+      "virtual_chamfer_leg_mm": 75.5589023551338,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.707106781185562,
+          0.707106781187533
+        ],
+        "intercept_mm": 1417.3280585243479,
+        "angle_deg": -44.99999999992015,
+        "span_mm": 106.85651230687057,
+        "rms_mm": 2.0270357517555424e-05,
+        "max_mm": 3.0405610910833047e-05
+      },
+      "axis_setback_mm": 75.55896446613212,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 75.55896446613195,
+      "rail_outer_inset_mm": 1.1285094739707802,
+      "block_inset_from_rail_mm": 1.6327484439924547,
+      "rail_end_setback_mm": 81.84074085360817
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 795.136,
+      "above_bed_mm": 25.135999999999967,
+      "outer_x_mm": 1329.1109999832688,
+      "outer_y_mm": 753.1109999832689,
+      "virtual_chamfer_leg_mm": 76.22199999013264,
+      "facet": {
+        "n": 17,
+        "normal": [
+          0.7071067811864274,
+          0.7071067811866676
+        ],
+        "intercept_mm": 1418.4562019882744,
+        "angle_deg": -44.99999999999027,
+        "span_mm": 107.79418613724782,
+        "rms_mm": 2.733911123914371e-06,
+        "max_mm": 7.477396174238038e-06
+      },
+      "axis_setback_mm": 76.22199999013287,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 76.22200351660223,
+      "rail_outer_inset_mm": 1.6731064533814788e-08,
+      "block_inset_from_rail_mm": 1.6320000000000618,
+      "rail_end_setback_mm": 82.50049999024014
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 800,
+      "above_bed_mm": 30.0,
+      "outer_x_mm": 1328.9198490639096,
+      "outer_y_mm": 752.9198490639097,
+      "virtual_chamfer_leg_mm": 76.10949805961309,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.707106781186547,
+          0.707106781186548
+        ],
+        "intercept_mm": 1418.265390293704,
+        "angle_deg": -44.999999999999964,
+        "span_mm": 107.63516109252569,
+        "rms_mm": 1.0220593605234242e-05,
+        "max_mm": 3.540517484019322e-05
+      },
+      "axis_setback_mm": 76.10955230263141,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 76.10955230263136,
+      "rail_outer_inset_mm": 0.19104245005365783,
+      "block_inset_from_rail_mm": 1.6321084860366568,
+      "rail_end_setback_mm": 82.38893200375946
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 803,
+      "above_bed_mm": 33.0,
+      "outer_x_mm": 1327.2393979360902,
+      "outer_y_mm": 751.2393979360902,
+      "virtual_chamfer_leg_mm": 75.12185036895835,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.707106781186547,
+          0.707106781186548
+        ],
+        "intercept_mm": 1416.5867200804973,
+        "angle_deg": -44.999999999999964,
+        "span_mm": 106.23955560334193,
+        "rms_mm": 0.00016201083624415644,
+        "max_mm": 0.000561221999367212
+      },
+      "axis_setback_mm": 75.12271019736829,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 75.12271019736835,
+      "rail_outer_inset_mm": 1.8698824070891646,
+      "block_inset_from_rail_mm": 1.633719656820631,
+      "rail_end_setback_mm": 81.40772899624056
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 805,
+      "above_bed_mm": 35.0,
+      "outer_x_mm": 1324.3643951845636,
+      "outer_y_mm": 748.3643951845637,
+      "virtual_chamfer_leg_mm": 73.4344467214762,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071067811839244,
+          0.7071067811891707
+        ],
+        "intercept_mm": 1413.7144294428058,
+        "angle_deg": -44.999999999787455,
+        "span_mm": 103.85240269467295,
+        "rms_mm": 8.68342061067244e-05,
+        "max_mm": 0.0001585369141263726
+      },
+      "axis_setback_mm": 73.43473818791938,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 73.43473818791932,
+      "rail_outer_inset_mm": 4.7421249479866106,
+      "block_inset_from_rail_mm": 1.6364798674497365,
+      "rail_end_setback_mm": 79.72924059060404
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 808,
+      "above_bed_mm": 38.0,
+      "outer_x_mm": 1311.6984575131935,
+      "outer_y_mm": 735.6984575131933,
+      "virtual_chamfer_leg_mm": 65.99603839956922,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.7071068857871873,
+          0.7071066765858923
+        ],
+        "intercept_mm": 1401.0615609390918,
+        "angle_deg": -45.00000847563027,
+        "span_mm": 93.3337491378204,
+        "rms_mm": 0.0002583661597621864,
+        "max_mm": 0.000495422658236283
+      },
+      "axis_setback_mm": 65.99692692891756,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 65.99692692891762,
+      "rail_outer_inset_mm": 17.395260574313454,
+      "block_inset_from_rail_mm": 1.6492819124931657,
+      "rail_end_setback_mm": 72.33533001965526
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 810,
+      "above_bed_mm": 40.0,
+      "outer_x_mm": 1298.7936751497086,
+      "outer_y_mm": 722.7936751497083,
+      "virtual_chamfer_leg_mm": 58.419081535968644,
+      "facet": {
+        "n": 13,
+        "normal": [
+          0.707108369625976,
+          0.7071051927435508
+        ],
+        "intercept_mm": 1388.1703769300411,
+        "angle_deg": -45.00012870895869,
+        "span_mm": 82.61705740933846,
+        "rms_mm": 0.00021164823592356962,
+        "max_mm": 0.0005203104067508235
+      },
+      "axis_setback_mm": 58.41908153596876,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 58.41908153596893,
+      "rail_outer_inset_mm": 30.286989456578,
+      "block_inset_from_rail_mm": 1.6623353937135334,
+      "rail_end_setback_mm": 64.80222187459498
+    },
+    {
+      "family": "cap",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": "pool_kant01",
+      "z_mm": 812,
+      "above_bed_mm": 42.0,
+      "outer_x_mm": 1281.009985274033,
+      "outer_y_mm": 705.0099852740328,
+      "virtual_chamfer_leg_mm": 47.98473540277678,
+      "facet": {
+        "n": 8,
+        "normal": [
+          0.7071067811865477,
+          0.7071067811865474
+        ],
+        "intercept_mm": 1370.396802538664,
+        "angle_deg": -45.00000000000002,
+        "span_mm": 67.86482184467499,
+        "rms_mm": 0.00102492968699892,
+        "max_mm": 0.001054411035106284
+      },
+      "axis_setback_mm": 47.98767573038663,
+      "shoulder_inset_mm": 0.0,
+      "facet_leg_mm": 47.98767573038663,
+      "rail_outer_inset_mm": 48.00684022249152,
+      "block_inset_from_rail_mm": 1.7261745034755904,
+      "rail_end_setback_mm": 113.12396883495188
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 645,
+      "above_bed_mm": -125.0,
+      "outer_x_mm": 1297.4267600573364,
+      "outer_y_mm": 721.4267600573365,
+      "virtual_chamfer_leg_mm": 60.332558385124,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071129942878331,
+          0.7071005680306692
+        ],
+        "intercept_mm": 1384.8866810969337,
+        "angle_deg": -45.00050344029331,
+        "span_mm": 79.78006726429425,
+        "rms_mm": 7.570349634991011e-06,
+        "max_mm": 9.393458828554913e-06
+      },
+      "axis_setback_mm": 63.10651595693082,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 56.41302656397892,
+      "outer_inset_from_cap_mm": 33.316239942663515,
+      "inner": {
+        "outer_x_mm": 1288.4033212417653,
+        "outer_y_mm": 712.4023212417653,
+        "virtual_chamfer_leg_mm": 55.0472818734695,
+        "facet": {
+          "n": 4,
+          "normal": [
+            0.7071038788053151,
+            0.7071096835558669
+          ],
+          "intercept_mm": 1375.8564130056752,
+          "angle_deg": -44.999764824976516,
+          "span_mm": 72.31505568835665,
+          "rms_mm": 0.0012151483908886698,
+          "max_mm": 0.0019823710858659638
+        },
+        "axis_setback_mm": 57.82027749666895,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 51.13446625295245,
+        "outer_inset_from_cap_mm": 42.340178758234686
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 670,
+      "above_bed_mm": -100.0,
+      "outer_x_mm": 1302.349865072756,
+      "outer_y_mm": 726.3498650727561,
+      "virtual_chamfer_leg_mm": 63.21662752974362,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071117652161532,
+          0.7071017971218118
+        ],
+        "intercept_mm": 1389.8089813323866,
+        "angle_deg": -45.00040384970895,
+        "span_mm": 83.8583265693562,
+        "rms_mm": 6.635603534029758e-05,
+        "max_mm": 9.058712861342855e-05
+      },
+      "axis_setback_mm": 65.9901793232674,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 59.29679137488631,
+      "outer_inset_from_cap_mm": 28.39313492724392,
+      "inner": {
+        "outer_x_mm": 1293.1245047638786,
+        "outer_y_mm": 717.1235047638786,
+        "virtual_chamfer_leg_mm": 57.81290189321567,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071124392866495,
+            0.7071011230411705
+          ],
+          "intercept_mm": 1380.5831219127874,
+          "angle_deg": -45.00045846901992,
+          "span_mm": 76.21522514630226,
+          "rms_mm": 6.160717143032365e-05,
+          "max_mm": 8.346664251224212e-05
+        },
+        "axis_setback_mm": 60.58570316504324,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 53.892302529129324,
+        "outer_inset_from_cap_mm": 37.61899523612141
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 700,
+      "above_bed_mm": -70.0,
+      "outer_x_mm": 1308.2575910912597,
+      "outer_y_mm": 732.2575910912595,
+      "virtual_chamfer_leg_mm": 66.67751050328707,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.707109730554689,
+          0.707103831806104
+        ],
+        "intercept_mm": 1395.7154474899496,
+        "angle_deg": -45.00023898328182,
+        "span_mm": 88.75223773590594,
+        "rms_mm": 9.295383249779344e-05,
+        "max_mm": 0.00013140631812291748
+      },
+      "axis_setback_mm": 69.45057536287129,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 62.75730914797521,
+      "outer_inset_from_cap_mm": 22.485408908740396,
+      "inner": {
+        "outer_x_mm": 1298.7899249904146,
+        "outer_y_mm": 722.7889249904146,
+        "virtual_chamfer_leg_mm": 61.131645916910884,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071103078286896,
+            0.7071032545268165
+          ],
+          "intercept_mm": 1386.2474086512764,
+          "angle_deg": -45.00028575912416,
+          "span_mm": 80.90847304095286,
+          "rms_mm": 9.334235120914067e-05,
+          "max_mm": 0.0001320016797661805
+        },
+        "axis_setback_mm": 63.90421396709246,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 57.21092994200171,
+        "outer_inset_from_cap_mm": 31.953575009585393
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 730,
+      "above_bed_mm": -40.0,
+      "outer_x_mm": 1314.1653171097632,
+      "outer_y_mm": 738.165317109763,
+      "virtual_chamfer_leg_mm": 70.13839347683052,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071079593447197,
+          0.7071056030264123
+        ],
+        "intercept_mm": 1401.6221041750484,
+        "angle_deg": -45.00009546443182,
+        "span_mm": 93.64614890285355,
+        "rms_mm": 6.97708579980873e-05,
+        "max_mm": 9.464883719090267e-05
+      },
+      "axis_setback_mm": 72.9109714024753,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 66.2178269210641,
+      "outer_inset_from_cap_mm": 16.577682890236872,
+      "inner": {
+        "outer_x_mm": 1304.4553452169505,
+        "outer_y_mm": 728.4543452169505,
+        "virtual_chamfer_leg_mm": 64.4503899406061,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071083540646778,
+            0.7071052083049186
+          ],
+          "intercept_mm": 1391.9117607309875,
+          "angle_deg": -45.00012744804771,
+          "span_mm": 85.60172093601771,
+          "rms_mm": 7.767034262822146e-05,
+          "max_mm": 0.00010653316848507899
+        },
+        "axis_setback_mm": 67.22272476914168,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 60.52955735487393,
+        "outer_inset_from_cap_mm": 26.288154783049492
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 760,
+      "above_bed_mm": -10.0,
+      "outer_x_mm": 1320.0730431282666,
+      "outer_y_mm": 744.0730431282666,
+      "virtual_chamfer_leg_mm": 73.59927645037374,
+      "facet": {
+        "n": 4,
+        "normal": [
+          0.7071068678534516,
+          0.707106694519633
+        ],
+        "intercept_mm": 1407.5291704774222,
+        "angle_deg": -45.000007022486926,
+        "span_mm": 98.5400600701816,
+        "rms_mm": 1.2960990883612612e-05,
+        "max_mm": 2.0887169332794997e-05
+      },
+      "axis_setback_mm": 76.3713674420793,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 69.67834469415288,
+      "outer_inset_from_cap_mm": 10.669956871733405,
+      "inner": {
+        "outer_x_mm": 1310.1207654434866,
+        "outer_y_mm": 734.1197654434865,
+        "virtual_chamfer_leg_mm": 67.76913396430155,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071071099089659,
+            0.7071064524639763
+          ],
+          "intercept_mm": 1397.5764988393778,
+          "angle_deg": -45.0000266358803,
+          "span_mm": 90.29496883147374,
+          "rms_mm": 2.8013854589483073e-05,
+          "max_mm": 3.5667092205926565e-05
+        },
+        "axis_setback_mm": 70.5412355711909,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 63.84818476774632,
+        "outer_inset_from_cap_mm": 20.62273455651348
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 766,
+      "above_bed_mm": -4.0,
+      "outer_x_mm": 1321.2545900794944,
+      "outer_y_mm": 745.2545900794942,
+      "virtual_chamfer_leg_mm": 74.29120156007275,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071067811865468,
+          0.7071067811865483
+        ],
+        "intercept_mm": 1408.7108422690494,
+        "angle_deg": -44.999999999999936,
+        "span_mm": 99.51899677695664,
+        "rms_mm": 5.115835738066893e-14,
+        "max_mm": 7.016609515630989e-14
+      },
+      "axis_setback_mm": 77.06355747786813,
+      "shoulder_inset_mm": 1.9600000000002638,
+      "facet_leg_mm": 70.3705574778682,
+      "outer_inset_from_cap_mm": 9.488409920505717,
+      "inner": {
+        "outer_x_mm": 1311.2538494887935,
+        "outer_y_mm": 735.2528494887937,
+        "virtual_chamfer_leg_mm": 68.43288276904059,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071069451722184,
+            0.7071066172008387
+          ],
+          "intercept_mm": 1398.7094938490518,
+          "angle_deg": -45.0000132875093,
+          "span_mm": 91.23361841060589,
+          "rms_mm": 1.5502018522224317e-05,
+          "max_mm": 1.9393822242363967e-05
+        },
+        "axis_setback_mm": 71.20493773160081,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 64.51191025032062,
+        "outer_inset_from_cap_mm": 19.489650511206378
+      }
+    },
+    {
+      "family": "frame",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_support"
+      ],
+      "z_mm": 770,
+      "above_bed_mm": 0.0,
+      "outer_x_mm": 1322.144654762045,
+      "outer_y_mm": 746.1446547620451,
+      "virtual_chamfer_leg_mm": 74.8121427803494,
+      "facet": {
+        "n": 3,
+        "normal": [
+          0.7071067811865469,
+          0.707106781186548
+        ],
+        "intercept_mm": 1409.6012227450447,
+        "angle_deg": -44.99999999999996,
+        "span_mm": 100.25662978565984,
+        "rms_mm": 2.965327900395426e-14,
+        "max_mm": 3.552713678800501e-14
+      },
+      "axis_setback_mm": 77.58514278034932,
+      "shoulder_inset_mm": 1.9600000000000364,
+      "facet_leg_mm": 70.89214278034927,
+      "outer_inset_from_cap_mm": 8.598345237954902,
+      "inner": {
+        "outer_x_mm": 1312.0092388523317,
+        "outer_y_mm": 736.0082388523318,
+        "virtual_chamfer_leg_mm": 68.8753819722001,
+        "facet": {
+          "n": 3,
+          "normal": [
+            0.7071068485998389,
+            0.7071067137732499
+          ],
+          "intercept_mm": 1399.4648314337064,
+          "angle_deg": -45.000005462396004,
+          "span_mm": 91.85938479670025,
+          "rms_mm": 6.823455020522853e-06,
+          "max_mm": 8.434999342554761e-06
+        },
+        "axis_setback_mm": 71.64740583854064,
+        "shoulder_inset_mm": 1.9610000000000127,
+        "facet_leg_mm": 64.95439390537035,
+        "outer_inset_from_cap_mm": 18.734261147668235
+      }
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 637.226,
+      "above_bed_mm": -132.774,
+      "outer_x_mm": 1297.9361269999997,
+      "outer_y_mm": 721.9361269999997,
+      "virtual_chamfer_leg_mm": 60.63192799999979,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071067811865469,
+          0.707106781186548
+        ],
+        "intercept_mm": 1385.3921204887415,
+        "angle_deg": -44.99999999999996,
+        "span_mm": 78.394091917746,
+        "rms_mm": 5.779110384718136e-14,
+        "max_mm": 1.0658141036401503e-13
+      },
+      "axis_setback_mm": 64.30718699999977,
+      "shoulder_inset_mm": 2.599467000000004,
+      "facet_leg_mm": 55.432993999999724,
+      "outer_inset_from_cap_mm": 32.80687300000028
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 640,
+      "above_bed_mm": -130.0,
+      "outer_x_mm": 1299.490266414607,
+      "outer_y_mm": 723.4912512293824,
+      "virtual_chamfer_leg_mm": 61.54128269366697,
+      "facet": {
+        "n": 8,
+        "normal": [
+          0.7070995174875255,
+          0.7071140448109546
+        ],
+        "intercept_mm": 1386.9431050168405,
+        "angle_deg": -44.999411436615894,
+        "span_mm": 79.835596196704,
+        "rms_mm": 0.0007196357627755811,
+        "max_mm": 0.0016890534528499757
+      },
+      "axis_setback_mm": 65.14427510105475,
+      "shoulder_inset_mm": 2.546007592612341,
+      "facet_leg_mm": 56.45229143557094,
+      "outer_inset_from_cap_mm": 31.25224117800525
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 645,
+      "above_bed_mm": -125.0,
+      "outer_x_mm": 1300.4749223647943,
+      "outer_y_mm": 724.4758277590222,
+      "virtual_chamfer_leg_mm": 62.11807442122267,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071048515032654,
+          0.7071087108645635
+        ],
+        "intercept_mm": 1387.9310546007569,
+        "angle_deg": -44.999843640932404,
+        "span_mm": 80.646307301956,
+        "rms_mm": 0.00020236543888287482,
+        "max_mm": 0.0004343947075895471
+      },
+      "axis_setback_mm": 65.72102711833668,
+      "shoulder_inset_mm": 2.5460473028858814,
+      "facet_leg_mm": 57.02555076977967,
+      "outer_inset_from_cap_mm": 30.26762493809173
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 670,
+      "above_bed_mm": -100.0,
+      "outer_x_mm": 1305.3982021157315,
+      "outer_y_mm": 729.398710407221,
+      "virtual_chamfer_leg_mm": 65.0020330590014,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071057697892789,
+          0.7071077925823694
+        ],
+        "intercept_mm": 1392.8545551078914,
+        "angle_deg": -44.99991804808694,
+        "span_mm": 84.72470032294405,
+        "rms_mm": 0.00015473421175685566,
+        "max_mm": 0.0002935272467148309
+      },
+      "axis_setback_mm": 68.60478720474623,
+      "shoulder_inset_mm": 2.546245854255176,
+      "facet_leg_mm": 59.909410131873756,
+      "outer_inset_from_cap_mm": 25.344543738523782
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 700,
+      "above_bed_mm": -70.0,
+      "outer_x_mm": 1311.306137816856,
+      "outer_y_mm": 735.3061695850594,
+      "virtual_chamfer_leg_mm": 68.46278342433607,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071066890815697,
+          0.7071068732915132
+        ],
+        "intercept_mm": 1398.762641897466,
+        "angle_deg": -44.9999925368752,
+        "span_mm": 89.61877194853497,
+        "rms_mm": 0.00015676778082715381,
+        "max_mm": 0.000253425696374876
+      },
+      "axis_setback_mm": 72.0652993084376,
+      "shoulder_inset_mm": 2.546484115898238,
+      "facet_leg_mm": 63.37004136638677,
+      "outer_inset_from_cap_mm": 19.43684629904226
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 730,
+      "above_bed_mm": -40.0,
+      "outer_x_mm": 1317.2140735179808,
+      "outer_y_mm": 741.2136287628979,
+      "virtual_chamfer_leg_mm": 71.92353378967073,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071072978838735,
+          0.707106264488844
+        ],
+        "intercept_mm": 1404.67054346012,
+        "angle_deg": -45.00004186720828,
+        "span_mm": 94.51284357453973,
+        "rms_mm": 0.0002262943370209871,
+        "max_mm": 0.0003570839213331567
+      },
+      "axis_setback_mm": 75.52581141212909,
+      "shoulder_inset_mm": 2.5467223775415277,
+      "facet_leg_mm": 66.83067260089973,
+      "outer_inset_from_cap_mm": 13.529148859560678
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 760,
+      "above_bed_mm": -10.0,
+      "outer_x_mm": 1323.1220092191054,
+      "outer_y_mm": 747.1210879407364,
+      "virtual_chamfer_leg_mm": 75.38428415500539,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071076091171179,
+          0.7071059532550078
+        ],
+        "intercept_mm": 1410.578271150687,
+        "angle_deg": -45.00006708598538,
+        "span_mm": 99.40691520082778,
+        "rms_mm": 0.0003268525591677984,
+        "max_mm": 0.0004581184379155445
+      },
+      "axis_setback_mm": 78.98632351582057,
+      "shoulder_inset_mm": 2.54696063918459,
+      "facet_leg_mm": 70.29130383541263,
+      "outer_inset_from_cap_mm": 7.621451420079097
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 766,
+      "above_bed_mm": -4.0,
+      "outer_x_mm": 1324.3032645428032,
+      "outer_y_mm": 748.3032466698024,
+      "virtual_chamfer_leg_mm": 76.07680162088423,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071067666099368,
+          0.7071067957631579
+        ],
+        "intercept_mm": 1411.7596828192452,
+        "angle_deg": -44.99999881887957,
+        "span_mm": 100.3848660237338,
+        "rms_mm": 6.1734766978885874e-06,
+        "max_mm": 8.369755519765931e-06
+      },
+      "axis_setback_mm": 79.6788016208842,
+      "shoulder_inset_mm": 2.546999999999798,
+      "facet_leg_mm": 70.98281949388524,
+      "outer_inset_from_cap_mm": 6.439744393697197
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 768,
+      "above_bed_mm": -2.0,
+      "outer_x_mm": 1320.1668112360533,
+      "outer_y_mm": 744.1668112360533,
+      "virtual_chamfer_leg_mm": 73.65386090840957,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071074633342251,
+          0.7071060990382119
+        ],
+        "intercept_mm": 1407.6235104770246,
+        "angle_deg": -45.000055273408236,
+        "span_mm": 96.80822158741036,
+        "rms_mm": 5.588224740172829e-05,
+        "max_mm": 8.654760713611154e-05
+      },
+      "axis_setback_mm": 77.3306390095753,
+      "shoulder_inset_mm": 2.6002218988342065,
+      "facet_leg_mm": 68.4537499589926,
+      "outer_inset_from_cap_mm": 10.576188763946732
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 769,
+      "above_bed_mm": -1.0,
+      "outer_x_mm": 1315.8325064900084,
+      "outer_y_mm": 739.8325064900084,
+      "virtual_chamfer_leg_mm": 71.11514317318915,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071091631375669,
+          0.7071043992275045
+        ],
+        "intercept_mm": 1403.2899084897667,
+        "angle_deg": -45.000193006168104,
+        "span_mm": 93.21763815360234,
+        "rms_mm": 0.0001440713069070611,
+        "max_mm": 0.00028715628553044326
+      },
+      "axis_setback_mm": 74.79150495462125,
+      "shoulder_inset_mm": 2.6006382185678376,
+      "facet_leg_mm": 65.91482406390509,
+      "outer_inset_from_cap_mm": 14.910493509991568
+    },
+    {
+      "family": "apron",
+      "corner": [
+        -1,
+        -1
+      ],
+      "source": [
+        "pool_kant_side01",
+        "pool_kant_side02"
+      ],
+      "z_mm": 770,
+      "above_bed_mm": 0.0,
+      "outer_x_mm": 1311.4981485578514,
+      "outer_y_mm": 735.4981485578513,
+      "virtual_chamfer_leg_mm": 68.57608423553756,
+      "facet": {
+        "n": 7,
+        "normal": [
+          0.7071076637832688,
+          0.7071058985887246
+        ],
+        "intercept_mm": 1398.9548099994124,
+        "angle_deg": -45.000071515505226,
+        "span_mm": 89.62699352515124,
+        "rms_mm": 0.00010129533632558712,
+        "max_mm": 0.00022145640153325985
+      },
+      "axis_setback_mm": 72.25262556198356,
+      "shoulder_inset_mm": 2.6004586735539306,
+      "facet_leg_mm": 63.37585489876034,
+      "outer_inset_from_cap_mm": 19.244851442148615
+    }
+  ],
+  "joint_angle": {
+    "tag": "MODEL",
+    "value_deg": 22.469561075521618,
+    "range_deg": [
+      22.4693681043819,
+      22.469681572323207
+    ],
+    "n": 8,
+    "method": "Directions of the two long block-joint section edges at Z=800, four corners; acute angle to the transverse axis."
+  },
+  "junction_round": {
+    "tag": "TESSELLATION",
+    "radius_mm": 1.78,
+    "raw_estimate_mm": 1.782539725945282,
+    "cage_chord_median_mm": 0.6955124982824121,
+    "cage_chord_range_mm": [
+      0.33643636585454567,
+      1.2358468560148208
+    ],
+    "n": 44,
+    "turning_angle_deg": 22.5,
+    "method": "R = median complete bevel-loop chord / (2 sin(turn/2)). EST circular finish envelope from apron loops, transferred to cap junctions. Not decoded TurboSmooth, not a measured smooth radius.",
+    "caveat": "The cap junctions themselves are sharp in the cage. This small round is TESSELLATION/EST, not MODEL."
+  },
+  "instrument_sha256": "793562d9fa4cdf3048d0ca6e6b9ff07afaf30ee2929dd0072dcfa8b1d328e793"
+}

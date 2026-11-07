@@ -1,0 +1,91 @@
+{
+  "format": "openbilliards.banking-anchors.v1",
+  "note": "Self-test anchor set for tools/banking/report.py. Integration replaces this with banking_systems.json from the banking-anchors branch; both must use this schema (README.md). Sources are already-in-repo references: tests/fixtures/anchors/kick.json and TP B.28 as recorded in docs/research/gap-k66-cushion-params.md sec 3.",
+  "anchors": [
+    {
+      "id": "sc002_sidespin_kick_spec",
+      "kind": "kick_lengthwise",
+      "provenance": "Spec SC-002 / Dr. Dave bank-kick effects FAQ via tests/fixtures/anchors/kick.json: 1/3, 2/3, 3/3 of maximum sidespin produce approximately 1, 2, 3 diamonds of cross-table change on a lengthwise kick (cue_v0 2 m/s, full english tip offset 0.5).",
+      "points": [
+        {"english_fraction": 0.3333333333333333, "diamonds": 1.0, "tol": 0.3},
+        {"english_fraction": 0.6666666666666666, "diamonds": 2.0, "tol": 0.3},
+        {"english_fraction": 1.0, "diamonds": 3.0, "tol": 0.3}
+      ]
+    },
+    {
+      "id": "sc002_kick_v1_pins_han_stronge",
+      "kind": "kick_lengthwise",
+      "provenance": "Regression pins from tests/fixtures/anchors/kick.json measured_diamonds (Han 2005 and Stronge identical to < 1e-4 diamonds; gross-slip Coulomb cap). Fitted Mathavan presets are EXPECTED to deviate from these pins -- their friction/restitution differ by design; judge them against the SC-002 spec anchor above.",
+      "points": [
+        {"english_fraction": 0.3333333333333333, "diamonds": 0.7837, "tol": 0.1},
+        {"english_fraction": 0.6666666666666666, "diamonds": 1.9084, "tol": 0.1},
+        {"english_fraction": 1.0, "diamonds": 2.8031, "tol": 0.1}
+      ]
+    },
+    {
+      "id": "tp_b28_olhaussen_9ft",
+      "kind": "tp_b28_through_diamond",
+      "provenance": "Dr. Dave TP B.28 (2023-08, drdavepoolinfo.com/technical_proofs/new/TP_B-28.pdf; digitized in docs/research/gap-k66-cushion-params.md sec 3): sliding banks, through-diamond point on the opposite rail (meas) per diamond aim point on the banking rail (aim). 9-ft Olhaussen -- Dr. Dave's video table, banks 'on system'. Harness reading: center-line simplification (measure.py measure_tp_b28), a documented approximation of the through-diamond optics; tolerances are wide accordingly.",
+      "points": [
+        {"aim": 0.5, "meas": 1.38, "tol": 0.75},
+        {"aim": 1.0, "meas": 2.72, "tol": 0.75},
+        {"aim": 1.5, "meas": 3.89, "tol": 0.75},
+        {"aim": 2.0, "meas": 5.07, "tol": 0.75},
+        {"aim": 2.5, "meas": 6.38, "tol": 0.75},
+        {"aim": 3.0, "meas": 7.74, "tol": 0.75}
+      ]
+    },
+    {
+      "id": "tp_b28_valley_7ft",
+      "kind": "tp_b28_through_diamond",
+      "provenance": "TP B.28, 7-ft Valley bar box (banked close to 'on system'; humid, worn cloth).",
+      "points": [
+        {"aim": 0.5, "meas": 1.51, "tol": 0.75},
+        {"aim": 1.0, "meas": 2.74, "tol": 0.75},
+        {"aim": 1.5, "meas": 4.12, "tol": 0.75},
+        {"aim": 2.0, "meas": 5.19, "tol": 0.75},
+        {"aim": 2.5, "meas": 6.52, "tol": 0.75},
+        {"aim": 3.0, "meas": 7.54, "tol": 0.75}
+      ]
+    },
+    {
+      "id": "tp_b28_brunswick_gc_9ft",
+      "kind": "tp_b28_through_diamond",
+      "provenance": "TP B.28, 9-ft Brunswick Gold Crown (usually 'on system'; a little short under humid/used-cloth conditions).",
+      "points": [
+        {"aim": 0.5, "meas": 1.27, "tol": 0.75},
+        {"aim": 1.0, "meas": 2.88, "tol": 0.75},
+        {"aim": 1.5, "meas": 4.38, "tol": 0.75},
+        {"aim": 2.0, "meas": 5.38, "tol": 0.75},
+        {"aim": 2.5, "meas": 6.56, "tol": 0.75},
+        {"aim": 3.0, "meas": 7.96, "tol": 0.75}
+      ]
+    },
+    {
+      "id": "tp_b28_diamond_red_label_9ft",
+      "kind": "tp_b28_through_diamond",
+      "provenance": "TP B.28, 9-ft Diamond Red Label (banked very short, especially at larger bank angles).",
+      "points": [
+        {"aim": 0.5, "meas": 1.40, "tol": 0.75},
+        {"aim": 1.0, "meas": 2.93, "tol": 0.75},
+        {"aim": 1.5, "meas": 4.52, "tol": 0.75},
+        {"aim": 2.0, "meas": 5.60, "tol": 0.75},
+        {"aim": 2.5, "meas": 6.92, "tol": 0.75},
+        {"aim": 3.0, "meas": 8.30, "tol": 0.75}
+      ]
+    },
+    {
+      "id": "tp_b28_diamond_bar_box_7ft",
+      "kind": "tp_b28_through_diamond",
+      "provenance": "TP B.28, 7-ft Diamond bar box (banked almost a diamond shorter than typical 'on system' tables).",
+      "points": [
+        {"aim": 0.5, "meas": 1.6, "tol": 0.75},
+        {"aim": 1.0, "meas": 3.31, "tol": 0.75},
+        {"aim": 1.5, "meas": 4.94, "tol": 0.75},
+        {"aim": 2.0, "meas": 6.22, "tol": 0.75},
+        {"aim": 2.5, "meas": 7.55, "tol": 0.75},
+        {"aim": 3.0, "meas": 8.59, "tol": 0.75}
+      ]
+    }
+  ]
+}

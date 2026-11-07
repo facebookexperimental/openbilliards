@@ -1,0 +1,2374 @@
+{
+  "cases": [
+    {
+      "breaker": 1,
+      "comment": "Fresh break address, breaker 1 (Art 23.1; the break_spot option pends, Art 23.1(c)).",
+      "expect": "{\"phase\":\"break\",\"shooter\":1,\"points\":{\"1\":0,\"2\":0},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":{\"kind\":\"break_spot\",\"chooser\":1},\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":0,\"foulContext\":null,\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}",
+      "expectSha256": "0b083c27f68e2ff65b46ac676b061a58ef9b2dc3485bcbe775f1b11fa1bb7162",
+      "id": "umb-carom-2cue/initialState-001",
+      "kind": "initialState",
+      "preset": "umb-carom-2cue",
+      "ruleset": "carom3c-v2"
+    },
+    {
+      "breaker": 2,
+      "comment": "Fresh break address, breaker 2 (the seat-ball law keys off the breaker, Art 23.2/23.4).",
+      "expect": "{\"phase\":\"break\",\"shooter\":2,\"points\":{\"1\":0,\"2\":0},\"innings\":0,\"target\":15,\"breaker\":2,\"pendingDecision\":{\"kind\":\"break_spot\",\"chooser\":2},\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":0,\"foulContext\":null,\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}",
+      "expectSha256": "a102fa7b682875f0b39796679692112a57af33be222d19045afbf0c396564098",
+      "id": "umb-carom-2cue/initialState-002",
+      "kind": "initialState",
+      "preset": "umb-carom-2cue",
+      "ruleset": "carom3c-v2"
+    },
+    {
+      "call": null,
+      "comment": "Seat 1 (starter) scores with the plain white (Art 23.2; Art 83 three cushions; Art 24.4 continue).",
+      "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"points\":{\"1\":1,\"2\":0},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":null,\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "60e3b993ddc66a6d5a3c64277a6fc0bd64ca0d42ea41fec2f7c1e63e091f375c",
+      "id": "umb-carom-2cue/judge-001-own-ball-point-seat1",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Seat 2 scores with ITS ball (ball 1) — per-seat cue assignment (Art 22.1/23.4).",
+      "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"points\":{\"1\":0,\"2\":1},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":null,\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "f78a17e8bc4dfd50cc93e068f8eb95521e5fbeca3596407f781b36026dff1366",
+      "id": "umb-carom-2cue/judge-002-own-ball-point-seat2",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 0
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Seat 2 strikes the starter's white: 'wrong ball' foul (Art 41.11); the cannon is void, turn passes.",
+      "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-ball\",\"cite\":\"UMB Art 41.11\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"points\":{\"1\":0,\"2\":0},\"innings\":1,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-ball\",\"cite\":\"UMB Art 41.11\"}],\"by\":2},\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "c056d251a68417f4b1efeb8b9118b72925b47bf6f78a112af4c222efb792b307",
+      "id": "umb-carom-2cue/judge-003-wrong-ball-seat2",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Seat 1 strikes the opponent's ball: 'wrong ball' (Art 41.11).",
+      "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-ball\",\"cite\":\"UMB Art 41.11\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"points\":{\"1\":0,\"2\":0},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-ball\",\"cite\":\"UMB Art 41.11\"}],\"by\":1},\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "f99751c058ab7a29d2479f8dcb1b211e9f6f1f0f8e590219c2e1159f94a00355",
+      "id": "umb-carom-2cue/judge-004-wrong-ball-seat1",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 0
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Breaker 2 owns the plain white (Art 23.2): seat 2 striking ball 0 is legal under the swapped assignment.",
+      "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"points\":{\"1\":0,\"2\":1},\"innings\":0,\"target\":15,\"breaker\":2,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":null,\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "9c53a9f840ddeee5028807ccd867f657b24cf430ad2675d2c6129ebb80eb0bb2",
+      "id": "umb-carom-2cue/judge-005-breaker2-own-ball",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 2,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Breaker 2: seat 1 owns ball 1, striking ball 0 is the Art 41.11 foul.",
+      "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-ball\",\"cite\":\"UMB Art 41.11\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"points\":{\"1\":0,\"2\":0},\"innings\":1,\"target\":15,\"breaker\":2,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-ball\",\"cite\":\"UMB Art 41.11\"}],\"by\":1},\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "bc761b019e17b7c0524a1790aee7383b28b2201518b93119aa84da748027f528",
+      "id": "umb-carom-2cue/judge-006-breaker2-wrong-ball-seat1",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 2,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Cannon with zero prior cushions: FOUL announced 'no cushion' (Art 83 letter).",
+      "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-cushion\",\"cite\":\"UMB Art 83\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"points\":{\"1\":0,\"2\":0},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":0,\"foulContext\":{\"fouls\":[{\"code\":\"no-cushion\",\"cite\":\"UMB Art 83\"}],\"by\":1},\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "3540a4de1db2a0c73e961876e0f22b326eabcab2f848924504c9dbd7e38348d9",
+      "id": "umb-carom-2cue/judge-007-art83-no-cushion",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.8
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Cannon with one prior cushion: FOUL announced 'one cushion' (Art 83).",
+      "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"one-cushion\",\"cite\":\"UMB Art 83\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"points\":{\"1\":0,\"2\":0},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":1,\"foulContext\":{\"fouls\":[{\"code\":\"one-cushion\",\"cite\":\"UMB Art 83\"}],\"by\":1},\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "7b7341e69364b018ab2c97fe3ef0d68e0f8116f80c2c1e9eb844c61b0b5fffdb",
+      "id": "umb-carom-2cue/judge-008-art83-one-cushion",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.8
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Cannon with two prior cushions: FOUL announced 'two cushions' (Art 83).",
+      "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"two-cushions\",\"cite\":\"UMB Art 83\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"points\":{\"1\":0,\"2\":0},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":2,\"foulContext\":{\"fouls\":[{\"code\":\"two-cushions\",\"cite\":\"UMB Art 83\"}],\"by\":1},\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "ea7333c8cf237b03a224822d5a04b11e0b379c15c900e32dcce129ae0a62b56f",
+      "id": "umb-carom-2cue/judge-009-art83-two-cushions",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.30000000000000004
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.8
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Second ball never contacted: the legal Art 24.5 miss — the Art 83 foul binds 'before touching the second object-ball', not the failure to reach it.",
+      "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"points\":{\"1\":0,\"2\":0},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":{\"code\":\"missed\",\"cite\":\"UMB Art 24.5\"},\"cushionsThisShot\":1,\"foulContext\":null,\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "c671e1695d123fb69b073c13060ca23d13f648b1e00fa99ca65b81bc67e6d404",
+      "id": "umb-carom-2cue/judge-010-clean-miss-stays-legal",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "A jumped ball (Art 41.1) precedes the Art 83 announce; only the ball concerned respots (Art 28.1(b) -> 27.3(b)).",
+      "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"UMB Art 41.1/28.1(b)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[2],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"points\":{\"1\":0,\"2\":0},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":2,\"foulContext\":{\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"UMB Art 41.1/28.1(b)\"}],\"by\":1},\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "653d658a01b311758b98d3de315abb54e15c33b9f33247861e0ab75b0aa99035",
+      "id": "umb-carom-2cue/judge-011-off-table-dominates",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.30000000000000004
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.8
+          },
+          {
+            "kind": {
+              "BallOffTable": {
+                "ball": 2
+              }
+            },
+            "post": [],
+            "t": 0.9
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Break phase, first contact on the white: wrong-first-ball-break (Art 23.3/41.12) — v1 law carried.",
+      "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball-break\",\"cite\":\"UMB Art 23.3/41.12\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"points\":{\"1\":0,\"2\":0},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball-break\",\"cite\":\"UMB Art 23.3/41.12\"}],\"by\":1},\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "572535b3f3b6b001b8e8ece2b27e321591caed154eaeeb1713206dd4bea661a2",
+      "id": "umb-carom-2cue/judge-012-break-red-first",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "break",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "equal_innings OFF: the breaker's target point ends the match at once (Art 29.1/29.2).",
+      "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":{\"winner\":1,\"reason\":\"carom-target-reached\",\"cite\":\"UMB Art 29.1/29.2\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"points\":{\"1\":15,\"2\":3},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":null,\"result\":{\"winner\":1,\"reason\":\"carom-target-reached\",\"cite\":\"UMB Art 29.1/29.2\"},\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}}",
+      "expectSha256": "23343dd471f77bbb996ff36166264af08166a392555fcf80ecc594dc6ed69f42",
+      "id": "umb-carom-2cue/judge-013-breaker-finish-terminates",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 14,
+          "2": 3
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Judge with the break-spot option pending refuses (adapter contract, Art 23.1(c)).",
+      "expect": "{\"error\":{\"code\":\"decision-pending\",\"message\":\"carom3c-v2: judge called while the break-spot option is pending (Art 23.1(c)) — resolve it via applyDecision\"}}",
+      "expectSha256": "7df5b5b131b1d5bd93671ce4f82f807ba3b23357cf50cbef62c6567e37f69764",
+      "id": "umb-carom-2cue/judge-014-error-pending-gate",
+      "kind": "judge-error",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": {
+          "chooser": 1,
+          "kind": "break_spot"
+        },
+        "phase": "break",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "comment": "break_spot choice 1 = LEFT start spot (Art 23.1(c)).",
+      "decision": {
+        "choice": 1,
+        "decision": 10
+      },
+      "expect": "{\"phase\":\"break\",\"shooter\":1,\"points\":{\"1\":0,\"2\":0},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"left\",\"lastReason\":null,\"cushionsThisShot\":0,\"foulContext\":null,\"result\":null,\"variant\":{\"task_hash\":\"b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":false}}}",
+      "expectSha256": "d85f9481abde12c5297c7da0d707c14faf7936107d6f3841487947808a304d1b",
+      "id": "umb-carom-2cue/applyDecision-001-left",
+      "kind": "applyDecision",
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": {
+          "chooser": 1,
+          "kind": "break_spot"
+        },
+        "phase": "break",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "comment": "Only decision 10 exists in carom.",
+      "decision": {
+        "choice": 1,
+        "decision": 9
+      },
+      "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"carom3c-v2: unknown decision id 9 (only 10 carom_break_spot — UMB Art 23.1(c) — and 16 contact_respot — UMB Art 27.1(a))\"}}",
+      "expectSha256": "dbd774378c2116b38705ac69be54ea890d38576b5e5a747ec14c1aded0b535f2",
+      "id": "umb-carom-2cue/applyDecision-002-error-unknown-id",
+      "kind": "applyDecision-error",
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": {
+          "chooser": 1,
+          "kind": "break_spot"
+        },
+        "phase": "break",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "comment": "break_spot with no pending option refuses.",
+      "decision": {
+        "choice": 1,
+        "decision": 10
+      },
+      "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"carom3c-v2: decision 'break_spot' does not match the pending option (none)\"}}",
+      "expectSha256": "ec8f6fd9463606222f0fd46fc2d7a4c8e2c5d57f3f8c45dc42ce887aa763a0f6",
+      "id": "umb-carom-2cue/applyDecision-003-error-no-pending",
+      "kind": "applyDecision-error",
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "comment": "The v1 hud projection (stage rename, no variant block) holds for v2.",
+      "expect": "{\"stage\":\"play\",\"shooter\":1,\"breaker\":1,\"points\":{\"1\":2,\"2\":5},\"innings\":0,\"target\":15,\"cushionsThisShot\":0,\"breakSpot\":\"right\",\"pendingDecision\":null,\"lastReason\":null,\"foulContext\":null,\"result\":null}",
+      "expectSha256": "d5e88578f6cfcf4b2d0e2f0ea5c0b9596033bf38c8907be3591b04381ed886fd",
+      "id": "umb-carom-2cue/hudState-001",
+      "kind": "hudState",
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 2,
+          "2": 5
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": false,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "b84ca562c14e9bd58478b3e30bc4845503fd135148edacfa90f19f9d9ee827ee"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Config-in-state is mandatory: a v2 state without the variant block is invalid-task-config, never a default fallback (contracts/registry-api.md §3).",
+      "expect": "{\"error\":{\"code\":\"invalid-task-config\",\"message\":\"carom3c-v2 state: missing 'variant' block (config-in-state, contracts/registry-api.md §3 — never a default fallback)\"}}",
+      "expectSha256": "7c04341b266d5d7834b19d3c84d894b34413968a69463bfae9adc3839cb50f26",
+      "id": "umb-carom-2cue/judge-015-error-missing-variant",
+      "kind": "judge-error",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 0,
+          "2": 0
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15
+      }
+    }
+  ],
+  "comment": [
+    "DO NOT REGENERATE (rules-corpus.json discipline; frozen at",
+    "the GH-383 review). Per-preset byte oracle for the",
+    "carom3c-v2 conformance gate: every expect line harvested",
+    "ONCE from the pool-rules crate through the public _json",
+    "boundary at the harvestedAt commit and reviewed",
+    "case-by-case against its cited clause (UMB World Rules of",
+    "Carom Billiard, 1 Jan 1989; the semantic source is",
+    "crates/pool-rules/tests/carom_v2_scenarios.rs).",
+    "Post-freeze changes ONLY via the erratum protocol",
+    "(docs/rules/variants.md §4): a pinned-clause proof against",
+    "the cited text — NEVER a re-run to fix a red gate; a byte",
+    "diff at any conformance leg is resolved by fixing the code",
+    "to reproduce THESE bytes."
+  ],
+  "harvestedAt": "17cde5934b241c737dca331f2eb656f9fdc3468c",
+  "preset": "umb-carom-2cue",
+  "ruleset": "carom3c-v2",
+  "slice": "umb-carom-2cue"
+}

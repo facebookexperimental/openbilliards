@@ -1,0 +1,109 @@
+{
+ "what": "interior-node arm: the committed table vs an INDEPENDENT plane-domain quadrature (polar about the fragment foot, 2000 × 720) at nine interior nodes, and the AUTHORED term 1 − 0.9·clamp(0.5 − 0.5 n_y)·exp(−60 h) at the same nodes (r = 0.028575 m)",
+ "generator": "tools/render/lighting-occlusion-lut.mjs",
+ "N_table": 384,
+ "nodes": [
+  {
+   "i": 16,
+   "j": 8,
+   "ny": -0.5,
+   "eta": 0.125,
+   "table": 0.7641564,
+   "independent": 0.7641564,
+   "delta": 0,
+   "authored": 0.45521,
+   "authored_delta": -0.308946
+  },
+  {
+   "i": 40,
+   "j": 16,
+   "ny": 0.25,
+   "eta": 0.5,
+   "table": 0.9688293,
+   "independent": 0.9688283,
+   "delta": -0.000001,
+   "authored": 0.85679,
+   "authored_delta": -0.11204
+  },
+  {
+   "i": 8,
+   "j": 4,
+   "ny": -0.75,
+   "eta": 0.03125,
+   "table": 0.5298531,
+   "independent": 0.5298544,
+   "delta": 0.0000013,
+   "authored": 0.253582,
+   "authored_delta": -0.276271
+  },
+  {
+   "i": 56,
+   "j": 24,
+   "ny": 0.75,
+   "eta": 1.125,
+   "table": 0.9987741,
+   "independent": 0.9987734,
+   "delta": -7e-7,
+   "authored": 0.983651,
+   "authored_delta": -0.015123
+  },
+  {
+   "i": 2,
+   "j": 2,
+   "ny": -0.9375,
+   "eta": 0.007813,
+   "table": 0.1923125,
+   "independent": 0.192318,
+   "delta": 0.0000055,
+   "authored": 0.139725,
+   "authored_delta": -0.052587
+  },
+  {
+   "i": 60,
+   "j": 31,
+   "ny": 0.875,
+   "eta": 1.876953,
+   "table": 0.9999287,
+   "independent": 0.9999284,
+   "delta": -2e-7,
+   "authored": 0.997748,
+   "authored_delta": -0.002181
+  },
+  {
+   "i": 24,
+   "j": 12,
+   "ny": -0.25,
+   "eta": 0.28125,
+   "table": 0.8848087,
+   "independent": 0.8848081,
+   "delta": -6e-7,
+   "authored": 0.6527,
+   "authored_delta": -0.232108
+  },
+  {
+   "i": 48,
+   "j": 6,
+   "ny": 0.5,
+   "eta": 0.070313,
+   "table": 0.9329618,
+   "independent": 0.9329608,
+   "delta": -0.0000011,
+   "authored": 0.800553,
+   "authored_delta": -0.132409
+  },
+  {
+   "i": 12,
+   "j": 20,
+   "ny": -0.625,
+   "eta": 0.78125,
+   "table": 0.8769097,
+   "independent": 0.8769101,
+   "delta": 4e-7,
+   "authored": 0.808421,
+   "authored_delta": -0.068489
+  }
+ ],
+ "max_abs_delta_independent": 0.0000055,
+ "max_abs_delta_authored": 0.308946,
+ "min_abs_delta_authored": 0.002181
+}

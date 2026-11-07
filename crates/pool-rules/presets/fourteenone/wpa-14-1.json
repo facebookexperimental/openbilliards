@@ -1,0 +1,58 @@
+{
+  "schema": "rules-preset-v1",
+  "preset": "wpa-14-1",
+  "family": "fourteenone",
+  "display_key": "settings.variant.wpa-14-1",
+  "source": {
+    "title": "WPA Rules of Play, Section 7 (14.1 Continuous Pool)",
+    "publisher": "World Pool-Billiards Association",
+    "edition": "Effective 2025-09-15 (the 011/012 pinned edition)",
+    "url": "https://wpapool.com/rules-of-play/",
+    "tier": "primary"
+  },
+  "judged": {
+    "target": {
+      "value": 100,
+      "cite": "WPA Sec. 7 intro / 7.4 (first player to reach the required score wins; 100 is the shipped default distance, 75/125 the sanctioned config domain)"
+    }
+  },
+  "adapter": {
+    "kitchen_spot_request": {
+      "value": "nearest_ball_foot_spot_on_request",
+      "cite": "WPA 1.6 (second paragraph) via 7.9 -- with cue in hand behind the head string and ALL object balls also behind it, the ball nearest the head string is spotted at the shooter's request (GH-371: adapter placement affordance in web/app/flow.js; no judged events)",
+      "owner": "adapter"
+    },
+    "rack_pattern": {
+      "value": "free_seeded_shuffle",
+      "cite": "WPA 7.2 (no mandated ball order; a Ball Rack Template is not used)",
+      "owner": "adapter"
+    },
+    "rerack_geometry": {
+      "value": "kernel_fifteen_lattice_minus_apex",
+      "cite": "WPA 7.2 (the apex ball is omitted when fourteen balls are racked) / 7.8 Table 1",
+      "owner": "adapter"
+    }
+  },
+  "not_modeled": [
+    {
+      "axis": "stalemate_lag",
+      "cite": "WPA 7.12",
+      "reason": "the stalemate re-lag is a hot-seat agreement with no judged events; v1 records no decision for it"
+    },
+    {
+      "axis": "non_events_fouls",
+      "cite": "WPA 7.9 via 3.4/3.6-3.10/3.12/3.14/3.15",
+      "reason": "referee-observed fouls (no foot on floor, touched ball, push, slow play, ...) are not detectable from the ShotRecord event stream; 3.11 left this list with GH-371 (judged from the record's head-string geometry)"
+    },
+    {
+      "axis": "tight_rack_assist",
+      "cite": "WPA 7.6",
+      "reason": "the referee-assisted tight re-rack is a physical-world procedure; the adapter racks the template lattice verbatim (spec decision 4)"
+    },
+    {
+      "axis": "two_fouls_warning",
+      "cite": "WPA 7.11",
+      "reason": "the 'on two fouls' notice owed between the second and third consecutive foul is a referee/UI surface, not a judged event; the counter itself IS judged"
+    }
+  ]
+}

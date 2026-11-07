@@ -1,0 +1,398 @@
+{
+ "schema": "ball-return-assembly/1.0",
+ "table_id": "rasson_ox_9ft",
+ "doc": {
+  "title": "rasson_ox_9ft — pocket-assembly declaration (V18) for the GULLY-C1 proposal (the served OX drop-pocket assembly)",
+  "status": "DECLARATION of the served model as built (table.js roxCornerPocket / roxSidePocket, OB-ROX-GEO-001 CP-12 / SP-12 / RC-29 / RC-30 / PK-03); the module is UNARMED on rasson_ox_9ft — this file is read only when it is armed",
+  "revision": "c1",
+  "date": "2026-09-21",
+  "issue": "#650 / GULLY-C1 (maintainer order 2026-09-21)",
+  "notes": "MESH NAMES ARE THE SCENE NAMES: rasson_ox_9ft sets render.dmNames = true and table.js dmFor prefixes every OX mesh dm-<part>; the pocket tags are the builder's (corner: nxnz pxnz nxpz pxpz by the sign of x and z; side: nz pz). The closed bucket / floor solids are declared solid_simplification: true — they are the real drop-pocket floor the OX ships (PK-01), i.e. where a hypothetical gully variant would be open."
+ },
+ "meshes": [
+  {
+   "id": "lb-cup-c",
+   "kind": "liner",
+   "name": "dm-pocket-rox-corner-nxnz-cup-c",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the CP-12 C liner swept along the frozen kernel mouth (RC-29): the ball drops inside it; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lb-cup-c-end-0",
+   "kind": "liner",
+   "name": "dm-pocket-rox-corner-nxnz-cup-c-end-0",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the C liner's first end wall (CP-12 C ends); built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lb-cup-c-end-1",
+   "kind": "liner",
+   "name": "dm-pocket-rox-corner-nxnz-cup-c-end-1",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the C liner's second end wall; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lb-cup-bucket-measured",
+   "kind": "cup",
+   "name": "dm-pocket-rox-corner-nxnz-cup-bucket-measured",
+   "solid_simplification": true,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the measured lower bucket, floor and drain chains (PK-03x): the CLOSED floor at -61.88 is where a gully variant is open — recorded as a solid simplification; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lb-flange",
+   "kind": "other",
+   "name": "dm-pocket-rox-corner-nxnz-flange",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the upper pocket flange (RC-30, source-owned): the ball passes through its opening; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lb-flange-ear-0",
+   "kind": "other",
+   "name": "dm-pocket-rox-corner-nxnz-flange-ear-0",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lb (kernel 0): the flange's finite ear (RC-30); built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lc-cup-ring",
+   "kind": "ring",
+   "name": "dm-pocket-rox-side-nz-cup-ring",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the SP-12 TPE cup ring swept along the kernel mouth (RC-29 middle); built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lc-cup-ring-end-0",
+   "kind": "ring",
+   "name": "dm-pocket-rox-side-nz-cup-ring-end-0",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the ring's first end; built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lc-cup-ring-end-1",
+   "kind": "ring",
+   "name": "dm-pocket-rox-side-nz-cup-ring-end-1",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the ring's second end; built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lc-cup-bucket",
+   "kind": "cup",
+   "name": "dm-pocket-rox-side-nz-cup-bucket",
+   "solid_simplification": true,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the closed lower bucket (SP-12 bucket_below_slab): a gully variant opens it; built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lc-cup-floor",
+   "kind": "cup",
+   "name": "dm-pocket-rox-side-nz-cup-floor",
+   "solid_simplification": true,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the floor plate at -61.88 (ROX_CUP_FLOOR_Z; SP-12 floor plate_top): the solid a gully variant removes; built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lc-flange",
+   "kind": "other",
+   "name": "dm-pocket-rox-side-nz-flange",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the side flange (RC-30 FIX1 closure); built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lc-flange-tab",
+   "kind": "other",
+   "name": "dm-pocket-rox-side-nz-flange-tab",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle lc (kernel 1): the flange tab; built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lt-cup-c",
+   "kind": "liner",
+   "name": "dm-pocket-rox-corner-pxnz-cup-c",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the CP-12 C liner swept along the frozen kernel mouth (RC-29): the ball drops inside it; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lt-cup-c-end-0",
+   "kind": "liner",
+   "name": "dm-pocket-rox-corner-pxnz-cup-c-end-0",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the C liner's first end wall (CP-12 C ends); built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lt-cup-c-end-1",
+   "kind": "liner",
+   "name": "dm-pocket-rox-corner-pxnz-cup-c-end-1",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the C liner's second end wall; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lt-cup-bucket-measured",
+   "kind": "cup",
+   "name": "dm-pocket-rox-corner-pxnz-cup-bucket-measured",
+   "solid_simplification": true,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the measured lower bucket, floor and drain chains (PK-03x): the CLOSED floor at -61.88 is where a gully variant is open — recorded as a solid simplification; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lt-flange",
+   "kind": "other",
+   "name": "dm-pocket-rox-corner-pxnz-flange",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the upper pocket flange (RC-30, source-owned): the ball passes through its opening; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "lt-flange-ear-0",
+   "kind": "other",
+   "name": "dm-pocket-rox-corner-pxnz-flange-ear-0",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner lt (kernel 2): the flange's finite ear (RC-30); built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rb-cup-c",
+   "kind": "liner",
+   "name": "dm-pocket-rox-corner-nxpz-cup-c",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the CP-12 C liner swept along the frozen kernel mouth (RC-29): the ball drops inside it; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rb-cup-c-end-0",
+   "kind": "liner",
+   "name": "dm-pocket-rox-corner-nxpz-cup-c-end-0",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the C liner's first end wall (CP-12 C ends); built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rb-cup-c-end-1",
+   "kind": "liner",
+   "name": "dm-pocket-rox-corner-nxpz-cup-c-end-1",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the C liner's second end wall; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rb-cup-bucket-measured",
+   "kind": "cup",
+   "name": "dm-pocket-rox-corner-nxpz-cup-bucket-measured",
+   "solid_simplification": true,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the measured lower bucket, floor and drain chains (PK-03x): the CLOSED floor at -61.88 is where a gully variant is open — recorded as a solid simplification; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rb-flange",
+   "kind": "other",
+   "name": "dm-pocket-rox-corner-nxpz-flange",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the upper pocket flange (RC-30, source-owned): the ball passes through its opening; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rb-flange-ear-0",
+   "kind": "other",
+   "name": "dm-pocket-rox-corner-nxpz-flange-ear-0",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rb (kernel 3): the flange's finite ear (RC-30); built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rc-cup-ring",
+   "kind": "ring",
+   "name": "dm-pocket-rox-side-pz-cup-ring",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the SP-12 TPE cup ring swept along the kernel mouth (RC-29 middle); built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rc-cup-ring-end-0",
+   "kind": "ring",
+   "name": "dm-pocket-rox-side-pz-cup-ring-end-0",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the ring's first end; built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rc-cup-ring-end-1",
+   "kind": "ring",
+   "name": "dm-pocket-rox-side-pz-cup-ring-end-1",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the ring's second end; built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rc-cup-bucket",
+   "kind": "cup",
+   "name": "dm-pocket-rox-side-pz-cup-bucket",
+   "solid_simplification": true,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the closed lower bucket (SP-12 bucket_below_slab): a gully variant opens it; built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rc-cup-floor",
+   "kind": "cup",
+   "name": "dm-pocket-rox-side-pz-cup-floor",
+   "solid_simplification": true,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the floor plate at -61.88 (ROX_CUP_FLOOR_Z; SP-12 floor plate_top): the solid a gully variant removes; built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rc-flange",
+   "kind": "other",
+   "name": "dm-pocket-rox-side-pz-flange",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the side flange (RC-30 FIX1 closure); built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rc-flange-tab",
+   "kind": "other",
+   "name": "dm-pocket-rox-side-pz-flange-tab",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "middle rc (kernel 4): the flange tab; built by table.js roxSidePocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rt-cup-c",
+   "kind": "liner",
+   "name": "dm-pocket-rox-corner-pxpz-cup-c",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the CP-12 C liner swept along the frozen kernel mouth (RC-29): the ball drops inside it; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rt-cup-c-end-0",
+   "kind": "liner",
+   "name": "dm-pocket-rox-corner-pxpz-cup-c-end-0",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the C liner's first end wall (CP-12 C ends); built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rt-cup-c-end-1",
+   "kind": "liner",
+   "name": "dm-pocket-rox-corner-pxpz-cup-c-end-1",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the C liner's second end wall; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rt-cup-bucket-measured",
+   "kind": "cup",
+   "name": "dm-pocket-rox-corner-pxpz-cup-bucket-measured",
+   "solid_simplification": true,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the measured lower bucket, floor and drain chains (PK-03x): the CLOSED floor at -61.88 is where a gully variant is open — recorded as a solid simplification; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rt-flange",
+   "kind": "other",
+   "name": "dm-pocket-rox-corner-pxpz-flange",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the upper pocket flange (RC-30, source-owned): the ball passes through its opening; built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  },
+  {
+   "id": "rt-flange-ear-0",
+   "kind": "other",
+   "name": "dm-pocket-rox-corner-pxpz-flange-ear-0",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "corner rt (kernel 5): the flange's finite ear (RC-30); built by table.js roxCornerPocket from the purchased OX model (OB-ROX-GEO-001)"
+   }
+  }
+ ],
+ "provenance": {
+  "tag": "MODEL",
+  "source": "the purchased Rasson OX model as built by table.js for rasson_ox_9ft (dm- names read from roxCornerPocket / roxSidePocket, 2026-09-21); pocket order lb lc lt rb rc rt = kernel 0..5"
+ }
+}

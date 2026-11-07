@@ -1,0 +1,7545 @@
+{
+ "comment": [
+  "DO NOT REGENERATE (rules-corpus.json discipline; frozen at the GH-491 review, build 18).",
+  "Per-ruleset byte oracle for the heyball-v1 conformance gate: every expect line harvested ONCE from the pool-rules crate through the pool-cli judge leg at the harvestedAt commit and reviewed case-by-case against its cited clause of the WPA Rules of Heyball (effective 2025-08-16; pin + digest at docs/research/rules-audit/heyball-rulebook-pin.md, PDF sha256 2b92dd5088ea630337326e26b7a2a7a4499a9801f2c5da7e5cc40421d5424a24).",
+  "Semantic source: crates/pool-rules/tests/heyball_scenarios.rs (51 reviewed scenes incl. interpretations I1-I5). Post-freeze changes ONLY via the erratum protocol (docs/rules/variants.md §4): a pinned-clause proof against the cited text -- NEVER a re-run to fix a red gate; a byte diff at any conformance leg is resolved by fixing the code to reproduce THESE bytes.",
+  "Coverage floor: initialState 2 / judge 35 (break matrix II.6, open-table II.10+II.12.1, closed play II.12+II.17, the II.20 loss family, frozen-cushion II.15.2, kitchen II.8+App-A 3.11) / judge-error 3 / applyDecision 12 (decisions 18-23) / applyDecision-error 4 / hudState 3 = 59 cases."
+ ],
+ "harvestedAt": "3f41c726",
+ "slice": "wpa-heyball",
+ "ruleset": "heyball-v1",
+ "cases": [
+  {
+   "id": "wpa-heyball/initialState-001",
+   "ruleset": "heyball-v1",
+   "kind": "initialState",
+   "comment": "Fresh rack at the break address (II.4, II.6(d)).",
+   "breaker": 1,
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}",
+   "expectSha256": "9683ecc8de512c7d3468e5945ee6fc32cb8e165d1a83c37f0b4b8b6bd8c0e527"
+  },
+  {
+   "id": "wpa-heyball/initialState-002",
+   "ruleset": "heyball-v1",
+   "kind": "initialState",
+   "comment": "Seat 2 breaks (alternating breaks are the adapter liturgy, I.12).",
+   "breaker": 2,
+   "expect": "{\"phase\":\"break\",\"shooter\":2,\"breaker\":2,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}",
+   "expectSha256": "307ef1872a9fe958c460929b450033928f62bf780fa25aa2d17e4c22a6c8b61d"
+  },
+  {
+   "id": "wpa-heyball/judge-001-legal-break-pot",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.6(c)/II.10.3: a pot legalizes the break; breaker continues on the open table.",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 4,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 5,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 6,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 10,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 11,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 12,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 13,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 14,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 15,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.35000000000000003,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "f80bc5fef17f74bf10367e09c511b66f744c0e17a8adef4c110ac6d631dfbce6"
+  },
+  {
+   "id": "wpa-heyball/judge-002-legal-dry-break",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.6(c): four object balls to cushions legalize a pot-less break; turn passes.",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 4,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 5,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 6,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 10,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 11,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 12,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 13,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 14,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 15,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.35000000000000003,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 4
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":2,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "0c55df765af6488f2620a95f6313b1c9a27dd234ae1fabfa7ea4a4bfadb27f90"
+  },
+  {
+   "id": "wpa-heyball/judge-003-illegal-break",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.6(c): <4 rails, no pot — the opponent three-way option, NO ball in hand.",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 4,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 5,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 6,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 10,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 11,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 12,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 13,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 14,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 15,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.35000000000000003,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"illegal-break\",\"cite\":\"WPA Heyball II.6(c)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"illegal_break\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":{\"kind\":\"illegal_break\",\"chooser\":2},\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"illegal-break\",\"cite\":\"WPA Heyball II.6(c)\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "4dd7ddc215f385c0698b1ff0f345caa84978dfa4c938f0fc7c497a8594355a87"
+  },
+  {
+   "id": "wpa-heyball/judge-004-break-scratch",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.6(e): a break-shot foul grants kitchen-only BIH inside the three-way option.",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 4,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 5,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 6,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 10,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 11,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 12,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 13,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 14,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 15,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.35000000000000003,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA Heyball II.17(a) via II.6(e)\"}],\"pocketed\":[],\"ballInHand\":\"kitchen\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"break_foul\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":{\"kind\":\"break_foul\",\"chooser\":2},\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA Heyball II.17(a) via II.6(e)\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "7f5df67679784f0e3540c5153cc42d18a1a0f745e7c48b852d03113568d5d2fc"
+  },
+  {
+   "id": "wpa-heyball/judge-005-break-off-table",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.17(e) via II.6(e): an object ball off the table on the break; it stays out.",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 4,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 5,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 6,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 10,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 11,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 12,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 13,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 14,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 15,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.35000000000000003,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallOffTable": {
+        "ball": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA Heyball II.17(e) via II.6(e)\"}],\"pocketed\":[],\"ballInHand\":\"kitchen\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"break_foul\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":{\"kind\":\"break_foul\",\"chooser\":2},\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA Heyball II.17(e) via II.6(e)\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "baff2de522bbc0dc31142a1d6e7c482d48c1398240b2b4efb405a6265baa9ded"
+  },
+  {
+   "id": "wpa-heyball/judge-006-eight-break-pot",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.6(f) no-foul arm: the BREAKER chooses spot-the-8 or re-break.",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 4,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 5,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 6,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 10,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 11,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 12,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 13,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 14,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 15,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.35000000000000003,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 8,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[8],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":{\"kind\":\"eight_break_pot\",\"chooser\":1},\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,9,10,11,12,13,14,15],\"pendingDecision\":{\"kind\":\"eight_break_pot\",\"chooser\":1},\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "780519ec4e88d67e7dd407a7b955ff9e76205a0c1ccf87b26780663e675e333e"
+  },
+  {
+   "id": "wpa-heyball/judge-007-eight-break-foul",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.6(f) foul arm: the OPPONENT chooses (spot-8 + kitchen BIH / re-racks).",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 4,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 5,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 6,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 10,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 11,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 12,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 13,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 14,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 15,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.35000000000000003,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 8,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA Heyball II.17(a) via II.6(e)\"}],\"pocketed\":[8],\"ballInHand\":\"kitchen\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"eight_break_foul\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,9,10,11,12,13,14,15],\"pendingDecision\":{\"kind\":\"eight_break_foul\",\"chooser\":2},\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA Heyball II.17(a) via II.6(e)\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "b8ab675c66b90474ce33017cb00492d3ab4a6b680ea9389e8361bdc416841aae"
+  },
+  {
+   "id": "wpa-heyball/judge-008-break-miscue",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.6(g): the cue never reached the rack — the no-BIH option (interpretation I1).",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 4,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 5,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 6,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.05,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 10,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 11,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.15000000000000002,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 12,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 13,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.25,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 14,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.30000000000000004,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 15,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.35000000000000003,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA Heyball II.6(g)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"break_miscue\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":{\"kind\":\"break_miscue\",\"chooser\":2},\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA Heyball II.6(g)\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "435ec03a19ffd9b8015a9e142ab559d4cd400b273cde354520a1bf6faccb1379"
+  },
+  {
+   "id": "wpa-heyball/judge-009-open-assign",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.12.1: the first-contact group pot closes the table.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "322e2ffe95eae9ca2bff8a48c65b1f22784baa85e754a57a5231f7d906d1b336"
+  },
+  {
+   "id": "wpa-heyball/judge-010-open-other-group-pot",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.10.1/II.12.1: a legal pot of the OTHER group stays open, ball down, turn continues.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 9,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[9],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "f7c9dd03a37c7903f65cefd15cad6c0f8936fede1056b47dba8a28641717a1ae"
+  },
+  {
+   "id": "wpa-heyball/judge-011-open-eight-first",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.10.1: contacting the 8 first while open is a foul.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 8
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 8
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPA Heyball II.10.1 via II.17(b)\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":2,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPA Heyball II.10.1 via II.17(b)\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "ac7450a3015639b9aaf93e21b8c63ce02efb7dbff861c5daf8a07c6b88964364"
+  },
+  {
+   "id": "wpa-heyball/judge-012-open-eight-first-group-down",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "I5: a whole group down does NOT license the 8 (no WPA-4.4 claim in Heyball).",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 8
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 8
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPA Heyball II.10.1 via II.17(b)\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":2,\"breaker\":1,\"groups\":null,\"onTable\":[8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPA Heyball II.10.1 via II.17(b)\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "9f6cb6de8896b73f147efe38af8172d44781fa41a52375211faab44ddc8138d8"
+  },
+  {
+   "id": "wpa-heyball/judge-013-open-foul-pot",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.10.3: a fouled pot never assigns groups; the ball stays down (II.10.2).",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA Heyball II.17(a)\"}],\"pocketed\":[3],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":2,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA Heyball II.17(a)\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "d72b3dca7a6ede6e83e52a3ca48ccd4e087b2192446cda673f234cea40fe1490"
+  },
+  {
+   "id": "wpa-heyball/judge-014-open-whole-group-assign",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.10.1 tail: with all solids down a stripe pot closes the table; the opponent inherits the exhausted group.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 9
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 9,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[9],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"stripes\",\"2\":\"solids\"},\"onTable\":[8,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "559da4d3ad8f54524614b6be35b4b476f026f0b6ffdcd4dae34ffa7e3fc68e4e"
+  },
+  {
+   "id": "wpa-heyball/judge-015-wrong-first",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.17(b)/II.12.1: seat 1 (solids) contacts a stripe first.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 9
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 9
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPA Heyball II.17(b)\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPA Heyball II.17(b)\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "ef90b5f1cad018dee0c6ee6c493a6580776ddc28204b813a99bb632fb6eee8d1"
+  },
+  {
+   "id": "wpa-heyball/judge-016-no-contact",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.17(b): the cue contacts nothing.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA Heyball II.17(b)\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA Heyball II.17(b)\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "f709770db230a09a84fce3accfa474c5a3d30317ebfe89e5cceac46555c620b2"
+  },
+  {
+   "id": "wpa-heyball/judge-017-own-pot-continues",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.12.1: an own-group pot continues the turn (no call exists, II.11).",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 4
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "322e2ffe95eae9ca2bff8a48c65b1f22784baa85e754a57a5231f7d906d1b336"
+  },
+  {
+   "id": "wpa-heyball/judge-018-opp-slop-passes",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.11 (flukes allowed): the opponent ball stays down; no own pot, turn passes.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 9,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[9],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "d1c92c5e141efb2d407cb1a923ba36f32f4e06052c4adec1a923cb0db3b1ff59"
+  },
+  {
+   "id": "wpa-heyball/judge-019-no-rail",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.12.2: no ball to a cushion after contact and nothing pocketed.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-rail-after-contact\",\"cite\":\"WPA Heyball II.12.2\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"no-rail-after-contact\",\"cite\":\"WPA Heyball II.12.2\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "84e6a02b983020cce8e32a012a4da8a64d5e961bb2d4d957cd5b41be42b8b822"
+  },
+  {
+   "id": "wpa-heyball/judge-020-off-table-stays-out",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.17(e) + II.12.3: a foul; the jumped ball is NOT re-spotted.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallOffTable": {
+        "ball": 9
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA Heyball II.17(e) via II.12.3\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA Heyball II.17(e) via II.12.3\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "cd7bc351c79a725e5de43be2e236fdd45390ecc4e267bd476acf31ceecebe5c1"
+  },
+  {
+   "id": "wpa-heyball/judge-021-legal-pass",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.12.2 satisfied, nothing pocketed: a plain legal pass.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "8b3ea54ebc5c5a539fdf221573346d261d7de810d79fc0344abd279b66984961"
+  },
+  {
+   "id": "wpa-heyball/judge-022-eight-win",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.2 + II.11: a legal 8 pot wins — no pocket designation exists.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 8
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 8,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[8],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":{\"winner\":1,\"reason\":\"eight-ball-pocketed\",\"cite\":\"WPA Heyball II.2\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":{\"winner\":1,\"reason\":\"eight-ball-pocketed\",\"cite\":\"WPA Heyball II.2\"},\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "253f1fa5f891e985a3f6ed6bc239fadbe6050ffc962b5949c3d5c0517c6dbd72"
+  },
+  {
+   "id": "wpa-heyball/judge-023-eight-with-foul",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.20(a): a foul while pocketing the 8 loses the rack.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 8
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 8,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA Heyball II.17(a)\"}],\"pocketed\":[8],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":2,\"reason\":\"eight-with-foul\",\"cite\":\"WPA Heyball II.20(a)\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":{\"winner\":2,\"reason\":\"eight-with-foul\",\"cite\":\"WPA Heyball II.20(a)\"},\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA Heyball II.17(a)\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "dbbe9806e13ea28f241c1967522862526097f354ca6ef20fcb5e493e0ac83ac3"
+  },
+  {
+   "id": "wpa-heyball/judge-024-early-eight",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.20(d): the 8 pocketed before the group is cleared.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 8,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[8],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":2,\"reason\":\"early-eight\",\"cite\":\"WPA Heyball II.20(d)\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":{\"winner\":2,\"reason\":\"early-eight\",\"cite\":\"WPA Heyball II.20(d)\"},\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "8a4d69c68d20bd1c3cfe8058872844f701824d651cdf01d6855102dc1aedd96c"
+  },
+  {
+   "id": "wpa-heyball/judge-025-eight-with-last-ball",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.20(b) (interpretation I3): the 8 with the last own ball on one stroke.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     3,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 8,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3,8],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":2,\"reason\":\"eight-with-last-ball\",\"cite\":\"WPA Heyball II.20(b)\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":{\"winner\":2,\"reason\":\"eight-with-last-ball\",\"cite\":\"WPA Heyball II.20(b)\"},\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "0793433f47c9912a24ffa97cca43e66c7de7ac14b673e9afb664640ecc12f119"
+  },
+  {
+   "id": "wpa-heyball/judge-026-eight-off-table",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.20(c): the 8 driven off the table loses outright.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallOffTable": {
+        "ball": 8
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-rail-after-contact\",\"cite\":\"WPA Heyball II.12.2\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":2,\"reason\":\"eight-off-table\",\"cite\":\"WPA Heyball II.20(c)\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":{\"winner\":2,\"reason\":\"eight-off-table\",\"cite\":\"WPA Heyball II.20(c)\"},\"foulContext\":{\"fouls\":[{\"code\":\"no-rail-after-contact\",\"cite\":\"WPA Heyball II.12.2\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "6d5cd9a169d976b6d1c9c74a1d82bfa731afc3ee51bcc68179f0da75a808cd59"
+  },
+  {
+   "id": "wpa-heyball/judge-027-open-slop-eight",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "I5 note: an 8 slopped in while open is II.20(d)-early (no ownership).",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 8,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[8],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":2,\"reason\":\"early-eight\",\"cite\":\"WPA Heyball II.20(d)\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":{\"winner\":2,\"reason\":\"early-eight\",\"cite\":\"WPA Heyball II.20(d)\"},\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "0ac03a58cd99a99896d325f9f5c6f3acae2c765645bbb2e7f80093e31669df6e"
+  },
+  {
+   "id": "wpa-heyball/judge-028-frozen-own-cushion-foul",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.15.2 (interpretation I4): the frozen target riding its own cushion never satisfies.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.606425,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"frozen-cushion-escape\",\"cite\":\"WPA Heyball II.15.2\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"frozen-cushion-escape\",\"cite\":\"WPA Heyball II.15.2\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "0e974e05eeb77a0fe2781aeb67244e545c75510f9567a0b1aae4c48758f5c078"
+  },
+  {
+   "id": "wpa-heyball/judge-029-frozen-other-ball-satisfies",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.15.2: another ball (the cue included) to a cushion after contact satisfies.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.606425,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "8b3ea54ebc5c5a539fdf221573346d261d7de810d79fc0344abd279b66984961"
+  },
+  {
+   "id": "wpa-heyball/judge-030-frozen-pot-satisfies",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.15.2: a pocketed ball satisfies.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.606425,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "322e2ffe95eae9ca2bff8a48c65b1f22784baa85e754a57a5231f7d906d1b336"
+  },
+  {
+   "id": "wpa-heyball/judge-031-frozen-precontact-rail",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "I4 strict reading: pre-contact cushion work never counts.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.606425,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"frozen-cushion-escape\",\"cite\":\"WPA Heyball II.15.2\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"frozen-cushion-escape\",\"cite\":\"WPA Heyball II.15.2\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "0e974e05eeb77a0fe2781aeb67244e545c75510f9567a0b1aae4c48758f5c078"
+  },
+  {
+   "id": "wpa-heyball/judge-032-kitchen-direct-foul",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.8 via II.17(i): first contact behind the head string, no crossing.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": true
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.9,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": -0.8,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 5,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"bad-kitchen-shot\",\"cite\":\"WPA Heyball II.8 via II.17(i)\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"bad-kitchen-shot\",\"cite\":\"WPA Heyball II.8 via II.17(i)\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "5aff680d62d702a4d62c7a89dd97d6d2f3de8a8a0e4ba1f77b0982e1de7e0056"
+  },
+  {
+   "id": "wpa-heyball/judge-033-kitchen-up-and-back",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "II.8: the cue crosses the head string and returns — legal.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": true
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.9,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": -0.8,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 5,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 0
+       }
+      },
+      "post": [
+       [
+        0,
+        {
+         "pos": {
+          "x": 0,
+          "y": 0.9,
+          "z": 0.028575
+         },
+         "motion": "Sliding"
+        }
+       ]
+      ]
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "8b3ea54ebc5c5a539fdf221573346d261d7de810d79fc0344abd279b66984961"
+  },
+  {
+   "id": "wpa-heyball/judge-034-kitchen-no-exit",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "App-A 3.11 ¶2: the stroke neither crossed the string nor contacted a ball on/past it.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": true
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.9,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": -0.8,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 5,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA Heyball II.17(b)\"},{\"code\":\"kitchen-no-exit\",\"cite\":\"WPA Heyball App-A 3.11\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA Heyball II.17(b)\"},{\"code\":\"kitchen-no-exit\",\"cite\":\"WPA Heyball App-A 3.11\"}],\"by\":1},\"kitchenBih\":false}}",
+   "expectSha256": "3ce24f658a07f1f36602ce287ec046fb5ad9ecd367ddad47c31a9489a5c834ab"
+  },
+  {
+   "id": "wpa-heyball/judge-035-kitchen-clears",
+   "ruleset": "heyball-v1",
+   "kind": "judge",
+   "comment": "The II.8 restriction covers exactly one judged stroke.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": true
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.9,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": -0.8,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 5,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}}",
+   "expectSha256": "8b3ea54ebc5c5a539fdf221573346d261d7de810d79fc0344abd279b66984961"
+  },
+  {
+   "id": "wpa-heyball/judge-036-error-call-rejected",
+   "ruleset": "heyball-v1",
+   "kind": "judge-error",
+   "comment": "II.11: heyball never calls — a non-null call is bad-call.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 1
+   },
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"heyball-v1: heyball is not a call-shot game — no shot carries a call (WPA Heyball II.11)\"}}",
+   "expectSha256": "cac750ec7c428aca94a1e41cf66d274d8fa916e65894bb8669118ab3124201a4"
+  },
+  {
+   "id": "wpa-heyball/judge-037-error-pending",
+   "ruleset": "heyball-v1",
+   "kind": "judge-error",
+   "comment": "Judging while an option pends is decision-pending.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"error\":{\"code\":\"decision-pending\",\"message\":\"heyball-v1: judge called while a rulebook decision is pending ('break_foul') — resolve it via applyDecision\"}}",
+   "expectSha256": "64d4cea361fb43f2eb5cccc05c34a91aa8c9c7d2356ad8ec2f786bd999bd14fd"
+  },
+  {
+   "id": "wpa-heyball/judge-038-error-over",
+   "ruleset": "heyball-v1",
+   "kind": "judge-error",
+   "comment": "Judging after the terminal is match-over.",
+   "state": {
+    "phase": "over",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": {
+     "winner": 1,
+     "reason": "eight-ball-pocketed",
+     "cite": "WPA Heyball II.2"
+    },
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 8,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.5,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"error\":{\"code\":\"match-over\",\"message\":\"heyball-v1: judge called after the match ended (adapter contract)\"}}",
+   "expectSha256": "5221ba28bf2acddc771aa50a8ff1d3a7d80661bea643dfe14e17f019b8bf8a91"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-039-illegal-break-accept",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision",
+   "comment": "II.6(c) choice 1: accept the pattern — the chooser plays from here.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "illegal_break",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 18,
+    "choice": 1
+   },
+   "expect": "{\"phase\":\"open\",\"shooter\":2,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}",
+   "expectSha256": "820e921f75095423c5a3a6ec1fc5b40b29094ae565ad0bf5aee16050ac105e73"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-040-illegal-break-chooser-breaks",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision",
+   "comment": "II.6(c) choice 2: re-rack, the chooser breaks.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "illegal_break",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 18,
+    "choice": 2
+   },
+   "expect": "{\"phase\":\"break\",\"shooter\":2,\"breaker\":2,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}",
+   "expectSha256": "307ef1872a9fe958c460929b450033928f62bf780fa25aa2d17e4c22a6c8b61d"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-041-illegal-break-breaker-again",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision",
+   "comment": "II.6(c) choice 3: re-rack, the original breaker again.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "illegal_break",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 18,
+    "choice": 3
+   },
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}",
+   "expectSha256": "9683ecc8de512c7d3468e5945ee6fc32cb8e165d1a83c37f0b4b8b6bd8c0e527"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-042-break-foul-kitchen",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision",
+   "comment": "II.6(e) choice 1: kitchen BIH as it lies — the II.8 restriction arms.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 19,
+    "choice": 1
+   },
+   "expect": "{\"phase\":\"open\",\"shooter\":2,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":true}",
+   "expectSha256": "3dbf28bfa8f2cfa7174acf855773640baca7e2cedeaa30c93f67e0dc9d86ac36"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-043-break-foul-kitchen-respots-eight",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision",
+   "comment": "I2: an 8 driven off on the break returns under choice 1.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 19,
+    "choice": 1
+   },
+   "expect": "{\"phase\":\"open\",\"shooter\":2,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":true}",
+   "expectSha256": "3dbf28bfa8f2cfa7174acf855773640baca7e2cedeaa30c93f67e0dc9d86ac36"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-044-break-foul-rerack",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision",
+   "comment": "II.6(e) choice 2: re-rack, the chooser breaks.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 19,
+    "choice": 2
+   },
+   "expect": "{\"phase\":\"break\",\"shooter\":2,\"breaker\":2,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}",
+   "expectSha256": "307ef1872a9fe958c460929b450033928f62bf780fa25aa2d17e4c22a6c8b61d"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-045-eight-break-pot-spot",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision",
+   "comment": "II.6(f): the breaker spots the 8 and keeps shooting.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "eight_break_pot",
+     "chooser": 1
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 20,
+    "choice": 1
+   },
+   "expect": "{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}",
+   "expectSha256": "eb43db6e87be1323764a353e2f7f145ff84068406de0dd5054c089171697b089"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-046-eight-break-pot-rebreak",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision",
+   "comment": "II.6(f): re-break, same breaker.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "eight_break_pot",
+     "chooser": 1
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 20,
+    "choice": 2
+   },
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}",
+   "expectSha256": "9683ecc8de512c7d3468e5945ee6fc32cb8e165d1a83c37f0b4b8b6bd8c0e527"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-047-eight-break-foul-spot-kitchen",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision",
+   "comment": "II.6(f) foul arm choice 1: spot-8 + kitchen BIH.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "eight_break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 21,
+    "choice": 1
+   },
+   "expect": "{\"phase\":\"open\",\"shooter\":2,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":true}",
+   "expectSha256": "3dbf28bfa8f2cfa7174acf855773640baca7e2cedeaa30c93f67e0dc9d86ac36"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-048-eight-break-foul-breaker-again",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision",
+   "comment": "II.6(f) foul arm choice 3: re-rack, the original breaker.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "eight_break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 21,
+    "choice": 3
+   },
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}",
+   "expectSha256": "9683ecc8de512c7d3468e5945ee6fc32cb8e165d1a83c37f0b4b8b6bd8c0e527"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-049-break-miscue-chooser-breaks",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision",
+   "comment": "II.6(g) choice 1: the chooser breaks.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_miscue",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 22,
+    "choice": 1
+   },
+   "expect": "{\"phase\":\"break\",\"shooter\":2,\"breaker\":2,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}",
+   "expectSha256": "307ef1872a9fe958c460929b450033928f62bf780fa25aa2d17e4c22a6c8b61d"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-050-stalemate",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision",
+   "comment": "II.21: the agreement re-racks for the ORIGINAL breaker.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 2,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 23,
+    "choice": 1
+   },
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false}",
+   "expectSha256": "9683ecc8de512c7d3468e5945ee6fc32cb8e165d1a83c37f0b4b8b6bd8c0e527"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-051-error-unknown-id",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision-error",
+   "comment": "Snooker's 17 is not a heyball decision id.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 17,
+    "choice": 1
+   },
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"heyball-v1: unknown decision id 17\"}}",
+   "expectSha256": "ad8ea29acd2a1765791b7e82028e79b80b070abeb92fb1d0c9b3da7e20160276"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-052-error-choice-range",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision-error",
+   "comment": "Choice 4 exceeds break_foul's choiceMax 3.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 19,
+    "choice": 4
+   },
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"heyball-v1: choice 4 out of range for 'break_foul'\"}}",
+   "expectSha256": "63798d1068754372583ecbcdc24cb31a350a6e28aa7ec295ad7b2cfaf6ea1ebf"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-053-error-kind-mismatch",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision-error",
+   "comment": "The decision must match the pending option.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 18,
+    "choice": 1
+   },
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"heyball-v1: decision 'illegal_break' does not match the pending option ('break_foul')\"}}",
+   "expectSha256": "f7c27231902b0da913b05df070534bda55e84189cc20ba8da39689d421a7adff"
+  },
+  {
+   "id": "wpa-heyball/applyDecision-054-error-stalemate-preempt",
+   "ruleset": "heyball-v1",
+   "kind": "applyDecision-error",
+   "comment": "II.21: the agreement never pre-empts an open option.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "decision": {
+    "decision": 23,
+    "choice": 1
+   },
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"heyball-v1: stalemate cannot pre-empt the pending 'break_foul' option\"}}",
+   "expectSha256": "5df8a90fd01b672e53f6e0776fb8c1c1923a89013372443cb6fb9ea395badc0d"
+  },
+  {
+   "id": "wpa-heyball/hudState-001-on-eight",
+   "ruleset": "heyball-v1",
+   "kind": "hudState",
+   "comment": "onEight derives per seat from the grouped table.",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "expect": "{\"phase\":\"grouped\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false,\"onEight\":{\"1\":true,\"2\":false},\"openClaim\":false}",
+   "expectSha256": "b7cbeea44f7ea7ee843dd2b95fcae292b21f71da8f070f562f25ab896a87b82c"
+  },
+  {
+   "id": "wpa-heyball/hudState-002-open-claim",
+   "ruleset": "heyball-v1",
+   "kind": "hudState",
+   "comment": "openClaim flags a whole group down while open (informational, I5).",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "kitchenBih": false
+   },
+   "expect": "{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"kitchenBih\":false,\"onEight\":null,\"openClaim\":true}",
+   "expectSha256": "736c3372d1178c5746862c775c9fd39a9286c7ff3ee10aeea7ec165eb08b7e7f"
+  },
+  {
+   "id": "wpa-heyball/hudState-003-kitchen-pending",
+   "ruleset": "heyball-v1",
+   "kind": "hudState",
+   "comment": "kitchenBih and a pending option project through.",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "scratch",
+       "cite": "WPA Heyball II.17(a) via II.6(e)"
+      }
+     ],
+     "by": 1
+    },
+    "kitchenBih": true
+   },
+   "expect": "{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":{\"kind\":\"break_foul\",\"chooser\":2},\"result\":null,\"foulContext\":{\"by\":1,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA Heyball II.17(a) via II.6(e)\"}]},\"kitchenBih\":true,\"onEight\":null,\"openClaim\":false}",
+   "expectSha256": "09a0f2e2829f018b3f2a3132dae5868d2c358b0b176367352f0cb69d98f0bd4e"
+  }
+ ]
+}

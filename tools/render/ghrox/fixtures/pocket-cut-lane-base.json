@@ -1,0 +1,7 @@
+{
+  "revision": "8f58b2104722d1f5c10208b9db3da3b584a3ecf5",
+  "path": "web/scene/table.js",
+  "source_sha256": "b4abd14666accc43fc450481966eeb2597e6f4a43bd34ef60f7f8412f3be408e",
+  "fixture_sha256": "0a3118b438071298a797223bd45d1dfb973fdebc9c5cf209596be24de5073374",
+  "extraction": "Exact entry, makeGeom and ROX helper slices, including extraction delimiters; no geometry algorithm edits."
+}

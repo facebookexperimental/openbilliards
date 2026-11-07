@@ -1,0 +1,740 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ゲームガイド — openbilliards</title>
+  <meta name="description" content="openbilliards の遊び方:操作、スピンとアシストライン、実装どおりのナインボール・エイトボール・スヌーカー・スリークッション・ワンポケットのルール、ゲームカタログ、装備と校正バッジ、リプレイ共有、動画書き出し——全 7 言語。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ゲームガイド — openbilliards">
+  <meta property="og:description" content="openbilliards の遊び方:操作、スピンとアシストライン、実装どおりのナインボール・エイトボール・スヌーカー・スリークッション・ワンポケットのルール、ゲームカタログ、装備と校正バッジ、リプレイ共有、動画書き出し——全 7 言語。">
+  <meta property="og:image" content="../../assets/img/hero-poster.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b100c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23efe9d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../assets/guide.css">
+  <script src="../../assets/site.js" defer></script>
+  <script src="../../assets/motion.js" defer></script>
+</head>
+<body>
+  <a class="bb-skip" href="#main">本文へスキップ</a>
+
+  <header>
+    <nav class="bb-nav" aria-label="メインナビゲーション">
+      <a class="bb-wordmark" href="../../index.html">Openbilliards</a>
+      <button class="bb-nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">メニュー</button>
+      <ul class="bb-nav-links" id="nav-links">
+        <li><a href="index.html">ガイド</a></li>
+        <li><a href="../../docs/index.html">API ドキュメント</a></li>
+        <li><a href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a></li>
+        <li><a class="bb-pill bb-pill--fill" href="../../web/app.html">今すぐプレイ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="bb-section gd-hero" aria-labelledby="gd-h">
+      <p class="bb-edge-tab bb-label">Openbilliards — gameplay guide</p>
+
+      <p class="bb-label bb-marker bb-reveal">ガイド — 五つの種目</p>
+      <h1 id="gd-h" class="bb-display bb-reveal bb-d1" style="margin: 24px 0 32px; max-width: 10em;">
+        テーブルの<br>すべて。
+      </h1>
+      <p class="bb-body bb-reveal bb-d2" style="max-width: 36em;">
+        すべての操作、すべてのルール、ゲームが描くすべてのライン——出荷ビルドの実際の挙動どおりに記述しています。数値にはそれを定義するソースファイルを併記します。
+      </p>
+
+      <nav class="gd-lang bb-reveal bb-d3" aria-label="ガイドの言語" style="margin-top: 48px;">
+        <a data-lang="en" href="../en/index.html" lang="en">English</a>
+        <a data-lang="zh-CN" href="../zh-CN/index.html" lang="zh-CN">中文</a>
+        <a data-lang="es" href="../es/index.html" lang="es">Español</a>
+        <a data-lang="ja" href="index.html">日本語</a>
+        <a data-lang="de" href="../de/index.html" lang="de">Deutsch</a>
+        <a data-lang="fr" href="../fr/index.html" lang="fr">Français</a>
+        <a data-lang="ko" href="../ko/index.html" lang="ko">한국어</a>
+      </nav>
+
+      <nav aria-label="目次" class="bb-reveal bb-d4">
+        <ul class="gd-toc">
+          <li><a href="#first-shot"><span class="n">01</span>最初のショット</a></li>
+          <li><a href="#controls"><span class="n">02</span>操作</a></li>
+          <li><a href="#spin"><span class="n">03</span>スピンとアシストライン</a></li>
+          <li><a href="#games"><span class="n">04</span>ゲームを選ぶ</a></li>
+          <li><a href="#rules"><span class="n">05</span>ナインボールのルール</a></li>
+          <li><a href="#rules-8ball"><span class="n">06</span>エイトボールのルール</a></li>
+          <li><a href="#rules-snooker"><span class="n">07</span>スヌーカーのルール</a></li>
+          <li><a href="#rules-carom"><span class="n">08</span>キャロムのルール</a></li>
+          <li><a href="#rules-onepocket"><span class="n">09</span>ワンポケットのルール</a></li>
+          <li><a href="#equipment"><span class="n">10</span>装備とバッジ</a></li>
+          <li><a href="#replays"><span class="n">11</span>リプレイと共有</a></li>
+          <li><a href="#export"><span class="n">12</span>動画書き出し</a></li>
+          <li><a href="#recording"><span class="n">13</span>録画とスロー再生</a></li>
+          <li><a href="#language"><span class="n">14</span>言語</a></li>
+          <li><a href="#faq"><span class="n">15</span>よくある質問</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="first-shot" aria-labelledby="first-shot-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">01 — 最初のショット</p>
+        <div class="gd-content">
+          <h2 id="first-shot-h" class="bb-heading bb-reveal" style="max-width: 14em;">撞いて、見て、繰り返す。</h2>
+          <ol class="gd-steps bb-reveal bb-d1" style="margin-top: 48px;">
+            <li><strong>狙う。</strong>テーブル上の好きな場所を左ドラッグすると、キューがポインタの方向へ振れます。白い実線が、最初の接触までの手球の軌道をプレビューします。手球から 2.5 ボール半径以内の押下は無視されるので、近くを掴んでも狙いは乱れません
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>。</li>
+            <li><strong>パワーを決める。</strong>狙いながらホイールを回すか、<kbd>↑</kbd>/<kbd>↓</kbd> を押します。パワーは 0.5–12&nbsp;m/s
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>——上限は実測されたプロのブレイク速度(約 27&nbsp;mph)に合わせてあります。</li>
+            <li><strong>微調整。</strong><kbd>Shift</kbd> を押しながらドラッグすると、ポインタの動きの 0.1 倍で微調整。矢印キーは ±0.05°
+              (<kbd>Shift</kbd> で 0.5°)。</li>
+            <li><strong>ショット。</strong>状態バナーが「再生中」に切り替わります——カーネルはすでにショット全体を解き終えています。球が止まると手番が移り、プレイヤー 1 と 2 が同じ端末で交互に打ちます
+              <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>。</li>
+            <li><strong>HUD を読む。</strong>「P1 的球は 1 番」が、誰の番か、どの球が合法かを示します——常にテーブル上の最小番号です。</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="controls" aria-labelledby="controls-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">02 — 操作</p>
+        <div class="gd-content">
+          <h2 id="controls-h" class="bb-heading bb-reveal" style="max-width: 14em;">マウスひとつ、動詞は四つ。</h2>
+
+          <div class="gd-scroll bb-reveal bb-d1" style="margin-top: 48px;">
+            <table class="gd-table">
+              <caption>マウス</caption>
+              <thead><tr><th scope="col">入力</th><th scope="col">はたらき</th></tr></thead>
+              <tbody>
+                <tr>
+                  <th scope="row">テーブル上で左ドラッグ</th>
+                  <td>エイム——キューの向きがポインタへまっすぐ合います。ボールインハンド中は、手球から 3 ボール半径以内で始めたドラッグが手球の移動になり、それ以外の場所では通常どおり狙えます
+                    <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>。</td>
+                </tr>
+                <tr>
+                  <th scope="row"><kbd>Shift</kbd> + 左ドラッグ</th>
+                  <td>エイム中はポインタの角度変化の 0.1 倍で微調整。エイム状態でなければカメラの回転になります。</td>
+                </tr>
+                <tr>
+                  <th scope="row">右ドラッグ</th>
+                  <td>カメラを回転
+                    <a class="bb-cite" href="../../web/app/orbit.js">web/app/orbit.js</a>。</td>
+                </tr>
+                <tr>
+                  <th scope="row">ホイール</th>
+                  <td>エイム中はパワー、それ以外はズーム。<kbd>Shift</kbd> +
+                    ホイールは常にズーム。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 48px;">
+            <table class="gd-table">
+              <caption>キーボード</caption>
+              <thead><tr><th scope="col">キー</th><th scope="col">はたらき</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><kbd>←</kbd> <kbd>→</kbd></th>
+                  <td>エイム ±0.05°——<kbd>Shift</kbd> で ±0.5°
+                    <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a></td></tr>
+                <tr><th scope="row"><kbd>↑</kbd> <kbd>↓</kbd></th>
+                  <td>パワー ±0.1&nbsp;m/s——<kbd>Shift</kbd> で ±0.5&nbsp;m/s</td></tr>
+                <tr><th scope="row"><kbd>V</kbd></th>
+                  <td>エイムビューの切り替え(下記)</td></tr>
+                <tr><th scope="row"><kbd>Esc</kbd></th>
+                  <td>設定ドロワーを閉じる——最前面のレイヤーから
+                    <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 24px;">
+            「ショット」「ラック組み直し」のような通常のボタンにフォーカスがあっても矢印キーは効き続けます。セレクトやテキスト入力では入力に道を譲ります。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">エイムビュー</h3>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            <kbd>V</kbd> を押すと、球の後ろの低いカメラに切り替わります——手球の 0.78&nbsp;m 後方、高さ 0.34&nbsp;m
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>。エイムライン沿いに手球を追いかけます。狙いは画面基準になり、右へドラッグすれば右へ曲がり、押下で狙いが飛ぶことはありません。右ドラッグの上下がパワーになり、下へ引くほどキューが目に見えて引かれます。もう一度 <kbd>V</kbd> で保存されたカメラに戻ります。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="spin" aria-labelledby="spin-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">03 — スピンとアシストライン</p>
+        <div class="gd-content">
+          <h2 id="spin-h" class="bb-heading bb-reveal" style="max-width: 14em;">スピンは球上の一点。</h2>
+
+          <div class="gd-side" style="margin-top: 48px;">
+            <div>
+              <p class="bb-body bb-reveal bb-d1">
+                左下のパネルにある撞点パッドは、手球を正面から見た円です。点をドラッグ:
+                <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">a</code>
+                は左右——正の値は自分から見て右へのひねり、<code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">b</code>
+                は上下——中心より上はフォロー、下はドロー
+                <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>。オフセットの単位はボール半径で、バリデータが
+                a²&nbsp;+&nbsp;b²&nbsp;≤&nbsp;0.25 を強制します。撞点は半径の半分にある破線のリングを越えられません——ミスキュー限界です。不正な値はそもそも設定できず、ゲーム内にミスキューというイベントは存在しません。
+              </p>
+              <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+                弧のスライダーはキューを 0° から 80° まで立てられます
+                <a class="bb-cite" href="../../web/app/aimwidgets.js">web/app/aimwidgets.js</a>。45° を超えるとマッセの注意が点滅します:手球の軌道は曲がります。プレビューはショットと同じカーネルで計算されるので、見えているカーブがそのまま実際のカーブです。
+              </p>
+            </div>
+            <figure class="gd-tip bb-reveal bb-d2" aria-hidden="false">
+              <svg viewBox="0 0 220 220" role="img" aria-label="手球の正面:撞点 (a, b)。半径の半分にある破線リングがミスキュー限界">
+                <line class="st-axis" x1="110" y1="10" x2="110" y2="210"></line>
+                <line class="st-axis" x1="10" y1="110" x2="210" y2="110"></line>
+                <circle class="st-ball" cx="110" cy="110" r="96"></circle>
+                <circle class="st-ring" cx="110" cy="110" r="48"></circle>
+                <circle class="st-dot" cx="134" cy="80" r="6"></circle>
+                <text x="182" y="100">+a</text>
+                <text x="118" y="30">+b</text>
+              </svg>
+              <figcaption>撞点 (a, b)——破線リングは 0.5&nbsp;R のミスキュー限界</figcaption>
+            </figure>
+          </div>
+
+          <h3 class="bb-heading-s bb-reveal">読むべき三本のライン</h3>
+          <ul class="gd-legend bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><span class="ln" aria-hidden="true"></span>
+              <span><strong>白の実線</strong>——最初の接触までの手球の軌道。</span></li>
+            <li><span class="ln ln--object" aria-hidden="true"></span>
+              <span><strong>琥珀色</strong>——接触後の的球の進行方向。約半ダイヤ分の短い線。</span></li>
+            <li><span class="ln ln--cue" aria-hidden="true"></span>
+              <span><strong>緑の破線</strong>——接触<em>後</em>の手球の軌道:ドロー、フォロー、またはタンジェントライン。</span></li>
+          </ul>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 24px;">
+            実線は接触前、破線は接触後。この区別がビジュアル言語のすべてです
+            <a class="bb-cite" href="../../web/app/preview.js">web/app/preview.js</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">エイムアシストの段階</h3>
+          <ul class="bb-list bb-body-s bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><strong>オフ</strong>——ラインは一切なし。</li>
+            <li><strong>標準(軌道 + イマジナリーボール)</strong>——既定値:進入ライン、接触点のイマジナリーボール、的球の短い方向線。</li>
+            <li><strong>練習(全ボールの軌道)</strong>——標準に加えて、テーブル上のすべての球の完全な予測軌道を淡く表示。</li>
+          </ul>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            緑の破線には専用のスイッチがあります——「接触後の手球の軌道」、既定でオン
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>。これらはすべて、狙いを変えるたびに本物の物理カーネルを再実行して描かれます。1 ショットあたり約 0.2&nbsp;ms
+            <a class="bb-cite" href="../../web/app/preview.js">web/app/preview.js</a>——ラインは幾何学的な近似ではなく、正確な物理です。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="games" aria-labelledby="games-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">04 — ゲームを選ぶ</p>
+        <div class="gd-content">
+          <h2 id="games-h" class="bb-heading bb-reveal" style="max-width: 14em;">五つとも遊べる、すべて出典つき。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            設定ドロワーの先頭に「ゲーム」セレクタがあり、五つの項目すべてがプレイ可能です:既定の<strong>ナインボール</strong>、<strong>エイトボール</strong>、<strong>スヌーカー</strong>、<strong>スリークッション</strong>、<strong>ワンポケット</strong>。選択は保存され、切り替え前には必ず確認が入ります——「ゲームを切り替えるとラックを組み直します。続けますか?」——ゲームが変わればラックも変わる(スヌーカーとキャロムはテーブルも変わる)からです
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>。
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            セレクタの下の「ゲームカタログ」を開くと一覧が現れます:五つの種目それぞれに出典行が付き、統括団体と転記元のルールブック版が明記されます——実在の出典を持たない項目は検証で即座に拒否されます
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/games/catalog.ts">sdk/ts/src/games/catalog.ts</a>。
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>ゲームカタログ</caption>
+              <thead><tr><th scope="col">ゲーム</th><th scope="col">ルールブック</th><th scope="col">バッジ</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">ナインボール</th>
+                  <td>WPA Rules of Play(2025-09-15 発効)第 5 節</td>
+                  <td>プレイ可</td></tr>
+                <tr><th scope="row">エイトボール</th>
+                  <td>WPA Rules of Play(2025-09-15 発効)第 4 節</td>
+                  <td>プレイ可</td></tr>
+                <tr><th scope="row">スヌーカー</th>
+                  <td>WPBSA Official Rules of the Games of Snooker and English
+                    Billiards(2024 年 9 月改訂)</td>
+                  <td>プレイ可</td></tr>
+                <tr><th scope="row">スリークッション</th>
+                  <td>UMB World Rules of Carom Billiard(1989 年 1 月 1 日;
+                    World Cup 補足規定 15.12.2025)</td>
+                  <td>プレイ可</td></tr>
+                <tr><th scope="row">ワンポケット</th>
+                  <td>WPA Rules of Play(2025-09-15 発効)第 12 節</td>
+                  <td>プレイ可</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            五つの種目はすべてプレイできます。種目を選ぶと、テーブルとボールもその種目の出典どおりの組み合わせに切り替わります——スヌーカーは WPBSA 12 フィートテーブルと 52.5&nbsp;mm ボール、キャロムはポケットのない UMB 2.84&nbsp;m テーブルと 61.5&nbsp;mm ボール、ワンポケットは手持ちのプールテーブル——さらに各ゲームは自分の装備選択を個別に記憶し、種目を切り替えても状態が混ざることはありません
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="rules" aria-labelledby="rules-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">05 — 実装どおりのナインボールのルール</p>
+        <div class="gd-content">
+          <h2 id="rules-h" class="bb-heading bb-reveal" style="max-width: 14em;">最小番号から。9番で勝ち。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            合法なショットの条件は二つ:手球の最初の接触がテーブル上の最小番号の球であること、<em>かつ</em>その後にいずれかの球がポケットされるか、いずれかの球がクッションに届くこと
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/nineball.ts">sdk/ts/src/rules/nineball.ts</a>。それ以外はファウルです——複数が同時に成立することもあります:
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d2" style="margin-top: 24px;">
+            <li><strong>手球がどの球にも当たらなかった</strong>——接触ゼロ。</li>
+            <li><strong>最初に違う球に当たった</strong>——最初の接触が最小番号ではなかった。</li>
+            <li><strong>接触後ノークッション</strong>——何もポケットされず、どの球もクッションに届かなかった。</li>
+            <li><strong>スクラッチ</strong>——手球がポケットされたか、テーブル外へ飛び出した。</li>
+          </ul>
+          <p class="bb-body bb-reveal" style="margin-top: 32px;">
+            ファウルはすべて、相手に<strong>ボールインハンド(テーブル上のどこでも)</strong>を与えます——キッチン制限はありません。手球はいったんヘッドスポットに現れます。好きな場所へドラッグして
+            (重なりは検証されます)、ショットしてください
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>。
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            合法なショットで 9 番を落とせば勝ち——コンビネーションも有効です。ファウル中に 9 番が落ちた、またはテーブル外へ出た場合はフットスポットに戻されます(塞がっていればロングストリング沿い、完全に塞がっていれば v1 ではそのまま)。合法だが何も落ちなければ手番交代。勝利はバナーを表示し、2.6&nbsp;秒後に新しいシードで自動的にラックを組み直します
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>。
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            v1 に未実装:ブレイク後のプッシュアウト、WPA のドライブレイク
+            4 球クッション規定、3 連続ファウル負け。ブレイクは通常のショットとして判定され、テーブル外へ出た的球は戻りません——リスポットは
+            9 番だけです。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-8ball" aria-labelledby="rules-8ball-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">06 — 実装どおりのエイトボールのルール</p>
+        <div class="gd-content">
+          <h2 id="rules-8ball-h" class="bb-heading bb-reveal" style="max-width: 14em;">すべてコール。8番で決まる。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            エイトボールは WPA Rules of Play(2025-09-15 発効)第 4
+            節から転記され、すべての判定にルール番号が併記されます。ルールブックが「明白な」ショットを審判の裁量に委ねる箇所では、最も厳格な読みを採用:すべてのショットを明示的にコールし、推測は一切しません
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/eightball.ts">sdk/ts/src/rules/eightball.ts</a>。15
+            球を三角形にラックし——8 番が中央、後列の両角にソリッドとストライプが一つずつ入ります(WPA 4.2)。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">オープンテーブルとグループ</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            ブレイクだけがコール不要のショットで、その後テーブルは<strong>オープン</strong>のまま:HUD
+            のチップは「オープンテーブル」と表示され、最初の接触は 8 番以外ならどの球でも構いません——ただし一方のグループがすべて落ちている場合は 8 番も合法です(WPA
+            4.4)。グループは最初に合法にポケットされた<em>コール球</em>で決まります——コールしたソリッド(ロー、1–7)を落とせば自分がロー、相手がハイ(ストライプ、9–15)。以降はチップが各プレイヤーのグループを示し、自分のグループを落とし切ると「8番狙い」に切り替わります。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">コールショット</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            ブレイク後のすべてのショットには的球+ポケットの明示的なコールが必要です(WPA
+            4.6、1.7 の最も厳格な読み)。HUD が「コール必須:ポケットをタップ」と促すので、六つのポケットマーカーのいずれかをタップすると、インジケータが「N番 →
+            ポケット」と確定します。それまで「ショット」は拒否されます——「先に的球とポケットをコール(またはセーフティを宣言)してください」
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>。スピンパッド横の「セーフティ」ボタンがその宣言です(WPA
+            1.7):宣言するとそのショットの後で手番が渡り——セーフティ中にポケットされた球は戻りません。コールした球をコールしたポケットに落とせば続行、それ以外は手番交代です(コールしていない球が落ちてもそのまま沈んだままです)。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">ファウル、ボールインハンド、選択</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            ファウルの一覧はナインボールと同じ——スクラッチ、接触なし、最初に違う球(ここでは自分のグループ以外)、接触後ノークッション——に加えて、球の台外飛び出し。通常のファウルは相手に<strong>テーブル上のどこでも置けるボールインハンド</strong>を与え(WPA
+            4.9)、ブレイクファウルは配置を<strong>ヘッドライン後方</strong>に制限します(WPA
+            4.3(g),(h))。ファウルバナーは毎回ルールを名指しします——「ファウル — スクラッチ(WPA 3.1 via 4.9)」
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>。エイトボールに
+            3 連続ファウル負けはなく(WPA 3.13 自身が適用外と明記)、リスポットされるのは 8 番だけです(WPA 4.7)。
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            ブレイクによっては判定ではなくルールブック上の選択が発生します:プロンプトが選択者を示し、選ぶまでショットはロックされ、選択はリプレイに記録されます:
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><strong>ドライブレイク</strong>(WPA 4.3(d))——クッションに達した球が
+              4 個未満で入球なし:相手はこの配置を受けるか、組み直して自分がブレイクするか、組み直して元のブレイカーに再ブレイクさせるかを選びます。</li>
+            <li><strong>合法ブレイクで 8 番イン</strong>(WPA 4.3(e))——ブレイカーが
+              8 番をスポットして続行、または再ブレイク。</li>
+            <li><strong>ファウルブレイクで 8 番イン</strong>(WPA 4.3(f))——相手が
+              8 番をスポットしヘッドライン後方でボールインハンド、または再ブレイク。</li>
+            <li><strong>ブレイクファウル</strong>(WPA 4.3(g),(h))——相手がこの配置を受けるか、ヘッドライン後方でボールインハンドを取ります。</li>
+            <li><strong>ステイルメイト</strong>(WPA 4.11)——両プレイヤーが確認:組み直して元のブレイカーがブレイクします。</li>
+          </ul>
+
+          <h3 class="bb-heading-s bb-reveal">勝ち方——そして四つの負け方</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            自分のグループを落とし切り、8 番のポケットをコールし、正確にそこへ沈める:それでラックの勝利です(WPA
+            第 4 節;4.6)。次の場合はその場で負けになります:8 番を沈めた同じショットでのファウル(4.8(a))、グループを落とし切る前の
+            8 番(4.8(b))、コールしていないポケットへの 8 番——セーフティ中の 8 番も含む(4.8(c))、8
+            番の台外飛び出し(4.8(d))
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/eightball.ts">sdk/ts/src/rules/eightball.ts</a>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-snooker" aria-labelledby="rules-snooker-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">07 — 実装どおりのスヌーカーのルール</p>
+        <div class="gd-content">
+          <h2 id="rules-snooker-h" class="bb-heading bb-reveal" style="max-width: 14em;">赤、カラー、交互に。ブレイクが積み上がる。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            スヌーカーは WPBSA 公式ルール(2024 年 9 月改訂)からの転記で、すべての判定が条文を引用します。12 フィートテーブルに 22 個のボール:ピンクの後ろに 15 個の赤が三角に組まれ、6 個のカラーは各スポットに、手球は D の中の好きな位置に置きます
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">オンボール:赤、次に指定したカラー</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            赤が残っている間は常に赤がオンボール(1 点)です。赤を沈めるとカラーがオンになります——<strong>指定するカラーをタップ</strong>してください(照準 UI が選択可能なカラーをハイライトし、選択を確認します。指定するまでショットは拒否されます)
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>。
+            沈めたカラーはその点数を加算し——イエロー&nbsp;2、グリーン&nbsp;3、ブラウン&nbsp;4、ブルー&nbsp;5、ピンク&nbsp;6、ブラック&nbsp;7——赤が残っている間はスポットに戻ります。その後はまた赤、という交互を赤が尽きるまで続けます。HUD には両者のスコア、現在のブレイク、そして何が合法かを常に示す「オンボール」チップが並びます
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">リスポットと最後のカラー</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            カラーは自分のスポットへ戻ります。塞がっていれば空いている最高点のスポットへ、六つとも塞がっていれば自分のスポットからトップクッション方向の中心線上で最も近い、他のボールに触れない点へ(WPBSA Sec3 R7)。リスポット待ちは HUD に表示され、配置はアニメーションします。最後の赤に続くカラーが沈むと<strong>最後のカラー</strong>が始まります:イエローからブラックまで点数の昇順で、もうリスポットはありません(Sec3 R3(h)(ii))。ブラックが落ちてスコアが異なればフレーム終了。同点ならブラックをリスポットし——トスで先攻を決め、次の得点かファウルで決着します(Sec3 R4)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">ファウル:ボールの点数、最低 4 点</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            ファウルは、オンボール<em>または</em>関与したボールの最高点数を相手に与えます。下限 4、上限 7(Sec3 R11):赤がオンのときにブルーへ触れれば 5 点献上——バナーは毎回条文を示します。ファウルは、最初に誤ったボールへの接触、ノータッチ、手球のポケットイン、ボールの場外、指定漏れ、間のボールを飛び越えるジャンプなど。どのファウルの後も、次のプレイヤーは<strong>あなたにもう一度打たせる</strong>ことを選べます(Sec3 R13)——プロンプトが選択をリプレイに記録します。手球が落ちた場合は <strong>D の中</strong>でのフリーボールです(Sec3 R8(a)):ドラッグ配置は D の内側にクランプされます
+            <a class="bb-cite" href="../../web/app/game.js">web/app/game.js</a>。
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            レフェリーの裁量を要する条項は意図的にスコープ外とし、発明せずに出典つきで記録しています:ファウル・アンド・ア・ミス(Sec3 R14)、フリーボール(Sec2 R13)、タッチングボール(Sec3 R9)、プッシュショット(Sec3 R18)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="rules-carom" aria-labelledby="rules-carom-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">08 — 実装どおりのスリークッション</p>
+        <div class="gd-content">
+          <h2 id="rules-carom-h" class="bb-heading bb-reveal" style="max-width: 14em;">クッション三回、それから第二球。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            ボール三つ、ポケットなし:UMB 世界ルール(1989 年 1 月 1 日)を 2.84&nbsp;m の加熱スレートテーブルで。既定の手球二個設定では、両者が一試合を通して<strong>自分の手球</strong>を使います——先攻は無地の白、相手側は黄色(第 22.1/23.2 条、世界選手権の慣行;相手の手球を撞くと条文つきの「打球違反」ファウル、第 41.11 条。従来の白共有バリアントも設定からワンクリックで選べます)。得点の条件は、手球が両方の的球に触れ、<strong>第二の的球に最初に触れる前に少なくとも三回クッションに触れる</strong>こと(第 83 条)——同じクッションに二度触れれば二回と数え、順序はカーネルのイベントストリームをそのまま読みます
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/carom3c.ts">sdk/ts/src/rules/carom3c.ts</a>。
+            得点すれば続行。クッション三回未満で成立したキャロムはルールブックの言葉どおりに宣告されます——「ノークッション」/「ワンクッション」/「ツークッション」(UMB 第 83 条)、手番が移るファウルです——一方、何にも当たらない失敗はこれまでどおり合規のミスのまま(第 24.5 条)。ショット中は HUD がクッション数をライブで数え、隣にポイント、イニング、目標点が並びます
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">ブレイク、リスポット、レース</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            開始時のプロンプトは、どちらのスタートスポットから打つかを尋ねます——ボトムスポットの左か右か(第 23.2 条)。そしてオープニングの一撃は<strong>先に赤へ</strong>触れなければなりません(第 23.3 条)。それ以外は条文つきのブレイクファウルです。場外へ飛んだボールは指定スポットへ戻ります——赤はトップ、次に撞く側の手球はボトム、もう一方はセンター、スポットが塞がっていれば入れ替え規則——動くのは関係したボールだけです(第 27.3(b)、28.1(b) 条)。先に目標点(既定 15、設定で変更可)へ達した方が勝ち——イコールイニングのプリセット(第 29.3/29.4 条)では、劣勢側が置き直した開始配置から追いつきの一イニングを得て、同点ならその試合は引き分けになります。リザルト画面には両者のポイントとイニングが表示されます(第 29.1/29.2 条)
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>。
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            ポケットのないテーブルではポケットマーカーは描かれず、照準線がポケットに吸い付くこともありません。物理世界でしか起きないファウル(タッチ、押し出し、両足が床を離れる;第 41.4–41.7、41.9–41.10 条)は引き続き出典つきでスコープ外として記録されています。一方、手球が密着しているクッションへ直接撞く行為は判定されます(第 27.2 条、41.8 経由)。「打球違反」ファウルは手球二個設定で有効になり(第 41.11 条)、イコールイニング方式は設定内のプリセットです(第 29.3/29.4 条)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/carom3c.ts">sdk/ts/src/rules/carom3c.ts</a>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-onepocket" aria-labelledby="rules-onepocket-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">09 — 実装どおりのワンポケット</p>
+        <div class="gd-content">
+          <h2 id="rules-onepocket-h" class="bb-heading bb-reveal" style="max-width: 14em;">ポケットは一人一つ。八個で勝ち。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            ワンポケットは WPA Rules of Play(2025-09-15 発効)第 12 節からの転記です:ボールは 15 個ですが、各プレイヤーが得点できるのは<strong>自分のフットコーナーポケット</strong>だけ。ブレイク前のプロンプトがポケットを割り当てます——既定は 12.3 に従い、手球を置いた側の反対のポケット——HUD のバッジがどちらのポケットかを示します。自分のポケットに入ったボールはどれでも 1 点。先に 8 個で勝ちです
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/onepocket.ts">sdk/ts/src/rules/onepocket.ts</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">どのポケットにも意味がある</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            <em>相手の</em>ポケットに入ったボールは相手の得点になります——同じストロークであなたがファウルしていても、です(12.5)。四つの中立ポケットに入ったボールや場外のボールは戻ってきます:「スポット待ち」チップとして並び、あなたの手番が終わるとフットスポットへ戻ります(12.6。テーブルが空になっていれば即時スポット)。ポケットごとのタリーは HUD に、その隣に「借りボール」チップが表示されます
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>。
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">ファウル、借りボール、三振</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            ほとんどのファウルの後、手球は<strong>その場に残ります</strong>(12.8)——スクラッチか手球の場外(3.1)だけが、相手にヘッドストリング後方のボールインハンドを与えます。ファウルはさらにスコアから 1 個をテーブルへ戻させます。0 点でのファウルは 1 個の<em>借り</em>になり(12.4)——HUD が借りを表示し、次に沈めたボールで即座に返済されます。三連続ファウルはその場でラックを失います(12.9、3.13 経由)。カウンタは合法ショットでリセットされます。膠着はタリーと借りを持ち越したまま組み直し、ラグで誰がブレイクするかを決めます(12.10)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/onepocket.ts">sdk/ts/src/rules/onepocket.ts</a>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="equipment" aria-labelledby="equipment-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">10 — 装備と校正バッジ</p>
+        <div class="gd-content">
+          <h2 id="equipment-h" class="bb-heading bb-reveal" style="max-width: 14em;">五つの軸と、正直なバッジ。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            設定ドロワーには装備の軸が五つあります。どれかを変更すると、確認のうえでラックを組み直します
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>。
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>カタログ——既定値が先頭</caption>
+              <thead><tr><th scope="col">軸</th><th scope="col">選択肢</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">テーブル</th>
+                  <td>WPA 規格 9 フィート(公称値) ·
+                    プール 9 フィート 旧世代(4.56 インチ ポケット) ·
+                    プール トーナメント 9 フィート(4.5 インチ ポケット) · プール 9 フィート 金属リム(4.25 インチ ポケット) ·
+                    中国式エイトボール トーナメント 9フィート ·
+                    WPBSA 12フィート スヌーカー ·
+                    UMB キャロム 2.84&nbsp;m(ポケットなし)——現在のゲームのテーブルクラスで絞り込み</td></tr>
+                <tr><th scope="row">ラシャ</th>
+                  <td>ウーステッド トーナメントクロス(新品)· ウーステッド トーナメントクロス(速い)·
+                    使い古した遅いラシャ · スヌーカー用起毛ウール ·
+                    キャロム用ウーステッド(加熱スレート)</td></tr>
+                <tr><th scope="row">ボールセット</th>
+                  <td>プール(57.15&nbsp;mm)· プール・使用済み · スヌーカー(52.5&nbsp;mm)· キャロム
+                    (61.5&nbsp;mm)</td></tr>
+                <tr><th scope="row">キュー</th>
+                  <td>標準メープルキュー · ローディフレクションシャフト ·
+                    Pro LD シャフト・ピボット長 14.1 インチ(革タップ) ·
+                    Pro LD シャフト・ピボット長 11.8 インチ(革タップ) ·
+                    Pro LD シャフト・ピボット長 10.1 インチ(革タップ) ·
+                    ブレイクキュー(フェノールタップ) ·
+                    標準メープルキュー(ダイム曲率タップ)</td></tr>
+                <tr><th scope="row">クッションモデル(詳細設定)</th>
+                  <td>Stronge 弾性モデル(リアル)· Han 2005(カーネル既定)·
+                    Mathavan 2010(HSV 同時フィット)· Mathavan 2010
+                    グリップモード(クッション v5)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="bb-heading-s bb-reveal">バッジの意味</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            カタログの各項目には三種類のバッジのいずれかが付き、その物理パラメータの根拠を示します:
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d2" style="margin-top: 24px;">
+            <li><span class="gd-badge">校正済み</span>&nbsp;——実測データにフィットさせたパラメータ。ゲーム内ではアクセント色のチップで表示。</li>
+            <li><span class="gd-badge">文献値</span>&nbsp;——公開論文やメーカー仕様から取った値。</li>
+            <li><span class="gd-badge">推定</span>&nbsp;——記録された最良の推定値。実測待ち。</li>
+          </ul>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            カタログ v3 の新要素:テーブル軸は実測ポケット形状を持つようになりました。
+            プール トーナメント 9 フィートは監査済みの 4.5 インチ コーナーマウスと
+            141°/102° フェーシングで構築され、標準 WPA テーブルより確実にタイトです。
+            <span class="bb-cite">テーブル寸法監査(内部資料)</span>
+          </p>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            知っておきたい静かな挙動が二つ:テーブルを選ぶと、そのブランドの推奨クッションモデルが黙って適用されます。また共有リプレイの再生中は装備の選択がロックされ、送信者の仕様で観戦します。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="replays" aria-labelledby="replays-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">11 — リプレイと共有</p>
+        <div class="gd-content">
+          <h2 id="replays-h" class="bb-heading bb-reveal" style="max-width: 15em;">リンクが運ぶのはショット、<br>映像ではない。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            「リプレイを共有」は、ゲーム全体を URL の
+            <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">#r=</code>
+            以降に詰め込みます——ラックのシード、各ショットの五つの数値
+            (v0、φ、θ、a、b)をそのまま、ボールインハンドの配置、五軸の装備仕様一式、そしてカーネルのバージョン——を圧縮・符号化してクリップボードへコピーします
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/share.ts">sdk/ts/src/share.ts</a>。
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            映像は 1 フレームも運びません。視聴側のブラウザが同じ正準 wasm
+            カーネルで全ショットを再シミュレートし、得られる記録は送信者のものとバイト単位で一致します——それが決定論の保証です
+            <a class="bb-cite" href="../../web/app/share.js">web/app/share.js</a>。カーネルのバージョンが違うときは警告が出て、「それでも見る」か「閉じる」を選べます。
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            トランスポートバーは「{i}/{n} 打目」を示し、前へ・次へ・再生/一時停止・0.25× スローモーションを備えます。ショットの間には
+            700&nbsp;ms の静止が入ります
+            <a class="bb-cite" href="../../web/app/share.js">web/app/share.js</a>。リプレイ中はショット入力、手球の配置、装備変更のすべてがロックされます。リンクは自分が<em>どのゲーム</em>のものかも覚えています——エイトボールの共有はグループ、コール、ブレイクの選択ごと再現され、ゲーム軸より前の旧リンク(v1–v3)は従来どおりデコードされてナインボールとして再生されます。確認を求められることはありません
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/share.ts">sdk/ts/src/share.ts</a>。
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal" style="margin-top: 32px;">
+            <li><strong>ここから続ける</strong>——最終配置を引き継いでライブプレイへ。続きはそのまますぐ共有でき、再読み込みまでは送信者の装備でプレイし続けます。</li>
+            <li><strong>リプレイを終了</strong>——自分の装備を復元してラックを組み直します。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="export" aria-labelledby="export-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">12 — 動画書き出しのティア</p>
+        <div class="gd-content">
+          <h2 id="export-h" class="bb-heading bb-reveal" style="max-width: 14em;">五つのティア、一つのショット。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            「動画を書き出す…」は<em>最後の</em>ショットを再レンダリングします——まだ打っていなければ、先に 1 打促されます。「リアルタイム」はリプレイ再生をそのまま録画し、どのブラウザでも動きます。それ以外のティアはすべて決定論的なオフライン再レンダリングで、WebCodecs
+            が必要。ページ内で mp4(H.264/AAC)にエンコードし、webm(VP9)にフォールバックします
+            <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>。
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>書き出しティア</caption>
+              <thead><tr><th scope="col">ティア</th><th scope="col">解像度</th><th scope="col">特徴</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">リアルタイム</th><td>キャンバス</td>
+                  <td>実時間のライブ録画;webm;どのブラウザでも</td></tr>
+                <tr><th scope="row">標準</th><td>720p / 1080p</td>
+                  <td>フィルム調グレーディング;モーションブラーなし、被写界深度なし</td></tr>
+                <tr><th scope="row">高画質</th><td>最大 1080p</td>
+                  <td>1.5× スーパーサンプリング、8 サブフレーム 310° シャッターのモーションブラー、被写界深度</td></tr>
+                <tr><th scope="row">ウルトラ 4K</th><td>1440p / 2160p</td>
+                  <td>8 サブフレームのモーションブラー、被写界深度</td></tr>
+                <tr><th scope="row">シネマ 4K</th><td>2160p</td>
+                  <td>16 サブフレームシャッター;最も遅く、最高画質</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            ビットレートは 720 / 1080 / 1440 / 2160p に対して 8 / 12 / 24 /
+            40&nbsp;Mbps
+            <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>。速度はオフラインティアで 1×・0.5×・0.25×、サウンドはチェックボックスです。クリップは 60&nbsp;秒(+0.5&nbsp;秒のテール)、60&nbsp;fps が上限。ダイアログは開いたときに 10 フレーム試し描きして残り時間とファイルサイズの見積もりを精緻化し、1080p
+            超は専用の UHD エンコーダープローブの通過が必要です。実行中の書き出しは「キャンセル」ボタンでしか止まりません——Escape と背景クリックは意図的に無効です。ファイル名は
+            openbilliards-&lt;ティア&gt;-&lt;タイムスタンプ&gt;.mp4 または
+            .webm。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="recording" aria-labelledby="recording-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">13 — 録画とスロー再生</p>
+        <div class="gd-content">
+          <h2 id="recording-h" class="bb-heading bb-reveal" style="max-width: 14em;">録画を押せば、全部残る。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            「録画」はライブキャンバスを 60&nbsp;fps で、マスターの音声ミックスごと webm に書き込みます——VP9、非対応なら VP8、8&nbsp;Mbps
+            <a class="bb-cite" href="../../web/app/record.js">web/app/record.js</a>。状態を問いません:エイム、メニュー、ショット——画面にあるものはすべて。録画中は赤い点が脈打ち、「停止」で
+            openbilliards-&lt;タイムスタンプ&gt;.webm がダウンロードされます。1 秒ごとにチャンクを書くので、タブが突然落ちても撮れた分は残ります。非対応ブラウザではボタン自体が現れません。
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            スローモーションの住まいは三つ:HUD の「スロー再生」チェックボックスはすべての再生を 0.25× にします
+            <a class="bb-cite" href="../../web/app/game.js">web/app/game.js</a>。共有リプレイのバーにも同じ 0.25× トグルがあり(実体は同じスイッチ)、書き出しダイアログは 0.5× と 0.25× のオフラインレンダリングを提供します。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="language" aria-labelledby="language-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">14 — 言語設定</p>
+        <div class="gd-content">
+          <h2 id="language-h" class="bb-heading bb-reveal" style="max-width: 14em;">七つの言語、切り替えは即時。</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            ゲームは English、中文、español、日本語、Deutsch、français、한국어で提供されます。言語は次の順で決まります:設定での明示的な選択(保存されます)、次にブラウザ言語の最良マッチ——zh-TW は中文へ、es-MX は español へ——最後に英語
+            <a class="bb-cite" href="../../web/app/i18n.js">web/app/i18n.js</a>。切り替えは即座に反映され、再読み込みは不要です。
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            どのロケールもまったく同じキー一式を持ちます——e2e スイートが強制し、欠けたものは英語にフォールバックします。言語ピッカーのラベルは意図的にそれぞれの母語のままです。このガイドも同じ:冒頭のピル列で七つの翻訳を行き来でき、選択は保存されます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="faq" aria-labelledby="faq-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">15 — よくある質問</p>
+        <div class="gd-content">
+          <h2 id="faq-h" class="bb-heading bb-reveal" style="max-width: 14em;">意外な挙動を、説明する。</h2>
+
+          <dl class="gd-faq bb-reveal bb-d1" style="margin-top: 48px;">
+            <dt>テーブルを替えたら、クッションモデルが勝手に変わった。</dt>
+            <dd>仕様です。各テーブルは、そのブランドの推奨クッションモデルを確認なしで適用します。その後「詳細設定」で別のモデルを選び直せます。</dd>
+
+            <dt>ホイールでパワーが変わらない。</dt>
+            <dd>ホイールがパワーになるのはエイム中だけです。エイム状態の外ではズーム——そして Shift + ホイールは常にズームです。</dd>
+
+            <dt>ヘルプには Shift ドラッグでカメラ回転とあるのに、微調整になる。</dt>
+            <dd>エイム中は Shift + 左ドラッグが 0.1× の微調整として優先されます。カメラが回るのは、エイム状態にないときだけです。</dd>
+
+            <dt>共有リプレイから続けたら、これは誰のテーブル?</dt>
+            <dd>送信者のものです。「ここから続ける」は再読み込みまで相手の装備一式を保ちます。「リプレイを終了」なら自分の装備に戻してラックを組み直します。</dd>
+
+            <dt>勝った瞬間にラックが組み直された。あのラックをもう一度打てる?</dt>
+            <dd>勝利後の自動組み直し(2.6&nbsp;秒)はシードを一つ進めるため、次のラックは新しい配置です。勝ったラックは「リプレイ」と、共有済みのリンクの中に残っています。</dd>
+
+            <dt>撞点の点が破線のリングで止まる。</dt>
+            <dd>あのリングがミスキュー限界です。ボール半径の半分を超えるオフセット(a²&nbsp;+&nbsp;b²&nbsp;&gt;&nbsp;0.25)は検証を通らず、設定できません。ミスキューというイベントはなく、この上限こそがルールです。</dd>
+
+            <dt>「リプレイ」でボールインハンドの配置は失われる?</dt>
+            <dd>いいえ。ボールインハンドを保持したままリプレイを見ても、並べておいた手球の配置は終了後も保たれます。</dd>
+
+            <dt>パワーはなぜ 12&nbsp;m/s 止まり?</dt>
+            <dd>意図的な現実世界の上限で、信頼できる実測のプロブレイク速度
+              (約 27&nbsp;mph)に合わせています
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>。カーネル自体のハード上限は 15&nbsp;m/s です。</dd>
+
+            <dt>「標準」はフィルム調というのに、モーションブラーがない。</dt>
+            <dd>正しい挙動です——標準はサブフレームを 1 枚しか描きません。モーションブラーと被写界深度は「高画質」からです
+              <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>。</dd>
+
+            <dt>プッシュアウトと 3 ファウルルールはどこ?</dt>
+            <dd>v1 にはありません。ブレイクは通常のショットとして判定され、ドライブレイクへの罰則もなく、テーブル外へ出た的球は戻りません——リスポットは 9 番だけです
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/nineball.ts">sdk/ts/src/rules/nineball.ts</a>。</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bb-footer">
+    <p class="bb-display bb-footer-statement bb-reveal">常に、<br>最小番号から。</p>
+
+    <div class="bb-footer-grid">
+      <nav aria-label="サイト">
+        <p class="bb-label">サイト</p>
+        <ul>
+          <li><a class="bb-link" href="../../index.html">ホーム</a></li>
+          <li><a class="bb-link" href="index.html">ゲームガイド</a></li>
+          <li><a class="bb-link" href="../../docs/index.html">API ドキュメント</a></li>
+          <li><a class="bb-link" href="../../web/app.html">プレイ</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="プロジェクト">
+        <p class="bb-label">プロジェクト</p>
+        <ul>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards">GitHub</a></li>
+          <li><span class="bb-cite">デザインシステム</span></li>
+          <li><a class="bb-link" href="https://github.com/facebookexperimental/openbilliards/blob/main/README.md">Readme</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="bb-label">奥付</p>
+        <p class="bb-body-s bb-muted" style="max-width: 34ch;">Space&nbsp;Grotesk と JetBrains&nbsp;Mono を同梱。トラッカーなし、CDN なし、このオリジンの外への通信は一切ありません。</p>
+      </div>
+    </div>
+
+    <p class="bb-footer-credits">
+      <span>&copy; 2026 Meta Platforms, Inc. &#183; MIT &#183; <a href="../../web/vendor/NOTICE-pooltool.txt" style="white-space: nowrap;">Apache-2.0 のコードを含む</a> &#183; <a href="https://opensource.fb.com/legal/terms" style="white-space: nowrap;">Terms of Use</a> &#183; <a href="https://opensource.fb.com/legal/privacy" style="white-space: nowrap;">Privacy Policy</a></span>
+      <span>自らのエンジンでレンダリング</span>
+    </p>
+  </footer>
+</body>
+</html>

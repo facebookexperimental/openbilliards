@@ -1,0 +1,8 @@
+{
+  "format": "openbilliards.anchors.v1",
+  "anchor": "cushion_rebound_monotonicity",
+  "provenance": "Mathavan, Jackson & Parkin 2010 Fig. 8 qualitative shape: for a rolling ball without sidespin the rebound angle grows monotonically with the incidence angle, and the cushion never adds speed. A digitized quantitative Figs 7-10 dataset (SC-002 +-5% speed / +-2 deg, <= 2.5 m/s domain) does not exist in the repo yet - tracked in GitHub issue #5 (anchor test datasets). NOTE: Mathavan's table is snooker geometry; only the qualitative shape is asserted (docs/research/gap-k66-cushion-params.md sec 1).",
+  "speed": 1.5,
+  "linear_segment_index": 8,
+  "incidence_deg_grid": [5.0, 15.0, 25.0, 35.0, 45.0, 55.0, 65.0, 75.0]
+}

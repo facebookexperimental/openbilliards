@@ -1,0 +1,85 @@
+[
+ {
+  "id": "r1_corner_macro",
+  "pose": {
+   "cam": [
+    0.8365,
+    1.403,
+    0.46
+   ],
+   "look": [
+    0.6223,
+    1.1938,
+    0.01
+   ],
+   "fov": 34
+  },
+  "ours": "<worktree>/output/d621/8ft/registers/d621-8ft-r1_corner_macro-1x.png",
+  "photo": "<drive>/dossier-diamond-proam/02-pocket-closeups/oem-proam-smart-corner-pocket-01.jpg",
+  "photo_note": "OEM corner boot, part photo (3000 px), off the table"
+ },
+ {
+  "id": "r3_side_macro",
+  "pose": {
+   "cam": [
+    0.9965,
+    -0.22,
+    0.26
+   ],
+   "look": [
+    0.6223,
+    0,
+    0.02
+   ],
+   "fov": 30
+  },
+  "ours": "<worktree>/output/d621/8ft/registers/d621-8ft-r3_side_macro-1x.png",
+  "photo": "<drive>/dossier-diamond-proam/02-pocket-closeups/oem-proam-smart-side-pocket-04.jpg",
+  "photo_note": "OEM side boot, part photo"
+ },
+ {
+  "id": "r6_fulltable",
+  "pose": {
+   "cam": [
+    1.755,
+    -2.448,
+    1.062
+   ],
+   "look": [
+    0,
+    0.09,
+    -0.05
+   ],
+   "fov": 42
+  },
+  "ours": "<worktree>/output/d621/8ft/registers/d621-8ft-r6_fulltable-1x.png",
+  "photo": "<drive>/dossier-diamond-proam/00-overview/proam-9ft-oak-black-hero.png",
+  "photo_note": "official 9 ft Pro-Am hero, black oak (a marketing image that may be a render) \u2014 family look, 9 ft; a SHAPE comparator, not photometric",
+  "photo_label": "MARKETING / DOSSIER"
+ },
+ {
+  "id": "r8_cabinet",
+  "pose": {
+   "cam": [
+    1.6565,
+    2.173,
+    0.06
+   ],
+   "look": [
+    0.6765,
+    1.233,
+    -0.26
+   ],
+   "fov": 40
+  },
+  "ours": "<worktree>/output/d621/8ft/registers/d621-8ft-r8_cabinet-1x.png",
+  "photo": "<drive>/dossier-diamond-proam/04-under-table/oem-proam-smart-wood-leg-1.jpg",
+  "photo_note": "OEM Pro-Am/Smart wood leg, part photo",
+  "gain": 4.0,
+  "photo_override": {
+   "path": "<drive>/dossier-diamond-proam/04-under-table/manning-body-ballreturn-12.jpg",
+   "note": "Manning Cues body photo: the installed cabinet corner with its legs on the factory floor (the detached leg part photo is not a cabinet comparator)"
+  },
+  "photo_label": "PHOTO / DOSSIER"
+ }
+]

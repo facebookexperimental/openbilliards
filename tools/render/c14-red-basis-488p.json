@@ -1,0 +1,121 @@
+{
+  "tool": "c14-488p.mjs",
+  "law": "tools/render/c14-disjoint.mjs (reused verbatim)",
+  "spec": "gh488p-predator-apex-canonical.json",
+  "spec_sha256": "2cf2a3a5ea040502edc4ee1e28a25da4d23cea95a0cda42f49dcae0148ac8f10",
+  "mesh_dump_sha256": "bcc8231cd91eb0e4f47523a5a93acc5014889526ff4d3b64c528733c62bbd922",
+  "slices": 58,
+  "slice_span_mm": [
+    -68,
+    47.6
+  ],
+  "jaw_stations_mm": {
+    "tip": 4.0975,
+    "tangency": 76.3322
+  },
+  "green_baseline": {
+    "fails": 0,
+    "warns": 148,
+    "adjudicate": 0,
+    "baseline": 0,
+    "touch": 344,
+    "exposure": [
+      {
+        "wrap": "rimseat",
+        "band": [
+          2,
+          42
+        ],
+        "worst": 0,
+        "noCloth": 0
+      }
+    ]
+  },
+  "perturbations": [
+    {
+      "name": "rim-into-mouth-6mm",
+      "note": "rim band translated 6 mm along the bay bisector into the mouth",
+      "fails": 48,
+      "warns": 224,
+      "exposure": [
+        {
+          "wrap": "rimseat",
+          "worst": 0,
+          "noCloth": 0
+        }
+      ],
+      "fired": true
+    },
+    {
+      "name": "rimseat-offbore-6mm",
+      "note": "rim-seat casting mis-registered 6 mm off the bore axis",
+      "fails": 347,
+      "warns": 84,
+      "exposure": [
+        {
+          "wrap": "rimseat",
+          "worst": 7.54,
+          "noCloth": 26
+        }
+      ],
+      "fired": true
+    },
+    {
+      "name": "well-offbore-6mm",
+      "note": "drop well mis-registered 6 mm off the bore axis",
+      "fails": 148,
+      "warns": 144,
+      "exposure": [
+        {
+          "wrap": "rimseat",
+          "worst": 0,
+          "noCloth": 0
+        }
+      ],
+      "fired": true
+    },
+    {
+      "name": "rail-shift-5mm",
+      "note": "rail band mis-registered 5 mm along the table length",
+      "fails": 299,
+      "warns": 68,
+      "exposure": [
+        {
+          "wrap": "rimseat",
+          "worst": 0,
+          "noCloth": 0
+        }
+      ],
+      "fired": true
+    },
+    {
+      "name": "cushion-out-5mm",
+      "note": "cushion translated 5 mm outboard into the rail + casting",
+      "fails": 346,
+      "warns": 420,
+      "exposure": [
+        {
+          "wrap": "rimseat",
+          "worst": 0,
+          "noCloth": 0
+        }
+      ],
+      "fired": true
+    },
+    {
+      "name": "apron-up-10mm",
+      "note": "apron raised 10 mm into the rail",
+      "fails": 4,
+      "warns": 148,
+      "exposure": [
+        {
+          "wrap": "rimseat",
+          "worst": 0,
+          "noCloth": 0
+        }
+      ],
+      "fired": true
+    }
+  ],
+  "silent": []
+}

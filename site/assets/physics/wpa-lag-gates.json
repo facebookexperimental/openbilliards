@@ -1,0 +1,195 @@
+{
+  "scenario": "wpa-lag",
+  "title": "WPA lag / v² stop law — TP B.6 printed lag speed (battery F1)",
+  "kernel": "0.1.0+208e1dc4",
+  "anchor": {
+    "rule": "Rolling-ball travel obeys the v² stop law; the TP B.6 lag hit at the printed speed (v_lag 3.465 mph) travels exactly the printed 2.000 table-lengths — up, off the foot cushion, back to a touch on the head rail, dead near the head rail (the regulation lag).",
+    "sources": "Dr. Dave TP B.6 (posted 1/30/2009, rev 12/3/2023) + TP B.5 v² stop law + TP 4.1 slide->roll forms; WPA Tournament Table & Equipment Specifications sec 8 (lag)",
+    "battery": "F1 — examples/paper/exp_f1_kinematics.py, part (c2) tp_lag cell (the internal paper baselines §2; identical at every re-baseline)",
+    "predictedTL": 2,
+    "printedVLagMph": 3.465,
+    "tpb6ModelD": 1.999874,
+    "vLagMs": 1.5489936,
+    "crossAnchors": "CI anchor lag_travels_4_to_4_5_table_lengths (crates/pool-core/tests/anchors.rs, c1 protocol, 4.129732 TL at cue_v0 4.5) shares this surface; one-parameter-set-two-datasets argument in the F1 output ties the same defaults to the TP B.28 bank envelope (C1)."
+  },
+  "badge": {
+    "line1": "predicted 2.00 TL · measured 2.03 TL",
+    "line2": "WPA LAG · V² STOP LAW · TP B.6 V_LAG 3.465 MPH · BATTERY F1 (EXP_F1_KINEMATICS) · TP_LAG CELL"
+  },
+  "segments": [
+    {
+      "id": "main",
+      "batterySha": "7b440ce6d3b977cfa2ca8807939c0bdf36d2ea4ba4795bb3e6d5c35e61ffbb6c",
+      "videoSha": "6925ee3d5659b98b7da30f24535c0d6d28005f2b49a279f5b62b9b79a78c33f6",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "nEvents": 8,
+        "tableLengthsS": 2.0328971025462677,
+        "path3dTableLengths": 2.0328971025462677,
+        "nRailContacts": 2,
+        "tPress": 1e-9,
+        "launch": {
+          "vel": [
+            1.8969700541397355e-16,
+            1.5489936
+          ],
+          "avel": [
+            -54.208,
+            6.638565368817972e-15,
+            0
+          ],
+          "motion": "Rolling"
+        },
+        "thetaDeg": 15.841568000614643,
+        "tKissFoot": 1.6937183211879046,
+        "tKissHead": 6.048833984808403,
+        "footRebound": {
+          "t": 1.6937183211879046,
+          "speedRatio": 0.8113074797024238
+        },
+        "turnFoot": [
+          3.0406143052630063e-16,
+          1.2414250000000002
+        ],
+        "turnHead": [
+          6.737964937509331e-16,
+          -1.2414249999999998
+        ],
+        "tStop": 8.046879522884991,
+        "rest": [
+          7.102795581813433e-16,
+          -1.04356635953248
+        ],
+        "duration": 8.046879522884991,
+        "tEnd": 8.046879522884991,
+        "yStopPred": -1.1271250000000017,
+        "yStopMeas": -1.04356635953248,
+        "stopGapM": 0.0835586404675217,
+        "predictedTL": 2,
+        "measuredTL": 2.0328971025462677,
+        "laneX": 0,
+        "yStart": -1.241425,
+        "tailLawEnd": 8.563546189551658,
+        "minPairMm": "n/a (single-ball record — no pairs)",
+        "minPairAt": null,
+        "minPair": null
+      },
+      "plan": {
+        "frames": 638,
+        "outputSec": 10.633333333333333,
+        "maxCutlessStepRatio": 1.0754969945432535,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              295,
+              319
+            ]
+          ],
+          "deliveredFrames": 614,
+          "deliveredSec": 10.233333333333333,
+          "firstReplayFrame": 295,
+          "recoveredFrames": 38,
+          "dissolveS": 0.4
+        }
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 2,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 0.686666666666667,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.686666666666667,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "foot kiss · rolling rebound keeps 81% speed"
+            ],
+            "availSec": 4.683333333333334,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.1800000000000002,
+            "settledSec": 3.5033333333333334,
+            "needScale": 0.26920152091254756,
+            "settledFrames": 210
+          },
+          {
+            "text": [
+              "2.03 TL",
+              "v² stop law · printed lag 2.00 TL"
+            ],
+            "availSec": 2.066666666666667,
+            "spanSec": 1.38,
+            "entrySec": 1,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.38,
+            "settledSec": 0.686666666666667,
+            "needScale": 0.7811320754716979,
+            "settledFrames": 41
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "main",
+      "frames": 638,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "78cd9e9b5c7269906facb89fc083ffbe73a73208b177cb2342d217316a4e718a",
+      "sha256_last": "3a7c104665eba41c089d71041bc99df15c9b193d2700d935f9225df08ddb45b7"
+    }
+  ],
+  "titleCard": {
+    "value": "WPA lag / v² stop law",
+    "claim": "TP B.6 printed lag speed (battery F1)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "10a9b8a4ae87eeb8d4f3cb2a2781dd29d37d78934c78985cc784670e9ec93f8e",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "97dcd7f0301271deac5c280f00c55ec03abe0463963ee30099f62661807ba9a5"
+  }
+}

@@ -1,0 +1,7 @@
+[
+  { "tool": "dump_rox_scene.mjs", "args": ["--http", "invalid"], "stderr": "ROX_PORT_ARGS_REFUSED:" },
+  { "tool": "runtime_geometry_rox.mjs", "args": [], "stderr": "--baseline live dump required" },
+  { "tool": "pocket_view_rays_rox.mjs", "args": [], "stderr": "--dump required" },
+  { "tool": "benchmark_pocket_cut_rox.mjs", "args": [], "stderr": "--out <new-file> required" },
+  { "tool": "source_fence_rox.mjs", "args": ["--root", "missing-rox-cli-entry-root"], "stderr": "missing-rox-cli-entry-root" }
+]

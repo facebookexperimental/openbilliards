@@ -1,0 +1,5480 @@
+{
+ "comment": [
+  "DO NOT REGENERATE (rules-corpus.json discipline; frozen at the",
+  "feature-025 review, issue #65). Per-preset byte oracle for the",
+  "fourteenone-v1 conformance gate: every expect line harvested ONCE",
+  "from the pool-rules crate through the pool-cli judge leg at the",
+  "harvestedAt commit and reviewed case-by-case against its cited",
+  "clause (WPA Rules of Play eff. 2025-09-15, Section 7 -- 14.1",
+  "Continuous Pool; the semantic source is",
+  "crates/pool-rules/tests/fourteenone_scenarios.rs). Post-freeze",
+  "changes ONLY via the erratum protocol: a pinned-clause proof",
+  "against the cited text -- NEVER a re-run to fix a red gate; a byte",
+  "diff at any conformance leg is resolved by fixing the code to",
+  "reproduce THESE bytes. Coverage floor: every foul code (scratch,",
+  "no-rail-after-contact, ball-off-table, breaking-foul,",
+  "three-consecutive-fouls), decision 11 both branches + every error",
+  "path, the target-reached terminal, every phase",
+  "(break/play/rerack/over), the 7.8 Table 1 interference chart, and",
+  "every fourteenone RulesError text.",
+  "ERRATUM GH-371 (2026-08-05, RULES_VERSION 0.1.7): the fourteenone",
+  "state grew the additive trailing `kitchenBih` flag (WPA 7.9 via",
+  "3.11 kitchen-shot judging -- the slice-repin event declared in",
+  "rulesets/fourteenone.rs module doc). Every expect regenerated",
+  "through the pool-cli judge leg and re-classified case-by-case:",
+  "32/46 gained ONLY the appended kitchenBih key, 14/46 are",
+  "byte-identical (error payloads + hudState projections), ZERO",
+  "verdict-level deltas -- legacy fixture states lack the flag and",
+  "parse kitchenBih=false, so no frozen case judges 3.11. New 3.11",
+  "behavior is pinned by additive judge-371-* cases below (pinned",
+  "clause: WPA Rules of Play eff. 2025-09-15, 7.9 'Standard Fouls'",
+  "listing 3.11; 3.11 paras 1-2; 1.6 in-hand-behind-the-head-string)."
+ ],
+ "harvestedAt": "c463456d09925f1bb35dc322694cc5fb5a8c7efa",
+ "preset": "wpa-14-1",
+ "cases": [
+  {
+   "id": "wpa-14-1/initialState-001-task-config",
+   "ruleset": "fourteenone-v1",
+   "kind": "initialState",
+   "breaker": 1,
+   "task_config": {
+    "schema": "task-config-v1",
+    "kind": "rules-variant",
+    "family": "fourteenone",
+    "config": {
+     "target": 100
+    }
+   },
+   "comment": "task_initial_state_json on the canonical wpa-14-1 envelope (target 100; WPA Sec 7) -- the FR-001 one-mechanism entry; target rides the state natively (carom precedent).",
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":0,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":true}",
+   "expectSha256": "7799b69d36bd82113999127b80a8b276a22b0066d8f79c8e1bc34fbbef9f8c93"
+  },
+  {
+   "id": "wpa-14-1/initialState-002-preset",
+   "ruleset": "fourteenone-v1",
+   "kind": "initialState",
+   "breaker": 2,
+   "preset": "wpa-14-1",
+   "comment": "preset_initial_state_json('wpa-14-1') == the registry initial_state bytes (default-alias law); breaker seat 2.",
+   "expect": "{\"phase\":\"break\",\"shooter\":2,\"breaker\":2,\"scores\":{\"1\":0,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":true}",
+   "expectSha256": "33f8d988243aeda4f6b5514b4efa3decd55f345a755f89e4bd187a51e00f919f"
+  },
+  {
+   "id": "wpa-14-1/initialState-003-target-75",
+   "ruleset": "fourteenone-v1",
+   "kind": "initialState",
+   "breaker": 1,
+   "task_config": {
+    "schema": "task-config-v1",
+    "kind": "rules-variant",
+    "family": "fourteenone",
+    "config": {
+     "target": 75
+    }
+   },
+   "comment": "the sanctioned 75-point config domain point (WPA 7.4 required score is a match format).",
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":0,\"2\":0},\"target\":75,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":true}",
+   "expectSha256": "2bc27e9e59f88757d3c575dc5f8ed386cbf6c1b24422f0eaa00249f98bac6730"
+  },
+  {
+   "id": "wpa-14-1/initialState-004-target-125",
+   "ruleset": "fourteenone-v1",
+   "kind": "initialState",
+   "breaker": 1,
+   "task_config": {
+    "schema": "task-config-v1",
+    "kind": "rules-variant",
+    "family": "fourteenone",
+    "config": {
+     "target": 125
+    }
+   },
+   "comment": "the sanctioned 125-point config domain point.",
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":0,\"2\":0},\"target\":125,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":true}",
+   "expectSha256": "e0379ce3fdf7c5701cb4ee8471514f4a74257a3c2b599fe5bd6a011844a40d3a"
+  },
+  {
+   "id": "wpa-14-1/initialState-error-005-bad-target",
+   "ruleset": "fourteenone-v1",
+   "kind": "initialState-error",
+   "breaker": 1,
+   "task_config": {
+    "schema": "task-config-v1",
+    "kind": "rules-variant",
+    "family": "fourteenone",
+    "config": {
+     "target": 50
+    }
+   },
+   "comment": "STRICT domain: target 50 is outside 75|100|125 -- invalid-task-config, never a fallback.",
+   "expect": "{\"error\":{\"code\":\"invalid-task-config\",\"message\":\"task-config: fourteenone target 50 out of domain (75 | 100 | 125)\"}}",
+   "expectSha256": "882a42b88908b40fe3c30a634e66a78ac393eacc252c20ff597fbe67767615a5"
+  },
+  {
+   "id": "wpa-14-1/judge-006-break-violation",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "WPA 7.3(b): no called pot, no rails -- breaking foul, -2, the non-breaker accept/re-break option (decision 11 born).",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"breaking-foul\",\"cite\":\"WPA 7.3(b)/7.10\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"break_violation\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":-2,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":{\"kind\":\"break_violation\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"breaking-foul\",\"cite\":\"WPA 7.3(b)/7.10\"}],\"by\":1},\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "0e7c2ccd2774e09e74652d4362213c473f7ae0dd83e08222ebf480cb557b71f2"
+  },
+  {
+   "id": "wpa-14-1/judge-007-break-violation-scratch-folds",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "WPA 7.10: a simultaneous scratch FOLDS into the breaking foul (-2 only); kitchen right rides the judgment for the accept path.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"breaking-foul\",\"cite\":\"WPA 7.3(b)/7.10\"}],\"pocketed\":[],\"ballInHand\":\"kitchen\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"break_violation\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":-2,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":{\"kind\":\"break_violation\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"breaking-foul\",\"cite\":\"WPA 7.3(b)/7.10\"}],\"by\":1},\"result\":null,\"kitchenBih\":true}}",
+   "expectSha256": "3183d3e24c201ddc4c7ca8b9ee23a7503c2ba97ee9a4a434a4d716be79c40c26"
+  },
+  {
+   "id": "wpa-14-1/judge-008-break-legal-dry",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.05,
+         "y": 0.68,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "WPA 7.3(b) requirements met (cue + two object balls to rails): legal, no score, turn passes.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"scores\":{\"1\":0,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "e4632a212baa7c177b4aa464c66e6bb22e7613940ae4ef5cd3c17cd766268385"
+  },
+  {
+   "id": "wpa-14-1/judge-009-break-pocketed-count-driven",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.05,
+         "y": 0.68,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 1,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 2,
+        "pocket": 4
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "WPA 2.7: pocketed balls count as driven to a rail; uncalled pots spot (7.6).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[1,2],\"ballInHand\":\"none\",\"respot\":[1,2],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"scores\":{\"1\":0,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "16ef1554eea97e2762ef38fd26706f82930d6fbadcbf03010a52cc05f43f7598"
+  },
+  {
+   "id": "wpa-14-1/judge-010-break-scratch-standard",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.05,
+         "y": 0.68,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "requirements met + scratch: a STANDARD foul (-1, kitchen, counter steps) -- not a breaking foul.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 7.9 via 3.1\"}],\"pocketed\":[],\"ballInHand\":\"kitchen\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"scores\":{\"1\":-1,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":1,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 7.9 via 3.1\"}],\"by\":1},\"result\":null,\"kitchenBih\":true}}",
+   "expectSha256": "2277d2d1a295d84dd65ce74635e39195ab91b4e4d42f5092890b69d4a759e8ce"
+  },
+  {
+   "id": "wpa-14-1/judge-011-break-called-pot",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 1,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 1,
+    "pocket": 5
+   },
+   "comment": "WPA 7.3(b): a fulfilled called pot lifts the rail requirement; +1, the breaker continues.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[1],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":1,\"2\":0},\"target\":100,\"run\":1,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "f9fa0034671a6dd34a22db89dcc7cdbfcab1f2337cbc1f7f24a76bcb7db18d05"
+  },
+  {
+   "id": "wpa-14-1/applyDecision-012-accept",
+   "ruleset": "fourteenone-v1",
+   "kind": "applyDecision",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": -2,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_violation",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 11,
+    "choice": 1
+   },
+   "comment": "choice 1: accept the table in position -- play passes to the non-breaker; the -2 stands.",
+   "expect": "{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"scores\":{\"1\":-2,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}",
+   "expectSha256": "f2b1bbdc7d16fb85b42dfaf2c37d3122a7f71785c582e333df2b0f89cfb03b0e"
+  },
+  {
+   "id": "wpa-14-1/applyDecision-013-rebreak",
+   "ruleset": "fourteenone-v1",
+   "kind": "applyDecision",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": -2,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_violation",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 11,
+    "choice": 2
+   },
+   "comment": "choice 2: require a re-break -- full fifteen, SAME breaker, rackCount+1; repeatable (WPA 7.3(b)).",
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":-2,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":2,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":true}",
+   "expectSha256": "fddf95d08aa1f222dfc46e564397cd2921014b17e14ac0b317e6cf749fc1f416"
+  },
+  {
+   "id": "wpa-14-1/applyDecision-error-014-unknown-id",
+   "ruleset": "fourteenone-v1",
+   "kind": "applyDecision-error",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": -2,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_violation",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 9,
+    "choice": 1
+   },
+   "comment": "id 9 (one-pocket stalemate_lag) is not a 14.1 decision.",
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"fourteenone-v1: unknown decision id 9 (only 11, break_violation \u2014 WPA 7.3(b))\"}}",
+   "expectSha256": "11fdfdd7e9dbea3694da8fd90f39b29fdd12cfec9e7e8abde4283e649599340a"
+  },
+  {
+   "id": "wpa-14-1/applyDecision-error-015-choice-range",
+   "ruleset": "fourteenone-v1",
+   "kind": "applyDecision-error",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": -2,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_violation",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 11,
+    "choice": 3
+   },
+   "comment": "choice out of range for break_violation (1|2).",
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"fourteenone-v1: choice 3 out of range for 'break_violation' (1 accept the table | 2 require a re-break)\"}}",
+   "expectSha256": "03400c0bffe0a016af7e92835ad39ac084373d6e174f993633c8f4c08a22762f"
+  },
+  {
+   "id": "wpa-14-1/applyDecision-error-016-nothing-pending",
+   "ruleset": "fourteenone-v1",
+   "kind": "applyDecision-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "decision": {
+    "decision": 11,
+    "choice": 1
+   },
+   "comment": "no break_violation option is pending.",
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"fourteenone-v1: decision 'break_violation' does not match the pending option (none)\"}}",
+   "expectSha256": "e8cb42a30ece1f6d2058821dc7ae61b34b748845a7c39b403779d9b3332b8917"
+  },
+  {
+   "id": "wpa-14-1/applyDecision-error-017-after-end",
+   "ruleset": "fourteenone-v1",
+   "kind": "applyDecision-error",
+   "state": {
+    "phase": "over",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": {
+     "winner": 1,
+     "reason": "target-reached",
+     "cite": "WPA 7.4"
+    }
+   },
+   "decision": {
+    "decision": 11,
+    "choice": 1
+   },
+   "comment": "no decision can be applied after the match ended.",
+   "expect": "{\"error\":{\"code\":\"match-over\",\"message\":\"fourteenone-v1: no decision can be applied after the match ended\"}}",
+   "expectSha256": "1f2df45623c4bd17a7b8711829ec9ab3f68fdc93fab13f715bd8d06915cf5976"
+  },
+  {
+   "id": "wpa-14-1/judge-018-called-pot-continues",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.7: +1 on the legal called pot; the shooter continues; the counter resets.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":1,\"2\":0},\"target\":100,\"run\":1,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "9b2f8771a70d11a46b65926bdb410f5396eb2239f130adac31d18451b23efcbd"
+  },
+  {
+   "id": "wpa-14-1/judge-019-extra-balls-count",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 4,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 7,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.7: every additional ball on the legal called shot counts (+2; the run carries).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3,7],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":2,\"2\":0},\"target\":100,\"run\":6,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,4,5,6,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "8b8b3ff8f2db4182d2d4020c374ac56203dcb4b1377395acea23e290cd596f97"
+  },
+  {
+   "id": "wpa-14-1/judge-020-unfulfilled-spots-passes",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 3,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "wrong pocket: legal, no score, the pot spots (7.6), the turn passes, the run resets.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[3],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"scores\":{\"1\":0,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "f64466756ed4003c52528b7ab7bf1cbf1e3b7e2bc4d2b2fd4a57fd2d13df8e73"
+  },
+  {
+   "id": "wpa-14-1/judge-021-safety-spots",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "WPA 7.5: a declared safety passes the turn; safety-pocketed balls spot; the counter resets.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[3],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"scores\":{\"1\":0,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "f64466756ed4003c52528b7ab7bf1cbf1e3b7e2bc4d2b2fd4a57fd2d13df8e73"
+  },
+  {
+   "id": "wpa-14-1/judge-022-scratch-kitchen",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.9 via 3.1: -1, the pot spots, cue in hand behind the head string; negatives legal (7.7).",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 7.9 via 3.1\"}],\"pocketed\":[3],\"ballInHand\":\"kitchen\",\"respot\":[3],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"scores\":{\"1\":-1,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":1,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 7.9 via 3.1\"}],\"by\":1},\"result\":null,\"kitchenBih\":true}}",
+   "expectSha256": "90c123f98e80717735b124235cd1c141242807721bf23ef1976c510ddcae403a"
+  },
+  {
+   "id": "wpa-14-1/judge-023-no-rail-cue-stays",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.9 via 3.3: -1, the cue REMAINS in position (7.9).",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-rail-after-contact\",\"cite\":\"WPA 7.9 via 3.3\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"scores\":{\"1\":-1,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":1,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"no-rail-after-contact\",\"cite\":\"WPA 7.9 via 3.3\"}],\"by\":1},\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "b6f7ec8886d597cd2d6ccf2eedd658a130777e2252dfc7d3a510bc459f44e850"
+  },
+  {
+   "id": "wpa-14-1/judge-024-jumped-ball-spot-foul",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 9,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.4,
+         "y": 0.4,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallOffTable": {
+        "ball": 9
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.9 via 3.5: a jumped ball is a foul and spots.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA 7.9 via 3.5\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[9],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"scores\":{\"1\":-1,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":1,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA 7.9 via 3.5\"}],\"by\":1},\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "d551e2f0238fc4ffc4d924819694de75385cecb9d1829d372b8aed6f8072514e"
+  },
+  {
+   "id": "wpa-14-1/judge-025-three-consecutive-fouls",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 2,
+    "breaker": 1,
+    "scores": {
+     "1": 5,
+     "2": 3
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 2
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     3,
+     7,
+     9
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.11: third consecutive standard foul -- -1 then -15, counter to zero, all fifteen re-racked, the OFFENDER re-breaks (next.phase=break, kitchen).",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-rail-after-contact\",\"cite\":\"WPA 7.9 via 3.3\"},{\"code\":\"three-consecutive-fouls\",\"cite\":\"WPA 7.11 via 3.13\"}],\"pocketed\":[],\"ballInHand\":\"kitchen\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"break\",\"shooter\":2,\"breaker\":2,\"scores\":{\"1\":5,\"2\":-13},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":2,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"no-rail-after-contact\",\"cite\":\"WPA 7.9 via 3.3\"},{\"code\":\"three-consecutive-fouls\",\"cite\":\"WPA 7.11 via 3.13\"}],\"by\":2},\"result\":null,\"kitchenBih\":true}}",
+   "expectSha256": "bbc534458f8d717edc81dce3c9927c36ae973020323165f3eca2550c1a27bc75"
+  },
+  {
+   "id": "wpa-14-1/judge-026-partial-rerack-stays",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 60,
+     "2": 40
+    },
+    "target": 100,
+    "run": 12,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     3,
+     7
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.4,
+         "y": -0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.4: the 14th drops -- partial re-rack (apex vacant), both clear of every zone (stays/stays), the run continues; signal rides next.phase=rerack.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"rerack\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":61,\"2\":40},\"target\":100,\"run\":13,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":2,\"rerack\":{\"kind\":\"partial\",\"fifteenth\":7,\"fifteenthSpot\":\"stays\",\"cueSpot\":\"stays\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "772bd6dca2dcfb76c7c504fd753e8390668a68a8744b07e5feab9424002b361b"
+  },
+  {
+   "id": "wpa-14-1/judge-027-interference-head-spot",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     3,
+     7
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.3,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.8(c)/Table 1: the fifteenth inside the rack area goes to the HEAD spot; the cue stays.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"rerack\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":1,\"2\":0},\"target\":100,\"run\":1,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":2,\"rerack\":{\"kind\":\"partial\",\"fifteenth\":7,\"fifteenthSpot\":\"head_spot\",\"cueSpot\":\"stays\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "1c5ce0b6f22553c40ed82eba4b5388a50bb137832906daa634365de44469b109"
+  },
+  {
+   "id": "wpa-14-1/judge-028-interference-center-spot",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     3,
+     7
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.3,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.8(c): the cue blocks the head spot -- the fifteenth goes to the CENTER spot.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"rerack\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":1,\"2\":0},\"target\":100,\"run\":1,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":2,\"rerack\":{\"kind\":\"partial\",\"fifteenth\":7,\"fifteenthSpot\":\"center_spot\",\"cueSpot\":\"stays\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "8c7994db1b41e7df042a528afc19c1b5ac9e46cab2abec395c957e4e05f4e5e3"
+  },
+  {
+   "id": "wpa-14-1/judge-029-interference-both-full-kitchen",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     3,
+     7
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.02,
+         "y": 0.75,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.3,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.7,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.8(b): BOTH interfere -- all fifteen re-racked, cue in hand behind the head string.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"kitchen\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"rerack\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":1,\"2\":0},\"target\":100,\"run\":1,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":2,\"rerack\":{\"kind\":\"full\",\"fifteenth\":null,\"fifteenthSpot\":\"racked\",\"cueSpot\":\"kitchen\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":true}}",
+   "expectSha256": "eee428633f9d97720f4d5a68d7a9d2f79b599d08f19da2750f585c306eea90b1"
+  },
+  {
+   "id": "wpa-14-1/judge-030-interference-cue-kitchen",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     3,
+     7
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.02,
+         "y": 0.75,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.3,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.3,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.8(d): only the cue interferes, the fifteenth in front of the head string -- cue in hand behind the head string.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"kitchen\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"rerack\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":1,\"2\":0},\"target\":100,\"run\":1,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":2,\"rerack\":{\"kind\":\"partial\",\"fifteenth\":7,\"fifteenthSpot\":\"stays\",\"cueSpot\":\"kitchen\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":true}}",
+   "expectSha256": "9fc4e816bb98ac241999034c5546daca7a268bd92e12d9145d67865af97ceb9a"
+  },
+  {
+   "id": "wpa-14-1/judge-031-interference-cue-head-spot",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     3,
+     7
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.02,
+         "y": 0.75,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.3,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.3,
+         "y": -0.9,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.8(d): only the cue interferes, the fifteenth behind the head string -- the cue spots on the HEAD spot.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"rerack\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":1,\"2\":0},\"target\":100,\"run\":1,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":2,\"rerack\":{\"kind\":\"partial\",\"fifteenth\":7,\"fifteenthSpot\":\"stays\",\"cueSpot\":\"head_spot\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "33137e7ed3ff8c0aba041916d2f42605e98f70a6a1299fdf8d3cbcfbd3cdadcf"
+  },
+  {
+   "id": "wpa-14-1/judge-032-interference-cue-center-spot",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     3,
+     7
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.02,
+         "y": 0.75,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.3,
+         "y": -0.3,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.64,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.8(d): the fifteenth blocks the head spot -- the cue spots on the CENTER spot.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"rerack\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":1,\"2\":0},\"target\":100,\"run\":1,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":2,\"rerack\":{\"kind\":\"partial\",\"fifteenth\":7,\"fifteenthSpot\":\"stays\",\"cueSpot\":\"center_spot\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "787bc17d312d848441c56f38839dfdc2131ad516633b36cf452e5fafad45be7b"
+  },
+  {
+   "id": "wpa-14-1/judge-033-fifteenth-potted-full-rerack",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 10,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     3,
+     7
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 7,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": -0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 7,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.8(a): the fifteenth pocketed on the shot that scored the fourteenth -- all fifteen re-racked, cue in position; both balls count.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3,7],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"rerack\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":12,\"2\":0},\"target\":100,\"run\":2,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":2,\"rerack\":{\"kind\":\"full\",\"fifteenth\":null,\"fifteenthSpot\":\"racked\",\"cueSpot\":\"stays\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "2e02b389a5750d9256aa21a3ae2156b9df7fcfd0c70fa5e9bb1c9bcf5246cd58"
+  },
+  {
+   "id": "wpa-14-1/judge-034-rerack-phase-plays",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "rerack",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 2,
+    "rerack": {
+     "kind": "partial",
+     "fifteenth": 7,
+     "fifteenthSpot": "stays",
+     "cueSpot": "stays"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "a stroke judged from the rerack phase behaves like play and clears the plan.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":1,\"2\":0},\"target\":100,\"run\":1,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":2,\"rerack\":null,\"onTable\":[1,2,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "8cbd3ef606bb0b2c52391e3e39006f46a267a4bb3cb8f6dd1f150a42febb1573"
+  },
+  {
+   "id": "wpa-14-1/judge-035-target-reached",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 99,
+     "2": 87
+    },
+    "target": 100,
+    "run": 20,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 3,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "WPA 7.4: the required score is reached on a legal called pot -- terminal target-reached.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[3],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":{\"winner\":1,\"reason\":\"target-reached\",\"cite\":\"WPA 7.4\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":100,\"2\":87},\"target\":100,\"run\":21,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":{\"winner\":1,\"reason\":\"target-reached\",\"cite\":\"WPA 7.4\"},\"kitchenBih\":false}}",
+   "expectSha256": "7dc418d11e10092a110d66fb490a8c617dbc893abca0202981e5b602a2da3336"
+  },
+  {
+   "id": "wpa-14-1/judge-error-036-no-call",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "WPA 7.5 via 1.7: every non-break shot requires a call or a declared safety.",
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"fourteenone-v1: every shot after the break requires a call or a declared safety (WPA 7.5 via 1.7)\"}}",
+   "expectSha256": "06c0df0657986e6514a468227a4aa9689dc36698bd76372c82ce9c60bdbd3f1b"
+  },
+  {
+   "id": "wpa-14-1/judge-error-037-bad-called-ball",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 0,
+    "pocket": 5
+   },
+   "comment": "the cue is not a callable object ball.",
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"fourteenone-v1: called ball 0 is not an object ball (1-15)\"}}",
+   "expectSha256": "68da56db778112de66a3ff0a03f2bfd48ba6f66b8d742e6d76c670fb3996341e"
+  },
+  {
+   "id": "wpa-14-1/judge-error-038-called-ball-off-table",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "a called ball must be on the table.",
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"fourteenone-v1: called ball 3 is not on the table\"}}",
+   "expectSha256": "5f5da9afffe4b15a36709c70424944dd12998f5df252dc1793c3404c56cd4231"
+  },
+  {
+   "id": "wpa-14-1/judge-error-039-bad-pocket",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": -1
+   },
+   "comment": "a called pocket must be a kernel pocket index.",
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"fourteenone-v1: called pocket -1 is not a kernel pocket index\"}}",
+   "expectSha256": "11f92bfb3534af10c688f3d4f28d6e6ca71e57ca9bc3478ddd70b6bf4d902131"
+  },
+  {
+   "id": "wpa-14-1/judge-error-040-match-over",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "over",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": {
+     "winner": 1,
+     "reason": "target-reached",
+     "cite": "WPA 7.4"
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "judge after the match ended (adapter contract).",
+   "expect": "{\"error\":{\"code\":\"match-over\",\"message\":\"fourteenone-v1: judge called after the match ended (adapter contract)\"}}",
+   "expectSha256": "2c4a03b8cc4e6c83a511ebacbf1c6da7b43d0c806bd5e2a5cf50a665384ac2bf"
+  },
+  {
+   "id": "wpa-14-1/judge-error-041-decision-pending",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge-error",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": -2,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_violation",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "judge while the break_violation option is pending.",
+   "expect": "{\"error\":{\"code\":\"decision-pending\",\"message\":\"fourteenone-v1: judge called while a rulebook decision is pending ('break_violation') \u2014 resolve it via applyDecision\"}}",
+   "expectSha256": "8cade0260a9fa34c7a914841d107d96bf84c8d5001e1829a83ddc69f027d7995"
+  },
+  {
+   "id": "wpa-14-1/hudState-042-play",
+   "ruleset": "fourteenone-v1",
+   "kind": "hudState",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 7,
+     "2": -3
+    },
+    "target": 100,
+    "run": 4,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 2
+    },
+    "rackCount": 3,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "scratch",
+       "cite": "WPA 7.9 via 3.1"
+      }
+     ],
+     "by": 2
+    },
+    "result": null
+   },
+   "comment": "play projection: target/run/rackCount discriminators + the {by,fouls} re-order.",
+   "expect": "{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":7,\"2\":-3},\"target\":100,\"run\":4,\"consecutiveFouls\":{\"1\":0,\"2\":2},\"rackCount\":3,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"by\":2,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 7.9 via 3.1\"}]}}",
+   "expectSha256": "cec701c60cbed4edcff30027c3d7aab9c350c018cd26a27c8a847e6836010375"
+  },
+  {
+   "id": "wpa-14-1/hudState-043-pending",
+   "ruleset": "fourteenone-v1",
+   "kind": "hudState",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": -2,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_violation",
+     "chooser": 2
+    },
+    "foulContext": null,
+    "result": null
+   },
+   "comment": "the pending break_violation option rides the projection.",
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":-2,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":{\"kind\":\"break_violation\",\"chooser\":2},\"result\":null,\"foulContext\":null}",
+   "expectSha256": "46e29c62802554aaabe7170bcbeb6bed1a91a35203377c8e549e34f013e81a6c"
+  },
+  {
+   "id": "wpa-14-1/hudState-044-rerack",
+   "ruleset": "fourteenone-v1",
+   "kind": "hudState",
+   "state": {
+    "phase": "rerack",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 2,
+    "rerack": {
+     "kind": "partial",
+     "fifteenth": 7,
+     "fifteenthSpot": "head_spot",
+     "cueSpot": "stays"
+    },
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "comment": "the judged 7.8 plan rides the projection while phase == rerack.",
+   "expect": "{\"phase\":\"rerack\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":0,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":0,\"2\":0},\"rackCount\":2,\"rerack\":{\"kind\":\"partial\",\"fifteenth\":7,\"fifteenthSpot\":\"head_spot\",\"cueSpot\":\"stays\"},\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null}",
+   "expectSha256": "d701715a40653cc674c20ca3d587be025051c610431197fd1f5104d5e10f5d10"
+  },
+  {
+   "id": "wpa-14-1/judge-045-off-table-only-double-cite",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallOffTable": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 3,
+    "pocket": 5
+   },
+   "comment": "The deliberate WPA 2.7 transcription asymmetry (fourteenone.rs module doc, review note): on a NON-break stroke whose only post-contact event is the object ball leaving the table, P1 driven_after_contact does NOT count BallOffTable as driven to a rail (2.7 says a jumped ball counts), so the stroke cites BOTH no-rail-after-contact (7.9 via 3.3) AND ball-off-table (7.9 via 3.5) -- one -1 standard foul either way, the ball spots, turn passes. The doc claimed the slice froze these two-cite bytes; no case actually covered it -- this is that pin (issue #92). Teaching the scan the 2.7 union stays a SLICE-REPIN event.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-rail-after-contact\",\"cite\":\"WPA 7.9 via 3.3\"},{\"code\":\"ball-off-table\",\"cite\":\"WPA 7.9 via 3.5\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[3],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"scores\":{\"1\":-1,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":1,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"no-rail-after-contact\",\"cite\":\"WPA 7.9 via 3.3\"},{\"code\":\"ball-off-table\",\"cite\":\"WPA 7.9 via 3.5\"}],\"by\":1},\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "904c7d55482e07d8bcfc164e1120bee3a2871fd3e7909d2ea05d07bed18302a8"
+  },
+  {
+   "id": "wpa-14-1/judge-046-break-called-pot-scratch",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": -0.9,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0,
+         "y": 0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 1,
+        "pocket": 5
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 1,
+    "pocket": 5
+   },
+   "comment": "AMBIGUITY PIN (issue #92; rule text ambiguous): the opening break fulfills the 7.3(b) called pot AND scratches on the same stroke. Current behavior (pinned AS-IS): the fulfilled call lifts the 7.3(b) driving requirement entirely, so the scratch is judged a STANDARD foul -- -1 (not -2), cue in hand behind the head string (3.1), the potted ball spots (7.9), the 7.11 counter STEPS, no decision 11 re-break option. The alternative reading: 7.10 could class any breaker foul on the opening stroke as a BREAKING foul (-2 + the non-breaker option, counter untouched). Changing to that reading is an erratum/slice-repin event, never a silent fix.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 7.9 via 3.1\"}],\"pocketed\":[1],\"ballInHand\":\"kitchen\",\"respot\":[1],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"scores\":{\"1\":-1,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":1,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 7.9 via 3.1\"}],\"by\":1},\"result\":null,\"kitchenBih\":true}}",
+   "expectSha256": "777ebe686363c21f29452bab27d7ba18b13204555d9d14e06359cb57d57ad1b7"
+  },
+  {
+   "id": "wpa-14-1/judge-371-kitchen-para1",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 2,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 1,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "scratch",
+       "cite": "WPA 7.9 via 3.1"
+      }
+     ],
+     "by": 1
+    },
+    "result": null,
+    "kitchenBih": true
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.75,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.69,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "Transition": {
+        "ball": 0
+       }
+      },
+      "post": [
+       [
+        0,
+        {
+         "pos": {
+          "x": 0.1,
+          "y": -0.3,
+          "z": 0.028575
+         },
+         "motion": "Stationary"
+        }
+       ]
+      ]
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "GH-371 additive pin (WPA 7.9 via 3.11 para 1): a kitchenBih stroke first-contacts a ball behind the head string without crossing first (crossing after contact defeats only para 2) -- bad-kitchen-shot, -1, cue stays.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"bad-kitchen-shot\",\"cite\":\"WPA 7.9 via 3.11\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":0,\"2\":-1},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":1,\"2\":1},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"bad-kitchen-shot\",\"cite\":\"WPA 7.9 via 3.11\"}],\"by\":2},\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "722efd54624e29adca7de0999c769f150b4de5c997d5ad0ceebbaa86b8b91575"
+  },
+  {
+   "id": "wpa-14-1/judge-371-kitchen-para2",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 2,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 1,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "scratch",
+       "cite": "WPA 7.9 via 3.1"
+      }
+     ],
+     "by": 1
+    },
+    "result": null,
+    "kitchenBih": true
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.75,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.69,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "GH-371 additive pin (WPA 7.9 via 3.11 para 2 via 1.6): no crossing and no on/past-line contact -- kitchen-no-exit stacks on para 1 and the incoming player is in hand behind the head string.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"bad-kitchen-shot\",\"cite\":\"WPA 7.9 via 3.11\"},{\"code\":\"kitchen-no-exit\",\"cite\":\"WPA 7.9 via 3.11\"}],\"pocketed\":[],\"ballInHand\":\"kitchen\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":0,\"2\":-1},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":1,\"2\":1},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"bad-kitchen-shot\",\"cite\":\"WPA 7.9 via 3.11\"},{\"code\":\"kitchen-no-exit\",\"cite\":\"WPA 7.9 via 3.11\"}],\"by\":2},\"result\":null,\"kitchenBih\":true}}",
+   "expectSha256": "368f71bca27156266533c508379513429a9908ea563d0d7f462e4e38a390f859"
+  },
+  {
+   "id": "wpa-14-1/judge-371-kitchen-crossing-legal",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 2,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 1,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "scratch",
+       "cite": "WPA 7.9 via 3.1"
+      }
+     ],
+     "by": 1
+    },
+    "result": null,
+    "kitchenBih": true
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.75,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.2,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.05,
+      "kind": {
+       "Transition": {
+        "ball": 0
+       }
+      },
+      "post": [
+       [
+        0,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.028575
+         },
+         "motion": "Stationary"
+        }
+       ]
+      ]
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "GH-371 additive pin (3.11 satisfied): the cue crosses the head string before contacting a ball past the line -- legal safety.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":0,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":1,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "96df28ce662f9c89b718bad0084ab62df35ebc7f258a8877879d0086359ab851"
+  },
+  {
+   "id": "wpa-14-1/judge-371-online-ball-playable",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 2,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 1,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "scratch",
+       "cite": "WPA 7.9 via 3.1"
+      }
+     ],
+     "by": 1
+    },
+    "result": null,
+    "kitchenBih": true
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.75,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.635,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "GH-371 additive pin (WPA 1.6: a ball resting ON the head string is playable): first contact with a ball centred exactly on the line is legal under both 3.11 paragraphs.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":0,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":1,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "96df28ce662f9c89b718bad0084ab62df35ebc7f258a8877879d0086359ab851"
+  },
+  {
+   "id": "wpa-14-1/judge-371-legacy-state-compat",
+   "ruleset": "fourteenone-v1",
+   "kind": "judge",
+   "state": {
+    "phase": "play",
+    "shooter": 2,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 1,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "scratch",
+       "cite": "WPA 7.9 via 3.1"
+      }
+     ],
+     "by": 1
+    },
+    "result": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.75,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 3,
+       "params": {
+        "r": 0.028575
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.69,
+         "z": 0.028575
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.27,
+      "length": 2.54,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "GH-371 additive pin (compat law): a pre-371 state without the kitchenBih key parses kitchenBih=false, so the identical para-2 geometry stays un-judged for 3.11 -- recorded games never flip.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"play\",\"shooter\":1,\"breaker\":1,\"scores\":{\"1\":0,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":1,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"kitchenBih\":false}}",
+   "expectSha256": "96df28ce662f9c89b718bad0084ab62df35ebc7f258a8877879d0086359ab851"
+  },
+  {
+   "id": "wpa-14-1/applyDecision-371-spot-nearest",
+   "ruleset": "fourteenone-v1",
+   "kind": "applyDecision",
+   "state": {
+    "phase": "play",
+    "shooter": 2,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 1,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "scratch",
+       "cite": "WPA 7.9 via 3.1"
+      }
+     ],
+     "by": 1
+    },
+    "result": null,
+    "kitchenBih": true
+   },
+   "decision": {
+    "decision": 15,
+    "choice": 1
+   },
+   "comment": "GH-371 additive pin (WPA 1.6 para 2 via 7.9): the recorded nearest-ball spot request -- state unchanged; placement XY is adapter geometry (research R7).",
+   "expect": "{\"phase\":\"play\",\"shooter\":2,\"breaker\":1,\"scores\":{\"1\":0,\"2\":0},\"target\":100,\"run\":0,\"consecutiveFouls\":{\"1\":1,\"2\":0},\"rackCount\":1,\"rerack\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 7.9 via 3.1\"}],\"by\":1},\"result\":null,\"kitchenBih\":true}",
+   "expectSha256": "f73771ed13abae775d4d2d5877172172a91a27fa16a56e2a70dadf0154ac75c5"
+  },
+  {
+   "id": "wpa-14-1/applyDecision-error-371-spot-nearest-on-break",
+   "ruleset": "fourteenone-v1",
+   "kind": "applyDecision-error",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "target": 100,
+    "run": 0,
+    "consecutiveFouls": {
+     "1": 0,
+     "2": 0
+    },
+    "rackCount": 1,
+    "rerack": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "kitchenBih": true
+   },
+   "decision": {
+    "decision": 15,
+    "choice": 1
+   },
+   "comment": "GH-371 additive pin: spot_nearest is not offered at the break address (7.3(a) has the full rack in front of the line).",
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"fourteenone-v1: spot_nearest cannot pre-empt the pending 'break_violation' option or the break address\"}}",
+   "expectSha256": "3df50ed02fb73e19a313ab3ea3891b330927897e6983814baaba4be766bf18a8"
+  }
+ ]
+}

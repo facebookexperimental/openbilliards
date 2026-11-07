@@ -1,0 +1,95 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* switchprogress.css — the game-switch progress overlay skin (ui/switchprogress.js).
+   LEAF stylesheet, linked by web/app/settings.js as a <link> carrying
+   ?v=<SWITCH_CSS_V> — bump the constant IN settings.js on EVERY edit here
+   (the ownership ledger CSS addendum). --ob-* tokens only. The root's critical
+   placement (fixed, inset 0, z dialog, scrim) is ALSO written inline by the
+   leaf so a sheet that has not landed still covers and absorbs input.
+   Labels WRAP, never ellipsize (the e2e-ui --audit law). */
+
+.ob-switchprogress {
+  position: fixed;
+  inset: 0;
+  z-index: var(--ob-z-dialog);
+  display: grid;
+  place-items: center;
+  background: var(--ob-scrim);
+  font-family: var(--ob-font);
+  cursor: progress;
+  /* the leave fade only — the overlay ARRIVES at rest (a tween would sit
+     frozen near opacity 0 through the blocked build it announces) */
+  transition: opacity var(--ob-t-med) var(--ob-ease-in);
+}
+.ob-switchprogress[data-leaving] { opacity: 0; }
+
+.ob-switchprogress__card {
+  box-sizing: border-box;
+  width: min(22rem, calc(100vw - 2 * var(--ob-sp-4)));
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-3);
+  padding: var(--ob-sp-5) var(--ob-sp-6);
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-l);
+  /* the solid rung of the material ladder, flat: no backdrop-filter and no
+     noise tile over a canvas whose GPU is busy compiling the new table's
+     programs — the card must raster in its first frame */
+  background-color: var(--ob-glass-solid);
+  border-top-color: var(--ob-glass-edge);
+  box-shadow: var(--ob-el-3);
+}
+
+.ob-switchprogress__title {
+  margin: 0;
+  color: var(--ob-text-0);
+  font-size: var(--ob-fs-1);
+  font-weight: var(--ob-fw-semi);
+  line-height: var(--ob-lh-tight);
+  overflow-wrap: break-word;
+}
+
+.ob-switchprogress__phase {
+  margin: 0;
+  min-height: calc(var(--ob-fs-0) * var(--ob-lh-body));
+  color: var(--ob-text-1);
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-body);
+  overflow-wrap: break-word;
+}
+
+/* the bar is the kit .ob-progress (controls.makeProgress); the fill steps
+   with the phase, the sweep says "working" while the main thread is blocked:
+   a transform animation runs on the compositor, so it keeps moving through
+   the build and the shader compile */
+.ob-switchprogress__sweep {
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--ob-accent-hi), transparent);
+  opacity: 0.55;
+  transform: translateX(-100%);
+  animation: ob-switchprogress-sweep calc(var(--ob-t-slow) * 4) linear infinite;
+  pointer-events: none;
+}
+@keyframes ob-switchprogress-sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+
+/* the ACCEPTED switch confirm is still running its exit motion when the
+   overlay arrives; the build would freeze it half-faded under the scrim —
+   it leaves with the overlay's first frame instead. Clipped, not hidden:
+   visibility:hidden would blur the focused Continue onto <body> (Chrome's
+   focus fixup) before dialog.js returns focus to the card after its exit;
+   a clip removes the paint and the hits and keeps the focus where it is */
+html[data-ob-switching] [data-ob="confirm"] { clip-path: inset(50%); }
+
+/* the CN8 table-transport banner (scene/table.js #ob-table-pending, role
+   status) says the same thing under the overlay: one live region at a time */
+html[data-ob-switching] #ob-table-pending { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ob-switchprogress { transition: none; }
+  .ob-switchprogress__sweep { animation: none; display: none; }
+}

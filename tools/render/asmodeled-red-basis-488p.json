@@ -1,0 +1,953 @@
+{
+  "tool": "asmodeled-drawings-488p.mjs",
+  "spec": "docs/geometry/gh488p-predator-apex-canonical.json",
+  "spec_sha256": "2cf2a3a5ea040502edc4ee1e28a25da4d23cea95a0cda42f49dcae0148ac8f10",
+  "tolerances": {
+    "letters_mm": 1,
+    "radius_mm": 1.5,
+    "angle_deg": 0.25,
+    "scan_mm": 0.2
+  },
+  "green_baseline": [
+    {
+      "id": "L488P-CP-NOSE-X",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-CP-NOSE-Y",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-CP-R-JAW-1",
+      "verdict": "PASS",
+      "delta": 0.007
+    },
+    {
+      "id": "L488P-CP-R-JAW-2",
+      "verdict": "PASS",
+      "delta": 0.007
+    },
+    {
+      "id": "L488P-CP-C1",
+      "verdict": "PASS",
+      "delta": 0.002
+    },
+    {
+      "id": "L488P-CP-C2",
+      "verdict": "PASS",
+      "delta": 0.002
+    },
+    {
+      "id": "L488P-CP-N1",
+      "verdict": "PASS",
+      "delta": 0.001
+    },
+    {
+      "id": "L488P-CP-N2",
+      "verdict": "PASS",
+      "delta": 0.001
+    },
+    {
+      "id": "L488P-CP-T1",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-CP-T2",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-CP-MOUTH",
+      "verdict": "PASS",
+      "delta": 0.001
+    },
+    {
+      "id": "L488P-CP-FACING-1",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-CP-FACING-2",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-SP-NOSE-X",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-SP-R-JAW-L",
+      "verdict": "PASS",
+      "delta": 0.018
+    },
+    {
+      "id": "L488P-SP-R-JAW-R",
+      "verdict": "PASS",
+      "delta": 0.019
+    },
+    {
+      "id": "L488P-SP-CL",
+      "verdict": "PASS",
+      "delta": 0.011
+    },
+    {
+      "id": "L488P-SP-CR",
+      "verdict": "PASS",
+      "delta": 0.011
+    },
+    {
+      "id": "L488P-SP-NL",
+      "verdict": "PASS",
+      "delta": 0.006
+    },
+    {
+      "id": "L488P-SP-NR",
+      "verdict": "PASS",
+      "delta": 0.006
+    },
+    {
+      "id": "L488P-SP-TL",
+      "verdict": "PASS",
+      "delta": 0.007
+    },
+    {
+      "id": "L488P-SP-TR",
+      "verdict": "PASS",
+      "delta": 0.007
+    },
+    {
+      "id": "L488P-SP-MOUTH",
+      "verdict": "PASS",
+      "delta": 0.013
+    },
+    {
+      "id": "L488P-SP-FACING-L",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-SP-FACING-R",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-CP-FALL-C",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-SP-FALL-C",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-CP-FALL-CLEAR",
+      "verdict": "PASS",
+      "delta": null
+    },
+    {
+      "id": "L488P-SP-FALL-CLEAR",
+      "verdict": "PASS",
+      "delta": null
+    },
+    {
+      "id": "L488P-CC-NOSE-X",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-CC-NOSE-H",
+      "verdict": "PASS",
+      "delta": 0.053
+    },
+    {
+      "id": "L488P-CC-BACK-X",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-CC-WIDTH",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-CC-RAIL-OUT",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-CC-BAND",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-EV-LEN",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-EV-WID",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-EV-HGT",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-EV-APRON",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-EV-OH-LONG",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-EV-OH-SHORT",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-SG-SPACING",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-SG-INSET",
+      "verdict": "PASS",
+      "delta": 0
+    },
+    {
+      "id": "L488P-SG-RADIUS",
+      "verdict": "PASS",
+      "delta": 0.001
+    }
+  ],
+  "judged_letters": [
+    "L488P-CP-NOSE-X",
+    "L488P-CP-NOSE-Y",
+    "L488P-CP-R-JAW-1",
+    "L488P-CP-R-JAW-2",
+    "L488P-CP-C1",
+    "L488P-CP-C2",
+    "L488P-CP-N1",
+    "L488P-CP-N2",
+    "L488P-CP-T1",
+    "L488P-CP-T2",
+    "L488P-CP-MOUTH",
+    "L488P-CP-FACING-1",
+    "L488P-CP-FACING-2",
+    "L488P-SP-NOSE-X",
+    "L488P-SP-R-JAW-L",
+    "L488P-SP-R-JAW-R",
+    "L488P-SP-CL",
+    "L488P-SP-CR",
+    "L488P-SP-NL",
+    "L488P-SP-NR",
+    "L488P-SP-TL",
+    "L488P-SP-TR",
+    "L488P-SP-MOUTH",
+    "L488P-SP-FACING-L",
+    "L488P-SP-FACING-R",
+    "L488P-CP-FALL-C",
+    "L488P-SP-FALL-C",
+    "L488P-CP-FALL-CLEAR",
+    "L488P-SP-FALL-CLEAR",
+    "L488P-CC-NOSE-X",
+    "L488P-CC-NOSE-H",
+    "L488P-CC-BACK-X",
+    "L488P-CC-WIDTH",
+    "L488P-CC-RAIL-OUT",
+    "L488P-CC-BAND",
+    "L488P-EV-LEN",
+    "L488P-EV-WID",
+    "L488P-EV-HGT",
+    "L488P-EV-APRON",
+    "L488P-EV-OH-LONG",
+    "L488P-EV-OH-SHORT",
+    "L488P-SG-SPACING",
+    "L488P-SG-INSET",
+    "L488P-SG-RADIUS"
+  ],
+  "uncovered_letters": [],
+  "perturbations": {
+    "jaw-chord": {
+      "note": "jaw fillet vertices collapsed onto the nose→facing chord",
+      "fired": [
+        {
+          "id": "L488P-CP-R-JAW-1",
+          "verdict": "FAIL",
+          "measured": 260486.55129513078,
+          "delta": 260465.601
+        },
+        {
+          "id": "L488P-CP-R-JAW-2",
+          "verdict": "FAIL",
+          "measured": 260488.45192685956,
+          "delta": 260467.502
+        },
+        {
+          "id": "L488P-CP-C1",
+          "verdict": "FAIL",
+          "measured": [
+            -245657.729,
+            86006.02
+          ],
+          "delta": 260506.36
+        },
+        {
+          "id": "L488P-CP-C2",
+          "verdict": "FAIL",
+          "measured": [
+            85371.639,
+            -245024.526
+          ],
+          "delta": 260508.261
+        },
+        {
+          "id": "L488P-CP-N1",
+          "verdict": "FAIL",
+          "measured": [
+            635.004,
+            86006.008
+          ],
+          "delta": 84812.341
+        },
+        {
+          "id": "L488P-CP-N2",
+          "verdict": "FAIL",
+          "measured": [
+            85371.639,
+            1270
+          ],
+          "delta": 84812.971
+        },
+        {
+          "id": "L488P-CP-T1",
+          "verdict": "FAIL",
+          "measured": [
+            -51576.199,
+            -65626.615
+          ],
+          "delta": 84812.423
+        },
+        {
+          "id": "L488P-CP-T2",
+          "verdict": "FAIL",
+          "measured": [
+            -66262.102,
+            -50941.58
+          ],
+          "delta": 84813.042
+        },
+        {
+          "id": "L488P-CP-MOUTH",
+          "verdict": "FAIL",
+          "measured": 119835.25521710333,
+          "delta": 119727.305
+        },
+        {
+          "id": "L488P-SP-R-JAW-L",
+          "verdict": "FAIL",
+          "measured": 600.6206455909912,
+          "delta": 592.671
+        },
+        {
+          "id": "L488P-SP-R-JAW-R",
+          "verdict": "FAIL",
+          "measured": 6304.69658046232,
+          "delta": 6296.747
+        },
+        {
+          "id": "L488P-SP-CL",
+          "verdict": "FAIL",
+          "measured": [
+            1111.303,
+            -428.413
+          ],
+          "delta": 594.356
+        },
+        {
+          "id": "L488P-SP-CR",
+          "verdict": "FAIL",
+          "measured": [
+            5606.187,
+            3940.179
+          ],
+          "delta": 6298.432
+        },
+        {
+          "id": "L488P-SP-NL",
+          "verdict": "FAIL",
+          "measured": [
+            635,
+            -428.413
+          ],
+          "delta": 365.929
+        },
+        {
+          "id": "L488P-SP-NR",
+          "verdict": "FAIL",
+          "measured": [
+            635,
+            3940.179
+          ],
+          "delta": 3877.695
+        },
+        {
+          "id": "L488P-SP-TL",
+          "verdict": "FAIL",
+          "measured": [
+            996.074,
+            33.752
+          ],
+          "delta": 365.917
+        },
+        {
+          "id": "L488P-SP-TR",
+          "verdict": "FAIL",
+          "measured": [
+            4403.571,
+            -883.324
+          ],
+          "delta": 3877.726
+        },
+        {
+          "id": "L488P-SP-MOUTH",
+          "verdict": "FAIL",
+          "measured": 4368.592207024982,
+          "delta": 4243.624
+        }
+      ]
+    },
+    "cushion-in-3mm": {
+      "note": "cushion class translated 3 mm toward the bed",
+      "fired": [
+        {
+          "id": "L488P-CP-NOSE-Y",
+          "verdict": "FAIL",
+          "measured": 1267,
+          "delta": 3
+        },
+        {
+          "id": "L488P-CP-R-JAW-1",
+          "verdict": "FAIL",
+          "measured": 22.771817056393246,
+          "delta": 1.822
+        },
+        {
+          "id": "L488P-CP-C1",
+          "verdict": "FAIL",
+          "measured": [
+            657.649,
+            1189.95
+          ],
+          "delta": 4.088
+        },
+        {
+          "id": "L488P-CP-C2",
+          "verdict": "FAIL",
+          "measured": [
+            558.669,
+            1287.948
+          ],
+          "delta": 3.002
+        },
+        {
+          "id": "L488P-CP-N1",
+          "verdict": "FAIL",
+          "measured": [
+            634.998,
+            1190.01
+          ],
+          "delta": 3.658
+        },
+        {
+          "id": "L488P-CP-N2",
+          "verdict": "FAIL",
+          "measured": [
+            558.669,
+            1267
+          ],
+          "delta": 3
+        },
+        {
+          "id": "L488P-CP-T1",
+          "verdict": "FAIL",
+          "measured": [
+            639.736,
+            1203.944
+          ],
+          "delta": 2.638
+        },
+        {
+          "id": "L488P-CP-T2",
+          "verdict": "FAIL",
+          "measured": [
+            571.566,
+            1271.441
+          ],
+          "delta": 3
+        },
+        {
+          "id": "L488P-SP-NOSE-X",
+          "verdict": "FAIL",
+          "measured": 632.1302978946696,
+          "delta": 2.87
+        },
+        {
+          "id": "L488P-SP-CL",
+          "verdict": "FAIL",
+          "measured": [
+            639.941,
+            -62.478
+          ],
+          "delta": 3.009
+        },
+        {
+          "id": "L488P-SP-CR",
+          "verdict": "FAIL",
+          "measured": [
+            639.941,
+            62.478
+          ],
+          "delta": 3.009
+        },
+        {
+          "id": "L488P-SP-NL",
+          "verdict": "FAIL",
+          "measured": [
+            632,
+            -62.499
+          ],
+          "delta": 3
+        },
+        {
+          "id": "L488P-SP-NR",
+          "verdict": "FAIL",
+          "measured": [
+            632,
+            62.499
+          ],
+          "delta": 3
+        },
+        {
+          "id": "L488P-SP-TL",
+          "verdict": "FAIL",
+          "measured": [
+            638.02,
+            -54.772
+          ],
+          "delta": 3.007
+        },
+        {
+          "id": "L488P-SP-TR",
+          "verdict": "FAIL",
+          "measured": [
+            638.02,
+            54.772
+          ],
+          "delta": 3.007
+        },
+        {
+          "id": "L488P-CC-NOSE-X",
+          "verdict": "FAIL",
+          "measured": 633.0570509775001,
+          "delta": 1.943
+        },
+        {
+          "id": "L488P-CC-BACK-X",
+          "verdict": "FAIL",
+          "measured": 683.8546022962223,
+          "delta": 1.945
+        },
+        {
+          "id": "L488P-CC-BAND",
+          "verdict": "FAIL",
+          "measured": 123.64539770377769,
+          "delta": 1.945
+        }
+      ]
+    },
+    "facing-tilt-1deg": {
+      "note": "corner+side facings rotated 1 deg outboard",
+      "fired": [
+        {
+          "id": "L488P-CP-FACING-1",
+          "verdict": "FAIL",
+          "measured": 8.00008707397484,
+          "delta": 1
+        },
+        {
+          "id": "L488P-EV-LEN",
+          "verdict": "FAIL",
+          "measured": 2897.6512378384537,
+          "delta": 2.651
+        },
+        {
+          "id": "L488P-EV-OH-LONG",
+          "verdict": "FAIL",
+          "measured": 178.82561891922683,
+          "delta": 1.326
+        }
+      ]
+    },
+    "nose-up-2mm": {
+      "note": "cushion class raised 2 mm",
+      "fired": [
+        {
+          "id": "L488P-CC-NOSE-H",
+          "verdict": "FAIL",
+          "measured": 38.237,
+          "delta": 1.947
+        }
+      ]
+    },
+    "legs-down-4mm": {
+      "note": "leg+foot classes lowered 4 mm",
+      "fired": [
+        {
+          "id": "L488P-EV-HGT",
+          "verdict": "FAIL",
+          "measured": 804,
+          "delta": 4
+        }
+      ]
+    },
+    "apron-short-6mm": {
+      "note": "apron class bottom raised 6 mm",
+      "fired": [
+        {
+          "id": "L488P-EV-APRON",
+          "verdict": "FAIL",
+          "measured": 204,
+          "delta": 6
+        }
+      ]
+    },
+    "rail-out-4mm": {
+      "note": "rail class translated 4 mm outboard",
+      "fired": [
+        {
+          "id": "L488P-CC-RAIL-OUT",
+          "verdict": "FAIL",
+          "measured": 811.5,
+          "delta": 4
+        },
+        {
+          "id": "L488P-CC-BAND",
+          "verdict": "FAIL",
+          "measured": 125.70000000000005,
+          "delta": 4
+        },
+        {
+          "id": "L488P-EV-LEN",
+          "verdict": "FAIL",
+          "measured": 2903,
+          "delta": 8
+        },
+        {
+          "id": "L488P-EV-WID",
+          "verdict": "FAIL",
+          "measured": 1623,
+          "delta": 8
+        },
+        {
+          "id": "L488P-EV-OH-LONG",
+          "verdict": "FAIL",
+          "measured": 181.5,
+          "delta": 4
+        },
+        {
+          "id": "L488P-EV-OH-SHORT",
+          "verdict": "FAIL",
+          "measured": 176.5,
+          "delta": 4
+        }
+      ]
+    },
+    "sight-shift-5mm": {
+      "note": "sight class translated 5 mm along Y and X",
+      "fired": [
+        {
+          "id": "L488P-SG-INSET",
+          "verdict": "FAIL",
+          "measured": 88.66269444444424,
+          "delta": 5
+        }
+      ]
+    },
+    "aperture-pinch-6mm": {
+      "note": "well+rim bores pulled 6 mm toward their axis",
+      "fired": [
+        {
+          "id": "L488P-CP-FALL-CLEAR",
+          "verdict": "FAIL",
+          "measured": -2,
+          "delta": null
+        },
+        {
+          "id": "L488P-SP-FALL-CLEAR",
+          "verdict": "FAIL",
+          "measured": -2,
+          "delta": null
+        }
+      ]
+    },
+    "long-nose-in-2mm": {
+      "note": "long-rail cushions translated 2 mm inboard in X",
+      "fired": [
+        {
+          "id": "L488P-CP-NOSE-X",
+          "verdict": "FAIL",
+          "measured": 632.9999999999999,
+          "delta": 2
+        },
+        {
+          "id": "L488P-CP-C1",
+          "verdict": "FAIL",
+          "measured": [
+            653.948,
+            1193.669
+          ],
+          "delta": 2.002
+        },
+        {
+          "id": "L488P-CP-N1",
+          "verdict": "FAIL",
+          "measured": [
+            633,
+            1193.669
+          ],
+          "delta": 2
+        },
+        {
+          "id": "L488P-CP-T1",
+          "verdict": "FAIL",
+          "measured": [
+            637.441,
+            1206.566
+          ],
+          "delta": 2
+        },
+        {
+          "id": "L488P-CP-MOUTH",
+          "verdict": "FAIL",
+          "measured": 106.54375582558328,
+          "delta": 1.406
+        },
+        {
+          "id": "L488P-SP-NOSE-X",
+          "verdict": "FAIL",
+          "measured": 632.9999999999999,
+          "delta": 2
+        },
+        {
+          "id": "L488P-SP-CL",
+          "verdict": "FAIL",
+          "measured": [
+            640.941,
+            -62.478
+          ],
+          "delta": 2.009
+        },
+        {
+          "id": "L488P-SP-CR",
+          "verdict": "FAIL",
+          "measured": [
+            640.941,
+            62.478
+          ],
+          "delta": 2.009
+        },
+        {
+          "id": "L488P-SP-NL",
+          "verdict": "FAIL",
+          "measured": [
+            633,
+            -62.478
+          ],
+          "delta": 2
+        },
+        {
+          "id": "L488P-SP-NR",
+          "verdict": "FAIL",
+          "measured": [
+            633,
+            62.478
+          ],
+          "delta": 2
+        },
+        {
+          "id": "L488P-SP-TL",
+          "verdict": "FAIL",
+          "measured": [
+            639.02,
+            -54.772
+          ],
+          "delta": 2.007
+        },
+        {
+          "id": "L488P-SP-TR",
+          "verdict": "FAIL",
+          "measured": [
+            639.02,
+            54.772
+          ],
+          "delta": 2.007
+        },
+        {
+          "id": "L488P-CC-NOSE-X",
+          "verdict": "FAIL",
+          "measured": 633,
+          "delta": 2
+        },
+        {
+          "id": "L488P-CC-BACK-X",
+          "verdict": "FAIL",
+          "measured": 683.8,
+          "delta": 2
+        },
+        {
+          "id": "L488P-CC-BAND",
+          "verdict": "FAIL",
+          "measured": 123.70000000000005,
+          "delta": 2
+        }
+      ]
+    },
+    "cushion-back-out-2mm": {
+      "note": "long-rail cushion back face pushed 2 mm out",
+      "fired": [
+        {
+          "id": "L488P-CP-FACING-1",
+          "verdict": "FAIL",
+          "measured": 5.820345952881397,
+          "delta": 1.18
+        },
+        {
+          "id": "L488P-SP-FACING-L",
+          "verdict": "FAIL",
+          "measured": 13.423296947901013,
+          "delta": 0.577
+        },
+        {
+          "id": "L488P-SP-FACING-R",
+          "verdict": "FAIL",
+          "measured": 13.423296947900987,
+          "delta": 0.577
+        },
+        {
+          "id": "L488P-CC-BACK-X",
+          "verdict": "FAIL",
+          "measured": 687.8,
+          "delta": 2
+        },
+        {
+          "id": "L488P-CC-WIDTH",
+          "verdict": "FAIL",
+          "measured": 52.799999999999955,
+          "delta": 2
+        },
+        {
+          "id": "L488P-CC-BAND",
+          "verdict": "FAIL",
+          "measured": 119.70000000000005,
+          "delta": 2
+        }
+      ]
+    },
+    "corner-facing2-tilt-1deg": {
+      "note": "corner limb-2 facing rotated 1 deg",
+      "fired": [
+        {
+          "id": "L488P-CP-FACING-2",
+          "verdict": "FAIL",
+          "measured": 6.000087073975131,
+          "delta": 1
+        },
+        {
+          "id": "L488P-EV-LEN",
+          "verdict": "FAIL",
+          "measured": 2900.041085980052,
+          "delta": 5.041
+        },
+        {
+          "id": "L488P-EV-OH-LONG",
+          "verdict": "FAIL",
+          "measured": 180.0205429900259,
+          "delta": 2.521
+        }
+      ]
+    },
+    "side-facing-tilt-1deg": {
+      "note": "both side facings rotated 1 deg",
+      "fired": [
+        {
+          "id": "L488P-SP-FACING-L",
+          "verdict": "FAIL",
+          "measured": 12.999804013581793,
+          "delta": 1
+        },
+        {
+          "id": "L488P-SP-FACING-R",
+          "verdict": "FAIL",
+          "measured": 12.999804013581793,
+          "delta": 1
+        }
+      ]
+    },
+    "aperture-shift-3mm": {
+      "note": "well+rim bores translated 3 mm in X",
+      "fired": [
+        {
+          "id": "L488P-CP-FALL-C",
+          "verdict": "FAIL",
+          "measured": [
+            658.655,
+            1290.655
+          ],
+          "delta": 3
+        },
+        {
+          "id": "L488P-SP-FALL-C",
+          "verdict": "FAIL",
+          "measured": [
+            693.6,
+            0
+          ],
+          "delta": 3
+        }
+      ]
+    },
+    "sight-pitch-3mm": {
+      "note": "sight row stretched to a 320.5 mm pitch",
+      "fired": [
+        {
+          "id": "L488P-SG-SPACING",
+          "verdict": "FAIL",
+          "measured": 320.5,
+          "delta": 3
+        }
+      ]
+    },
+    "sight-shrink-2mm": {
+      "note": "sight discs shrunk 2 mm about their own centres",
+      "fired": [
+        {
+          "id": "L488P-SG-RADIUS",
+          "verdict": "FAIL",
+          "measured": 4.000604937705134,
+          "delta": 1.999
+        }
+      ]
+    }
+  }
+}

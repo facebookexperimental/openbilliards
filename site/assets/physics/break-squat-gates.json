@@ -1,0 +1,185 @@
+{
+  "scenario": "break-squat",
+  "title": "Break squat — square stun break at the pro ceiling (battery E3)",
+  "kernel": "0.1.0+208e1dc4",
+  "anchor": {
+    "recordSha256Normalized": "0b3936ea51462d938b89592c01b50fd8f1caef56f2502378c03d34dd31c37722",
+    "t_contact": 0.0932461,
+    "n_first_cluster": 7,
+    "u_in": 12.915503878,
+    "u_in_mph": 28.891159354,
+    "frac_settle": 0.159208747,
+    "t_settle_read": 0.122942246,
+    "frac_burst": 0.158585934,
+    "dir_off_reversed_deg": 0,
+    "rho_pre": -0.242131382,
+    "cb_hop_apex_dia": 0.019570844,
+    "ke_rack_share": 0.810000161,
+    "ke_cb_share": 0.034790363,
+    "n_events": 158,
+    "duration_s": 5.980046133,
+    "n_pocketed": 0,
+    "cb_scratch": false
+  },
+  "badge": {
+    "line1": "predicted 0.15–0.35 · measured 0.159",
+    "line2": "BREAK SQUAT · HSV B.43 SQUAT BAND (D 0.180) · BATTERY E3 (EXP_E3_BREAK) · U_IN 12.92 M/S (28.9 MPH) · COMPLIANTCHAIN"
+  },
+  "segments": [
+    {
+      "id": "main",
+      "batterySha": "0b3936ea51462d938b89592c01b50fd8f1caef56f2502378c03d34dd31c37722",
+      "videoSha": "0b3936ea51462d938b89592c01b50fd8f1caef56f2502378c03d34dd31c37722",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "t0": 0.09324610004429455,
+        "tSettle": 0.12294224553282682,
+        "tEnd": 0.3732461000442946,
+        "uIn": 12.915503877617821,
+        "uInMph": 28.891159354012665,
+        "fracSettle": 0.1592087466327352,
+        "fracBurst": 0.158585934,
+        "cbStart": [
+          0,
+          -0.635
+        ],
+        "contact": [
+          0,
+          0.57785
+        ],
+        "cbAtEnd": [
+          7.62605532974573e-15,
+          0.005294915022500681
+        ],
+        "cbRetreatAtEnd": 0.5725550849774993,
+        "cbSpeedAtEnd": 2.034299722343106,
+        "vMaxRackBurst": 6.932369163762093,
+        "firstRackCushionT": 0.190345161683,
+        "postWindowSaga": "CB touches the head cushion at 0.9954 s and the trailing 1-ball first kisses it at 1.0086 s (kiss-tag until CB rest at 2.9252 s, pos [0.000001, -0.925543]) — all OUTSIDE the video window by construction; the 1-ball and 9-ball trail the CB up the symmetric center line inside the window (real seed-0 square-break physics, visible and disclosed).",
+        "minPairMm": 57.14999999999926,
+        "minPairAt": 0.2982905742008776,
+        "minPair": [
+          9,
+          8
+        ]
+      },
+      "plan": {
+        "frames": 608,
+        "outputSec": 10.133333333333333,
+        "maxCutlessStepRatio": 1.074486763803146,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              101,
+              125
+            ]
+          ],
+          "deliveredFrames": 584,
+          "deliveredSec": 9.733333333333333,
+          "firstReplayFrame": 101,
+          "recoveredFrames": 42,
+          "dissolveS": 0.4
+        }
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 2,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 0.30000000000000004,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 2.4705882352941178,
+        "wanted": 2.4705882352941178,
+        "dropSec": 0.36428571428571427,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.30000000000000004,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "28.9 mph",
+              "square stun break · pro ceiling"
+            ],
+            "availSec": 0.8666666666666667,
+            "spanSec": 1.4,
+            "entrySec": 1.02,
+            "exitSec": 0.38,
+            "scaledSpanSec": 0.5666666666666667,
+            "settledSec": 0.30000000000000004,
+            "needScale": 2.4705882352941178,
+            "settledFrames": 18
+          },
+          {
+            "text": [
+              "15.9%",
+              "of break speed survives — the squat"
+            ],
+            "availSec": 6.233333333333333,
+            "spanSec": 1.3599999999999999,
+            "entrySec": 0.98,
+            "exitSec": 0.38,
+            "scaledSpanSec": 0.5504761904761905,
+            "settledSec": 5.682857142857143,
+            "needScale": 0.22921348314606738,
+            "settledFrames": 341
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "main",
+      "frames": 608,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "443e3b2032b2bdbd746244c20b653e72199287e9d46f845b1af99a7d6ea88066",
+      "sha256_last": "324d2af0090e5508e23fe57e0cb6bd5b02d723709e043493b3b532021a4969f3"
+    }
+  ],
+  "titleCard": {
+    "value": "Break squat",
+    "claim": "square stun break at the pro ceiling (battery E3)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "b9c121da90da1d913b19b926c4d58c125a9de6a3eb18d9f2a07b32a748e80ebb",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "6f051b0bc36e5e51e806882ac5402b49610e7d60acb5149b193095f3b31c1495"
+  }
+}

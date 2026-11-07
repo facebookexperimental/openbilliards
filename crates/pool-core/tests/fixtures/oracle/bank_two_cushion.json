@@ -1,0 +1,467 @@
+{
+ "format": "openbilliards.oracle.v1",
+ "name": "bank_two_cushion",
+ "description": "Single cue ball driven at 55 deg: right rail then foot rail (two-cushion bank), rolling out to rest.",
+ "provenance": {
+  "generator": "tools/fixtures/dump_pooltool.py",
+  "pooltool_version": "0.6.0",
+  "pooltool_commit": "9a8abfe0da4c3b588dd7779e7f8530123170e742",
+  "resolver_config": {
+   "ball_ball": {
+    "model": "frictional_inelastic",
+    "friction": {
+     "a": 0.009951,
+     "b": 0.108,
+     "c": 1.088,
+     "model": "alciatore"
+    }
+   },
+   "ball_linear_cushion": {
+    "model": "han_2005"
+   },
+   "ball_circular_cushion": {
+    "model": "han_2005"
+   },
+   "ball_pocket": {
+    "model": "canonical"
+   },
+   "stick_ball": {
+    "model": "instantaneous_point_2d",
+    "english_throttle": 1.0,
+    "squirt_throttle": 1.0
+   },
+   "ball_table": {
+    "model": "frictional_inelastic",
+    "min_bounce_height": 0.005
+   },
+   "transition": {
+    "model": "canonical"
+   },
+   "is_3d": false,
+   "resolver_version": 11
+  },
+  "ball_params": {
+   "m": 0.170097,
+   "r": 0.028575,
+   "u_s": 0.2,
+   "u_r": 0.01,
+   "u_sp": 0.0127,
+   "e_b": 0.95,
+   "e_c": 0.85,
+   "f_c": 0.2,
+   "g": 9.81
+  },
+  "cue_params": {
+   "m": 0.567,
+   "tip_radius": 0.0106,
+   "end_mass": 0.0056699
+  },
+  "table": {
+   "preset": "wpa_9ft",
+   "l": 2.54,
+   "w": 1.27,
+   "cushion_height": 0.03629025
+  },
+  "conventions": {
+   "frame": "center-origin, +y toward foot rail; pooltool coords shifted by (-w/2, -l/2)",
+   "phi": "radians in fixtures (pooltool given degrees), 0 = +x",
+   "a": "ShotParams.a/b are cue-tip offsets in units of R, a>0 = right english; pooltool was given contact-point offsets pt_a = -a/(1+tip_radius/R), pt_b = b/(1+tip_radius/R)",
+   "pocketed": "pooltool parks pocketed balls at (pocket.center, -pocket.depth)"
+  }
+ },
+ "scenario": {
+  "balls": [
+   {
+    "id": 0,
+    "x": -0.3,
+    "y": -0.9
+   }
+  ],
+  "shot": {
+   "v0": 3.0,
+   "phi": 0.9599310885968813,
+   "theta": 0.0,
+   "a": 0.0,
+   "b": 0.0,
+   "seed": 4
+  }
+ },
+ "oracle": {
+  "events": [
+   {
+    "t": 0.0,
+    "ids": [
+     0
+    ],
+    "type": "Strike",
+    "post": [
+     {
+      "id": 0,
+      "pos": [
+       -0.3,
+       -0.9,
+       0.028575
+      ],
+      "vel": [
+       2.6472866345491295,
+       3.7807171304063774,
+       0.0
+      ],
+      "avel": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "motion": "Sliding"
+     }
+    ]
+   },
+   {
+    "t": 0.37177569401115124,
+    "ids": [
+     0
+    ],
+    "type": "BallLinearCushion",
+    "index": 11,
+    "post": [
+     {
+      "id": 0,
+      "pos": [
+       0.6064240000000001,
+       0.39450762886321367,
+       0.028575
+      ],
+      "vel": [
+       -1.6834752109247955,
+       2.4616500490090836,
+       0.0
+      ],
+      "avel": [
+       -35.23083379413342,
+       7.600651773431071,
+       -60.78386365846504
+      ],
+      "motion": "Sliding"
+     }
+    ]
+   },
+   {
+    "t": 0.7203419173417089,
+    "ids": [
+     0
+    ],
+    "type": "Transition",
+    "from": "Sliding",
+    "to": "Rolling",
+    "post": [
+     {
+      "id": 0,
+      "pos": [
+       0.114265291501491,
+       1.1801072471146594,
+       0.028575
+      ],
+      "vel": [
+       -1.1404284008246277,
+       2.0459560566257347,
+       0.0
+      ],
+      "avel": [
+       -71.59951204289536,
+       -39.91000527820218,
+       -56.98449182416196
+      ],
+      "motion": "Rolling"
+     }
+    ]
+   },
+   {
+    "t": 0.750330970084203,
+    "ids": [
+     0
+    ],
+    "type": "BallLinearCushion",
+    "index": 8,
+    "post": [
+     {
+      "id": 0,
+      "pos": [
+       0.0800869589755645,
+       1.2414239999999999,
+       0.028575
+      ],
+      "vel": [
+       -1.1704792765722876,
+       -1.657666030196257,
+       0.0
+      ],
+      "avel": [
+       -7.879463084162285,
+       -40.60357744932563,
+       -54.00547146782456
+      ],
+      "motion": "Sliding"
+     }
+    ]
+   },
+   {
+    "t": 1.024519042061989,
+    "ids": [
+     0
+    ],
+    "type": "Transition",
+    "from": "Sliding",
+    "to": "Rolling",
+    "post": [
+     {
+      "id": 0,
+      "pos": [
+       -0.24044371053995933,
+       0.8606613541207073,
+       0.028575
+      ],
+      "vel": [
+       -1.167555833441485,
+       -1.1197169765316297,
+       0.0
+      ],
+      "avel": [
+       39.1851960291034,
+       -40.85934675210797,
+       -51.016821483266696
+      ],
+      "motion": "Rolling"
+     }
+    ]
+   },
+   {
+    "t": 1.341015629514659,
+    "ids": [
+     0
+    ],
+    "type": "BallLinearCushion",
+    "index": 5,
+    "post": [
+     {
+      "id": 0,
+      "pos": [
+       -0.606424,
+       0.5096765605486018,
+       0.028575
+      ],
+      "vel": [
+       0.9288940714462882,
+       -1.0741434565838193,
+       0.0
+      ],
+      "avel": [
+       37.86423126618174,
+       -4.4446284019212685,
+       -49.5957485352815
+      ],
+      "motion": "Sliding"
+     }
+    ]
+   },
+   {
+    "t": 1.4947841363788652,
+    "ids": [
+     0
+    ],
+    "type": "Transition",
+    "from": "Sliding",
+    "to": "Rolling",
+    "post": [
+     {
+      "id": 0,
+      "pos": [
+       -0.48678421175158737,
+       0.344335190971913,
+       0.028575
+      ],
+      "vel": [
+       0.6272085491516629,
+       -1.0763797285401975,
+       0.0
+      ],
+      "avel": [
+       37.66858192616614,
+       21.949555525867467,
+       -47.91967181046165
+      ],
+      "motion": "Rolling"
+     }
+    ]
+   },
+   {
+    "t": 3.065109031210574,
+    "ids": [
+     0
+    ],
+    "type": "BallLinearCushion",
+    "index": 17,
+    "post": [
+     {
+      "id": 0,
+      "pos": [
+       0.43724073511572525,
+       -1.241424,
+       0.028575
+      ],
+      "vel": [
+       0.5912523119850609,
+       0.7646076421433956,
+       0.0
+      ],
+      "avel": [
+       3.836012534667983,
+       20.218083022761437,
+       -27.298604104440393
+      ],
+      "motion": "Sliding"
+     }
+    ]
+   },
+   {
+    "t": 3.1924319157069845,
+    "ids": [
+     0
+    ],
+    "type": "Transition",
+    "from": "Sliding",
+    "to": "Rolling",
+    "post": [
+     {
+      "id": 0,
+      "pos": [
+       0.5122747591615213,
+       -1.1599731535763458,
+       0.028575
+      ],
+      "vel": [
+       0.5873892863823029,
+       0.5148300134801006,
+       0.0
+      ],
+      "avel": [
+       -18.01679837200699,
+       20.556055516441045,
+       -25.91078466342952
+      ],
+      "motion": "Rolling"
+     }
+    ]
+   },
+   {
+    "t": 3.3543645554216432,
+    "ids": [
+     0
+    ],
+    "type": "BallLinearCushion",
+    "index": 14,
+    "post": [
+     {
+      "id": 0,
+      "pos": [
+       0.6064240000000001,
+       -1.0774540200924096,
+       0.028575
+      ],
+      "vel": [
+       -0.46684171041919054,
+       0.5110328348119995,
+       0.0
+      ],
+      "avel": [
+       -17.808012040127448,
+       2.2116787239339004,
+       -23.583544084409255
+      ],
+      "motion": "Sliding"
+     }
+    ]
+   },
+   {
+    "t": 3.4315518085768186,
+    "ids": [
+     0
+    ],
+    "type": "Transition",
+    "from": "Sliding",
+    "to": "Rolling",
+    "post": [
+     {
+      "id": 0,
+      "pos": [
+       0.5762343942644019,
+       -1.0380327151183935,
+       0.028575
+      ],
+      "vel": [
+       -0.31540158757473336,
+       0.5104131517361832,
+       0.0
+      ],
+      "avel": [
+       -17.862227532324862,
+       -11.037675855633665,
+       -22.742203025017844
+      ],
+      "motion": "Rolling"
+     }
+    ]
+   },
+   {
+    "t": 9.547757609714107,
+    "ids": [
+     0
+    ],
+    "type": "Transition",
+    "from": "Rolling",
+    "to": "Stationary",
+    "post": [
+     {
+      "id": 0,
+      "pos": [
+       -0.3882961155418455,
+       0.5228632246944123,
+       0.028575
+      ],
+      "vel": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "avel": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "motion": "Stationary"
+     }
+    ]
+   }
+  ],
+  "final": [
+   {
+    "id": 0,
+    "pos": [
+     -0.3882961155418455,
+     0.5228632246944123,
+     0.028575
+    ],
+    "vel": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "avel": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "motion": "Stationary"
+   }
+  ]
+ }
+}

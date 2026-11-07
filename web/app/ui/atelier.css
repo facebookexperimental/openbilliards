@@ -1,0 +1,2707 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* ui/atelier.css — equipment-atelier chrome leaf (feature 032, program 525
+   S2). Kit leaf per the cache-poison contract: loaded by web/app/atelier.js
+   via a `?v=` stamped <link> (bump ATELIER_CSS_V in atelier.js on EVERY
+   change to this file). Tokens only (--ob-* and --ob-glass-*, ci.yml grep
+   gated); labels wrap or grow, never ellipsize (e2e-ui --audit law).
+   Selectors here are the contracts/atelier.md §3 surface (frozen at S2
+   integration).
+
+   Material: the S1 smoked-glass family (shell.md §6 material note) — the
+   atelier invents no new material language (spec FR-013). Fallback ladder
+   mirrors ui/shell.css: (1) no backdrop-filter support, (2)
+   prefers-reduced-transparency, (3) body.ob-glass-off (the D7 perf-tier
+   gate; coordinator ruling 3 — MATERIAL only, carousel function never
+   degrades) — all rungs land the tinted solid. */
+
+/* ---- host section: the equipment place's card section widens while the
+   atelier is mounted (the .ob-atelier-host class is added by atelier.js at
+   mount; the S1 stub-card degrade keeps the S1 geometry untouched) ------- */
+#ob-shell-cards > section.ob-atelier-host {
+  width: min(430px, calc(100vw - 28px));
+  max-height: calc(100vh - 130px - env(safe-area-inset-top, 0px));
+  display: flex;
+  flex-direction: column;
+}
+/* the shell column is width-capped by shell.css; let the host section
+   escape it without touching the frozen shell sheet */
+#ob-shell-cards > section.ob-atelier-host { position: relative; }
+
+/* GH-534 F1 (QA, HIGH — the S1 ghost class again): the display:flex rule
+   above ties shell.css's own `section[hidden] { display:none }` guard at
+   specificity (1,1,1) and WINS on source order (this sheet loads after
+   ob-shell-css), so the hidden equipment section painted forever after the
+   first atelier mount — an INTERACTIVE ghost over every other place. The
+   host itself needs the same [hidden] kill rule line 34 gives its
+   children: (1,2,1) beats the flex rule regardless of link order. */
+#ob-shell-cards > section.ob-atelier-host[hidden] { display: none; }
+
+/* the S1 stub content retires from view while the atelier owns the section
+   (the pane it fronted migrates HERE — D10 complete-pane rule). The JS sets
+   [hidden], but shell.css's own display rules (.ob-shell-actions
+   display:flex) outrank the UA [hidden] rule — this kill rule restores the
+   law at host scope. The place heading and the atelier itself stand. */
+#ob-shell-cards > section.ob-atelier-host > [hidden] { display: none; }
+
+#ob-atelier {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-3);
+  min-height: 0;
+  font-family: var(--ob-font);
+  color: var(--ob-text-0);
+}
+#ob-atelier[hidden] { display: none; }
+
+/* ---- station carousel (kit leaf mount; degrade = plain kit buttons in
+   the same container — every station reachable in every degrade state) ---
+   GH-534 round 7 (owner directive 2026-08-19): the strip's geometry — the
+   flex row, the sp-2 OPTICAL INSET (the round-3 law + the item-C glow
+   band), the sp-1 gap, scroll-padding, centered content block, pill
+   anatomy, the selected/hover/focus registers and the coarse floor — now
+   rides the ONE kit strip control (kit.css .ob-strip / .ob-strip__seg;
+   behavior in ui/strip.js, the retired ui/carousel.js's successor). This
+   sheet keeps only the strip's VOICE: host-column layout, material, and
+   the §3.4 signage typography. */
+#ob-atelier-carousel {
+  /* GH-534 item C (S2.5 hands-on round 2): flex-none — the host column is
+     height-capped, #ob-atelier has min-height:0, and overflow-x:auto zeroes
+     this box's automatic min-height (the flexbox scroll-container rule), so
+     the strip shrank ALONGSIDE the cards scroller and clipped the selected
+     pill top+bottom (54px rendered 31.45px at 1280x800, 15.8px at 844x390).
+     The cards scroller is the sole shrinker. */
+  flex: none;
+  /* material: the kit .ob-mat-solid rung (atelier.js stamps it on the
+     mount — GH-668 S5 G2, B-EQ02: the 52 % smoke over the scene measured
+     4.42:1 in ko; the band paints nothing of its own here) */
+  box-shadow: var(--ob-el-1);
+  max-width: 100%;
+}
+button.ob-atelier-station {
+  /* secondary strip = 14 sentence case (G7 / ruling R14, GH-668 B-K13 step
+     9): the wide-tracked-caps signage voice this rule carried — the voice
+     that overflowed the strip in de / fr — is gone */
+  font-size: var(--ob-fs-0);
+}
+
+/* ---- station cards (ALL DOM-present; hidden toggles) -------------------- */
+#ob-atelier-cards {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: block;
+  /* GH-534 item C: the active heading's em box must never touch this
+     scrollport's clip edge (see the h3 line-height note below) */
+  padding-top: var(--ob-sp-1);
+  /* GH-525 review visual-audit round 1 (finding 6): the row lists' last
+     visible row was cut at the panel bottom with NO scroll affordance
+     (degrade register; the rail register's cushion/advanced rows share
+     this scroller — one rule covers both). Bottom run-out padding (the F5
+     run-out precedent) keeps the last row breathing. GH-534 round 7: the
+     hand-rolled ALWAYS-ON mask retired — the scroll-edge affordance is now
+     the kit fade law (ui/scrollfade.js + kit.css .ob-scrollfade, attached
+     by atelier.js): fades appear IFF content is clipped in that direction,
+     so at full scroll the last row reads whole with NO fade at all.
+     Settings-register selectors untouched (the modal keeps its own
+     settings-modal.css scroller). */
+  padding-bottom: var(--ob-sp-6);
+}
+#ob-atelier-cards[hidden] { display: none; } /* folded at arrival (G5; the box declares display) */
+#ob-atelier-cards > section[hidden] { display: none; }
+#ob-atelier-cards > section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-2);
+}
+#ob-atelier-cards h3 {
+  margin: 0;
+  font-size: var(--ob-fs-1);
+  font-weight: var(--ob-fw-semi);
+  /* GH-534 item C: --ob-lh-tight (1.2) sits below the bundled Space
+     Grotesk content area (~1.31em), so the em box overflowed the h3 box
+     (negative half-leading) and the scrollport edge shaved the glyphs.
+     --ob-lh-control (1.35) is the rung between tight (1.2) and body (1.5). */
+  line-height: var(--ob-lh-control);
+  color: var(--ob-text-0);
+}
+/* GH-668 S5 G5 (B-EQ05, ruling R13): when the showroom rail is live the
+   host is heading + strip (+ the docked txbar) and AT MOST ONE line under
+   the strip. The h3 said what the selected strip pill already says (strip
+   "Cues" → h3 "Cues" → hint: one fact three times), and the lux note at
+   lighting was a second line under the brightness row (the control row
+   stays, it is not a line). The cues hint is the one line kept; table /
+   cloth / balls carry none (the provenance block is the degrade
+   register's — atelier.js no longer unhides it; its rules below stand for
+   that register). The rules stay on the degrade register (no --rail). */
+.ob-atelier--rail #ob-atelier-cards h3,
+.ob-atelier--rail #ob-atelier-cards .ob-atelier-luxnote { display: none; }
+/* the rail register's cards box carries no row lists (they are the
+   demoted register's) — the finding-6 sp-6 run-out below was for those
+   rows; here it was a blank 56 px pane under the strip at table / cloth /
+   balls (the B-EQ05 crop). sp-1 both ways: the item-C clip law for the
+   first painted child (the cues hint / the table Advanced card). */
+.ob-atelier--rail #ob-atelier-cards { padding-bottom: var(--ob-sp-1); }
+/* GH-1001 F35 (fine register): ONE host height across the five stations.
+   The cards box is one reserved row — the control rung + two hairlines (=
+   the collapsed Advanced card below) — holding the station's one occupant:
+   the cues / cloth / balls hint, the Advanced card, the brightness row; the
+   arrival line holds the same band. A min, never a cap (an opened Advanced
+   grows the host — the user asked for it; leaving the station closes it).
+   Keyed on the fresh module's --onerow marker, never --rail (a cached module
+   wears --rail and has no cloth / balls occupant). Coarse folds / re-homes
+   this box. */
+@media not all and (pointer: coarse) {
+  #ob-atelier.ob-atelier--onerow #ob-atelier-cards > section:not([hidden]) {
+    min-block-size: calc(var(--ob-h-control) + 2px);
+    justify-content: center;
+  }
+  #ob-atelier.ob-atelier--onerow details.ob-atelier-adv { margin-top: 0; padding-block: 0; }
+  #ob-atelier.ob-atelier--onerow details.ob-atelier-adv[open] { padding-bottom: var(--ob-sp-2); }
+  #ob-atelier.ob-atelier--onerow .ob-atelier-brightrow { min-block-size: var(--ob-h-control); }
+  #ob-atelier.ob-atelier--onerow [data-ob="atelier-arrival"]:not([hidden]) {
+    display: flex;
+    align-items: center;
+    min-block-size: calc(var(--ob-h-control) + 2px + 2 * var(--ob-sp-1));
+  }
+}
+/* the arrival line (station null; atelier.js `arrival`): the kit .ob-body
+   role, one line, wraps — never a blank pane under the strip */
+#ob-atelier [data-ob="atelier-arrival"] {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+#ob-atelier [data-ob="atelier-arrival"][hidden] { display: none; }
+#ob-atelier .ob-atelier-hint {
+  margin: 0;
+  /* the kit .ob-body role (atelier.js) — 14 text-1 (B-EQ03, G3) */
+  overflow-wrap: anywhere;
+}
+
+/* ---- option rows (tables / cloths / ball sets / cushion models / cues /
+   fixtures): the settings provenance-card anatomy re-based here (the
+   settings-modal.css recipe is #ob-settings-scoped; the CLASSES carry over
+   so the e2e-ui rolled-own ledger lines stay alive on the atelier walk).
+   SCOPE (GH-668 S5 review r3 P2-2; red-proven S5-R): the rows
+   live in the host column (#ob-atelier) AND, on the coarse register, in
+   the showroom rail's control row — atelier.js homeSecondary re-homes the
+   Table → Advanced disclosure with its cushion rows into #ob-atelier-rail
+   (G2). Scoped to the host alone, the re-homed rows painted as bare boxes
+   (measured 844x390: background transparent, border 0, radius 0 on every
+   row): no hairline, no ground, and the ONE selected register
+   (aria-current: accent line + accent-dim ground) was gone — the current
+   cushion model and a staged pick were indistinguishable on a phone. One
+   scope selector over both mounts, the same declarations (:is() keeps the
+   id weight, so nothing re-orders against the host column's own rules);
+   never a second skin in the rail block below. --- */
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row {
+  border: 1px solid var(--ob-line-0);
+  border-radius: var(--ob-r-m);
+  background: var(--ob-bg-1);
+  /* B-K06 (step 9): clip + a 4 px clip margin so the pick's ONE kit focus
+     ring (outset) paints — never an inset ring variant */
+  overflow: clip;
+  overflow-clip-margin: 4px;
+}
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row + .ob-eq-prov-row { margin-top: var(--ob-sp-1); }
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row[aria-current="true"] {
+  border-color: var(--ob-accent-line);
+  background: var(--ob-accent-dim);
+}
+/* GH-668 S5 G8 (B-EQ08): the degrade-register pick is the kit ROW pill
+   (`ob-btn ob-btn--row ob-btn--ghost`, stamped by atelier.js) — the 44 floor,
+   pad, radius, guarded hover, focus ring and disabled rung are the kit's; the
+   atelier keeps ONLY the row's stacked anatomy (name line over the
+   provenance line) and its text-0 ink inside the bordered list row. */
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__pick {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--ob-sp-1);
+  width: 100%;
+  color: var(--ob-text-0);
+}
+/* STALE-KIT BELT (the ownership ledger mixed-cache rule; the e2e-ui stale-kit lab):
+   a returning client can pair THIS sheet with a cached pre-v028 kit.css that
+   has no .ob-btn--row part — the G8 degrade pick rows (49 on the equipment
+   place) then rendered as nowrap centred pills (gate runner 2026-09-09). The
+   row declarations are restated at the kit's own values so that pairing
+   degrades to the ROW register (wrap / start / mid pole / 44 floor), never
+   to a pill; the token fallbacks cover a stale tokens.css. A belt never
+   states what its kit part does not (shell.css / practice.css wear the same
+   belt on their migrated rows). */
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__pick.ob-btn--row {
+  justify-content: flex-start;
+  min-height: var(--ob-h-coarse, 44px);
+  border-radius: var(--ob-r-m);
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  line-height: var(--ob-lh-control, 1.35);
+  text-align: start;
+  white-space: normal;
+}
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__pick.ob-btn--row .ob-btn__label { white-space: normal; }
+/* LEGACY-MODULE BELT — the reverse of the belt above (GH-668 S5 review r7
+   P2; OWNERSHIP mixed-cache rule: a cached pre-S5 atelier.js
+   under THIS sheet is a SUPPORTED pairing). The pre-S5 module stamps the
+   pick as the bare `ob-eq-prov-row__pick` — no kit part — and G8 moved the
+   whole face to the kit row pill, so under this sheet the legacy pick sat on
+   the UA button face (measured a64f80f1, 844×390 coarse en + de, Table →
+   Advanced: display inline-block, buttonface ground under the ivory ink,
+   2 px outset, min-height 0, cursor default; the host sits in no .ob-panel,
+   so the kit's panel-button recipe never reaches it). The kit ghost ROW
+   pill's face + the coarse floor are restated for EXACTLY the bare class:
+   the fresh module's pick wears .ob-btn--row and never matches (:not) — the
+   live pairing is byte-for-byte the G8 face (arm S5-HF SITES, pairing C).
+   THE LEGACY-RULE LAW: a face this sheet moved onto a kit class the old
+   module never stamps is restated under `.local:not(.kit)`, narrow, at
+   the kit's own values — never a global restyle, never a second skin. */
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__pick:not(.ob-btn--row) {
+  appearance: none;
+  display: flex;
+  justify-content: flex-start;
+  min-height: var(--ob-h-coarse, 44px);
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  border: 1px solid transparent;
+  border-radius: var(--ob-r-m);
+  background: transparent;
+  font: inherit;
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-control, 1.35);
+  text-align: start;
+  white-space: normal;
+  cursor: pointer;
+}
+@media (hover: hover) and (pointer: fine) {
+  :is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__pick:not(.ob-btn--row):hover:not(:disabled) { background: var(--ob-bg-2); }
+}
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__pick:not(.ob-btn--row):active:not(:disabled) { background: var(--ob-bg-3); }
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__pick:not(.ob-btn--row):disabled { cursor: default; color: var(--ob-text-2); }
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__pick:not(.ob-btn--row):focus-visible { outline: none; box-shadow: var(--ob-focus); }
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__name {
+  display: flex;
+  align-items: baseline;
+  gap: var(--ob-sp-2);
+  flex-wrap: wrap; /* badges wrap under long localized names — never clip */
+  font-weight: var(--ob-fw-med);
+  line-height: var(--ob-lh-tight);
+}
+/* GH-668 S5 vfix1 (verifier P2, B-EQ03 miss): the 12 px description rows
+   (the cushion models behind the table Advanced disclosure, the balls
+   dossier) read text-2 on the solid inner card at 4.04:1 glass / 3.99:1
+   solid — under the 4.5:1 floor for text < 18 px (kit law A2). Ink text-1
+   on both registers (a contrast fix); the coarse register's re-homed
+   Advanced lives in the rail — the shared scope above carries it. */
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__desc {
+  font-size: var(--ob-fs--1);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-1);
+  overflow-wrap: anywhere;
+}
+:is(#ob-atelier, #ob-atelier-rail) details.ob-eq-prov-row__details {
+  padding: 0 var(--ob-sp-3) var(--ob-sp-2);
+}
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__details summary {
+  min-height: var(--ob-h-control); /* GH-1001 F36: the control rung (was a 24 px literal under the G10 floor) */
+  cursor: pointer;
+}
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__details summary:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+  border-radius: var(--ob-r-s);
+}
+:is(#ob-atelier, #ob-atelier-rail) .ob-eq-prov-row__text {
+  display: block;
+  margin-top: var(--ob-sp-1);
+  font-size: var(--ob-fs--1);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-1);
+  overflow-wrap: anywhere;
+}
+
+/* Advanced tier (cushion model — coordinator ruling 2: table station,
+   behind the disclosure; GH-523 plain-language-first law) */
+#ob-atelier details.ob-atelier-adv,
+#ob-atelier [data-ob="atelier-prov"] {
+  /* the inner card (G3): the kit .ob-mat-solid rung (atelier.js) + the
+     pane's hairline / radius / pad — the disclosure rows and the provenance
+     block (its dossier text-1 12 px read the balls scene through the pane
+     at 3.35:1) never read the table scene through the pane glass again;
+     R13 / G5 hides the prov block on the live-rail register */
+  margin-top: var(--ob-sp-2);
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-m);
+}
+/* the summary's control anatomy + the kit focus ring + the body's gap follow
+   the rows' shared scope (P2-2): the re-homed summary in the rail wore the
+   UA outline. The inner-card BOX rule above stays host-only on purpose —
+   the rail's compact control row owns the disclosure's box (vfix1's 50 px
+   row budget at 667x375; the coarse block sets its margin / flex). */
+:is(#ob-atelier, #ob-atelier-rail) details.ob-atelier-adv > summary {
+  min-height: var(--ob-h-control); /* GH-1001 F36: the control rung (was 32) */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+:is(#ob-atelier, #ob-atelier-rail) details.ob-atelier-adv > summary:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+  border-radius: var(--ob-r-s);
+}
+:is(#ob-atelier, #ob-atelier-rail) details.ob-atelier-adv > div { margin-top: var(--ob-sp-1); }
+
+/* ---- cloth color chips (GH-229 swatch register, atelier-scoped skin).
+   GH-525 S2.5 item B: the chip block lives in the RAIL's secondary row
+   while the card rail is live (sub-axis of the focused cloth — design
+   note §3.6) and in the section on the degrade register — every selector
+   carries both mounts. */
+#ob-atelier [data-ob="atelier-cloth-colors"],
+#ob-atelier-rail [data-ob="atelier-cloth-colors"] {
+  display: flex;
+  gap: var(--ob-sp-2);
+  flex-wrap: wrap;
+}
+/* the [hidden] belt this display owes (the kit idiom): atelier.js hides the
+   chip block off-cloth, and since GH-668 S5 G2 the rail's secondary row is
+   LIVE at cues / lighting / table on the coarse register (the re-homed
+   controls) — without the belt the id-weighted flex beat the UA rule and
+   the swatches painted in the cues row (found by the G4 stills; S5-P now
+   asserts no swatch paints off-cloth). */
+#ob-atelier [data-ob="atelier-cloth-colors"][hidden],
+#ob-atelier-rail [data-ob="atelier-cloth-colors"][hidden] { display: none; }
+#ob-atelier .ob-cloth-chip,
+#ob-atelier-rail .ob-cloth-chip {
+  width: var(--ob-h-coarse); /* the GH-229 swatch instrument: a 44 square on both registers */
+  height: var(--ob-h-coarse);
+  padding: 0;
+  border-radius: var(--ob-r-m);
+  border: 2px solid var(--ob-line-1);
+  background: var(--ob-bg-0);
+  cursor: pointer;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+/* B-K15 (G8): the swatch hover rides the hover / fine-pointer guard */
+@media (hover: hover) and (pointer: fine) {
+  #ob-atelier .ob-cloth-chip:hover,
+  #ob-atelier-rail .ob-cloth-chip:hover { border-color: var(--ob-line-2); }
+}
+#ob-atelier .ob-cloth-chip:focus-visible,
+#ob-atelier-rail .ob-cloth-chip:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+}
+#ob-atelier .ob-cloth-chip[aria-checked="true"],
+#ob-atelier-rail .ob-cloth-chip[aria-checked="true"] {
+  border-color: var(--ob-accent); /* G9 / R1: keyline only — the glow is the
+                                     place rail's (GH-668 B-K09, step 9) */
+}
+#ob-atelier .ob-cloth-chip canvas,
+#ob-atelier-rail .ob-cloth-chip canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* the '' factory chip: CSS-drawn "no override" slash — never a felt claim */
+#ob-atelier .ob-cloth-chip--factory,
+#ob-atelier-rail .ob-cloth-chip--factory {
+  background:
+    linear-gradient(135deg, transparent 46%, var(--ob-line-2) 46%,
+      var(--ob-line-2) 54%, transparent 54%);
+}
+/* the sub-row label ("Colour") + the Advanced summary: control role (kit
+   .ob-control) in text-1 — the caps voice read 1.93:1 over the felt (B-EQ03) */
+#ob-atelier .ob-atelier-sublabel,
+#ob-atelier-rail .ob-atelier-sublabel { color: var(--ob-text-1); }
+
+/* ---- preview transaction bar (GH-534 owner ruling R3, 2026-08-16) -------
+   Visible exactly while a swap transaction is staged: [Previewing] note +
+   Put back + Keep. GH-668 S5 G1 (B-EQ01, ruling R12): on the healthy
+   register the bar is the showroom rail's FIRST row (atelier.js docks it
+   on the cardrail leaf's arrival); the leaf-absent degrade keeps it in the
+   host column — ONE unscoped selector serves both homes. Kit parts carry
+   the voice (.ob-body note, .ob-badge--accent, .ob-btn--ghost / --primary
+   pills; the kit auto-row belt judges wrap); the sheet states only the
+   container: a card-pole row on the solid rung — it sits over lit felt
+   now, so the accent voice lives in the badge + keyline, not a wash. */
+[data-ob="atelier-txbar"] {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-2);
+  width: 100%;
+  max-width: 100%;
+  padding: var(--ob-sp-2);
+  border-radius: var(--ob-r-m);
+  border: 1px solid var(--ob-accent-line);
+  background: var(--ob-glass-solid);
+}
+[data-ob="atelier-txbar"][hidden] { display: none; }
+/* docked in the rail (the healthy register) the bar PINS at the top of the
+   rail's scroll band: the coarse rail yields to the host by scrolling (below)
+   and the transaction must never scroll away under the cards / chips */
+#ob-atelier-rail > [data-ob="atelier-txbar"] {
+  position: sticky;
+  top: 0;
+  z-index: var(--ob-z-raised);
+  /* GH-668 S5 review r4b (r3 TASTE, legibility law): pinned over the
+     scrolled rows the bar is an ACTION FOOTER in the kit's material
+     ladder — its ground is the opaque rung (.ob-mat-opaque = --ob-bg-1,
+     alpha 1), never the 94 % glass the Advanced summary label read
+     through above the revealed staged row; the in-host home (fine, no
+     rows beneath) keeps the glass-solid rung */
+  background-color: var(--ob-bg-1);
+}
+.ob-atelier-txnote {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ob-sp-2);
+  overflow-wrap: anywhere;
+}
+.ob-atelier-txnote > .ob-badge,
+.ob-atelier-txnote > .ob-status { flex: 0 0 auto; }
+/* the card counter rides the seated note in the caps voice, without the badge's no-wrap: it keeps one line and
+   never shrinks, so a squeezed note overflows where fitTxBarV4 sees it instead of wrapping the count */
+.ob-atelier-txnote > [data-ob="atelier-rail-count"] { flex: 0 0 auto; white-space: nowrap; }
+/* GH-1001 (C): the STATE marker — "Previewing" on the bar, "Equipped" on a
+   card — is the kit .ob-status primitive (the UI-audit kit foundation: caps
+   role in accent ink led by a 6 px accent dot; no fill, no hairline, no
+   radius — a live state, never the pill voice that read as a third button
+   beside Put back / Keep). atelier.js stamps it on the kit caps role too
+   (.ob-caps: size / weight / tracking / case + the CJK arm come from
+   kit.css, never restated here). This sheet restates only the primitive's
+   box and dot at ZERO specificity (:where) so a kit.css that carries
+   .ob-status wins whatever the load order and a kit without it (the
+   mixed-cache law) still paints the marker; the accent ink is scoped to the
+   two homes (it must outrank the caps role's text-2); the [hidden] belt
+   composes (the fit ladder's yield step hides the bar's marker; the leaf
+   hides an un-equipped card's tick) — the CASCADE LAW, never source order. */
+:where(.ob-status) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ob-sp-1);
+  line-height: var(--ob-lh-body);
+  white-space: nowrap;
+}
+:where(.ob-status)::before {
+  content: "";
+  flex: none;
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-accent);
+}
+[data-ob="atelier-txbar"] .ob-status,
+#ob-atelier-rail .ob-cardrail-tick.ob-status { color: var(--ob-accent-text); }
+#ob-atelier-rail .ob-status[hidden],
+[data-ob="atelier-txbar"] .ob-status[hidden] { display: none; }
+/* the marker sits on the pill row's centre line (the bar is a flex / grid
+   row of 40 / 44 px pills; the marker is its own line box tall) */
+[data-ob="atelier-txbar"] .ob-atelier-txnote > :is(.ob-status, [data-ob="atelier-rail-count"]) { align-self: center; }
+/* GH-1001 (B1, sign-off card 32): FULL VIEW — atelier.js setClear writes
+   html.ob-atelier-clear while a staged preview is looked at whole: the host
+   card and every rail row but the bar leave paint, hit-testing and the
+   focus walk (visibility: hidden after the kit fade) — the rows keep their
+   boxes, so the bar never moves; its full-view pill names the way back. The
+   return is instant (the base state carries no transition). */
+html.ob-atelier-clear #ob-shell-cards > section.ob-atelier-host,
+html.ob-atelier-clear #ob-atelier-rail > :not([data-ob="atelier-txbar"]) {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--ob-t-med) var(--ob-ease), visibility 0s linear var(--ob-t-med);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.ob-atelier-clear #ob-shell-cards > section.ob-atelier-host,
+  html.ob-atelier-clear #ob-atelier-rail > :not([data-ob="atelier-txbar"]) { transition: none; }
+}
+/* #1191 follow-up (review's batch-8 review, P2): FULL VIEW's WRAPPERS leave hit-testing too — the rail's own box
+   and the shell's cards column kept pointer events over the cleared region (the rail always; the column off the
+   phone's bartop layout, which clears it already), so wheel zoom, orbit drags and scene taps landed on invisible
+   boxes. The bar and the column's other children keep their own targets */
+html.ob-atelier-clear #ob-atelier-rail { pointer-events: none; }
+html.ob-atelier-clear #ob-shell-cards { pointer-events: none; }
+html.ob-atelier-clear #ob-atelier-rail > [data-ob="atelier-txbar"],
+html.ob-atelier-clear #ob-shell-cards > :not(section.ob-atelier-host) { pointer-events: auto; }
+[data-ob="atelier-txbar"] .ob-btn { flex: 0 0 auto; }
+/* coarse: the rail floor is 288px — note + two pills is two rows BY DESIGN
+   (note across, pills trailing), never the squeezed-note blob (GH-667) */
+/* GH-668 S5 vfix1 (verifier P1 / ruling R-EQ-P1): ONE row on coarse — the
+   badge leads, the two pills trail; the sentence is the fine register's
+   (the 92 px two-row bar sat over the staged card in the 140 px band). The
+   bar is 50 px (44 pt pills + 2 px pads + hairlines) and TAKES THE STATION
+   CONTROL ROW'S SLOT while a preview is staged (atelier.js syncRailCount
+   hides the sub row on coarse) — the rail is two rows, [bar | control row]
+   over [cards], never over the card; the base sticky-top pin stands for the
+   scroll belt's last resort. atelier.js fitTxBar climbs the bar's FIT
+   LADDER by measure (vfix2, re-verifier P1 R-1): pills at the strip's pad
+   floor (--tight) → labels at the caption size (--small) → the badge yields
+   (hidden) — judged on the NOTE CELL / the badge-vs-pill geometry, never on
+   the bar's own overflow: the note track is min-width 0, so the grid never
+   overflows and the badge overflowed its cell over the Put-back pill (de /
+   es at 844 and 667). Labels never truncate (kit nowrap). */
+@media (pointer: coarse) {
+  [data-ob="atelier-txbar"] {
+    display: grid;
+    /* GH-1001 B1: the full-view pill's column before Put back (an empty
+       auto track when a stale dictionary leaves the pill out) */
+    grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+    grid-template-areas: "note . view back keep";
+    gap: var(--ob-sp-1);
+    padding: calc(var(--ob-sp-1) / 2);
+  }
+  [data-ob="atelier-txbar"] .ob-atelier-txnote { grid-area: note; display: flex; min-width: 0; }
+  /* GH-1001: the state marker owns no pad of its own (the badge did) — the
+     note cell restores the bar's sp-2 inset on the 2 px-padded grid form */
+  [data-ob="atelier-txbar"] .ob-atelier-txnote { padding-inline-start: calc(var(--ob-sp-2) - var(--ob-sp-1) / 2); }
+  [data-ob="atelier-txbar"] .ob-atelier-txnote__text { display: none; }
+  [data-ob="atelier-txbar"] [data-ob="atelier-view"] { grid-area: view; }
+  [data-ob="atelier-txbar"] [data-ob="atelier-revert"] { grid-area: back; }
+  [data-ob="atelier-txbar"] [data-ob="atelier-keep"] { grid-area: keep; }
+}
+/* G10 COARSE FLOOR BELT (the design charter G10: "every kit control's coarse floor
+   is --ob-h-coarse"; kit table row .ob-btn = 40 / 44). kit.css at this tip
+   floors only --row / --icon / the prompt's actions on the coarse register
+   (`html.ob-touch .ob-prompt__actions .ob-btn:not(.ob-btn--row)`), not the
+   bare pill — GH-668 kit follow-up K-7. Until it lands the txbar pills
+   restate the kit's own prompt-action values (height + the pad that
+   tracks it, A6), nothing the part does not state; delete with K-7. */
+@media (pointer: coarse) {
+  [data-ob="atelier-txbar"] .ob-btn:not(.ob-btn--row),
+  #ob-atelier-cue .ob-atelier-actions .ob-btn:not(.ob-btn--row) {
+    /* the cue sheet's Equip / Try it / expand pills joined the belt in
+       GH-668 S5 G5 (they were --row parts before; intrinsic pills now) */
+    min-height: var(--ob-h-coarse);
+    padding-inline: var(--ob-pill-pad-coarse);
+  }
+  /* GH-668 S5 vfix2 (re-verifier P1 R-1): the txbar's two ladder steps —
+     atelier.js fitTxBar writes them by measure (comment at the bar's coarse
+     block above). --tight = the strip's pad floor (ui/strip.js PAD_MIN =
+     sp-3); --small = the kit caption size; the 44 px floor above stands. */
+  [data-ob="atelier-txbar"].ob-atelier-txbar--tight .ob-btn:not(.ob-btn--row) { padding-inline: var(--ob-sp-3); }
+  [data-ob="atelier-txbar"].ob-atelier-txbar--small .ob-btn:not(.ob-btn--row) { font-size: var(--ob-fs--1); }
+}
+/* GH-668 S5 review r4 P2-3 (red-proven S5-X2): the ONE-ROW form
+   is keyed on the MEASURED rail, not the pointer. A fine 800x600 window docks
+   the bar into the rail's 288 px floor (500 px at 1024x640) and the flex
+   sentence form cannot stand there: the note cell shrank to 33 px beside the
+   85 px "Vorschau" badge, the sentence broke one glyph per line (a 417 px
+   bar over the cards, the badge over Put back; ja 81 px, 1024 de 60 px —
+   over the two-row budget). atelier.js fitTxBar keeps the sentence form
+   exactly while the sentence is ONE line box inside its cell and writes
+   --narrow otherwise; the bar then climbs the same ladder the coarse bar
+   climbs (--tight → --small → the badge yields). SAME declarations as the
+   coarse block above — one form, two keys (the media query stays for the
+   mixed-cache law: a stale atelier.js never writes the class, and the coarse
+   bar must not regress to the flex form). The fine pills keep the kit's
+   control height, so the row is 44 px.
+   GH-668 S5 review r8 P2-1 (red-proven S5-X2 HIDE-AFTER): this
+   rule is LATER than `[data-ob="atelier-txbar"][hidden] { display: none }`
+   at the same (0,2,0) specificity, so a bar that went hidden (Keep / Put
+   back) while still wearing --narrow kept its grid: measured served on
+   c34a1bb8, 800x600 de — hidden=true yet display grid, a 288x46 box, both
+   pills painted + focusable, a real Tab walk entered the bar 8 times, at
+   the next station too. Cured at BOTH ends: atelier.js fitTxBar sheds the
+   rungs before its hidden return, and the display rule here composes
+   :not([hidden]) — the hidden state wins by COMPOSITION, not by source
+   order (a later rung rule cannot undo it). CASCADE LAW (OWNERSHIP): a
+   state rule that removes a box from layout / hit-testing is never left to
+   win by source order alone. */
+[data-ob="atelier-txbar"].ob-atelier-txbar--narrow:not([hidden]) {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+  grid-template-areas: "note . view back keep";
+  gap: var(--ob-sp-1);
+  padding: calc(var(--ob-sp-1) / 2);
+}
+[data-ob="atelier-txbar"].ob-atelier-txbar--narrow .ob-atelier-txnote { grid-area: note; display: flex; min-width: 0; padding-inline-start: calc(var(--ob-sp-2) - var(--ob-sp-1) / 2); }
+[data-ob="atelier-txbar"].ob-atelier-txbar--narrow .ob-atelier-txnote__text { display: none; }
+[data-ob="atelier-txbar"].ob-atelier-txbar--narrow [data-ob="atelier-view"] { grid-area: view; }
+[data-ob="atelier-txbar"].ob-atelier-txbar--narrow [data-ob="atelier-revert"] { grid-area: back; }
+[data-ob="atelier-txbar"].ob-atelier-txbar--narrow [data-ob="atelier-keep"] { grid-area: keep; }
+[data-ob="atelier-txbar"].ob-atelier-txbar--narrow.ob-atelier-txbar--tight .ob-btn:not(.ob-btn--row) { padding-inline: var(--ob-sp-3); }
+[data-ob="atelier-txbar"].ob-atelier-txbar--narrow.ob-atelier-txbar--small .ob-btn:not(.ob-btn--row) { font-size: var(--ob-fs--1); }
+/* GH-668 S5 review r4 P2-3, the short-window twin (LOOKED on the fix's own
+   smoke still, 800x600 de): the FINE rail is bottom-anchored and grew
+   upward unbounded — the cloth chips row + the cards already met the host
+   card at 800x600 (rail top 134 vs the card's 139.8) and the docked bar rose
+   56 px under it (bar 84..130): the badge and Put back painted under the
+   station strip, which the F5 mount order paints ABOVE the rail (Put back
+   hit-tested to a strip pill). The coarse rail has yielded to the host
+   through the publisher's measured --ob-eq-host-b since G2; the fine rail
+   now does the same: capped one sp-2 under the host's band, scrolling
+   inside it, the docked bar pinned at its top (G1's sticky rule is
+   unscoped) and every row at its natural height (the cards strip never
+   shrinks to a slot). Wide / tall windows never bind the cap (1440x900:
+   607 px of band for a 384 px rail; 1024x640: 347 for 315). Fallback =
+   today's unbounded band (a stale atelier.js publishes no --ob-eq-host-b —
+   the 0px fallback cancels the term). */
+#ob-atelier-rail {
+  max-height: calc(100vh - var(--ob-shell-reserve-b, calc(78px + env(safe-area-inset-bottom, 0px)))
+    - var(--ob-sp-1) - var(--ob-eq-host-b, 0px) - var(--ob-sp-2));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+#ob-atelier-rail > [data-ob] { flex: 0 0 auto; }
+/* GH-668 S5 review r8 fix round, the fixer's served finding R8-F3 (measured
+   on c34a1bb8 under the integrator's asked pose; red-proven S5-X2 DECISION-
+   UP): the FINE rail's cap above reads the HOST edge only — under a pending
+   in-shell decision the shell seats its prompt at top 90 (GH-698) and the
+   bottom-anchored rail grew up UNDER it: 800x600 de, break_spot pending, a
+   cloth tint staged — rail 161.7..468.2 vs the prompt 90..209.2, the docked
+   bar 256..544 x 161.7..207.7 under the prompt's answer row (bar ∩ prompt
+   7374 px²; Keep and Put back both hit-tested to an ANSWER button: a real
+   click on Keep would have answered the decision). The coarse rail has
+   cleared the same published edge since GH-712 (the block below); the fine
+   rail now reads it too: the cap's host term becomes max(host band, prompt
+   edge) — the same term the coarse rule and atelier.js publishBands use —
+   so the rail's top seats one sp-2 under whichever is lower. Fine register
+   only (the coarse GH-712 rule owns its own geometry); fallback = the host
+   term (a shell that publishes no edge cancels the max). */
+@media not all and (pointer: coarse) {
+  html.ob-shell-decision-up #ob-atelier-rail {
+    max-height: calc(100vh - var(--ob-shell-reserve-b, calc(78px + env(safe-area-inset-bottom, 0px)))
+      - var(--ob-sp-1) - max(var(--ob-eq-host-b, 0px), var(--ob-shell-decision-bottom, 0px)) - var(--ob-sp-2));
+  }
+}
+
+/* ---- lighting station ---------------------------------------------------- */
+#ob-atelier .ob-atelier-brightrow {
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-2);
+}
+/* GH-1001 F33: the label and its live readout join at the row's own gap
+   (two bare inline boxes painted at 0 px); one shared scope — the coarse
+   rail homes this row. The readout reserves its widest form (12ch), so the
+   range never shifts under the finger while dragging; a cached module's lux
+   keeps its badge face (the legacy-rule law: the rule keys on the fresh
+   class missing the badge) */
+:is(#ob-atelier, #ob-atelier-rail) .ob-atelier-brightrow > label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--ob-sp-2);
+  flex: none;
+}
+:is(#ob-atelier, #ob-atelier-rail) [data-ob="atelier-lux"]:not(.ob-badge) {
+  min-inline-size: 12ch;
+  white-space: nowrap;
+  color: var(--ob-text-1);
+}
+#ob-atelier .ob-atelier-brightrow input[type="range"] {
+  flex: 1 1 auto;
+  /* WCAG 2.5.8 fine-pointer floor (build-4 QA law, re-homed with the
+     lighting pane): the range RAIL is the target */
+  min-height: 24px;
+}
+/* GH-1001 (review visual audit r1, TASTE P2): the coarse rail homes this row
+   outside #ob-atelier, where the flex row above never reaches — its two
+   inline boxes sat on the shared baseline (a range's baseline is its bottom
+   edge), so on the wide rail's one line the label + readout hung below the
+   track. Both centre on the line; a narrow rail still wraps them */
+#ob-atelier-rail .ob-atelier-brightrow > label,
+#ob-atelier-rail .ob-atelier-brightrow input[type="range"] { vertical-align: middle; }
+
+/* ---- cues deep surface: spec card + dossier + try-it (#ob-atelier-cue) ---
+   Desktop: a floating glass card on the viewport right, beside the floated
+   inspection cue; phone register overrides below (sheet geometry). */
+#ob-atelier-cue {
+  position: fixed;
+  top: 50%;
+  right: calc(14px + env(safe-area-inset-right, 0px));
+  /* G8: the vertical centring rides the independent `translate` property so
+     the kit mount enter (an inline `transform` tween, B-K22) composes with
+     it instead of replacing it for the enter's 200 ms */
+  translate: 0 -50%;
+  width: min(340px, calc(100vw - 28px));
+  /* GH-534 review visual-audit round-2: the quick-play stack paints ABOVE
+     this card since the F5 mount-order fix — a grown card (both
+     disclosures open) slid its actions behind it. The centered card's
+     bottom edge is 50vh + max-height/2, so this cap keeps it >=12 px
+     above the stack (wrap top ≈ 100vh - 108) at every viewport height;
+     content scrolls internally as before. */
+  max-height: calc(100vh - 240px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  z-index: var(--ob-z-shell);
+  padding: var(--ob-sp-4);
+  border-radius: var(--ob-r-l);
+  border: 1px solid var(--ob-line-1);
+  border-top-color: var(--ob-glass-edge);
+  background-color: var(--ob-glass-solid);
+  background-image: var(--ob-glass-noise);
+  box-shadow: var(--ob-el-2);
+  pointer-events: auto;
+  font-family: var(--ob-font);
+  color: var(--ob-text-0);
+}
+#ob-atelier-cue[hidden] { display: none; }
+/* GH-534 owner ruling R2 (2026-08-16): card morph on selection change — a
+   one-shot re-entry beat so the swap is visible even on the shared mesh
+   (per-id dims/materials are S3). Opacity-only: the desktop transform
+   (translateY -50%) and the phone sheet (transform none) both keep their
+   own geometry. Reduced-motion kills it below. */
+@keyframes ob-atelier-cue-morph {
+  from { opacity: 0.25; }
+  to { opacity: 1; }
+}
+#ob-atelier-cue.ob-atelier-cue--morph {
+  animation: ob-atelier-cue-morph var(--ob-t-med) var(--ob-ease);
+}
+/* GH-534 F5 (QA) / GH-668 S5 G8 (B-EQ08): the explicit dismiss is the kit
+   ICON pill (`ob-btn ob-btn--icon ob-btn--ghost`, the `close` glyph in the
+   .ob-btn__icon slot, `×` text as the guarded-import fallback) — its 34 / 44
+   geometry, guarded hover, focus ring and glyph line box are the kit's; the
+   atelier states only its PLACEMENT (top-right fine, top-left coarse below). */
+#ob-atelier-cue .ob-atelier-cue-close {
+  position: absolute;
+  top: var(--ob-sp-1);
+  right: var(--ob-sp-1);
+}
+/* LEGACY-MODULE BELT (review r7 census, the legacy-rule law above): the
+   pre-S5 ateliercue.js stamps the dismiss as the bare `ob-atelier-cue-close`
+   (its `×` text, no kit part) — measured a64f80f1 under this sheet: a 36×32
+   UA button (buttonface, 2 px outset, no coarse floor). The kit ICON pill's
+   face is restated for exactly the bare class (34 fine / 44 coarse below);
+   the fresh module's close wears .ob-btn--icon and never matches. */
+#ob-atelier-cue .ob-atelier-cue-close:not(.ob-btn--icon) {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ob-h-toolbar);
+  height: var(--ob-h-toolbar);
+  min-height: var(--ob-h-toolbar);
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--ob-r-full);
+  background: transparent;
+  color: var(--ob-text-1);
+  font: inherit;
+  font-size: var(--ob-fs-2);
+  line-height: var(--ob-lh-glyph);
+  cursor: pointer;
+}
+@media (hover: hover) and (pointer: fine) {
+  #ob-atelier-cue .ob-atelier-cue-close:not(.ob-btn--icon):hover { background: var(--ob-bg-2); color: var(--ob-text-0); }
+}
+#ob-atelier-cue .ob-atelier-cue-close:not(.ob-btn--icon):active { background: var(--ob-bg-3); }
+#ob-atelier-cue .ob-atelier-cue-close:not(.ob-btn--icon):focus-visible { outline: none; box-shadow: var(--ob-focus); }
+/* GH-534 owner ruling R2: the distinguishing stat strip (mass · tip · end)
+   — always on the card face; changed values speak in the accent voice */
+#ob-atelier-cue .ob-atelier-statline {
+  margin: 0 0 var(--ob-sp-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ob-sp-1) var(--ob-sp-3);
+}
+#ob-atelier-cue .ob-atelier-stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--ob-sp-1);
+  /* the NUMBERS strip keeps the tight line box (the hero value's rung; the
+     .ob-hint labels carry their own) — measured G8: the card's body line
+     box on the fs-2 value grew the strip 49.6 → 61 px at 1280×800 and slid
+     the Details summary's centre under the sticky footer's Try it pill */
+  line-height: var(--ob-lh-tight);
+  /* GH-525 S2.5 item B (§3.4 retypeset — numbers as heroes): values step
+     up a rung while the labels wear the kit .ob-hint role (12 regular
+     text-2 — legal on this --ob-glass-solid card, G8 / B-EQ08; the caps
+     voice is gone). GH-1001 F32 (the G7 charter, one place size per frame):
+     the step is the TITLE rung (16), no longer the place h2's 19 */
+}
+#ob-atelier-cue .ob-atelier-stat b {
+  font-weight: var(--ob-fw-semi);
+  color: var(--ob-text-0);
+  font-size: var(--ob-fs-1); /* GH-1001 F32 (G7): the title rung; 19 is the place h2's alone */
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+#ob-atelier-cue .ob-atelier-stat--changed b { color: var(--ob-accent-text); }
+@keyframes ob-atelier-stat-flash {
+  from { background: var(--ob-accent-dim-3); }
+  to { background: transparent; }
+}
+/* B-EQ09 (G8): the flash is ONE kit beat (--ob-t-med, under the 320 rung);
+   the accent value is explained on the card face by the delta legend
+   (.ob-atelier-stat__delta = t('atelier.stat.vsEquipped'), ateliercue.js) */
+#ob-atelier-cue .ob-atelier-stat--changed {
+  border-radius: var(--ob-r-s);
+  animation: ob-atelier-stat-flash var(--ob-t-med) var(--ob-ease);
+}
+#ob-atelier-cue .ob-atelier-stat__delta { color: var(--ob-accent-text); }
+#ob-atelier-cue h3 {
+  margin: 0 0 var(--ob-sp-1);
+  display: flex;
+  align-items: baseline;
+  gap: var(--ob-sp-2);
+  flex-wrap: wrap;
+  font-size: var(--ob-fs-1); /* GH-1001 F32 (G7): a card title is the title role (16), not the place size */
+  font-weight: var(--ob-fw-semi);
+  line-height: var(--ob-lh-tight);
+  /* GH-1001 F30: the title row clears the top-right dismiss (its 34 px box
+     at sp-1 from the corner, less the card's sp-4 pad, plus an sp-2 gap) —
+     measured on main at 1280x800: the provenance badge ran 9.4 px under it */
+  padding-right: calc(var(--ob-h-toolbar) + var(--ob-sp-1) + var(--ob-sp-2) - var(--ob-sp-4));
+}
+/* the plain-language layer — FIRST and always (GH-523 owner ruling) */
+#ob-atelier-cue .ob-atelier-plain {
+  margin: 0 0 var(--ob-sp-2);
+  font-size: var(--ob-fs-1);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-1);
+  overflow-wrap: anywhere;
+}
+/* numbers behind the Details expander, collapsed by default */
+#ob-atelier-cue details[data-ob="atelier-details"],
+#ob-atelier-cue details[data-ob="atelier-dossier"] {
+  margin: 0 0 var(--ob-sp-2);
+  border-top: 1px solid var(--ob-line-0);
+  padding-top: var(--ob-sp-2);
+}
+#ob-atelier-cue details > summary {
+  min-height: var(--ob-h-control); /* GH-1001 F36: the control rung (was 32) */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+#ob-atelier-cue details > summary:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+  border-radius: var(--ob-r-s);
+}
+#ob-atelier-cue dl.ob-atelier-spec {
+  margin: var(--ob-sp-2) 0 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--ob-sp-1) var(--ob-sp-3);
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-body);
+}
+#ob-atelier-cue dl.ob-atelier-spec dt { color: var(--ob-text-2); margin: 0; }
+/* GH-525 review visual-audit round 1 (finding 1): the tip-DIAMETER row's
+   look-registry provenance tag (Published/Estimated) rides beside its
+   label in the card's badge voice */
+#ob-atelier-cue dl.ob-atelier-spec dt .ob-badge {
+  margin-inline-start: var(--ob-sp-1);
+}
+#ob-atelier-cue dl.ob-atelier-spec dd {
+  margin: 0;
+  color: var(--ob-text-0);
+  /* GH-525 S2.5 item B (§3.4 retypeset): the two-tone ledger — gray
+     labels left, semibold ivory values right */
+  font-weight: var(--ob-fw-semi);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+  white-space: nowrap;
+}
+#ob-atelier-cue .ob-atelier-dossiertext {
+  display: block;
+  margin-top: var(--ob-sp-2);
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-1);
+  overflow-wrap: anywhere;
+}
+#ob-atelier-cue .ob-atelier-citation {
+  display: block;
+  margin-top: var(--ob-sp-2);
+  font-size: var(--ob-fs--1);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-2);
+  overflow-wrap: anywhere;
+}
+#ob-atelier-cue .ob-atelier-actions {
+  display: flex;
+  gap: var(--ob-sp-2);
+  flex-wrap: wrap;
+}
+/* GH-525 S2.5 capture round 3 (the ledger-fold finding): at the desktop
+   band caps (~360px in the with-rail register at 1280x800) 6/13 cues'
+   collapsed cards run 10-34px over-tall (two-line titles / three-line
+   descriptors) and Equip / Try-it sat HALF-CUT at the arrival scroll fold
+   with no scroll affordance. Fine-pointer register only: the actions row
+   is a PINNED FOOTER of the card — position:sticky at the scrollport's
+   bottom edge, wearing the card's tinted solid so the middle content
+   scrolls beneath it cleanly. Sticky keeps the row IN FLOW, so the
+   run-out is intrinsic: at full scroll the last content line clears the
+   footer at its natural position, and a card that fits keeps the shipped
+   block layout (plus the sp-2 breathing band). The coarse register never
+   matches this block — the GH-534 F4 order-2 fold + F5 sheet laws stay
+   byte-untouched there. */
+@media (pointer: fine) {
+  #ob-atelier-cue .ob-atelier-actions {
+    position: sticky;
+    /* G5: the sticky seat is the card's CONTENT edge (the Q683 finding), so
+       at `bottom: 0` a 16 px strip of scrolled copy peeked out UNDER the
+       footer inside the card's own bottom padding; the negative inset seats
+       the footer flush with the scrollport's edge — nothing under it */
+    bottom: calc(-1 * var(--ob-sp-4));
+    padding-block: var(--ob-sp-2);
+    /* GH-668 S5 G5 (B-EQ05): the footer's ground is the kit .ob-mat-opaque
+       rung (ateliercue.js adds the class on this register) — --ob-bg-1 at
+       alpha 1, the material ladder's "action footers" step — so the spec
+       dl NEVER reads through it (it did through the 94 % glass-solid: the
+       "Endmasse (Squirt) 1.7 g" row bisected with its copy showing under
+       the pills); a hairline marks the cut. Run-out: sticky keeps the row
+       in flow, so at full scroll the dossier's own sp-2 bottom margin is
+       the gap between the last line and the hairline. The kit block fade
+       above (attachScrollFade on the card, band mode) fades toward
+       --ob-glass-solid, one rung lighter than this ground — kit follow-up
+       K-2 (a band colour derived from the host's material rung). */
+    border-top: 1px solid var(--ob-line-0);
+  }
+  /* mixed-cache belt (the ownership ledger): a stale kit.css without .ob-mat-opaque
+     would leave the footer transparent over the dl — the belt restates the
+     kit's own value at (0,0,0), so every kit register outranks it */
+  :where(#ob-atelier-cue .ob-atelier-actions) { background-color: var(--ob-bg-1); }
+  /* GH-683 (S4 journey QA, keyboard-a11y F3): the pinned footer is part of
+     the scroller's INSET. Sticky `bottom: 0` resolves against the card's
+     CONTENT box while scroll-padding measures from the scrollport edge, so
+     the inset is the footer's own height (the 44 px control band + 2 ×
+     sp-2 block padding) PLUS the card's bottom padding (sp-4) = 76 px at
+     the shipped tokens (60 alone left 15.6 px covered, measured), plus an
+     sp-1 breathing band: Chrome lands focus scrolls on whole pixels, so a
+     76 px inset still left a 32 px row 0.4 px under the footer (measured on
+     three cues, arm Q683). Every scroll-into-view — the browser's own
+     focus scroll on Tab, a scrollIntoView reveal — now treats the footer
+     band as outside the visible box: a focused disclosure summary lands
+     WHOLE above the footer, its centre hit-tests to itself (never to Try
+     it), and the focus ring no longer encloses the Equip / Try-it buttons.
+     A card that fits keeps its block layout (no scroll → the padding has
+     no effect); the coarse register never matches this block. GH-668 S5
+     G5: the footer is now 40 (kit control-rung pills) + 2 × sp-2 + the 1 px
+     hairline = 57; the 44 term stays — 4 px MORE inset than the footer
+     needs, never less (the law is a floor). */
+  #ob-atelier-cue {
+    /* G5: the footer is flush with the scrollport edge (above) and its
+       height is MEASURED (ateliercue.js publishes --ob-eq-foot-h on the
+       card: 57 px one row, 105 px when the long locales wrap the pills to
+       two rows) — the inset is the footer + the sp-1 breathing band; the
+       fallback is the one-row footer at the shipped tokens */
+    scroll-padding-bottom: calc(var(--ob-eq-foot-h, 57px) + var(--ob-sp-1));
+  }
+  /* GH-1001: the footer's own pills sit INSIDE that inset band — the sticky
+     footer is always on screen, but a focus scroll measured them against
+     the padded box and scrolled the card to its end on every Tab into the
+     footer (measured 1280x800: Details → dossier → Try it moved the card
+     7 → 27 px, sliding the dossier summary 20 px from under a pointer that
+     had just found it — arm Q683). Their scroll-margin rectangle is lifted
+     by the same inset (outset above, inset below), so it lies in the
+     padded box and the focus scroll is a no-op; nothing else moves. */
+  #ob-atelier-cue .ob-atelier-actions .ob-btn {
+    scroll-margin-block: calc(var(--ob-eq-foot-h, 57px) + var(--ob-sp-1))
+      calc(-1 * (var(--ob-eq-foot-h, 57px) + var(--ob-sp-1)));
+  }
+}
+/* GH-668 S5 G5 (B-EQ05): the pills are INTRINSIC kit parts — Equip the
+   card's one .ob-btn--primary (Equipped = the same primary, disabled), Try
+   it a ghost, the phone expand a ghost — sized by their labels: no flex
+   stretch, no --row voice and no --row belt (the kit controls.js auto-row
+   belt judges wrap itself; S5-A asserts it never fires on the desktop card
+   in 7 locales). The coarse 44 pt floor is the K-7 belt above. */
+
+/* ---- showroom card rail (GH-525 S2.5 item B; design of record
+   docs/research/design-525-carousel-taste.md §3; atelier.md §7 dev 12).
+   BODY-level fixed mount (dev-3 precedent) — bottom-center over the
+   scene, stacked ABOVE the shell place rail; the cards strip is the
+   scroller, the optional secondary row above it hosts the cloth chips.
+   Quick-play iron law: the strip's viewport ends short of
+   #ob-shell-quickplay-wrap's left edge at EVERY width. GH-525 bare review
+   review round-1 (finding 2) re-derivation: the reserve is measured
+   against the WIDEST wrap state — fr with the Remember tick visible
+   measures 247.55px + 14px inset = 261.55px, so the former 260px reserve
+   was 1.55px short even with the strip's border box honest → symmetric
+   266px corner reserve keeps the strip's true (border-box) edge ≥4px
+   clear of the wrap in every locale, and centering is preserved. */
+#ob-atelier-rail {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  /* GH-668 S5 G2 (B-EQ04): anchored to the shell's own bottom reserve
+     (rail band + quick-play stack top + sp-2 — the K05 seam, measured by
+     shell.js) plus an sp-1 breathing band; fallback = the pre-seam literal */
+  bottom: calc(var(--ob-shell-reserve-b, calc(78px + env(safe-area-inset-bottom, 0px)))
+    + var(--ob-sp-1));
+  z-index: var(--ob-z-shell);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ob-sp-1);
+  /* GH-525 bare review review round-2 (finding 4): the bare corner-reserve
+     cap (100vw − 2·266) hits 0 at <= 532px and starved the rail on narrow
+     fine-pointer windows while the healthy rail keeps the fallback rows
+     hidden — equipment selection unavailable. Floored at 288px (the phone
+     floor precedent below). Derivation: the corner-reserve law YIELDS to
+     the floor below the 820px crossover (100vw − 532 >= 288 ⟺ 100vw >=
+     820); under it the rail may enter the reserved corners, which is safe
+     by paint order — #ob-shell (quick-play wrap included) mounts after the
+     rail at equal z-index 8, so the quick-play stack paints ABOVE the band
+     and stays reachable (the F5 mount-order law), and the max-width:700px
+     shell rule lifts the wrap to bottom:80px on exactly these windows. */
+  /* G2: the corner reserve is the seam's quick-play right reserve
+     (--ob-shell-reserve-r, measured; 266 was its hand-cut value), applied
+     symmetrically so the centring holds; 0 while the stack rides ABOVE the
+     rail (stacked register) → the 14px edge inset + the 288 floor stand */
+  max-width: max(288px, calc(100vw - 2 * max(var(--ob-shell-reserve-r, 266px), 14px)));
+  pointer-events: auto;
+  font-family: var(--ob-font);
+  color: var(--ob-text-0);
+}
+#ob-atelier-rail[hidden] { display: none; }
+/* the cards strip: scroll-snap scroller, centered as a group when the
+   cards fit (auto margins on the edge cards — justify-content:center
+   would CLIP the leading cards of an overflowing scroller) */
+[data-ob="atelier-rail-cards"] {
+  /* GH-525 bare review review round-1 (finding 2): the kit's border-box
+     reset covers only .ob-* classes, so this data-ob box computed
+     content-box — max-width:100% PLUS the inline padding made the
+     scrollport's border box 16px wider than the rail cap, eating the
+     documented 260px quick-play reserve down to 252px (fr + the Remember
+     tick overlapped the strip edge). Border box keeps the scrollport's
+     true edge inside the rail cap. */
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  gap: var(--ob-sp-2);
+  max-width: 100%;
+  overflow-x: auto;
+  /* GH-534 owner finding 2026-08-19 ("carousel 的卡片的横向宽度为什么大小
+     不一"): THE UNIFORM CARD-WIDTH LAW — one slot width per rail register;
+     a card's width NEVER derives from its label. Anchor: the baked strip
+     face is 112px (224x112 @2x) + the sp-2 inset rhythm; the anchor
+     YIELDS to the ×7-measured longest two-line label per the law's
+     else-branch — es cues/masse_trick_dwell needs 301px content at a
+     word-boundary wrap (fr 279px, de 276px; sweep 2026-08-19, 7 locales
+     × 5 stations, both registers) → 304px content (301 + 3px
+     break-stability guard). Border-box slot = content + 2·sp-2 inset +
+     2·1px hairline = 322px. */
+  --ob-cardrail-slot: calc(304px + 2 * var(--ob-sp-2) + 2px);
+  /* item-C geometry law: the selected card's keyline/focus ring must
+     READ, never trim at the scroll box (overflow-x computes
+     overflow-y:auto) — block padding reserves the glow band */
+  padding: var(--ob-sp-2);
+  /* GH-525 review visual-audit round 1 (finding 2): native snap targets
+     keep the same edge gap the programmatic clamp in cardrail.js
+     enforces — a selected card always sits fully inside with a visible
+     gap both sides */
+  scroll-padding-inline: var(--ob-sp-2);
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  /* the inline fade + THE PEEK LAW ride the kit leaf (ui/scrollfade.js
+     attachScrollFade + fitPeek, mounted by atelier.js — GH-668 S5 G4,
+     B-EQ04): the strip owns no paint → the kit mask; the leaf writes the
+     component-local --sf-slot (clip − 2 × peek) that sizes the coarse card
+     below and publishes data-ob-rail-k / -n for the count badge. */
+}
+/* the scrollbar hide of BOTH atelier pan scrollers (this strip + the coarse
+   colour row): the kit's only hidden-bar register is .ob-strip's — a
+   bordered pill a paint-less rail cannot wear. ONE selector pair until the
+   GH-668 kit follow-up K-1 (.ob-scroll--hidden, or .ob-scrollfade--inline
+   owning the hide) lands; the token-grep hygiene row for this sheet keeps
+   exactly these two lines (G4, disclosed). */
+[data-ob="atelier-rail-cards"], #ob-atelier-rail [data-ob="atelier-cloth-colors"] { scrollbar-width: none; }
+[data-ob="atelier-rail-cards"]::-webkit-scrollbar, #ob-atelier-rail [data-ob="atelier-cloth-colors"]::-webkit-scrollbar { display: none; }
+#ob-atelier-rail .ob-cardrail-card:first-child { margin-inline-start: auto; }
+#ob-atelier-rail .ob-cardrail-card:last-child { margin-inline-end: auto; }
+/* card: the kit .ob-card-option PART on the solid rung (atelier.js stamps
+   .ob-card-option + .ob-mat-solid on every card of THIS mount — GH-668 S5
+   G3, B-EQ03): ground, hairline, ink, the B-K15 hover / active ladder, the
+   G9 selected register (dim-3 fill + accent hairline + accent ink, no glow
+   — R1), the disabled dim and the focus ring are the kit's. This sheet
+   keeps only the atelier VOICE on top of the part: column anatomy, the
+   slot width, the strip snap, the thumb well, the turntable, the staged
+   keyline. Every selector is scoped to #ob-atelier-rail — play.js consumes
+   the same leaf on its own mount and this sheet stays link-injected after
+   the first equipment visit (PLAN §6: the unscoped rule painted the play
+   rail by accident).
+   GH-534 uniform card-width law (owner finding 2026-08-19, supersedes the
+   entry-12 "card GROWS" register): every card rides the register's ONE slot
+   width and the name WRAPS inside it (≤2 lines at the slot by derivation;
+   never ellipsizes — the ×7 no-truncation law stands). min(slot, 100%)
+   keeps the card inside the scrollport at the 288px rail floor (the
+   review-r1 finding-2 clipped-card class); a viewport-capped card keeps the
+   wrap-unbounded register. Focus = luminance + keyline, never scale (§3.3):
+   the unselected card dims its THUMB only (below) — the name is a decision
+   label and keeps full ink (B-EQ03: 3.00:1 measured under the old 0.72
+   card opacity). */
+/* mixed-cache belt (OWNERSHIP mixed-cache rule; PLAN §5 risk 3): a STALE
+   kit.css without the .ob-card-option part would leave the card paintless
+   over the felt — the B-EQ03 defect returning. :where() zeroes the scope so
+   this line sits at the PART's own specificity (0,1,0), later in the
+   cascade: it repeats the part's base values and LOSES to every kit
+   register (hover / active / selected / disabled / focus) by specificity —
+   it states what the part states, nothing more. */
+:where(#ob-atelier-rail) .ob-cardrail-card {
+  appearance: none;
+  display: flex;
+  font: inherit;
+  text-align: start;
+  color: var(--ob-text-0);
+  background-color: var(--ob-glass-solid);
+  border: 1px solid var(--ob-line-1);
+  cursor: pointer; /* radius = the kit .ob-card-option part's (G8: no restatement) */
+}
+#ob-atelier-rail .ob-cardrail-card {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  flex-direction: column;
+  align-items: stretch;
+  /* GH-1001 (the 2026-10-09 equal-height law, atelier.md §7 B20-1): the
+     card's content is TOP-anchored and the meta row is pinned to its foot
+     (margin-top: auto, below) — the old flex-end anatomy sank every face /
+     name by the height a card's meta row did not have (measured on main:
+     the lighting rail's chip-less cards 4 px low against every other
+     station) */
+  justify-content: flex-start;
+  gap: var(--ob-sp-1);
+  width: min(var(--ob-cardrail-slot), 100%);
+  min-height: 104px;
+  /* the GH-534 slot (322) was derived on a 16 px inset — the part's sp-3
+     inline pad cost the 8 px that wrapped es/masse_trick_dwell to 3 lines
+     (arm W); the inset stays the atelier's */
+  padding: var(--ob-sp-2);
+}
+/* the SELECTED card: the kit G9 register (dim-3 wash + accent hairline +
+   accent ink) COMPOSED over the solid rung on the same element. The part
+   assumes a pane beneath it (its 36 % accent wash replaces the element's
+   own background-color); the rail owns no paint — this card is the ONE
+   blur-free layer over the felt — so the wash alone read the lit cloth
+   through it (S5-C measured the selected name at 1.43:1, the equipped
+   badge 1.48:1). Two kit tokens, one element; the register is unchanged
+   (GH-668 kit follow-up K-8: the part should carry its own solid under the
+   wash so a card outside a pane keeps the ladder). */
+#ob-atelier-rail .ob-cardrail-card[aria-selected="true"] {
+  background-color: var(--ob-glass-solid);
+  background-image: linear-gradient(var(--ob-accent-dim-3), var(--ob-accent-dim-3)),
+                    var(--ob-glass-noise);
+}
+/* the STAGED card = the kit G9 register said once: accent keyline +
+   --ob-accent-dim-3 fill, nothing else — the "previewing" state is spoken
+   ONCE per frame by the txbar badge (G1), so the card carries no second chip
+   (B-EQ08 / G8). Focus composes ring OUTSIDE, keyline inside: the kit's
+   selected-card inset hairline is not re-drawn under the ring here. */
+#ob-atelier-rail .ob-cardrail-card.ob-cardrail-card--staged {
+  border-color: var(--ob-accent-line);
+  background-color: var(--ob-glass-solid);
+  background-image: linear-gradient(var(--ob-accent-dim-3), var(--ob-accent-dim-3)),
+                    var(--ob-glass-noise);
+}
+#ob-atelier-rail .ob-cardrail-card.ob-cardrail-card--staged:focus-visible {
+  box-shadow: var(--ob-focus);
+}
+/* the unselected card dims its THUMB, never its label (B-EQ03) — one
+   luminance step + a touch of desaturation on the well; the selected card's
+   face carries full luminance (§3.3) */
+#ob-atelier-rail .ob-cardrail-card:not([aria-selected="true"]) .ob-cardrail-thumb {
+  opacity: 0.72;
+  filter: saturate(0.85);
+}
+#ob-atelier-rail .ob-cardrail-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  /* geometry reservation (review-P2 remedial round): baked media attaches
+     ASYNC (probe-first) — without a reserved well width the card grew on
+     attach, reflowing the strip mid-interaction (a real click-race class:
+     a coordinate click computed pre-attach landed on the neighbor). 112px
+     = the strip-frame face width. */
+  min-width: 112px;
+  border-radius: var(--ob-r-s);
+  /* GH-525 review visual-audit round 1 (finding 4): dark silhouettes
+     (carbon_ld's matte-charcoal blank) vanished on the flat --ob-bg-0
+     well — a soft radial lift toward --ob-bg-2 keeps a neutral backdrop
+     behind every finish (tokens only; the §3.3 sibling desaturation and
+     selected full-luminance rules stand untouched). */
+  background: radial-gradient(120% 95% at 50% 32%,
+    var(--ob-bg-2), var(--ob-bg-0) 85%);
+  overflow: hidden;
+  pointer-events: none;
+}
+#ob-atelier-rail .ob-cardrail-thumb[hidden] { display: none; }
+#ob-atelier-rail .ob-cardrail-thumb img,
+#ob-atelier-rail .ob-cardrail-thumb canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  /* the §3.3 sibling dim lives on the WELL (one rule above) — the media
+     carries no filter of its own (G3) */
+}
+#ob-atelier-rail .ob-cardrail-thumb img[hidden],
+#ob-atelier-rail .ob-cardrail-thumb canvas[hidden] { display: none; }
+/* ---- baked REAL-render turntable faces (owner directive 2026-08-18):
+   horizontal sprite strips (--ob-spin-frames frames), frame 0 as the
+   static face; ONLY the --live card (atelier.js: hover ?? focus, one at
+   a time, D7 low tier off) animates — a steps(N-1) walk over the strip.
+   Reduced motion pins the static face (and hides the cue overlay so the
+   shipped still stays the read). */
+#ob-atelier-rail .ob-cardrail-spin {
+  display: block;
+  width: 112px;
+  height: 56px;
+  border-radius: var(--ob-r-s);
+  background-repeat: no-repeat;
+  background-size: calc(var(--ob-spin-frames, 30) * 100%) 100%;
+  background-position-x: 0%;
+}
+/* ---- ISOLATED PRODUCT-RENDER register (owner design revision 2026-08-18;
+   atelier.md §7 isolated product-render entry): the tables/balls strips and
+   the cloth swatch still are ALPHA renders — the object alone floating on
+   the card well. A SUBTLE drop shadow grounds the float (explicitly allowed
+   + noted by the revision brief); it follows the alpha silhouette, so it is
+   scoped to the alpha media only — venue lighting stills stay opaque
+   rectangles and never grow one, and the glyph-degrade tiles keep the
+   plain register. */
+#ob-atelier-rail .ob-cardrail-spin:not(.ob-cardrail-spin--overlay),
+#ob-atelier-rail .ob-cardrail-thumb img.ob-thumb-alpha {
+  filter: drop-shadow(var(--ob-el-float));
+}
+/* the CUE rotation overlay keeps the shipped cue-card register exactly
+   (no shadow bleed onto the still beneath it — the cues station is the
+   register this revision matches, not one it edits) */
+#ob-atelier-rail .ob-cardrail-spin--overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: 100%;
+  /* the cue strip's frame is the 2:1 face itself (224x112 @2x, G7 B-EQ07
+     face register — bake-cue-thumbs.mjs --frame face); it fills the well */
+  aspect-ratio: 2 / 1;
+  max-width: 100%;
+  opacity: 0;
+  border-radius: 0;
+}
+#ob-atelier-rail .ob-cardrail-thumb { position: relative; }
+@keyframes ob-cardrail-turn { to { background-position-x: 100%; } }
+#ob-atelier-rail .ob-cardrail-card--live .ob-cardrail-spin--turn {
+  animation: ob-cardrail-turn 2.4s steps(29) infinite;
+}
+#ob-atelier-rail .ob-cardrail-card--live .ob-cardrail-spin--overlay {
+  opacity: 1;
+}
+#ob-atelier-rail .ob-cardrail-name {
+  /* the kit .ob-control role (atelier.js stamp) carries size / weight —
+     14 / 560, --ob-text-0 through the part (B-EQ03) */
+  /* GH-534 item C law carried over: Space Grotesk's content area exceeds
+     --ob-lh-tight — the control rung keeps the em box inside the clip edge */
+  line-height: var(--ob-lh-control);
+  /* GH-534 uniform card-width law: the name WRAPS inside the slot (≤2
+     lines by the slot derivation; overflow-wrap only ever engages as the
+     containment safety — at the derived slot no word overflows, so latin
+     locales keep word-boundary breaks). The two-line block is RESERVED so
+     the thumb row sits at ONE height across every card of the rail (the
+     strip's align-items:stretch + flex-end anatomy would otherwise sink
+     one-line cards' thumbs below their two-line neighbours'). */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  min-height: calc(2 * var(--ob-lh-control) * 1em);
+}
+/* CJK kinsoku parity with the coarse register below: pinned punctuation
+   (（）・) can refuse the word-boundary break — relax exactly there.
+   GH-668 S5 review r1 fix round (visual r1 P2): `anywhere` → `loose` —
+   `line-break: anywhere` DISREGARDS the WJ / GL joins a locale string
+   carries (CSS Text 3 §5.3), so the joined parentheticals still split
+   (measured: zh-CN （标|称值）, ja (加熱スレ|ート) under anywhere; whole
+   under loose / normal / strict). `loose` keeps the relaxation this rule
+   wanted (breaks before small kana / ー / centered punctuation allowed)
+   while honouring the joins; overflow-wrap: anywhere stays the belt —
+   0 overflow at 134 / 120 / 104 / 96 / 88 px across the 10 ja / zh-CN
+   equipment names (the matrix probe). */
+#ob-atelier-rail .ob-cardrail-name:lang(ja),
+#ob-atelier-rail .ob-cardrail-name:lang(zh) {
+  line-break: loose;
+  /* fullwidth punctuation at a line edge TRIMS its half-width side bearing
+     (CSS Text 4 text-spacing-trim: normal, Chrome 123+): the ink fits, but
+     scrollWidth reports the untrimmed advance, so a wrapped CJK name reads
+     as "truncated" to the strict 1 px audit (e2e-atelier arm W allows the
+     0.5em class; e2e-ui's phone walker does not — ja masse_trick_dwell /
+     zh-CN carbon_ld at cues on the G3 coarse card). space-all keeps the
+     full advance: the measure is honest on both registers. */
+  text-spacing-trim: space-all;
+}
+#ob-atelier-rail .ob-cardrail-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-1);
+  /* GH-1001: the row is always there and always one badge tall — the kit
+     badge block in the locale's script (12 px × the body leading + 1 px
+     pads + hairlines = 22; the CJK arm's 13 px = 23.5) — so a station whose
+     cards carry no chip (lighting) stands exactly as tall as one whose cards
+     do, and a latin desktop card keeps its shipped 141.8 px (the S5-V / W
+     band clearances above the rail are derived on it); pinned to the
+     card's foot */
+  min-height: calc(var(--ob-fs--1) * var(--ob-lh-body) + 4px);
+  margin-top: auto;
+}
+#ob-atelier-rail .ob-cardrail-meta:is(:lang(ja), :lang(ko), :lang(zh)) {
+  min-height: calc(var(--ob-fs--1-cjk) * var(--ob-lh-body) + 4px);
+}
+/* class/type chip + the equipped mark = the kit .ob-badge voice (caps 12 /
+   620 on --ob-bg-2 + --ob-line-0; the equipped one --accent), stamped by
+   atelier.js — the old caps literals (text-2 on the thin tint: 1.99–2.17:1)
+   are gone (B-EQ03 / A12). The [hidden] belts state what the kit states
+   (the mixed-cache rule: a stale kit.css must not show an empty chip). */
+#ob-atelier-rail .ob-cardrail-chip[hidden],
+#ob-atelier-rail .ob-cardrail-tick[hidden] { display: none; }
+/* LEGACY-MODULE BELT (review r7 census, the legacy-rule law at the pick
+   belt): the pre-S5 atelier.js never stamps the rail cards with the kit
+   parts (`ob-card-option` / `ob-control` / `ob-badge`) — measured a64f80f1
+   under this sheet, 844×390 coarse: card radius 0, name 14 / 430, the class
+   chip and the equipped tick as plain 14 px ivory text (no badge face). The
+   kit faces are restated for exactly the un-stamped nodes: radius + focus
+   ring + the selected border on the card, the control weight on the name,
+   the badge / accent-badge face on the chips (the caps role's literals stay
+   the kit's — the legacy chip is a bordered pill in the text-1 voice). A
+   `[hidden]` chip stays hidden (:not([hidden]) — the belt above wins).
+   GH-1001: the fresh module stamps the equipped tick with the kit's STATE
+   marker (.ob-status), not the badge — the tick belt keys on BOTH stamps
+   missing, so the marker never regains the pill face it replaced. */
+#ob-atelier-rail .ob-cardrail-card:not(.ob-card-option) { border-radius: var(--ob-r-m); }
+@media (hover: hover) and (pointer: fine) {
+  #ob-atelier-rail .ob-cardrail-card:not(.ob-card-option):hover:not([aria-selected="true"]) { border-color: var(--ob-line-2); }
+}
+#ob-atelier-rail .ob-cardrail-card:not(.ob-card-option)[aria-selected="true"] { border-color: var(--ob-accent-line); }
+#ob-atelier-rail .ob-cardrail-card:not(.ob-card-option):focus-visible { outline: none; box-shadow: var(--ob-focus); }
+#ob-atelier-rail .ob-cardrail-name:not(.ob-control) { font-size: var(--ob-fs-0); font-weight: var(--ob-fw-med); }
+#ob-atelier-rail .ob-cardrail-chip:not(.ob-badge):not([hidden]),
+#ob-atelier-rail .ob-cardrail-tick:not(.ob-badge):not(.ob-status):not([hidden]) {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--ob-fs--1);
+  font-weight: var(--ob-fw-med);
+  line-height: var(--ob-lh-control);
+  color: var(--ob-text-1);
+  background: var(--ob-bg-2);
+  border: 1px solid var(--ob-line-0);
+  border-radius: var(--ob-r-full);
+  padding: 1px var(--ob-sp-2);
+  white-space: nowrap;
+}
+#ob-atelier-rail .ob-cardrail-tick:not(.ob-badge):not(.ob-status):not([hidden]) {
+  color: var(--ob-accent-text);
+  background: var(--ob-accent-dim);
+  border-color: var(--ob-accent-line);
+}
+/* the secondary row (cloth color chips — sub-axis of the focused cloth):
+   a compact glass pill above the cards strip */
+[data-ob="atelier-rail-sub"] {
+  /* GH-525 bare review review round-1 (finding 2): same content-box bleed
+     class as the cards strip above — the pill's padding must live inside
+     the rail cap, not widen its border box past it */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--ob-sp-2);
+  max-width: 100%;
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  border-radius: var(--ob-r-l);
+  border: 1px solid var(--ob-line-1);
+  /* material: the kit .ob-mat-solid rung (atelier.js; G2) */
+  box-shadow: var(--ob-el-1);
+}
+[data-ob="atelier-rail-sub"][hidden] { display: none; }
+/* LEGACY-MODULE BELT, the CONTAINERS (GH-668 S5 review r9 P2-2;
+   red-proven S5-HF SITES CONTAINERS; the r7 belt law over the element
+   population the r7 census walked past — containers, not only controls):
+   G2 / G3 moved four container SURFACES onto the kit .ob-mat-solid rung that
+   atelier.js stamps — the station strip (#ob-atelier-carousel; main painted
+   it solid + noise itself), the rail's secondary row ([data-ob="atelier-rail-
+   sub"]; the same), the Advanced disclosure and the provenance block (the G3
+   inner cards, new panes). A cached pre-G2 atelier.js under this sheet never
+   stamps the class, so each painted NOTHING — measured served on 5f07282a
+   (pairing A = the derived stale module + this sheet, 844×390 coarse en):
+   the strip 498×57 sticky over the scene with background rgba(0, 0, 0, 0),
+   the cloth row 288×78 transparent under its chips, the Advanced pane
+   474×266 a bordered hole in the host at the table station (the fresh
+   pairing: the solid rung on all three). The kit surface is restated for
+   exactly the un-stamped containers, at the kit's own tokens (the rung's two
+   paint declarations; its border-top-color loses to the local border
+   shorthand on the fresh pairing too, so it is not restated); the fresh
+   module never matches (arm S5-HF asserts zero matches on pairings B / C).
+   Id-rooted, narrow, no register restyle. */
+#ob-atelier-carousel:not(.ob-mat-solid),
+#ob-atelier-rail [data-ob="atelier-rail-sub"]:not(.ob-mat-solid),
+#ob-atelier details.ob-atelier-adv:not(.ob-mat-solid),
+#ob-atelier [data-ob="atelier-prov"]:not(.ob-mat-solid) {
+  background-color: var(--ob-glass-solid);
+  background-image: var(--ob-glass-noise);
+}
+
+/* ---- rail-register chrome flips (.ob-atelier--rail is added ONLY when
+   the cardrail leaf mounted — absent class = the degrade + settings
+   register, byte-identical to the shipped S2 geometry) ------------------- */
+/* the five primary pickers leave the left column (the view swap); the
+   cushion Advanced rows, brightness slider and hint stay */
+.ob-atelier--rail [data-ob="atelier-cues"],
+.ob-atelier--rail [data-ob="atelier-table"],
+.ob-atelier--rail [data-ob="atelier-cloth"],
+.ob-atelier--rail [data-ob="atelier-balls"],
+.ob-atelier--rail [data-ob="atelier-lighting"] { display: none; }
+/* the host column must never paint under the rail band. GH-534 uniform
+   card-width law rebudget (review round-1 P2: the reserved two-line name
+   block grows the band ~19px and the shipped caps would overlap it by
+   6–12px at their height caps): measured band 154px (136px card — 56
+   thumb + 2·sp-1 gaps + 37.8 reserved two-line name + 18 meta + 16 inset
+   + 2 border — + sp-2 block padding + border; rail top = 100vh − 78 −
+   154 = 100vh − 232): 14 + (100vh − 260) = 100vh − 246 — 14px clear at
+   every height. */
+#ob-shell-cards > section.ob-atelier-host--rail {
+  /* G2: the rail's bottom is reserve-b + sp-1 (above) — the same 154 band
+     + 14 clear + 14 top: 100vh − reserve-b − 186 (= 100vh − 264 at the
+     78px fallback) */
+  max-height: calc(100vh - var(--ob-shell-reserve-b, 78px) - 186px);
+}
+/* the desktop spec ledger ends above the rail band too: centered card
+   bottom = 50vh + h/2 ≤ rail top − 4px (same rebudget; the quick-play cap
+   this rule supersedes sat at 100vh − 240).
+   GH-668 S5 review r2 P2-1: the centred cap ALONE (the G2 law,
+   max-height 100vh − 2·reserve-b − 332) goes negative in short fine
+   windows — at 640x600 the shell stacks quick-play (bottom 88; Play +
+   Remember → reserve-b 192) and the card collapsed to its padding (34 px:
+   specs and the Equip / Try-it footer clipped; 800x600 left 36, 1024x640
+   76 — measured, S5-V). ONE clamp, no media condition: the card centres on
+   50vh while the window affords the floor --ob-eq-cue-floor (14 × sp-4 =
+   224 px — the largest kit step UNDER the shipped 800-tall cap (236 at
+   1280x800), so every viewport the audits accepted keeps its bytes and
+   the floor acts only where the shipped cap fell below it: the name +
+   descriptor + the pinned footer at rest, the stat strip and the ledger
+   by the card's own scroll), slides up to the 14 px top edge keeping the
+   floor, then yields to the band above the showroom rail (the host
+   column's own law).
+   Geometry: the band is [--ob-eq-cue-top, 100vh − --ob-eq-cue-bottom]; the
+   card keeps the base rule's own centring (translate 0 −50 %) on the
+   band's MIDPOINT, top = (band top + band bottom) / 2, with max-height =
+   the band — so a card shorter than the band centres inside it and a
+   taller one fills it and scrolls. (A first cut set bottom + margin-block
+   auto + height max-content: in the block axis of an absolutely positioned
+   box max-content behaves as auto, and with both insets set an auto height
+   STRETCHES to the band — es at 1280×800 painted 12 px of empty card under
+   its footer; measured, withdrawn.) bottom = reserve-b + 166 is exactly the
+   shipped cap's seat (rail top − 4), so a window that affords the floor
+   keeps the byte-identical tall law: the midpoint is 50vh, the cap 100vh −
+   2·reserve-b − 332 (the S5-V TALL-LAW arm); the kit mount enter's inline
+   transform tween composes as before. Fine register only — the coarse
+   sheet keeps its own top / bottom / cap (the --ob-eq-sheet-cap guard
+   below); the token fallbacks are the mixed-cache belt (a stale tokens.css
+   without --ob-sp-4 keeps the same 224 px floor).
+   PAINT ORDER (S5-V 640x600 de, red-proven): the card mounts BEFORE
+   #ob-shell (the GH-534 F5 phone law — the shell chrome above the sheet),
+   so at equal z the host column paints over it, and below ~812 px wide
+   (host 430 + card 340 + 3 × 14) the two columns share x — a top-seated
+   card had its Equip under the host's hint line. On THIS register the card
+   is the place's inspect surface, opened from the column it overlaps: one
+   step above the shell layer, so it paints and hit-tests whole; its close
+   pill (top-right) and Escape stay uncovered, and where the columns do not
+   overlap (≥ 812 px) the step is inert. The phone sheet keeps F5 (this
+   block never matches coarse). */
+@media not all and (pointer: coarse) {
+  #ob-atelier-cue.ob-atelier-cue--withrail {
+    z-index: calc(var(--ob-z-shell, 8) + 1);
+    /* GH-1001 F31: the floor is the tall window's own band (21 × sp-4 = 336,
+       the collapsed card's natural height with the title rung) — the 224 floor
+       held the card at 236 px at 1280x800 (natural 330.6 en) and the opaque
+       actions footer sat over the Details / dossier summaries at rest */
+    --ob-eq-cue-floor: calc(21 * var(--ob-sp-4, 16px));
+    --ob-eq-cue-bottom: calc(var(--ob-shell-reserve-b, 78px) + 166px);
+    --ob-eq-cue-top: clamp(14px,
+      calc(100vh - var(--ob-eq-cue-bottom) - var(--ob-eq-cue-floor)),
+      var(--ob-eq-cue-bottom));
+    /* GH-1001 re-target onto batch 5 (maintainer ruling 1, option (a)): the card's
+       bottom EDGE is the showroom rail's seat — or, where the band above the seat
+       is shorter than the floor even at the 14 px top edge, floor height,
+       extending DOWN over the showroom rail, capped one sp-1 above the shell
+       reserve (never under quick-play or the shell rail): batch 4's taller fine
+       reserve (GH-989's measured quick-play lift at 1024 wide in de) left
+       1024x640 a band under the floor, and the yielded card's opaque footer sat
+       over the Details / dossier summaries again (F31). The decision-up rule
+       below uses the same algebra; the rail yields while the card is open. A
+       window that affords the floor (the tall law, the slide-up regime) keeps
+       its bytes: there the edge is the seat. */
+    --ob-eq-cue-edge: max(calc(100vh - var(--ob-eq-cue-bottom)),
+      min(calc(var(--ob-eq-cue-top) + var(--ob-eq-cue-floor)),
+        calc(100vh - var(--ob-shell-reserve-b, 78px) - var(--ob-sp-1, 4px))));
+    top: calc((var(--ob-eq-cue-top) + var(--ob-eq-cue-edge)) / 2);
+    max-height: calc(var(--ob-eq-cue-edge) - var(--ob-eq-cue-top));
+  }
+  /* GH-668 S5 review r3 P2-1 (red-proven S5-Q): the card YIELDS
+     to a pending in-shell decision. The equipment place seats the shell's
+     prompt at top 90, right 12, <= 560 wide at <= 1180 px (shell.js, GH-698)
+     — the very column this right-seated card fills, and the floor above put
+     the card's body across the answers (1024x640 en: prompt 90..209, card
+     134..358; 800x600 de: card 82..306) while the step above the shell
+     layer made the card WIN the hit-test: entering Cues with a carom
+     break_spot pending covered "Left / Right start spot". While shell.js
+     publishes the prompt (html.ob-shell-decision-up + --ob-shell-decision-
+     bottom, its measured bottom edge — the GH-712 seam the coarse rail
+     already consumes) this register (a) drops the step: the prompt is shell
+     chrome and paints / hit-tests above the card at every moment (a late
+     publish, a locale re-wrap — the S5-V step is inert here anyway: the
+     host column is strip-only while the arrival line yields), and (b) seats
+     the band's TOP one sp-2 under the prompt's edge. The floor is kept: when
+     the band left above the showroom rail's seat is shorter than the floor
+     (1024x640: 140 px; 800x600: 100 px — no card, not even the footer,
+     lives there) the band extends DOWN to floor height, capped at the shell
+     reserve (never under the quick-play stack); the rail is the yielding
+     party for the prompt's lifetime (paint order: the rail mounts before
+     the card, so the card paints over the rail's right end; the rail keeps
+     panning; the card returns to the S5-V seat with the prompt's removal).
+     A window that affords prompt + floor above the rail seat (>= ~1280x800)
+     keeps its S5-V band untouched (max() picks the seat). Same custom-
+     property algebra as the rule above; the 90px fallback is the rail
+     rule's (the class and the edge are published together — dead in
+     practice). Coarse never matches this block (the phone sheet keeps F5;
+     the coarse rail has its own GH-712 yield). */
+  html.ob-shell-decision-up #ob-atelier-cue.ob-atelier-cue--withrail {
+    z-index: var(--ob-z-shell, 8);
+    --ob-eq-cue-dec-top: max(var(--ob-eq-cue-top),
+      calc(var(--ob-shell-decision-bottom, 90px) + var(--ob-sp-2, 8px)));
+    --ob-eq-cue-dec-bottom: max(calc(100vh - var(--ob-eq-cue-bottom)),
+      min(calc(var(--ob-eq-cue-dec-top) + var(--ob-eq-cue-floor)),
+        calc(100vh - var(--ob-shell-reserve-b, 78px) - var(--ob-sp-1, 4px))));
+    top: calc((var(--ob-eq-cue-dec-top) + var(--ob-eq-cue-dec-bottom)) / 2);
+    max-height: calc(var(--ob-eq-cue-dec-bottom) - var(--ob-eq-cue-dec-top));
+  }
+}
+/* left-column provenance line (rail register only; hidden attr governs —
+   the leaf's arrival unhides it): keeps the T052/SC-004 browse law alive
+   with the row lists demoted. Its box is the G3 inner card (rule above with
+   the Advanced disclosure) — the old top-hairline separator went with it. */
+#ob-atelier [data-ob="atelier-prov"][hidden] { display: none; }
+#ob-atelier .ob-atelier-prov__line {
+  display: flex;
+  align-items: baseline;
+  gap: var(--ob-sp-2);
+  flex-wrap: wrap; /* badges wrap under long localized names — never clip */
+  font-weight: var(--ob-fw-med);
+  line-height: var(--ob-lh-control);
+}
+#ob-atelier .ob-atelier-prov__sum {
+  margin-top: var(--ob-sp-1);
+  /* the kit .ob-body role (atelier.js) — 14 text-1 (B-EQ03, G3) */
+  overflow-wrap: anywhere;
+}
+#ob-atelier .ob-atelier-prov__details { margin-top: var(--ob-sp-1); }
+#ob-atelier .ob-atelier-prov__details[hidden] { display: none; }
+#ob-atelier .ob-atelier-prov__details summary {
+  min-height: var(--ob-h-control); /* GH-1001 F36: the control rung (was 24) */
+  cursor: pointer;
+}
+#ob-atelier .ob-atelier-prov__details summary:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+  border-radius: var(--ob-r-s);
+}
+#ob-atelier .ob-atelier-prov__text {
+  display: block;
+  margin-top: var(--ob-sp-1);
+  font-size: var(--ob-fs--1);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-1);
+  overflow-wrap: anywhere;
+}
+/* the phone summary-bar expand affordance exists only on the coarse
+   rail register (armed by atelier.js; the block below shows it there) */
+.ob-atelier-cue-expand { display: none; }
+
+/* ---- degrade: strip module (ui/strip.js) absent → plain kit buttons in
+   the same container (function never degrades). The buttons ride the kit
+   .ob-strip__seg geometry (atelier.js stamps it in the degrade register
+   too) and the container keeps .ob-strip, so row/inset/centering/floors
+   all hold with ZERO rules here. The former id-scoped
+   `#ob-atelier-carousel > .ob-btn { min-height: 44px }` belt is RETIRED
+   (review visual-audit round-7 MAJOR): at (1,1,1) it beat the kit's
+   coarse 48px floor on the HEALTHY pills — the strips measured 62 vs
+   66px tall on phone, the exact two-implementations defect this round
+   exists to kill (it had beaten the old atelier.css 48px rule the same
+   way, so the shipped coarse register was an accident, not a law). */
+
+/* ---- disclosure affordance (GH-534 polish pass): every atelier <summary>
+   speaks the settings register's chevron language — the #ob-settings
+   summary::before recipe ("same chevron language as .ob-select__chevron").
+   The S2 surfaces shipped THREE voices for one control: the spec card and
+   Advanced summaries rendered affordance-less flat caps (display:flex
+   kills the UA list-item marker), while the prov/row summaries kept the
+   native triangle the settings register replaces. One control, one voice
+   (product register: consistent affordances). */
+#ob-atelier summary,
+#ob-atelier-cue summary {
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-2);
+}
+#ob-atelier summary::-webkit-details-marker,
+#ob-atelier-cue summary::-webkit-details-marker { display: none; }
+#ob-atelier summary::before,
+#ob-atelier-cue summary::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--ob-text-2);
+  border-bottom: 1.5px solid var(--ob-text-2);
+  transform: rotate(-45deg);
+  transition: transform var(--ob-t-fast) var(--ob-ease);
+}
+#ob-atelier details[open] > summary::before,
+#ob-atelier-cue details[open] > summary::before { transform: rotate(45deg); }
+
+/* ---- reduced motion ------------------------------------------------------
+   station pills ride the kit reduced-motion block (.ob-btn transition:none) */
+@media (prefers-reduced-motion: reduce) {
+  /* the disclosure chevron flips instantly (polish-pass affordance); the
+     pick row is a kit .ob-btn (its reduced-motion arm) since G8 */
+  #ob-atelier summary::before,
+  #ob-atelier-cue summary::before { transition: none; }
+  /* R2 selection response lands instantly under reduced motion */
+  #ob-atelier-cue.ob-atelier-cue--morph,
+  #ob-atelier-cue .ob-atelier-stat--changed { animation: none; }
+  /* rail cards: the kit's reduced-motion arm covers .ob-card-option (the
+     part the card wears); the programmatic snap is already instant (the
+     leaf keys on the caller's reducedMotion()) */
+  /* turntable thumbs pin the static frame-0 face; the cue overlay stays
+     hidden so the shipped baked still remains the read (D7 register) */
+  #ob-atelier-rail .ob-cardrail-spin--turn { animation: none !important; }
+  #ob-atelier-rail .ob-cardrail-spin--overlay { opacity: 0 !important; }
+}
+
+/* ---- phone register (coarse pointer; spec US5) --------------------------- */
+@media (pointer: coarse) {
+  #ob-shell-cards > section.ob-atelier-host {
+    /* GH-668 S5 G2 (B-EQ04): the host may take the width the quick-play
+       stack leaves — the seam's right reserve is 0 while the stack rides
+       ABOVE the rail (the coarse stacked register) — so the station strip
+       rest-fits (de 464px of segments needs > 430; 500 is the ceiling); it
+       never enters the shell band (reserve-b + the 14px top offset).
+       Fallbacks = the pre-seam literals. */
+    width: min(calc(100vw - var(--ob-shell-reserve-r, 0px) - 20px), 500px);
+    max-height: calc(100vh - var(--ob-shell-reserve-b, 150px) - 14px
+      - env(safe-area-inset-top, 0px));
+  }
+  /* station pills: the 48px coarse floor rides the kit strip control */
+  /* every interactive station control meets the 44 pt floor on coarse
+     pointers (review review r2 P2): the dossier/Advanced/card disclosures
+     and the brightness rail had only their desktop fine-pointer heights */
+  #ob-atelier .ob-eq-prov-row__details summary,
+  #ob-atelier details.ob-atelier-adv > summary,
+  #ob-atelier-rail details.ob-atelier-adv > summary, /* the re-homed table control (vfix1: measured 26 px in the rail row) */
+  #ob-atelier-cue details > summary {
+    min-height: var(--ob-h-coarse); /* the kit's coarse floor, stated once (G8) */
+    display: flex;
+    align-items: center;
+  }
+  #ob-atelier .ob-atelier-brightrow input[type="range"],
+  #ob-atelier-rail .ob-atelier-brightrow input[type="range"] { min-height: var(--ob-h-coarse); } /* + the rail-homed row (vfix1: measured 35.5 px in the rail) */
+  /* spec card/dossier: sheet geometry (the kit's phone grammar). GH-668
+     S5 G2 (B-EQ02): the sheet sits ABOVE the shell rail band (the K05 seam
+     --ob-shell-reserve-b), never under it — nothing scrolls beneath the
+     band any more, so the GH-534 round-2 96px run-out is gone. Its cap
+     leaves the host's MEASURED band (--ob-eq-host-b, the G2 publisher) plus
+     two sp-2 breathing bands; 46vh at most (tall viewports — on phones the
+     band term binds first, so the float still reads above the sheet).
+     Fallbacks = today's literals (a stale publisher renders the 38vh-class
+     sheet, never a collapsed one). Corners: the sheet no longer touches the
+     viewport edge, so its radius is all-round. */
+  #ob-atelier-cue {
+    --ob-eq-sheet-cap: min(46vh, calc(100vh - var(--ob-shell-reserve-b, 78px)
+      - var(--ob-eq-host-b, 100px) - 2 * var(--ob-sp-2)));
+    top: auto;
+    right: env(safe-area-inset-right, 0px);
+    left: env(safe-area-inset-left, 0px);
+    bottom: var(--ob-shell-reserve-b, 78px);
+    transform: none;
+    translate: none; /* the fine register's centring (G8) — the sheet is edge-anchored */
+    width: auto;
+    box-sizing: border-box; /* the cap is the TOTAL sheet band */
+    max-height: var(--ob-eq-sheet-cap);
+    border-radius: var(--ob-r-l);
+  }
+  /* GH-668 S5 review r4 P2-2 (red-proven S5-Q2): the sheet
+     YIELDS to a pending in-shell decision — the coarse twin of the fine
+     card's S5-16 law. The equipment place seats the shell's prompt at top
+     90 (GH-698) and the cap above budgeted the host + the shell reserve
+     only, so the raised sheet stood 106..268 at 667x375 under a prompt
+     90..213 (de + en): "Full spec" painted under the left-start answer and
+     a real tap at the pill's centre ANSWERED the decision. While shell.js
+     publishes the prompt (html.ob-shell-decision-up + --ob-shell-decision-
+     bottom, its measured bottom edge — the GH-712 seam) the cap's host
+     term becomes max(host band, prompt edge + sp-2): the sheet's top sits
+     one sp-2 under the prompt's edge (or the host's two bands, whichever
+     is lower), its bottom on the shell reserve as before; the sheet scrolls
+     inside the band that is left (80 px at 667x375, 95 at 844x390 — the
+     title, then the actions row by scroll) and the rail yields whole
+     under it (atelier.js publishBands reads the same edge). Fallbacks =
+     the rule above's literals; the 90px prompt fallback is the rail
+     rule's (class and edge are published together — dead in practice). */
+  html.ob-shell-decision-up #ob-atelier-cue {
+    --ob-eq-sheet-band: min(46vh, calc(100vh - var(--ob-shell-reserve-b, 78px)
+      - max(calc(var(--ob-eq-host-b, 100px) + 2 * var(--ob-sp-2)),
+        calc(var(--ob-shell-decision-bottom, 90px) + var(--ob-sp-2)))));
+    --ob-eq-sheet-cap: var(--ob-eq-sheet-band);
+  }
+  /* GH-668 S5 review r4b (the checker of the r4 fix round, P3 ruled in;
+     red-proven S5-Q2 BAND-ACTIONS / BAND-WHOLE): the band the rule above
+     leaves (46 px at 667x375, 61 at 844x390) presented the TITLE row
+     first — Equip / Try it / Full spec only by scrolling inside the band,
+     and at 844 the top ~15 px of the Equip pill showed as a clipped
+     sliver under the title. Under the decision the sheet is a ONE-ROW
+     ACTION STRIP: the actions row goes first (flex order; the title
+     follows, reachable by the sheet's own scroll as before), the sheet's
+     block padding is what the band affords around ONE coarse pill row
+     (clamp 0 .. sp-2: 0 at 667 — 46 px = the 44 px row + the sheet's two
+     1 px borders, held exactly, no growth needed; 7.5 at 844) and the cap
+     is that row plus the padding, so the visible box ends at the row's
+     edge: a pill is whole or below the fold, never a sliver (a wrapped
+     second pill row starts one sp-2 below the fold). When a band cannot
+     hold even one row (phones shorter than the ruled 667x375) the sheet
+     grows by what the row needs, at most the sp-2 breathing band above
+     the shell rail (never under it; the prompt's clearance is untouched —
+     the top edge stays one sp-2 under the prompt). The dismiss pill rides
+     the same padding so it stands whole in the strip; the actions row
+     clears it as the title did. Fallbacks = the rule above's. */
+  html.ob-shell-decision-up #ob-atelier-cue {
+    --ob-eq-sheet-need: calc(var(--ob-h-coarse) + 2px); /* one coarse pill row + the sheet's two 1 px borders */
+    --ob-eq-sheet-grow: min(var(--ob-sp-2), max(0px, calc(var(--ob-eq-sheet-need) - var(--ob-eq-sheet-band))));
+    --ob-eq-sheet-pad: clamp(0px,
+      calc((var(--ob-eq-sheet-band) + var(--ob-eq-sheet-grow) - var(--ob-eq-sheet-need)) / 2),
+      var(--ob-sp-2));
+    --ob-eq-sheet-cap: min(calc(var(--ob-eq-sheet-band) + var(--ob-eq-sheet-grow)),
+      calc(var(--ob-eq-sheet-need) + 2 * var(--ob-eq-sheet-pad)));
+    bottom: calc(var(--ob-shell-reserve-b, 78px) - var(--ob-eq-sheet-grow));
+    /* the strip's breathing band is the ACTIONS ROW's own block padding, not
+       the sheet's: the overflow clip is the padding box, and a sheet-side
+       bottom padding painted the title's first 7.5 px under the row at 844
+       (measured) — with the row carrying it the visible box IS the row */
+    padding-block: 0;
+  }
+  html.ob-shell-decision-up #ob-atelier-cue > .ob-atelier-actions {
+    order: 0;
+    padding-block: var(--ob-eq-sheet-pad);
+    padding-left: calc(var(--ob-sp-1) + var(--ob-h-coarse)); /* the left-anchored dismiss (F5), as the title's inset below */
+  }
+  html.ob-shell-decision-up #ob-atelier-cue .ob-atelier-cue-close { top: var(--ob-eq-sheet-pad); }
+  /* GH-534 F4 (QA): BOTH primary actions must read inside the initial
+     38vh fold — the collapsed card face (title + descriptors + two 44 pt
+     summaries) alone overflows the 148 px cap, so the sheet REORDERS
+     visually (owner ruling option 1: actions ABOVE the collapsed
+     disclosures): flex order puts the actions row right under the title,
+     in the top half of the sheet — clear of the shell rail band in every
+     locale (the rail paints above the sheet since the F5 mount-order fix,
+     so nothing interactive may sit under it). DOM order is unchanged
+     (desktop keeps its signed-off block layout). */
+  #ob-atelier-cue {
+    display: flex;
+    flex-direction: column;
+  }
+  #ob-atelier-cue[hidden] { display: none; }
+  #ob-atelier-cue > * { flex: 0 0 auto; }
+  #ob-atelier-cue > h3 { order: 1; }
+  #ob-atelier-cue > .ob-atelier-actions { order: 2; }
+  /* the quick-play stack owns the sheet's top-right column on a landscape
+     phone (wrap left edge ≈ x 603 in the widest locale, y ≤ 310) and now
+     paints ABOVE the sheet (F5 mount order) — the actions row stays clear
+     of it: 560 px keeps both button CENTERS left of the column in every
+     locale while each label still fits one line (measured ×7). */
+  #ob-atelier-cue > .ob-atelier-actions { max-width: 560px; }
+  #ob-atelier-cue > .ob-atelier-plain { order: 3; }
+  #ob-atelier-cue > .ob-atelier-statline { order: 4; }
+  #ob-atelier-cue > details[data-ob="atelier-details"] { order: 5; }
+  #ob-atelier-cue > details[data-ob="atelier-dossier"] { order: 6; }
+  /* GH-534 F5 (QA): the dismiss meets the coarse 44 pt floor. TOP-LEFT on
+     the sheet: the quick-play stack (bottom: 80px, right edge — and above
+     the sheet in paint order since the mount-order fix) owns the sheet's
+     top-right corner on a landscape phone; the left corner is clear (the
+     host card's max-height cap ends above it). */
+  #ob-atelier-cue .ob-atelier-cue-close {
+    left: var(--ob-sp-1); /* the 44 floor is the kit icon pill's (html.ob-touch) */
+    right: auto;
+  }
+  /* the legacy-module belt's coarse rung (review r7): the bare close meets the
+     44 floor the kit icon pill gives the fresh module's */
+  #ob-atelier-cue .ob-atelier-cue-close:not(.ob-btn--icon) {
+    width: var(--ob-h-coarse);
+    height: var(--ob-h-coarse);
+    min-height: var(--ob-h-coarse);
+  }
+  /* the title clears the left-anchored dismiss (its inset + the coarse pill) */
+  #ob-atelier-cue > h3 { padding-left: calc(var(--ob-sp-1) + var(--ob-h-coarse)); }
+  /* GH-1001 F30 (coarse): the title row is as tall as the dismiss beside it
+     (its sp-1 seat + the 44 pill, less the sheet's sp-4 pad) and drops the
+     fine register's right reserve — the dismiss box hung 4 px over Equip
+     (measured 844x390 on main: close 124–168, Equip 164–208) */
+  #ob-atelier-cue > h3 {
+    min-height: calc(var(--ob-h-coarse) + var(--ob-sp-1) - var(--ob-sp-4));
+    padding-right: 0;
+  }
+
+  /* ---- GH-525 S2.5 item B: the phone rail register --------------------- */
+  /* GH-668 S5 G2 (B-EQ02 / B-EQ04 / B-EQ06): the rail's band is a LAW OF
+     THE VARIABLES — no literal guess at another surface's height.
+     bottom = just above the cue sheet while one is presented, else the
+     shell's own reserve (rail band + quick-play stack top + sp-2, the K05
+     seam): --ob-eq-sheet-top is the publisher's MEASURED sheet top
+     (atelier.js publishBands) and reads 100vh − --ob-shell-reserve-b
+     without a sheet; the sp-1 is the breathing band. top = the host's
+     measured bottom + sp-2 (the ≥ sp-2 island-gap law, B-EQ06): the rail
+     YIELDS to the host — capped + scrolling, the docked txbar stays pinned
+     (G1). Mixed-cache fallbacks = the pre-G2 literals (the 38vh + 8 anchor;
+     the 78px + inset host band), so a stale atelier.js renders yesterday's
+     geometry, never a collapsed box. */
+  /* GH-668 S5 vfix1 (verifier P1 / ruling R-EQ-P1): the band is a NON-
+     scrolling two-row column — [transaction bar | station control row]
+     [card row] — whose bottom EDGE is the publisher's --ob-eq-rail-b: one sp-2 above
+     the SHELL RAIL (202 / 187 px at 844x390 / 667x375) instead of above the
+     quick-play wrap it never meets (140 / 125 px, a scroller on every cell
+     that cut the looked-at card). The publisher measures the clearance and
+     nudges the box left by --ob-eq-rail-dx (<= 16 px) when the wrap is
+     closer than sp-2 (667x375 fr); the reserve-b law is its fallback and
+     overflow-y stays as the LAST resort belt (the sticky bar keeps Keep).
+     Fallback literals = the pre-vfix1 expressions (mixed-cache law). */
+  /* GH-668 S5 review r11 P2 — THE PUBLISHER-FALLBACK LAW,
+     census (f) rows 2 + 3: the two fallbacks below are the PRE-S5 values
+     verbatim, not derived literals. (2) bottom: the pre-S5 anchor was
+     38vh + 8px + inset from the bottom (= 62vh − 8px from the top); the
+     G2 fallback carried the sp-1 breathing band inside the fallback too
+     (62vh − 12px) — 4 px off the legacy; the nested --ob-eq-sheet-top
+     fallback is dropped (the publisher writes both variables in one pass,
+     so a rail-b-less sheet-top never occurs). (3) max-height: the pre-S5 rail
+     had NO cap (content-sized; the base sheet's Cloth floor-yield register
+     puts the chip sub-row's top half under the 78px host while the card
+     row clears — the documented, e2e-ui-asserted legacy); the G2 fallback
+     (rail-b − 78px − sp-2 = 143.8 / 122.8 px at 844x390 without / with
+     the 21px inset) capped the Cloth band (156.7 px) into a scroller with
+     NO card centre visible under the inset (census (f), the arm's insets
+     pose). --ob-eq-rail-cap is the S5 yield ONLY while --ob-eq-host-b
+     resolves (invalid at computed-value time without the publisher →
+     guaranteed-invalid → the `none` fallback). Publisher present: both
+     values are exactly what they were. */
+  #ob-atelier-rail {
+    bottom: calc(100vh - var(--ob-eq-rail-b, calc(62vh - 8px - env(safe-area-inset-bottom, 0px))));
+    --ob-eq-rail-cap: calc(var(--ob-eq-rail-b, calc(62vh - 8px - env(safe-area-inset-bottom, 0px)))
+      - var(--ob-eq-host-b)
+      - var(--ob-sp-2));
+    max-height: var(--ob-eq-rail-cap, none);
+    transform: translateX(calc(-50% + var(--ob-eq-rail-dx, 0px)));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* width: the GH-525 r2 finding-6 corner law stands on this register —
+       266/side (the ×7-measured ticked quick-play wrap) + the 288px floor.
+       The seam's --ob-shell-reserve-r is NOT read here: it publishes 0 on
+       the stacked register (the quick-play stack is above the SHELL rail),
+       but the stack shares the very band this rail occupies above the
+       shell reserve when the Remember tick grows the wrap (e2e-ui phone
+       audit: a 722px rail met the ticked wrap by 121x35px at 844x390) —
+       the corner law is the honest width until G4 reads the shell's
+       quickPlay rect itself. The wrap's right offset carries
+       env(safe-area-inset-right), so the CENTERED strip subtracts it
+       twice. */
+    max-width: max(288px,
+      calc(100vw - 532px - 2 * env(safe-area-inset-right, 0px)));
+  }
+  /* GH-1001 (atelier.md §7 B20-1): THE WIDE COARSE RAIL. atelier.js
+     publishBands writes the class and --ob-eq-rail-l / --ob-eq-rail-w when
+     the band from the host card's left edge to one sp-2 short of the
+     quick-play wrap (the only chrome beside the rail) is >= 288 px —
+     measured at 844x390 with the e2e insets 593 / 606 / 632 px (en / de /
+     zh-CN), at 667x375 510–549 px, against the corner law's 288. Every
+     state without the class (a stale module, no wrap / shell seam ever
+     measured, a span under the floor) keeps the centred corner-law
+     geometry above. */
+  #ob-atelier-rail.ob-atelier-rail--wide {
+    left: var(--ob-eq-rail-l);
+    /* the measured span, capped at ONE card slot + the two peeks: the card's
+       447 px cap (the coarse card rule below) + 2 × 40 (atelier.js fitPeek's
+       peek) — so the peek slot (clip − 2 × peek) never exceeds the card and
+       a neighbour shows exactly its 40 px peek, never a sliver (the kit A4
+       law: measured 21 px at 844x390 zh-CN, a 632 px rail over a 447 px card) */
+    width: min(var(--ob-eq-rail-w), calc(304px + 53px + 56px + 2px + 4 * var(--ob-sp-2) + 2 * 40px));
+    max-width: none;
+    transform: none;
+  }
+  /* the rows keep their natural height inside the capped column (the
+     GH-712 law below, now on every coarse register): flex would shrink
+     the cards strip to a slot under the docked bar; the rail scrolls */
+  #ob-atelier-rail > [data-ob] { flex: 0 0 auto; }
+  /* vfix1 (R-EQ-P1): a preview staged FROM the control row (colour chip /
+     brightness range / cushion row) keeps that row and the bar takes the
+     CARD row's slot (atelier.js syncRailCount toggles the class); a card
+     pick hides the control row instead (the sub row's hidden attribute) */
+  #ob-atelier-rail.ob-atelier-rail--txcontrol > [data-ob="atelier-rail-cards"] { display: none; }
+  /* the rail yields WHOLE to a presented sheet that leaves it under one
+     44 px row (atelier.js publishBands toggles it from the measured edges;
+     a sliver of card tops is not a control — dismiss the sheet to browse).
+     It yields by HEIGHT, not display: the box keeps its width (the e2e-ui
+     phone audit's corner-reserve law reads the scrollport width with the
+     sheet up) and paints / hit-tests nothing. */
+  #ob-atelier-rail.ob-atelier-rail--yield {
+    max-height: 0;
+    padding-block: 0;
+    border-width: 0;
+    overflow: hidden;
+    pointer-events: none;
+    /* GH-668 S5 review r9 P2-1 (red-proven S5-Q2 KEYBOARD): a
+       yielded rail must leave the FOCUS + ACCESSIBILITY tree too, not only
+       paint and hit-testing — measured served on 5f07282a (844x390 en,
+       667x375 de; break_spot pending, cues, the sheet up by a real tap): the
+       0 px overflow-hidden rail kept 27 focusable descendants (the roving
+       card at tabindex 0, the docked bar's Keep / Put back, the chips, the
+       range, the pick rows), a real tap left focus ON the card inside it,
+       ArrowRight walked the selection behind the sheet (standard →
+       low_deflection, the sheet following), a 40-key Tab walk from the
+       sheet entered the rail 3 times (Shift+Tab 4, the very first key), and
+       the AX tree exposed the listbox + 13 options. visibility: hidden makes
+       every descendant unfocusable and unexposed by the UA's own rules (the
+       box keeps its width — the corner-reserve law above still holds);
+       atelier.js publishBands sets `inert` beside the class where the UA
+       has it (mixed-cache law: either end alone is whole). */
+    visibility: hidden;
+  }
+  /* THE EXIT-BRIDGE LAW's sheet-side belt (GH-668 S5 r10, atelier.md §7
+     S5-31; red-proven by arm H's rude-timing leg on 891c252b): a HIDDEN sheet
+     is never under the finger. The kit's unmount() (ui/motion.js B-K22)
+     keeps a dismissed sheet painted through its T_FAST exit with an inline
+     display bridge — paint is the kit's; whether a hidden surface still
+     takes the tap is this module's. Measured served (844x390 en): the tap
+     after the close had its touch events on the returned rail card and its
+     synthesized click retargeted to the leaving #ob-atelier-cue for the
+     whole 120 ms bridge (no float). atelier.js holds the rail's yield until
+     the bridge settles (the law proper); this rule is the belt for the
+     stale-module leg of the mixed-cache law (OWNERSHIP): a cached pre-r10
+     atelier.js still returns the rail at once — under this sheet that tap
+     falls through to the card. [hidden] alone: a presented sheet keeps its
+     hit-testing; the kit's opacity / transform tween is untouched. */
+  #ob-atelier-cue[hidden] {
+    pointer-events: none;
+  }
+  /* GH-712 (S4 journey QA round 3): the rail YIELDS to the in-shell
+     decision prompt. Under a pending decision the shell's prompt drops to
+     top 90 at the equipment place (GH-698, clearing the station strip) —
+     exactly the band this rail's bottom anchor (38vh + 8) put the cards in
+     (124..234 at 844x390, 114..224 at 667x375; prompt z 9 over rail z 8):
+     every card centre hit-tested to an answer button and a card tap
+     re-racked. While shell.js publishes the prompt (html.ob-shell-
+     decision-up + --ob-shell-decision-bottom, its measured bottom edge)
+     the rail re-anchors to its TOP, one band below the prompt, so the
+     cards sit in the free band between the prompt and the place rail;
+     the cards row comes FIRST (the cloth chip sub-row stacks below it —
+     ordered, not reversed, so the scroll origin stays at the top) and the
+     rail scrolls vertically inside the band that is left above the shell
+     rail (78px + inset) when a tall prompt or the sub-row overflows it.
+     The prompt keeps its #698 placement; the quick-play stack already
+     yields on this register (shell.js). */
+  html.ob-shell-decision-up #ob-atelier-rail {
+    bottom: auto;
+    /* G2: the prompt's edge AND the host's measured bottom are both
+       cleared (one rule, two edges); the band ends at the shell reserve */
+    top: calc(max(var(--ob-shell-decision-bottom, 90px), var(--ob-eq-host-b, 0px))
+      + var(--ob-sp-2));
+    max-height: calc(100vh - max(var(--ob-shell-decision-bottom, 90px), var(--ob-eq-host-b, 0px))
+      - var(--ob-sp-2) - var(--ob-shell-reserve-b, calc(78px + env(safe-area-inset-bottom, 0px)))
+      - var(--ob-sp-1));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  /* GH-668 S5 review r8 P2-2 (red-proven S5-Q2 YIELD-KEPT): the
+     YIELD outranks the decision band. The rule above is (1,1,1) and the
+     yield rule (1,1,0) — with both classes set (publishBands toggles --yield
+     from the band under the SAME prompt edge: a presented sheet that fills
+     it) the decision rule restored a positive max-height + overflow-y auto:
+     measured served on c34a1bb8 (break_spot pending, cues, the sheet up by
+     a real tap) — 844x390 de/en max-height 57px, 667x375 de 42px, overflow-y
+     auto, 13 cards painted in a 57 / 42 px band wholly under the sheet's
+     52 % glass (ghost cards through the sheet, pointer-events none: visible,
+     unusable). Composed (1,2,1): the yield's two properties restated for
+     the both-classes state; padding-block / border-width / pointer-events
+     already survive from the yield rule. CASCADE LAW (OWNERSHIP): a state
+     that removes a box from layout is restated for every higher-specificity
+     register rule that sets the same property. */
+  html.ob-shell-decision-up #ob-atelier-rail.ob-atelier-rail--yield {
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden; /* r9 P2-1: the focus-tree leg of the yield, restated for the both-classes state (cascade law) */
+  }
+  html.ob-shell-decision-up #ob-atelier-rail [data-ob="atelier-rail-sub"] {
+    order: 2;
+  }
+  /* the rows keep their natural height inside the capped column (flex
+     would shrink the cards strip to a 16px slot and let the chip row paint
+     over the cards); the rail scrolls instead */
+  html.ob-shell-decision-up #ob-atelier-rail > [data-ob] { flex: 0 0 auto; }
+  /* GH-525 bare review review round-1 (finding 1), the geometric
+     prerequisite: at the phone rail caps the desktop pill's single wrapped
+     row became FOUR rows (44pt chips wrap under the 344/272px caps; worst
+     measured 166px at 844x390, 184px fr at 390x844), pushing the whole
+     rail band past the landscape viewport top (rail top −27px on the
+     62vh−8 anchor) — a state NO host cap can clear by ≥4px. The coarse
+     pill is ONE ~44pt row: [label][chips pan-x][name] — the chips scroller
+     pans inline (the shell-rail/station-strip idiom; its items keep
+     default flex-start — the cards-strip lesson: centering an overflowing
+     scroller clips its leading items) and the text scraps shrink-and-wrap
+     INSIDE the row (min-width:0; sum of text min-content + the 44px chip
+     floor stays under the narrowest 246px content box ×7, so the pill
+     never overflows). Desktop keeps the shipped wrapped pill. Selectors
+     carry the #ob-atelier-rail prefix — the shipped chip-block rules are
+     id-weighted. */
+  #ob-atelier-rail [data-ob="atelier-rail-sub"] {
+    flex-wrap: nowrap;
+    /* vfix1: the control row is 50 px (44 pt chips / range / summary + 2 px
+       pads + hairlines) — the three-row stack's budget at 667x375 */
+    padding: calc(var(--ob-sp-1) / 2) var(--ob-sp-2);
+  }
+  #ob-atelier-rail [data-ob="atelier-rail-sub"] > details.ob-atelier-adv {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+  }
+  /* the "Colour" label leaves the coarse row (B-EQ04 / G3) — the radiogroup
+     keeps its aria-labelledby name; the swatches ARE the colour */
+  #ob-atelier-rail [data-ob="atelier-rail-sub"] > .ob-atelier-sublabel { display: none; }
+  #ob-atelier-rail [data-ob="atelier-rail-sub"] > .ob-atelier-clothname {
+    flex: 0 1 auto;
+    min-width: 0; /* wrap inside the 44px row rather than widen the pill */
+  }
+  #ob-atelier-rail [data-ob="atelier-rail-sub"]
+    > [data-ob="atelier-cloth-colors"] {
+    /* >= 3 WHOLE swatches in the pan row (B-EQ04 / GH-668 S5 G4): three
+       coarse-floor chips + two sp-2 gaps = 148 px; the row's name line
+       wraps beside it (min-width 0), the "Colour" label is off this row;
+       the kit inline fade (atelier.js) tells the 7th swatch */
+    flex: 1 1 calc(3 * var(--ob-h-coarse) + 2 * var(--ob-sp-2));
+    min-width: calc(3 * var(--ob-h-coarse) + 2 * var(--ob-sp-2));
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* the "k / n" count (G4 → vfix1): the station strip's trailing slot (the
+     shell gear precedent — a non-seg child fitStripPad budgets); sticky at
+     the strip's end so it stays in view while the 667x375 strip pans */
+  .ob-atelier-host--rail #ob-atelier-carousel > [data-ob="atelier-rail-count"] {
+    flex: 0 0 auto;
+    order: 99;
+    position: sticky;
+    inset-inline-end: 0;
+    z-index: var(--ob-z-raised); /* over the pills it slides past */
+    margin-inline-start: auto;
+    align-self: center;
+  }
+  /* fixed 44pt swatches in the pan row — flex-shrink would compress them
+     below the coarse tap floor inside the nowrap scroller */
+  #ob-atelier-rail [data-ob="atelier-rail-sub"] .ob-cloth-chip {
+    flex: 0 0 auto;
+  }
+  /* compact row-anatomy cards — the kit .ob-card-option row grammar
+     without a wrapper: [thumb][name] over [thumb][meta] (the part's head
+     row carries the badge TRAILING the name and drops it below past the
+     measure). GH-668 S5 G3: the meta became two kit badges (class chip +
+     the "Equipped" label — de "Ausgerüstet"); inline beside a 56 px thumb
+     they ate the 312 px row and the NAME collapsed to 0–2 px (arm W
+     "truncation (12 > 2)"), so the meta sits UNDER the name; the badges
+     wrap inside their row, never the card. The 48pt tap floor is met on
+     the full-card target; the rail scrolls, so a 2-line card (≤ ~78 px)
+     costs band budget, not clearance (G2's yield law). G4's 248 px peek
+     slot inherits this anatomy. */
+  /* GH-668 S5 vfix1 (verifier P1 / ruling R-EQ-P1, option (a)): the COMPACT
+     row — [thumb][name] over a full-width [meta] row. Measured at ee9047b6:
+     the meta's two badges (tier chip + "Equipped") WRAPPED in the 126 px
+     name column, so every station's row stood 107.8 px (a flex row is as
+     tall as its tallest card) and the 140 px band scrolled. With the meta
+     spanning the 198 px card width (de: 84.9 + 4 + 106.8 = 195.7) the card
+     is 70 px for any <= 2-line name (thumb 40 + meta 22 + 2 px pads/gaps),
+     86.7 with a 3-line one (balls en, cues fr / de / es — rest poses). */
+  /* GH-668 S5 vfix2 (re-verifier taste K-17): the compact row ALIGNS START
+     — a flex row is as tall as its tallest card (a 6-line fr cue name
+     stands 143.3, de cues 105.6), and `stretch` handed that height to
+     every card: the looked-at card carried a ~50 px blank slab under its
+     meta. Measured (K-17 probe, fr / de / es / en × cues / cloth / table /
+     balls × 844 / 667): the looked-at card is its OWN height after — 70
+     for a ≤ 2-line name, 86.7 at 3 lines, 96 when its meta wraps (de cues)
+     — the row / rail / band heights unchanged (the R-EQ-P1 geometry
+     stands); S5-W's 112 px note became the ≤ 96 law. Neighbour names are
+     never clamped (wrap-never-ellipsize). */
+  /* GH-1001 (atelier.md §7 B20-1) SUPERSEDES K-17 on the maintainer's
+     2026-10-09 report ("the carousel heights are all inconsistent"): every
+     rail's cards stand at ONE height. The wide register (below) carries the
+     reserve that makes it a constant; this compact register — the fallback
+     of every state without the wide class — stretches to the row's tallest
+     card and packs its tracks at the top (the blank band K-17 removed is
+     the price of one height; the row / band heights are unchanged, so the
+     K-17b band fit stands). */
+  #ob-atelier-rail > [data-ob="atelier-rail-cards"] { align-items: stretch; }
+  /* GH-668 S5 review r1 fix round (re-verify K-17b): the compact row FITS
+     THE BAND. A 6-line NEIGHBOUR name (es / fr cues at rest, 667x375: card
+     143.3 + the row's 2·sp-2 block padding = 159.3) held the row 1.3 px
+     taller than the 158 px band — the rail reported scrollHeight 159 >
+     clientHeight 158 (inside S5-W's 1 px tolerance; a nudge-able band).
+     Two caps were measured and REJECTED: `min-height: 0` does not take
+     (the rows are pinned flex: 0 0 auto — the GH-712 law above); a
+     `max-height: <band>; overflow-y: hidden` cap fits this cell but CLIPS
+     CONTENT in every short-band state where the rail was the last-resort
+     scroller (e2e-ui --audit phone walk: all 13 cues cards outside the
+     row, 6 locales) — the row must always be its content height. The
+     slack is the row's own BLOCK PADDING: the bottom inset becomes sp-1 —
+     exactly the focus glow band (--ob-focus spreads 4 px), the top keeps
+     sp-2 (air to the bar / control row above). Row = 143.3 + 12 = 155.3
+     <= 158; the looked-at card <= 96 law stands, neighbour names stay
+     unclamped, the rail's belt (GH-712) untouched. Measured after: 667
+     es / fr rail sh == ch; S5-W ROW-IN-BAND is the exact-fit arm. */
+  #ob-atelier-rail > [data-ob="atelier-rail-cards"] { padding-block: var(--ob-sp-2) var(--ob-sp-1); }
+  #ob-atelier-rail .ob-cardrail-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: "thumb name" "meta meta";
+    align-items: center;
+    align-content: start; /* GH-1001: a stretched card packs its tracks at the top */
+    column-gap: var(--ob-sp-2);
+    row-gap: calc(var(--ob-sp-1) / 2);
+    padding: calc(var(--ob-sp-1) / 2) var(--ob-sp-1);
+    min-height: 56px;
+    min-width: var(--ob-h-coarse);
+    /* GH-525 review visual-audit round 1 (finding 2): long-locale names
+       grew the row card WIDER than the rail viewport (es worst measured
+       704px vs the 344px content box) — no scroll position can contain an
+       oversized card, so the SELECTED card sat clipped (chip / right
+       keyline outside the clip; evidence carbon_ld/snooker_ash
+       phone-sheet.png). The card caps at the viewport and its NAME WRAPS
+       — wrap-never-ellipsize is the kit law, and the ×7 no-truncation
+       audit reads scrollWidth, which wrapping keeps equal. */
+    max-width: 100%;
+    /* GH-534 uniform card-width law, coarse cut: one row slot, viewport-
+       bound on phones. Slot = 16 inset + 2 hairline + 56 thumb + 2·sp-2
+       gaps + 357 name+meta = 447px, where 357 was the ×7-measured worst
+       SAME-CARD inline sum (es cues/masse_trick_dwell: 301px two-line name
+       + 3px guard + its 53px meta; fr table/diamond's 116px meta rides a
+       short name — 332 total). Since GH-668 S5 G3 the meta rides BELOW the
+       name (grid anatomy above), so the slot is an upper bound the name
+       alone never reaches — kept as the tablet cap. Every phone rail cap (312px max at 844×390) sits
+       under it, so 100% binds there: uniform full-width row cards,
+       wrap-unbounded names as shipped, and the band-clearance derivations
+       stand — widening a card never adds wrap lines, so no card grows
+       taller than the pre-law worst. Review round-1 (P2): the bare coarse
+       register also carries the ≥1024px TABLET relaxation (touch.css §6)
+       where the rail grows with the viewport — an uncapped 100% made
+       ~818px cards at 1366 with no neighboring-card affordance, so the
+       slot CAPS the row and the ≤2-line law holds there by the same
+       derivation. */
+    /* GH-668 S5 G4 (B-EQ04, THE PEEK LAW): the phone slot is the kit
+       leaf's --sf-slot (clip − 2 × 40: 232 at 844×390, 208 at 667×375) —
+       one card per view becomes card + 32 px of each neighbour's FACE
+       inside the mask (fitPeek, atelier.js); 100 % = the degrade (no
+       leaf → today's one-card view); the 447 cap still binds on tablets. */
+    width: min(calc(304px + 53px + 56px + 2px + 4 * var(--ob-sp-2)), var(--sf-slot, 100%));
+  }
+  #ob-atelier-rail .ob-cardrail-name {
+    grid-area: name;
+    align-self: end;
+    white-space: normal;
+    min-width: 0; /* grid floor: without it the name never shrinks-to-wrap */
+    overflow-wrap: anywhere;
+    /* the desktop slot's two-line reservation is COLUMN anatomy — in this
+       centered row a reserved block would top-shift one-line names */
+    min-height: 0;
+  }
+  /* CJK names carry kinsoku-pinned punctuation (（）・) that overflow-wrap
+     cannot break around — measured 2-6px scrollWidth overflows on the
+     zh-CN/ja portrait squeeze. line-break relaxes the prohibitions in
+     exactly this compact register; latin locales keep word-boundary
+     wrapping (i18n.js writes documentElement.lang). Review r1 fix round:
+     `anywhere` → `loose` — anywhere disregards the locale strings' WJ
+     joins (the desktop rule above carries the measurement). */
+  #ob-atelier-rail .ob-cardrail-name:lang(ja),
+  #ob-atelier-rail .ob-cardrail-name:lang(zh) { line-break: loose; }
+  #ob-atelier-rail .ob-cardrail-meta {
+    grid-area: meta;
+    align-self: start;
+    flex-wrap: wrap; /* two badges wrap inside the row, never clip */
+    gap: var(--ob-sp-1); /* vfix1: de's two badges fit the 198 px row at sp-1 */
+  }
+  #ob-atelier-rail .ob-cardrail-thumb {
+    grid-area: thumb;
+    width: 56px;
+    /* the base geometry reservation (112px, the desktop strip face) must
+       NOT outrank this register's compact well — min-width beats width,
+       and the un-scoped reservation grew every phone card ~56px (the
+       audit's truncation + band-clearance regression cluster) */
+    min-width: 56px;
+    height: 40px;
+  }
+  /* strip faces fit the compact well (2:1 frame at 56x28, centered) */
+  #ob-atelier-rail .ob-cardrail-spin {
+    width: 56px;
+    height: 28px;
+  }
+  /* GH-1001 (atelier.md §7 B20-1 — supersedes K-17 / entry 36(b) on the
+     maintainer's 2026-10-09 report: uneven carousel heights, phone cards
+     too small, table thumbnails unreadable). On the WIDE rail the peek slot
+     is 430–447 px, so the card carries the LARGE face: a 2:1 well on the
+     kit's 64 px thumb rung (128x64, five times the compact face's area)
+     beside a two-line name column (>= 270 px — every catalog name in the
+     seven locales measured at <= 2 lines there; the longest natural width
+     is 378 px, es cues) over the one-badge meta row pinned to the
+     column's foot. Every card of every station stands at ONE height, the
+     RESERVE — the face well against two reserved name lines + sp-1 + the
+     fixed meta row, plus the pads (83.3 px with the hairlines) — never the
+     tallest sibling (the kit --card law); the row stretches, so a name that
+     ever needs a third line grows its whole row, never one card. */
+  #ob-atelier-rail.ob-atelier-rail--wide > [data-ob="atelier-rail-cards"] { align-items: stretch; }
+  #ob-atelier-rail.ob-atelier-rail--wide .ob-cardrail-card {
+    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-areas: "thumb name" "thumb meta";
+    align-items: start;
+    column-gap: var(--ob-sp-3);
+    row-gap: var(--ob-sp-1);
+    padding: var(--ob-sp-2);
+  }
+  #ob-atelier-rail.ob-atelier-rail--wide .ob-cardrail-thumb {
+    align-self: center;
+    width: calc(2 * var(--ob-h-thumb));
+    min-width: calc(2 * var(--ob-h-thumb));
+    height: var(--ob-h-thumb);
+  }
+  #ob-atelier-rail.ob-atelier-rail--wide .ob-cardrail-spin {
+    width: calc(2 * var(--ob-h-thumb));
+    height: var(--ob-h-thumb);
+  }
+  #ob-atelier-rail.ob-atelier-rail--wide .ob-cardrail-name {
+    align-self: start;
+    min-height: calc(2 * var(--ob-lh-control) * 1em);
+  }
+  #ob-atelier-rail.ob-atelier-rail--wide .ob-cardrail-meta { align-self: end; }
+  /* THE PEEK REGISTER keeps the ROW grid above (GH-668 S5 G4). A column
+     anatomy (face on top, the name at the card's full 214 px measure) was
+     built and measured: a two-line card cost 126 px against the row's 82,
+     and at cues the re-homed "See it up close" row (66) + that strip (142)
+     = 208 in the 161 px band at 844×390 — 47 px of scroll at rest, the
+     badge row cut (the defect B-EQ04 names). The row keeps the pre-G4
+     band parity (66 + 98 = 164); its name column at the 232 slot is 150
+     px, so the longest es / de / fr labels wrap past two lines and their
+     rail scrolls by the rail's own scroll — the wrap-unbounded register
+     of a clip-derived slot (arm W judges uniformity there, not lines). */
+  /* GH-668 S5 G2 (B-EQ02 / R13): the live-rail host has its REAL height —
+     the strip band (the R13 interim below) — bounded only by the shell
+     band (the base coarse cap above reads --ob-shell-reserve-b). The
+     62vh − 178 / 62vh − 205 (--railsub) derivations and the 64px floor are
+     retired: the rail YIELDS to the host through the publisher's measured
+     --ob-eq-host-b (#ob-atelier-rail max-height), never the other way
+     round. The host stays the ONE scroller of its column — the pinned
+     strip header below rides it (GH-525 S2.5 strip-pin remedial: the strip
+     is the host scroller's sticky top band, #ob-atelier dissolves so
+     strip / heading / cards are its flex items). */
+  #ob-shell-cards > section.ob-atelier-host--rail {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* the host IS the band on this register (the R13 interim below): the
+       strip's own block padding is the band's breathing (Item-C glow law),
+       no host padding under it */
+    padding-block: 0;
+    row-gap: var(--ob-sp-2);
+    /* GH-668 S5 review r11 P2 — THE PUBLISHER-FALLBACK LAW
+       (the ownership ledger atelier paragraph; atelier.md §7 S5-32): the G2
+       retirement above holds only while the publisher is PRESENT. A cached
+       pre-S5 atelier.js (the supported fresh-sheet / stale-module pairing)
+       publishes no --ob-eq-host-b, so the rail's max-height below falls to
+       its 78px host-band literal while this host — bounded only by the
+       shell band (the coarse cap above) — keeps its pre-S5 station sections
+       and paints OVER the rail: measured with the merge-base module at
+       844x390 Table, host 14–246 over the rail 150–230, every card centre
+       hit-testing the host section (review r11; census (f) of record, five
+       stations × four registers). --ob-eq-host-cap is the S5 cap ONLY when
+       --ob-eq-host-b resolves: `0 * var(--ob-eq-host-b)` is a 0px term
+       that is invalid at computed-value time without the publisher, which
+       makes this custom property the guaranteed-invalid value and hands
+       max-height its var() fallback — the pre-S5 --rail cap VERBATIM
+       (max(64px, 62vh − 178px − insets), the base sheet's law: host bottom
+       14 + 64 = 78 at 844x390 / 667x375, the very literal the rail's
+       fallback band assumes, so host and rail agree again without a
+       publisher). The fresh module publishes from the host's own
+       ResizeObserver (publishBands), so the cap flips to the S5 band on
+       the first measure and the rail is laid against the measured host as
+       before (pairings B / C unchanged: 89 / 102 px hosts at 844x390). */
+    --ob-eq-host-cap: calc(100vh - var(--ob-shell-reserve-b, 150px) - 14px
+      - env(safe-area-inset-top, 0px) + 0 * var(--ob-eq-host-b));
+    max-height: var(--ob-eq-host-cap, max(64px, calc(62vh - 178px
+      - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))));
+  }
+  /* the cloth station under the pre-S5 module (it wears --railsub while
+     the rail's secondary row shows; the fresh module still stamps it, and
+     resolves the S5 cap through the same custom property): the base
+     sheet's --railsub law VERBATIM as the fallback (the 205px budget = the
+     178 + the chip sub-row's 27) */
+  #ob-shell-cards > section.ob-atelier-host--rail.ob-atelier-host--railsub {
+    max-height: var(--ob-eq-host-cap, max(64px, calc(62vh - 205px
+      - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))));
+  }
+  /* R13 interim on the COARSE register: the live-rail host is the strip
+     band. (1) The station cards box is EMPTY here — the row lists are the
+     rail register's hidden ones, the station's secondary control re-homed
+     into the rail row (atelier.js homeSecondary), and the h3 / prov line /
+     lux note are what R13 retires (G5 generalises to the desktop and
+     deletes the JS unhide) — so it does not paint (measured 28 px of box +
+     16 px of gap for nothing at 844x390). (2) The place heading does not
+     paint on this register either: the shell's GH-698 decision prompt
+     drops to top 90 at the equipment place "clearing the station strip" —
+     a shell literal cut against the pre-G2 64 px host floor (host bottom
+     78); heading + strip measured 119.8 and the prompt covered the strip
+     (arm Q698, 36 poses). Strip-only = host bottom 73 (< 90), the rail
+     band on a 375-tall phone grows 107 → 144 px (one whole card) and the
+     cue sheet's fold budget 103 → 142 px. The shipped coarse register was
+     strip-only in practice (the 64 px floor clipped the heading beneath
+     the pinned band). Shell follow-up S-1 (PR body): the prompt's
+     equipment-place top reads the published --ob-eq-host-b, after which
+     the heading may return here under R13. Desktop keeps heading + strip.
+     Review r6 P2: the cards-box fold is keyed on the MODULE'S
+     OWN marker `.ob-atelier-host--rehomed` (atelier.js homeSecondary wears
+     it exactly while the secondary controls live in the rail row) — a
+     cached pre-S5 atelier.js under this sheet (the supported fresh-CSS /
+     stale-JS pairing) never sets it, keeps its cards box, and with it the
+     brightness slider + the Advanced disclosure it still homes there
+     (pre-fix the fold keyed on `--line` alone and hid both; arm S5-HF). */
+  .ob-atelier-host--rail.ob-atelier-host--rehomed:not(.ob-atelier-host--line) #ob-atelier-cards,
+  #ob-shell-cards > section.ob-atelier-host--rail > h2 { display: none; }
+  /* vfix1 (R-EQ-P1): the cues ARRIVAL LINE is the host's, said once — the
+     box paints exactly while it carries the unsaid hint (atelier.js
+     syncHostLine); the rail yields to the taller host through --ob-eq-host-b */
+  .ob-atelier-host--rail.ob-atelier-host--line #ob-atelier-cards { padding-block: 0; }
+  /* the shell's in-shell decision prompt drops to top 90 at the equipment
+     place (GH-698 — cut against the strip-only host, bottom 73; Q698 law:
+     the prompt sits BELOW the host): the arrival line YIELDS while a
+     decision is up (the prompt is the subject; the line returns with its
+     dismissal) — until shell follow-up S-1 reads --ob-eq-host-b */
+  html.ob-shell-decision-up .ob-atelier-host--rail.ob-atelier-host--line #ob-atelier-cards { display: none; }
+  /* the R13 arrival line (GH-668 S5 G5) under the pinned strip band: the
+     host has no block padding on this register, so the line carries its
+     own run-out */
+  .ob-atelier-host--rail [data-ob="atelier-arrival"] { padding-bottom: var(--ob-sp-2); }
+  #ob-shell-cards > section.ob-atelier-host--rail > #ob-atelier:not([hidden]) {
+    display: contents;
+  }
+  .ob-atelier-host--rail #ob-atelier-carousel {
+    order: -1; /* ahead of the place heading — it scrolls beneath the pin */
+    position: sticky;
+    top: 0;
+    z-index: var(--ob-z-raised); /* above the scrolled heading/hint/advanced content */
+    /* full-bleed band: cover the host's inline padding gutters so scrolled
+       content never reads beside the pill row; the host's rounded
+       overflow clip trims the outer corners */
+    margin-inline: calc(-1 * var(--ob-sp-3));
+    max-width: none;
+    border-radius: 0;
+    border-width: 0 0 1px; /* hairline under the band; host border above */
+    /* GH-534 round-7 pill rebase: sp-1 BLOCK inset on this square-cut
+       flush band (48pt kit pills would push the band to 65px at sp-2 and
+       the host floor past the chip-sliver budget — the strip-floor
+       derivation G2 retired); inline inset keeps the kit sp-2 (never tighter
+       than block — the optical-inset arm's clause). */
+    padding-block: var(--ob-sp-1);
+  }
+  /* the host is the ONE scroller on this register: the cards box lays out
+     at natural height so hint/rows/advanced scroll beneath the pinned
+     strip (the finding-6 run-out + fade stay on the cards box) */
+  .ob-atelier-host--rail #ob-atelier-cards {
+    min-height: auto;
+    overflow-y: visible;
+  }
+  /* the coarse sheet cap is ONE law (the G2 rule above): the desktop
+     with-rail ledger cap must not leak in (id+class specificity guard) */
+  #ob-atelier-cue.ob-atelier-cue--withrail { max-height: var(--ob-eq-sheet-cap); }
+  /* summary-bar fold (design note §3.8): the collapsed face keeps name +
+     descriptor + actions inside the shipped fold; the stat strip and both
+     expanders live behind the expand affordance (deviation-6's
+     always-visible strip stays law on the desktop face and the expanded
+     sheet). Fresh presents start collapsed. */
+  #ob-atelier-cue.ob-atelier-cue--withrail:not(.ob-atelier-cue--expanded) > .ob-atelier-statline,
+  #ob-atelier-cue.ob-atelier-cue--withrail:not(.ob-atelier-cue--expanded) > details[data-ob="atelier-details"],
+  #ob-atelier-cue.ob-atelier-cue--withrail:not(.ob-atelier-cue--expanded) > details[data-ob="atelier-dossier"] {
+    display: none;
+  }
+  /* GH-525 review visual-audit round 1 (finding 3): the affordance RIDES IN
+     the actions row (atelier.js appends it there — third control,
+     DOM-last), so the collapsed face spends ONE 44 pt band on all three
+     controls and the descriptor gains the fold room the stacked affordance
+     ate; the row's pills are intrinsic kit parts (GH-668 S5 G5: ghost
+     pill, the K-7 coarse floor belt, wrap-never-ellipsize). The
+     stacked-home align-self/order dropped with the move. */
+  #ob-atelier-cue.ob-atelier-cue--withrail .ob-atelier-cue-expand {
+    display: inline-flex; /* a kit ghost pill (GH-668 S5 G5; the K-7 coarse floor belt applies) */
+    align-items: center;
+  }
+  /* GH-525 review visual-audit round 1 (finding 3, the half-cut descriptor):
+     the COLLAPSED sheet always ends on WHOLE descriptor lines — the fold
+     had sheared the line mid-glyph on every class phone-sheet.png. Pure
+     CSS cannot know the fold budget (38vh minus title/actions varies per
+     locale and viewport), so atelier.js fitCollapsedDesc measures the room
+     under the descriptor's top at the present scroll origin and writes the
+     whole-line clamp here (--ob-cue-desc-lines; the --desc0 class = not
+     even one line fits — the expand affordance carries the text). The
+     EXPANDED face is untouched (a scroll surface by design; F4/F5 laws
+     hold — the arms re-proven at this change). */
+  #ob-atelier-cue.ob-atelier-cue--withrail:not(.ob-atelier-cue--expanded) > .ob-atelier-plain {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--ob-cue-desc-lines, 2);
+    line-clamp: var(--ob-cue-desc-lines, 2);
+    overflow: hidden;
+  }
+  #ob-atelier-cue.ob-atelier-cue--withrail.ob-atelier-cue--desc0:not(.ob-atelier-cue--expanded) > .ob-atelier-plain {
+    display: none;
+  }
+}
+
+/* (GH-525 r1 finding-1 cloth-station host cap — .ob-atelier-host--railsub
+   62vh − 205 — retired by GH-668 S5 G2: the class is a census marker; the
+   rail yields to the measured host edge on every station.) */
+
+/* ---- smoked-glass rungs (mirror of the shell.css ladder) -----------------
+   GH-525 S2.5 item B; GH-668 S5 G2: the station strip and the rail's
+   SECONDARY row left the blur family for the kit SOLID rung (text-dense
+   micro-chrome over the scene — the ladder's law); the CARDS never joined —
+   13 per-card backdrop filters would stack blur passes (one-frame-budget
+   law), so cards ride --ob-glass-thin flat tint with the tinted-solid
+   rungs below (the §3.5 material read comes from the scene itself). */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  body:not(.ob-glass-off) #ob-atelier-cue {
+    background-color: var(--ob-glass-bg);
+    backdrop-filter: blur(var(--ob-glass-blur)) saturate(var(--ob-glass-sat));
+    -webkit-backdrop-filter: blur(var(--ob-glass-blur))
+                             saturate(var(--ob-glass-sat));
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  body:not(.ob-glass-off) #ob-atelier-cue {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-color: var(--ob-glass-solid);
+  }
+  /* rail cards: the kit .ob-card-option part is on the solid rung already
+     (G3) — no thin-tint belt to land */
+}
+
+/* GH-1001 card 32 v2 (signed 2026-10-11 with two requests; atelier.md §7
+   B20-2) — THE TALL PHONE CARD. "The phone preview card could be bigger:
+   put its text below the preview, give the preview more room, make the card
+   taller." Phone landscape only (the short-viewport predicate: coarse
+   tablets keep the wide 82 px card). atelier.js publishBands writes
+   .ob-atelier-rail--tall, --ob-eq-face-h (F) and data-ob-name-lines (L)
+   when the live band affords F >= 70: the preview face stands at 2F x F on
+   top, the tier chip and the Equipped marker beside it, the name below at
+   the card's full measure. A meta row under the name would cost the face
+   its gain (the G4 column note above: F + 67 px of chrome), so the meta
+   rides the face's free width. Every card of every station stands at ONE
+   height — F + the card chrome + L name lines — and the band's first rows
+   (the control row, the docked bar) all stand at --ob-eq-tall-row1, the
+   height F's derivation subtracts. A stale
+   module never writes the class (the wide card above stands); a stale sheet
+   ignores it. Card 32 v4 (the block at the end of this sheet): the fresh
+   module adds .ob-atelier-rail--below beside this class and the v4 rules
+   restyle the card; these rules stand for a cached v3 module under this
+   sheet (the mixed-cache law). */
+@media (pointer: coarse) and (max-height: 520px) {
+  /* the band's one first-row height: the control row (the brightness row's
+     48 px line on every two-row station + its 2 px pads and hairlines) —
+     the bar grows to it, so a staged pose and an arrival stack alike */
+  :root { --ob-eq-tall-row1: calc(var(--ob-h-primary) + 6px); }
+  #ob-atelier-rail.ob-atelier-rail--tall > [data-ob="atelier-txbar"] { min-block-size: var(--ob-eq-tall-row1); }
+  #ob-atelier-rail.ob-atelier-rail--wide.ob-atelier-rail--tall .ob-cardrail-card {
+    grid-template-columns: calc(2 * var(--ob-eq-face-h, var(--ob-h-thumb))) minmax(0, 1fr);
+    grid-template-rows: var(--ob-eq-face-h, var(--ob-h-thumb)) auto;
+    grid-template-areas: "thumb meta" "name name";
+    align-items: start;
+    column-gap: var(--ob-sp-3);
+    row-gap: var(--ob-sp-1);
+    padding: var(--ob-sp-2);
+  }
+  #ob-atelier-rail.ob-atelier-rail--wide.ob-atelier-rail--tall .ob-cardrail-thumb {
+    align-self: start;
+    width: calc(2 * var(--ob-eq-face-h, var(--ob-h-thumb)));
+    min-width: calc(2 * var(--ob-eq-face-h, var(--ob-h-thumb)));
+    height: var(--ob-eq-face-h, var(--ob-h-thumb));
+  }
+  #ob-atelier-rail.ob-atelier-rail--wide.ob-atelier-rail--tall .ob-cardrail-spin {
+    width: calc(2 * var(--ob-eq-face-h, var(--ob-h-thumb)));
+    height: var(--ob-eq-face-h, var(--ob-h-thumb));
+  }
+  #ob-atelier-rail.ob-atelier-rail--wide.ob-atelier-rail--tall .ob-cardrail-meta {
+    align-self: start;
+    margin-top: 0;
+    flex-wrap: wrap;
+  }
+  #ob-atelier-rail.ob-atelier-rail--wide.ob-atelier-rail--tall .ob-cardrail-name {
+    align-self: start;
+    min-height: calc(var(--ob-lh-control) * 1em);
+  }
+  #ob-atelier-rail.ob-atelier-rail--wide.ob-atelier-rail--tall[data-ob-name-lines="2"] .ob-cardrail-name {
+    min-height: calc(2 * var(--ob-lh-control) * 1em);
+  }
+  /* FULL VIEW on the tall rail (card 32 v2: the whole-table camera): the bar
+     GLIDES to the rail's bottom row, where the faded card row keeps its box,
+     so the framed table above it reads whole — B1's "the bar never moves"
+     gives way on this register only (atelier.md §7 B20-2). The return is
+     instant, like the rows' (the base state carries no transition). */
+  html.ob-atelier-clear #ob-atelier-rail.ob-atelier-rail--tall > [data-ob="atelier-txbar"] {
+    transform: translateY(calc(var(--ob-eq-rail-h, 0px) - 100%));
+    transition: transform var(--ob-t-med) var(--ob-ease);
+  }
+}
+@media (pointer: coarse) and (max-height: 520px) and (prefers-reduced-motion: reduce) {
+  html.ob-atelier-clear #ob-atelier-rail.ob-atelier-rail--tall > [data-ob="atelier-txbar"] { transition: none; }
+}
+
+/* GH-1001 card 32 v4 (signed 2026-10-12, layout (2); atelier.md §7 B20-2
+   amendment v4 — the v3 reply: the tier tag alone in the face's empty right
+   half; 「文字全放下面」). atelier.js publishBands writes
+   .ob-atelier-rail--below on the tall phone rail: every label under the
+   face, the card max(2F, the two-line name measure, the widest meta row) +
+   its pads wide, the rail a grid of [the card column: one card + fitPeek's
+   two 40 px peeks] [ONE side column for the station controls], every
+   station one card height (--ob-eq-cardcol-h) on the rail's fixed bottom,
+   so the card top never moves; while a preview is staged
+   (html.ob-atelier-bartop) the bar seats over the host's strip row, the
+   host leaves paint and hit-testing and the card counter rides the bar;
+   Full view glides the bar to the rail's bottom row. The bar's v4 fit
+   ladder never hides the marker (atelier.js fitTxBarV4: one row, then
+   --grid2). */
+@media (pointer: coarse) and (max-height: 520px) {
+  /* the module reads this token before it derives a v4 band (a cached
+     056 sheet has none: the v3 tall card stands, the mixed-cache law) */
+  :root { --ob-eq-v4-sheet: 1px; }
+  #ob-atelier-rail.ob-atelier-rail--wide.ob-atelier-rail--tall.ob-atelier-rail--below:not([hidden]) {
+    display: grid;
+    grid-template-columns: var(--ob-eq-cardcol-w) minmax(0, 1fr);
+    grid-template-areas: "cards side";
+    align-items: end;
+    column-gap: var(--ob-sp-2);
+    width: var(--ob-eq-rail-w);
+  }
+  #ob-atelier-rail.ob-atelier-rail--wide.ob-atelier-rail--tall.ob-atelier-rail--below.ob-atelier-rail--sideless:not([hidden]) {
+    grid-template-columns: var(--ob-eq-cardcol-w);
+    grid-template-areas: "cards";
+    width: var(--ob-eq-cardcol-w);
+  }
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below > [data-ob="atelier-rail-cards"] {
+    grid-area: cards;
+    width: var(--ob-eq-cardcol-w);
+  }
+  /* the side column: the station's controls, bottom-aligned with the card
+     row, never taller than it (an open Advanced scrolls inside) */
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below > [data-ob="atelier-rail-sub"] {
+    grid-area: side;
+    align-self: end;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    max-height: var(--ob-eq-cardcol-h);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: var(--ob-sp-2);
+    min-width: 0;
+  }
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below > [data-ob="atelier-rail-sub"] > :is(details.ob-atelier-adv, .ob-atelier-brightrow, [data-ob="atelier-cloth-colors"], .ob-atelier-clothname) {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below .ob-atelier-brightrow input[type="range"] { width: 100%; }
+  /* the label and its readout wrap inside a column at the gate's 166 px floor
+     (review review P2: "Brightness" + the 12ch readout need ~189 px) */
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below .ob-atelier-brightrow > label {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    row-gap: 0;
+  }
+  /* every swatch whole: the colours wrap in the column (4-5 per row at
+     sp-1) instead of the pan row that cut the last one at the column's
+     edge (review visual r1, V3); the panel's block pad drops to sp-1 so
+     three rows still fit the card column's height at 667x375 + insets */
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below > [data-ob="atelier-rail-sub"] { padding-block: var(--ob-sp-1); }
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below > [data-ob="atelier-rail-sub"] > [data-ob="atelier-cloth-colors"] {
+    flex-wrap: wrap;
+    gap: var(--ob-sp-1);
+    min-width: 0;
+    overflow: visible;
+  }
+  /* the Advanced summary keeps the host's disclosure chevron here (the
+     re-homed summary had none: display flex drops the UA marker) */
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below details.ob-atelier-adv > summary { gap: var(--ob-sp-2); }
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below details.ob-atelier-adv > summary::-webkit-details-marker { display: none; }
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below details.ob-atelier-adv > summary::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid var(--ob-text-2);
+    border-bottom: 1.5px solid var(--ob-text-2);
+    transform: rotate(-45deg);
+    transition: transform var(--ob-t-fast) var(--ob-ease);
+  }
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below details.ob-atelier-adv[open] > summary::before { transform: rotate(45deg); }
+  /* a CLOSED Advanced keeps no boxes in the column: the UA's closed-details slot (content-visibility: hidden) still
+     lays its rows out on a geometry read, below the 54 px column and outside every scroller, where e2e-ui --audit A3
+     read them as visible controls on the staged frame (entry 60's sub row never posed it: it yielded to the bar) */
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below details.ob-atelier-adv:not([open]) > :not(summary) { display: none; }
+  /* the cues arrival line (atelier.js homeSecondary re-homes it here on this
+     rail; its said-once [hidden] stands, --away steps it aside elsewhere) */
+  #ob-atelier-rail [data-ob="atelier-rail-sub"] > .ob-atelier-hint { flex: 1 1 100%; margin: 0; }
+  #ob-atelier-rail [data-ob="atelier-rail-sub"] > .ob-atelier-hint:is([hidden], .ob-atelier-hint--away) { display: none; }
+  /* the card: face / name / meta, top to bottom */
+  #ob-atelier-rail.ob-atelier-rail--wide.ob-atelier-rail--tall.ob-atelier-rail--below .ob-cardrail-card {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: var(--ob-eq-face-h, var(--ob-h-thumb)) auto auto;
+    grid-template-areas: "thumb" "name" "meta";
+  }
+  /* the face shares the title's left edge: the card is wider than 2F where the locale's two-line name measure or
+     widest meta row outruns it (de, en, es on every phone register; fr, ja at 812), and a centred face then started
+     inward of its name */
+  #ob-atelier-rail.ob-atelier-rail--wide.ob-atelier-rail--tall.ob-atelier-rail--below .ob-cardrail-thumb { justify-self: start; }
+  /* a fling's momentum stops at the next card (A1's step; a drag longer
+     than one card still moves two — the narrow card, card 32 v4 §4) */
+  #ob-atelier-rail.ob-atelier-rail--wide.ob-atelier-rail--tall.ob-atelier-rail--below .ob-cardrail-card { scroll-snap-stop: always; }
+  #ob-atelier-rail.ob-atelier-rail--wide.ob-atelier-rail--tall.ob-atelier-rail--below .ob-cardrail-meta { flex-wrap: nowrap; }
+  /* the staged bar over the host's strip row (the strip's own box,
+     published as --ob-eq-seat-*), on the band's one first-row height
+     centred in it (the bar's 56 px cap, S5-W), the host out of paint and
+     hit-testing */
+  html.ob-atelier-bartop #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below > [data-ob="atelier-txbar"] {
+    position: fixed;
+    top: calc(var(--ob-eq-seat-t) + (var(--ob-eq-seat-h) - var(--ob-eq-tall-row1)) / 2);
+    left: var(--ob-eq-seat-l);
+    width: var(--ob-eq-seat-w);
+    max-width: none;
+    min-block-size: var(--ob-eq-tall-row1);
+  }
+  html.ob-atelier-bartop #ob-shell-cards > section.ob-atelier-host {
+    visibility: hidden;
+    pointer-events: none;
+  }
+  /* the host's column box (the shell's, painted nothing) still hit-tested over
+     the bar's leading half (measured: the marker and Full view under
+     #ob-shell-cards at 844x390); its other children keep their own targets */
+  html.ob-atelier-bartop #ob-shell-cards { pointer-events: none; }
+  html.ob-atelier-bartop #ob-shell-cards > :not(section.ob-atelier-host) { pointer-events: auto; }
+  html.ob-atelier-clear.ob-atelier-bartop #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below > [data-ob="atelier-txbar"] {
+    transform: translateY(calc(var(--ob-eq-rail-b) - var(--ob-eq-seat-t) - (var(--ob-eq-seat-h) - var(--ob-eq-tall-row1)) / 2 - 100%));
+    transition: transform var(--ob-t-med) var(--ob-ease);
+  }
+  /* the 2x2 bar: marker | full view over put back | keep */
+  [data-ob="atelier-txbar"].ob-atelier-txbar--grid2:not([hidden]) {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-areas: "note view" "back keep";
+    justify-content: stretch;
+    align-items: center;
+    gap: var(--ob-sp-1);
+    padding: calc(var(--ob-sp-1) / 2);
+  }
+  [data-ob="atelier-txbar"].ob-atelier-txbar--grid2 .ob-btn { justify-self: stretch; }
+  [data-ob="atelier-txbar"].ob-atelier-txbar--grid2 .ob-atelier-txnote { grid-area: note; display: flex; min-width: 0; padding-inline-start: calc(var(--ob-sp-2) - var(--ob-sp-1) / 2); }
+  [data-ob="atelier-txbar"].ob-atelier-txbar--grid2 .ob-atelier-txnote__text { display: none; }
+}
+@media (pointer: coarse) and (max-height: 520px) and (prefers-reduced-motion: reduce) {
+  html.ob-atelier-clear.ob-atelier-bartop #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below > [data-ob="atelier-txbar"],
+  #ob-atelier-rail.ob-atelier-rail--tall.ob-atelier-rail--below details.ob-atelier-adv > summary::before { transition: none; }
+}

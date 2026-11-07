@@ -1,0 +1,1211 @@
+% ===========================================================================
+% Supplement S3 (former Appendix C) — Governing equations and frozen constants
+% Compiles into supplement.pdf via supplement-main.tex; main-text pointers
+% are prose "Section S3".
+% The physics must be recoverable from the paper alone, independent of any
+% source revision. This appendix states every validated model's equations
+% as implemented, with published citations and itemized deviations, and
+% consolidates every frozen constant with its provenance. No source code
+% appears here; the equations below are transcriptions of the canonical
+% binary's arithmetic, not re-derivations.
+% ===========================================================================
+\section{Governing equations and frozen constants of the validated models}
+\label{sec:appendix-equations}
+
+This appendix makes each row of Table~\ref{tab:models} reproducible from
+the paper alone. Every equation is stated \emph{as implemented at kernel
+\code{0.1.0+fb3425ad}} (the canonical binary of
+Section~\ref{sec:simulator-determinism}); the citation attached to each
+model identifies its published lineage, and wherever the implementation
+deviates from the cited source the deviation is itemized in place rather
+than left behind the word ``corrected.'' Formulations inherited from the
+open-source reference implementation pooltool \citep{kiefl2024pooltool}
+are cited as such; the oracle comparison of Section~\ref{sec:oracle}
+independently verifies that inheritance event-by-event \emph{on the
+matched registry only}---the 38 registered \expid{A3}/\expid{A6}
+points, which exercise the Han cushion family, the legacy ball--ball
+law, and matched strike models. The Stronge, Mathavan, and
+compliant-cluster rows are never oracle-verified (Section~\ref{sec:oracle}
+states this explicitly for Stronge); their evidence is the
+published-curve anchors and battery gates of
+Sections~\ref{sec:results} and~\ref{sec:oracle}. All frozen
+constants appear in Table~\ref{tab:frozen-constants} with units and
+provenance.
+
+Notation: $\mathbf{v}$ and $\boldsymbol{\omega}$ are a ball's
+center-of-mass velocity and angular velocity, $R$ its radius, $m$ its
+mass, $I = \tfrac{2}{5}mR^{2}$ its moment of inertia,
+$\hat{\mathbf{z}}$ the vertical unit vector, and $g = 9.81$\,m/s$^2$.
+Subscripts $n$ and $t$ denote components along a contact normal
+$\hat{\mathbf{n}}$ and tangent $\hat{\mathbf{t}}$. A hat denotes a unit
+vector; a prime denotes a post-impact quantity.
+
+\subsection{Ball--cloth motion between events}
+\label{sec:appendix-eq-cloth}
+
+As implemented at kernel \code{0.1.0+fb3425ad}, cloth contact uses three
+independent friction regimes---sliding $\mu_s$, rolling $\mu_r$, and
+vertical-spin decay $\mu_{sp}$---with closed-form kinematics in each
+regime, following the classical treatment collected in the
+technical-proof corpus \citep{alciatore_tp_catalog} and the event-based
+formulation of \citet{leckie2006event} as realized by
+\citet{kiefl2024pooltool}. The cloth contact-point slip velocity is
+\begin{equation}
+\mathbf{u} \;=\; \mathbf{v} + R\,(\hat{\mathbf{z}} \times
+\boldsymbol{\omega}).
+\label{eq:cloth-slip}
+\end{equation}
+
+\paragraph{Sliding} While $\mathbf{u} \neq \mathbf{0}$, planar Coulomb
+friction acts along the (exactly constant) initial slip direction
+$\hat{\mathbf{u}}_0$:
+\begin{align}
+\mathbf{r}(t) &= \mathbf{r}_0 + \mathbf{v}_0 t
+  - \tfrac{1}{2}\,\mu_s g\,t^{2}\,\hat{\mathbf{u}}_0, &
+\mathbf{v}(t) &= \mathbf{v}_0 - \mu_s g\,t\,\hat{\mathbf{u}}_0,
+\label{eq:slide-rv}\\
+\boldsymbol{\omega}_{xy}(t) &= \boldsymbol{\omega}_{0,xy}
+  - \frac{5\,\mu_s g}{2R}\,t\,(\hat{\mathbf{u}}_0 \times
+  \hat{\mathbf{z}}), &
+\mathbf{u}(t) &= \mathbf{u}_0 - \tfrac{7}{2}\,\mu_s g\,t\,
+  \hat{\mathbf{u}}_0.
+\label{eq:slide-w}
+\end{align}
+The constancy of $\hat{\mathbf{u}}_0$ is an exact consequence of planar
+Coulomb friction, not an approximation; the slide ends when
+$\mathbf{u} = \mathbf{0}$, at
+\begin{equation}
+\tau_{\mathrm{slide}} = \frac{2\,|\mathbf{u}_0|}{7\,\mu_s g}.
+\label{eq:slide-tau}
+\end{equation}
+
+\paragraph{Rolling} A rolling ball travels in a straight line along
+$\hat{\mathbf{v}}_0$ with constant deceleration $\mu_r g$, and the
+rolling constraint is re-imposed exactly at every instant (not
+integrated):
+\begin{equation}
+\mathbf{v}(t) = \mathbf{v}_0 - \mu_r g\,t\,\hat{\mathbf{v}}_0,
+\qquad
+\boldsymbol{\omega}_{xy}(t) \;=\;
+\frac{\hat{\mathbf{z}} \times \mathbf{v}(t)}{R},
+\qquad
+\tau_{\mathrm{roll}} = \frac{|\mathbf{v}_0|}{\mu_r g}.
+\label{eq:roll}
+\end{equation}
+
+\paragraph{Vertical spin} $\omega_z$ decays linearly and independently
+in every \emph{cloth-contact} moving state (sliding, rolling,
+spinning), clamped at exactly zero (no overshoot)---airborne flight is
+excluded: it freezes all of $\boldsymbol{\omega}$ (below), so a
+ball in flight lands with the spin it launched with:
+\begin{equation}
+\omega_z(t) = \operatorname{sgn}(\omega_{z,0})\,
+\max\!\bigl(|\omega_{z,0}| - \alpha t,\; 0\bigr),
+\qquad
+\alpha = \frac{5\,\mu_{sp}\,g}{2R},
+\label{eq:spin-decay}
+\end{equation}
+with the frozen $\mu_{sp} = \tfrac{4}{9}R$ giving
+$\alpha = \tfrac{10}{9}g \approx 10.9$\,rad/s$^2$. A units convention
+governs this line: $\mu_{sp}$ is \emph{dimensionless} --- the
+inherited shorthand $\tfrac{4}{9}R$ consumes the numeric value of $R$
+in metres, i.e.\ $\mu_{sp} = \tfrac{4}{9}\,(R/\mathrm{1\,m}) = 0.0127$
+--- so $\alpha = 5\mu_{sp}g/(2R)$ carries s$^{-2}$ as required; both
+the coefficient and the resulting rate are printed so the
+implementation is reproducible either way. The spin regime ends
+at $\tau_{\mathrm{spin}} = |\omega_z|/\alpha$; a ball is projected to
+exact rest (all components identically zero) when its last regime
+expires.
+
+\paragraph{Airborne flight} A ball off the bed follows an exact
+ballistic parabola, $\mathbf{r}(t) = \mathbf{r}_0 + \mathbf{v}_0 t -
+\tfrac{1}{2} g t^{2}\hat{\mathbf{z}}$, with $\boldsymbol{\omega}$
+frozen: the design excludes air drag and Magnus lift so that every
+trajectory stays polynomial (Section~\ref{sec:simulator-core}). Every
+landing resolves through the slate impact of
+\ref{sec:appendix-eq-slate}.
+
+\subsection{Ball--slate impact (landing resolution)}
+\label{sec:appendix-eq-slate}
+
+As implemented at kernel \code{0.1.0+fb3425ad}, every landing of an
+airborne ball on the bed---including the immediate post-strike bounce
+that every jump shot dispatches to at $\tau \approx 0$
+(\ref{sec:appendix-eq-strike})---resolves through a frictional
+inelastic impulse in the formulation of \citet{kiefl2024pooltool}. The
+ball is first re-seated to exactly $z = R$. With $v_z < 0$ the incoming
+vertical velocity, the normal channel is restitution $e_t$:
+\begin{equation}
+v'_z \;=\; -\,e_t\,v_z
+\qquad\text{(normal impulse } (1 + e_t)\,|v_z| \text{ per unit mass)}.
+\label{eq:slate-normal}
+\end{equation}
+The tangential channel is resolved with the normal problem settled
+first: the cloth contact slip $\mathbf{u} = \mathbf{v}_{xy} +
+R\,(\hat{\mathbf{z}} \times \boldsymbol{\omega})$
+(Eq.~\eqref{eq:cloth-slip}, planar velocity only) selects between the
+Coulomb slip impulse and the $2/7$-stick impulse, stick applying when
+there is no slip or the stick impulse is not larger in magnitude:
+\begin{equation}
+\Delta\mathbf{V}_t =
+\begin{cases}
+-\,\mu_s\,(1+e_t)\,|v_z|\;\hat{\mathbf{u}}, &
+\mathbf{u} \neq \mathbf{0} \text{ and }
+|\Delta\mathbf{V}_{t,\mathrm{stick}}| >
+|\Delta\mathbf{V}_{t,\mathrm{slip}}|
+\quad\text{(slip)},\\[4pt]
+\tfrac{2}{7}\bigl[R\,(\boldsymbol{\omega} \times \hat{\mathbf{z}}) -
+\mathbf{v}_{xy}\bigr], & \text{otherwise (stick)},
+\end{cases}
+\label{eq:slate-tangential}
+\end{equation}
+with the corresponding spin updates
+\begin{equation}
+\text{slip:}\quad
+\boldsymbol{\omega}' = \boldsymbol{\omega} +
+\frac{5}{2R}\,|\Delta\mathbf{V}_t|\,
+(\hat{\mathbf{z}} \times \hat{\mathbf{u}}),
+\qquad\quad
+\text{stick:}\quad
+\boldsymbol{\omega}' = \tfrac{2}{7}\,\boldsymbol{\omega} +
+\tfrac{5}{7}\,\frac{\hat{\mathbf{z}} \times \mathbf{v}_{xy}}{R}
+\label{eq:slate-spin}
+\end{equation}
+(note the stick update also scales $\omega_z$ by $2/7$). That
+$\omega_z$ scaling deserves an explicit acknowledgment rather than a
+parenthesis: a tangential impulse applied at the contact point directly
+below the ball centre exerts no torque about the vertical axis, so the
+$5/7$ vertical-spin loss per stuck bounce is not derivable from the
+printed impulse --- it is an inherited artifact of the ported
+formulation \citep{kiefl2024pooltool}, disclosed here as a known
+limitation: every jump shot dispatches an immediate slate bounce, so a
+landing that resolves through the stick branch bleeds side spin
+accordingly. The friction
+coefficient is the cloth sliding $\mu_s$---the bounce happens through
+the cloth. Finally the bounce guard: if the outgoing apex
+$v'^{2}_z/2g$ falls below the keep threshold---$5$\,mm under the
+parity default, $10\,\mu$m under the three realism presets, the same
+two-regime convention as the ball--ball micro-hop guard of
+\ref{sec:appendix-eq-ballball}---then $v'_z := 0$ and the bounce
+cascade terminates (the apex decays geometrically with $e_t^{2}$). The
+frozen $e_t = 0.5$ is the reference default
+(Table~\ref{tab:frozen-constants}); no published measurement exists.
+
+\subsection{Ball--ball impact}
+\label{sec:appendix-eq-ballball}
+
+As implemented at kernel \code{0.1.0+fb3425ad} (catalog row
+\code{CoulombCap}), the ball--ball impact is an instantaneous impulse
+with a normal restitution channel and a tangential friction channel,
+following the throw model of the technical-proof corpus
+\citep{alciatore_tp_a14,alciatore_tp_catalog} in the formulation of
+\citet{kiefl2024pooltool}. The contact normal $\hat{\mathbf{n}}$ is the
+full three-dimensional line of centers from ball~1 to ball~2.
+
+\paragraph{Normal channel} With $e_b$ the arithmetic mean of the two
+balls' restitution parameters ($e_b = 0.95$ for the catalog ball set),
+the normal velocity components exchange as an equal-mass
+one-dimensional inelastic collision:
+\begin{equation}
+v'_{1n} = \tfrac{1}{2}\bigl[(1-e_b)\,v_{1n} + (1+e_b)\,v_{2n}\bigr],
+\qquad
+v'_{2n} = \tfrac{1}{2}\bigl[(1+e_b)\,v_{1n} + (1-e_b)\,v_{2n}\bigr].
+\label{eq:bb-normal}
+\end{equation}
+
+\paragraph{Friction coefficient} The tangential channel samples the
+velocity-dependent friction curve of \citet{alciatore_tp_a14} at the
+contact-point relative surface speed
+$u_{12} = |\mathbf{u}_{12}|$, where $\mathbf{u}_{12}$ is the relative
+velocity of the two contacting surface points (both balls' spins
+included):
+\begin{equation}
+\mu_{bb}(u_{12}) \;=\; 0.009951 + 0.108\,e^{-1.088\,u_{12}}.
+\label{eq:bb-mu}
+\end{equation}
+(The revision drift within the source corpus for the decay constant is
+ledgered as a source discrepancy, Section~\ref{sec:simulator-catalog}.)
+
+\paragraph{Slip branch (Coulomb cap)} If the contact is slipping, each
+ball receives an equal-and-opposite tangential velocity change of
+magnitude $\mu_{bb}\,\hat{J}_n$ opposing the slip, with the
+per-unit-mass normal impulse
+\begin{equation}
+\hat{J}_n \;=\; \frac{1+e_b}{2}\,\bigl|v_{1n} - v_{2n}\bigr|
+\qquad \text{(TP~A.5, Eq.~10; catalog law \code{CoulombCap})},
+\label{eq:bb-cap}
+\end{equation}
+\begin{align}
+\Delta\mathbf{V}_{t,1} &= -\,\mu_{bb}(u_{12})\,\hat{J}_n\,
+\hat{\mathbf{u}}_{12},
+\qquad
+\Delta\mathbf{V}_{t,2} = -\Delta\mathbf{V}_{t,1},
+\label{eq:bb-slip}\\
+\Delta\boldsymbol{\omega}_{1} &= \Delta\boldsymbol{\omega}_{2}
+= \frac{5}{2R}\,\hat{\mathbf{n}} \times \Delta\mathbf{V}_{t,1}.
+\nonumber
+\end{align}
+In a stun cut this yields a slip-regime throw angle of exactly
+$\arctan \mu_{bb}$, independent of $e_b$. The \emph{legacy} law
+(recorded as \code{PostImpactNormalDelta}; retained solely for
+byte-exact replay of pre-correction records and oracle parity,
+Section~\ref{sec:oracle}) scales the same impulse with
+$e_b\,|v_{1n}-v_{2n}|$ instead, leaving slip-regime throw
+$\arctan[2\mu_{bb}e_b/(1+e_b)]$---about 2.6\% low at $e_b=0.95$ (the
+slip-law defect).
+
+\paragraph{Stick branch and boundary} If the contact has no initial
+slip, or the slip solution of Eq.~\eqref{eq:bb-slip} would reverse the
+slip direction ($\mathbf{u}_{12}\cdot\mathbf{u}'_{12} \le 0$), the
+no-slip (``$1/7$'') solution applies instead:
+\begin{align}
+\Delta\mathbf{V}_{t,1} &= -\tfrac{1}{7}\Bigl[(\mathbf{v}_1 -
+\mathbf{v}_2)_t + R\,(\boldsymbol{\omega}_1 +
+\boldsymbol{\omega}_2)\times\hat{\mathbf{n}}\Bigr],
+\label{eq:bb-stick}\\
+\Delta\boldsymbol{\omega}_{1,2} &=
+-\tfrac{5}{14}\Bigl[\frac{\hat{\mathbf{n}}\times(\mathbf{v}_1 -
+\mathbf{v}_2)}{R} + (\boldsymbol{\omega}_1 +
+\boldsymbol{\omega}_2)_t\Bigr].
+\nonumber
+\end{align}
+The stick/slip boundary is therefore implicit,
+$u_{12} = 7\,\mu_{bb}(u_{12})\,\hat{J}_n$, and moves with the cap: the
+corrected law's boundary cut sits $0.6$--$1^\circ$ above the legacy
+law's (the predicted-shift verification of Section~\ref{sec:oracle}).
+Spin components along $\hat{\mathbf{n}}$ are unchanged by the impact.
+
+\paragraph{Vertical micro-hop guard} The three-dimensional line of
+centers gives the friction impulse a vertical component (ball hop). An
+on-bed ball keeps its post-impact $v_z$ only when the resulting bounce
+apex $v_z^{2}/2g$ clears a threshold: $5$\,mm under the parity default
+(absorbing the micro-hop, matching the planar reference formulation)
+and $10\,\mu$m under the three realism presets of
+Table~\ref{tab:models} (\code{stronge_realistic},
+\code{mathavan_fitted}, \code{grip_fitted}), which keep the physical
+micro-hop while absorbing numerical dust.
+
+\subsection{Stick--ball strike}
+\label{sec:appendix-eq-strike}
+
+As implemented at kernel \code{0.1.0+fb3425ad}, the strike is the
+instantaneous-point cue impact of the technical-proof corpus (TP~A-30)
+with the endmass squirt model (TP~A-31)
+\citep{alciatore_tp_a31,cross2008squirt,shepard2001squirt}, in the
+formulation of \citet{kiefl2024pooltool}. Shot parameters are the cue
+speed $v_0 \in (0, 15]$\,m/s, azimuth $\varphi$, elevation
+$\theta \in [0, \pi/2)$, and the commanded \emph{tip-center} offsets
+$(a_{\mathrm{cmd}}, b_{\mathrm{cmd}})$ in units of $R$ (side, vertical), subject to the miscue envelope
+\begin{equation}
+a_{\mathrm{cmd}}^{2} + b_{\mathrm{cmd}}^{2} \;\le\; 0.25
+\qquad\text{(offset radius $\le R/2$)};
+\label{eq:strike-miscue}
+\end{equation}
+shots beyond the envelope are rejected as invalid input, never
+resolved. Post-registration, a kernel amendment (kernel
+\code{0.1.0+8efd660e}) re-binds this limit to the \emph{contact}
+offset --- the variable in which the $0.5$--$0.55R$ literature bracket
+is stated --- raising the commanded cap to $0.5\,(1 + \rho/R)$
+($0.686R$, nickel tip); every previously accepted input reproduces
+bit-exactly (\expid{B3}'s registered nickel-tip rejection probes,
+which would now be accepted, are the one disclosed behavioral change
+class), so Eq.~\eqref{eq:strike-miscue} is the envelope of record for
+every result in this paper (amendment note: main-text
+Section~\ref{sec:limitations}).
+
+\paragraph{Commanded-to-internal offset map (frame and sign)} Two
+side-offset conventions exist and must not be conflated. The
+\emph{commanded} offset $a_{\mathrm{cmd}}$ of the shot record is
+positive for \emph{right} English (the shooter's perspective); the
+\emph{internal} offset $a$ consumed by every formula below is measured
+toward the shooter's \emph{left} ($+\hat{\mathbf{x}}$ in the
+cue-aligned frame). The resolver's first act is therefore a sign
+inversion, fused with the tip-curvature contact correction (tip-center
+offsets map to the contact point on the ball surface through the tip
+curvature radius $\rho$):
+\begin{equation}
+a \;=\; \frac{-\,a_{\mathrm{cmd}}}{1 + \rho/R},
+\qquad
+b \;=\; \frac{b_{\mathrm{cmd}}}{1 + \rho/R},
+\label{eq:strike-tipscale}
+\end{equation}
+with $\rho = 0.0106$\,m (nickel) for the default cue, and
+$c = \sqrt{1 - a^{2} - b^{2}}$ is the contact-normal component
+(offsets internal and tip-corrected hereafter). A reproduction that
+scales but does not negate the side offset mirrors both the spin of
+Eq.~\eqref{eq:strike-spin} and the squirt direction of
+Eq.~\eqref{eq:strike-squirt} on every side-English shot.
+
+\paragraph{Ball speed} With cue mass $M$, ball mass $m$, and tip--ball
+restitution $e_{\mathrm{tip}}$, the post-strike ball speed is
+\begin{equation}
+v \;=\; \frac{(1 + e_{\mathrm{tip}})\,v_0}
+{1 + \dfrac{m}{M} + \dfrac{5}{2}\,(a^{2} + b^{2})},
+\label{eq:strike-speed}
+\end{equation}
+the elevation-independent (ball-frame) form of TP~A-30; the frozen
+default $e_{\mathrm{tip}} = 1$ reproduces the classical $2v_0$
+numerator, and the cue catalog carries measured tip values (leather
+$0.73$, phenolic $0.85$; Table~\ref{tab:frozen-constants}). In the
+cue-aligned frame (cue axis along $-\hat{\mathbf{y}}$, elevated by
+$\theta$ about $\hat{\mathbf{x}}$; $a$ measured toward
+$+\hat{\mathbf{x}}$, the shooter's left; $b$ upward) the outgoing
+velocity is $(0, -v\cos\theta, -v\sin\theta)$ and the angular velocity
+is
+\begin{equation}
+\boldsymbol{\omega}_{\mathrm{cue}} \;=\; \frac{5v}{2R}\,
+\bigl(b,\; a\sin\theta,\; -a\cos\theta\bigr),
+\label{eq:strike-spin}
+\end{equation}
+both rotated to the table frame by $\varphi + \pi/2$ about
+$\hat{\mathbf{z}}$. Elevation drives the ball downward
+($v_z = -v\sin\theta$); for $0 < \theta < \theta_{\mathrm{full}}$ the
+ball leaves the strike airborne---the pinch of
+Eq.~\eqref{eq:strike-pinch} removes only the fraction $\lambda < 1$ of
+the downward component---and its immediate slate bounce
+(\ref{sec:appendix-eq-slate}) is the legal-jump mechanism. At full
+pinch, $\theta \ge \theta_{\mathrm{full}}$, $\lambda = 1$ and the bed
+reaction removes the \emph{entire} downward component before
+motion-state classification: the strike exits grounded, with no slate
+bounce.
+
+\paragraph{Squirt (cue-ball deflection)} The endmass model of TP~A-31
+(eq.~13 there; cf.\ \citealp{shepard2001squirt,cross2008squirt})
+rotates the outgoing \emph{velocity} (spin untouched) away from the
+aiming line by the squirt angle $\psi$, directed opposite the applied
+side spin:
+\begin{equation}
+\tan\psi \;=\; \frac{\tfrac{5}{2}\,a\,\sqrt{1-a^{2}}}
+{1 + \dfrac{m}{m_e} + \dfrac{5}{2}\,(1-a^{2})},
+\label{eq:strike-squirt}
+\end{equation}
+with $m_e$ the effective endmass. The default cue freezes
+$m_e = m/30 \approx 5.67$\,g; the per-shaft catalog spans
+$1.70$--$12.7$\,g through the small-offset pivot-length inversion
+$m/m_e = 2.5\,L_p/R - 3.5$ of \citet{shepard2001squirt}, with
+$L_p$ the robot-measured pivot length
+(Table~\ref{tab:frozen-constants}).
+
+\paragraph{Pinch (elevated-strike) regime} Below
+$\theta_{\mathrm{onset}} = 60^{\circ}$ the strike is exactly
+Eqs.~\eqref{eq:strike-speed}--\eqref{eq:strike-squirt}. Above it the
+tip pins the ball against the cloth (the grounded-mass\'e regime of
+\citealp{coriolis1835}) and the bed reaction participates in the
+strike, with engagement fraction
+\begin{equation}
+\lambda(\theta) = s^{2}(3 - 2s), \qquad
+s = \operatorname{clamp}\!\Bigl(
+\frac{\theta - \theta_{\mathrm{onset}}}
+{\theta_{\mathrm{full}} - \theta_{\mathrm{onset}}},\, 0,\, 1\Bigr),
+\qquad \theta_{\mathrm{full}} = 70^{\circ},
+\label{eq:strike-pinch}
+\end{equation}
+a $C^{1}$ smoothstep. The bed absorbs the normal launch impulse
+$\hat{\jmath} = \lambda(\theta)\,|v_z|$ per unit mass
+($v_z \to (1-\lambda)v_z$), and the same impulse drags cloth friction
+$\mu_s\,\hat{\jmath}$ through the contact patch opposite the
+contact-point slip, with exactly the slip/stick selection of
+Eq.~\eqref{eq:slate-tangential} (normal impulse magnitude
+$\hat{\jmath}$ in place of $(1+e_t)|v_z|$). The pinch
+leaves the ball pressed into the cloth: for a window
+$\tau_{\mathrm{pinch}} = 0.12$\,s the sliding friction deceleration is
+elevated to $\mu_s k g$ with
+\begin{equation}
+k \;=\; 1 + \frac{\kappa\,\hat{\jmath}}{g\,\tau_{\mathrm{pinch}}},
+\qquad \kappa = 0.45,
+\label{eq:strike-press}
+\end{equation}
+each phase remaining an exact parabola. The constants
+$(\tau_{\mathrm{pinch}}, \kappa)$ are first-party fits to reference
+mass\'e footage (Table~\ref{tab:frozen-constants}).
+
+\subsection{Ball--cushion impact}
+\label{sec:appendix-eq-cushion}
+
+All four cushion rows of Table~\ref{tab:models} share the contact
+geometry and the two velocity-response hooks; they differ in the
+impulse model. Throughout, $h$ is the cushion-nose height above the
+bed and the nose contact angle $\theta_a$ satisfies
+\begin{equation}
+\sin\theta_a \;=\; \frac{h}{R} - 1 .
+\label{eq:cushion-geom}
+\end{equation}
+The US-pool (WPA) geometry freezes $h = 0.635 \cdot 2R = 1.27R$, so
+$\sin\theta_a = 0.27$; the snooker-lineage geometry of
+\citet{mathavan2010cushion} places the contact at $h = 7R/5$
+($\sin\theta_a = 0.4$) and is paired exclusively with the snooker
+table configuration (the domain separation of
+Section~\ref{sec:simulator-catalog}).
+
+\paragraph{Velocity-dependent restitution hooks} Two separate restitution
+definitions exist and are never conflated. The \emph{kinematic}
+restitution consumed by the Han and Stronge models is
+\begin{equation}
+e(v_n) \;=\; \operatorname{clamp}\bigl(e_0 + k_v\,(v_n -
+v_{\mathrm{ref}}),\; e_{\min},\; e_{\max}\bigr),
+\label{eq:ec-kinematic}
+\end{equation}
+with $v_n$ the normal impact speed; the frozen default is constant
+($e_0 = 0.85$, $k_v = 0$, $v_{\mathrm{ref}} = 1$\,m/s, clamp
+$[0.6, 0.98]$). The \emph{energetic} (Stronge-sense) restitution
+consumed by the Mathavan model shares the same functional form and
+clamps but pivots on its own base $ee_0$:
+\begin{equation}
+ee(v_n) \;=\; \operatorname{clamp}\bigl(ee_0 + k_v\,(v_n -
+v_{\mathrm{ref}}),\; e_{\min},\; e_{\max}\bigr),
+\label{eq:ec-energetic}
+\end{equation}
+with $ee_0 = 0.98$ at the structural default
+\citep[the snooker fit of][]{mathavan2010cushion}, $ee_0 = 0.80$
+constant for \code{mathavan_fitted}, and the velocity-sloped
+\code{grip_fitted} response
+\begin{equation}
+ee(v_n) = \operatorname{clamp}\bigl(0.65 + 0.18\,(v_n - 1),\;
+0.5,\; 0.98\bigr).
+\label{eq:ec-grip}
+\end{equation}
+
+\paragraph{Slip-velocity friction hooks} Cushion-nose
+friction is an affine function of the contact-point slip speed
+$v_{\mathrm{slip}}$ at impact start, clamped:
+\begin{equation}
+\mu_w(v_{\mathrm{slip}}) \;=\; \operatorname{clamp}\bigl(\mu_0 +
+k\,(v_{\mathrm{slip}} - v_{\mathrm{ref}}),\; \mu_{\min},\;
+\mu_{\max}\bigr).
+\label{eq:muw-hook}
+\end{equation}
+The default row \code{han2005_default} freezes the flat value
+$\mu_w = 0.20$ ($k = 0$). The \code{stronge_realistic} row carries the
+video-calibrated curve $\mu_w = \operatorname{clamp}(0.20 -
+0.4\,(v_{\mathrm{slip}} - 1),\, 0.20,\, 0.40)$: flat $0.20$ for slip
+$\ge 1$\,m/s, rising toward $0.40$ for slow, spin-dominated contacts.
+Both fitted Mathavan rows carry the same slope with re-fitted clamps,
+$\mu_w = \operatorname{clamp}(0.20 - 0.4\,(v_{\mathrm{slip}} - 1),\,
+0.16,\, 0.28)$. No published measurement of pool cushion
+$\mu_w(v_{\mathrm{slip}})$ exists; the slopes are declared first-party
+calibration content (Section~\ref{sec:simulator-catalog}).
+
+\subsubsection{Corrected Han impulse model (han2005\_default)}
+\label{sec:appendix-eq-han}
+
+As implemented at kernel \code{0.1.0+fb3425ad}, the default cushion
+model is the rigid-body impulse model of \citet{han2005dynamics},
+evaluated in a cushion frame with $\hat{\mathbf{x}}$ the horizontal
+normal from ball toward cushion, $\hat{\mathbf{y}}$ along the rail,
+and $\hat{\mathbf{z}}$ up. With $(v_x, v_y, v_z)$ and
+$(\omega_x, \omega_y, \omega_z)$ the incoming components in that frame
+($v_z \equiv 0$ for a bed-contact ball), the contact-point slip at the
+nose is (Han eqs.~14)
+\begin{equation}
+s_x = v_x \sin\theta_a - v_z\cos\theta_a + R\,\omega_y, \qquad
+s_y = -v_y - R\,\omega_z \cos\theta_a + R\,\omega_x \sin\theta_a,
+\label{eq:han-slip}
+\end{equation}
+with slip speed $s_0 = \sqrt{s_x^2 + s_y^2}$, and the normal-channel
+scalar is $c = -v_x \cos\theta_a$. With the paper's coefficients
+$A = 7/2m$ and $B = 1/m$ (Han eqs.~16), the normal impulse and the
+slip-arrest impulse are (Han eqs.~17 and 20)
+\begin{equation}
+P_z^{E} = -\frac{(1+e)\,c}{B} = (1+e)\,m\,v_x \cos\theta_a,
+\qquad
+P_z^{S} = \frac{s_0}{A},
+\label{eq:han-impulses}
+\end{equation}
+with $e = e(v_x)$ from Eq.~\eqref{eq:ec-kinematic} and
+$\mu = \mu_w(s_0)$ from Eq.~\eqref{eq:muw-hook}. The case selection
+and tangential impulses are
+\begin{equation}
+(P_x^{E}, P_y^{E}) =
+\begin{cases}
+\bigl(s_x/A,\; s_y/A\bigr), &
+P_z^{S} \le \mu\,P_z^{E} \quad\text{(Han eqs.~18),}\\[4pt]
+\bigl(\mu P_z^{E}\,s_x/s_0,\; \mu P_z^{E}\,s_y/s_0\bigr), &
+\text{otherwise (Han eqs.~19),}
+\end{cases}
+\label{eq:han-cases}
+\end{equation}
+(the first case is sliding-then-adhesion, the second gross slip
+throughout the impact), transformed to the rail frame (Han eqs.~21--22) as
+$P_X = -P_x^{E}\sin\theta_a - P_z^{E}\cos\theta_a$,
+$P_Y = P_y^{E}$,
+$P_Z = P_x^{E}\cos\theta_a - P_z^{E}\sin\theta_a$, and applied as
+(Han eqs.~23)
+\begin{equation}
+\begin{aligned}
+v'_x &= v_x + P_X/m, &\quad
+\omega'_x &= \omega_x - \tfrac{R}{I} P_Y \sin\theta_a,\\
+v'_y &= v_y + P_Y/m, &
+\omega'_y &= \omega_y + \tfrac{R}{I}\,(P_X \sin\theta_a -
+P_Z\cos\theta_a),\\
+v'_z &= v_z, &
+\omega'_z &= \omega_z + \tfrac{R}{I} P_Y \cos\theta_a .
+\end{aligned}
+\label{eq:han-update}
+\end{equation}
+Pocket-jaw arcs use identical physics with the normal taken from the
+arc center to the ball center.
+
+\emph{Itemized deviations from the published paper} (the content of
+``corrected'' in Table~\ref{tab:models}):
+\begin{enumerate}
+\item \textbf{Slip/stick case-selection inequality.} As printed, the
+  paper's boundary between the final-slip and final-stick cases omits
+  the friction coefficient; the implemented test is
+  $P_z^{S} \le \mu\,P_z^{E}$ as in Eq.~\eqref{eq:han-cases}. Without
+  the $\mu$, near-normal impacts select the wrong branch. The
+  correction follows the reference implementation
+  \citep{kiefl2024pooltool}, whose revision history documents it.
+\item \textbf{Slip-direction angle $\theta_0$.} The paper's eqs.~18--19
+  are written with $\sin\theta_0$, $\cos\theta_0$ for an angle that is
+  never defined. The implementation fixes it to the initial
+  contact-point slip direction, $\cos\theta_0 = s_x/s_0$,
+  $\sin\theta_0 = s_y/s_0$, which is how it enters
+  Eq.~\eqref{eq:han-cases} \citep[same lineage;][]{kiefl2024pooltool}.
+\item \textbf{Restitution and friction inputs.} The paper's own
+  speed-dependent restitution fit and incidence-dependent friction are
+  not used; restitution and friction enter through the declared hooks
+  of Eqs.~\eqref{eq:ec-kinematic} and \eqref{eq:muw-hook} (constant
+  $e = 0.85$, $\mu_w = 0.20$ in the frozen default row).
+\item \textbf{Planar output.} The vertical impulse $P_Z$ is computed
+  (it feeds the $\omega_y$ update) but not applied to $v_z$; the
+  vertical kinetic energy it would impart is treated as impact loss.
+  This planar convention is shared with the reference implementation
+  and with the Stronge model below.
+\item \textbf{Contact geometry.} $\sin\theta_a = h/R - 1$ with the WPA
+  nose height $h = 1.27R$, per Eq.~\eqref{eq:cushion-geom} --- not the
+  snooker $7R/5$ of \citet{mathavan2010cushion}.
+\end{enumerate}
+
+\subsubsection{Stronge tangential-compliance model (stronge\_realistic)}
+\label{sec:appendix-eq-stronge}
+
+As implemented at kernel \code{0.1.0+fb3425ad}, the compliant
+alternative is the planar rough-impact model of
+\citet[ch.~5]{stronge2018impact}: the contact point connects through
+independent normal and tangential springs, both phases are simple
+harmonic, and the impact is closed-form except for locating stick--slip
+transitions. The formulation reduces to a collinear problem in the
+initial tangential and normal contact-point velocities
+$(v_{t0} \le 0,\ v_{n0} < 0)$, with $v_{t0}$ measured against a unit
+tangent chosen opposite the slip.
+
+\paragraph{Nondimensionalization} Only the frequency ratio is
+physical. Time is scaled so the normal contact frequency is
+$\omega_n = 1$; compression ends at $t_c = \pi/2$ and the impact at
+$t_f = (1 + e_n)\,t_c$, where $e_n = e(-v_{n0})$ from
+Eq.~\eqref{eq:ec-kinematic}, additionally clamped to $[0.01, 1]$ (a
+non-physical configuration must degrade, not overflow). The
+restitution-phase angle is $\phi(t) = t/e_n + \tfrac{\pi}{2}(1 -
+1/e_n)$, and the normal channel closes with
+$v_{nf} = -e_n v_{n0}$. The tangential spring oscillates at
+$\omega_t = \omega_r$ (the \emph{spin ratio} of
+Table~\ref{tab:models}: the tangential-to-normal contact-stiffness
+frequency ratio, equivalent to a cushion Poisson-ratio
+parameterization; in-domain $\omega_r \in (1,2)$, frozen at
+$1.8$), with the inverse-inertia coefficients of a sphere on a
+half-space $\beta_t = 3.5$, $\beta_n = 1$,
+$\beta = \beta_t/\beta_n$, and $\eta^{2} = \beta/\omega_r^{2}$.
+Friction is $\mu = \mu_w(|v_{t0}|)$ from Eq.~\eqref{eq:muw-hook}.
+
+\paragraph{Branch structure} With $r = v_{t0}/v_{n0} \ge 0$:
+\begin{equation}
+\begin{aligned}
+&\text{initial stick:} && r < \mu\,\eta^{2},\\
+&\text{gross slip:} && r > \max\bigl(\mu\beta,\;
+\mu[(1+e_n)\beta - \eta^{2}/e_n]\bigr),\\
+&\text{slip--stick--slip:} && \text{otherwise.}
+\end{aligned}
+\label{eq:stronge-branches}
+\end{equation}
+The gross-slip branch closes in one line,
+$v_{tf} = v_{t0} - \mu\,v_{n0}\,\beta\,(1+e_n)$ (the Coulomb
+limit). For initial slip, the stick onset $t_s$ has the closed form
+$t_s = t_c\,T$ with
+\begin{equation}
+T =
+\begin{cases}
+\dfrac{2}{\pi}\arccos\!\dfrac{(r/\mu) - \beta}{\eta^{2} - \beta}, &
+r \le \mu\beta,\\[8pt]
+\dfrac{2 e_n}{\pi}\left[\arccos\!\dfrac{(r/\mu) - \beta}
+{\eta^{2}/e_n - e_n\beta} - \dfrac{\pi}{2}\Bigl(1 -
+\dfrac{1}{e_n}\Bigr)\right], &
+r > \mu\beta .
+\end{cases}
+\label{eq:stronge-tstick}
+\end{equation}
+(onset in compression and in restitution, respectively).
+
+\paragraph{Stick evolution and the cone-crossing functions} During
+stick the tangential spring holds the contact ($v_t$ and the spring
+displacement evolve harmonically at $\omega_t$). For the
+\emph{initial-stick} branch the spring loads from rest at $t = 0$,
+with displacement $u(t) = -(v_{t0}/\omega_t)\sin(\omega_t t)$; for the
+\emph{slip--stick--slip} branch the harmonic stick episode starts at
+$t_s$ from the state accumulated over the initial slip,
+\begin{equation}
+(u_0,\, v_0) =
+\begin{cases}
+\bigl(-\mu\,v_{n0}\,\eta^{2}\sin t_s,\;\;
+v_{t0} - \mu\beta\,v_{n0}\,(1 - \cos t_s)\bigr), & t_s \le t_c,\\[4pt]
+\bigl(-\mu\,v_{n0}\,\eta^{2}\sin\phi(t_s),\;\;
+v_{t0} - \mu\beta\,v_{n0}\,(1 - e_n\cos\phi(t_s))\bigr), & t_s > t_c,
+\end{cases}
+\label{eq:stronge-stickstate}
+\end{equation}
+with $u_0$ the spring displacement and $v_0$ the tangential contact
+velocity at onset. Slip resumes when the required spring force first
+crosses the Coulomb cone $\mu f_n(t)$, whose restitution-phase profile
+is proportional to $\sin\phi(t)$; the root-searched cone-violation
+functions are, for the initial-stick branch,
+\begin{equation}
+f_{\mathrm{IS}}(t) \;=\; \bigl|\,r\sin(\omega_t t)\,\bigr|
+\;-\; \mu\,\eta^{2}\,\omega_t\,\sin\phi(t),
+\label{eq:stronge-cone-is}
+\end{equation}
+and for the slip--stick--slip branch, in terms of the normalized
+spring state $\alpha(t)$,
+\begin{equation}
+\alpha(t) = \frac{u_0\cos\bigl(\omega_t(t - t_s)\bigr)
+- (v_0/\omega_t)\sin\bigl(\omega_t(t - t_s)\bigr)}{\mu\,v_{n0}},
+\label{eq:stronge-alpha}
+\end{equation}
+\begin{equation}
+f_{\mathrm{SSS}}(t) \;=\; |\alpha(t)| \;-\; \eta^{2}\sin\phi(t),
+\label{eq:stronge-cone-sss}
+\end{equation}
+a cone violation being $f > 0$. At the terminal slip time
+$t_{\mathrm{slip}}$ (the first-crossing selection below) the exit
+velocity combines the harmonic stick state with the Coulomb friction
+accumulated over the remaining normal impulse: with
+$d = t_{\mathrm{slip}} - t_s$,
+\begin{align}
+v_{tf}^{\mathrm{IS}} &= v_{t0}\cos(\omega_t\,t_{\mathrm{slip}})
++ \sigma\,\mu\,v_{n0}\,\beta\,e_n\,
+\bigl[1 + \cos\phi(t_{\mathrm{slip}})\bigr],
+\label{eq:stronge-vtf}\\
+v_{tf}^{\mathrm{SSS}} &= \omega_t\,u_0\sin(\omega_t d)
++ v_0\cos(\omega_t d)
++ \sigma\,\mu\,v_{n0}\,\beta\,e_n\,
+\bigl[1 + \cos\phi(t_{\mathrm{slip}})\bigr],
+\label{eq:stronge-vtf-sss}
+\end{align}
+(the initial-stick and slip--stick--slip exits, respectively),
+where the sign $\sigma = \pm 1$ is set by the side of the spring at
+the crossing (friction on resumed slip opposes the slip the spring
+force drives): $\sigma = +1$ iff
+$-r\sin(\omega_t\,t_{\mathrm{slip}}) \ge 0$ for the initial-stick
+branch and iff $\alpha(t_{\mathrm{slip}}) \ge 0$ for the
+slip--stick--slip branch (in-domain, $e_n\omega_t > 1$, every first
+crossing lands on $\sigma = +1$). If no crossing exists, stick holds
+to $t_f$, where $\phi(t_f) = \pi$ and the friction term vanishes
+identically, leaving the pure harmonic value.
+
+\paragraph{First-crossing selection rule} At stick onset the
+cone-crossing function has a structural double root
+($f(t_s) = f'(t_s) = 0$ exactly: the spring rides the Coulomb limit at
+onset), so an unrestricted bracketing search can lock onto the
+tangency instead of the genuine crossing---flipping between root
+families at float-noise scale along an incidence sweep. This was
+the branch-selection defect (the $0.85$-diamond bank-arrival
+discontinuity; case study
+in Section~\ref{sec:oracle}). The shipped selection rule
+(Section~\ref{sec:simulator-robustness}) scans the branch's
+cone-violation function---$f_{\mathrm{IS}}$ of
+Eq.~\eqref{eq:stronge-cone-is} or $f_{\mathrm{SSS}}$ of
+Eq.~\eqref{eq:stronge-cone-sss}---over $K = 64$ equally spaced samples
+on $(t_{\mathrm{lo}}, t_f]$, with $t_{\mathrm{lo}} = t_c$ for the
+initial-stick branch and $t_{\mathrm{lo}} = \max(t_s, t_c)$ for the
+slip--stick--slip branch; the first sample with a positive cone
+violation closes a bracket containing a simple root, polished by a
+deterministic Newton-plus-bisection iteration with a fixed
+64-iteration cap; if no sample is positive, stick holds to $t_f$. $K$
+is fixed, never adaptive. The pre-fix whole-bracket selection is
+retained only as an explicit legacy option for byte-exact replay.
+
+\paragraph{Impulse application} The contact-velocity changes map to
+the ball through the inverse-inertia coefficients,
+\begin{equation}
+\Delta v_n = \frac{v_{nf} - v_{n0}}{\beta_n}, \qquad
+\Delta v_t = \frac{v_{tf} - v_{t0}}{\beta_t}, \qquad
+\Delta\boldsymbol{\omega} = \frac{5}{2R}\,
+(-\hat{\mathbf{n}})\times\hat{\mathbf{t}}\;\Delta v_t,
+\label{eq:stronge-apply}
+\end{equation}
+where $\hat{\mathbf{n}}$ is the three-dimensional contact normal
+tilted below the horizontal by $\theta_a$ from
+Eq.~\eqref{eq:cushion-geom} (a deviation from the reference
+implementation's $\tan\theta_a$ convention, worth about $0.5^\circ$),
+and the outgoing $v_z$ is zeroed (planar convention, as in the Han
+model).
+
+\subsubsection{Mathavan dual-contact model and the fitted presets
+(mathavan\_fitted, grip\_fitted)}
+\label{sec:appendix-eq-mathavan}
+
+As implemented at kernel \code{0.1.0+fb3425ad}, the fitted presets are
+built on the dual-contact impulse-space integration of
+\citet{mathavan2010cushion}: the impulse accumulates in steps
+$\Delta P$ while Coulomb friction acts at \emph{two} contact points,
+the cushion nose I (friction $\mu_w$) and the table bed C (friction
+$\mu_s$, the cloth sliding coefficient), the bed normal force growing
+as the nose pushes the ball down. In the cushion frame
+($\hat{\mathbf{x}}$ along the rail, $\hat{\mathbf{y}}$ the horizontal
+normal into the cushion, approach $v_y > 0$), the contact-point slip
+velocities are
+\begin{equation}
+\begin{aligned}
+\text{nose I:}\quad &v_{xI} = v_x + \omega_y R\sin\theta_a -
+\omega_z R\cos\theta_a, &\quad
+&v_{yI} = -v_y\sin\theta_a + \omega_x R,\\
+\text{bed C:}\quad &v_{xC} = v_x - \omega_y R, &
+&v_{yC} = v_y + \omega_x R,
+\end{aligned}
+\label{eq:mathavan-slips}
+\end{equation}
+with slip angles $\phi_I, \phi_C$ and nose force ratios
+$(g_x, g_y) = \mu_w(\cos\phi_I, \sin\phi_I)$ on the pure-Coulomb path.
+One impulse step updates (the paper's eqs.~12--14, transcribed as
+implemented; $D = \max(\sin\theta_a + g_y\cos\theta_a,\, 0)$ is the
+bed normal-force factor)
+\begin{equation}
+\begin{aligned}
+\Delta v_x &= -\tfrac{1}{m}\bigl(g_x +
+\mu_s\cos\phi_C\,D\bigr)\Delta P,\\
+\Delta v_y &= -\tfrac{1}{m}\bigl(\cos\theta_a - g_y \sin\theta_a +
+\mu_s\sin\phi_C\,D\bigr)\Delta P,\\
+\Delta \omega_x &= -\tfrac{5}{2mR}\bigl(g_y +
+\mu_s\sin\phi_C\,D\bigr)\Delta P,\\
+\Delta \omega_y &= -\tfrac{5}{2mR}\bigl(g_x\sin\theta_a -
+\mu_s\cos\phi_C\,D\bigr)\Delta P,\\
+\Delta \omega_z &= +\tfrac{5}{2mR}\,g_x\cos\theta_a\,\Delta P .
+\end{aligned}
+\label{eq:mathavan-step}
+\end{equation}
+Compression integrates until $v_y \le 0$ (the crossing re-approached
+with eight fixed step-halvings), accumulating the nose normal work
+$W_{\mathrm{comp}}$ via $\mathrm{d}W = \Delta P\,|v_y|\cos\theta_a$;
+restitution integrates until the nose work reaches the energetic
+target
+\begin{equation}
+W_{\mathrm{rest}} \;=\; ee^{2}\,W_{\mathrm{comp}},
+\label{eq:mathavan-ee}
+\end{equation}
+with $ee = ee(v_{y0})$ from Eq.~\eqref{eq:ec-energetic} and the final
+step sized exactly to the remaining work. The step is
+$\Delta P = \max(m\,v_{y0}/N,\ 10^{-4}\,\text{kg\,m/s})$ with
+$N = 1000$ (restitution analogously from the target work), a hard cap
+of $10N$ steps per phase raising a diagnostic error (never silent
+truncation), and impacts whose normal approach exceeds the
+$2.5$\,m/s experimental validity bound of the source are counted per
+shot rather than rejected. Itemized deviations from the published
+paper: (i) restitution enters through the energetic hook of
+Eq.~\eqref{eq:ec-energetic} rather than the paper's fixed snooker fit;
+(ii) nose friction enters through Eq.~\eqref{eq:muw-hook} at the
+arrival nose-slip speed, bed friction is the cloth $\mu_s$; (iii) the
+bed normal-force factor is clamped at zero ($D \ge 0$: the unilateral
+bed cannot pull); (iv) the paper's \S3.2 rolling-condition force
+nulling (its eqs.~15a/15b) is omitted---measured effect below $+0.06$
+on the rolling-perpendicular exit-speed ratio---because an
+epsilon-free rolling detector does not exist in impulse stepping;
+(v) the incoming $v_z$ passes through unchanged (planar convention).
+
+\paragraph{Tangential compliance (both fitted presets)} The fitted
+presets add a first-party tangential-compliance element at the nose: a
+Cundall--Strack-style bristle spring per nose tangent direction, fed
+by the contact-point slip, its per-step force Coulomb-capped at
+$\mu_w N$. The impulse-to-time map is a half-sine normal-force
+profile, floored and argument-capped, over the a-priori total-impulse
+estimate:
+\begin{equation}
+N(p) = \max\!\left[
+N_{\mathrm{peak}}\sin\!\Bigl(\frac{\pi\,\bar{p}}{P_{\mathrm{tot}}}\Bigr),\;
+N_{\mathrm{peak}}\sin(0.02\,\pi)\right],
+\quad
+\bar{p} = \min(p,\, 0.999\,P_{\mathrm{tot}}),
+\label{eq:bristle}
+\end{equation}
+\begin{equation}
+N_{\mathrm{peak}} = \frac{\pi\,P_{\mathrm{tot}}}{2\,\tau_c},
+\quad
+P_{\mathrm{tot}} = \frac{m\,v_{y0}\,(1 + ee)}{\cos\theta_a},
+\quad
+k_t = \Bigl(\frac{\chi\pi}{\tau_c}\Bigr)^{2}\frac{m}{\beta_t},
+\label{eq:bristle-kt}
+\end{equation}
+where $p$ is the accumulated normal impulse and the integrator
+advances internal time as $\mathrm{d}t = \Delta P / N(p)$. The
+$\sin(0.02\pi)$ floor and the $0.999\,P_{\mathrm{tot}}$ argument cap
+are part of the frozen arithmetic, not implementation detail: the bare
+profile gives $N(0) = 0$, making the first step's $\mathrm{d}t$
+singular, and both guards reshape the profile tails. The internal time
+scale $\tau_c$ cancels identically (only the frequency ratio $\chi$ is
+physical, the same invariance as the Stronge normalization) and
+$\beta_t = 3.5$. The peak elastic energy stored in
+the follow-channel spring is held as a reservoir and returned at
+release as an impulse along the stored displacement with gain $e_x$
+(energy returned $= e_x^{2} \times$ held), capped by both the
+whole-impact kinetic-energy deficit and the preset-dependent Coulomb
+allowance $\mu_{\mathrm{rel}}\,(P_{\mathrm{tot}} -
+P_{\mathrm{comp}})$, with $P_{\mathrm{comp}}$ the normal impulse
+accumulated at the end of compression. The release ceiling is the
+\emph{static} grip bound for a captured \code{grip_fitted}
+impact---$\mu_{\mathrm{rel}} = \mu_{\mathrm{grip}} = 2.5\,\mu_w$ (the
+held reservoir is grip-phase elastic storage; its give-back flows
+through the gripped interface, not a sliding one)---and the kinetic
+$\mu_{\mathrm{rel}} = \mu_w$ otherwise (\code{mathavan_fitted} and
+uncaptured arrivals); $e_x$ is a
+phenomenological give-back gain, not a Cross-convention tangential
+restitution. \code{mathavan_fitted} freezes $\chi = 0.8$,
+$e_x = 0.9$ (jointly fitted with $ee_0 = 0.80$ and the $\mu_w$ clamps
+above against a high-speed-video response surface
+\citep{alciatore_hsv_catalog}, with the source's own rebound figures
+held as anchors). \code{grip_fitted} additionally enables a
+static/kinetic stick--slip mode per nose channel: the loaded spring
+transmits force up to the static ceiling
+$\mu_{\mathrm{grip}} = 2.5\,\mu_w$ while gripping, engaged only for
+spin-overdriven arrivals with nose slip at or below
+$0.6$\,m/s (capture threshold), with channel disengage when the spring
+unloads through its natural length and a whole-impact energy ledger
+that scales tangential exit degrees of freedom down if the loop would
+otherwise exit above the arrival kinetic energy. Its constants are
+$\chi = 1.2$, $e_x = 0.9$, grip ratio $2.5$, capture $0.6$\,m/s,
+paired with Eq.~\eqref{eq:ec-grip}. Both presets' declared validity
+domains and out-of-domain observables are ledgered;
+neither was re-tuned.
+
+\subsection{Compliant frozen-cluster resolution (CompliantChain)}
+\label{sec:appendix-eq-cluster}
+
+As implemented at kernel \code{0.1.0+fb3425ad}, an impact reaching a
+frozen cluster (any chain of contacts within $10^{-5}$\,m surface
+separation, swept transitively) escalates to a bounded compliant
+episode (Section~\ref{sec:simulator-break}). Every active contact
+carries the Hertz--Lankarani--Nikravesh normal force
+\citep{lankarani1990contact,lankarani1994continuous}
+\begin{equation}
+F_N \;=\; \delta^{3/2}\,\bigl(K + \chi_{\mathrm{LN}}\,\dot\delta\bigr)
+\;\ge\; 0,
+\qquad
+\chi_{\mathrm{LN}} \;=\; \frac{3K\,(1 - e_b^{2})}
+{4\,\max(\dot\delta^{-},\,10^{-3}\,\text{m/s})},
+\label{eq:ln-force}
+\end{equation}
+with $\delta$ the penetration depth, $e_b$ the mean ball--ball
+restitution of the pair, and $\dot\delta^{-}$ the contact's impact
+speed, maintained as the largest \emph{equivalent} impact speed
+$\smash{\sqrt{\dot\delta^{2} + 4K\delta^{5/2}/(5 m_{\mathrm{eff}})}}$
+the contact has exhibited (the Hertz energy inversion; for clean
+impacts this equals the first-penetration approach speed exactly, and
+for contacts entering a window mid-compression it restores the
+Lankarani--Nikravesh definition of $\dot\delta^{-}$ as the impact
+velocity). The force is clamped non-negative (cohesionless contact),
+and the grazing clamp bounds the damping singularity as
+$\dot\delta^{-} \to 0$. The Hertz stiffness is derived, not fitted:
+\begin{equation}
+K = \tfrac{4}{3}\,E^{*}\sqrt{R^{*}}, \qquad
+\frac{1}{E^{*}} = \frac{2\,(1-\nu^{2})}{E}, \qquad
+R^{*} = \frac{R}{2},
+\label{eq:hertz-k}
+\end{equation}
+with $E = 3800$\,MPa and $\nu = 0.375$ for phenolic resin
+\citep[Table~1]{gismerosmoreno2022multiple} and the catalog ball
+radius, giving $K = 3.524\times10^{8}$\,N/m$^{3/2}$. Tangential
+traction is force-based Coulomb, $\mu_{bb}(v_{\mathrm{slip}})\,F_N$
+opposing the contact-point slip with the same friction curve as
+Eq.~\eqref{eq:bb-mu} (no impulse cap is consumed---the property that
+kept the compliant rows bit-stable across the mid-program re-baseline,
+Section~\ref{sec:simulator-break}).
+
+All contacts advance \emph{concurrently} (Jacobi accumulation: every
+force reads only previous-step state, making the episode order-free
+and mirror-equivariant) under semi-implicit Euler with fixed step
+$\mathrm{d}t = 10^{-6}$\,s and a hard cap of $3000$ steps (a 3\,ms
+window bounding the 1--2\,ms break transient). The episode ends early
+when every contact is open ($\delta \le 0$) and non-approaching
+(normal closing speed below $10^{-9}$\,m/s), or hands off mid-window
+when a non-member pair first closes within $10^{-5}$\,m while
+approaching (the event loop detects the new contact and re-escalates
+with the newcomer as a member). Three post-window guards fail closed,
+restoring the pre-window state and running the legacy resolver on the
+same inputs: non-finite state; cluster energy gain (kinetic plus
+stored Hertz elastic energy $\tfrac{2}{5}K\delta^{5/2}$ exceeding the
+pre-window value by more than $10^{-9}$\,J); and cap expiry with a
+still-penetrating approaching pair. The \code{SequentialImpulse}
+legacy arm resolves the same cluster by deterministic Gauss--Seidel
+sweeps of pairwise frictional impulses (at most 256 sweeps) and is
+retained as an explicit recorded option; it is the baseline class
+whose starved momentum exchange produces the dead-cue break defect
+that experiment \expid{E3} gates on
+(Section~\ref{sec:simulator-break}).
+
+\subsection{Event detection, epsilons, and rest projection}
+\label{sec:appendix-eq-events}
+
+As implemented at kernel \code{0.1.0+fb3425ad}, every candidate event
+time is a real root of a polynomial in time of degree at most four,
+because every ball-position component is at most quadratic
+(\ref{sec:appendix-eq-cloth})---with one \emph{scheduled} exception,
+the airborne pocket heuristic below. Per event class: ball--ball
+proximity $|\Delta\mathbf{r}(\tau)|^{2} = (2R)^{2}$ between two
+quadratic paths is quartic; a linear cushion (vertical plane at signed
+distance $R$) is quadratic; jaw arcs and pockets (vertical cylinders,
+contact at arc radius $+R$; capture of a \emph{grounded} ball when the
+\emph{center} crosses the pocket radius) are quartic; the regime
+transitions have the closed
+forms $\tau_{\mathrm{slide}}$, $\tau_{\mathrm{roll}}$,
+$\tau_{\mathrm{spin}}$ of \ref{sec:appendix-eq-cloth} and
+need no root-finding. Quartics are solved with the closed-form solver
+of \citet{orellana2020algorithm1010} incorporating both published
+corrections \citep{demichele2022remark,demichele2024remark}, plus two
+documented numerical accommodations inherited from
+\citet{kiefl2024pooltool}: the near-degenerate-quadratic threshold in
+the LDLT factorization is loosened by a factor of 100 so that
+Newton's-cradle-like quartics (nearly equal velocities) yield four
+distinct roots rather than spurious doubles, and a root is accepted as
+real under a hybrid filter---$|\mathrm{Im}| < 10^{-9}$ when
+$|\mathrm{Re}| > 10^{-3}$, else $|\mathrm{Im}|/|\mathrm{Re}| <
+10^{-3}$. The earliest accepted root strictly beyond the $10^{-9}$\,s
+simultaneity guard becomes the next event; a leading coefficient is
+degraded (quartic to cubic, and so on) when it cannot exceed one
+machine epsilon of the next term anywhere within the Cauchy root
+bound. Contact at $\tau = 0$ fires immediately only for approaching
+pairs; an at-contact cushion root requires approach speed above
+$10^{-5}$\,m/s (the sleeping threshold that lets resting contact
+coexist with detection).
+
+\paragraph{Airborne pocket capture (non-root scheduling)} For an
+\emph{airborne} ball, pocket capture is not a polynomial root: it is a
+documented phenomenological approximation inherited from
+\citet{kiefl2024pooltool}. With $\tau_{\mathrm{land}}$ the ballistic
+descending crossing of $z = R$: (i) if the landing point lies strictly
+inside the pocket radius, capture is scheduled at
+$\tau_{\mathrm{land}} - \epsilon_t$ (the $10^{-9}$\,s time epsilon),
+guaranteeing temporal precedence over the bed-landing event; (ii)
+otherwise the horizontal flight path (linear in $xy$) is intersected
+with the pocket cylinder, giving quadratic entry/exit roots
+$\tau_{\mathrm{in}} < \tau_{\mathrm{out}}$, and capture is scheduled
+at the midpoint $(\tau_{\mathrm{in}} + \tau_{\mathrm{out}})/2$ iff
+$\tau_{\mathrm{in}} \ge 0$, $z(\tau_{\mathrm{in}}) \ge R$ (the ball
+did not land first), and $z(\tau_{\mathrm{out}}) \le \tfrac{7}{5}R$
+(the rim heuristic: low fliers ricochet off the back of the pocket
+and drop in, higher ones fly over); otherwise no airborne capture
+candidate exists and the landing proceeds. A jump-shot reproduction
+that treats pocket capture as a root of the quartic above will
+mis-order these events.
+
+Frozen tolerance table: time, space, velocity, and spin epsilons all
+$10^{-9}$ (s, m, m/s, rad/s); root-acceptance bounds as above;
+separation (``kiss'') gap $10^{-6}$\,m; frozen-rack surface gap
+$0.5\,\mu$m (below the $10^{-5}$\,m cluster threshold, so racked
+contacts are frozen topology; seeded back-row micro-gaps
+0.05--0.5\,mm sit above it).
+
+\paragraph{Frozen-rack topology (seeded selection rule)} The default
+rack constructor realizes the frozen topology with frozen fraction
+$f = 0.7$ (a declared first-party consensus estimate; no published
+frozen-fraction statistics exist). The apex wedge---apex plus row
+1---always keeps its lattice nodes and consumes no random draw. Each
+back-row ball (lattice row $\ge 2$), visited in rack order against the
+shot-seeded deterministic stream, keeps its node with probability $f$;
+otherwise it is displaced by a micro-gap $g \sim U[0.05, 0.5)$\,mm
+along a direction $\vartheta \sim U[0, 2\pi)$, clamped so no pair
+drops below the frozen lattice pitch. Then each back-row boundary
+$r{-}1 \to r$ ($r \ge 2$, ascending, same stream) opens with
+probability $1 - f$ by shifting all rows $\ge r$ away from the breaker
+by an independent $g$. The same seed therefore regenerates the exact
+rack topology of experiment \expid{E3} bit-for-bit; the fraction and
+rule are required inputs, not tuning detail.
+
+\paragraph{Terminal rest projection (round-trip law)} Every
+simulation ends by projecting all balls to exact rest, and any pair
+the input validator would reject---center distance below
+$r_a + r_b - 10^{-6}$\,m---is retracted along the line of centers,
+each ball moving half the correction, to the exact $10^{-6}$\,m gap,
+sweeping pairs in ball-identity order to a fixed point (at most 128
+passes; observed convergence in single-digit passes), then re-seated
+to $z = R$ and clamped against rail-seat bands and pocket capture
+discs. Pairs the validator accepts, including undisturbed frozen-rack
+contacts, are never touched, so clean records remain byte-identical.
+The result is the round-trip law of
+Section~\ref{sec:simulator-robustness}: every \code{simulate} output
+is a valid \code{simulate} input, with no accumulating
+representational debt over arbitrarily long shot chains.
+
+\subsection{Consolidated frozen constants}
+\label{sec:appendix-eq-constants}
+
+Table~\ref{tab:frozen-constants} consolidates every constant fixed by
+the frozen catalog, each with units and provenance class:
+\emph{lit} (published value or derived from published values),
+\emph{fit} (first-party calibration, declared as such), or
+\emph{num} (numerical guard or discretization constant). All values
+are as implemented at kernel \code{0.1.0+fb3425ad} and were frozen
+before any battery sweep ran (Section~\ref{sec:methodology}).
+
+{\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.22\linewidth}c>{\raggedright\arraybackslash}p{0.27\linewidth}@{}}
+  \caption{Consolidated frozen constants of the validated models.
+  Provenance classes: lit = published/derived, fit = first-party
+  calibration (declared), num = numerical guard. Equation references
+  are to this appendix.}
+  \label{tab:frozen-constants}\\
+  \toprule
+  Constant & Value & Class & Provenance / role \\
+  \midrule
+  \endfirsthead
+  \toprule
+  Constant & Value & Class & Provenance / role \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \multicolumn{4}{@{}l}{\emph{Ball, cloth, and gravity
+    (\ref{sec:appendix-eq-cloth})}}\\
+  Ball mass $m$ & $0.170097$\,kg & lit & regulation set
+    \citep{kiefl2024pooltool} \\
+  Ball radius $R$ & $0.028575$\,m & lit & $57.15$\,mm US ball \\
+  Gravity $g$ & $9.81$\,m/s$^2$ & lit & --- \\
+  Sliding friction $\mu_s$ & $0.20$ & lit & worsted tournament cloth
+    \citep{alciatore_faq} \\
+  Rolling friction $\mu_r$ & $0.010$ & lit & lag-speed calibration
+    class (Section~\ref{sec:results}) \\
+  Spin-decay $\mu_{sp}$; rate $\alpha$ & $\tfrac{4}{9}\,(R/\mathrm{m})
+    = 0.0127$ (dimensionless);
+    $\tfrac{10}{9}g \approx 10.9$\,rad/s$^2$ & lit &
+    video-measured $\approx 10$\,rad/s$^2$
+    \citep{alciatore_tp_catalog}; Eq.~\eqref{eq:spin-decay} \\
+  Ball--slate restitution $e_t$ & $0.5$ & lit & reference default
+    \citep{kiefl2024pooltool}; no published measurement;
+    Eq.~\eqref{eq:slate-normal} \\
+  Slate bounce guard (apex) & $5$\,mm (default) / $10\,\mu$m (realism
+    presets) & num & Zeno guard, \ref{sec:appendix-eq-slate} \\
+  \addlinespace
+  \multicolumn{4}{@{}l}{\emph{Ball--ball impact
+    (\ref{sec:appendix-eq-ballball})}}\\
+  Restitution $e_b$ & $0.95$ & lit & community constant:
+    \citet{alciatore_faq} physical-properties compilation (band
+    0.92--0.98, printed without attribution; no first-hand measurement
+    located; the $[0.92, 0.98]$
+    bracket is a declared sensitivity range, not a measured interval
+    --- main-text Section~4); ledgered as declared model content \\
+  $\mu_{bb}(v)$: $(a, b, c)$ & $(0.009951,$ $0.108,$ $1.088)$ & lit &
+    \citet{alciatore_tp_a14} fit; Eq.~\eqref{eq:bb-mu} \\
+  Slip-impulse cap & $(1+e_b)/2 \cdot |\Delta v_n^{-}|$ & lit &
+    TP~A.5 Eq.~10; corrected default (slip-law fix) \\
+  Legacy cap (replay only) & $e_b\,|\Delta v_n^{-}|$ & lit &
+    pre-correction law \citep{kiefl2024pooltool} \\
+  Micro-hop keep threshold & $5$\,mm (default) / $10\,\mu$m
+    (realism presets) & num & bounce-apex guard,
+    \ref{sec:appendix-eq-ballball} \\
+  \addlinespace
+  \multicolumn{4}{@{}l}{\emph{Stick--ball strike
+    (\ref{sec:appendix-eq-strike})}}\\
+  Cue mass $M$ & $0.567$\,kg & lit & 20\,oz cue \\
+  Tip radius $\rho$ & $0.0106$\,m (nickel); $0.00895$\,m dime variant
+    & lit & TP~B.1 curvature standards \\
+  Default endmass $m_e$ & $m/30 \approx 5.67$\,g & lit & TP~A-31
+    \citep{alciatore_tp_a31} \\
+  Endmass catalog span & $1.70$--$12.7$\,g & lit & pivot-length
+    inversion $m/m_e = 2.5 L_p/R - 3.5$
+    \citep{shepard2001squirt}; robot-measured $L_p$ \\
+  Tip restitution $e_{\mathrm{tip}}$ & $1.0$ default; $0.73$ leather;
+    $0.85$ phenolic & lit & measured tip efficiency
+    \citep{alciatore_hsv_catalog} \\
+  Miscue envelope & $a_{\mathrm{cmd}}^2 + b_{\mathrm{cmd}}^2 \le 0.25$
+    & lit & tip-offset limit, Eq.~\eqref{eq:strike-miscue};
+    contact-offset binding post-registration
+    (\ref{sec:appendix-eq-strike}) \\
+  Side-offset sign map & $a = -a_{\mathrm{cmd}}/(1+\rho/R)$ & num &
+    commanded (right-English positive) $\to$ internal (left positive);
+    Eq.~\eqref{eq:strike-tipscale} \\
+  Shot speed domain & $v_0 \in (0, 15]$\,m/s & num & input validity \\
+  Pinch onset / full & $60^{\circ}$ / $70^{\circ}$ & lit &
+    jump-vs-mass\'e regime boundary \citep{coriolis1835};
+    Eq.~\eqref{eq:strike-pinch} \\
+  Press return $\kappa$; relax $\tau_{\mathrm{pinch}}$ & $0.45$;
+    $0.12$\,s & fit & mass\'e footage fit;
+    Eq.~\eqref{eq:strike-press} \\
+  \addlinespace
+  \multicolumn{4}{@{}l}{\emph{Cushion geometry and hooks
+    (\ref{sec:appendix-eq-cushion})}}\\
+  Nose height $h$ (US pool) & $1.27R$ ($\sin\theta_a = 0.27$) & lit &
+    WPA specification; Eq.~\eqref{eq:cushion-geom} \\
+  Nose height $h$ (snooker pairing) & $1.4R$ ($\sin\theta_a = 0.4$) &
+    lit & \citet{mathavan2010cushion} \\
+  Kinematic $e_0$; clamp & $0.85$; $[0.6, 0.98]$ & lit &
+    \citet{han2005dynamics} lineage; Eq.~\eqref{eq:ec-kinematic} \\
+  Energetic $ee_0$ (default / \code{mathavan_fitted}) & $0.98$ /
+    $0.80$ & lit / fit & snooker fit \citep{mathavan2010cushion} /
+    joint video fit \\
+  \code{grip_fitted} $ee(v)$ & $0.65 + 0.18(v_n - 1)$, clamp
+    $[0.5, 0.98]$ & fit & Eq.~\eqref{eq:ec-grip} \\
+  $\mu_w$ (\code{han2005_default}) & $0.20$ flat & lit & no published
+    $\mu_w(v)$ exists (declared) \\
+  $\mu_w$ (\code{stronge_realistic}) & $0.20 - 0.4(v-1)$, clamp
+    $[0.20, 0.40]$ & fit & video kick/sidespin anchors;
+    Eq.~\eqref{eq:muw-hook} \\
+  $\mu_w$ (fitted presets) & $0.20 - 0.4(v-1)$, clamp $[0.16, 0.28]$
+    & fit & joint fit with tangential compliance \\
+  \addlinespace
+  \multicolumn{4}{@{}l}{\emph{Stronge model
+    (\ref{sec:appendix-eq-stronge})}}\\
+  Spin ratio $\omega_r$ & $1.8$; domain $(1, 2)$ & lit &
+    \citet{stronge2018impact} parameterization; reference default
+    \citep{kiefl2024pooltool} \\
+  Inverse inertia $\beta_t$, $\beta_n$ & $3.5$, $1$ & lit & sphere on
+    half-space \citep{stronge2018impact} \\
+  $e_n$ clamp & $[0.01, 1]$ & num & degradation guard \\
+  First-crossing scan $K$; root cap & $64$; $64$ iterations & num &
+    fixed-resolution selection (branch-selection fix) \\
+  \addlinespace
+  \multicolumn{4}{@{}l}{\emph{Mathavan model and fitted presets
+    (\ref{sec:appendix-eq-mathavan})}}\\
+  Impulse step $\Delta P$ & $\max(m v_{y0}/1000,$ $10^{-4})$ kg\,m/s
+    & num & first-order bias control \\
+  Step caps; refinement & $10\times1000$ per phase; $8$ halvings &
+    num & diagnostic overrun, never silent \\
+  Validity bound & $v_n \le 2.5$\,m/s (counted) & lit & source
+    experimental range \citep{mathavan2010cushion} \\
+  Bristle force floor; cap & $N \ge N_{\mathrm{peak}}\sin(0.02\pi)$;
+    $p \le 0.999\,P_{\mathrm{tot}}$ & num & profile-tail guards;
+    Eq.~\eqref{eq:bristle} \\
+  \code{mathavan_fitted} $\chi$, $e_x$ & $0.8$, $0.9$ & fit &
+    joint HSV-response fit; Eq.~\eqref{eq:bristle-kt} \\
+  \code{grip_fitted} $\chi$, $e_x$, grip ratio, capture & $1.2$,
+    $0.9$, $2.5$, $0.6$\,m/s & fit & grip-mode joint fit \\
+  \addlinespace
+  \multicolumn{4}{@{}l}{\emph{Break cluster
+    (\ref{sec:appendix-eq-cluster})}}\\
+  Hertz stiffness $K$ & $3.524\times10^{8}$\,N/m$^{3/2}$ & lit &
+    derived, Eq.~\eqref{eq:hertz-k}
+    \citep{gismerosmoreno2022multiple} \\
+  Step; cap & $10^{-6}$\,s; $3000$ steps (3\,ms) & num & Hertz
+    contact-time resolution \\
+  Grazing clamp on $\dot\delta^{-}$ & $10^{-3}$\,m/s & num &
+    Lankarani--Nikravesh singularity guard; Eq.~\eqref{eq:ln-force} \\
+  Cluster contact threshold & $10^{-5}$\,m & num & escalation /
+    hand-off tolerance \\
+  Energy-audit slack & $10^{-9}$\,J & num & fail-closed guard \\
+  Legacy sweep cap & $256$ & num & \code{SequentialImpulse} bound \\
+  \addlinespace
+  \multicolumn{4}{@{}l}{\emph{Event detection and rest
+    (\ref{sec:appendix-eq-events})}}\\
+  Time/space/velocity/spin eps & $10^{-9}$ (s, m, m/s, rad/s) & num &
+    simultaneity and zero guards \\
+  Root-real filter & $|\mathrm{Im}| < 10^{-9}$ if $|\mathrm{Re}| >
+    10^{-3}$, else ratio $< 10^{-3}$ & num & hybrid acceptance \\
+  Degeneracy relaxation & $\times 100$ & num & cradle-quartic guard
+    \citep{kiefl2024pooltool} \\
+  Separation gap & $10^{-6}$\,m & num & retraction target;
+    round-trip law \\
+  Frozen-rack gap; seeded gaps & $0.5\,\mu$m; $0.05$--$0.5$\,mm &
+    num & frozen-contact topology
+    (Section~\ref{sec:simulator-break}) \\
+  Frozen fraction $f$ (rack) & $0.7$; apex wedge always frozen,
+    back rows sampled & fit & racking-consensus estimate (declared);
+    selection rule in \ref{sec:appendix-eq-events} \\
+  Rest sleeping threshold & $10^{-5}$\,m/s & num & at-contact
+    approach gate \\
+  Rest projection pass cap & $128$ & num & fixed-point sweep bound \\
+\end{longtable}
+}

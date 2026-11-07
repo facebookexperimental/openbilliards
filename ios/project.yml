@@ -1,0 +1,140 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+# XcodeGen manifest — feature 016 (research R16, contracts/distribution.md 1).
+# The generated OpenBilliards.xcodeproj is NEVER committed (gitignored);
+# regenerate with: xcodegen generate --spec ios/project.yml
+#
+# Signing: Signing.xcconfig is a gitignored owner overlay (copy
+# Signing.example.xcconfig and fill DEVELOPMENT_TEAM — zero code edits,
+# SC-008). Validation for the missing file is disabled so generation works
+# on machines without it (CI simulator builds run unsigned).
+name: OpenBilliards
+
+options:
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "16.0"
+  disabledValidations:
+    - missingConfigFiles
+
+configFiles:
+  Debug: Signing.xcconfig
+  Release: Signing.xcconfig
+
+settings:
+  base:
+    MARKETING_VERSION: 0.1.0
+    CURRENT_PROJECT_VERSION: 20
+    SWIFT_VERSION: "5.0"
+    # Base bundle id; the owner's Signing.xcconfig overrides it
+    # (contracts/distribution.md 1).
+    PRODUCT_BUNDLE_IDENTIFIER: org.openbilliards.app
+
+packages:
+  # Foundation-only logic package — L1 unit layer runs TODAY on CLT
+  # (research R12): cd ios/ShellCore && swift test
+  ShellCore:
+    path: ShellCore
+
+targets:
+  OpenBilliards:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    settings:
+      base:
+        # Universal (iPhone primary; iPad rides the responsive layout).
+        TARGETED_DEVICE_FAMILY: "1,2"
+        INFOPLIST_FILE: App/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        # Landscape-only on iPad requires full-screen (no multitasking
+        # orientation mandate) — shell-app.md 4 orientation law.
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks"
+    sources:
+      - path: App/Sources
+        optional: true
+      # Brand + declaration resources land in lane B (T017-T019, T028);
+      # optional so generation works from the bare scaffold.
+      - path: App/Resources/Assets.xcassets
+        optional: true
+      - path: App/Resources/LaunchScreen.storyboard
+        optional: true
+      - path: App/Resources/Localizable.xcstrings
+        optional: true
+      - path: App/Resources/PrivacyInfo.xcprivacy
+        optional: true
+        buildPhase: resources
+      # The verbatim game bundle: FOLDER REFERENCE (blue folder), a
+      # gitignored BUILD PRODUCT synced by bundle-manifest.mjs generate
+      # (contracts/game-bundle.md 2/3). Never committed (FR-002).
+      - path: App/Resources/web
+        type: folder
+        optional: true
+        buildPhase: resources
+    dependencies:
+      - package: ShellCore
+    preBuildScripts:
+      # Bundle pipeline gate on EVERY build (contracts/game-bundle.md 3,
+      # SC-002): rsync web/ -> App/Resources/web + manifest, then an
+      # independent re-hash of both sides.
+      - name: Bundle web resources (generate + verify)
+        shell: /bin/bash
+        script: |
+          set -euo pipefail
+          cd "$SRCROOT/.."
+          node ios/tools/bundle-manifest.mjs generate
+          node ios/tools/bundle-manifest.mjs verify
+        basedOnDependencyAnalysis: false
+
+  AppTests:
+    # L1 in-Xcode arm: bundle-dependent byte-equality checks
+    # (contracts/test-pyramid.md 1; wasm re-hash, T020).
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "16.0"
+    settings:
+      base:
+        # Xcode 27 refuses to sign a test bundle without an Info.plist;
+        # generate it (the recommended default for test targets).
+        GENERATE_INFOPLIST_FILE: YES
+    sources:
+      - path: AppTests
+        optional: true
+    dependencies:
+      - target: OpenBilliards
+
+  AppUITests:
+    # L2 ComponentTree + L3 GestureDriver (contracts/test-pyramid.md 2/3).
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "16.0"
+    settings:
+      base:
+        # Xcode 27 refuses to sign a test bundle without an Info.plist;
+        # generate it (the recommended default for test targets).
+        GENERATE_INFOPLIST_FILE: YES
+    sources:
+      - path: AppUITests
+        optional: true
+    dependencies:
+      - target: OpenBilliards
+
+schemes:
+  OpenBilliards:
+    build:
+      targets:
+        OpenBilliards: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      # ComponentTree / GestureDriver split rides the two test plans;
+      # L3 (e2e-ios.mjs) runs GestureDriver via test-without-building
+      # with the scenario name in the test environment (test-pyramid.md 3).
+      testPlans:
+        - path: TestPlans/ComponentTree.xctestplan
+          defaultPlan: true
+        - path: TestPlans/GestureDriver.xctestplan
+      gatherCoverageData: false
+    archive:
+      config: Release

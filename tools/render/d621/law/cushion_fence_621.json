@@ -1,0 +1,2134 @@
+{
+  "schema": "d621-cushion-fence/1",
+  "tag": "DERIVED",
+  "source_commit": "6e329ea77222f256994104e0bd5c9684323b2e8d",
+  "note": "Non-target entries and shared cushion-family fingerprints come from the declared main merge base. Target kernel/nose-plan pins retain the pre-O22 source. Guarded bytes come from that pre-O22 branch merged with main, with no candidate bytes or allowed-difference list.",
+  "entry_snapshot": {
+    "tag": "DERIVED",
+    "source_revision": "6e329ea77222f256994104e0bd5c9684323b2e8d",
+    "source_table_js_sha256": "a281723315fb0731653585e9d06bb4a5de61d4f785fef0419dda9223a9766d0d",
+    "shared_family_sha256": "b99e1b6fc578cff1ec2bc712506726352cbf2b7117ee00741419a39de99cd3f1",
+    "entries": {
+      "wpa_generic_9ft": {
+        "kernel": {
+          "length": 2.54,
+          "width": 1.27,
+          "noseHeightFrac": 0.635,
+          "cushionWidth": 0.0508,
+          "cornerMouth": 0.12869587056579765,
+          "sideMouth": 0.15103253846249992,
+          "cornerFacingDeviationDeg": 5.3,
+          "sideFacingDeviationDeg": 7.14,
+          "cornerJawRadius": 0.02095,
+          "sideJawRadius": 0.00795,
+          "cornerPocketDepth": 0.0417,
+          "cornerPocketRadius": 0.062,
+          "sidePocketDepth": 0.0685,
+          "sidePocketRadius": 0.0645,
+          "exactSideFacing": false
+        },
+        "kernel_sha256": "783c9d8a005e1aa148e98f0a47c6c7aa31448141bc104ab4cb7979f05b78b327",
+        "render_sha256": "6f0058aad34b50f859d8c266383f2c421f17bedd5b782982dd2226023bf7eed5",
+        "rail_plan_sha256": "8cc683974f7b09a3d7e44e4beec6697f3f9e3c784119e27a34fa24eb71c8e88a",
+        "cushion_mesh_sha256": "9994ade4546474ced3abbf9f878c887606e927d6a654b01aef0dc25a0afccee3"
+      },
+      "wpa_spec_9ft": {
+        "kernel": {
+          "length": 2.54,
+          "width": 1.27,
+          "noseHeightFrac": 0.635,
+          "cushionWidth": 0.0508,
+          "cornerMouth": 0.1158875,
+          "sideMouth": 0.1285875,
+          "cornerFacingDeviationDeg": 7,
+          "sideFacingDeviationDeg": 14,
+          "cornerJawRadius": 0.02095,
+          "sideJawRadius": 0.00795,
+          "cornerPocketDepth": 0.032385,
+          "cornerPocketRadius": 0.04905375,
+          "sidePocketDepth": 0.0563875,
+          "sidePocketRadius": 0.051625,
+          "exactSideFacing": true
+        },
+        "kernel_sha256": "b39ea6ccff36ba47c38459bfbb9b8c8985067fedba45a0c82c8b4180f2411782",
+        "render_sha256": "9bd98b90c2f04ac8e5dcdf919a0f891f220c06e9926693246b8853c738f0b8ba",
+        "rail_plan_sha256": "253896241b72cc7171fd4624107725c80a33674c381d9a2074011627b09921d1",
+        "cushion_mesh_sha256": "077a154b049c46aaec297d51de31a71b22ffde127515ddc5b483a99e0d33b89e"
+      },
+      "diamond_redlabel_9ft": {
+        "kernel": {
+          "length": 2.54,
+          "width": 1.27,
+          "noseHeightFrac": 0.638889,
+          "cushionWidth": 0.0508,
+          "cornerMouth": 0.1158875,
+          "sideMouth": 0.1285875,
+          "cornerFacingDeviationDeg": 6,
+          "sideFacingDeviationDeg": 12,
+          "cornerJawRadius": 0.02095,
+          "sideJawRadius": 0.00795,
+          "cornerPocketDepth": 0.035559999999999994,
+          "cornerPocketRadius": 0.04905375,
+          "sidePocketDepth": 0.0563875,
+          "sidePocketRadius": 0.051625,
+          "exactSideFacing": true
+        },
+        "kernel_sha256": "1fd9d7a5c14b94fef601c43e3d133d8beefec8b5902e2302e17bd4c9db477f0c",
+        "render_sha256": "0538620075b252e894fcfe9f4438d78f608a62ebcd5f4a86cb3befc75f4ace42",
+        "rail_plan_sha256": "729a1f18e8fabf390f196568049ebe9202cd2bc57c90a9b855d3583e93d49f42",
+        "cushion_mesh_sha256": "f4d00c95ce1dfeea64f92b27d453ad808c2f23a0d18830d37ecd0a0087c03417"
+      },
+      "diamond_proam_9ft": {
+        "kernel": {
+          "length": 2.54,
+          "width": 1.27,
+          "noseHeightFrac": 0.638889,
+          "cushionWidth": 0.0508,
+          "cornerMouth": 0.1143,
+          "sideMouth": 0.127,
+          "cornerFacingDeviationDeg": 6,
+          "sideFacingDeviationDeg": 12,
+          "cornerJawRadius": 0.02095,
+          "sideJawRadius": 0.00795,
+          "cornerPocketDepth": 0.03556,
+          "cornerPocketRadius": 0.04826,
+          "sidePocketDepth": 0.0555625,
+          "sidePocketRadius": 0.0508,
+          "exactSideFacing": true
+        },
+        "kernel_sha256": "276f81efd1b033dc92dd77059051c47c820932a06ba073b35e6b01c59ea4b6cc",
+        "render_sha256": "ef9cc2b238a31e078fe9c750c9d443b5cd960434b807cdaa94507a48ae053654",
+        "rail_plan_sha256": "59de44a04d702348eea227b93ea3705a2c6c610833a78bb8c86ccbd739c3d04f",
+        "cushion_mesh_sha256": "87f1c9e18ca6445d3a3e586f1cc77cacd1d73f1d3537e5971e8291d59ec1dff6"
+      },
+      "predator_apex_9ft": {
+        "kernel": {
+          "length": 2.54,
+          "width": 1.27,
+          "noseHeightFrac": 0.635,
+          "cushionWidth": 0.0508,
+          "cornerMouth": 0.10795,
+          "sideMouth": 0.124968,
+          "cornerFacingDeviationDeg": 7,
+          "sideFacingDeviationDeg": 14,
+          "cornerJawRadius": 0.02095,
+          "sideJawRadius": 0.00795,
+          "cornerPocketDepth": 0.029210000000000007,
+          "cornerPocketRadius": 0.045085,
+          "sidePocketDepth": 0.0556,
+          "sidePocketRadius": 0.0508,
+          "exactSideFacing": true
+        },
+        "kernel_sha256": "bef0678218b157cd1fb0d67ed72b3e9d4721b358917f130462dc4ea17d63fee4",
+        "render_sha256": "18edbf2da607c542a487656fa3a4f6ec01d35f7d55f67a804eac911bef28d387",
+        "rail_plan_sha256": "24841d60d6e4fe54839e347a99ff8a72ae57ed0bac2639fbb7bbc3af307f3bc5",
+        "cushion_mesh_sha256": "7e846f438701b8e6d0505c34d3bc2f72c11dba7eb49373d64c6c6c592c53f1c8"
+      },
+      "wpbsa_snooker_12ft": {
+        "kernel": {
+          "length": 3.569,
+          "width": 1.778,
+          "noseHeightFrac": 0.7,
+          "template": true,
+          "cornerScale": 1,
+          "middleScale": 1,
+          "cushionWidth": 0.047625
+        },
+        "kernel_sha256": "fc692a5e18f17466d6fe9ab3fb48cfda52efba821e8ed77a7b49cd114f143907",
+        "render_sha256": "1b8f5020b02cf0d1ddc9abb3e1ee0fd0a1bfedbb507647de7e902b745cc5ef68",
+        "rail_plan_sha256": "6f8444c1f8fe0c7df451cc2bcc378d04e6ca4a923f1ba061f47f7d3112755283",
+        "cushion_mesh_sha256": "b379332e75e4d0e6f3d2fd0e27a1b6403beceac348b348650957b11c7b3368ca"
+      },
+      "umb_carom_284": {
+        "kernel": {
+          "length": 2.84,
+          "width": 1.42,
+          "noseHeightFrac": 0.6016,
+          "pocketless": true,
+          "cushionWidth": 0.05
+        },
+        "kernel_sha256": "cac867b259272564ee8d7fdaf5ebcb1c89b1ae8eccc7581fe055266db8c740de",
+        "render_sha256": "0c169f6877aa901d1e64a7eee493d53b02f51933d54673810277ff7cd389a3dd",
+        "rail_plan_sha256": "2cca7748ec3d3be3116d0665f897dc80ba713ab7b90a175505eaafee064df73a",
+        "cushion_mesh_sha256": "000c02c949b63239b63b8d71479406f192cfc8144334c03fdf8da7ec3a4ac187"
+      },
+      "chinese8_pro_9ft": {
+        "kernel": {
+          "length": 2.54,
+          "width": 1.26,
+          "noseHeightFrac": 0.635,
+          "template": true,
+          "cornerFamily": "cn8Molded",
+          "cornerScale": 1.010098609391303,
+          "middleScale": 1.0079385238135556,
+          "cushionWidth": 0.0481059462722608
+        },
+        "kernel_sha256": "a5898684f8c01243fdbf9ed354158342ce0ccd8751b671c9bd34aedcd3bd5c7b",
+        "render_sha256": "e52bb495eb15bedbac46438b973133b1301694fe3c57f019b63d754c4b69f114",
+        "rail_plan_sha256": "080442150314dde9aa1bd5048a4ef971014ef4a47a34d35e19da9216a5cb7f73",
+        "cushion_mesh_sha256": "40a9fd3bb71d215171f305f74b8261cf94a74df57dec1be914ea13e7558ec1f9"
+      },
+      "joy_q8_9ft": {
+        "kernel": {
+          "length": 2.54,
+          "width": 1.26,
+          "noseHeightFrac": 0.635,
+          "template": true,
+          "cornerFamily": "cn8Molded",
+          "cornerScale": 1.010098609391303,
+          "middleScale": 1.0079385238135556,
+          "cushionWidth": 0.0481059462722608
+        },
+        "kernel_sha256": "a5898684f8c01243fdbf9ed354158342ce0ccd8751b671c9bd34aedcd3bd5c7b",
+        "render_sha256": "e52bb495eb15bedbac46438b973133b1301694fe3c57f019b63d754c4b69f114",
+        "rail_plan_sha256": "080442150314dde9aa1bd5048a4ef971014ef4a47a34d35e19da9216a5cb7f73",
+        "cushion_mesh_sha256": "40a9fd3bb71d215171f305f74b8261cf94a74df57dec1be914ea13e7558ec1f9"
+      },
+      "owner_proam_9ft_2026_07": {
+        "kernel": {
+          "length": 2.54,
+          "width": 1.27,
+          "noseHeightFrac": 0.638889,
+          "cushionWidth": 0.0508,
+          "cornerMouth": 0.1143,
+          "sideMouth": 0.127,
+          "cornerFacingDeviationDeg": 6,
+          "sideFacingDeviationDeg": 12,
+          "cornerJawRadius": 0.02095,
+          "sideJawRadius": 0.00795,
+          "cornerPocketDepth": 0.03556,
+          "cornerPocketRadius": 0.04826,
+          "sidePocketDepth": 0.0555625,
+          "sidePocketRadius": 0.0508,
+          "exactSideFacing": true
+        },
+        "kernel_sha256": "276f81efd1b033dc92dd77059051c47c820932a06ba073b35e6b01c59ea4b6cc",
+        "render_sha256": "ef9cc2b238a31e078fe9c750c9d443b5cd960434b807cdaa94507a48ae053654",
+        "rail_plan_sha256": "59de44a04d702348eea227b93ea3705a2c6c610833a78bb8c86ccbd739c3d04f",
+        "cushion_mesh_sha256": "87f1c9e18ca6445d3a3e586f1cc77cacd1d73f1d3537e5971e8291d59ec1dff6"
+      },
+      "diamond_proam_8ft": {
+        "kernel": {
+          "length": 2.286,
+          "width": 1.143,
+          "noseHeightFrac": 0.638889,
+          "cushionWidth": 0.0508,
+          "cornerMouth": 0.1143,
+          "sideMouth": 0.127,
+          "cornerFacingDeviationDeg": 6,
+          "sideFacingDeviationDeg": 12,
+          "cornerJawRadius": 0.02095,
+          "sideJawRadius": 0.00795,
+          "cornerPocketDepth": 0.03556,
+          "cornerPocketRadius": 0.04826,
+          "sidePocketDepth": 0.0555625,
+          "sidePocketRadius": 0.0508,
+          "exactSideFacing": true
+        },
+        "kernel_sha256": "86478178b9bbd9bc0eb893cca1628c0a76f51c538e4ccc00e349d0389e5a0b1e",
+        "render_sha256": "ef9cc2b238a31e078fe9c750c9d443b5cd960434b807cdaa94507a48ae053654",
+        "rail_plan_sha256": "d7341c767a7df1ab84226f220bcb0bd75b4042e4238ca98933fee3833b68c83d",
+        "cushion_mesh_sha256": "103993620fb110860d59ad32313c77855a5dc1d07f2959442eae4568af985a6d"
+      },
+      "diamond_proam_7ft": {
+        "kernel": {
+          "length": 2.032,
+          "width": 1.016,
+          "noseHeightFrac": 0.638889,
+          "cushionWidth": 0.0508,
+          "cornerMouth": 0.1143,
+          "sideMouth": 0.127,
+          "cornerFacingDeviationDeg": 6,
+          "sideFacingDeviationDeg": 12,
+          "cornerJawRadius": 0.02095,
+          "sideJawRadius": 0.00795,
+          "cornerPocketDepth": 0.03556,
+          "cornerPocketRadius": 0.04826,
+          "sidePocketDepth": 0.0555625,
+          "sidePocketRadius": 0.0508,
+          "exactSideFacing": true
+        },
+        "kernel_sha256": "07658391b058a7f64376a3fcf1f28d213df8d66f00fb2587c4ff2f4053a4637a",
+        "render_sha256": "ef9cc2b238a31e078fe9c750c9d443b5cd960434b807cdaa94507a48ae053654",
+        "rail_plan_sha256": "0fd725a852a77ba6d689290e3fc3b635c1af5078d5bff33accf488135d4a9567",
+        "cushion_mesh_sha256": "7d62e3409cb181ed05cad11f5bdf7ba96558a1542440746a4968adb184c32e4b"
+      }
+    }
+  },
+  "forbidden_roots": [
+    "crates",
+    "sdk",
+    "web/dist"
+  ],
+  "forbidden_files": [
+    "web/app/sinkpivot.js"
+  ],
+  "git_blobs": [
+    {
+      "path": "crates/pool-cli/Cargo.toml",
+      "mode": "100644",
+      "blob": "b3a3ff9a73e41cff4998aa3f7db50bb12a6b39bf"
+    },
+    {
+      "path": "crates/pool-cli/src/batch.rs",
+      "mode": "100644",
+      "blob": "a0400b3075b91385b943ba3f00188c53ecfdb2f5"
+    },
+    {
+      "path": "crates/pool-cli/src/catalogcmd.rs",
+      "mode": "100644",
+      "blob": "7758ad59632b63754b416b951a4bbd07bc3e8485"
+    },
+    {
+      "path": "crates/pool-cli/src/cliargs.rs",
+      "mode": "100644",
+      "blob": "eb7d378376c9c53355ef13487e5ff3d46002645a"
+    },
+    {
+      "path": "crates/pool-cli/src/compare.rs",
+      "mode": "100644",
+      "blob": "ff36e256827336d524312401200ae21657e353f6"
+    },
+    {
+      "path": "crates/pool-cli/src/judge.rs",
+      "mode": "100644",
+      "blob": "d00b3a2ee293669062e5fe94ef72af8ae75dd954"
+    },
+    {
+      "path": "crates/pool-cli/src/main.rs",
+      "mode": "100644",
+      "blob": "f1b9d044013af40851e8aeaea7f91ef88197e8c9"
+    },
+    {
+      "path": "crates/pool-cli/src/runcmd.rs",
+      "mode": "100644",
+      "blob": "988b5be637ea925f89c31cea8bfe767ef1e41f89"
+    },
+    {
+      "path": "crates/pool-cli/src/samplecmd.rs",
+      "mode": "100644",
+      "blob": "949d599ce868205f0cc36bd313c02d7525a12393"
+    },
+    {
+      "path": "crates/pool-cli/src/scenario.rs",
+      "mode": "100644",
+      "blob": "0a15a53b9a01141b097e516284ffa7c4c0f94cb5"
+    },
+    {
+      "path": "crates/pool-cli/src/taskhash.rs",
+      "mode": "100644",
+      "blob": "474ace4ca60543fbc6a305e7cac8075c71d6bfc3"
+    },
+    {
+      "path": "crates/pool-cli/tests/cli.rs",
+      "mode": "100644",
+      "blob": "d99c431e8864922bb940bc54a22643bf8ef44790"
+    },
+    {
+      "path": "crates/pool-cli/tests/rules_wire_drift.rs",
+      "mode": "100644",
+      "blob": "604d63575c5ed639f107e39b6a8b7094f5da5ae2"
+    },
+    {
+      "path": "crates/pool-core/Cargo.toml",
+      "mode": "100644",
+      "blob": "941ce113d7da34b99d47a34b7f365f838b61a413"
+    },
+    {
+      "path": "crates/pool-core/benches/break.rs",
+      "mode": "100644",
+      "blob": "ea844e139569f5dfb9fa16c82f58fa285097e787"
+    },
+    {
+      "path": "crates/pool-core/benches/rail_hugger.rs",
+      "mode": "100644",
+      "blob": "ed8e27a18d10c81dd64b6e56ec75628361afd56c"
+    },
+    {
+      "path": "crates/pool-core/build.rs",
+      "mode": "100644",
+      "blob": "3a754ea2f25dee40b7099f5785f67d14c8d965f1"
+    },
+    {
+      "path": "crates/pool-core/examples/bb_hop_probe.rs",
+      "mode": "100644",
+      "blob": "130ef184c8c6109b108420b0bef1206121c11b21"
+    },
+    {
+      "path": "crates/pool-core/examples/eval_mathavan.rs",
+      "mode": "100644",
+      "blob": "4091737aaa6ac4c092a130687dec9df6a022c019"
+    },
+    {
+      "path": "crates/pool-core/examples/fit_mu_bb.rs",
+      "mode": "100644",
+      "blob": "4698c96db4e4c3aaafde99018c9cc5056ddce326"
+    },
+    {
+      "path": "crates/pool-core/examples/fit_slowmo.rs",
+      "mode": "100644",
+      "blob": "c38d56c439065ba3f8490fa450875865ec3aaf80"
+    },
+    {
+      "path": "crates/pool-core/examples/gen_presets_fixture.rs",
+      "mode": "100644",
+      "blob": "f0953f0d120e9eba45dd0e73d5cc67f26c3b6fb9"
+    },
+    {
+      "path": "crates/pool-core/examples/masse_demo_probe.rs",
+      "mode": "100644",
+      "blob": "e903dd7f40a0ce3713018b6e3a35406634a46af4"
+    },
+    {
+      "path": "crates/pool-core/examples/masse_theory.rs",
+      "mode": "100644",
+      "blob": "57641b10b784fe4cd318f5284573c37a36ab06dc"
+    },
+    {
+      "path": "crates/pool-core/examples/oos_scorecard.rs",
+      "mode": "100644",
+      "blob": "df87e73b0522d78689a90a1415cde6d506efb58f"
+    },
+    {
+      "path": "crates/pool-core/examples/rail_seat_scan.rs",
+      "mode": "100644",
+      "blob": "7b44e081d22326f12c2d02a414c478c195dcb70b"
+    },
+    {
+      "path": "crates/pool-core/examples/stun_micro_probe.rs",
+      "mode": "100644",
+      "blob": "d40251b82a4755513cf5d5546bd131655c0cdc06"
+    },
+    {
+      "path": "crates/pool-core/src/catalog.rs",
+      "mode": "100644",
+      "blob": "5a585f4e63af75cc80532c3b7666aa5db1ca4a01"
+    },
+    {
+      "path": "crates/pool-core/src/consts.rs",
+      "mode": "100644",
+      "blob": "0f9779273d40330e39925f9614ea3eb8f6b4a69e"
+    },
+    {
+      "path": "crates/pool-core/src/cue_clearance.rs",
+      "mode": "100644",
+      "blob": "7c5cf003c5427dfca9dc6a14d91e7e41c3000ec3"
+    },
+    {
+      "path": "crates/pool-core/src/events.rs",
+      "mode": "100644",
+      "blob": "503677ff1e157897c652d332d0b361bc1d21d3c1"
+    },
+    {
+      "path": "crates/pool-core/src/evolve.rs",
+      "mode": "100644",
+      "blob": "11b641234086d7be7965ee40131e1f36b1869a3e"
+    },
+    {
+      "path": "crates/pool-core/src/lib.rs",
+      "mode": "100644",
+      "blob": "978f1dfa3276634758b48bd90ab2798499dc7245"
+    },
+    {
+      "path": "crates/pool-core/src/math/cubic.rs",
+      "mode": "100644",
+      "blob": "ac0145d719431fbe4d5d68754d7069811ffb4457"
+    },
+    {
+      "path": "crates/pool-core/src/math/mod.rs",
+      "mode": "100644",
+      "blob": "82ce0bff66c1697145a6be7e15010fbfd700606f"
+    },
+    {
+      "path": "crates/pool-core/src/math/quadratic.rs",
+      "mode": "100644",
+      "blob": "ab8614a205d546891f5d9998c7d4580c92463485"
+    },
+    {
+      "path": "crates/pool-core/src/math/quartic.rs",
+      "mode": "100644",
+      "blob": "fd272856307fee4da040cc074f1e3df3ca692f9c"
+    },
+    {
+      "path": "crates/pool-core/src/math/rng.rs",
+      "mode": "100644",
+      "blob": "4f29d1cb405ac429b4964f4345376cdbb9890755"
+    },
+    {
+      "path": "crates/pool-core/src/params.rs",
+      "mode": "100644",
+      "blob": "d40bd1c4a04f96cfd0593666c9f3de2deca400f8"
+    },
+    {
+      "path": "crates/pool-core/src/rack.rs",
+      "mode": "100644",
+      "blob": "c8e208191ebb30d149fbf9474a1278bdc53c98a4"
+    },
+    {
+      "path": "crates/pool-core/src/record.rs",
+      "mode": "100644",
+      "blob": "06c42f055223d0684bb3ade4145bbe52e206e7b7"
+    },
+    {
+      "path": "crates/pool-core/src/resolve/ball_ball.rs",
+      "mode": "100644",
+      "blob": "87119fd7a83b7c914d448bbb7cf11ab0b8ffea74"
+    },
+    {
+      "path": "crates/pool-core/src/resolve/ball_table.rs",
+      "mode": "100644",
+      "blob": "6f46521c33c1efa84ea534dc3b284e4a22b285a6"
+    },
+    {
+      "path": "crates/pool-core/src/resolve/cluster.rs",
+      "mode": "100644",
+      "blob": "a87a60abc803202b4c7c15c0867d28f57fc83774"
+    },
+    {
+      "path": "crates/pool-core/src/resolve/cluster_compliant.rs",
+      "mode": "100644",
+      "blob": "d5537c959bd6e07b0683b76574a5907d1da8b45d"
+    },
+    {
+      "path": "crates/pool-core/src/resolve/cushion.rs",
+      "mode": "100644",
+      "blob": "1620b14a144cc1d43b31c8fa041e9bce950d7893"
+    },
+    {
+      "path": "crates/pool-core/src/resolve/cushion_airborne.rs",
+      "mode": "100644",
+      "blob": "86e68c5ee77e4f4fff02f57db9254221b978d60c"
+    },
+    {
+      "path": "crates/pool-core/src/resolve/cushion_mathavan.rs",
+      "mode": "100644",
+      "blob": "c53e168408b5194f577b935d352a5516bd472cd0"
+    },
+    {
+      "path": "crates/pool-core/src/resolve/cushion_stronge.rs",
+      "mode": "100644",
+      "blob": "2dd8c517a49a698d1224166380c1ee62c20d95e2"
+    },
+    {
+      "path": "crates/pool-core/src/resolve/mod.rs",
+      "mode": "100644",
+      "blob": "848c9b22ff23c5cdbd49cc344a59b572e7ad821b"
+    },
+    {
+      "path": "crates/pool-core/src/resolve/pocket.rs",
+      "mode": "100644",
+      "blob": "58c1859f887fb47d1774bca51aa6284f76568c1f"
+    },
+    {
+      "path": "crates/pool-core/src/resolve/strike.rs",
+      "mode": "100644",
+      "blob": "db5807867b39e167ab7c99056da434a8062f2e3e"
+    },
+    {
+      "path": "crates/pool-core/src/resolve/transition.rs",
+      "mode": "100644",
+      "blob": "b21d61da8bf375de70adfaf200a0103b083f6613"
+    },
+    {
+      "path": "crates/pool-core/src/sample.rs",
+      "mode": "100644",
+      "blob": "38b3f6201f2fee5cab9dc9b6e1bf63d1ccb2d34f"
+    },
+    {
+      "path": "crates/pool-core/src/shot.rs",
+      "mode": "100644",
+      "blob": "2bbba4b3239d3d462b0bfbe97f95ca080d08f60a"
+    },
+    {
+      "path": "crates/pool-core/src/sim/detect.rs",
+      "mode": "100644",
+      "blob": "e260d6b25086caf84037a15e5d8d4cdc205ee900"
+    },
+    {
+      "path": "crates/pool-core/src/sim/event_loop.rs",
+      "mode": "100644",
+      "blob": "33f223fb872166f2d0d7eb82ddf895d671948564"
+    },
+    {
+      "path": "crates/pool-core/src/sim/mod.rs",
+      "mode": "100644",
+      "blob": "b93f110177d59ec8720f3b96237fbed3a7bad226"
+    },
+    {
+      "path": "crates/pool-core/src/state.rs",
+      "mode": "100644",
+      "blob": "bdc092a7fd0ca770c64555cf161282d5517ffbbc"
+    },
+    {
+      "path": "crates/pool-core/src/table.rs",
+      "mode": "100644",
+      "blob": "c0b472332e3f88a995134752df99905fd4e5ae62"
+    },
+    {
+      "path": "crates/pool-core/src/types.rs",
+      "mode": "100644",
+      "blob": "f54664e6b19436402653dfebef68ac1d322926e9"
+    },
+    {
+      "path": "crates/pool-core/tests/airborne.rs",
+      "mode": "100644",
+      "blob": "941d61f667a6d137ebb57db867b131b8a437b400"
+    },
+    {
+      "path": "crates/pool-core/tests/anchors.rs",
+      "mode": "100644",
+      "blob": "ee03d0fb372319b0a85b7e00681d45abd9fbb53b"
+    },
+    {
+      "path": "crates/pool-core/tests/anchors_banking.rs",
+      "mode": "100644",
+      "blob": "a6d7b20ecfcb270bf3d9fe8a7a07d915ca4e92aa"
+    },
+    {
+      "path": "crates/pool-core/tests/anchors_cloth.rs",
+      "mode": "100644",
+      "blob": "b53f906a58aa1cb6bffa5808a391739a508c0b78"
+    },
+    {
+      "path": "crates/pool-core/tests/anchors_hsv.rs",
+      "mode": "100644",
+      "blob": "55a004c3d2576b88f050dcae03f312dadb95f69c"
+    },
+    {
+      "path": "crates/pool-core/tests/anchors_mathavan.rs",
+      "mode": "100644",
+      "blob": "598e170dab615c3b60866fb62215d4a75afe74d4"
+    },
+    {
+      "path": "crates/pool-core/tests/anchors_owner_proam.rs",
+      "mode": "100644",
+      "blob": "b77f6b5936845e113f5706165ad0a9dfe0177b68"
+    },
+    {
+      "path": "crates/pool-core/tests/anchors_rail_liftoff.rs",
+      "mode": "100644",
+      "blob": "24b1b8d90c292fe2a0f5a30f536f5cc20d2c5040"
+    },
+    {
+      "path": "crates/pool-core/tests/catalog.rs",
+      "mode": "100644",
+      "blob": "a419e88d98c3736be7568a21e6d1e68af2b9658c"
+    },
+    {
+      "path": "crates/pool-core/tests/coriolis.rs",
+      "mode": "100644",
+      "blob": "0156da958b1b83cac38040f7529320d231d5e68d"
+    },
+    {
+      "path": "crates/pool-core/tests/cue_ball_param.rs",
+      "mode": "100644",
+      "blob": "ec237d1b6310a9121ab95a37e4d1f49623122313"
+    },
+    {
+      "path": "crates/pool-core/tests/determinism.rs",
+      "mode": "100644",
+      "blob": "2e3643712a0a114a63e43859abd258b7215fbde2"
+    },
+    {
+      "path": "crates/pool-core/tests/discipline_tables.rs",
+      "mode": "100644",
+      "blob": "ad50bf4f9d796d1a1eac93f7d6cb4e0061612d3e"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/anchors/banking_systems.json",
+      "mode": "100644",
+      "blob": "af82f2921ebe435f1f681157a18ed4f1fadad325"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/anchors/cushion_rebound.json",
+      "mode": "100644",
+      "blob": "830a61b3c6c18a6a5aa3288a4bab5c3e0bdc21b8"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/anchors/draw_arc.json",
+      "mode": "100644",
+      "blob": "0a572ea7291e306c826c1226a5743c523be662fd"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/anchors/hsv_response_surface.json",
+      "mode": "100644",
+      "blob": "c4f84b5f55e2973cd9ac2f4a1cf486ab4f8cfc70"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/anchors/kick.json",
+      "mode": "100644",
+      "blob": "4cd2d261c34e4949795ee4fb6508142324e89a15"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/anchors/lag.json",
+      "mode": "100644",
+      "blob": "6469ff3c6f71fd92165c173020934894db0bbad6"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/anchors/mathavan2010_figs.json",
+      "mode": "100644",
+      "blob": "92d30f5b4e74a044d7dcd927d333ddd92cfcee7d"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/anchors/owner_proam_a_matrix.json",
+      "mode": "100644",
+      "blob": "c6d617df0753391ad3131699d13ee6c3517ab324"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/anchors/owner_proam_cloth_friction.json",
+      "mode": "100644",
+      "blob": "f657750c5552675c223b284b3bdaf3cb63456a67"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/anchors/owner_proam_cushion_restitution.json",
+      "mode": "100644",
+      "blob": "c67c699287b8ce089efb8dd15ccae7ed069d0454"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/anchors/squirt.json",
+      "mode": "100644",
+      "blob": "4d31ee3b506885b18a81d4f1ec1ca4db889c9355"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/anchors/throw.json",
+      "mode": "100644",
+      "blob": "69eac80175e094de626fe4b6e1bf1ddb2b6c83ea"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/catalog_v5.json",
+      "mode": "100644",
+      "blob": "f3344dd8ca37dcde5ff7f23775b8e3bd5a18ff07"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/oracle/bank_two_cushion.json",
+      "mode": "100644",
+      "blob": "6a5eb249854fa66178940ca839cc7b9a3c9a36b7"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/oracle/cut_30_side.json",
+      "mode": "100644",
+      "blob": "8102529c5d24c33241fc6b332049a69d41678889"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/oracle/draw_shot.json",
+      "mode": "100644",
+      "blob": "abdba7995754bfccd256f9ce4ed2f2f6f73e9b35"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/oracle/straight_pot.json",
+      "mode": "100644",
+      "blob": "3ce0b0475af664f730acf0089e97f191b2f98dd1"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/oracle/table_geometry.json",
+      "mode": "100644",
+      "blob": "aa30121b5d323cd8f1c17b0387a95d95157951b4"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/oracle/three_ball_chain.json",
+      "mode": "100644",
+      "blob": "ee0d122c6680fdbd207c8c5e7f314bdd2993da19"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/oracle/waivers.json",
+      "mode": "100644",
+      "blob": "e544bcefe2b5daac1727adcb0bf85d112fd3f5df"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/pinned/bank_two_cushion_default_han.json",
+      "mode": "100644",
+      "blob": "6d1638aa7dcd936d22a6da49e5cf4061abffcb73"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/pinned/cut_30_side_legacy_slip_law.json",
+      "mode": "100644",
+      "blob": "416c2dc81d02ce81e014b78be6f7e8480ac7c180"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/pinned/stronge_stun_bank_legacy_slip_select.json",
+      "mode": "100644",
+      "blob": "d88601a39cab1fbeec182faf433b4af52e31bf82"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/scenarios/bank_two_cushion.json",
+      "mode": "100644",
+      "blob": "ca78a60e719e08c9a7492911bb2229945c043e07"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/scenarios/cut_30_side.json",
+      "mode": "100644",
+      "blob": "0d3406c021a16c79cac5d75fd8fa7065742d3eed"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/scenarios/draw_shot.json",
+      "mode": "100644",
+      "blob": "9bd2e682511ca37b92b39c9b9d53961993840b76"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/scenarios/straight_pot.json",
+      "mode": "100644",
+      "blob": "331ac09fd3ecd5a1c3549ed0d11a7cd403cd05a6"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/scenarios/three_ball_chain.json",
+      "mode": "100644",
+      "blob": "15cda1d8d42b7debd92301cf51485fb7d1d6dea2"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/slowmo/cutthrow.json",
+      "mode": "100644",
+      "blob": "970e67313f72d037752a803b0460bf28f2c09852"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/slowmo/drag.json",
+      "mode": "100644",
+      "blob": "7bdebadf8a185c60b5ac87154878e77df4f5f0cf"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/slowmo/draw.json",
+      "mode": "100644",
+      "blob": "20e4923f05bcd7edca181379de0628c62cb0b1ea"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/slowmo/follow.json",
+      "mode": "100644",
+      "blob": "4e4e793e712e680fdeeb405d6c9da0d6646e9ace"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/slowmo/jump.json",
+      "mode": "100644",
+      "blob": "8ee06c3950867996c769eeac791d75ec5af0001f"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/slowmo/masse.json",
+      "mode": "100644",
+      "blob": "20855623e291afde37ff04aac23811307aa2f662"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/slowmo/sidespin.json",
+      "mode": "100644",
+      "blob": "987adec5af393fa79ba1919af68a7f9c567b02ea"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/slowmo/stun.json",
+      "mode": "100644",
+      "blob": "e4f98e4de517fd80f67c86ea6c944818dba45fe4"
+    },
+    {
+      "path": "crates/pool-core/tests/fixtures/slowmo/topright.json",
+      "mode": "100644",
+      "blob": "d50aa7ccf737eab054155ea57ae6de7581e36b29"
+    },
+    {
+      "path": "crates/pool-core/tests/fuzz.rs",
+      "mode": "100644",
+      "blob": "02a5acd7d6b350991dece5e27a53af9254abb780"
+    },
+    {
+      "path": "crates/pool-core/tests/legacy_pins.rs",
+      "mode": "100644",
+      "blob": "82a756f5f1747337c136d051f0c3de0c88bf0e07"
+    },
+    {
+      "path": "crates/pool-core/tests/masse_curve_212.rs",
+      "mode": "100644",
+      "blob": "c79aa3df6b9721bdea53a3a884bcd2c28b792196"
+    },
+    {
+      "path": "crates/pool-core/tests/miscue_envelope.rs",
+      "mode": "100644",
+      "blob": "99ef7ebd651ca3bb4cc32e892fe0d58e00f8daf7"
+    },
+    {
+      "path": "crates/pool-core/tests/oracle.rs",
+      "mode": "100644",
+      "blob": "3ee92ba0ef9e73ef2c25a7d6cdf9d99ef4a340a5"
+    },
+    {
+      "path": "crates/pool-core/tests/orientation_slip.rs",
+      "mode": "100644",
+      "blob": "2bd75a00ed7639c0b7975db4475c18035738bb2c"
+    },
+    {
+      "path": "crates/pool-core/tests/presets_golden.rs",
+      "mode": "100644",
+      "blob": "c86b0537917cfe094c4af3fe6f246fcdb59fce4d"
+    },
+    {
+      "path": "crates/pool-core/tests/rest_roundtrip.rs",
+      "mode": "100644",
+      "blob": "d6f2d80eb60faa587ba0685c173688d39b30830c"
+    },
+    {
+      "path": "crates/pool-core/tests/slowmo_scenarios/cutthrow.rs",
+      "mode": "100644",
+      "blob": "7176f55a1c83d0494a23d511b6b8732c8c6152d2"
+    },
+    {
+      "path": "crates/pool-core/tests/slowmo_scenarios/drag.rs",
+      "mode": "100644",
+      "blob": "ad2533a10ee9010ed14ef63cd41b1d9f39c9fec3"
+    },
+    {
+      "path": "crates/pool-core/tests/slowmo_scenarios/draw.rs",
+      "mode": "100644",
+      "blob": "75fe1bf9704ef28a85db3e9fabd0f7f06f3fb0e1"
+    },
+    {
+      "path": "crates/pool-core/tests/slowmo_scenarios/follow.rs",
+      "mode": "100644",
+      "blob": "69f35cab9edfe6dfe8fa00744860150d41c1adbb"
+    },
+    {
+      "path": "crates/pool-core/tests/slowmo_scenarios/jump.rs",
+      "mode": "100644",
+      "blob": "f8cb38e0f012253c80de42411a5cd6521e51309c"
+    },
+    {
+      "path": "crates/pool-core/tests/slowmo_scenarios/main.rs",
+      "mode": "100644",
+      "blob": "0c38df73988d33a17f8d2febd41c13b98a86126f"
+    },
+    {
+      "path": "crates/pool-core/tests/slowmo_scenarios/masse.rs",
+      "mode": "100644",
+      "blob": "6749edba01df2e95ba8c7bbc841e72a78a8a6fab"
+    },
+    {
+      "path": "crates/pool-core/tests/slowmo_scenarios/sidespin.rs",
+      "mode": "100644",
+      "blob": "34960e7900a6cdb72600aeaf91eda28d2396d5c1"
+    },
+    {
+      "path": "crates/pool-core/tests/slowmo_scenarios/stun.rs",
+      "mode": "100644",
+      "blob": "0cf9c15e6eb8817e64d517f86eaeeb4b30794a33"
+    },
+    {
+      "path": "crates/pool-core/tests/slowmo_scenarios/topright.rs",
+      "mode": "100644",
+      "blob": "d03f2c73a3eea493f488947c1c3f66fc30c92386"
+    },
+    {
+      "path": "crates/pool-core/tests/sp_mu_observables_schema.rs",
+      "mode": "100644",
+      "blob": "bc57fb0a8c96a536b23deab0100beaaf2a91b751"
+    },
+    {
+      "path": "crates/pool-core/tests/stronge_continuity.rs",
+      "mode": "100644",
+      "blob": "e33996a802d2c9682440583f324a6d5c3117508c"
+    },
+    {
+      "path": "crates/pool-core/tests/table_fidelity.rs",
+      "mode": "100644",
+      "blob": "c6657cec0248dafe9d99fa47ee484ffb8ce4132d"
+    },
+    {
+      "path": "crates/pool-core/tests/ui_envelope.rs",
+      "mode": "100644",
+      "blob": "71cf417fc64b5c95fbdef295a1b032b1c74d3f4c"
+    },
+    {
+      "path": "crates/pool-py/Cargo.toml",
+      "mode": "100644",
+      "blob": "39ab171d659081eb717dd6748a408b90608a44d8"
+    },
+    {
+      "path": "crates/pool-py/README.md",
+      "mode": "100644",
+      "blob": "f1463b2b13c4615dd5f16e97c379518711288ac8"
+    },
+    {
+      "path": "crates/pool-py/pyproject.toml",
+      "mode": "100644",
+      "blob": "60ba5c37206438992052b43a03fd275aae49081f"
+    },
+    {
+      "path": "crates/pool-py/src/convert.rs",
+      "mode": "100644",
+      "blob": "9ccdce2c5cba47393037241fccfd924c64e8c79f"
+    },
+    {
+      "path": "crates/pool-py/src/lib.rs",
+      "mode": "100644",
+      "blob": "1637fbb5c74df39e79a43699a6b3542c518bedf4"
+    },
+    {
+      "path": "crates/pool-py/src/options.rs",
+      "mode": "100644",
+      "blob": "df617f69e9239bca563a7285667fc037a01848d5"
+    },
+    {
+      "path": "crates/pool-py/src/record.rs",
+      "mode": "100644",
+      "blob": "9f4bff09c2d8ce4c264c94e3dbfab3ab27211067"
+    },
+    {
+      "path": "crates/pool-py/src/rules.rs",
+      "mode": "100644",
+      "blob": "fc3733a36fa64c3ed31b2bddf2248791018715bd"
+    },
+    {
+      "path": "crates/pool-py/src/scene.rs",
+      "mode": "100644",
+      "blob": "cc58f27d44df40a21ac5be905d79596a93dd2be8"
+    },
+    {
+      "path": "crates/pool-py/src/sim.rs",
+      "mode": "100644",
+      "blob": "e679a73c963c82c6839e5b58213dc0ee6486f401"
+    },
+    {
+      "path": "crates/pool-py/tests/test_pool_py.py",
+      "mode": "100644",
+      "blob": "601343bd50f5340f9d2fed811fa7ee8d48ad4466"
+    },
+    {
+      "path": "crates/pool-rules-wasm/Cargo.toml",
+      "mode": "100644",
+      "blob": "78a42ce7ee653e280b22a3985d156d37d3593c9b"
+    },
+    {
+      "path": "crates/pool-rules-wasm/src/lib.rs",
+      "mode": "100644",
+      "blob": "3e46fc4dcad227646b16e71b560a3f6455a05f14"
+    },
+    {
+      "path": "crates/pool-rules/Cargo.toml",
+      "mode": "100644",
+      "blob": "d6ed7d9af7af6eb10f216a73a69aeddedbf99cbc"
+    },
+    {
+      "path": "crates/pool-rules/build.rs",
+      "mode": "100644",
+      "blob": "de7771e86a1fbca0233127c443d7052dd0cddf39"
+    },
+    {
+      "path": "crates/pool-rules/clippy.toml",
+      "mode": "100644",
+      "blob": "2115101c744337280224abc5d73de97edb7f76df"
+    },
+    {
+      "path": "crates/pool-rules/examples/moneyball.rs",
+      "mode": "100644",
+      "blob": "5ac368a23b4a6c6516db61e3fe7ea9191224c6aa"
+    },
+    {
+      "path": "crates/pool-rules/presets/carom3c/umb-carom-2cue-ei.json",
+      "mode": "100644",
+      "blob": "d195e3bbcb6f6397e698cb60175c68027c8ecf4b"
+    },
+    {
+      "path": "crates/pool-rules/presets/carom3c/umb-carom-2cue.json",
+      "mode": "100644",
+      "blob": "1f86099776379527931ab7a868edffefa5945cc2"
+    },
+    {
+      "path": "crates/pool-rules/presets/carom3c/umb-carom.json",
+      "mode": "100644",
+      "blob": "e9923171fbe5bcaae17771172384e1cddf29f4e1"
+    },
+    {
+      "path": "crates/pool-rules/presets/eightball/apa-8ball.json",
+      "mode": "100644",
+      "blob": "31f39bbbe3631bad2653a23718fb8548814e864f"
+    },
+    {
+      "path": "crates/pool-rules/presets/eightball/wpa-8ball.json",
+      "mode": "100644",
+      "blob": "6124993466ac2427460f3cbd4a5d5b1d5f38326c"
+    },
+    {
+      "path": "crates/pool-rules/presets/fourteenone/wpa-14-1.json",
+      "mode": "100644",
+      "blob": "4beaa216af3b8c881ba1a7e7683d7ed48529bb23"
+    },
+    {
+      "path": "crates/pool-rules/presets/snooker/wpbsa-snooker-full.json",
+      "mode": "100644",
+      "blob": "36dbc52058bc0e331c964a2473ff363c0de6942e"
+    },
+    {
+      "path": "crates/pool-rules/presets/snooker/wpbsa-snooker.json",
+      "mode": "100644",
+      "blob": "86b766979d25de3443e4e81dfed5c4f11afc1c2c"
+    },
+    {
+      "path": "crates/pool-rules/src/error.rs",
+      "mode": "100644",
+      "blob": "da813c47dd3d772a45f4919e0cf7dc77f7b3e7e9"
+    },
+    {
+      "path": "crates/pool-rules/src/judgment.rs",
+      "mode": "100644",
+      "blob": "864500cfd92b8f4cb3967cbaae21a5de0e6634dc"
+    },
+    {
+      "path": "crates/pool-rules/src/lib.rs",
+      "mode": "100644",
+      "blob": "d5358ac5f5820f6d4a490c19e4f6d92b4ca196df"
+    },
+    {
+      "path": "crates/pool-rules/src/primitives/contact.rs",
+      "mode": "100644",
+      "blob": "ddeb098641f86ea7e4f2ec02741cb8d0faf1f56e"
+    },
+    {
+      "path": "crates/pool-rules/src/primitives/counters.rs",
+      "mode": "100644",
+      "blob": "3207d0286020b4fd7336348369e32c46af5e5a87"
+    },
+    {
+      "path": "crates/pool-rules/src/primitives/decisions.rs",
+      "mode": "100644",
+      "blob": "730b0530ea6d3fff42ca28154c64f776aa9e5182"
+    },
+    {
+      "path": "crates/pool-rules/src/primitives/fouls.rs",
+      "mode": "100644",
+      "blob": "e8b444ae4f470ef2429aad9bb15195d276dd8a42"
+    },
+    {
+      "path": "crates/pool-rules/src/primitives/mod.rs",
+      "mode": "100644",
+      "blob": "228e35c73a39436017316ed806d6c29cd667fee5"
+    },
+    {
+      "path": "crates/pool-rules/src/primitives/penalty.rs",
+      "mode": "100644",
+      "blob": "f06072c7102e611e23c0ff0fe1291f8a139c003a"
+    },
+    {
+      "path": "crates/pool-rules/src/primitives/pockets.rs",
+      "mode": "100644",
+      "blob": "ec2139d8c695e6d95c802567f605826259210ab0"
+    },
+    {
+      "path": "crates/pool-rules/src/primitives/respot_chain.rs",
+      "mode": "100644",
+      "blob": "fa9fabc6d0e623884896b90bb9d0fafe306d5b50"
+    },
+    {
+      "path": "crates/pool-rules/src/primitives/scan.rs",
+      "mode": "100644",
+      "blob": "f0625a75aa38e394ad8a10dcb1e96163fef275b2"
+    },
+    {
+      "path": "crates/pool-rules/src/primitives/snooker_geom.rs",
+      "mode": "100644",
+      "blob": "76d2f5cc62b97c256fe6928298136688dfcff0f9"
+    },
+    {
+      "path": "crates/pool-rules/src/primitives/terminal.rs",
+      "mode": "100644",
+      "blob": "8b258e013a5f789d628a568856ea21969dcac6a6"
+    },
+    {
+      "path": "crates/pool-rules/src/primitives/turn.rs",
+      "mode": "100644",
+      "blob": "21136b041792c9fbbaf602420426d2259462c188"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/carom3c.rs",
+      "mode": "100644",
+      "blob": "43361351c3a3e02dcd29497bbff49281764b6703"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/carom3c_v2.rs",
+      "mode": "100644",
+      "blob": "7f2260b170b0ef44ff9db8ab71e09307fe8a1cd3"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/eightball.rs",
+      "mode": "100644",
+      "blob": "8bc0e31d4c9fa5b2f82888e366e23348eec60f30"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/eightball_v2.rs",
+      "mode": "100644",
+      "blob": "3c62fef68ee7bd8678dbe37dc44cb1096cd5bb11"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/fourteenone.rs",
+      "mode": "100644",
+      "blob": "d8acc571e757571fee7f976183096e4b963e9f34"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/heyball.rs",
+      "mode": "100644",
+      "blob": "0fc80c3042b0e4298ef074f3924ffba082d52954"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/mod.rs",
+      "mode": "100644",
+      "blob": "d1faa77607e2194dbed485e98a96930a07adb37b"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/nineball.rs",
+      "mode": "100644",
+      "blob": "aeabe46aca3c72d5c8991e40ad98da2115d9e0ea"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/onepocket.rs",
+      "mode": "100644",
+      "blob": "81d8f4190ff36ccc1a663a90380dd4d6cb200e4b"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/registry.rs",
+      "mode": "100644",
+      "blob": "fc9dac20b94c5357067b17f9f3927c776efbdf5c"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/snooker.rs",
+      "mode": "100644",
+      "blob": "0bbe585555e68297ad3f9347ebcfccc2d82f4f3d"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/snooker_v2.rs",
+      "mode": "100644",
+      "blob": "714c3ea57a515aa89be8a419f503f05023748904"
+    },
+    {
+      "path": "crates/pool-rules/src/rulesets/tenball.rs",
+      "mode": "100644",
+      "blob": "1e22551ae08e6daa11b70019410af8e978e653a9"
+    },
+    {
+      "path": "crates/pool-rules/src/task_config.rs",
+      "mode": "100644",
+      "blob": "7418c099b98239ab79d028ca4ccd1dc843ef0e54"
+    },
+    {
+      "path": "crates/pool-rules/src/wire.rs",
+      "mode": "100644",
+      "blob": "16083d0685ca55e3b434c40ac6d4809b73ada496"
+    },
+    {
+      "path": "crates/pool-rules/tests/audit37_scenarios.rs",
+      "mode": "100644",
+      "blob": "53ebaed9d00c353d418de3a170c7fefdc06cb15e"
+    },
+    {
+      "path": "crates/pool-rules/tests/carom_slice.rs",
+      "mode": "100644",
+      "blob": "fbe2e527daa469f3ac570fffa451a3947f476d1a"
+    },
+    {
+      "path": "crates/pool-rules/tests/carom_v2_scenarios.rs",
+      "mode": "100644",
+      "blob": "ea1b96bdc16b92308d20d27109dda0a0ea0b7ca3"
+    },
+    {
+      "path": "crates/pool-rules/tests/contact_pockets.rs",
+      "mode": "100644",
+      "blob": "30fbb8c21d48395aea3a46763f99d9736501233f"
+    },
+    {
+      "path": "crates/pool-rules/tests/corpus.rs",
+      "mode": "100644",
+      "blob": "e3011ec3902092bc064286e5e598ad1c928cfd97"
+    },
+    {
+      "path": "crates/pool-rules/tests/cross_surface.rs",
+      "mode": "100644",
+      "blob": "6e7f321720b7711cbe31007fdb0305b312e6c86e"
+    },
+    {
+      "path": "crates/pool-rules/tests/decisions.rs",
+      "mode": "100644",
+      "blob": "a1ce3ef057d3f800fa76b27c8f3a7af0356b4622"
+    },
+    {
+      "path": "crates/pool-rules/tests/erratum62_scenarios.rs",
+      "mode": "100644",
+      "blob": "fcee9f6d389f51b316046c4b398d825aaa70e3b5"
+    },
+    {
+      "path": "crates/pool-rules/tests/fidelity.rs",
+      "mode": "100644",
+      "blob": "49a1d61e6b4caa188df039cd733a9f57aa2d4d11"
+    },
+    {
+      "path": "crates/pool-rules/tests/fixtures/preset-missing-cite.json",
+      "mode": "100644",
+      "blob": "fa57af6c1ecc0d828564fe7bbf1073e15605e687"
+    },
+    {
+      "path": "crates/pool-rules/tests/fouls_terminal_turn.rs",
+      "mode": "100644",
+      "blob": "0493e2943f92e751762094cc9b3e0f235ef25630"
+    },
+    {
+      "path": "crates/pool-rules/tests/fourteenone_scenarios.rs",
+      "mode": "100644",
+      "blob": "dad65c30ef0e144b173aea7f418cebf93efaaab2"
+    },
+    {
+      "path": "crates/pool-rules/tests/fourteenone_slice.rs",
+      "mode": "100644",
+      "blob": "7026187fb550efe7f24210c3a0889c53e42b3e35"
+    },
+    {
+      "path": "crates/pool-rules/tests/heyball_scenarios.rs",
+      "mode": "100644",
+      "blob": "3d2b1a4d01e01a4607f9e506cf9223b587281e14"
+    },
+    {
+      "path": "crates/pool-rules/tests/heyball_slice.rs",
+      "mode": "100644",
+      "blob": "4a12784cb6c69aea19165d1fe135d4762d649980"
+    },
+    {
+      "path": "crates/pool-rules/tests/judgment.rs",
+      "mode": "100644",
+      "blob": "74b9de6198dba805361c54238e3c624cb155a7f7"
+    },
+    {
+      "path": "crates/pool-rules/tests/jump_over_false_positive_211.rs",
+      "mode": "100644",
+      "blob": "aac7f8f933b3465f48c8e7bd3a7e698d7432573c"
+    },
+    {
+      "path": "crates/pool-rules/tests/registry.rs",
+      "mode": "100644",
+      "blob": "b7a11bbc5d6629bc933e748b4635091bd1d26353"
+    },
+    {
+      "path": "crates/pool-rules/tests/respot_penalty_counters.rs",
+      "mode": "100644",
+      "blob": "5791571ca91cbfaacf2a9e2b5bc58c5d90e70e0d"
+    },
+    {
+      "path": "crates/pool-rules/tests/scan.rs",
+      "mode": "100644",
+      "blob": "365681e47441be47843025c8347aa539db36869f"
+    },
+    {
+      "path": "crates/pool-rules/tests/snooker_v2_scenarios.rs",
+      "mode": "100644",
+      "blob": "a622c0f0a45fd58dd49390a80ac131630babfd98"
+    },
+    {
+      "path": "crates/pool-rules/tests/snooker_v2_slice.rs",
+      "mode": "100644",
+      "blob": "dd188d7cb1e7acb21ffa3b6a61ba4c2ad12173f5"
+    },
+    {
+      "path": "crates/pool-rules/tests/tenball_scenarios.rs",
+      "mode": "100644",
+      "blob": "ff8f5e95895c8ed04e28ed60027b8f95bb451c4f"
+    },
+    {
+      "path": "crates/pool-rules/tests/tenball_slice.rs",
+      "mode": "100644",
+      "blob": "bd4c933ad404fa2a2eb4946b1bdb31b5f5c81b10"
+    },
+    {
+      "path": "crates/pool-rules/tests/variants_registry.rs",
+      "mode": "100644",
+      "blob": "b7e79bb4dc51130ec44618bc0f491bffe0c23d82"
+    },
+    {
+      "path": "crates/pool-rules/tests/wire.rs",
+      "mode": "100644",
+      "blob": "3a3e813f494b4d754585dae3bc568797efeb64fc"
+    },
+    {
+      "path": "crates/pool-wasm/.gitignore",
+      "mode": "100644",
+      "blob": "cc0f25cb66c432005cc4273e5c56e22f27fa9a96"
+    },
+    {
+      "path": "crates/pool-wasm/Cargo.toml",
+      "mode": "100644",
+      "blob": "2aee4f2f216517907fa7e0ec8e4e33ac57652ec1"
+    },
+    {
+      "path": "crates/pool-wasm/README.md",
+      "mode": "100644",
+      "blob": "dd7d7df3551747f410effb36f93f9b22f0cdcd68"
+    },
+    {
+      "path": "crates/pool-wasm/examples/gen_break_scenario.rs",
+      "mode": "100644",
+      "blob": "0d78ca1936bb76941092c4480b0c73edd65181a0"
+    },
+    {
+      "path": "crates/pool-wasm/examples/gen_two_ball_scenario.rs",
+      "mode": "100644",
+      "blob": "f62d57500c0d8c6c8ffcf0608b47ab6f14a40772"
+    },
+    {
+      "path": "crates/pool-wasm/src/lib.rs",
+      "mode": "100644",
+      "blob": "250bb34caa30a8df4c1d3816dff0f417ddf24c27"
+    },
+    {
+      "path": "crates/pool-wasm/tests/fixtures/break_scenario.json",
+      "mode": "100644",
+      "blob": "044bebefc367ffeb8a3b8777d08d9b10d8467ef6"
+    },
+    {
+      "path": "crates/pool-wasm/tests/fixtures/two_ball_scenario.json",
+      "mode": "100644",
+      "blob": "847dc88774d7ab42061e09e8b60d06bfcb33a668"
+    },
+    {
+      "path": "crates/pool-wasm/tests/node-smoke.mjs",
+      "mode": "100644",
+      "blob": "d3bf0bf6773970aa42e5d6327ddb5b21b9838b07"
+    },
+    {
+      "path": "sdk/ts/.gitignore",
+      "mode": "100644",
+      "blob": "b9470778764f72c5257a3361590d2994547f90e1"
+    },
+    {
+      "path": "sdk/ts/README.md",
+      "mode": "100644",
+      "blob": "925182af98dbde73ff82b82c732b7c2e3c77fe53"
+    },
+    {
+      "path": "sdk/ts/examples/aim-sweep.mjs",
+      "mode": "100644",
+      "blob": "6c442705e40bac7063fdf2644049c6597b03a4ff"
+    },
+    {
+      "path": "sdk/ts/examples/replay-sample.mjs",
+      "mode": "100644",
+      "blob": "36c28d1875663b4162fbfd3508caa4232a7792fd"
+    },
+    {
+      "path": "sdk/ts/examples/simulate-shot.mjs",
+      "mode": "100644",
+      "blob": "5714ad64879e6d60f0d9e36125f1afecfd1a972c"
+    },
+    {
+      "path": "sdk/ts/package-lock.json",
+      "mode": "100644",
+      "blob": "a4be3ee60f8863d97392db785bfdfc0678be3f0d"
+    },
+    {
+      "path": "sdk/ts/package.json",
+      "mode": "100644",
+      "blob": "ee29caad1217c7150de1378887529fc0a85b4147"
+    },
+    {
+      "path": "sdk/ts/src/catalog.ts",
+      "mode": "100644",
+      "blob": "1914c16c5f5c033a11875d8e3495b53c38c8d17f"
+    },
+    {
+      "path": "sdk/ts/src/engine.ts",
+      "mode": "100644",
+      "blob": "7c55f647413f5ba1fa8bb5a2a49decb0667f63c9"
+    },
+    {
+      "path": "sdk/ts/src/games/catalog.ts",
+      "mode": "100644",
+      "blob": "834ca977549361e92199061dd4a1467485506fae"
+    },
+    {
+      "path": "sdk/ts/src/games/index.ts",
+      "mode": "100644",
+      "blob": "321429db873e872fae6230a310a5ce04614883e0"
+    },
+    {
+      "path": "sdk/ts/src/games/layouts.ts",
+      "mode": "100644",
+      "blob": "554fc642f3096c934dc4f0f663d0a9b9d6c72e03"
+    },
+    {
+      "path": "sdk/ts/src/games/rack.ts",
+      "mode": "100644",
+      "blob": "1e0e4a7f339127a15011430bdf1507f609cc880b"
+    },
+    {
+      "path": "sdk/ts/src/index.ts",
+      "mode": "100644",
+      "blob": "fc785bca670dbeae986c7069871d6fbb69225bc5"
+    },
+    {
+      "path": "sdk/ts/src/record.ts",
+      "mode": "100644",
+      "blob": "b727ca2e5729dc326377c577d018fdc4bf889b4e"
+    },
+    {
+      "path": "sdk/ts/src/rules/backend.ts",
+      "mode": "100644",
+      "blob": "ad1c041d618f6c8c5e7bcc6f043c5fdad6619fe9"
+    },
+    {
+      "path": "sdk/ts/src/rules/carom3c.ts",
+      "mode": "100644",
+      "blob": "97f942a7e6a0581ad094edc4bdf82b52f13e81e7"
+    },
+    {
+      "path": "sdk/ts/src/rules/eightball.ts",
+      "mode": "100644",
+      "blob": "245855c5529b68e9ede4a42b222fd12097ce8455"
+    },
+    {
+      "path": "sdk/ts/src/rules/errors.ts",
+      "mode": "100644",
+      "blob": "8f16aa5cbae4f9a62242ed99275f9275fa813966"
+    },
+    {
+      "path": "sdk/ts/src/rules/fourteenone.ts",
+      "mode": "100644",
+      "blob": "903d8bf44dcfe21170830dd516fc6cb6d8e36b5e"
+    },
+    {
+      "path": "sdk/ts/src/rules/heyball.ts",
+      "mode": "100644",
+      "blob": "f70f5354bcf5291cbb5c4fc024ad82d94e2963d7"
+    },
+    {
+      "path": "sdk/ts/src/rules/index.ts",
+      "mode": "100644",
+      "blob": "a7418cf302400a1d8b1250e890c6f3208bb3565c"
+    },
+    {
+      "path": "sdk/ts/src/rules/nineball.ts",
+      "mode": "100644",
+      "blob": "17b2848e5af503daa265d305ad6a1f75231835a0"
+    },
+    {
+      "path": "sdk/ts/src/rules/onepocket.ts",
+      "mode": "100644",
+      "blob": "30ffdd6dd9fa9cb1af237aeda8f01a3f10cc5980"
+    },
+    {
+      "path": "sdk/ts/src/rules/respot.ts",
+      "mode": "100644",
+      "blob": "9af7bbe8fac4c640ea9d030d698bffcffbcf0c05"
+    },
+    {
+      "path": "sdk/ts/src/rules/snooker.ts",
+      "mode": "100644",
+      "blob": "b0609c59c1e8a1ac0238a9f67f3dcfbf2f1e1fca"
+    },
+    {
+      "path": "sdk/ts/src/rules/tenball.ts",
+      "mode": "100644",
+      "blob": "7ceb6551c63ef80a8f5359d66ac591e729472b4b"
+    },
+    {
+      "path": "sdk/ts/src/sampler.ts",
+      "mode": "100644",
+      "blob": "de63ea0591bf96d300f05f7bc5e1d245952621bd"
+    },
+    {
+      "path": "sdk/ts/src/scenario.ts",
+      "mode": "100644",
+      "blob": "f54020ff556b52868108b290387812c5295ad08e"
+    },
+    {
+      "path": "sdk/ts/src/share.ts",
+      "mode": "100644",
+      "blob": "d39cb8e56ba8e51c3cfe85224187759aba657a48"
+    },
+    {
+      "path": "sdk/ts/src/shot.ts",
+      "mode": "100644",
+      "blob": "e2ee8d68fd7c23416a1fc6f9c15b3b5e9c6719a5"
+    },
+    {
+      "path": "sdk/ts/src/types.ts",
+      "mode": "100644",
+      "blob": "f73fcb8a8e4439ff1c959952c7615489982d1bd3"
+    },
+    {
+      "path": "sdk/ts/test/carom3c.test.ts",
+      "mode": "100644",
+      "blob": "c6a01db6ed5914a17b07e7bbff7717a9ad0aeeae"
+    },
+    {
+      "path": "sdk/ts/test/catalog.test.ts",
+      "mode": "100644",
+      "blob": "9468451e72b5d27c19bd989a24031c1fcc1577e3"
+    },
+    {
+      "path": "sdk/ts/test/determinism.test.ts",
+      "mode": "100644",
+      "blob": "0327d2617e9114f6f83fe3a6e32d3c3c1e615bdf"
+    },
+    {
+      "path": "sdk/ts/test/eightball.test.ts",
+      "mode": "100644",
+      "blob": "4e722fc3b60c32e4e41e8bcf872e0e6484f38610"
+    },
+    {
+      "path": "sdk/ts/test/fixtures/bank_two_cushion.json",
+      "mode": "100644",
+      "blob": "ca78a60e719e08c9a7492911bb2229945c043e07"
+    },
+    {
+      "path": "sdk/ts/test/fixtures/cut_30_side.json",
+      "mode": "100644",
+      "blob": "0d3406c021a16c79cac5d75fd8fa7065742d3eed"
+    },
+    {
+      "path": "sdk/ts/test/fixtures/draw_shot.json",
+      "mode": "100644",
+      "blob": "9bd2e682511ca37b92b39c9b9d53961993840b76"
+    },
+    {
+      "path": "sdk/ts/test/fixtures/golden_record.json",
+      "mode": "100644",
+      "blob": "c1bab012c12762f5d776e0376398398d74f6043b"
+    },
+    {
+      "path": "sdk/ts/test/fixtures/straight_pot.json",
+      "mode": "100644",
+      "blob": "331ac09fd3ecd5a1c3549ed0d11a7cd403cd05a6"
+    },
+    {
+      "path": "sdk/ts/test/fixtures/three_ball_chain.json",
+      "mode": "100644",
+      "blob": "15cda1d8d42b7debd92301cf51485fb7d1d6dea2"
+    },
+    {
+      "path": "sdk/ts/test/fourteenone.test.ts",
+      "mode": "100644",
+      "blob": "12e329ed1bd7d3913eec3ef28b44f6674580a8eb"
+    },
+    {
+      "path": "sdk/ts/test/games.test.ts",
+      "mode": "100644",
+      "blob": "0ee0f86f29bbbf330fb9138b6ef3a24a4cacf240"
+    },
+    {
+      "path": "sdk/ts/test/golden.test.ts",
+      "mode": "100644",
+      "blob": "f59a3aa2d31deeba04d162a4c83e4b7846c2015a"
+    },
+    {
+      "path": "sdk/ts/test/helpers.ts",
+      "mode": "100644",
+      "blob": "82a58082f02344a70a25068743fe96ed25823280"
+    },
+    {
+      "path": "sdk/ts/test/layouts.test.ts",
+      "mode": "100644",
+      "blob": "fb708c3b1fbdfe3bbe961ec13477ee711c72a90e"
+    },
+    {
+      "path": "sdk/ts/test/nineball-shots.test.ts",
+      "mode": "100644",
+      "blob": "36c8e4d8b221a73ab2fbc5d5fdc8706675382cb7"
+    },
+    {
+      "path": "sdk/ts/test/nineball.test.ts",
+      "mode": "100644",
+      "blob": "059fe481cf43d73f6c41886bc5880901d07dba25"
+    },
+    {
+      "path": "sdk/ts/test/onepocket.test.ts",
+      "mode": "100644",
+      "blob": "01f14d37f07e7dd9a2c991118d0e657b43b8cbf6"
+    },
+    {
+      "path": "sdk/ts/test/presets.test.ts",
+      "mode": "100644",
+      "blob": "5c30585824feeea03e23dcba1285498eae0dc45c"
+    },
+    {
+      "path": "sdk/ts/test/respot.test.ts",
+      "mode": "100644",
+      "blob": "bc90e78732f52c4621240a831ea15739a3c75073"
+    },
+    {
+      "path": "sdk/ts/test/rules-backend.test.ts",
+      "mode": "100644",
+      "blob": "ed6f07c1cd2459d967d8e433e41af7ad59149fb7"
+    },
+    {
+      "path": "sdk/ts/test/rules-catalog-drift.test.ts",
+      "mode": "100644",
+      "blob": "9995a08ae7748a5d32bfc28334c7681854be130a"
+    },
+    {
+      "path": "sdk/ts/test/sampler.test.ts",
+      "mode": "100644",
+      "blob": "70cf89a8f67dfbebd102791b7d0d696668d3e39a"
+    },
+    {
+      "path": "sdk/ts/test/share.test.ts",
+      "mode": "100644",
+      "blob": "d9c09784418751cacd684c681a7f66e060575926"
+    },
+    {
+      "path": "sdk/ts/test/snooker.test.ts",
+      "mode": "100644",
+      "blob": "b911216b3c419d7f26869cf78e91aa91c4324eb4"
+    },
+    {
+      "path": "sdk/ts/test/validation.test.ts",
+      "mode": "100644",
+      "blob": "d07e0673e8142e53bb4994abe94705ea06b42833"
+    },
+    {
+      "path": "sdk/ts/test/version.test.ts",
+      "mode": "100644",
+      "blob": "355087558b93992463933e6b988aaf5a5350a928"
+    },
+    {
+      "path": "sdk/ts/tools/harvest-intercept.mjs",
+      "mode": "100644",
+      "blob": "0c67ebf4a5f34d2890fe75666546b4cd00bf4f99"
+    },
+    {
+      "path": "sdk/ts/tools/harvest-rules-corpus.mjs",
+      "mode": "100644",
+      "blob": "52962a90901ab536bd5c5ef6b2ee9518dca3ee21"
+    },
+    {
+      "path": "sdk/ts/tools/sync-web.mjs",
+      "mode": "100644",
+      "blob": "e49f8f371720004ba484a1085d18fb525d36b3c6"
+    },
+    {
+      "path": "sdk/ts/tsconfig.json",
+      "mode": "100644",
+      "blob": "158a31f99372e1f2fe60a1fc717243b6dd24ad65"
+    },
+    {
+      "path": "web/app/sinkpivot.js",
+      "mode": "100644",
+      "blob": "37d909fbe619ce6de15cc23e0099681f34864160"
+    },
+    {
+      "path": "web/dist/pool-rules/pool_rules.d.ts",
+      "mode": "100644",
+      "blob": "1f8e6795237be67ddde98e1818552dba9b6533bf"
+    },
+    {
+      "path": "web/dist/pool-rules/pool_rules.js",
+      "mode": "100644",
+      "blob": "481a3553717e3d65f308abdd4c2f71408d04b7dc"
+    },
+    {
+      "path": "web/dist/pool-rules/pool_rules_bg.wasm",
+      "mode": "100644",
+      "blob": "5ba68c8990616c6a2ed1133915d934cbe3e49c7f"
+    },
+    {
+      "path": "web/dist/pool-rules/pool_rules_bg.wasm.d.ts",
+      "mode": "100644",
+      "blob": "247f91fabe4aceeb74d583be74fe0ee0734a5742"
+    },
+    {
+      "path": "web/dist/pool-sdk/catalog.d.ts",
+      "mode": "100644",
+      "blob": "b6a0aeee4aeb8e54ca24917fbd6f4399afb74b30"
+    },
+    {
+      "path": "web/dist/pool-sdk/catalog.js",
+      "mode": "100644",
+      "blob": "7a9b39b4a14967eac79980e2fb3e61b66173f47a"
+    },
+    {
+      "path": "web/dist/pool-sdk/engine.d.ts",
+      "mode": "100644",
+      "blob": "aef27855a77c848b77ae59b480e1cd0f6ab14bd2"
+    },
+    {
+      "path": "web/dist/pool-sdk/engine.js",
+      "mode": "100644",
+      "blob": "fc8e9ee9b3d7fca902bf81b2fd2f4c7caf918f92"
+    },
+    {
+      "path": "web/dist/pool-sdk/games/catalog.d.ts",
+      "mode": "100644",
+      "blob": "c38d3645a6cd802942174ea1839afdae7b03751b"
+    },
+    {
+      "path": "web/dist/pool-sdk/games/catalog.js",
+      "mode": "100644",
+      "blob": "575475f4603884a16cdad214a9642425e4154bc7"
+    },
+    {
+      "path": "web/dist/pool-sdk/games/index.d.ts",
+      "mode": "100644",
+      "blob": "5c7c4853365dc9062d95a9b6e948c4fab48c34c7"
+    },
+    {
+      "path": "web/dist/pool-sdk/games/index.js",
+      "mode": "100644",
+      "blob": "37d8e45c3a560cb7e6322faee9a04bea122819d9"
+    },
+    {
+      "path": "web/dist/pool-sdk/games/layouts.d.ts",
+      "mode": "100644",
+      "blob": "e1b3a7d0221959cd38c404ff2522a30191756bbc"
+    },
+    {
+      "path": "web/dist/pool-sdk/games/layouts.js",
+      "mode": "100644",
+      "blob": "679ea7ed72505516268e5637855ce1201f18ebf1"
+    },
+    {
+      "path": "web/dist/pool-sdk/games/rack.d.ts",
+      "mode": "100644",
+      "blob": "c7c4d0081b0caba20d2b3b2285a168a4ac96664f"
+    },
+    {
+      "path": "web/dist/pool-sdk/games/rack.js",
+      "mode": "100644",
+      "blob": "bc279a0f8272c6b3caa1cb4223186f8e1f0cbd57"
+    },
+    {
+      "path": "web/dist/pool-sdk/index.d.ts",
+      "mode": "100644",
+      "blob": "4623e4ac5ee10fa1ef17884ffb5e22f9b820ee44"
+    },
+    {
+      "path": "web/dist/pool-sdk/index.js",
+      "mode": "100644",
+      "blob": "75d7430fd34aa4d6319a5b31a140e990643d1f22"
+    },
+    {
+      "path": "web/dist/pool-sdk/record.d.ts",
+      "mode": "100644",
+      "blob": "08047efcef9cb497393a7e18eeb9dfc1e1b272fc"
+    },
+    {
+      "path": "web/dist/pool-sdk/record.js",
+      "mode": "100644",
+      "blob": "29906a0c47f07fa45b88ce49e902c647c0873f95"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/backend.d.ts",
+      "mode": "100644",
+      "blob": "df7d6f66413005d30432d692983fd7564e821db6"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/backend.js",
+      "mode": "100644",
+      "blob": "34fb43b2a2a2ccd27aa365aa66ae0d05ef9bc013"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/carom3c.d.ts",
+      "mode": "100644",
+      "blob": "632b36e33f3abeb6b351a7438e8222771988e6a7"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/carom3c.js",
+      "mode": "100644",
+      "blob": "9abfa671b036c38bfbf2e6145209f613fcde7942"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/eightball.d.ts",
+      "mode": "100644",
+      "blob": "fcad79ff6ab61236c45b948cc2e078e07c3b445c"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/eightball.js",
+      "mode": "100644",
+      "blob": "2098094a267417374f08e106ee3615b247dea780"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/errors.d.ts",
+      "mode": "100644",
+      "blob": "93449fa5f2f3d862e43dec4b0100d2c633e7b56f"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/errors.js",
+      "mode": "100644",
+      "blob": "9246b76970231b99f2c41863f873b414c98fad3c"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/fourteenone.d.ts",
+      "mode": "100644",
+      "blob": "14b2232903a2b6de0b0737ad67be9b6273e47798"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/fourteenone.js",
+      "mode": "100644",
+      "blob": "b6980b653e9967c7d2bc70505f0dc91a0accd587"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/heyball.d.ts",
+      "mode": "100644",
+      "blob": "5e9873ba40a998abf48cd66a22f3947dfcb89829"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/heyball.js",
+      "mode": "100644",
+      "blob": "36dcd27b5fea0568928ab08022dcedb1cda5508a"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/index.d.ts",
+      "mode": "100644",
+      "blob": "37a846d58fcdd458e1e46f20f208c05dff68b27f"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/index.js",
+      "mode": "100644",
+      "blob": "8ca7691e2a888d4627cc0b5b05a71ab20037b4f1"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/nineball.d.ts",
+      "mode": "100644",
+      "blob": "1fe8a81b0448643dc7bcdb6fc1a6743edf9eb1c0"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/nineball.js",
+      "mode": "100644",
+      "blob": "5f325c9014ca83d8473a1cd61569b9a17231879d"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/onepocket.d.ts",
+      "mode": "100644",
+      "blob": "a35ede137d831830e820435853521bd303914cc0"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/onepocket.js",
+      "mode": "100644",
+      "blob": "7408ea088f030606e3199420cd1fa41600b838d3"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/respot.d.ts",
+      "mode": "100644",
+      "blob": "9afb704b4221ee2a4632d18bb21d898acb65a9cd"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/respot.js",
+      "mode": "100644",
+      "blob": "601fa6300a27abe9d4efcb7afaccca71862a6e6d"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/snooker.d.ts",
+      "mode": "100644",
+      "blob": "da0b9ed46f6aba0adb8e9045dcf92c78840e9753"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/snooker.js",
+      "mode": "100644",
+      "blob": "8dd2724d3d9290d05dee2d165db55d794f4e5160"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/tenball.d.ts",
+      "mode": "100644",
+      "blob": "f59178a7d5a686f1e7848760863acb8c6c275212"
+    },
+    {
+      "path": "web/dist/pool-sdk/rules/tenball.js",
+      "mode": "100644",
+      "blob": "41d491c18b57f98793a61cdeafa11cac1728bae3"
+    },
+    {
+      "path": "web/dist/pool-sdk/sampler.d.ts",
+      "mode": "100644",
+      "blob": "04d18c7cf13b7ec3f02d3ccfe2df1fdb35dff8a8"
+    },
+    {
+      "path": "web/dist/pool-sdk/sampler.js",
+      "mode": "100644",
+      "blob": "c9fbcefedd8980079e03766c1c84e39bbebed77f"
+    },
+    {
+      "path": "web/dist/pool-sdk/scenario.d.ts",
+      "mode": "100644",
+      "blob": "cbc4f169b865dca469076d60dc84d94e83d53470"
+    },
+    {
+      "path": "web/dist/pool-sdk/scenario.js",
+      "mode": "100644",
+      "blob": "c8db477401bc40b332b88054eb4573875113af02"
+    },
+    {
+      "path": "web/dist/pool-sdk/share.d.ts",
+      "mode": "100644",
+      "blob": "dfb1c9339005fcc84c05cd8515a2edd665b33951"
+    },
+    {
+      "path": "web/dist/pool-sdk/share.js",
+      "mode": "100644",
+      "blob": "385413ce2655f973eeb63e1b93d2d866380cb054"
+    },
+    {
+      "path": "web/dist/pool-sdk/shot.d.ts",
+      "mode": "100644",
+      "blob": "40b1a48b20d13d89f01a9f8efaae6a026e796805"
+    },
+    {
+      "path": "web/dist/pool-sdk/shot.js",
+      "mode": "100644",
+      "blob": "58aff9a3ebe34cfd6c6cf3912bd775a2615e0f12"
+    },
+    {
+      "path": "web/dist/pool-sdk/types.d.ts",
+      "mode": "100644",
+      "blob": "bc6b1d88e424ad0a046c58850444208f9e7bb762"
+    },
+    {
+      "path": "web/dist/pool-sdk/types.js",
+      "mode": "100644",
+      "blob": "51b52b89bc62342669485336fa565ccf01322b69"
+    },
+    {
+      "path": "web/dist/pool-wasm/pool_wasm.d.ts",
+      "mode": "100644",
+      "blob": "b726bae1aa2ca6a606565e890dce2f0205b0d263"
+    },
+    {
+      "path": "web/dist/pool-wasm/pool_wasm.js",
+      "mode": "100644",
+      "blob": "22184b742729e0cd5920d7801d6b0f00756eed8b"
+    },
+    {
+      "path": "web/dist/pool-wasm/pool_wasm_bg.wasm",
+      "mode": "100644",
+      "blob": "8dafa77f600e7ff79cb3a214ae8c9cb6d90461ab"
+    },
+    {
+      "path": "web/dist/pool-wasm/pool_wasm_bg.wasm.d.ts",
+      "mode": "100644",
+      "blob": "466b1f35f17911149aa68b2567da1a3bf52a6263"
+    }
+  ],
+  "scope_origin_commit": "fdfd64c01ddf8a998c723b8be994de263b1363c8",
+  "entry_sources": {
+    "non_targets": "6e329ea77222f256994104e0bd5c9684323b2e8d",
+    "shared_family": "6e329ea77222f256994104e0bd5c9684323b2e8d",
+    "targets": {
+      "source_commit": "fdfd64c01ddf8a998c723b8be994de263b1363c8",
+      "ids": [
+        "diamond_proam_7ft",
+        "diamond_proam_8ft",
+        "diamond_proam_9ft",
+        "owner_proam_9ft_2026_07"
+      ],
+      "rule": "Existing target kernel/nose-plan pins are retained; the Pro-Am render and owner-alias expected-differ rulings remain in cushion_law_621.json and identity_law_621.json."
+    }
+  },
+  "guarded_source": {
+    "main_ref": "refs/remotes/origin/main",
+    "main_ref_commit": "6e329ea77222f256994104e0bd5c9684323b2e8d",
+    "merge_base": "6e329ea77222f256994104e0bd5c9684323b2e8d",
+    "scope_origin_commit": "fdfd64c01ddf8a998c723b8be994de263b1363c8",
+    "comparison_tree": "b974b5e2c1b1999a5ff794c0d34c03eaabb62c09",
+    "method": "git merge-tree --write-tree -Xours <scope origin> <derived main merge base>",
+    "rule": "Exact blobs from the pre-O22 scope merged with main; protected changes made by the candidate are never used to generate these pins."
+  },
+  "repin_history": [
+    {
+      "reason": "C6 disclosed re-pin after the C5 main fold a25a649a2f39a733be4aacadce7a2914aaa84660; main introduced the Chinese-eight profile changes, while pre-O22 Diamond catalog content remains fenced. No allowlist change.",
+      "source_commit": {
+        "old": "fdfd64c01ddf8a998c723b8be994de263b1363c8",
+        "new": "be25b147c088f6abcb6368cd131a166002c5590e"
+      },
+      "source_table_js_sha256": {
+        "old": "d1c0968ab9991c1eedb4d38153ce6bfbc92caf44b81b856490068b06e1818f20",
+        "new": "f43c9f7893557211a6dcecbcb0c9d1517abc4c83da3d22d936f64634b8dc927a"
+      },
+      "shared_family_sha256": {
+        "old": "9b93817cbe72a1631af35aaaee855e822b079ce6302b08ceab30ca4b87468d31",
+        "new": "5a005ca746b974cc0a4705bc883c51a2a16ff877f63a81f95809c2952c4fedce"
+      },
+      "entry_snapshot_sha256": {
+        "old": "91eca29ae30ea28663f78ff844dc58041fc7937f80c9d58c377976c3fd353d95",
+        "new": "225f3ef3abec5c07725ed9278ad64197e232e4e9bc51b5cbd66e65692c8ebdab"
+      },
+      "git_blobs_sha256": {
+        "old": "072c2260e01da2323aa68be0751eb059a66539e6baeb85326f106ad35e224f87",
+        "new": "072c2260e01da2323aa68be0751eb059a66539e6baeb85326f106ad35e224f87"
+      },
+      "entry_digest_changes": {
+        "chinese8_pro_9ft": {
+          "render_sha256": {
+            "old": "b7f74c5cd51d32bf6c0433a7644a513eb45a197673b482f2b9cf1c4e3ecde5d6",
+            "new": "e52bb495eb15bedbac46438b973133b1301694fe3c57f019b63d754c4b69f114"
+          },
+          "rail_plan_sha256": {
+            "old": "1e702c01c26b39d214496369e8630db53faf360d212cb62f7cf8bc9309a0d403",
+            "new": "080442150314dde9aa1bd5048a4ef971014ef4a47a34d35e19da9216a5cb7f73"
+          },
+          "cushion_mesh_sha256": {
+            "old": "416beaddbb4ef16009707200a3ef245975ca8ff8f9fdf219aeb6d1fe1026c8af",
+            "new": "40a9fd3bb71d215171f305f74b8261cf94a74df57dec1be914ea13e7558ec1f9"
+          }
+        },
+        "joy_q8_9ft": {
+          "render_sha256": {
+            "old": "b7f74c5cd51d32bf6c0433a7644a513eb45a197673b482f2b9cf1c4e3ecde5d6",
+            "new": "e52bb495eb15bedbac46438b973133b1301694fe3c57f019b63d754c4b69f114"
+          },
+          "rail_plan_sha256": {
+            "old": "1e702c01c26b39d214496369e8630db53faf360d212cb62f7cf8bc9309a0d403",
+            "new": "080442150314dde9aa1bd5048a4ef971014ef4a47a34d35e19da9216a5cb7f73"
+          },
+          "cushion_mesh_sha256": {
+            "old": "416beaddbb4ef16009707200a3ef245975ca8ff8f9fdf219aeb6d1fe1026c8af",
+            "new": "40a9fd3bb71d215171f305f74b8261cf94a74df57dec1be914ea13e7558ec1f9"
+          }
+        }
+      },
+      "guarded_blob_changes": [],
+      "basis": {
+        "main_ref": "refs/remotes/origin/main",
+        "main_ref_commit": "be25b147c088f6abcb6368cd131a166002c5590e",
+        "merge_base": "be25b147c088f6abcb6368cd131a166002c5590e",
+        "scope_origin_commit": "fdfd64c01ddf8a998c723b8be994de263b1363c8",
+        "comparison_tree": "d4306a922263420e02d6c0ee495ac14c90b2309f",
+        "method": "git merge-tree --write-tree -Xours <scope origin> <derived main merge base>"
+      }
+    },
+    {
+      "reason": "D-3d disclosed re-pin after the D-3 ceremony merge of main 6e329ea7 into #644 (maintainer conditional ruling 2026-09-20, after the first post-merge card read the three O22 byte proofs red): main moved the shared cushion family and the wpbsa_snooker_12ft entry (#637/#892 craft snooker, #707 ballreturn, #731/#896 cn8) and web/app/sinkpivot.js (#637); the merge kept main's bytes (tip == MAIN3 for every moved pin). Non-target entries and the shared family re-read from MAIN3; target pins retained; git_blobs from the recorded merge-tree method against MAIN3 (exactly one blob moves). No allowlist, path or proof-code change.",
+      "source_commit": {
+        "old": "be25b147c088f6abcb6368cd131a166002c5590e",
+        "new": "6e329ea77222f256994104e0bd5c9684323b2e8d"
+      },
+      "source_table_js_sha256": {
+        "old": "f43c9f7893557211a6dcecbcb0c9d1517abc4c83da3d22d936f64634b8dc927a",
+        "new": "a281723315fb0731653585e9d06bb4a5de61d4f785fef0419dda9223a9766d0d"
+      },
+      "shared_family_sha256": {
+        "old": "5a005ca746b974cc0a4705bc883c51a2a16ff877f63a81f95809c2952c4fedce",
+        "new": "b99e1b6fc578cff1ec2bc712506726352cbf2b7117ee00741419a39de99cd3f1"
+      },
+      "entry_snapshot_sha256": {
+        "old": "225f3ef3abec5c07725ed9278ad64197e232e4e9bc51b5cbd66e65692c8ebdab",
+        "new": "07124c15ac07f5065a31d8fcbe18c4226cd0547fa320179def1ced6afe2ce7c5"
+      },
+      "git_blobs_sha256": {
+        "old": "072c2260e01da2323aa68be0751eb059a66539e6baeb85326f106ad35e224f87",
+        "new": "6c3064a04b3149c939e308cab80d252b237e6cf5b100ca009a223f8682f4d043"
+      },
+      "comparison_tree": {
+        "old": "d4306a922263420e02d6c0ee495ac14c90b2309f",
+        "new": "b974b5e2c1b1999a5ff794c0d34c03eaabb62c09"
+      },
+      "entry_digest_changes": {
+        "wpbsa_snooker_12ft": {
+          "cushion_mesh_sha256": {
+            "old": "8a581c31a27b5c3a85ec3a3d7a58396b62dd728ae3ba5136a2b7af28bd9fcf7f",
+            "new": "b379332e75e4d0e6f3d2fd0e27a1b6403beceac348b348650957b11c7b3368ca"
+          },
+          "rail_plan_sha256": {
+            "old": "40f72e447460a1dcdc353dfab21b8961e6bacd9ac78edecc88de129b4581ef33",
+            "new": "6f8444c1f8fe0c7df451cc2bcc378d04e6ca4a923f1ba061f47f7d3112755283"
+          },
+          "render_sha256": {
+            "old": "dd100a2b068c37f564c687f40b3a51e3b81b98989ca1eb92cb8d231844ef1085",
+            "new": "1b8f5020b02cf0d1ddc9abb3e1ee0fd0a1bfedbb507647de7e902b745cc5ef68"
+          }
+        }
+      },
+      "git_blob_changes": {
+        "web/app/sinkpivot.js": {
+          "old": "c6a5424f89f78b3b81c47cbf9f9e87375a260ea8",
+          "new": "37d909fbe619ce6de15cc23e0099681f34864160"
+        }
+      },
+      "digest_serialization": {
+        "entry_snapshot": "json-sorted-compact",
+        "git_blobs": "json-sorted-compact"
+      }
+    }
+  ]
+}

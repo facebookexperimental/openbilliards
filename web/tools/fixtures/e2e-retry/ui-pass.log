@@ -1,0 +1,9 @@
+[e2e-ui] PASS help: stale graph (no help.js) — no pill, no `?`, no __help, settings row hidden, game playable (degradation law)
+[e2e-ui] PASS help: pre-GH-313 i18n.js (no hasLocal export) — site link degrades to HIDDEN with a blank label even over fresh dictionaries, guide unaffected
+[e2e-ui] PASS focus: #ob-export-btn boot-modality focus shows the KIT ring, UA outline suppressed (GH-245 A4)
+[e2e-ui] PASS focus: coarse FIRE pill (#shoot) focus COMPOSES the kit ring over its el-2 elevation (GH-245 A3)
+[e2e-ui] PASS toolbar C4 (review r2): with icons.js stale #ob-share is the TEXT fallback (.ob-toolbar-pill, no --icon, no svg) on the 34 toolbar rung, not the base 40
+[e2e-ui] PASS toolbar C4 (review r2): the text fallback steps to the 44 coarse toolbar rung with touch (html.ob-touch + pointer: coarse), never 40
+[e2e-ui] PASS strip V-P1 (B-K13 / B-K04 fit-at-rest): phone station strip de — "Beleuchtung" glyphs WHOLE at rest (pre-fix: cut under the 0.4 h pad; S4 pill 103.6 px visible), the fit-aware pad in [12, 0.4 h]
+[e2e-ui] PASS strip V-P1 (B-K13 / B-K04 fit-at-rest): phone station strip fr — "Éclairage" glyphs WHOLE at rest again (S4 whole; pre-fix cut), the fit-aware pad in [12, 0.4 h]
+E2E-UI PASS

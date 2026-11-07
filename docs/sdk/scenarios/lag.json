@@ -1,0 +1,49 @@
+{
+  "name": "lag",
+  "description": "WPA table-speed lag: a firm center-ball shot from the head spot straight up the table; total path length must be 4-4.5 table lengths before rest (WPA spec sec 8). Demonstrates rolling resistance + cushion restitution calibration; sum |pos| deltas across events (straight legs) to measure.",
+  "provenance": "Geometry and reference stroke speed from crates/pool-core/tests/fixtures/anchors/lag.json and tests/anchors.rs lag_travels_4_to_4_5_table_lengths: head spot (0, -TABLE_LEN/4 = -0.635), phi = pi/2, v0 = 4.5 m/s (the kernel's documented calibration point for the WPA distance window).",
+  "system": {
+    "balls": [
+      {
+        "id": 0,
+        "params": {
+          "m": 0.170097,
+          "r": 0.028575,
+          "u_s": 0.2,
+          "u_r": 0.01,
+          "u_sp": 0.0127,
+          "e_b": 0.95,
+          "e_c": 0.85,
+          "f_c": 0.2
+        },
+        "state": {
+          "pos": {
+            "x": 0.0,
+            "y": -0.635,
+            "z": 0.028575
+          },
+          "vel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "avel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "motion": "Stationary"
+        }
+      }
+    ],
+    "table": "wpa_9ft"
+  },
+  "shot": {
+    "v0": 4.5,
+    "phi": 1.5707963267948966,
+    "theta": 0.0,
+    "a": 0.0,
+    "b": 0.0,
+    "seed": 0
+  }
+}

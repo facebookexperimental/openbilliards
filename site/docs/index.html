@@ -1,0 +1,297 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getting started — openbilliards API docs</title>
+  <meta name="description" content="Install the openbilliards SDK and run your first deterministic billiards simulation in 60 seconds: TypeScript, Python, or the command line, all over one physics kernel.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Getting started — openbilliards API docs">
+  <meta property="og:description" content="Install the openbilliards SDK and run your first deterministic billiards simulation in 60 seconds: TypeScript, Python, or the command line, all over one physics kernel.">
+  <meta property="og:image" content="../assets/img/hero-poster.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b100c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23efe9d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/docs.css">
+  <script src="../assets/site.js" defer></script>
+  <script src="../assets/motion.js" defer></script>
+</head>
+<body>
+  <a class="bb-skip" href="#main">Skip to content</a>
+
+  <header>
+    <nav class="bb-nav" aria-label="Primary">
+      <a class="bb-wordmark" href="../index.html">Openbilliards</a>
+      <button class="bb-nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <ul class="bb-nav-links" id="nav-links">
+        <li><a href="../guide/en/index.html">Guide</a></li>
+        <li><a href="index.html">API docs</a></li>
+        <li><a href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a></li>
+        <li><a class="bb-pill bb-pill--fill" href="../web/app.html">Play now</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="docs-shell">
+
+      <aside class="docs-side">
+        <nav class="docs-toc" aria-label="API documentation">
+          <p class="bb-label docs-toc-head">API docs</p>
+          <ul class="docs-toc-pages">
+            <li><a href="index.html" aria-current="page">Getting started</a></li>
+            <li><a href="ts.html">TypeScript SDK</a></li>
+            <li><a href="python.html">Python SDK</a></li>
+            <li><a href="cli.html">CLI</a></li>
+            <li><a href="concepts.html">Concepts</a></li>
+            <li><a href="physics.html">The engine</a></li>
+          </ul>
+          <p class="bb-label docs-toc-head">On this page</p>
+          <ul class="docs-toc-anchors">
+            <li><a href="#surfaces">01 — One kernel, three surfaces</a></li>
+            <li><a href="#install">02 — Install</a></li>
+            <li><a href="#first-sim">03 — First simulation</a></li>
+            <li><a href="#next">04 — Where next</a></li>
+          </ul>
+        </nav>
+        <div class="docs-side-plate">
+          <p class="bb-label">Kernel 0.1.0 &#183; record format v1</p>
+          <p class="bb-label"><span class="bb-cite">feature 005 (internal spec)</span></p>
+        </div>
+      </aside>
+
+      <article class="docs-main">
+        <div class="docs-head">
+          <nav class="docs-crumbs bb-label bb-reveal" aria-label="Breadcrumb">
+            <a href="../index.html">Openbilliards</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">API docs</span>
+          </nav>
+          <p class="bb-label bb-marker bb-reveal">SDK documentation — English</p>
+          <h1 class="bb-heading bb-reveal bb-d1">Getting started</h1>
+          <p class="bb-body docs-lede bb-reveal bb-d2">
+            The control layer of openbilliards is either an SDK or a UI: nothing
+            else. TypeScript, Python and the command line all drive the <em>same</em>
+            event-driven physics kernel through the same scenario document; none of
+            them reimplements physics
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/docs/sdk/README.md">docs/sdk/README.md</a>.
+            Every example on these pages was executed against the shipped kernel
+            before it was written down.
+          </p>
+        </div>
+        <section class="docs-section" id="surfaces">
+          <p class="bb-label bb-marker">01 — One kernel, three surfaces</p>
+          <h2 class="bb-heading-s">Pick your surface</h2>
+          <div class="bb-prose">
+            <p>The canonical physics is the committed WebAssembly binary at
+              <code>web/dist/pool-wasm/</code>, bit-exact on every platform
+              (Constitution
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/docs/sdk/README.md">canonical-binary doctrine</a>).
+              The native CLI and Python builds embed the same kernel source and CI
+              byte-compares their records against the wasm on every platform.</p>
+          </div>
+          <table class="docs-table">
+            <thead>
+              <tr><th scope="col">Surface</th><th scope="col">What it is</th><th scope="col">Runs on</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a class="bb-link" href="ts.html">TypeScript SDK</a></td>
+                <td>Typed wrappers over the canonical wasm: <code>Engine</code>, builders, records, per-frame sampling.</td>
+                <td class="mut">node &#8805; 20 and the browser, same glue</td>
+              </tr>
+              <tr>
+                <td><a class="bb-link" href="python.html">Python SDK</a></td>
+                <td>PyO3 module <code>pool_py</code>: GIL-released batch simulation, numpy sampling. Built for analysis and RL loops.</td>
+                <td class="mut">CPython &#8805; 3.9, one abi3 wheel</td>
+              </tr>
+              <tr>
+                <td><a class="bb-link" href="cli.html">pool-cli</a></td>
+                <td>Native harness: run / batch / sweep / compare / sample / catalog over scenario JSON.</td>
+                <td class="mut">anywhere cargo builds</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="docs-section" id="install">
+          <p class="bb-label bb-marker">02 — Install</p>
+          <h2 class="bb-heading-s">Install &amp; import</h2>
+          <div class="bb-prose">
+            <p><strong>TypeScript.</strong> The SDK ships as plain ES modules in the repo:
+              no package registry, no build step. Import the barrel from
+              <code>web/dist/pool-sdk/index.js</code> (typed by the sibling
+              <code>index.d.ts</code>) and point <code>init()</code> at the wasm glue
+              <code>web/dist/pool-wasm/pool_wasm.js</code>. The same files work in node
+              and in the browser; in node the SDK reads the sibling
+              <code>pool_wasm_bg.wasm</code> from disk for you
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/engine.ts">sdk/ts/src/engine.ts</a>.</p>
+          </div>
+          <p class="bb-label well-cap">TypeScript — import paths</p>
+          <pre class="bb-code"><code><i class="tk-c">// browser (module script) or node &#8805; 20 — same imports</i>
+<b class="tk-n">import</b> { init, ShotBuilder } <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/index.js'</b>;
+
+<b class="tk-n">const</b> engine = <b class="tk-n">await</b> init(<b class="tk-n">'./web/dist/pool-wasm/pool_wasm.js'</b>);</code></pre>
+          <div class="bb-prose">
+            <p><strong>Python.</strong> <code>pool_py</code> builds from
+              <code>crates/pool-py</code> with <a class="bb-link bb-link--ext" href="https://maturin.rs">maturin</a>
+              into the active virtualenv; the abi3 wheel covers CPython 3.9 and newer
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/crates/pool-py/README.md">crates/pool-py/README.md</a>.</p>
+          </div>
+          <p class="bb-label well-cap">Shell — Python install</p>
+          <pre class="bb-code"><code><i class="tk-c"># development install, into the active venv (needs Rust + maturin)</i>
+cd crates/pool-py
+maturin develop --release
+
+<i class="tk-c"># or build a wheel: one per platform covers CPython &#8805; 3.9</i>
+maturin build --release      <i class="tk-c"># target/wheels/pool_py-*.whl</i></code></pre>
+          <div class="bb-prose">
+            <p><strong>CLI.</strong> One cargo build; use <code>--release</code> for
+              batches.</p>
+          </div>
+          <p class="bb-label well-cap">Shell — CLI build</p>
+          <pre class="bb-code"><code>cargo build -p pool-cli --release
+target/release/pool-cli version</code></pre>
+        </section>
+        <section class="docs-section" id="first-sim">
+          <p class="bb-label bb-marker">03 — First simulation</p>
+          <h2 class="bb-heading-s">Sixty seconds to a break</h2>
+          <div class="bb-prose">
+            <p>Rack nine balls from a seed, strike, and read the shot back. A
+              <code>ShotRecord</code> is the complete, replayable result of one shot:
+              every collision event plus enough state to reconstruct exact ball
+              positions at any time. Same seed, same parameters: byte-identical
+              record, on every machine
+              <a class="bb-cite" href="concepts.html#determinism">concepts &#183; determinism</a>.</p>
+          </div>
+          <p class="bb-label well-cap">TypeScript — <strong>verified</strong> node 26, kernel 0.1.0+3856cb9</p>
+          <pre class="bb-code"><code><b class="tk-n">import</b> { init, ShotBuilder, recordDuration } <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/index.js'</b>;
+
+<b class="tk-n">const</b> engine = <b class="tk-n">await</b> init(<b class="tk-n">'./web/dist/pool-wasm/pool_wasm.js'</b>);
+<b class="tk-n">const</b> scenario = engine.<b class="tk-n">nineBallRack</b>(<b class="tk-n">42</b>);            <i class="tk-c">// seeded, bit-identical rack</i>
+scenario.shot = <b class="tk-n">new</b> ShotBuilder().<b class="tk-n">v0</b>(<b class="tk-n">9</b>).<b class="tk-n">phi</b>(Math.PI / <b class="tk-n">2</b>).<b class="tk-n">seed</b>(<b class="tk-n">42</b>).<b class="tk-n">build</b>();
+
+<b class="tk-n">const</b> record = engine.<b class="tk-n">simulate</b>(scenario);            <i class="tk-c">// typed, shape-validated</i>
+console.<b class="tk-n">log</b>(record.events.length, <b class="tk-n">'events,'</b>, <b class="tk-n">recordDuration</b>(record), <b class="tk-n">'s'</b>);
+
+<b class="tk-n">const</b> sampler = engine.<b class="tk-n">sampler</b>(record);              <i class="tk-c">// playback index</i>
+sampler.<b class="tk-n">sampleAt</b>(<b class="tk-n">0.5</b>);                                <i class="tk-c">// fills one reusable Float64Array</i>
+console.<b class="tk-n">log</b>(sampler.<b class="tk-n">ball</b>(<b class="tk-n">0</b>).motion);                  <i class="tk-c">// cue ball at t = 0.5 s</i>
+sampler.<b class="tk-n">free</b>();</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>144 events, 9.404100622978227 s
+Rolling</code></pre>
+          <div class="bb-prose">
+            <p>The same sixty seconds in Python (the rack builders live on
+              <code>SystemState</code> there):</p>
+          </div>
+          <p class="bb-label well-cap">Python — <strong>verified</strong> CPython 3.12, pool_py 0.1.0</p>
+          <pre class="bb-code"><code><b class="tk-n">import</b> math
+<b class="tk-n">import</b> pool_py <b class="tk-n">as</b> pp
+
+state = pp.SystemState.<b class="tk-n">nine_ball_rack</b>(<b class="tk-n">42</b>)
+shot = pp.<b class="tk-n">Shot</b>(v0=<b class="tk-n">9.0</b>, phi=math.pi / <b class="tk-n">2</b>, seed=<b class="tk-n">42</b>)
+record = pp.<b class="tk-n">simulate</b>(state, shot)
+<b class="tk-n">print</b>(<b class="tk-n">len</b>(record.<b class="tk-n">events</b>()), <b class="tk-n">"events,"</b>, record.duration, <b class="tk-n">"s"</b>)</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>98 events, 7.875108362178442 s</code></pre>
+          <div class="bb-prose">
+            <p class="bb-note">Note: the two outputs differ because the surfaces
+              default differently: <code>Engine.nineBallRack()</code> templates carry the
+              kernel's <em>realistic</em> options preset, while <code>pool_py.simulate()</code>
+              with no options runs the frozen v1 default physics. Hand all surfaces the
+              <em>same scenario document</em> and the record JSON is byte-identical;
+              that cross-surface gate runs in CI
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/scripts/cross-surface.sh">scripts/cross-surface.sh</a>.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="next">
+          <p class="bb-label bb-marker">04 — Where next</p>
+          <h2 class="bb-heading-s">Where next</h2>
+          <div class="bb-grid docs-next" style="margin-top: 32px;">
+            <a class="bb-card" href="ts.html">
+              <p class="bb-label">Reference</p>
+              <h3 class="bb-heading-s" style="font-size:20px;">TypeScript SDK</h3>
+              <p class="bb-body-s bb-muted" style="margin-top:10px;">Engine, builders,
+                records, sampler, catalog: every public symbol.</p>
+            </a>
+            <a class="bb-card" href="python.html">
+              <p class="bb-label">Reference</p>
+              <h3 class="bb-heading-s" style="font-size:20px;">Python SDK</h3>
+              <p class="bb-body-s bb-muted" style="margin-top:10px;">Batch analysis,
+                numpy sampling, and the RL-environment loop.</p>
+            </a>
+            <a class="bb-card" href="cli.html">
+              <p class="bb-label">Reference</p>
+              <h3 class="bb-heading-s" style="font-size:20px;">pool-cli</h3>
+              <p class="bb-body-s bb-muted" style="margin-top:10px;">Scenario runs,
+                seed sweeps, oracle compare, trajectory CSV.</p>
+            </a>
+            <a class="bb-card" href="concepts.html">
+              <p class="bb-label">Foundations</p>
+              <h3 class="bb-heading-s" style="font-size:20px;">Concepts</h3>
+              <p class="bb-body-s bb-muted" style="margin-top:10px;">Determinism,
+                the scenario model, event records, equipment.</p>
+            </a>
+            <a class="bb-card" href="physics.html" style="grid-column: 1 / -1;">
+              <p class="bb-label">The physics kernel</p>
+              <h3 class="bb-heading-s" style="font-size:20px;">The engine</h3>
+              <p class="bb-body-s bb-muted" style="margin-top:10px; max-width: 60ch;">Solved,
+                not stepped: how the event-driven kernel works, the papers it is
+                measured against, why replays are byte-identical, and why a
+                general-purpose physics engine was never an option.</p>
+            </a>
+          </div>
+        </section>
+
+        <nav class="docs-prevnext" aria-label="Docs pagination">
+          <span></span>
+          <a href="ts.html"><p class="bb-label">Next</p><p class="pn-title">TypeScript SDK &#8594;</p></a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <footer class="bb-footer docs-footer">
+    <div class="bb-footer-grid">
+      <nav aria-label="API docs">
+        <p class="bb-label">API docs</p>
+        <ul>
+          <li><a class="bb-link" href="index.html">Getting started</a></li>
+          <li><a class="bb-link" href="ts.html">TypeScript SDK</a></li>
+          <li><a class="bb-link" href="python.html">Python SDK</a></li>
+          <li><a class="bb-link" href="cli.html">CLI reference</a></li>
+          <li><a class="bb-link" href="concepts.html">Concepts</a></li>
+          <li><a class="bb-link" href="physics.html">The engine</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site">
+        <p class="bb-label">Site</p>
+        <ul>
+          <li><a class="bb-link" href="../index.html">Home</a></li>
+          <li><a class="bb-link" href="../guide/en/index.html">Gameplay guide</a></li>
+          <li><a class="bb-link" href="../web/app.html">Play</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Project">
+        <p class="bb-label">Project</p>
+        <ul>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards">GitHub</a></li>
+          <li><a class="bb-link" href="https://github.com/facebookexperimental/openbilliards/blob/main/docs/sdk/README.md">SDK cookbook</a></li>
+          <li><span class="bb-cite">SDK spec</span></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="bb-label">Colophon</p>
+        <p class="bb-body-s bb-muted" style="max-width: 34ch;">Every example on these
+          pages ran against the shipped kernel before publication. No trackers, no
+          CDNs, no requests beyond this origin.</p>
+      </div>
+    </div>
+    <p class="bb-footer-credits">
+      <span>&copy; 2026 Meta Platforms, Inc. &#183; MIT &#183; <a href="../web/vendor/NOTICE-pooltool.txt" style="white-space: nowrap;">includes Apache-2.0 code</a> &#183; <a href="https://opensource.fb.com/legal/terms" style="white-space: nowrap;">Terms of Use</a> &#183; <a href="https://opensource.fb.com/legal/privacy" style="white-space: nowrap;">Privacy Policy</a></span>
+      <span>Docs verified against kernel 0.1.0</span>
+    </p>
+  </footer>
+</body>
+</html>

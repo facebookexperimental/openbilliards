@@ -1,0 +1,111 @@
+{
+ "name": "masse",
+ "description": "Grounded masse (theta = 71.0 deg, pinch-slide kernel) on the feature-007 MEASURED reference-footage staging: the three balls start nearly touching at the lb corner (cue-8 3.17 ball diameters = 0.57 diamond, blue-8 1.45 bd, blue dead on the blocked line). The cue ball runs 3.56 bd forward along its aim (initial path 96 deg off the blocked line), loops to a table-side apex 3.61 bd, turns 147.7 deg, threads back past the blue (0.26 bd whole-path surface clearance), pots the 8 over the jaw facing, and comes to rest 0.52 bd from the contact - no scratch, and ZERO cushion contact by the cue anywhere in the record. Demonstrates aim/path decoupling and the whole-record no-cushion invariant (reference-catalog masse scene 01, live).",
+ "provenance": "Layout and fitted shot constants from crates/pool-core/tests/fixtures/slowmo/masse.json (masse scenes 01..06 of the third-party slow-motion reference catalog, sec 9; feature-007 staging re-arbitration records/masse_staging_rearbitration.json - measured by a fresh camera solve of the reference footage's pre-strike frame; shot fitted by examples/fit_slowmo.rs MASSE_LAYOUT=measured stage masse22 - the feat/masse-drama PATH-SHAPE objective vs the reference footage's measured cue path (a private staging record), re-run 2026-07 by feat/v0-cap-12 under the raised 12 m/s UI power cap: path-shape deviation 0.099 bd, forward excursion 3.56 vs reference 3.41 bd). Ball ids: 0 cue, 2 obstructing blue, 8 the eight ball.",
+ "system": {
+  "balls": [
+   {
+    "id": 0,
+    "params": {
+     "m": 0.170097,
+     "r": 0.028575,
+     "u_s": 0.2,
+     "u_r": 0.01,
+     "u_sp": 0.0127,
+     "e_b": 0.95,
+     "e_c": 0.85,
+     "f_c": 0.2
+    },
+    "state": {
+     "pos": {
+      "x": -0.522,
+      "y": -1.0489,
+      "z": 0.028575
+     },
+     "vel": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     "avel": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     "motion": "Stationary"
+    }
+   },
+   {
+    "id": 2,
+    "params": {
+     "m": 0.170097,
+     "r": 0.028575,
+     "u_s": 0.2,
+     "u_r": 0.01,
+     "u_sp": 0.0127,
+     "e_b": 0.95,
+     "e_c": 0.85,
+     "f_c": 0.2
+    },
+    "state": {
+     "pos": {
+      "x": -0.5495,
+      "y": -1.1436,
+      "z": 0.028575
+     },
+     "vel": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     "avel": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     "motion": "Stationary"
+    }
+   },
+   {
+    "id": 8,
+    "params": {
+     "m": 0.170097,
+     "r": 0.028575,
+     "u_s": 0.2,
+     "u_r": 0.01,
+     "u_sp": 0.0127,
+     "e_b": 0.95,
+     "e_c": 0.85,
+     "f_c": 0.2
+    },
+    "state": {
+     "pos": {
+      "x": -0.5783,
+      "y": -1.2213,
+      "z": 0.028575
+     },
+     "vel": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     "avel": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+     },
+     "motion": "Stationary"
+    }
+   }
+  ],
+  "table": "wpa_9ft"
+ },
+ "shot": {
+  "v0": 11.2,
+  "phi": -0.15856812041227997,
+  "theta": 1.239183768915974,
+  "a": 0.024,
+  "b": -0.485,
+  "seed": 0
+ }
+}

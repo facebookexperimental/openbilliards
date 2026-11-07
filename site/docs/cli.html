@@ -1,0 +1,350 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLI reference — openbilliards API docs</title>
+  <meta name="description" content="pool-cli reference: run scenarios to shot records, deterministic seed batches and parameter sweeps, oracle comparison, trajectory sampling, and the equipment catalog, all from the command line.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CLI reference — openbilliards API docs">
+  <meta property="og:description" content="pool-cli reference: run scenarios to shot records, deterministic seed batches and parameter sweeps, oracle comparison, trajectory sampling, and the equipment catalog, all from the command line.">
+  <meta property="og:image" content="../assets/img/hero-poster.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b100c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23efe9d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/docs.css">
+  <script src="../assets/site.js" defer></script>
+  <script src="../assets/motion.js" defer></script>
+</head>
+<body>
+  <a class="bb-skip" href="#main">Skip to content</a>
+
+  <header>
+    <nav class="bb-nav" aria-label="Primary">
+      <a class="bb-wordmark" href="../index.html">Openbilliards</a>
+      <button class="bb-nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <ul class="bb-nav-links" id="nav-links">
+        <li><a href="../guide/en/index.html">Guide</a></li>
+        <li><a href="index.html">API docs</a></li>
+        <li><a href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a></li>
+        <li><a class="bb-pill bb-pill--fill" href="../web/app.html">Play now</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="docs-shell">
+
+      <aside class="docs-side">
+        <nav class="docs-toc" aria-label="API documentation">
+          <p class="bb-label docs-toc-head">API docs</p>
+          <ul class="docs-toc-pages">
+            <li><a href="index.html">Getting started</a></li>
+            <li><a href="ts.html">TypeScript SDK</a></li>
+            <li><a href="python.html">Python SDK</a></li>
+            <li><a href="cli.html" aria-current="page">CLI</a></li>
+            <li><a href="concepts.html">Concepts</a></li>
+            <li><a href="physics.html">The engine</a></li>
+          </ul>
+          <p class="bb-label docs-toc-head">On this page</p>
+          <ul class="docs-toc-anchors">
+            <li><a href="#invoke">01 — Build &amp; invoke</a></li>
+            <li><a href="#run">02 — run</a></li>
+            <li><a href="#batch">03 — batch &amp; sweep</a></li>
+            <li><a href="#sample">04 — sample</a></li>
+            <li><a href="#compare">05 — compare</a></li>
+            <li><a href="#catalog">06 — catalog &amp; version</a></li>
+            <li><a href="#files">07 — Scenario files</a></li>
+          </ul>
+        </nav>
+        <div class="docs-side-plate">
+          <p class="bb-label">pool-cli 0.1.0</p>
+          <p class="bb-label"><a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/docs/sdk/README.md">docs/sdk cookbook</a></p>
+        </div>
+      </aside>
+
+      <article class="docs-main">
+        <div class="docs-head">
+          <nav class="docs-crumbs bb-label bb-reveal" aria-label="Breadcrumb">
+            <a href="../index.html">Openbilliards</a><span class="sep" aria-hidden="true">/</span><a href="index.html">API docs</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">CLI reference</span>
+          </nav>
+          <p class="bb-label bb-marker bb-reveal">Reference — native harness</p>
+          <h1 class="bb-heading bb-reveal bb-d1">CLI reference</h1>
+          <p class="bb-body docs-lede bb-reveal bb-d2">
+            <code style="font-family:var(--bb-mono);font-size:.9em;color:var(--bb-chalk)">pool-cli</code>
+            is the native measurement harness: it runs the same kernel source as the
+            shipped wasm and CI byte-compares their records on every platform. One
+            scenario JSON in, one shot record out, plus deterministic batches,
+            parameter sweeps, oracle diffs and trajectory CSVs
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/docs/sdk/README.md">docs/sdk/README.md</a>.
+          </p>
+        </div>
+
+        <section class="docs-section" id="invoke">
+          <p class="bb-label bb-marker">01 — Build &amp; invoke</p>
+          <h2 class="bb-heading-s">Build &amp; invoke</h2>
+          <p class="bb-label well-cap">Shell — <strong>verified</strong> cargo 1.98</p>
+          <pre class="bb-code"><code>cargo build -p pool-cli --release   <i class="tk-c"># --release: 200 breaks take ~0.3 s</i>
+target/release/pool-cli version</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>pool-cli 0.1.0
+kernel_version: 0.1.0+snapshot
+shot_record format_version: 1
+scenario schema: {system, shot, options?} (see pool-cli run --help)
+oracle fixture format: openbilliards.oracle.v1</code></pre>
+          <div class="bb-prose">
+            <p>The hash suffix identifies the exact build: records refuse to replay
+              across builds. Every subcommand documents itself with <code>--help</code>.
+              Exit codes: <code>0</code> pass, <code>1</code> comparison failed
+              (<code>compare</code> only), <code>2</code> error.</p>
+          </div>
+        </section>
+        <section class="docs-section" id="run">
+          <p class="bb-label bb-marker">02 — run</p>
+          <h2 class="bb-heading-s">run — one scenario, one record</h2>
+          <table class="docs-table">
+            <thead><tr><th scope="col">Flag</th><th scope="col">Does</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>--scenario &lt;in.json&gt;</code></th><td>The scenario document (required).</td></tr>
+              <tr><th scope="row"><code>--out &lt;record.json&gt;</code></th><td>Write the <code>ShotRecord</code>.</td></tr>
+              <tr><th scope="row"><code>--options-preset</code></th><td><code>default | realistic | mathavan-fitted | grip-fitted</code>. REPLACES the scenario's options; the fitted presets also patch <code>table.cushion_response</code> (they are joint fits).</td></tr>
+              <tr><th scope="row"><code>--equipment axis=id,&#8230;</code></th><td>Compose from catalog ids (axes <code>table|cloth|ballset|cue|cushion_model</code>). Rack scenarios re-rack on the resolved composition; explicit placements keep geometry. Mutually exclusive with <code>--options-preset</code>.</td></tr>
+              <tr><th scope="row"><code>--seed &lt;u64&gt;</code></th><td>Re-rack seeded rack scenarios on a new seed.</td></tr>
+              <tr><th scope="row"><code>--events</code></th><td>Print the event stream.</td></tr>
+            </tbody>
+          </table>
+          <div class="bb-prose">
+            <p><code>simulate</code> is a deprecated alias of <code>run</code>.</p>
+          </div>
+          <p class="bb-label well-cap">Shell — <strong>verified</strong>, seeded break with event stream</p>
+          <pre class="bb-code"><code>pool-cli run --scenario docs/sdk/scenarios/break.json --seed 7 \
+             --out break_7.json --events</code></pre>
+          <p class="bb-label well-cap">Output — head</p>
+          <pre class="bb-code well-out"><code>#0    t=0.000000     Strike[0]
+#1    t=0.099330     BallBall[0, 1]
+#2    t=0.099366     BallBall[2, 4]
+#3    t=0.099398     BallBall[3, 5]
+&#8230;
+wrote break_7.json: 97 events, duration 7.625556 s</code></pre>
+          <p class="bb-label well-cap">Shell — <strong>verified</strong>, worn cloth + low-deflection cue</p>
+          <pre class="bb-code"><code>pool-cli run --scenario docs/sdk/scenarios/break.json \
+             --equipment cloth=worn_slow,cue=low_deflection --out worn.json</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>wrote worn.json: 62 events, duration 13.667607 s</code></pre>
+        </section>
+
+        <section class="docs-section" id="batch">
+          <p class="bb-label bb-marker">03 — batch &amp; sweep</p>
+          <h2 class="bb-heading-s">batch &amp; sweep — studies</h2>
+          <div class="bb-prose">
+            <p><code>batch</code> runs a seed range (<code>--seeds A..B</code> or
+              <code>A..=B</code>) and/or a shot-parameter sweep
+              (<code>--sweep spec.json</code>) in parallel; output is identical for
+              every <code>--threads</code> value. Rows land in
+              <code>--out results.jsonl</code> as
+              <code>{i, seed, &lt;overrides&gt;, events, duration, pocketed}</code>;
+              a summary always prints.</p>
+          </div>
+          <p class="bb-label well-cap">Shell — <strong>verified</strong>, 100-seed break study</p>
+          <pre class="bb-code"><code>pool-cli batch --scenario docs/sdk/scenarios/break.json --seeds 0..100 \
+               --options-preset realistic --out results.jsonl</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>batch: 100 shots, 0 errors
+pocketed: total 113, per-shot min 0 / mean 1.13 / max 3
+pocketed by ball: 0:2 1:1 3:3 4:6 5:54 6:22 7:2 8:5 9:18
+events: min 71 / mean 92.5 / max 121
+duration [s]: p10 6.814 / p50 8.055 / p90 9.282 / max 11.861</code></pre>
+          <div class="bb-prose">
+            <p>(<code>0:2</code> reads: two scratches.) A sweep spec is
+              <code>{"param": "phi"|"v0"|"theta"|"a"|"b", "from", "to", "steps"}</code>;
+              an array of specs makes a cartesian grid, last axis fastest.
+              <code>sweep</code> takes exactly two specs and emits CSV columns
+              <code>&lt;p1&gt;,&lt;p2&gt;,events,duration,n_pocketed,pocketed,error</code>.</p>
+          </div>
+          <p class="bb-label well-cap">Shell — <strong>verified</strong>, aim grid filtered to potting rows</p>
+          <pre class="bb-code"><code>cat &gt; aim.json &lt;&lt;'SPEC'
+[{"param": "phi", "from": 1.45, "to": 1.75, "steps": 13},
+ {"param": "v0", "from": 1.5, "to": 3.0, "steps": 2}]
+SPEC
+pool-cli sweep --scenario docs/sdk/scenarios/cut_side.json --sweep aim.json \
+    | awk -F, 'NR==1 || $5 &gt; 0'</code></pre>
+          <p class="bb-label well-cap">Output — head</p>
+          <pre class="bb-code well-out"><code>phi,v0,events,duration,n_pocketed,pocketed,error
+1.45,1.5,11,7.545786386594051,1,0,
+1.45,3,11,4.61883795857515,1,1,
+1.525,1.5,12,4.762844087531531,1,1,
+&#8230;
+1.6,1.5,14,7.466583098505995,1,1,</code></pre>
+          <div class="bb-prose">
+            <p>Read <code>pocketed</code> ids directly: ball 0 means a scratch:
+              here &#966; = 1.45 needs 3 m/s (soft speed scratches), &#966; = 1.525 pots
+              at soft speed.</p>
+          </div>
+        </section>
+        <section class="docs-section" id="sample">
+          <p class="bb-label bb-marker">04 — sample</p>
+          <h2 class="bb-heading-s">sample — trajectories from records</h2>
+          <table class="docs-table">
+            <thead><tr><th scope="col">Flag</th><th scope="col">Does</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>--record &lt;record.json&gt;</code></th><td>A record from the SAME kernel build (strict replay).</td></tr>
+              <tr><th scope="row"><code>--t &lt;seconds&gt;</code> XOR <code>--fps &lt;hz&gt;</code></th><td>One instant, or a uniform grid; the final time is always included.</td></tr>
+              <tr><th scope="row"><code>--format csv|json</code></th><td>CSV columns <code>t,ball,x,y,z,qw,qx,qy,qz,motion</code>; JSON emits frames of ball samples.</td></tr>
+              <tr><th scope="row"><code>--out &lt;file&gt;</code></th><td>Write instead of stdout.</td></tr>
+            </tbody>
+          </table>
+          <p class="bb-label well-cap">Shell — <strong>verified</strong>, 60 fps CSV for plotting</p>
+          <pre class="bb-code"><code>pool-cli sample --record break_7.json --fps 60 --format csv --out frames.csv
+head -3 frames.csv</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>t,ball,x,y,z,qw,qx,qy,qz,motion
+0,0,0,-0.635,0.028575,1,0,0,0,Sliding
+0,1,0,0.635,0.028575,1,0,0,0,Stationary</code></pre>
+          <div class="bb-prose">
+            <p>Records store only events; the kernel sampler reconstructs the exact
+              analytic state at every query time: 4,590 rows here (10 balls &#215; 459
+              frames), never resampled physics
+              <a class="bb-cite" href="concepts.html#records">concepts &#183; records</a>.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="compare">
+          <p class="bb-label bb-marker">05 — compare</p>
+          <h2 class="bb-heading-s">compare — oracle diffs</h2>
+          <div class="bb-prose">
+            <p>Diff a record against an oracle fixture
+              (<code>openbilliards.oracle.v1</code>): gates the event-type sequence,
+              per-event |dt| (<code>--tol-time</code>, default 1e-6 s), and final
+              positions (<code>--tol-pos</code>, default 1e-4 m). Exit code 1 on a
+              failed comparison.</p>
+          </div>
+          <p class="bb-label well-cap">Shell — <strong>verified</strong>, two-cushion bank vs committed oracle</p>
+          <pre class="bb-code"><code>pool-cli run --scenario docs/sdk/scenarios/bank.json --out bank.rec.json
+pool-cli compare --ours bank.rec.json \
+    --oracle crates/pool-core/tests/fixtures/oracle/bank_two_cushion.json</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>comparing 12 events (ours, Rest excluded) vs 12 (oracle); tol-time 1.0e-6 s, tol-pos 1.0e-4 m
+#0   ok   Strike[0]  dt=0.000e0  b0: dpos=0.000e0 dvel=4.441e-16
+#1   ok   BallLinearCushion[0][11]  dt=0.000e0  b0: dpos=1.743e-6 dvel=0.000e0
+&#8230;
+final b0 ok    dpos=1.340e-6 dvel=0.000e0
+result: PASS</code></pre>
+          <div class="bb-prose">
+            <p class="bb-note">Note: some fixtures carry documented model-difference
+              waivers with looser per-event |dt| bounds (e.g. straight_pot needs
+              <code>--tol-time 2e-4</code>); see
+              <code>crates/pool-core/tests/fixtures/oracle/waivers.json</code>.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="catalog">
+          <p class="bb-label bb-marker">06 — catalog &amp; version</p>
+          <h2 class="bb-heading-s">catalog &amp; version</h2>
+          <table class="docs-table">
+            <thead><tr><th scope="col">Subcommand</th><th scope="col">Does</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>catalog list</code></th><td>All equipment ids with calibration badges and provenance lines.</td></tr>
+              <tr><th scope="row"><code>catalog show &lt;id&gt;</code></th><td>One entry's parameters as JSON.</td></tr>
+              <tr><th scope="row"><code>catalog json</code></th><td>The whole registry, byte-identical to the wasm&rsquo;s <code>catalog_json()</code>.</td></tr>
+              <tr><th scope="row"><code>version</code></th><td>Kernel version hash, record format, scenario schema, oracle fixture format.</td></tr>
+            </tbody>
+          </table>
+          <p class="bb-label well-cap">Shell — <strong>verified</strong></p>
+          <pre class="bb-code"><code>pool-cli catalog list</code></pre>
+          <p class="bb-label well-cap">Output — head &#183; per-entry provenance lines elided</p>
+          <pre class="bb-code well-out"><code>equipment catalog v21
+
+table:
+  wpa_generic_9ft          [estimated ] Legacy 9-ft (pooltool-derived) [ui-hidden]
+  wpa_spec_9ft             [literature] WPA spec 9-ft (nominal)
+  diamond_redlabel_9ft     [calibrated] Pool tournament 9-ft, older gen (4.56 in pockets) (legacy alias) [ui-hidden]
+  diamond_proam_9ft        [literature] Pool tournament 9-ft (4.5 in pockets) (legacy alias) [ui-hidden]
+  predator_apex_9ft        [estimated ] Pool tournament 9-ft, metal-rim (4.25 in pockets) (legacy alias) [ui-hidden]
+  wpbsa_snooker_12ft       [calibrated] WPBSA 12-ft snooker
+  umb_carom_284            [literature] UMB carom 2.84 m (pocketless)
+  joy_q8_9ft               [estimated ] Chinese 8-ball tournament 9-ft (legacy alias) [ui-hidden]
+  chinese8_pro_9ft         [estimated ] Chinese 8-ball tournament 9-ft
+  diamond_proam_8ft        [literature] Pool tournament 8-ft (4.5 in pockets) (legacy alias) [ui-hidden]
+  diamond_proam_7ft        [calibrated] Pool tournament 7-ft, bar box (4.5 in pockets) (legacy alias) [ui-hidden]
+  rasson_ox_9ft            [estimated ] Pool tournament 9-ft, K55 cushion (4.5 in pockets) (legacy alias) [ui-hidden]
+  pool_pro_9ft_older_gen   [calibrated] Pool tournament 9-ft, older gen (4.56 in pockets)
+  pool_pro_9ft             [literature] Pool tournament 9-ft (4.5 in pockets)
+  pool_pro_9ft_metal_rim   [estimated ] Pool tournament 9-ft, metal-rim (4.25 in pockets)
+  pool_pro_9ft_measured    [measured  ] Pool tournament 9-ft (measured response)</code></pre>
+        </section>
+
+        <section class="docs-section" id="files">
+          <p class="bb-label bb-marker">07 — Scenario files</p>
+          <h2 class="bb-heading-s">Scenario-file conveniences</h2>
+          <div class="bb-prose">
+            <p>pool-cli&rsquo;s loader, and ONLY its loader, expands two conveniences in
+              committed scenario files:
+              <code>"system": {"rack": "nine" | "fifteen"}</code> (a seeded WPA rack
+              built from <code>shot.seed</code>, so seed sweeps re-rack per shot) and
+              <code>"system"."table": "wpa_9ft"</code> (the trunk table preset).
+              Unknown top-level keys are ignored, so scenarios can carry
+              <code>description</code> and <code>provenance</code> fields.</p>
+            <p class="bb-note">Note: the wasm <code>simulate_json</code> and both SDKs
+              reject these shorthand forms. Expand racks there via
+              <code>Engine.nineBallRack()</code> /
+              <code>SystemState.nine_ball_rack()</code> instead
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/docs/sdk/README.md">docs/sdk/README.md</a>.</p>
+            <p>Eight golden scenarios ship in
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/tree/main/docs/sdk/scenarios">docs/sdk/scenarios/</a>:
+              break, cut_side, bank, draw, kick, lag, jump, masse, each
+              self-describing and simulated end-to-end in the CLI's test suite.</p>
+          </div>
+        </section>
+
+        <nav class="docs-prevnext" aria-label="Docs pagination">
+          <a href="python.html"><p class="bb-label">Previous</p><p class="pn-title">&#8592; Python SDK</p></a>
+          <a href="concepts.html"><p class="bb-label">Next</p><p class="pn-title">Concepts &#8594;</p></a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <footer class="bb-footer docs-footer">
+    <div class="bb-footer-grid">
+      <nav aria-label="API docs">
+        <p class="bb-label">API docs</p>
+        <ul>
+          <li><a class="bb-link" href="index.html">Getting started</a></li>
+          <li><a class="bb-link" href="ts.html">TypeScript SDK</a></li>
+          <li><a class="bb-link" href="python.html">Python SDK</a></li>
+          <li><a class="bb-link" href="cli.html">CLI reference</a></li>
+          <li><a class="bb-link" href="concepts.html">Concepts</a></li>
+          <li><a class="bb-link" href="physics.html">The engine</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site">
+        <p class="bb-label">Site</p>
+        <ul>
+          <li><a class="bb-link" href="../index.html">Home</a></li>
+          <li><a class="bb-link" href="../guide/en/index.html">Gameplay guide</a></li>
+          <li><a class="bb-link" href="../web/app.html">Play</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Project">
+        <p class="bb-label">Project</p>
+        <ul>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards">GitHub</a></li>
+          <li><a class="bb-link" href="https://github.com/facebookexperimental/openbilliards/blob/main/docs/sdk/README.md">SDK cookbook</a></li>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards/tree/main/docs/sdk/scenarios">Golden scenarios</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="bb-label">Colophon</p>
+        <p class="bb-body-s bb-muted" style="max-width: 34ch;">Every example on these
+          pages ran against the shipped kernel before publication. No trackers, no
+          CDNs, no requests beyond this origin.</p>
+      </div>
+    </div>
+    <p class="bb-footer-credits">
+      <span>&copy; 2026 Meta Platforms, Inc. &#183; MIT &#183; <a href="../web/vendor/NOTICE-pooltool.txt" style="white-space: nowrap;">includes Apache-2.0 code</a> &#183; <a href="https://opensource.fb.com/legal/terms" style="white-space: nowrap;">Terms of Use</a> &#183; <a href="https://opensource.fb.com/legal/privacy" style="white-space: nowrap;">Privacy Policy</a></span>
+      <span>Docs verified against kernel 0.1.0</span>
+    </p>
+  </footer>
+</body>
+</html>

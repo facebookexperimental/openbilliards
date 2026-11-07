@@ -1,0 +1,77 @@
+openbilliards-hillclimb
+Copyright (c) Meta Platforms, Inc. and affiliates.
+
+This directory is first-party work of the OpenBilliards project, under the MIT
+License (its text is in LICENSE beside this file and in the LICENSE file at
+the root of the repository). It contains no third-party code and vendors no
+third-party data. The two learned files in hillclimb_examples/models/ are
+first-party: they were fitted on the project's own simulations, which do not
+ship.
+
+The software below is not part of this directory. It is what this directory
+runs on, installed separately, with its own licence.
+
+1. The OpenBilliards kernel (the pool_py module, built from crates/pool-py)
+
+   MIT License. Parts of the physics kernel are derived from pooltool
+   (https://github.com/ekiefl/pooltool), Copyright (c) Evan Kiefl and
+   contributors, and remain under the Apache License 2.0: the NOTICE at the
+   root of the repository carries the attribution, THIRD_PARTY_NOTICES.md
+   lists the derived files, and web/vendor/LICENSE-Apache-2.0.txt holds the
+   licence text. ACM's software terms may also apply to
+   crates/pool-core/src/math/quartic.rs and crates/pool-core/src/math/cubic.rs,
+   which implement ACM Algorithm 1010, and to the kernel built from them.
+
+   No kernel binary comes with this directory: you build the pool_py module
+   from the repository's source yourself (README.md, Install). Besides the
+   kernel's own crates, its direct Rust dependencies, as
+   crates/pool-py/Cargo.toml names them, are pyo3 (MIT OR Apache-2.0), numpy
+   from the rust-numpy project (BSD-2-Clause) and serde_json (MIT OR
+   Apache-2.0). The crates linked into the module with them, at the versions
+   Cargo.lock pins, are under MIT, MIT OR Apache-2.0, or Unlicense OR MIT, and
+   the module links the Rust standard library (MIT OR Apache-2.0).
+
+   web/vendor/LICENSE-rust-crates.txt covers the repository's WebAssembly
+   binaries only: it holds, verbatim, the notices of the Rust crates compiled
+   into them, and does not cover this module.
+
+2. Play-time dependencies (pyproject.toml, installed by pip)
+
+   numpy 2.5.1: BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0. Its
+   wheels for some platforms also bundle OpenBLAS (BSD-3-Clause), with LAPACK
+   inside it (BSD-3-Clause-Open-MPI), the GCC runtime libraries libgfortran
+   and libgcc (GPL-3.0-or-later WITH GCC-exception-3.1) and libquadmath
+   (LGPL-2.1-or-later).
+
+   scipy 1.18.0: BSD-3-Clause for SciPy's own code. The code SciPy bundles
+   keeps its own licence, and SciPy lists each one in LICENSES_bundled.txt in
+   its source; the 1.18.0 wheels contain, among others, Qhull (the Qhull
+   licence), Boost.Math (BSL-1.0) and HiGHS (MIT). Used at play time: the
+   scrambled Sobol stroke pool comes from scipy.stats.qmc.Sobol. Its wheels
+   also bundle runtime libraries that depend on the platform: OpenBLAS
+   (BSD-3-Clause), with LAPACK inside it (BSD-3-Clause-Open-MPI); the GCC
+   runtime libraries libgfortran and libgcc (GPL-3.0-or-later WITH
+   GCC-exception-3.1); and libquadmath (LGPL-2.1-or-later). The macOS 14 arm64
+   wheel bundles libgfortran, libgcc_s and libquadmath and takes BLAS and
+   LAPACK from Apple's Accelerate. The Sobol direction numbers of S. Joe and
+   F. Y. Kuo ship inside scipy; this directory vendors no direction table.
+
+3. Training extras (pip install with the "train" extra; not needed to play or
+   to evaluate the learned files)
+
+   torch 2.13.0: Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND
+   BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT (its wheel's
+   License-Expression). It installs filelock (MIT in 3.32.0, the release
+   checked here; torch does not pin it, and older filelock releases were
+   under the Unlicense), typing-extensions (PSF-2.0), setuptools (MIT), sympy
+   (BSD-3-Clause, with its LaTeX parser files under MIT) with mpmath
+   (BSD-3-Clause), networkx (BSD-3-Clause), jinja2 (BSD-3-Clause) with
+   markupsafe (BSD-3-Clause) and fsspec (BSD-3-Clause). On Linux, torch
+   2.13.0 from the default package index also installs NVIDIA's CUDA
+   libraries (cuda-toolkit components, cuda-bindings, nvidia-cudnn-cu13,
+   nvidia-cusparselt-cu13, nvidia-nccl-cu13, nvidia-nvshmem-cu13) and triton,
+   which come under their own licence terms.
+
+   scikit-learn 1.7.2: BSD-3-Clause. It installs joblib (BSD-3-Clause),
+   threadpoolctl (BSD-3-Clause) and scipy (above). Its macOS arm64 wheel
+   bundles the LLVM OpenMP runtime, libomp (Apache-2.0 WITH LLVM-exception).

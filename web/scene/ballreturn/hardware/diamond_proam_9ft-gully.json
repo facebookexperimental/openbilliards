@@ -1,0 +1,244 @@
+{
+ "schema": "ball-return-hardware/1.0",
+ "track_id": "diamond_proam_9ft-gully",
+ "table_id": "diamond_proam_9ft",
+ "doc": {
+  "title": "diamond_proam_9ft-gully — the track's own hardware: the collector box + lip behind the head-end aperture; per entry a sleeve, an escutcheon plate on the side-panel opening and a sightline baffle past the sleeve end (V17)",
+  "status": "DECLARATION (the diamond lane's; #644 D621 model)",
+  "revision": "g1",
+  "date": "2026-09-18",
+  "issue": "#650 / GH-621 (ob-release GULLY ROUND 2 order 2026-09-18; R2 CORRECTION: no environment declaration for interior stations)",
+  "notes": "SCENE NAMES carry the `dm-` prefix (render.dmNames = true; GULLY-FIX1 correction). OWN HARDWARE = (a) the unlit collector box table.js builds behind the head-end aperture (dm-gullybox-floor / -ceiling / -back ×2 / -end-l; depth 213 mm so the tray's inboard bend leg is inside it; the back is split around the left trunk's chute mouth at z ≈ −68 and the +z feed end is OPEN — the right trunk enters there) and its lip (dm-gullybox-lip; per-bar x from the leaned wall plane, GULLY-FIX1 C3); (b) the six ENTRY SLEEVES dm-gullysleeve-<pt> (open black tubes, r 40, about the ball-centre edge of each entry runway from its turn under the rail to its landing inside the cabinet) — each passes through a real 110 × 110 OPENING cut in the cabinet side panel at the crossing (GULLY-FIX1 C1; render.gully in web/scene/table.js, equal to the export's runway edges — asserted by gully_route_arm_621.mjs). V16 measures the ball's closest approach to own hardware, never a violation (the seated ball rests 0.3 mm above the box floor; the ball rides inside the sleeves). NO environment declaration: winding number 0 in the hollow cabinet interior (ballreturn's probe); the body stays FURNITURE and the surface rule (every route point ≥ 28.575 mm from every body face) is measured by the arm against the built meshes — with the openings cut, the entries' minimum body distance is to the openings' cut faces. Left as furniture: dm-cabinet-*, dm-apronband, dm-leg-*, dm-kerffloor-*. GULLY-FIX2: (C1) each side-panel cutout is sealed by an ESCUTCHEON plate dm-gullyplate-<pt> in the panel's plane on the outer face (130 x 130, black, an elliptical hole the tube's oblique section fills + 1 mm clearance) — own hardware, the ball passes through its hole inside the tube; the arm's horizontal-ray sweep through every cutout hits table mesh. (C2) each sleeve now ENDS (sleeveR + r)/sin(angle) + 5 mm before its landing on the trunk, so the trunk's own balls clear the tube wall by >= r; the arm measures every other route's sleeves/plates as obstacles (a sleeve is own hardware only for the entry it wraps). (C1, second half) a SIGHTLINE BAFFLE dm-gullybaffle-<pt> — an unlit black 200 x 200 plane normal to the tube axis 15 mm past the sleeve's inner end — closes the line of sight down the tube bore (the two middle entries are collinear, so a level ray through one bore left through the mirror opening); it is a LIGHTING-DEVICE like the slot plates: the module's posed ball passes it inside the dark cabinet, unseen from outside; declared own hardware so V16 reads it as closest approach, never a violation. GULLY-FIX3 (review 644g3): the +z feed end of the box is CLOSED again by dm-gullybox-end-r at z 465 (past the bend seats' ball edge 458.6, 9 mm inside the leg face 474.3) — an unlit plane the right trunk's feed passes THROUGH (LIGHTING-DEVICE like the entry baffles, own hardware); both end planes run 40 mm past the back plane as wings. dm-gullybox-feedbaffle (two meshes, one per chute mouth in the back wall) is an unlit plane parallel to the back wall 40 mm inboard of it (28.575 + 5 past the ball edge at the mouth), spanning the open part of the mouth + 69.3 mm (40 × tan 60°) on every side that faces the box interior: it blocks the level and oblique (≤ 60°) head-end sightlines that crossed the box through a mouth to the far (lit) end wall or the side panels. No feed touches a feed baffle — the route arm measures both as OBSTACLES (left trunk 31.91 mm, right trunk 44.01 mm, tray ≥ 66 mm from their plane, all ≥ 28.575) — they are listed here so V17 knows the meshes as the track's own. GULLY-FIX6 (review 644g6): every collector piece now carries a UNIQUE scene name — the back wall's two segments dm-gullybox-back-0/-1 (ordinal from −z), the two feed baffles dm-gullybox-feedbaffle-0/-1 (0 = the left trunk's mouth), the four aperture-lip bars dm-gullybox-lip-top/-bottom/-l/-r — so name-indexed dumps see all 142 meshes; the entry sightline baffles are 100 × 100 and stand 10 mm inside the panel's inner face (their tilted plane never reaches the panel's outer face). 30 own meshes. D-3b (review TASTE audit 1 on the D-0 triptych; ob-release order 2026-09-20): every entry sleeve now starts AT THE PLATE PLANE with its outer rim mitred onto the escutcheon's plane — a round port in the cabinet, nothing attached outside; plate and baffle kept, the channel inside. The aperture trim is a 10 mm lip (was 20). Four unlit liners dm-gullybox-reveal-top/-bottom/-l/-r cover the aperture's lit reveal faces (the bright underline the audit read as a chrome trim). 34 own meshes."
+ },
+ "mesh_names": [
+  "dm-gullybox-floor",
+  "dm-gullybox-ceiling",
+  "dm-gullybox-back-0",
+  "dm-gullybox-back-1",
+  "dm-gullybox-end-l",
+  "dm-gullybox-end-r",
+  "dm-gullybox-feedbaffle-0",
+  "dm-gullybox-feedbaffle-1",
+  "dm-gullybox-lip-top",
+  "dm-gullybox-lip-bottom",
+  "dm-gullybox-lip-l",
+  "dm-gullybox-lip-r",
+  "dm-gullybox-reveal-r",
+  "dm-gullybox-reveal-l",
+  "dm-gullybox-reveal-bottom",
+  "dm-gullybox-reveal-top",
+  "dm-gullysleeve-c0",
+  "dm-gullysleeve-s1",
+  "dm-gullysleeve-c2",
+  "dm-gullysleeve-c3",
+  "dm-gullysleeve-s4",
+  "dm-gullysleeve-c5",
+  "dm-gullyplate-c0",
+  "dm-gullyplate-s1",
+  "dm-gullyplate-c2",
+  "dm-gullyplate-c3",
+  "dm-gullyplate-s4",
+  "dm-gullyplate-c5",
+  "dm-gullybaffle-c0",
+  "dm-gullybaffle-s1",
+  "dm-gullybaffle-c2",
+  "dm-gullybaffle-c3",
+  "dm-gullybaffle-s4",
+  "dm-gullybaffle-c5",
+  "dm-gullybox-reveal-trough-sill",
+  "dm-gullybox-reveal-trough-sill-f"
+ ],
+ "meshes": [
+  {
+   "name": "dm-gullybox-floor",
+   "role": "collector-floor",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-ceiling",
+   "role": "collector-ceiling",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-back-0",
+   "role": "collector-back-0",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-back-1",
+   "role": "collector-back-1",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-end-l",
+   "role": "collector-end-l",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-end-r",
+   "role": "collector-end-r",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-feedbaffle-0",
+   "role": "collector-feed-baffle",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-feedbaffle-1",
+   "role": "collector-feed-baffle",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-lip-top",
+   "role": "aperture-lip",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-lip-bottom",
+   "role": "aperture-lip",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-lip-l",
+   "role": "aperture-lip",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-lip-r",
+   "role": "aperture-lip",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-reveal-r",
+   "role": "aperture-reveal-liner",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-reveal-l",
+   "role": "aperture-reveal-liner",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-reveal-bottom",
+   "role": "aperture-reveal-liner",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-reveal-top",
+   "role": "aperture-reveal-liner",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullysleeve-c0",
+   "role": "entry-sleeve",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullysleeve-s1",
+   "role": "entry-sleeve",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullysleeve-c2",
+   "role": "entry-sleeve",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullysleeve-c3",
+   "role": "entry-sleeve",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullysleeve-s4",
+   "role": "entry-sleeve",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullysleeve-c5",
+   "role": "entry-sleeve",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullyplate-c0",
+   "role": "entry-escutcheon",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullyplate-s1",
+   "role": "entry-escutcheon",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullyplate-c2",
+   "role": "entry-escutcheon",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullyplate-c3",
+   "role": "entry-escutcheon",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullyplate-s4",
+   "role": "entry-escutcheon",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullyplate-c5",
+   "role": "entry-escutcheon",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybaffle-c0",
+   "role": "entry-sightline-baffle",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybaffle-s1",
+   "role": "entry-sightline-baffle",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybaffle-c2",
+   "role": "entry-sightline-baffle",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybaffle-c3",
+   "role": "entry-sightline-baffle",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybaffle-s4",
+   "role": "entry-sightline-baffle",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybaffle-c5",
+   "role": "entry-sightline-baffle",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-reveal-trough-sill",
+   "role": "trough-sill-liner",
+   "solid_simplification": false
+  },
+  {
+   "name": "dm-gullybox-reveal-trough-sill-f",
+   "role": "trough-sill-liner",
+   "solid_simplification": false
+  }
+ ],
+ "omissions": [
+  "dm-cabinet-board / dm-cabinet-end-* / dm-cabinet-side-* (with the six openings) / dm-cabinet-trough-* — FURNITURE (surface rule measured by gully_route_arm_621.mjs)",
+  "dm-apronband — furniture (entry runs at z 715 under the rails)",
+  "dm-leg-* — furniture (corner entries 35.2 mm from the leg face, tray bend 44.3 mm; centre distances)",
+  "dm-cabinet-screw-* — outside the shell, furniture",
+  "dm-kerffloor-l/r — near the rails, furniture"
+ ],
+ "provenance": {
+  "tag": "DERIVED",
+  "source": "the collector box built by web/scene/table.js for this track (names gullybox-*; geometry DERIVED from tracks/diamond_proam_9ft-gully.json g1: floor at the aperture sill −339, back 90 mm behind the wall's inner face, ends z −300 / +445 clamped 5 mm off the head legs); the first V16 read (ballreturn's scratch merge on band 9460-9489) names anything missed — fail-closed"
+ }
+}

@@ -1,0 +1,103 @@
+{
+  "schema": "openbilliards/rox-model-mouth-measurement/1",
+  "source_tag": "MODEL",
+  "sealed_model": {
+    "source_sha256": "61077b0850e8c34ea72e0a211583e24454b3d1239a36302921983708f54461cf",
+    "reference_sha256": "79c6cc4e2820e3d35cb33bed27f051f83372d9e741dae0ea9f1bb4c68aa3ec36"
+  },
+  "section": {
+    "plane_z_above_true_bed_mm": 35.12390000000005,
+    "nose_x_mm": 1174.0664,
+    "nose_y_mm": 588.123,
+    "segments": 403,
+    "sha256": "61f626d42187120e547f88277f77f68c6ee76b362c0a2d3001591c5a0b8ff9f4"
+  },
+  "source_fibres": [
+    {
+      "component": 46538,
+      "along_axis": 1,
+      "side": 1,
+      "nose_u_mm": 1174.0664,
+      "lowest_nose_z_mm": 35.12390000000005
+    },
+    {
+      "component": 46539,
+      "along_axis": 0,
+      "side": -1,
+      "nose_u_mm": 588.1229,
+      "lowest_nose_z_mm": 35.12390000000005
+    },
+    {
+      "component": 46540,
+      "along_axis": 0,
+      "side": -1,
+      "nose_u_mm": 588.1229,
+      "lowest_nose_z_mm": 35.12390000000005
+    },
+    {
+      "component": 46541,
+      "along_axis": 0,
+      "side": 1,
+      "nose_u_mm": 588.123,
+      "lowest_nose_z_mm": 35.12390000000005
+    },
+    {
+      "component": 46542,
+      "along_axis": 0,
+      "side": 1,
+      "nose_u_mm": 588.123,
+      "lowest_nose_z_mm": 35.12390000000005
+    },
+    {
+      "component": 46543,
+      "along_axis": 1,
+      "side": -1,
+      "nose_u_mm": 1174.0664,
+      "lowest_nose_z_mm": 35.12390000000005
+    }
+  ],
+  "measurements": [
+    {
+      "pocket": "nxnz",
+      "height_mm": 35.12390000000005,
+      "width_mm": 102.23644106500687
+    },
+    {
+      "pocket": "pxnz",
+      "height_mm": 35.12390000000005,
+      "width_mm": 102.23672149003396
+    },
+    {
+      "pocket": "pxpz",
+      "height_mm": 35.12390000000005,
+      "width_mm": 101.70013881624695
+    },
+    {
+      "pocket": "nxpz",
+      "height_mm": 35.12390000000005,
+      "width_mm": 101.69985690751105
+    },
+    {
+      "pocket": "nz",
+      "height_mm": 35.12390000000005,
+      "width_mm": 121.52019772271615
+    },
+    {
+      "pocket": "pz",
+      "height_mm": 35.12390000000005,
+      "width_mm": 121.52019772271615
+    }
+  ],
+  "published": {
+    "corner_mouth_model_nose_extreme_range": [
+      101.7,
+      102.237
+    ],
+    "side_mouth_model_nose_extreme": 121.52
+  },
+  "instrument": {
+    "path": "tools/render/ghrox/model_mouth_rox.py",
+    "sha256": "05bcd3e484baa6b29dbd1a39073742ec11b28b8040249793891b1e55dd31a798"
+  },
+  "protocol": "Lowest actual extreme nose fibre; corner chord between long/short nose-line endpoints; side distance between the two inner nose-line endpoints; three-decimal publication; unscaled MODEL sections."
+}

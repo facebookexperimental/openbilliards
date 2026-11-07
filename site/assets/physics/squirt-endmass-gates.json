@@ -1,0 +1,167 @@
+{
+  "scenario": "squirt-endmass",
+  "title": "Squirt / endmass — sidespin pushes the cue ball off the aim line (battery B1)",
+  "kernel": "0.1.0+208e1dc4",
+  "anchor": {
+    "rule": "Side spin pushes the cue ball off the aim line by a squirt angle set by the shaft's endmass; near-linear in tip offset and speed-independent.",
+    "rule_zh": "打塞时母球偏离瞄准线（squirt），大小由杆头端质量决定，与出杆速度无关。",
+    "sources": "Dr. Dave TP A-31 'The physics of squirt' Eq. 13 (posted 8/2/07, rev 1/29/08); Cross 2008 lineage; Shepard 2001 coverage",
+    "battery": "B1 — examples/paper/exp_b1_squirt.py (the internal paper baselines §2; strike-only family, bit-identical at every re-baseline)",
+    "closed_form": "alpha = atan2( (5/2)·x·sqrt(1−x²), 1 + m_b/m_e + (5/2)·(1−x²) ), x = tip-corrected contact offset = 0.5·(1/(1+1e-12/R)), m_b = 0.170097 kg, m_e = 0.010 kg",
+    "predictedAlphaDeg": 3.1161312062810644,
+    "badgePredictedDeg": "3.12",
+    "batteryVerification": "B1 deliverable 1: kernel ports Eq. 13 verbatim — max |E| 8e-15° over 171 grid points; linearity R² ≥ 0.9967; speed-invariance spread 0.0°"
+  },
+  "badge": {
+    "line1": "predicted 3.12° · measured 3.12°",
+    "line2": "SQUIRT / ENDMASS · TP A-31 EQ 13 / CROSS 2008 · BATTERY B1 (EXP_B1_SQUIRT) · ENDMASS 10 G · OFFSET 0.5R"
+  },
+  "segments": [
+    {
+      "id": "main",
+      "batterySha": "472f05a4cc0f771a420b3586de303394161b2ddbf2876db1af0e630b6df29e30",
+      "videoSha": "f5ee327d0a35a41f3b5edab5b52a8704cd290747f5de88e35ee2e40502d1bb1f",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "alphaSignedDeg": 3.116131206281125,
+        "headingPostStrikeDeg": 93.11613120628105,
+        "gapPredM": 0.11943823542404886,
+        "gapMeasM": 0.1194382354240486,
+        "tCushion": 1.464431865341181,
+        "railPos": [
+          -0.1194382354240486,
+          1.241425
+        ],
+        "tRollTransition": 0.3025961539694133,
+        "rollTransitionPos": [
+          -0.02929719529737425,
+          -0.4143486369579266
+        ],
+        "arrivalSpeedMps": 1.3703,
+        "tEnd": 1.644431865341181,
+        "duration": 7.694992,
+        "nEvents": 8,
+        "readRunM": 2.197174,
+        "minPairMm": "n/a (single-ball record — no pairs)",
+        "minPairAt": null,
+        "minPair": null
+      },
+      "plan": {
+        "frames": 563,
+        "outputSec": 9.383333333333333,
+        "maxCutlessStepRatio": 1.0753724614698723,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              185,
+              209
+            ]
+          ],
+          "deliveredFrames": 539,
+          "deliveredSec": 8.983333333333333,
+          "firstReplayFrame": 185,
+          "recoveredFrames": 119,
+          "dissolveS": 0.4
+        }
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 2,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 0.30000000000000004,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1.3358490566037737,
+        "wanted": 1.3358490566037737,
+        "dropSec": 0.673728813559322,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.30000000000000004,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "3.12°",
+              "squirt · endmass 10 g"
+            ],
+            "availSec": 3.9166666666666665,
+            "spanSec": 1.3599999999999999,
+            "entrySec": 0.98,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.0180790960451975,
+            "settledSec": 2.898587570621469,
+            "needScale": 0.37603686635944694,
+            "settledFrames": 173
+          },
+          {
+            "text": [
+              "119 mm off the aim line"
+            ],
+            "availSec": 1.1833333333333333,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 0.8833333333333333,
+            "settledSec": 0.30000000000000004,
+            "needScale": 1.3358490566037737,
+            "settledFrames": 18
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "main",
+      "frames": 563,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "49f2f6f3ddf2290e2c0a89432da372f9c43dc0bac4259924ba189531a3b39a0c",
+      "sha256_last": "ba469bde1a831419833460cdd8f0087c9a26d9f12bc2eff4ccf55f8366010c8f"
+    }
+  ],
+  "titleCard": {
+    "value": "Squirt / endmass",
+    "claim": "sidespin pushes the cue ball off the aim line (battery B1)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "2801897f8f01fbe3f0bfa4787837e37dc9e92c352413a53ed8823d500e3dcfc8",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "f862fa854ce92bab031ed4a8de02fc653e3b61050713dc2aa0cb6a3560f099c0"
+  }
+}

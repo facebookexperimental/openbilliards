@@ -1,0 +1,285 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* ============================================================
+   break.css — page-scoped styles for the "Anatomy of a break"
+   scrub act on site/index.html. Additive only; tokens and shared
+   components come from site.css (+ .figure-plate from hero.css,
+   both always loaded on the index).
+
+   Two modes (grammar: the design system, Motion, "Scrub act"):
+   - RESTING (default markup — no-JS, reduced-motion, no IO, or
+     manifest still loading): a normal editorial band — poster
+     figure + annotated text timeline. Missing imagery degrades
+     to plain slate like every other figure on the page.
+   - LIVE (.is-live, set by motion.js only after the manifest at
+     assets/break-scrub/manifest.json loads): the section grows
+     to 750vh, .break-pin pins at 100svh, and the canvas sequence
+     scrubs with native scroll. The fallback collapses to the
+     visually-hidden pattern so AT keeps the full timeline.
+   ============================================================ */
+
+/* headline left, lede flanking right on wide viewports — the pin
+   must leave the canvas most of its 100svh. When LIVE, that is the
+   head-yield contract: the stage's layout slides up under the head
+   (negative margin set in motion.js measure()), the head overlays
+   the canvas top behind .break-shade at p=0, and over the first ~5%
+   of progress (inside the pre-contact run-up — first contact fires
+   at p ≈ 0.079 under the strict-linear map, ruling 2026-07-08)
+   motion.js fades the lede out
+   and steps the headline down to heading-s scale — transform/opacity
+   only, so .break-canvas-box keeps ≥55-60svh past the first beat.
+   Resting / reduced-motion layouts never run any of this. */
+.break-head {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 24px 72px;
+  align-items: end;
+}
+.break-lede { max-width: 36em; }
+@media (max-width: 1080px) {
+  .break-head { grid-template-columns: minmax(0, 1fr); }
+  .break-lede { margin-top: 16px; }
+}
+.break-act.is-live .break-head { position: relative; z-index: 2; }
+.break-act.is-live .break-head h2 {
+  transform-origin: left top;
+  will-change: transform;
+}
+.break-act.is-live .break-lede { will-change: transform, opacity; }
+
+/* ---- resting fallback ---------------------------------------- */
+.break-fallback {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 48px 72px;
+  align-items: start;
+  margin-top: 7vh;
+}
+.break-timeline-static > .bb-label { margin-bottom: 4px; }
+.break-events {
+  list-style: none; padding: 0; margin: 0;
+  border-bottom: 1px dashed var(--bb-line);
+}
+.break-events li {
+  display: flex; gap: 20px; align-items: baseline;
+  padding: 14px 0;
+  border-top: 1px dashed var(--bb-line);
+}
+/* event kinds are kernel identifiers: mono + chalk, the site's
+   inline-code voice (the design system: inline code names = chalk) */
+.break-ev-kind {
+  font-family: var(--bb-mono);
+  font-size: var(--bb-t-label);
+  color: var(--bb-chalk);
+  white-space: nowrap;
+  flex: 0 0 7.5em;
+}
+/* the resting poster cover-crops at whatever aspect the fallback grid
+   gives it, so it carries the same anchors as the live canvas draw
+   (fix round 2, see .break-canvas-box; numbers re-measured on the
+   issue-#20 seed-19 reshoot): x 100% keeps the apex frame's right-edge
+   ball 5 (x to 0.957) whole at narrow columns, y 65% keeps ball 1
+   (y to 0.798) whole at wide ones — a centered crop bisected both */
+.break-poster {
+  position: relative;
+  margin: 0;
+  min-height: 340px;
+  border-radius: var(--bb-r-card);
+  overflow: hidden;
+  background: var(--bb-slate) url("break-scrub/poster.webp") 100% 65% / cover no-repeat;
+}
+
+/* ---- live stage (JS-built; hidden at rest) -------------------- */
+.break-stage { display: none; }
+
+/* 750vh (the design system container amendment, strict-linear ruling
+   2026-07-08; fix round 1 set 700vh): the act's
+   binding direction is SLOW MOTION — the contact→land stretch (the
+   record's airborne arc, frames 22-134 of 255) must span MULTIPLE
+   (>=2) screen-heights of scroll. Under the strict-linear map u = p
+   that stretch's share of the range is exactly its record-time share,
+   Δp = Δu ≈ 0.324 (t 0.1146 → 0.585 of 1.45 s) — the holds that used
+   to pad it to Δp ≈ 0.387 are banned — so the screen-height count
+   is the container's job alone: at 360vh the 2.6-screen range gave
+   contact→land 0.99 screens — one ordinary scroll flick swallowed the
+   whole flight — and at 700vh the 6-screen range yields 1.95 screens,
+   a hair under the law. 750vh scrubs a 6.5-screen range: contact→land
+   takes ~2.1 screens fire-to-fire and the pre-contact cue flight spans
+   ~51vh (~460px at a 900px viewport), clear of a single wheel step.
+   Every quantity is vh-proportional, so the ratios hold at any
+   viewport; the head yield completes inside the pre-contact run-up. */
+.break-act.is-live { height: 750vh; padding: 0; }
+.break-act.is-live .break-pin {
+  position: sticky; top: 0;
+  height: 100vh; height: 100svh;
+  display: flex; flex-direction: column;
+  /* bottom padding 4vh → 3vh with the rail/caption trims below (fix
+     round 1): the two-line caption reservation costs one line-height,
+     and the canvas box pays for it unless the same ~18px comes back
+     out of pure chrome whitespace — the head-yield law holds the
+     canvas at ≥55-60svh of the pin */
+  padding: calc(var(--bb-nav-h) + 2vh) var(--bb-gutter) 3vh;
+}
+.break-act.is-live .break-stage {
+  display: flex; flex-direction: column;
+  flex: 1 1 auto; min-height: 0;
+  position: relative; /* the provenance plate anchors to the stage */
+  /* motion.js measure() overrides inline: calc(4vh - head-yield px) —
+     the stage's layout box extends up under the head (z-below it) so
+     the canvas owns the pin once the head has yielded */
+  margin-top: 4vh;
+  /* one width unit with the crop guard: measure() caps the STAGE at a
+     3.2:1 aspect (past ~3.7:1 every vertical crop of the 16:9 frames
+     bisects a ball in the hop-apex pose — f0086 spans y 0.319-0.798 on
+     the seed-19 record), so canvas, rail and caption
+     pillarbox together as one centered block — never a full-width rail
+     under a narrower image */
+  align-self: center;
+  width: 100%;
+}
+/* AT keeps the annotated timeline while sighted users scrub the
+   canvas (mirrors .bb-visually-hidden — the fallback must leave
+   the visual layout but stay in the accessibility tree) */
+.break-act.is-live .break-fallback {
+  position: absolute; width: 1px; height: 1px;
+  clip-path: inset(50%); overflow: hidden; white-space: nowrap;
+}
+
+/* canvas: cover-fit draw, media radius; the poster paints behind it
+   ONLY until the first frame lands — motion.js draw() removes the
+   background image on its first blit (fix round 2: at fractional rest
+   offsets the browser's sub-pixel snapping exposed ~1 row of poster
+   below the canvas bitmap, and the poster's red 3-ball painted a
+   sliver on the terminal freeze that read exactly like a ball bisected
+   by the crop; unrelated image content must never peek from behind the
+   live record). While it shows, the stand-in obeys the module's crop
+   anchors in CSS terms — x 100% (all x-crop off the LEFT: the apex
+   silhouettes run to x 0.957 of source width on the issue-#20 seed-19
+   record) and y 65% (band bottom
+   ~0.845 across the croppable aspect range) — so the loading poster
+   never slices a ball the canvas draw would keep whole. */
+.break-canvas-box {
+  position: relative;
+  flex: 1 1 auto; min-height: 0;
+  border-radius: var(--bb-r-card);
+  overflow: hidden;
+  background: var(--bb-slate) url("break-scrub/poster.webp") 100% 65% / cover no-repeat;
+}
+.break-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* legibility scrim behind the head's opening overlay (p=0); motion.js
+   fades it out in step with the head yield — chrome never sits on the
+   record once the head has cleared it */
+.break-shade {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom,
+    oklch(13% 0.009 165 / 0.88) 0%,
+    oklch(13% 0.009 165 / 0.55) 45%,
+    oklch(13% 0.009 165 / 0) 78%);
+}
+/* provenance readout: duration · frames · kernel stamp — data read
+   straight off the record; determinism as a visible feature. The data
+   run stays verbatim (mono, no caps transform): 'S' is siemens, not
+   seconds, and the kernel hash is lowercase hex. Only the RECORD
+   prefix speaks label caps.
+   WITH the record, never ON it (fix round 1): at wide stage aspects
+   the anchored crop lifts the action band to the canvas top (band top
+   ≈ y 0.26 of source at the default desktop stage, 0.29 at the 3.2:1
+   cap) and a plate inside the frame paints over the very balls its
+   caption names — judged at the 2.65:1 and 3.2:1-capped stages, where
+   it hid the airborne cue ball at f0086, the land beat's yellow/green
+   pair and the terminal 8-ball. The plate now hangs ABOVE the canvas,
+   right-aligned to the stage's width unit, in the strip the yielded
+   head hands over — chrome lives with chrome and the record keeps
+   every pixel at every aspect. pointer-events off: while transparent
+   (pre-yield) its box overlaps the not-yet-faded lede's citation zone
+   at some viewports and must never eat a click. */
+.break-prov { font-variant-numeric: tabular-nums; }
+.break-stage > .break-prov {
+  left: auto; right: 0;
+  top: auto; bottom: 100%;
+  margin-bottom: 4px;
+  max-width: 100%;
+  pointer-events: none;
+}
+.break-prov-data {
+  font-family: var(--bb-mono);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* ---- event rail ----------------------------------------------
+   The thin chalk timeline. Chalk budget: hairline + ticks + the
+   two-line caption box, well under the 5% viewport ration. */
+.break-rail {
+  position: relative;
+  flex: none;
+  height: 28px;
+  margin-top: 12px;
+}
+.break-rail-line {
+  position: absolute; left: 0; right: 0; top: 50%;
+  border-top: 1px dashed color-mix(in oklab, oklch(64% 0.10 252) 35%, transparent);
+}
+.break-tick {
+  position: absolute; top: 50%;
+  width: 2px; height: 12px;
+  margin: -6px 0 0 -1px;
+  background: var(--bb-line);
+  transition: background-color var(--bb-t-hover) ease,
+              transform var(--bb-t-hover) ease;
+}
+.break-tick.lit { background: color-mix(in oklab, oklch(64% 0.10 252) 55%, transparent); }
+.break-tick.now { background: var(--bb-chalk); transform: scaleY(1.5); }
+/* one mark can carry several simultaneous events (same fire frame):
+   the joined caption gets a single, slightly taller tick */
+.break-tick--multi { height: 18px; margin-top: -9px; }
+/* (the dwell-affordance pulse that lived here died with the holds —
+   strict-linear ruling 2026-07-08: no plateaus, so nothing ever parks;
+   tick ignition styling above, .lit/.now, is the beats' whole voice) */
+/* playhead: the rail-sight diamond, translated by motion.js as a
+   pure linear function of scroll progress (transform-only) */
+.break-playhead { position: absolute; left: 0; top: 50%; width: 0; height: 0; }
+.break-playhead::before {
+  content: "";
+  position: absolute; left: -3.5px; top: -3.5px;
+  width: 7px; height: 7px;
+  background: var(--bb-chalk);
+  transform: rotate(45deg);
+}
+
+/* mono caption: running record time + the last event passed.
+   TWO lines are RESERVED at every width (fix round 1; formerly a
+   phone-only rule from taste round 2): the caption is flex chrome
+   under the flex-FILLED canvas box, so any 1↔2-line wrap re-sizes the
+   pinned canvas mid-scrub — at a 2.65:1 viewport the 3.2:1-capped
+   593px stage wrapped exactly one caption, Rest, the act's last, and
+   the canvas popped ~19px at the terminal frame (and back one frame
+   up). A constant two-line box keeps the pinned record still; short
+   captions leave the second line quiet. */
+.break-caption {
+  flex: none;
+  line-height: 1.5;
+  min-height: 3em;
+  margin-top: 0;
+  font-family: var(--bb-mono);
+  font-size: var(--bb-t-label);
+  color: var(--bb-ivory-2);
+  font-variant-numeric: tabular-nums;
+}
+.break-caption .break-ev { color: var(--bb-chalk); }
+
+/* ---- responsive ----------------------------------------------- */
+@media (max-width: 1080px) {
+  .break-fallback { grid-template-columns: minmax(0, 1fr); }
+  .break-poster { min-height: 300px; }
+}
+@media (max-width: 760px) {
+  .break-lede + * { margin-top: 40px; }
+  .break-poster { min-height: 220px; }
+  /* the two-line caption reservation lives on the base .break-caption
+     rule now (fix round 1) — it guards every width, not just phones;
+     the pin's 3vh bottom padding is the base rule too */
+  .break-ev-kind { flex-basis: 6em; }
+}

@@ -1,0 +1,17 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+[package]
+name = "pool-cli"
+description = "Headless SDK harness for pool-core (openbilliards): run/batch/sweep/compare/sample"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+pool-core = { path = "../pool-core" }
+# Feature 013: pool-cli is the ONE crate depending on both pool-core and
+# pool-rules — home of the wire-drift guard (research R1) and the native
+# `judge` conformance surface.
+pool-rules = { path = "../pool-rules" }
+serde_json = { version = "1", features = ["float_roundtrip"] }

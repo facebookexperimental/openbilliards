@@ -1,0 +1,8 @@
+{
+  "schema": "ob-cn8-base-replay-staging/1",
+  "commit": "be25b147c088f6abcb6368cd131a166002c5590e",
+  "file": "web/app/settings.js",
+  "source_sha256": "75538604c30895a1bd868a8c97563c382fdbccb0441400b09a838fee37150c68",
+  "boundary": "Exact BASE API members, executed by the node boundary fixture; geometry and the full replay are exercised by the served arms.",
+  "members": "    setTransientEquipment(spec) { set('equipment', spec, { persist: false }); },\n    restorePersistedEquipment() {\n      set('equipment', persistedEquipment, { persist: false });\n    },\n    /** Replay-time game override (share.js gotoShot, codec v4): the shared\n     * replay re-racks + adjudicates as the SENDER's game; applied, never\n     * persisted \u2014 mirror of setTransientEquipment (data-model.md \u00a77).\n     * Returns the async staging promise \u2014 AWAIT it before re-racking. */\n    setTransientGame(id) { return set('game', id, { persist: false }); },\n"
+}

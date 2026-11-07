@@ -1,0 +1,8 @@
+{
+ "legs_dx_mm": 10.7,
+ "legs_dy_mm": 15.2,
+ "cabinet_bottom_dz_mm": 18.0,
+ "envelope_dx_mm": 10.0,
+ "envelope_dy_mm": 5.5,
+ "note": "MFR-decided deltas (EN-05 feet datum, EN-06 15 in, EN-01 104x59 in) — see SPIKE-REPORT-D621.md § D621-ALIGN"
+}

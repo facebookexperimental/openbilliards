@@ -1,0 +1,1543 @@
+[
+ {
+  "frame": "proposal_ext_r3_15_body3",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_14_body2 (repo head below); this head lives IN THE REPO because the lane may not write the Drive twin; applied as the logical head OVER the Drive twin exactly like r3_2 … r3_12.",
+  "parent": "proposal_ext_r3_14_body2",
+  "date": "2026-09-05",
+  "lane": "craft R3-SNK-BODY-3 (ORDER-CRAFT-R3-BODY3.md) + R3-SNK-BODY-3B (ORDER-CRAFT-R3-BODY3B.md: the BODY-3 verification's rulings R-station / R-lidcover and items C-1..C-3)",
+  "note": "R3-SNK-BODY-3 (ORDER-CRAFT-R3-BODY3): ruling R-wallT — the jaw wall follows the Magnum wedge table (MODEL, station-wise) with gate rows W1–W3 and the arm wall-constant; R-N4 stays RED by 0.08; C-1 taper 6 in code; C-3 texts. Append-only over r3_14. R3-SNK-BODY-3B: the WALL row's withdrawn corner_x1760 side-effect sentence struck (it was the runaway band, §R3c.25.4); the station convention stated; RECORD row STATION added; lid arms re-armed (lid-inject green control + lid-cover injects and withholds). Append-only over r3_14.",
+  "rows": [
+   {
+    "id": "WALL",
+    "title": "the jaw cloth wall behind the kernel jaw plan (was the constant SNK_FALL.wallT 8)",
+    "was": "8 mm radial parallel band (W6), held UNPINNED in BODY-2 with the Magnum wedge printed beside it.",
+    "now": "SNK_FALL.wall — the MODEL(Magnum) wedge table at h 39.5: corner (d inside the wood end plane → wall) 0 → 4.46, 0.25 → 5.22, 0.5 → 5.89, 1 → 6.94, 2 → 8.59, 3 → 9.97; middle 0 → 7.38, 1 → 11.64, 2 → 14.52; applied as a DEPTH step at the face point's own station (the measure the read was taken in), the band ending ON the wood plane at the d = 0 value; 48 samples along the extension so the table's first millimetre is followed.",
+    "provenance": "MODEL(Magnum): comp 422 vs the cap lip 421, plan cuts at 8 heights × 6 stations (r4-reads item 2b); the cap lip is straight and the face leaves it at 59–76° (corner) / 72–80° (middle). Gate: check-jaw-sections-489 W1–W3 = our plan wall (the vertical back at h 30 − the kernel plan face) at 0.5 / 1 / 2 mm inside the end vs the table ± its h 39.5–39.0 spread (0.4 / 0.4 / 0.6): 5.70 / 6.91 / 8.55; arm wall-constant (the retired 8) reads 7.86 / 7.99 / 7.97 → 3/3 fire. corner_x1760 is UNCHANGED by the wedge: two-way p90 0.899 / max 1.219 on the sealed 91e4f8bf (the SNK-12 budget) — a first-cut read of 0.170 / 0.261 was the last-slope extrapolation beyond the read running the band away, withdrawn in §R3c.25.4. STATION CONVENTION (BODY-3B, R-station): every table value is the MINIMUM of the jaw face over the window [d, d + 0.2] inboard of the Magnum body's top-end edge x_end(h) (r4-reads item2b_blade.py: centre d + 0.1, ± 0.1, on the 0.02 mm-densified h-slice), presented as the value 'at d'; the exact-station read (crossings of the plane x = x_end − d) is smaller — corner h 39.5: 3.22 / 4.62 / 5.39 / 6.60 / 8.26 / 9.71 at d 0 / 0.25 / 0.5 / 1 / 2 / 3 (the verifier's own parse: 4.03 / 4.72 / 5.46 / 6.67 / 8.26 / 9.71); middle h 39.5: 5.28 / 10.91 / 13.97 at d 0 / 1 / 2 (verifier 5.28 / 10.91 / 13.97). At d = 0 the exact crossing sits on the Magnum's top-end round (R 4.47 corner / 3.74 middle), where a 0.1 mm station shift moves the read by 1–2 mm — the window read is the blade just inside that round. DATUM: d is indexed from OUR wood end plane; the Magnum's d = 0 is its top-end edge at h 39.5 — x_end 1764.35, 2.95 mm inboard of its rail-end plane 1767.3 (corner); 40.62, 1.68 mm inboard of 38.94 (middle). Our gated stations pass against either reading: W1–W3 5.70 / 6.91 / 8.55 vs exact 5.39 / 6.60 / 8.26 (Δ +0.31 / +0.31 / +0.29, inside ± 0.4 / 0.4 / 0.6)."
+   },
+   {
+    "id": "STATION",
+    "title": "RECORD — the wedge table's middle end station d = 0, window read vs exact-station read (ruling R-station; no band, no shape change this round)",
+    "was": "the table's middle d = 0 value 7.38 presented as 'at d = 0' without its convention.",
+    "now": "UNCHANGED in code (SNK_FALL.wall.middle[0] = 7.38, the window-min over [0, 0.2] inboard of x_end at h 39.5); RECORD both numbers: window 7.38 / exact 5.28 (h 39.5; h 39.0: 7.29 / 4.29). Our mesh's middle band at its wood end plane carries the table's 7.38, i.e. 2.10 mm more wall than the Magnum's exact end (ungated: the middle end has no W row; the corner's W1–W3 pass against both readings). The card carries the number; whether the middle table is re-stationed by the 0.1–0.2 mm bias is C-4 (orchestrator / review round 4).",
+    "provenance": "MODEL(Magnum) comp 422 vs the cap lip 421 at h 39.5 / 39.0, the same caches as item 2b (/tmp/craftr3/snk7-datum/table_tris.npz): window = r4-reads item2b_blade.py; exact = /tmp/craftr3/body3b/exact_cross.py (plane-crossing min y); the verifier's independent OBJ parse (/tmp/obv-body3/mag/wedge_v.py) reads the same 5.28 / 10.91 / 13.97 at the middle and 4.03 / 4.72 / 5.46 / 6.67 / 8.26 / 9.71 at the corner (its d = 0 corner differs from ours by the crossing rule at the very edge: 4.03 vs 3.22, both on the round)."
+   },
+   {
+    "id": "TAPER-CODE",
+    "title": "taper literal vs ledger",
+    "was": "0.008 in code (the last value of the BODY-2 bisect sweep) vs 6 ±1 in every document.",
+    "now": "0.006.",
+    "provenance": "MODEL(Magnum) end-round class 6 ±1 (r3_14 TAPER row); jaw 8/8 and loft 6/6 re-run on the change."
+   },
+   {
+    "id": "N4-OPEN",
+    "title": "the two-family bag at −100 (construction) — open row",
+    "was": "table family 38.5 vs the ceiling 38.42 (BODY-2).",
+    "now": "unchanged — RED by 0.08 mm, no widening (ruling R-N4).",
+    "provenance": "Card sentence: net cord table-side height 38.5 mm vs the Magnum-derived band 34.90–38.42 (0.08 mm over; band = M2 centres ± n8 sag from the model)."
+   },
+   {
+    "id": "E36",
+    "title": "wood inner-corner chord and its depth behind the mouth line",
+    "was": "104.1 ±8 / 44.8 ±3 (r3_8: DERIVED from the parallel band's round end cap about the wall end).",
+    "now": "94.9 ±8 / 40.2 ±3.",
+    "provenance": "DERIVED from the r3_15 construction: the face inner corner sits on the wood end plane at the MODEL(Magnum) wedge's end value 4.46 behind the wall end (the cap put it 9.06 behind): each corner moves 4.6 toward the mouth. The old values fail the new bands."
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_14_body2",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_13_body (repo head below); this head lives IN THE REPO because the lane may not write the Drive twin; applied as the logical head OVER the Drive twin exactly like r3_2 … r3_12.",
+  "parent": "proposal_ext_r3_13_body",
+  "date": "2026-09-05",
+  "lane": "craft R3-SNK-BODY-1 (ORDER-CRAFT-R3-SNK-BODY1.md + ADDENDUM 2/3; the SNK-12 verification conditions C-2/C-3/C-5 and the review round-3 fold-ins B/C/D/E ride the same seal)",
+  "note": "R3-SNK-BODY-2 (ORDER-CRAFT-R3-BODY2): ruling R4 MODEL-read attempts on the four review-C literals and the R5 band derivations; the rows below carry the Magnum/Star cuts (/tmp/craftr3/body2/r4-reads, Drive body2 pack) and the datum arithmetic. Append-only over r3_13.",
+  "rows": [
+   {
+    "id": "APRON-INSET",
+    "title": "the apron face above the recess step vs the plank (cap) outer plane",
+    "was": "3 mm (BODY-1: 'the flush band's shadow line' — no counterpart in either model).",
+    "now": "0 — flush.",
+    "provenance": "MODEL(Magnum): comps 421/618 vs the raised panels 423/674, 16 vertical sections on both rails: the face above the step IS the cap face, inset 0.00 ±0.05 over z −11…−31.5; the 9.27 / 9.03 panel and 12.20 ground are the recess BELOW the step (SNK.cabinetInset's class). PHOTO: the XW101 band above the step is flush within one SE pixel (3.68 mm). MODEL(Star): no flush band (cove crest, mouldings 7.1/11.1, the 27.77 face is the label inlay strip) — not transferable."
+   },
+   {
+    "id": "ARRIS-ROLL",
+    "title": "the fall-arris cloth roll radius (SNK_FALL.roll, split from the plate flap offset SNK_FALL.lip)",
+    "was": "4 mm (one literal serving the roll AND the plate's flap-face offset rv + lip + 2.1).",
+    "now": "roll 6.4 (the round); lip stays 4 (the plate offset, MODEL M1).",
+    "provenance": "MODEL(Magnum): slab 125, 17 radial sections through the fall centres: a parabolic round 7.00 × 7.00 (quadratic Bézier, 4 facets; sd 0.016; corner = middle), tangent-constrained circular equivalent R 6.4 ±0.2. MODEL(Star): the bed slab has no pocket cut-out — no counterpart. Adopting 6.4 on the shared literal moved the plate 2.4 mm (jaw corner_x1760 max 2.7 > 2.0) — hence the split."
+   },
+   {
+    "id": "TAPER",
+    "title": "the loft back-edge run into the jaw band",
+    "was": "40 mm (dressing; no counterpart).",
+    "now": "6 mm — the Magnum end-round class.",
+    "provenance": "MODEL(Magnum): comp 422 back edge vs x at 0.5 mm stations, h 39.9…37.25: holds the cap-lip line to 0.3 mm until 1.0–5.0 (corner) / 1.5–7.5 (middle) mm before the body's end; the recession is the end-corner round, never a taper toward the jaw. MODEL(Star): flares outward +11.1 over the last 40 mm. Neither tapers over 40; the jaw sections read identically at 0.040/0.012/0.008/0.006 (the run lies outside the cut windows)."
+   },
+   {
+    "id": "WALLT",
+    "title": "the jaw cloth wall band behind the kernel jaw plan",
+    "was": "8 mm UNPINNED.",
+    "now": "8 mm UNPINNED / DRESSING, the MODEL read disclosed beside it.",
+    "provenance": "MODEL(Magnum): no constant band — a wedge opened by its own jaw plan crossing a straight cap lip at 59–76° (corner) / 72–80° (middle): corner 4.3 ±0.3 at the body's end, 8.0 ±1.1 at 1–2 mm inside; middle 7.3 ±0.1 / 13.3 ±1.7; not transferable onto the frozen kernel arcs (J-4, up to 8.2° apart at x 1760). MODEL(Star): no blade (0.66 mm tip)."
+   },
+   {
+    "id": "E37",
+    "title": "hem R about the cup on D3",
+    "was": "110.5 [109, 112] (r3_7: DERIVED — the hem's leg on the apron plane 110.2 + 0.31, with the 3 mm inset).",
+    "now": "113.5 [112, 115].",
+    "provenance": "DERIVED: the same law (hemR = apronFace − legD45, MODEL M1 leg 0.31) on the flush apron plane (+3.0 mm); equals the montage's 113.5 and sits inside the r3_4 MFR read 114.5 [112.5, 116.5]. The old read 110.5 fails the new band (the datum moved by a MODEL read, R5)."
+   },
+   {
+    "id": "E12",
+    "title": "lip → hem band on D3",
+    "was": "63.5 [62, 65] (r3_7: E37 110.5 − lip 47.0).",
+    "now": "66.5 [65, 68].",
+    "provenance": "DERIVED: E37 113.5 − lip r 47.0; the old read 62.6 fails the new band."
+   },
+   {
+    "id": "E8",
+    "title": "lower-skirt flare per side",
+    "was": "4.0 [2.5, 5.5] (r3_7: atan((110.52 − 103.08)/106.84)).",
+    "now": "5.6 [4.1, 7.1].",
+    "provenance": "DERIVED: atan((113.5 − 103.08)/106.84) = 5.57° on the flush-apron hem; the old read 4.7 would sit inside the new band."
+   },
+   {
+    "id": "N4",
+    "title": "the two-family bag at −100 (construction)",
+    "was": "BODY-1 outward floor 37.30 (PHOTO ring cord radius + belly p10).",
+    "now": "REVERTED to the SNK-12 Magnum read [40.98, 44.50] / [34.90, 38.42].",
+    "provenance": "R5: the −100 datum (rRow1 51.4 / rRing 47.0 / flap foot +3.0, d = 103) did not move; the bag's construction below the hem did. With the montage gather law retired (taut cords from the hem row to the rigid slide ring) the row reads outward 41.2 (inside) / table 38.5 (0.08 over) — RED by class, disclosed, not moved."
+   },
+   {
+    "id": "C1",
+    "title": "corner fall cloth arris radius (construction)",
+    "was": "R 92.9 ±1.0 = 88.9 + lip 4.",
+    "now": "R 95.3 ±1.0 = 88.9 + roll 6.4.",
+    "provenance": "DERIVED from the kernel CEBP disc (R3-SNK-9) + the MODEL(Magnum) arris round; the old read 92.9 fails the new band."
+   },
+   {
+    "id": "DRAWER-DEPTH",
+    "title": "the studio drawer's along-table depth",
+    "was": "380 (the Star tray's cross-table width on the depth axis).",
+    "now": "349.6.",
+    "provenance": "MODEL(Star) tray Plane.010: 349.6 along x (−1678.4…−1328.8), 380.0 across (y ±190.0); BODY-1 verifier B1-a, ORDER-CRAFT-R3-BODY2 C-2. The drawer is a STUDIO feature (R1)."
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_13_body",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_12_jaw (repo head below); this head lives IN THE REPO because the lane may not write the Drive twin; applied as the logical head OVER the Drive twin exactly like r3_2 … r3_12.",
+  "parent": "proposal_ext_r3_12_jaw",
+  "date": "2026-09-05",
+  "lane": "craft R3-SNK-BODY-1 (ORDER-CRAFT-R3-SNK-BODY1.md + ADDENDUM 2/3; the SNK-12 verification conditions C-2/C-3/C-5 and the review round-3 fold-ins B/C/D/E ride the same seal)",
+  "note": "BODY ROUND (card 18b = the owner's B3): the apron / cabinet ARCHITECTURE stays; every depth the body carried from the unattributed side elevation is RE-MEASURED from attributable XW101 frames (official side elevation at 0.275 px/mm on the MFR 850 ruler; press 4K; masters-table-closeup, euromasters-2023-1, germanmasters-2025-10 and wsc-final-table-2021 by plank-rectangle pose, in190 arm), two independent agents (measure-body / verify-body, Drive body1 pack), WST arena tables as the reference where the studio S101 disagrees (recorded). Nothing AS-MODELED survives in the body rows: rail band bottom 143 -> 129, cabinet bottom 260 -> 338 (molding 285-338), cabinet inset 123 -> 195, pilaster 240 -> 155 span with its top AT the step (E9 flips sign), legs 288/102 -> 270/265 from the plank end / inside the plank plane with the head block to 428 and the turned leg 382 tall, overall height WPBSA 864 -> MFR 850, the flush band's gold strip 40-103, the corner hem 148 -> 132. The XW101 ball-return SLIDES (six independent four-wire chutes, PHOTO), the eight cue-rest hooks and the end drawer are built as furniture; the corner-net coverage law E51c (r3_12 row) becomes a battery letter with two red arms.",
+  "rows": [
+   {
+    "id": "BODY-STEP",
+    "title": "the flush rail band's bottom (the recess step)",
+    "was": "143 mm under the rail top (railBandBot, 489 ENV ROUND: 'y ≈ −0.096 ± 0.007 on the official side elevation' read on the retired 47 plane = 143 under the MODEL rail top).",
+    "now": "129 mm under the rail top, band ±8.",
+    "provenance": "PHOTO: official side elevation 133 (row 287 vs arris 250.5 at 0.2753 px/mm, 850 ruler), press-pgcsnooker 4K 135 (lit-band bottom row 915.5, 0.828 px/mm), masters-table-closeup 127 (y 2178, plank-plane ray, pose f 3297-3320 rms ≤1.2 px), euromasters-2023-1 121 (y 1417.5, pose f 2725 = EXIF, six spots reproject within a few px) — spread 121-137, centre 129; measure-body REPORT.md §2 item 1 + verify-body VERDICT.md §1/§2.1."
+   },
+   {
+    "id": "BODY-MOLDING",
+    "title": "the gold bottom molding and the cabinet bottom",
+    "was": "apron bottom 260 under the rail top with a 42 mm molding rising above it (apronBot / moldH, AS-MODELED from the unattributed elevation).",
+    "now": "molding top 285 ±12, molding (= cabinet) bottom 338 ±15, height 53 ±8; apronBot = rail top − 338, moldH 0.053.",
+    "provenance": "PHOTO: SE 280/327 (+11 recess parallax → 285/333 at the render's ~6.5-7 m camera), press 285/342 (its livery adds a 58 mm plain band below), MTC 296/352 @in190, GM2025-10 280/337 @in190, WSC 278/327 @in190, EM1 274/351 @in190 — the studio and the four broadcast frames agree only at inset ~190 (an independent confirmation of BODY-CABINET-INSET); ours 260 was 25 mm shallower than every frame."
+   },
+   {
+    "id": "BODY-CABINET-INSET",
+    "title": "the recessed cabinet / pilaster face inside the plank plane",
+    "was": "123 mm (cabinetInset: 112.5 measured on the studio side elevation + the 10 mm proud plinth; twin row A8).",
+    "now": "195 mm ±15 on both axes (WST tables); the studio S101 reads ~100 ±30 — a real family difference, the WST class chosen (the order's frame precedence, dossier INDEX §2.4 '以 2021 Crucible + 2025 German Masters 帧为现款基准'); pilaster relief over the wine panel 35 mm = MODEL class (Magnum 26-45, Star ≤24), OPEN.",
+    "provenance": "PHOTO: euromasters-2023-1 end-face pilaster outer edges 197 (L) / 192 (R) inside the two long plank planes through the validated pose (the L/R symmetry selects an end inset ~180-190 as well); masters-table-closeup leg-axis inset 225-260 minus half a block; measure-body item 5, verify-body §1 (AGREE 200 ±15 / end 180 ±30)."
+   },
+   {
+    "id": "BODY-PILASTER",
+    "title": "the corner / mid pilaster (leg-head block): span, top, bottom",
+    "was": "postSpan 0.24 (an authored plan span), block 150 square (HEADHALF 0.075), top = hem − 21 (E9 floor), bottom 292 under the rail top.",
+    "now": "span 155 ±10 along the rail (headHalf 0.0775); the block is centred on the leg column so the apron runs stop at legInEnd + headHalf = 344.5 (postSpan, DERIVED); TOP = the recess step 129 (3 ±15 mm ABOVE the hem); BOTTOM 428 ±15 (WST: the block runs through the molding to its collar; the studio S101 387 recorded).",
+    "provenance": "PHOTO: EM1 pilasters 144-159 wide, SE 155, MTC 160 (clean row 2200; the 174 read was wire-contaminated — verify-body §2.3); the gold frame begins at the step row on SE and press (broadcast frames only bound it above 172-181 under, §2.2); block bottom MTC y 2337 → 417-437 @in190/245 vs SE 387; measure-body items 4a/4b/6."
+   },
+   {
+    "id": "BODY-LEGS",
+    "title": "the eight turned legs: stance and height",
+    "was": "corner-leg axis 285 from the apron end face (0.230 → 0.285 W15 for FV489-NETCLEAR) and 104 inside the side apron face ('the near-flush read of the product photos'); turned leg 612 mm tall under a 252 mm head; floor 864 − 40.18 under the bed (WPBSA).",
+    "now": "axis 270 ±35 from the plank END and 265 ±30 inside the long plank plane (legInEnd 0.267 / legInSide 0.262 after the 3 mm apron inset); the turned leg emerges under the 428 head block: H = 850 − 40.18 − 428 = 382 mm; floor = MFR 850 − the MODEL rail top.",
+    "provenance": "PHOTO: euromasters-2023-1 leg pads 251-275 from the end and 258/276 inside the long plane (pose validated on all six spots), masters-table-closeup near legs 274 (f 3297); Star model legs 271/272 (MODEL class agrees); MFR 850 (01-official/xpshop-2026061002300979.png); measure-body §2 last rows, verify-body §1."
+   },
+   {
+    "id": "BODY-HEIGHT",
+    "title": "overall height floor → rail top",
+    "was": "864 mm (WPBSA Sec1 R1(b) 864 ±13 taken as the pin; #499).",
+    "now": "850 mm — the maker's own spec (MFR); the WPBSA 851-876 band is recorded (850 sits 1 mm under its floor: the maker's rounded number).",
+    "provenance": "MFR: 01-official/xpshop-2026061002300979.png (外径尺寸 3850 × 2060 × 850); used as the vertical ruler of every studio read this round (SE aspect check 1.1 %, press 2.0 %)."
+   },
+   {
+    "id": "BODY-BAND-STRIP",
+    "title": "the gold strip on the flush rail band",
+    "was": "a 32 mm gold top band at 5-37 under the rail top ('the dominant WST-trim read, Crucible photo ~32 mm').",
+    "now": "40 ±8 to 103 ±8 under the rail top (63 high), under the junction bead.",
+    "provenance": "PHOTO: six frames (SE 45/105, press 50/110, MTC 42/106, EM1 34/93, GM10 39/101, WSC 45/105; refuter 38-49 / 92-110)."
+   },
+   {
+    "id": "E5",
+    "title": "hem base re-pinned",
+    "was": "−107.8 mm y (E1 40.18 − hemDrop 148; band [−118.8, −105.8]).",
+    "now": "−91.8 mm y (E1 40.18 − 132), band [−106.8, −76.8] (±15).",
+    "provenance": "PHOTO: corner leather hem 132 ±15 under the rail top — SE 138 (row 288.5), press 143/126, MTC 129, EM1 ~117 (verify-body: AGREE-marginal 132 ±15); the MFR OEM-elevation 148 was the boot-tip anchored read of the same picture."
+   },
+   {
+    "id": "E6",
+    "title": "boot extent = E2 − E5 re-pinned",
+    "was": "148.0 [146.0, 159.0].",
+    "now": "132.0 [117.0, 147.0].",
+    "provenance": "DERIVED from E5 (the hem drop itself)."
+   },
+   {
+    "id": "E9",
+    "title": "gold leg-head top vs the hem — the sign flips",
+    "was": "36 mm BELOW the hem, band [21, 42] (E5 − E9 = −141.5 on the 47 plane).",
+    "now": "3 mm ABOVE the hem (E9 = E5 − headTop = −3), band [−18, +12]: the pilaster top is the recess step (129) and the hem 132.",
+    "provenance": "PHOTO: SE +5/+18 above the hem (L/R), press +6/−9, MTC +2 (measure-body item 4a; verify-body 'level within ±15')."
+   },
+   {
+    "id": "E51c",
+    "title": "the corner-net coverage law becomes a battery letter (SNK-12 verification C-5)",
+    "was": "'NOT YET A BATTERY LETTER: P1/P2 are measurable from rendered bytes, P3/P4/P5 need the lattice graph decode.'",
+    "now": "E51c judged: P1 max clear opening ≤ 10.9 mm and P2 < 52.5 over the written SCOPE, read on the rt corner net about the NET's own axis (Kåsa circle through the top course), on a FIXED ANGULAR grid unrolled per row (cells 0.5 mm at the row's radius; a per-row arc-length grid sheared the taper and under-read the arm's own window), exact EDT (Felzenszwalb, INF-safe); the outermost flap-hung column = the outermost hitch head (83.44° on these bytes). Reads 8.81 mm on a7e5e437's bytes at az 83.4° / y +1 (the panel-edge column). RED ARMS: --arm e51c-knot (one interior cell's coverage erased, 12 × 12 mm) reads 12.53 → RED; --arm e51c-course (one course, 10 mm band) reads 12.00 → RED.",
+    "provenance": "The r3_12 row's own thresholds (DERIVED 10.9 = MODEL Magnum 10.39 × 1.05; MFR 52.5); the operator differs from the row's (cord-centre 0.4 mm grid) and reads ~0.5 mm tighter on the same net (8.81 vs 9.28) — disclosed."
+   },
+   {
+    "id": "E18",
+    "title": "net bottom = the XW101 slide ring",
+    "was": "−262 ±18 mm y (r3_4: the OEM montage's gathered knit tail, MFR-class, ≥ 160 under the hem).",
+    "now": "−121.8 mm y, band ±15 (ring centre 162 ±15 under the rail top).",
+    "provenance": "PHOTO: official side elevation (xpshop-…0979, 3.68 mm/px on the plank-cap anchor): ring centre 151/171/162 under the rail top at the three visible pockets; ring OD 88 ±12 (24 px bracket). MEDIUM. The bag funnels into the ring for corners and middles alike (the W6 middle −172 class retires)."
+   },
+   {
+    "id": "E20",
+    "title": "the pocket SLIDE (was: wire track + strap plate)",
+    "was": "decorative track tubes below −0.20 with reach > 300 + the triangle strap backplate (F7 S-run rods).",
+    "now": "four black wires (two levels × two) leaving the ring, along the long rail to a strap-hung brass clamp with an up-turned stop; reach = the PHOTO run by the side law (rt = the +z side's SHORT chute 276 ±20; the letter band [250, 330] carries the ring lead); every wire under the rail band (y < −0.10); the clamp backplate keeps the triangle law.",
+    "provenance": "PHOTO: SE runs 276 ±20 / 453 ±25 / middle 280 ±20 (refuter, plank-cap anchor); low point 340 ±15; side law from two studio tables + MTC (C2 symmetric, middle points at the short chute). OPEN carried with bands: wire OD 6–9 (7.5), lower-pair gauge ~28 (±30 %). DERIVED: level gap 15 (19/110 × 85, E10); stop rise = level gap."
+   },
+   {
+    "id": "SLIDE-STRAP",
+    "title": "the strap hangs the clamp from the recess step",
+    "was": "strap top at the W12 −0.0825 hem class, height 105.",
+    "now": "strap top = the recess step (railBandBot, PHOTO 129 under the rail top), bottom 12 under the clamp low point (−0.340 − 0.012); width 32, thickness 3.5 (montage class, unchanged).",
+    "provenance": "PHOTO: strap top 126 ±12 under the rail top (SE, two straps); the clamp low point 340 ±15. DERIVED: the strap length follows from the two."
+   },
+   {
+    "id": "HOOKS",
+    "title": "the eight gold hooks are CUE-REST hooks on the cabinet faces",
+    "was": "not built (ORDER read them as ball-return furniture).",
+    "now": "eight brass J-hooks (rod r 4, eye Ø 14, loop r 20, length 180): long sides at x ±863 (two per side), ends at z −859 / +455 on the −X end and C2 on the +X end; eyes 256 under the rail top; 12 proud of the recessed cabinet face.",
+    "provenance": "PHOTO: SE eyes 251–262 under the rail top, stations 1076 / 2802 from the cap end (±863 about the centre); GM2025-10 end stations 171 ±40 / 1485 ±60 from the left cap end; length OPEN (SE render 167–193; GM10 shorter; MTC ~200 rods) — the official render's 180 carried. Function: the frames show rests hung from them (E11–E13)."
+   },
+   {
+    "id": "DRAWER",
+    "title": "the match drawer is a separate ball box under the END apron",
+    "was": "not built.",
+    "now": "+X (foot) end, centred: carcass 267 inside (+2×12 walls) × 380 deep × 70 high hung under the molding bottom (apronBot); gold face plate 390 × 68 × 6 with its top 16 under the molding bottom; brass pull centred.",
+    "provenance": "PHOTO: xp-505411 plate 390 ±40 × 68 ±10 (1.95 ±0.15 mm/px; variant A 297 × 67 recorded), plate top 16 ±8 under the molding bottom, centred ±10; NP carcass inner 241–290 → 267 (DERIVED: five balls a row). MODEL: depth 380 = the Star tray Plane.010 (no frame resolves it). MFR: Q235 黑色. MEDIUM on the end (the black-spot end in the studio frontal)."
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_12_jaw",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_11_marks (repo head below); this head lives IN THE REPO because the craft lane may not write Drive — the orchestrator copies it onto the Drive twin at the r-bump. Internal working document under the 1:1 rebuild protocol and LAW-PURCHASED-BASELINE.md (owner, 2026-09-02).",
+  "parent": "proposal_ext_r3_11_marks",
+  "date": "2026-09-04",
+  "lane": "craft R3-SNK-11 (ORDER-CRAFT-R3-SNK11.md + ADDENDUM: the owner's three marks on the middle pocket — plate corner, cushion section, net; the Star study renders; SNK-10 conditions C1–C3)",
+  "note": "JAW ROUND (ORDER-CRAFT-R3-SNK12.md, the owner's mark 2 re-read: the circles are AT the cushion ends, not at x = 600). Three things land here. (1) THE JAW-APPROACH SECTION is now a law with its own gate, tools/render/check-jaw-sections-489.mjs: our cushion section is compared to the purchased Magnum II's at eight stations - middle x 600 / 120 / 80 / 50 and corner x 1600 / 1700 / 1740 / 1760 - each cut PERPENDICULAR to the local plan tangent and expressed nose-relative, worse-of-two-directions p90 <= 1.0 / max <= 2.0 mm. The kernel plan arcs (tangency 110.34, R1 79.375) and the kernel nose height stay FROZEN, so where our plan and the Magnum's disagree the gate REPORTS the conflict (nose recess up to 5.202 mm at middle x50, plan obliquity up to 8.21 deg at corner x1760) instead of building over it. (2) E51c, the corner-net coverage law, is written before any corner letter is claimed - and no corner letter is claimed this round. (3) The middle E51 patch thresholds are re-derived from the lattice's own MODEL dimensions; the retired 13 mm width test sat BELOW the MODEL plan diagonal 13.433 mm and could fire on correct construction, which is what produced the three reported corner 'openings' that do not exist. Two corrections to the r3_11 frame ride along: the E30 red arm's real read, and E50 made two-directional.",
+  "rows": [
+   {
+    "id": "JAW-SECTION",
+    "title": "the jaw-approach section follows the Magnum at the stations the owner circled",
+    "was": "Nothing. The R3-SNK-11 section law (E50) was one station, x = 600, on the straight run. Past the kernel tangency the build had no front chain at all: the sealed 48fa8826 middle chain ends at x 110.34 and the corner chain at x 1689.27, and a vertical wall stood where the Magnum has an undercut section.",
+    "now": "MODEL(Magnum) sections at eight stations, gated by check-jaw-sections-489.mjs against the pinned fixture fixtures/magnum-jaw-sections-489.json (sha256 158d81d6..., 8 nose-relative (d, h) polylines, RDP eps 0.1 mm). Band: worse-of-two-directions p90 <= 1.0 mm / max <= 2.0 mm over h [0.5, 34], d [-0.5, 58]; a station must lie ON the front chain (snap <= 0.5 mm = 2 x the 0.25 mm chain resample pitch) or it FAILS - a station that has snapped to its neighbour is not a measurement of the station asked for.",
+    "provenance": "MODEL(Magnum II): exact perpendicular plane cuts of the restored OBJ rail component 420 at middle x 600 / 120 / 80 / 50 and corner x 1600 / 1700 / 1740 / 1760, tangent by TLS over +-4 mm of the 0.25 mm plan chain (per-station tangent_fit_rms_mm and n carried in the fixture). Station frame: our |x_scene| = x_magnum + 4.93 at the corner (corner datum L/2 = 1784.5 against the Magnum NOSE_X = 1779.57), 1:1 at the middle. The CENTRAL model law, from the A1 read: the Magnum's jaw section IS the straight-run S1 section with its DEPTHS scaled by one per-station factor k and its HEIGHTS unchanged (residual rms 0.022-0.039 mm over n = 27 perpendicular stations), and k is indexed by plan obliquity phi, which is what lets it transfer onto the FROZEN kernel arcs. FROZEN-PLAN CONFLICT, measured and reported rather than built over - nose recess (ours - Magnum) middle x600 -0.000 / x120 -0.008 / x80 +1.468 / x50 +5.202, corner x1600 -0.000 / x1700 -0.944 / x1740 -2.387 / x1760 -0.712; phi deviation middle x80 +3.83 / x50 +3.68, corner x1700 -1.73 / x1740 -2.06 / x1760 +8.21. RED ARMS, all EXECUTED: --web <git archive of 48fa8826> fires 5 of 8 including middle x80 and x50 (the vertical wall the order requires to fire) and corner x1700 / x1740 / x1760; --arm straight-section 4; --arm xplane 4; --arm empty 1 (never PASS-on-nothing). A fifth arm, --arm datum-slip (corner stations mapped with the middle rule, i.e. the 4.93 mm datum dropped), does NOT leave the band - corner x1700 rises only 0.159 -> 0.522 - and that is recorded as a SENSITIVITY LIMIT of this gate, not hidden: the section is insensitive to a 4.93 mm station slide on this jaw, and what the slide moves is the reported nose recess and phi. The retired --arm absolute was INERT (the cut origin is the front-chain nose point, so the nose subtraction is 0.000 mm and skipping it reproduced the baseline byte for byte); it is recorded, not quietly deleted."
+   },
+   {
+    "id": "E51c",
+    "title": "corner-net coverage - the law, written BEFORE any corner letter",
+    "was": "Nothing for the corner. E51 gates the top MIDDLE pocket only. The corner census that reported three 15.6 x 10 mm openings was E51's dilated-bbox raster taken about the KERNEL cup centre, 27.7 mm off the net axis, with an AUTHORED 13 mm width threshold below the lattice's own MODEL plan diagonal 13.433 mm.",
+    "now": "E51c, five predicates on a written SCOPE. SCOPE S = { outward panel: |az| <= the outermost FLAP-HUNG column's azimuth (INSTRUMENT on the built column, 81.53 deg on 48fa8826, NOT the nominal phiHead - so it cannot drift when the plate window changes), y in [yRow1, yTopTable] } U { bag: y in [yTopTable - 1.1, yHem], all azimuths }. P1 (PRIMARY, graph-free) max clear opening <= 10.9 mm. P2 (never-cross) max clear opening < 52.5 mm. P3 max body-face inscribed diameter <= 12.7 mm. P4 max body-face area <= 169 mm2. P5 every body face is a quad and the only cylinder-wrapping faces are the two rims. NOT YET A BATTERY LETTER: P1/P2 are measurable from rendered bytes, P3/P4/P5 need the lattice graph decode. No corner letter is claimed this round; this row is the law the order required to exist first.",
+    "provenance": "D_max = 10.39 x 1.05 = 10.91 -> 10.9 mm [DERIVED]. 10.39 = the Magnum corner net's OWN largest clear opening on its leather panel [MODEL(Magnum), loops.npy cord-section centres per 1 mm level, cord radius 1.08 mm from MODEL(Magnum n1_cord) diameter 2.16, 0.4 mm grid, n = 77165 cells, at az 5.8 / z -33.6]; 1.05 = the Magnum's own cell dispersion p90/median = 1.0404 [MODEL(Magnum) knot-to-knot cell side median 11.897, p10 11.365, p90 12.378, n = 630] rounded up to the nearest 0.05. P2 52.5 mm = the snooker ball diameter [MFR / WPBSA]; implied by P1 with a 4.8x margin, written anyway. P3 12.7 = 12.14 x 1.05 [DERIVED; 12.14 = MODEL(Magnum) leather-side QUAD max inscribed diameter, n = 59]. P4 169 = 153.0 x 1.05^2 = 168.7 [DERIVED; 153.0 = MODEL(Magnum) quad max area, n = 59; area scales as the square of a linear tolerance]. P4 is NOT redundant with P3: a missing rung merges two cells vertically, doubling the area while leaving the inscribed circle unchanged. MAX and not p90 because a coverage law is a statement about the worst hole. Two Magnum faces (k=6 area 327.2 insc 15.41; k=7 area 456.0 insc 19.69) are EXCLUDED from the reference statistic as missed-knot merges in our read of the purchased model - a defect of the read, not of the net; the exclusion is conservative toward a FALSE RED on our net, never a false green. Operator validation: the measured median quad inscribed diameter 11.00 mm against the ideal rhombus incircle from the Magnum's own diagonals (plan 13.433, hang 19.266) = 11.02 mm, 0.2%. SEPARATION, all four cases through identical operators: (i) Magnum reference P1 10.39 / P3 12.14 / P4 153.0 PASS; (ii) our sealed 48fa8826 corner net P1 9.28 at az 72.9 / y -36.8 (n = 41184) / P3 11.91 / P4 157.7, 117/117 quads, wrapping faces = the two rims only, PASS with 15% headroom and 1.11 mm TIGHTER than the Magnum; (iii) one interior knot's four edges deleted P1 17.10 = 1.57x / P3 19.14 / P4 479.9, a k=8 face, FAIL x3; (iv) one whole course removed P1 21.92 = 2.01x / a new wrapping face k=42 insc 77.22 area 4995.0, FAIL x4. The law is insensitive to the tolerance over t in [1.00, 1.60]. NOTHING IS CLOSED BY CONSTRUCTION because there is nothing to close: the three reported 15.6 x 10 mm openings measure 8.82 / 8.95 / 8.82 mm of clear opening in the net's own frame - no opening exists, and the earlier read is RETRACTED (its cause was a measurement frame 27.7 mm off axis plus a threshold below the MODEL quantum). The one construction change that would bridge the panel-edge STEP - dropping the R3-SNK-11 B3 hasHead guard on a head's outward legs - would run a single straight 68.9 mm cord, 5.8 MODEL cell sides, where M2 reads a step and the purchased model has no cord at all; it is refused. Raising headDeg past the MODEL 87 deg step azimuth, raising the table-side top edge off the MODEL(M2) -2.7 mm slab offset, and densifying NC past the MODEL plan diagonal are refused for the same reason: each authors a number over a measured one."
+   },
+   {
+    "id": "E51",
+    "title": "middle-net patch thresholds re-derived from the lattice's own MODEL dimensions",
+    "was": "a patch counts when bbox width > 13 mm, or width > 8 mm and height > 20 mm (AUTHORED).",
+    "now": "a patch counts when bbox width > 13.98 mm, or width > 9.74 mm and height > 20.04 mm - all three MODEL-derived. The band, the scope and the half-width / table-edge clauses are unchanged.",
+    "provenance": "WIDE 13.98 = the MODEL(Magnum n3_mesh) plan diagonal 13.433 x the MODEL(Magnum) cell dispersion p90/median 1.0404 (n = 630) - one whole column missing. TALL 20.04 = the MODEL(Magnum) hang diagonal 19.266 x 1.0404, with a width floor of one cell's CLEAR width 9.74 = the MODEL cell side 11.90 less two MODEL cord radii 1.08 - one rung column missing. The retired 13 mm sat BELOW the MODEL plan diagonal 13.433, so a single CORRECT cell could be counted as a hole; the 8 mm and 20 mm clauses matched no source at all. DIRECTION OF THE CHANGE, STATED: all three thresholds move OUTWARD, so this row is strictly MORE PERMISSIVE than the sealed one. That is the correction - the sealed thresholds could fire on correct construction, and did, at the corner. Discrimination of a real hole lives in E51c P1 (clear opening) and P4 (face area), not in a bbox width."
+   },
+   {
+    "id": "E50",
+    "title": "two-directional, per the SNK-11 verification C-4",
+    "was": "one-directional: for every MODEL reference point, the distance to the nearest sample of ours. That is a COVERAGE test - material of OURS with no Magnum counterpart costs nothing.",
+    "now": "worse of the two directions. Both are computed inside the same measurement window (h > 0.5, -0.5 <= d <= 58); the JUDGED set is clipped to the window, never the TARGET set, so clipping cannot manufacture a near neighbour. NaN fails closed. The band [1.0, 2.0] is UNCHANGED - this is a completeness fix to the metric, not a re-tune. The letter now prints both directions, names the worse one, and discloses that our cut is taken at x 1434.5 mm against the Magnum's x 600. BOTH sides are now the same KIND of object, the VISIBLE OUTLINE. The Magnum fixture is one by construction: an OPEN 18-point trace of the bed, the undercut, the roll and the plateau out to the rail's outer top edge, which never turns back down. Our plane cut is CLOSED - it returns the cushion back and the cloth under the rail as well - so it is reduced to its own visible outline by two 0.25 mm silhouette ladders over the exact triangle-plane cut (FRONT = the smallest in-window d present at each height, TOP = the greatest h present at each depth); a sample is judged when it lies within VIS_EPS = 0.35 mm of one of them. The reduction is applied to our side in BOTH directions, target included: letting hidden material answer for a missing outline is the loose choice and this is the strict one. No point is invented - the judged set is a subset of our own cut samples.",
+    "provenance": "The one-way read answered 'is every part of the Magnum's section present in ours', not 'is our section the Magnum's section'. Symmetrising it is the standard completeness fix for a nearest-neighbour surface metric and introduces no new number. Tolerance basis unchanged: model facet noise 0.5 mm rms -> 2 sigma = 1.0 on p90; max 2.0 = the cap-seam / one-cloth-ply class. THE INSTRUMENT FINDING that building this direction produced, disclosed rather than clipped away: run raw, our closed section against the Magnum's open outline reads ours->ref p90 33.99 / max 36.40 mm, worst at d 50.7 h 3.3 - the cloth UNDER the rail, 50 mm outboard of the nose, invisible from the playing side and from above, and never described by the reference. That is an instrument mismatch, not a build defect; the unreduced read is printed beside the gate as a RECORD (E50cloud) together with the count of samples the reduction drops (412 of 924 in-window on the head tree). VIS_EPS 0.35: a surface at angle theta to the horizontal is missed by the top ladder by at most (VG/2)*tan(theta) and by the front ladder by at most (VG/2)*cot(theta); the smaller of the two is <= VG/2 = 0.125 mm for every theta, so 0.35 carries a 2.8x margin on the grid. RED ARM: on the e7ffa1c9 bytes the reduced read fires in BOTH directions - ref->ours p90 2.92 / max 5.12, ours->ref p90 1.64 / max 4.09 against a band of 1.0 / 2.0 - so the new direction is not inert and the reduction does not make a wrong section pass."
+   },
+   {
+    "id": "E30",
+    "title": "red-arm read corrected (R3-SNK-11 C-3)",
+    "was": "'the e7ffa1c9 L-profile (band 27.2-36.75) reads lo 27.2 vs 29.45 (delta 2.2) and fires'.",
+    "now": "the arm, EXECUTED, reads 35.27 ... 38.47: lo 35.27 against the MODEL 29.45 is delta +5.82, past the +-1.5 end tolerance, so it fires on the LOW end.",
+    "provenance": "27.2 was the retired snooker_l knot's DESIGN value, not a read of that tree. The arm fired either way and the letter's law is unchanged; the stated number was wrong in three places (the report's E30 row, the report's arm-summary row, and this fixture's provenance string) and all three are corrected. The verifier's independent before-cut reproduces it at 35.25."
+   },
+   {
+    "id": "E31",
+    "title": "the visible cloth|wood boundary is the capping's BEVELED TOP EDGE, not the plank's buried plan wall",
+    "was": "50.67 mm behind the nose, band [49.7, 51.7] - the MODEL Magnum cap inner lip 51.17 less a 0.5 mm wood-over-cloth lap, READ as the innermost railwood sample above h 20 mm in a 1.2 mm point cloud.",
+    "now": "51.17 mm behind the nose, band [50.17, 52.17] - the MODEL Magnum cap inner lip itself, READ as the innermost railwood on the capping TOP PLANE (the exact E50 plane cut, samples within 0.05 mm of the wood's own maximum height at the station; the top face is planar, so the read is exact and not a quantile).",
+    "provenance": "The retired read and the retired value were both wrong, in opposite directions, and cancelled. The plank is a THREE.ExtrudeGeometry carrying railWoodOpts' 4.0 x 3.5 mm bevel with bevelOffset = -bevelSize, which insets the TOP FACE by bevelSize: the plan outline is the plank's MID-HEIGHT wall and stands 3.5 mm inboard of anything visible. The snooker plan never compensated it (cn8's wood plan does - BV in cn8LeftRailPlanHalves, the same 3.5 mm for the same reason), so the boundary stood at KIN + 3.5 = 54.17 while the letter that names it read the buried wall at 50.67 and passed. It survived review because the cushion loft's back line carried an authored 'topEnd + 3 mm' (retired this round under H6) that covered the bevel to d 53.11 - the +3 was a bevel compensation applied to the wrong body. Removing it exposed a 4.0 x 3.5 mm relief behind every cushion (E50 worst 0.77 -> 3.59 mm, 13 samples over 1 mm, every one on the bevel's own two facets). The plan now rides bevelSize inboard so the beveled top edge lands ON capInnerLip; MEASURED after the change: plan wall 47.67, top face 51.17, E50 worst back to 0.77. The 0.5 mm lap retires with it - MODEL(Magnum) reads the cap's inner lip 0.549 mm BEHIND the body's flat top end (sd 0.028, n = 15), an OPEN seam and not a lap; against the body's own topEnd back line the build reproduces it at 0.48 mm (delta 0.07), closing the residual this round had disclosed. Corroboration from a datum the Magnum read never touched: the plan wall 47.67 is the kernel SLATE EDGE (CW 47.625) to 0.045 mm - the capping seats on the frame just outboard of the slate. E31 is now also the drift detector for the bevel coupling: change railWoodOpts.bevelSize and it fires."
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_11_marks",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_10_slot (repo head below); this head lives IN THE REPO because the craft lane may not write Drive — the orchestrator copies it onto the Drive twin at the r-bump. Internal working document under the 1:1 rebuild protocol and LAW-PURCHASED-BASELINE.md (owner, 2026-09-02).",
+  "parent": "proposal_ext_r3_10_slot",
+  "date": "2026-09-04",
+  "lane": "craft R3-SNK-11 (ORDER-CRAFT-R3-SNK11.md + ADDENDUM: the owner's three marks on the middle pocket — plate corner, cushion section, net; the Star study renders; SNK-10 conditions C1–C3)",
+  "note": "OWNER-MARKS ROUND (ORDER-CRAFT-R3-SNK11.md + ADDENDUM; the owner's 2026-09-03 23:08 screenshot of our middle pocket, three red marks): B2 the CUSHION SECTION (mark 2, 'critical') follows the purchased Magnum II rail-body section read by exact plane cuts at x = 600 (S1; identical to <= 0.01 mm at x = -600 / +Y, <= 0.15 on the short rail and at the pocket approaches): foot 14.44 behind the nose, one straight undercut 26.5 deg from vertical (TLS rms 0.03), a VERTICAL nose band h 29.4-39.5, roll R 1.64 onto the top plateau = the rail top, the body's flat top to 50.69 and the cap's inner lip at 51.17. The KERNEL nose height 0.70 x 52.5 = 36.75 and the nose line are physics datums and did not move (the apex row is a point on the vertical band); the retired snooker_l knots (foot 9.0, wood sub-face 6.5 @ 12, undercut 2.8 @ 24, band edge 2.0 @ 27.2; the E31 photo station 28) are on record in report §R3c.21. B3 the NET (mark 3): the outward panel spans the model's ABSOLUTE step azimuth (M2: 47 deg middle / 87 corner, clipped to the plate window) instead of a fraction of a window that R3-SNK-10 had narrowed to 28 deg; the table side hangs from 2.7 under the slab bottom (M2 -41.0 vs -38.3), not from the -75 ring plane. B1 the PLATE CORNER ROUNDS (mark 1) follow the Magnum plate read (rows appended when landed). C2: the bay span 83.84 = the slot (relief 0, MODEL: Magnum skirt / Star cap share the rail's end plane).",
+  "rows": [
+   {
+    "id": "E31",
+    "title": "capping inner edge — the visible cloth|wood boundary behind the nose line",
+    "was": {
+     "v": 28.0,
+     "band": [
+      24.0,
+      32.0
+     ],
+     "law": "signed r1_2 (XW101 photo featherstrip station)"
+    },
+    "now": {
+     "v": 50.67,
+     "band": [
+      49.7,
+      51.7
+     ]
+    },
+    "provenance": "MODEL (Magnum II S1, /tmp/craftr3/snk11/magnum-rail/sections.json): the rail body's flat top ends 50.69 behind the nose, the moulded cap's inner lip stands at 51.17 (seam bottom 51.66, cap plateau from 51.68); built as the cap lip less the R3-SNK-7 0.5 mm wood-over-cloth lap = 50.67 (table.js KIN; SNK_CUSHION.capInnerLip). The Star model's cloth top runs 57.6 to its wood (INTAKE §5) — disclosed; the Magnum is the section reference by RULING R-S8-1. RED ARM: the e7ffa1c9 bytes read 28.0 and fire."
+   },
+   {
+    "id": "E50",
+    "title": "rail cross-section vs the Magnum S1 polyline (new row) — p90 / max deviation",
+    "was": {
+     "law": "no section row (the snooker_l family carried photo/testimony knots)"
+    },
+    "now": {
+     "v": [
+      1.0,
+      2.0
+     ],
+     "band": [
+      [
+       0,
+       1.0
+      ],
+      [
+       0,
+       2.0
+      ]
+     ]
+    },
+    "provenance": "MODEL (Magnum II): exact plane cuts of the restored OBJ (sha256 d113177b…) at x = 600 on the −Y long rail, union outline of the rail body + cap, RDP 0.1 mm from the nose to the cap (18 points, SPEC.E50.magnum_s1: d behind the nose / h above the bed). Our section at the E30/E31 station (x = L/2 − 0.35) on the cloth loft + capping plank; deviation = nearest sample distance per reference point resampled at 0.5 mm, h > 0.5, d ≤ 58. Tolerance basis: model facet noise 0.5 mm rms → 2σ = 1.0 on p90; max 2.0 = the cap-seam / one-cloth-ply class (our plateau rides 0.44 under the Magnum's; the kernel apex (0, 36.75) lies on the Magnum's vertical band 29.4–39.5). RED ARM: the e7ffa1c9 section (foot 9.0, undercut ≈ 15°, band 27.2) reads max ≈ 5 mm and fires."
+   },
+   {
+    "id": "E51",
+    "title": "knotted-net coverage at the top middle pocket (new row) — panel half-width / patches / table-side top edge",
+    "was": {
+     "v": [
+      28.1,
+      1,
+      -75.0
+     ],
+     "law": "headFrac × phiFlap (28.1° on the ± 41.92 slot) + the ring plane −75: a 299° hole from +3 to −56 (census /tmp/craftr3/snk11/net-census)"
+    },
+    "now": {
+     "v": [
+      41.2,
+      0,
+      -56.7
+     ],
+     "band": [
+      [
+       38.0,
+       45.0
+      ],
+      [
+       0,
+       0
+      ],
+      [
+       -62.0,
+       -50.0
+      ]
+     ]
+    },
+    "provenance": "MODEL (Magnum II M2, /tmp/craftr3/snk8-datum/m2): the outward panel hangs under the flap over |phi| ≤ 47° (middle) / 87° (corner) about the outward direction — ABSOLUTE azimuths; the table side hangs from z −41.0 under a slab whose bottom is −38.3 (2.7 under). Built: phiHead = min(47°, phiFlap − half a column) = 41.2° on this tree (phiFlap 44.66° from the ± 41.92 slot and the 59.29 flap, column pitch 6.92°); the table-side top edge = ySlab − 2.7 = −56.7. Bands: ± 3° (census cell 2° + half a column), 0 patches > one mesh cell (13 mm) inside the panel over y +3 … −56, top edge ± 5 mm. RED ARM: e7ffa1c9 reads 28° / one 299° patch / −75 and fires."
+   },
+   {
+    "id": "E30",
+    "title": "cushion nose — a vertical BAND containing the kernel plane (law change)",
+    "was": {
+     "v": 36.75,
+     "band": [
+      36.0,
+      37.5
+     ],
+     "law": "the L-profile apex (mean y of the innermost points)"
+    },
+    "now": {
+     "v": 36.75,
+     "band": [
+      29.45,
+      39.51
+     ]
+    },
+    "provenance": "MODEL (Magnum II S1): the nose is a vertical band — d within 0.02 of the minimum over h 30.9–38.3 and within 0.3 over 29.45–39.51 (exact plane cuts; the same on every station). The KERNEL nose height 0.70 × 52.5 = 36.75 and the nose line are frozen physics datums; the built band carries the kernel apex row (0, 36.75) as a point on it. The letter now reads the band's extent (exact plane cut at the E30 station) and requires it to contain 36.75 with its ends within ± 1.5 of the model's (ours is one cloth ply lower at the top). RED ARM: the e7ffa1c9 L-profile band, EXECUTED, reads 35.27 … 38.47 — lo 35.27 vs the MODEL 29.45 is Δ +5.82, past the ± 1.5 end tolerance, so it fires on the LOW end. (R3-SNK-12 correction: the R3-SNK-11 text said 'lo 27.2 vs 29.45 (Δ 2.2)'. 27.2 was the retired snooker_l knot's DESIGN value, not a read of that tree; the arm fired either way, but the stated number was wrong. The arm's own read is what is quoted here.)"
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_10_slot",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_9_rulings (repo head below); this head lives IN THE REPO because the craft lane may not write Drive — the orchestrator copies it onto the Drive twin at the r-bump. Internal working document under the 1:1 rebuild protocol and LAW-PURCHASED-BASELINE.md (owner, 2026-09-02).",
+  "parent": "proposal_ext_r3_9_rulings",
+  "date": "2026-09-03",
+  "lane": "craft R3-SNK-10 (ORDER-CRAFT-R3-SNK10.md + ADDENDUM: the Star slot planes, the kernel middle fall, two text items)",
+  "note": "SNK-10 RULINGS ROUND (ORDER-CRAFT-R3-SNK10.md + ADDENDUM, after the Star compare §R3c.19): (a) the middle SLOT is the purchased Star model's read — rail end planes at ± 41.92 from the pocket axis (exact cut planes; the Magnum's ± 38.94 agrees within 3 mm), 90° end faces, coplanar butt (gap class 0.25 kept); the R3-SNK-2 ± 54 photo pin (c5260535193 §1a 'Star 108 ± 8 gap', no calibrated scale) retires and everything that hung on it re-derives: the plate's D ends land on the new planes (phiEnd 44.7° from the apex, was 74.8°), the bay/valance relief, the cushion's jaw wall continued from the kernel tip (49.12, 31.19 behind the nose) straight along its tangent to the plane (43.4 behind the nose; the corner's arc law has no solution here — the flap crosses the plane in front of the tip), the plank end faces, the stitch rows (plane-clipped), the cue floors; the kernel jaw arcs (tangency 110.34, R1 79.375, R2 53.19) are untouched — the slot lies behind them. (b) the middle render FALL is the kernel's CEBP disc, MIDDLE_FALL_R 53.19 at MIDDLE_FALL_DEPTH 51.59 (table.rs L1136-1137), via the same G.pockets path the corner took in r3_9 — the Star model (R 53.19 ± 0.10 @ 51.59) and the Magnum M5 (53.02) agree; the render's 49.61 was the 3.906 in OPENING chord / 2 (VERIFY-SNK9 K3). The concentric plate follows by the flapOut law (flap 59.3; the Star collar foot reads 59.0). Text items: the '#625 0.1 inside / 0.5 proud' capsule wording is retired everywhere (the built dash is the M5 tube); §R3c.18.8's 'fall-masked pixels 0' is the screen-pass count.",
+  "rows": [
+   {
+    "id": "E48",
+    "title": "middle slot (new row) — rail end planes from the pocket axis / slot width",
+    "was": {
+     "v": [
+      54.0,
+      108.0
+     ],
+     "law": "R3-SNK-2 photo pin (Star 108 ± 8 gap)"
+    },
+    "now": {
+     "v": [
+      41.92,
+      83.84
+     ],
+     "band": [
+      [
+       41.4,
+       42.4
+      ],
+      [
+       82.8,
+       84.8
+      ]
+     ]
+    },
+    "provenance": "MODEL (Star): the purchased XingPai CGTrader model's middle rail end planes, exact cut planes ± 41.92 from the axis (star-compare, report §R3c.19.1; INTAKE §3a slot 83.84), 90° faces, coplanar butt; the Magnum II reads ± 38.94 (§R3c.19.1). Read on the long-rail planks' end faces at the top middle bay (railwood samples above the seat). RED ARM: the e18e0122 bytes read ± 54.0 / 108.0 and fire."
+   },
+   {
+    "id": "E49",
+    "title": "middle render fall (new row) — the kernel's CEBP disc R / centre depth",
+    "was": {
+     "v": [
+      49.61,
+      51.59
+     ],
+     "law": "the 3.906 in drop label / 2 about the template centre"
+    },
+    "now": {
+     "v": [
+      53.19,
+      51.59
+     ],
+     "band": [
+      [
+       52.7,
+       53.7
+      ],
+      [
+       51.1,
+       52.1
+      ]
+     ]
+    },
+    "provenance": "KERNEL (cebp::MIDDLE_FALL_R 2.094 in, MIDDLE_FALL_DEPTH 2.031 in; RULING SNK-10 (b), single-source law ADR-0015): the render fall is kernel geometry. Witnesses: the Star model R 53.19 ± 0.10 @ 51.59 with its edge 1.62 past the nose (INTAKE §3b; this lane's cut R 53.10 @ 51.52), the Magnum M5 core R 53.02. Circle fit on the top middle fall wall (y −30…−6). RED ARM: the e18e0122 bytes read R 49.6 and fire."
+   },
+   {
+    "id": "E46",
+    "title": "flap-face NET-SEAM row — band derivation restated (text item C3, no band change)",
+    "was": {
+     "v": [
+      16.81,
+      0.8
+     ],
+     "band": [
+      [
+       16.3,
+       17.3
+      ],
+      [
+       0.3,
+       1.3
+      ]
+     ]
+    },
+    "now": {
+     "v": [
+      16.81,
+      0.8
+     ],
+     "band": [
+      [
+       16.3,
+       17.3
+      ],
+      [
+       0.3,
+       1.3
+      ]
+     ]
+    },
+    "provenance": "MODEL M5 (unchanged bytes): the dash is ONE round tube Ø 1.670 whose bowed centreline ends at the skin −0.30 and stands 2.21 proud at mid-chord; the letter reads the dash CENTROID against the exact D3 face → 0.6–1.2 proud, band [0.3, 1.3] (the r3_9 provenance's closing '[0.3, 1.6]' was a typo for the built band). The '#625 0.1 inside / 0.5 proud' capsule wording that survived in the r3_9 text, the snkPlateStitches ROW 1 comment and report §R3c.18.7 is RETIRED (VERIFY-SNK9 NIT-2 / SNK-10 C3)."
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_9_rulings",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_8_form (repo head below); this head lives IN THE REPO because the craft lane may not write Drive — the orchestrator copies it onto the Drive twin at the r-bump. Internal working document under the 1:1 rebuild protocol and LAW-PURCHASED-BASELINE.md (owner, 2026-09-02).",
+  "parent": "proposal_ext_r3_8_form",
+  "date": "2026-09-03",
+  "lane": "craft R3-SNK-9 (ORDER-CRAFT-R3-SNK9.md: RULINGS R-S8-1 seam row + R-S8-2 kernel fall disc; R-S8-3 body → owner card 18b)",
+  "note": "RULINGS ROUND (ORDER-CRAFT-R3-SNK9.md): R-S8-1 the purchased Magnum II is the construction baseline and the XW101 photos are another maker's table (material family only) — the R3-SNK-3 'photo decides stitch placement' law is RETIRED; the Magnum's flap-face NET-SEAM row is built (MODEL M1/M5 on the restored OBJ sha256 d113177b…: dash centre z 16.80 = 23.37 under the top, r 2.2 proud read / built 0.5 proud + 0.1 seat by the #625 thread-lie law, 15 dashes over ± 91.7°, pitch 11.24; middle 8 over ± 43.75° at 10.7) and the outer row moves to the Magnum's 24.61 under the top (z 15.56, pitch 10.07). R-S8-2 the RENDER FALL follows the kernel's CEBP fall disc (R 88.9 about the slate-edge intersection 47.625 behind each nose line — the template, the manufacturer-cited standard; law §2); the former Ø 84.15 hole about the plate centre was the Amendment-026 misread of the 3.313 in MOUTH CHORD as a hole diameter; the Magnum's own slate cut (R 77.06 about 44.7 / 40.8 out) is a disclosed MODEL deviation of ~10 mm (template wins). The plate datum (27.92 out, MODEL) is untouched: plate and fall are two datums. R-S8-3 (the table BODY: Star frame 141 / hem 148 vs the Magnum 79.5 / 107) is the OWNER's card 18b — no frame/hem byte changes in this head.",
+  "rows": [
+   {
+    "id": "E4",
+    "title": "outer-skirt stitch row — the Magnum's outer row height",
+    "was": {
+     "v": 28.2,
+     "band": [
+      23.2,
+      33.2
+     ],
+     "law": "E1 − 12 (photo, MFR-class)"
+    },
+    "now": {
+     "v": 15.57,
+     "band": [
+      14.9,
+      16.3
+     ]
+    },
+    "provenance": "MODEL M1 (RULING R-S8-1): the outer skirt row's dash centre z 15.56 = 24.61 under the plate top 40.17 (22 dashes, pitch 10.07, r 93.11 on the skirt under the root); on our 40.18 top → y 15.57; band ± 0.7 (read spread + the 0.1 mm seat)."
+   },
+   {
+    "id": "E35",
+    "title": "the render FALL — the kernel CEBP disc",
+    "was": {
+     "v": [
+      84.15,
+      -27.92
+     ],
+     "band": [
+      83.0,
+      90.0
+     ],
+     "law": "visible-fall Ø about the plate centre"
+    },
+    "now": {
+     "v": [
+      88.9,
+      -47.625
+     ],
+     "band": [
+      88.0,
+      89.8
+     ]
+    },
+    "provenance": "RULING R-S8-2 (template, law §2): the fall circle R 88.9 (corner.rf, kernel-exact) about the slate-edge intersection (−47.625, −47.625 canonical = 47.625 behind each nose line, cd = CW); the r3_7 Ø 84.15 was the Amendment-026 misread of the CEBP 3.313 in mouth chord as a hole diameter (a render constant, SNK_FALL.cornerDia — now the plate's inner datum only). Disclosed MODEL deviation: the Magnum's slate cut reads R 77.06 about (44.7, 40.8) out (M4; M5 re-read in the record)."
+   },
+   {
+    "id": "E46",
+    "title": "flap-face NET-SEAM row (new row) — dash centre height and proudness",
+    "was": {
+     "law": "no flap-face row (R3-SNK-3 photo law)"
+    },
+    "now": {
+     "v": [
+      16.81,
+      0.8
+     ],
+     "band": [
+      [
+       16.3,
+       17.3
+      ],
+      [
+       0.3,
+       1.3
+      ]
+     ]
+    },
+    "provenance": "MODEL M1/M5 (RULING R-S8-1): the seam row's dash centre z 16.80 (16.72–16.88) = 23.37 under the top → y 16.81 on our 40.18 top; M5: each dash is ONE round tube Ø 1.670 bowed outward (centreline chord 10.26, sagitta 1.668) — its ends just break the skin (near surface −0.30) and its middle stands 2.21 proud; BUILT as that tube (the #625 flattened-capsule law retires with the photo row); the letter reads the dash CENTROID against the exact D3 section's face (≈ 0.6–1.2 proud → band [0.3, 1.6])."
+   },
+   {
+    "id": "E47",
+    "title": "flap-face NET-SEAM row (new row) — count and pitch",
+    "was": {
+     "law": "—"
+    },
+    "now": {
+     "v": [
+      15,
+      11.24
+     ],
+     "band": [
+      [
+       13,
+       17
+      ],
+      [
+       10.6,
+       11.9
+      ]
+     ]
+    },
+    "provenance": "MODEL M1: 15 dashes over phi −91.7…+91.7 (the row ends 8–12° short of the leather seam), chord pitch 11.242 (11.187–11.287), dash 10.36 long, gap 0.89; ours: the same pitch on our flap radius, the count derived from the MODEL half-extent (the wood planes may take one dash each side → band 13–17)."
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_8_form",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_7_datum (repo head below); this head lives IN THE REPO because the craft lane may not write Drive — the orchestrator copies it onto the Drive twin at the r-bump. Internal working document under the 1:1 rebuild protocol and LAW-PURCHASED-BASELINE.md (owner, 2026-09-02).",
+  "parent": "proposal_ext_r3_7_datum",
+  "date": "2026-09-03",
+  "lane": "craft R3-SNK-8 (ORDER-CRAFT-R3-SNK8.md: the FORM round — collar mouth run, jaw/collar junction, net hang, middle)",
+  "note": "FORM ROUND (ORDER-CRAFT-R3-SNK8.md, from §R3c.16.5): the leather's MOUTH-SIDE run and the jaw/collar junction follow the purchased Magnum II as read on the restored OBJ (sha256 d113177b…) by M1 (15 radial sections about the plate centre, exact half-plane cuts, rms per fit in /tmp/craftr3/snk8-datum/m1/m1.json). Inside the mouth the model is ONE run of four pieces, not a shelf: the flap face LEANS outward going up (6.5°), a steep CHAMFER (jog 2.15 over 23.0 → 18.9 under the top, 58°) leads to a vertical RIM wall (to 7.7 under the top, overhanging the flap's top by 2.3) a straight BACK-LEAN of 14.5° up to 2.73 under the top (the rim-top circle fit is degenerate — a kink, not a round) and a corner round (local fit R 4.7–5.0) onto the top plane; the top runs ≈ flat (crown 0.2–0.3 at r 72.7). The R3-SNK-5 padded-band read (plate5/sections.json: horizontal ledge 22.13, step-in 2.26, pad face lean 1.1 to 3.7 under the top, inner arc R 9.46 from 139°) is superseded by this ordered ≥ 8-azimuth read. Jaw/collar junction (M4b): on the model the jaw wall's end on the wood end plane coincides with the leather flap's crossing of that plane, so the continuation past the kernel tip is the one arc tangent to the kernel circle at the tip through that crossing (R 77.2), and the 8 mm cloth band closes with the offset's round end cap (the plank's face inner corner 7.5 below the wall end on the plane). The wrap's crest plateau and junction blend are re-expressed on the one-plane stack (they stood 1.5 / 3.8 mm proud of the crown as literals). Net and middle rows follow from M2 / M3 in this head.",
+  "rows": [
+   {
+    "id": "E3",
+    "title": "mouth-edge round Ø — the lip round's radius is the rim-top drop",
+    "was": {
+     "v": 18.9,
+     "band": [
+      14.0,
+      24.0
+     ]
+    },
+    "now": {
+     "v": 12.6,
+     "band": [
+      9.4,
+      15.8
+     ]
+    },
+    "provenance": "MODEL M1: the one-circle fit over the R3-SNK-2 window (points within 10 mm of the lip and 9 mm of the top) reads R 6.19–6.45 on the Magnum (Ø 12.6); the window spans the 14.5° back-lean and the corner round, so the fit is a window statistic (± 25 % band). The r3_3 'pad inner arc R 9.46' (plate5) is superseded. BUILT (r3_8): above the 14.5° back-lean the lip is the model's OWN profile from the lean top to the flat start (9.09 outward, 0.30 under the crest — MODEL, phi 0; 8.99–9.71 / 0.286–0.297 over the core azimuths), read on the 0.25 mm z_top bins of the 7 core sections, resampled at 12 equal arc-length steps and normalized (sd ≤ 0.004): a 28° facet over the first 47 % of the run then a 3.5° ramp; rebuilt it reproduces M1's window statistics (R10 6.17 / R4 4.64 / Rfull 7.40 vs 6.19 / 4.88 / 7.22). A single arc tangent to the lean top and the top plane (R 2.73 / (1 − sin 14.5°) = 3.64) was this round's first cut and read Ø 18.3 in the same window — replaced before any gate sealed on it. Instrument: the exact D3 half-plane section (M1's method) replaces the 2.5° vertex wedge."
+   },
+   {
+    "id": "E40",
+    "title": "flap face lean (new row) — r grows going up",
+    "was": {
+     "v": 0.0,
+     "law": "vertical flap face at rFlap"
+    },
+    "now": {
+     "v": 6.5,
+     "band": [
+      5.5,
+      7.5
+     ]
+    },
+    "provenance": "MODEL M1: flap r 47.31 @ z 5 → 48.46 @ z 15 (core mean; spread −6.9…−6.0°); anchored at the flap foot r = rFlap on our build."
+   },
+   {
+    "id": "E41",
+    "title": "chamfer (new row) — the flap top to the rim foot",
+    "was": {
+     "law": "horizontal ledge 22.13 under the top, step-in 2.26"
+    },
+    "now": {
+     "v": [
+      2.15,
+      23.03,
+      18.87
+     ],
+     "band": [
+      [
+       1.65,
+       2.65
+      ],
+      [
+       22.0,
+       24.0
+      ],
+      [
+       18.0,
+       19.8
+      ]
+     ]
+    },
+    "provenance": "MODEL M1: jog 2.15 (1.88–2.29), from z 17.14 (23.03 under the top) to z 21.30 (18.87 under), 58° from horizontal (55.9–60.4); unit mm jog / mm drop / mm drop."
+   },
+   {
+    "id": "E42",
+    "title": "rim wall (new row) — vertical, top at 7.7 under the plate top",
+    "was": {
+     "law": "pad face leaning 1.1 mm to 3.7 under the top"
+    },
+    "now": {
+     "v": [
+      7.69,
+      18.87
+     ],
+     "band": [
+      [
+       7.0,
+       8.4
+      ],
+      [
+       18.0,
+       19.8
+      ]
+     ]
+    },
+    "provenance": "MODEL M1: rim r_min 46.28 (45.4–47.0) constant from z 21.30 to 32.48 (7.69 under the top; spread 32.35–32.55); overhang vs the flap's top 2.29."
+   },
+   {
+    "id": "E36",
+    "title": "wood ends — inner corners on the flap-crossing continuation",
+    "was": {
+     "v": [
+      81.33,
+      105.4,
+      51.19
+     ],
+     "perp": 45.5
+    },
+    "now": {
+     "v": [
+      81.33,
+      104.1,
+      51.19
+     ],
+     "perp": 44.8
+    },
+    "provenance": "DERIVED: the band's round end cap about the wall end (13.39, −52.71) meets the plane at (13.39, −60.21) → chord √2·73.6 = 104.1, 44.8 behind the kernel mouth line; mouth chord and cup distance unchanged."
+   },
+   {
+    "id": "E44",
+    "title": "net drape — two cord families (new row)",
+    "was": {
+     "law": "one axisymmetric drape: funnel −0.3877/mm over 34 mm to r 35, the slate-bore cap, easing +0.0254/mm from the E10 ring (a slack cylinder to 0.95–1.08 × the ring)"
+    },
+    "now": {
+     "v": [
+      38.1,
+      36.4
+     ],
+     "band": [
+      [
+       35.1,
+       41.1
+      ],
+      [
+       33.4,
+       39.4
+      ]
+     ]
+    },
+    "provenance": "MODEL M2 (restored OBJ, cord-section centres per 1 mm level): the OUTWARD panel (|phi| ≤ 87°) hangs under the flap, holds its radius to the flap foot and funnels 51.85 − 0.512·d to the knee at d 28.5 then +0.065/mm (rms 0.97; NO outward fan: the median never exceeds the attach radius); the TABLE side (|phi| ≥ 90°) hangs from under the slab (z −41, r 57) and converges 80.7 − 0.539·d to d 73.1 then −0.214/mm (rms 1.49) — a bag skewed toward the leather. Re-applied on our datum as offsets from the row-1 radius (outward) and from the E10 ring radius (table); blended over |phi| 60°–120°; capped at the slate bore between the bed and the slab bottom (our Ø 84 fall has rock where the Magnum's R 77 cut has air — Amendment 026's reopened item). Middle fits: outward 55.90 − 0.237·d (knee 64.5, +0.079), table 57.78 − 0.205·d (knee 93.6, −0.122). The top edge is a STEP at the model's panel edge (87° of the corner window, 47° of the middle's), not a saddle; the heads sit 5.9 mm behind the flap face."
+   },
+   {
+    "id": "E45",
+    "title": "middle pocket mouth run — same law, its own read (record)",
+    "was": {
+     "law": "the corner pad band re-used on the middle"
+    },
+    "now": {
+     "v": [
+      5.9,
+      2.3,
+      17.25,
+      21.75,
+      8.4
+     ],
+     "law": "flap lean 5.9° / chamfer jog 2.3 from z 17.25 to 21.75 / rim wall to 31.75–33.75 (≈ 8.4 under the top) / round to the top by r ≈ 53"
+    },
+    "provenance": "MODEL M3 (restored OBJ, middle leather 280, radial phi 0 and the rail-normal x = 0 section): s_in 48.36 @ z 2.75 → 49.53 @ 16.75 → 47.47 @ 19.75 → 47.05 @ 21.75…31.75 → 48.47 @ 37.25 → 52.9 @ 39.75; top 47.1 @ 32.6 → 53.1 @ 39.6 → crest 63.1 @ 40.17 → 76.6 @ 37.1 → outer face 78.1–78.4. Within 0.2–0.7 mm of the corner's numbers, so the ONE mouth-section law (snkMouthSection) serves both families; the middle's tongue / hem / stitch row are unchanged (their reads: arc-row stitches z 16.8 at r 49.1, pitch 10.7; straight row d 74.85, pitch 10.4)."
+   },
+   {
+    "id": "E43",
+    "title": "back-lean above the rim wall (new row)",
+    "was": {
+     "law": "one quarter round from the rim top onto the top plane (R = the rim-top drop)"
+    },
+    "now": {
+     "v": [
+      14.5,
+      2.73
+     ],
+     "band": [
+      [
+       12.5,
+       17.5
+      ],
+      [
+       2.2,
+       3.4
+      ]
+     ]
+    },
+    "provenance": "MODEL M1: above the rim wall the profile is a straight segment leaning 14.0–16.9° outward going up (mean 14.5) from z 32.5 to 37.45 (2.73 under the top) — the 4 mm rim-top circle fit is degenerate at every azimuth — then a corner round (local fit R 4.7–5.0; the R3-SNK-2 read 47.8 @ +37 → 51.1 @ +39 was this round). Built: the lean (MODEL) + the round DERIVED tangent to the lean and the top plane, R = 2.73 / (1 − sin 14.5°) = 3.64. V8-C3: the lip above the lean is built as the model's own 12-knot profile (pad.lipBlend), not the 'tangent R 3.64' arc (a superseded first cut)."
+   },
+   {
+    "id": "P5c",
+    "title": "e2e-lighting P5c law (a) — record (RULING R-C2, SNK-7 verification)",
+    "was": {
+     "law": "pulled bend ≥ address bend; descriptor band [47.0, 48.5]"
+    },
+    "now": {
+     "law": "bound floor ≥ stripped floor at the pulled pose; descriptor band [frameTop, +1.5]; pulled ≥ 0.034 stands"
+    },
+    "provenance": "ACCEPTED as the law by the orchestrator (ADDENDUM R-C2): on the one-plane construction (rail top = cushion top = plate top, MODEL 40.18) the address and pulled bends are equal by construction, so the old inequality had no content; the replacement compares the bound floor against the stripped floor at the same pulled pose. NOT red-armable by design — both trees satisfy a law whose only input is the live one-plane spec; said so here and in §R3c.17.10."
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_7_datum",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_6_junction (repo head below); this head lives IN THE REPO because the craft lane may not write Drive — the orchestrator copies it onto the Drive twin at the r-bump. Internal working document under the 1:1 rebuild protocol and LAW-PURCHASED-BASELINE.md (owner, 2026-09-02).",
+  "parent": "proposal_ext_r3_6_junction",
+  "date": "2026-09-03",
+  "lane": "craft R3-SNK-7 (RULING-SNK-DATUM.md + ORDER-CRAFT-R3-SNK7.md: the pocket datum follows the purchased model; the rail top re-tagged MODEL)",
+  "note": "DATUM RULING (RULING-SNK-DATUM.md, orchestrator 2026-09-03): the '6.24 mm cup' was a RENDER constant (table.js SNK_FALL / snookerFallCtx, Amendment 026 photo pins woodChord 0.1027 / woodFromCup 0.0553) that conflated the leather-plate datum with the fall; the kernel CEBP capture disc (47.6 out, r 88.9) was never in conflict and is untouched. Law §3: the corner PLATE/COLLAR/ARMS/NET datum follows the purchased Rasson Magnum II, re-read on the restored quarantine OBJ (sha256 d113177b…, /tmp/craftr3/snk7-datum/datum.json, M4): plate centre 28.89 / 26.95 mm outboard of the short / long nose lines (inner flap skin LSQ, rms 0.61) → built symmetric at the mean 27.92 (SNK_FALL.plateOut); wood end faces 12.42 / 14.61 / 14.11 inboard of the far nose line → mean 13.39 (SNK_FALL.woodEndIn); plate centre → wood onset 41.3 by construction (model 41.30 / 41.56 / 41.06). The jaw wall continues past the kernel tip along the SAME kernel circle c2 to the end plane. Rail top: WPBSA fixes floor→rail-top only; no Star bed→rail-top datum exists (search in §R3c.16.1), so the shared literal 47.0 was authored (law §4) and the Magnum's 40.18 governs (rail top = cushion top = plate top, one plane; SNK_RAIL_TOP) — snooker entry only, bedAboveFloor re-derived 0.864 − 0.04018 = 0.8238. legInsetFace 13.0 (XW101 photo) → MODEL 15.6 (item 5). hemDrop keeps the OEM side elevation's own rail-top-relative read 146–150 → 148 (MFR). The letters below are RE-DERIVED from that datum by the R3-SNK-6 junction law unchanged: rail face = W/2 + CW + frameWidth − |cz| = 113.2 from the cup; top edge = 113.2 − 15.6 + 0.31 = 97.9; hem leg ON the apron plane 110.2 (+0.31 = E37 110.5); E12 = E37 − lip r 47.0 = 63.5; E8 = atan((110.52 − 103.08) / 106.84) = 4.0°; E28 = the seam ends (legs at ⟂ 110.2 from the cup meeting the end planes 41.3 out) about the mouth centre (the kernel tips' midpoint, 51.19 from the cup) = 94.0°. Amendment 026's Ø84 hole is REOPENED as a fall-lane item (the template fall is R 88.9 about the slate-edge corner; the Magnum's slate cut reads r 77.06 about 44.74 / 40.84 out); the render hole follows the plate (it cannot sit without it: a hole left at 6.24 would sit 30.7 mm off the flap's centre inside a 48 mm flap) and keeps its Ø. The instrument reads on the sealed bytes are recorded in SPIKE-REPORT-CRAFT-R2.md §R3c.16.",
+  "rows": [
+   {
+    "id": "E1",
+    "title": "rail (capping) top above the bed — MODEL (the purchased model), was the authored shared literal",
+    "was": {
+     "v": 47.0,
+     "band": [
+      46.5,
+      47.5
+     ]
+    },
+    "now": {
+     "v": 40.18,
+     "band": [
+      39.7,
+      40.7
+     ]
+    },
+    "provenance": "MODEL: Magnum II rail_top 40.181 (area-weighted mean of 12,700 horizontal facets, 1.17 m², restored OBJ); cushion top 40.11–40.18 and plate max 40.171 on the same plane. WPBSA Sec1 R1(b) fixes floor→rail-top 851–876 only; no Star bed→rail-top datum with a URL + sha exists in the repo or the dossier (RULING-SNK-DATUM.md item 3; search recorded in §R3c.16.1) — the 47.0 was a shared literal 'by coincidence' (table.js) and loses under law §4/§3. Scope: the snooker entry only."
+   },
+   {
+    "id": "E2",
+    "title": "leather plate top = the capping top (flush)",
+    "was": {
+     "v": 47.0,
+     "band": [
+      46.5,
+      47.5
+     ]
+    },
+    "now": {
+     "v": 40.18,
+     "band": [
+      39.7,
+      40.7
+     ]
+    },
+    "provenance": "= E1 (flush plate, r3_1 law); MODEL: Magnum plate max 40.171 vs rail 40.181."
+   },
+   {
+    "id": "E4",
+    "title": "outer-skirt stitch row y — follows the rail top",
+    "was": {
+     "v": 35.0,
+     "band": [
+      30.0,
+      40.0
+     ]
+    },
+    "now": {
+     "v": 28.2,
+     "band": [
+      23.2,
+      33.2
+     ]
+    },
+    "provenance": "DERIVED: E1 40.18 (MODEL) − 12 (the ONE row 10–15 mm under the rail top, MFR-class OEM photos, r3_2 law unchanged; SNK_PLATE.stitchOut.corner 0.012)."
+   },
+   {
+    "id": "E5",
+    "title": "hem base y — the MFR drop under the re-tagged rail top",
+    "was": {
+     "v": -105.5,
+     "band": [
+      -112.0,
+      -99.0
+     ]
+    },
+    "now": {
+     "v": -107.8,
+     "band": [
+      -118.8,
+      -105.8
+     ]
+    },
+    "provenance": "UNVERIFIED-MFR (dossier-only) — owner card 18b (V8-C5 / R-C8: the side elevation exists only as a Drive dossier file, sha256 5461e8ba…, attributed '侧立面（xingpai.in）' with no URL and no independent hash; under law §3 the Magnum's 107 MODEL would govern, but the hem is coupled to the BODY datum on card 18b — no byte moves until the owner rules). Former text: DERIVED: E1 40.18 − E6 148 (MFR: the OEM side elevation rows 284–289 read the leather ending 146–150 under the capping top; band = E1 − [146, 159]). The former −105.5 was that read re-expressed on the retired 47 plane (152.5)."
+   },
+   {
+    "id": "E6",
+    "title": "boot extent = E2 − E5",
+    "was": {
+     "v": 152.5,
+     "band": [
+      146.0,
+      159.0
+     ]
+    },
+    "now": {
+     "v": 148.0,
+     "band": [
+      146.0,
+      159.0
+     ]
+    },
+    "provenance": "UNVERIFIED-MFR (dossier-only) — owner card 18b (V8-C5 / R-C8: the side elevation exists only as a Drive dossier file, sha256 5461e8ba…, attributed '侧立面（xingpai.in）' with no URL and no independent hash; under law §3 the Magnum's 107 MODEL would govern, but the hem is coupled to the BODY datum on card 18b — no byte moves until the owner rules). Former text: MFR: the OEM side elevation's own rail-top-relative read, mid of 146–150; band unchanged (signed [146, 159])."
+   },
+   {
+    "id": "E8",
+    "title": "skirt flare (lower skirt lean per side) — re-derived on the new datum",
+    "was": {
+     "v": 2.5,
+     "band": [
+      1.0,
+      4.0
+     ]
+    },
+    "now": {
+     "v": 4.0,
+     "band": [
+      2.5,
+      5.5
+     ]
+    },
+    "provenance": "DERIVED (junction law unchanged): the line from the MODEL upper skirt (r0 = 103.08 at 41.16 under the top) to the hem on the apron plane (110.52 at 148 under the top): atan((110.52 − 103.08) / 106.84) = 3.98°; band ±1.5 (the legInsetFace/hemDrop bands propagated)."
+   },
+   {
+    "id": "E12",
+    "title": "lip → hem on D3",
+    "was": {
+     "v": 85.2,
+     "band": [
+      83.7,
+      86.7
+     ]
+    },
+    "now": {
+     "v": 63.5,
+     "band": [
+      62.0,
+      65.0
+     ]
+    },
+    "provenance": "DERIVED: E37 110.5 − lip r 47.0."
+   },
+   {
+    "id": "E28",
+    "title": "leather wrap about the mouth centre, seam to seam",
+    "was": {
+     "v": 150.1,
+     "band": [
+      140.0,
+      160.0
+     ]
+    },
+    "now": {
+     "v": 94.0,
+     "band": [
+      84.0,
+      104.0
+     ]
+    },
+    "provenance": "DERIVED: the legs (rail-parallel lines ⟂ 110.2 from the cup, the hem on the apron plane) end on the end planes 41.3 out — 45° + atan(41.3 / 110.2) = 65.55°/side about the cup; about the MOUTH centre (the kernel tips' midpoint, canonical (8.25, 8.25), 51.19 from the cup along the diagonal — was 20.5 from the 6.24 cup) the two seam ends subtend 94.0°. Butt-cut seam-to-seam (E15)."
+   },
+   {
+    "id": "E33",
+    "title": "rail-height ladder (cushion top rows / capping)",
+    "was": {
+     "v": [
+      41.5,
+      43.5,
+      47.0
+     ]
+    },
+    "now": {
+     "v": [
+      39.28,
+      39.68,
+      40.18
+     ]
+    },
+    "provenance": "MODEL: the Magnum x = −900 rail section (RDP 0.3): nose top (0, 37.9) → (0.44, 39.74) → (2.14, 40.14) → flat to (50.8, 40.16); rail-top facets 40.18 — the cushion top IS the rail top. Built: the model's plan offsets with z = SNK_RAIL_TOP − one cloth ply (0.5, DERIVED: the E31 capping's 0.5 mm tuck applied in z so the wood edge stays proud of the cloth). Law: cushion top ∈ [E1 − 1.0, E1 − 0.2]."
+   },
+   {
+    "id": "E35",
+    "title": "visible fall Ø about the cup — the cup is the PLATE datum",
+    "was": {
+     "v": [
+      84.15,
+      -12.48
+     ],
+     "band": [
+      83.0,
+      90.0
+     ]
+    },
+    "now": {
+     "v": [
+      84.15,
+      -27.92
+     ],
+     "band": [
+      83.0,
+      90.0
+     ]
+    },
+    "provenance": "Ø unchanged (Amendment 026 Ø84.15, REOPENED as a fall-lane item — RULING item 4); the cup canonical seat −27.92 / −27.92 is MODEL (SNK_FALL.plateOut, the flap-skin centre's mean outboard offset 28.89 / 26.95); law |cup − (−27.92)| < 1.5 both axes."
+   },
+   {
+    "id": "E36",
+    "title": "wood ends — inner-corner chord / offset behind the mouth line / mouth line from the cup",
+    "was": {
+     "v": [
+      81.33,
+      102.7,
+      20.52
+     ],
+     "law": "chord 103±8 through inner corners ⊥-off the mouth line ≤ 3; mouth line 20.5±1 from the cup"
+    },
+    "now": {
+     "v": [
+      81.33,
+      105.4,
+      51.19
+     ],
+     "perp": 45.5,
+     "law": "chord |Δ| ≤ 8; inner corners 45.5 ± 3 BEHIND the mouth line; mouth line 51.19 ± 1 from the cup"
+    },
+    "provenance": "DERIVED from MODEL woodEndIn 13.39 + the W6 band law (8 mm wall − 0.5 plank tuck on the kernel circle c2 extended past the tip): the plank's face inner corner sits at canonical (13.39, −61.15) → chord √2·74.54 = 105.4, ⊥ 45.47 behind the kernel mouth line u + v = 16.5; mouth chord 81.33 (kernel, unchanged); the cup (−27.92, −27.92) is 51.19 from the mouth line. The photo pins (102.7 / 20.52, c5259957376 §1a) are retired with Amendment 026's plate datum."
+   },
+   {
+    "id": "E37",
+    "title": "hem R about the cup on D3 — re-derived on the new datum",
+    "was": {
+     "v": 132.2,
+     "band": [
+      130.7,
+      133.7
+     ]
+    },
+    "now": {
+     "v": 110.5,
+     "band": [
+      109.0,
+      112.0
+     ]
+    },
+    "provenance": "DERIVED (junction law unchanged): the hem's leg on the apron plane — W/2 + CW + frameWidth − 0.003 − |cz| = 110.2 with the cup 27.92 outboard (MODEL) — plus the leg law's 0.31 (legD45) → 110.52 on D3; band ±1.5."
+   },
+   {
+    "id": "E23",
+    "title": "wood end-face station beyond the nose corner — MODEL (was a GCL-photo coherence law)",
+    "was": {
+     "law": "|model end-face station − GCL seam 38.9| ≤ 0.15·w_c = 13.8 mm (Δ 5.7 on the 44.6 photo-pin station)"
+    },
+    "now": {
+     "v": 13.39,
+     "band": [
+      12.4,
+      14.4
+     ]
+    },
+    "provenance": "MODEL: the Magnum II wood end faces, planar facets rms 0.06 — 12.42 (long rails) / 14.61 / 14.11 (short rails) inboard of the far nose line, built symmetric at the mean (SNK_FALL.woodEndIn). The GCL seam 38.9 and the XW101 photo 0 ± 5 are other makers' photo reads (law §3: not manufacturer data) and are recorded as the A1 frame-family difference, no longer a constraint."
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_6_junction",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_4_baseline_law (repo head below); this head lives IN THE REPO because the craft lane may not write Drive — the orchestrator copies it onto the Drive twin at the r-bump. Internal working document under the 1:1 rebuild protocol and LAW-PURCHASED-BASELINE.md (owner, 2026-09-02).",
+  "parent": "proposal_ext_r3_4_baseline_law",
+  "date": "2026-09-02",
+  "lane": "craft R3-SNK-6 (ORDER-CRAFT-R3-SNK6.md S6-2: the rail / leather junction by measurement)",
+  "note": "JUNCTION LAW: the corner leather is POSITIONED BY THE RAIL, not by a hem radius. Both real tables share the construction (SPIKE-REPORT-CRAFT-R2.md §R3c.15.2): the leather's top edge runs a little inside the rail's outer line at the cut (Magnum mesh 9.2 from the rail's top edge / 15.6 from its outer face, /tmp/craftr3/snk6-measure/r3.json; Star XW101 Masters top-down frame rectified on the MFR 141 mm rail band: 11.8–14.2 inside the wood line at both cuts, /tmp/craftr3/snk6-photo/read.md), the arms butt the cut faces (no leather over the wood past the cut on either table), and the skirt comes down onto the rail's outer face plane at the hem (Magnum Δ −0.009 mm; XW101 montage brim flush with the apron). The three R3-SNK-5 letters that positioned the pad (E37 114.5, E8 14.6°, at E5) were reads of 424-px / three-quarter images about an unstated centre; with the kernel's cup 6.24 mm outboard of the nose lines (the Magnum's 27.6–29.4, the XW101's 36–45) they left the leather 52.6 mm short of our rail's top edge and the hem 18 mm inside the apron — the 'squared rail ends' of the clay blind. Under law §7 E37 and E8 are RE-DERIVED from the construction: top edge = rail face (W/2 + CW + frameWidth − |cz| = 134.9, DERIVED from the MFR frame) − 13.0 (MFR, XW101 Masters read, band [11.8, 14.2]; the Magnum's 15.6 disclosed); every pad landmark keeps its MODEL offset from that edge (topEdgeDr 41.5 vs faceDr 47.05); the hem's leg lands on the apron plane (rail face − 3); the lower skirt is the line from the MODEL upper skirt to that hem. E5, E1, E3, E6, E7, E9, E13 (form), E15, E18, T unchanged. The instrument reads: E37 132.2, E12 85.2, E8 2.5°, E26 arc r 127.1 / centre 5.04, E28 150.1°.",
+  "rows": [
+   {
+    "id": "E37",
+    "title": "hem R about the cup on D3 — RE-DERIVED (junction law)",
+    "was": {
+     "v": 114.5,
+     "band": [
+      112.5,
+      116.5
+     ]
+    },
+    "now": {
+     "v": 132.2,
+     "band": [
+      130.7,
+      133.7
+     ]
+    },
+    "provenance": "DERIVED: the hem's leg on the apron plane — W/2 + CW + frameWidth − 0.003 − |cz| = 131.886 (MFR frame: 141 nose→face, GH-518) — is the phi-0 radius minus legD45 (−0.31) → 132.2 on D3; band ±1.5 = the MFR inset's own band [11.8, 14.2] propagated. MODEL basis: the Magnum hem meets its rail's outer face plane to 0.01 mm (r2.json leather_XEND+3: hem 105.73 vs face 105.74) — the same rule about OUR rail. The R3-SNK-5 MFR read 114.5 (OEM three-quarter 116 / montage 113.5) was a hem-edge read about a centre those images do not show; the Masters read puts the XW101's own brim at 129–133 from the nose corner, i.e. 120–124 about a cup 8.8 mm out along the diagonal — where this construction puts our top edge (122.2). Retired under law §7."
+   },
+   {
+    "id": "E12",
+    "title": "lip → hem on D3",
+    "was": {
+     "v": 67.5,
+     "band": [
+      65.5,
+      69.5
+     ]
+    },
+    "now": {
+     "v": 85.2,
+     "band": [
+      83.7,
+      86.7
+     ]
+    },
+    "provenance": "DERIVED: E37 132.2 − lip r 47.0 (the pad's inner face top: MODEL step-in 2.26 + lean 1.1 on our flap 48.18) = 85.2; band = E37's ±1.5 propagated."
+   },
+   {
+    "id": "E8",
+    "title": "skirt flare (lower skirt lean per side) — RE-DERIVED",
+    "was": {
+     "v": 14.6,
+     "band": [
+      12.0,
+      17.0
+     ]
+    },
+    "now": {
+     "v": 2.5,
+     "band": [
+      1.0,
+      4.0
+     ]
+    },
+    "provenance": "DERIVED: the straight line from the MODEL upper skirt's end (root + (46.66 − 44.26) at top − 41.16: r 127.3 at z 5.8) to the hem on the apron plane (132.2 at −105.5): atan(4.9 / 111.3) = 2.5°; band ±1.5 = the inset band propagated. The signed 14.6° ('skirt flares 52 → 65 px', OEM product photo) was a projected width in a three-quarter view; the outside-rail montage tile reads 14°/side projected AND a hem narrower than the brim (hem/brim 0.93), which no outward flare produces. The Magnum's 11.8° over 107 mm and our 2.5° over 111 mm both end on their rail face; ours is flatter because E5 (MFR) puts our hem 38 mm lower for a 3.6 mm larger step to the face."
+   },
+   {
+    "id": "E26",
+    "title": "hem circle centre / radius",
+    "was": {
+     "law": "one-circle fit over the ARC window |az| ≤ 35.8°: rms < 1.6, centre 5.18 [3.5, 7.0] mm outboard along the diagonal (|across| < 2.0)"
+    },
+    "now": {
+     "law": "one-circle fit over the ARC window |az| ≤ 35.8°: rms < 1.6, centre 5.18 [3.5, 7.0] mm outboard along the diagonal (|across| < 2.0); radius = E37 − 5.18 = 127.0 [125.5, 128.5] (DERIVED); legs r(60°) − r(0°) = 2.0–4.5 mm unchanged (the offset arc's own geometry)"
+    },
+    "provenance": "MODEL form (legs.json arc centre offset 5.18) on the DERIVED E37; the instrument reads r 127.1, centre 5.04, legs Δ 4.48."
+   },
+   {
+    "id": "E28",
+    "title": "leather wrap about the mouth centre, seam to seam",
+    "was": {
+     "v": 166.0,
+     "band": [
+      150.0,
+      185.0
+     ]
+    },
+    "now": {
+     "v": 150.1,
+     "band": [
+      140.0,
+      160.0
+     ]
+    },
+    "provenance": "DERIVED: the legs now end where their rail-parallel lines (⟂ 131.9) meet the end planes (50.55 from the cup): aEnd = 45° + atan(50.55 / 131.9) = 66.0° per side about the cup; the instrument's wrap is read about the mouth centre 20.5 mm outboard (r3_1) and reads 150.1°; band ±10 = the read's own class width. The r3_1 166 was the same read on the hem-radius plate."
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_4_baseline_law",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_3_magnum_pad (repo head below); this head lives IN THE REPO because the craft lane may not write Drive (SPIKE-TASK-CRAFT.md §5) — the orchestrator copies it onto the Drive twin at the r-bump. Internal working document under the 1:1 rebuild protocol and LAW-PURCHASED-BASELINE.md (owner, 2026-09-02).",
+  "parent": "proposal_ext_r3_3_magnum_pad",
+  "date": "2026-09-02",
+  "lane": "craft R3-SNK-5 (LAW-PURCHASED-BASELINE.md applied to the pocket assembly before the seal)",
+  "note": "Purchased-model baseline: the Rasson Magnum II corner (quarantine, MEASURED only) is the baseline for the whole pocket assembly; manufacturer data corrects it where attributable — E1 47.0 (rail height), E5 (the OEM side elevation shows the pocket leather ending 146–150 under the capping top, rows 284–289 on the r2_6 frame: the signed −105.5 stands as MFR), E37 (OEM three-quarter 116 / montage 113.5), E8 (the OEM product-photo flare read), E9 (OEM hem–leg-head relation), and the OEM-imagery construction features (one outer stitch row, pinked hem, plain flap face); every other quantity is a MODEL read; every number carries one tag (MFR / MODEL / DERIVED / OPEN). The pad's outer landmarks are POSITIONED by the three MFR letters (E37 at E5 up the E8 line to the root) and take their FORM from the Magnum section — the flat top narrows from the Magnum's 38 to ≈ 25 (E8 14.6° vs the Magnum's 10°: an MFR-vs-MODEL conflict for the owner). E18 keeps its signed value too (the OEM montage's knit tail ≥ 160 mm below the hem); the carried E7 tooth dims are re-derived from the model (law §3); the plan letters E13/E26 (one hem circle, measured on the GCL registration frame — a different family, A3) become the Magnum's arc + rail-parallel legs. The E3 read window becomes the arc's own extent. Provenance tables: SPIKE-REPORT-CRAFT-R2.md §R3c.11.",
+  "rows": [
+   {
+    "id": "E3",
+    "title": "mouth-edge round Ø — read window re-derived (value unchanged)",
+    "was": {
+     "v": 18.9,
+     "band": [
+      14.0,
+      24.0
+     ]
+    },
+    "now": {
+     "v": 18.9,
+     "band": [
+      14.0,
+      24.0
+     ]
+    },
+    "provenance": "MODEL (Magnum inner_top_round R 9.46, chord 5.2 × 3.2). The instrument's one-circle fit window is now the arc's own extent: r ∈ [lip − 0.5, lip + 6.5], y ∈ [top − 4.5, top + 0.5] (the pad-face top + the arc knots; the flat start at lip + 7.0 stays outside). The old 10 × 9 window admitted 0–1 flat knots by luck and swung the read between 12.6 and 21.3 on the same built arc."
+   },
+   {
+    "id": "E5",
+    "title": "hem base (tooth tips) — provenance upgraded to MFR, value unchanged",
+    "was": {
+     "v": -105.5,
+     "band": [
+      -112.0,
+      -99.0
+     ]
+    },
+    "now": {
+     "v": -105.5,
+     "band": [
+      -112.0,
+      -99.0
+     ]
+    },
+    "provenance": "MFR: the official Star side elevation (dossier 01-official/official-xw101-side-elevation.png, the frame the r2_6 cabinet-plane row was measured on: rail plank ends 3.688 mm/px, rail top row 248, floor row 481 = 850 mm → 3.648 mm/px) shows the pocket leather (cream columns x 100–112 / 1155–1167) ending at rows 284–289 = 146–150 under the capping top at both ends; the signed −105.5 (152.5 under) sits inside that read's band. The signed status 'carried' is thereby corrected to an attributable OEM read. The Magnum's 107.3 under its top is the MODEL value the MFR read overrides (law §2) — listed in §R3c.11.4."
+   },
+   {
+    "id": "E6",
+    "title": "boot extent = E2 − E5",
+    "was": {
+     "v": 162.7,
+     "band": [
+      147.0,
+      181.0
+     ]
+    },
+    "now": {
+     "v": 152.5,
+     "band": [
+      146.0,
+      159.0
+     ]
+    },
+    "provenance": "DERIVED: E2 47.0 − E5 −105.5 = 152.5; band = the E5 band propagated."
+   },
+   {
+    "id": "E7",
+    "title": "pinked hem teeth pitch / depth",
+    "was": {
+     "v": [
+      8.0,
+      4.0
+     ],
+     "band": [
+      [
+       6.0,
+       10.0
+      ],
+      [
+       3.0,
+       5.0
+      ]
+     ]
+    },
+    "now": {
+     "v": [
+      9.24,
+      4.83
+     ],
+     "band": [
+      [
+       8.5,
+       10.5
+      ],
+      [
+       4.0,
+       5.5
+      ]
+     ]
+    },
+    "provenance": "FORM = pinked (sawtooth) — MFR: the official S101 parameter page (xpshop-2026061002300979, 皮口: 鞍缝 + 锯齿下缘). DIMENSIONS = MODEL: Magnum hem.json cusp pitch 5° = 9.24 mm at the hem radius, scallop depth 4.83 (38 lobes / 29 cusps over ±66.8°); the signed 8/4 was 'carried, no binding'. The instrument's pitch read counts tips over the hem (reads 10.0 on the built 9.24 — bin quantisation); band roof 10.5."
+   },
+   {
+    "id": "E9",
+    "title": "gold leg-head top below the hem — value unchanged, the frame follows the hem",
+    "was": {
+     "v": 36.0,
+     "band": [
+      21.0,
+      42.0
+     ]
+    },
+    "now": {
+     "v": 36.0,
+     "band": [
+      21.0,
+      42.0
+     ]
+    },
+    "provenance": "MFR (OEM photo relation between the hem and the gold leg head, signed r1_2, band [21, 42]; Crucible-confirmed). The frame is dimensioned AGAINST the leather (table.js SNK.hemPlane), so the leg-head top is now DERIVED = hem (MODEL −60.3) − 36 = −96.3 instead of the literal −141.5 (= the carried −105.5 − 36); the corner closure ceiling (hem − 21) and the apron band split follow the same plane."
+   },
+   {
+    "id": "E12",
+    "title": "lip → hem on D3",
+    "was": {
+     "v": 72.4,
+     "band": [
+      66.0,
+      78.0
+     ]
+    },
+    "now": {
+     "v": 67.5,
+     "band": [
+      65.5,
+      69.5
+     ]
+    },
+    "provenance": "DERIVED: E37 114.5 (MFR) − lip r 47.0 (the pad's inner face top: MODEL step-in 2.26 + lean 1.1 on our flap 48.18) = 67.5; band = E37's ±2 propagated. (The r2_7 72.4 measured lip→hem from the fall radius 42.075.)"
+   },
+   {
+    "id": "E13",
+    "title": "hem outer form",
+    "was": "smooth convex arc (one circle over |az| ≤ 70°)",
+    "now": "ARC + LEGS: one circle over |az| ≤ 35.8° (rms ≤ 1.6) whose centre sits 5.18 [3.5, 7.0] mm outboard of the cup along the diagonal; beyond 35.8° straight legs parallel to the rails — hem r at |az| 60° exceeds r at 0° by 2.0–4.5 mm",
+    "provenance": "MODEL: legs.json (arc R 84.75 centred 5.18 along the diagonal from P, |phi| ≤ 35; legs = lines parallel to each rail at 90.2 from P, transition 35.8°, reaching the rail end planes; r_outer 89.3 @0° → 94.1/94.3 @±60° at z 39.5). The signed one-circle law was measured on the GCL registration frame (A3: a different family), not on the XW101 or the model."
+   },
+   {
+    "id": "E18",
+    "title": "net bottom (free-hanging) — provenance upgraded to MFR-class, value unchanged",
+    "was": {
+     "v": -262.0,
+     "band": [
+      -280.0,
+      -244.0
+     ]
+    },
+    "now": {
+     "v": -262.0,
+     "band": [
+      -280.0,
+      -244.0
+     ]
+    },
+    "provenance": "MFR-class: the OEM outside-rail corner montage (00-pack-existing/star-xw101-outside-rail-corner-montage.png, md5-identical to the xingpai.in / snookerpot originals) shows the white knit hanging BELOW the gold leg head, ≥ 160 mm under the hem at the tile's crop floor (leather 63 px = 152.5 mm → 2.42 mm/px; knit rows 329–366+), gathered to a tail; the signed −262 [−280, −244] holds that floor. The Magnum's bag (band centre 118.4 under the flap foot, R 31) is the overridden MODEL form — a MODEL-band build inside this round was retracted (§R3c.11.7). The tail's own dims (band Ø 22, tail Ø 19) are OPEN (no OEM scale, no Magnum tail)."
+   },
+   {
+    "id": "E26",
+    "title": "hem circle centre / radius",
+    "was": {
+     "v": [
+      -1.706,
+      1.019
+     ],
+     "law": "ONE-circle fit, centre ≈ cup (Δcup < 3.5)"
+    },
+    "now": {
+     "law": "one-circle fit over the ARC window |az| ≤ 35.8°: rms < 1.6, centre 5.18 [3.5, 7.0] mm outboard along the diagonal (|across| < 2.0)"
+    },
+    "provenance": "MODEL (legs.json outer arc centre offset 5.18 along the diagonal, across −0.02)."
+   },
+   {
+    "id": "E37",
+    "title": "hem R about the cup on D3 — MFR, value unchanged; read corrected",
+    "was": {
+     "v": 114.5,
+     "band": [
+      112.5,
+      116.5
+     ]
+    },
+    "now": {
+     "v": 114.5,
+     "band": [
+      112.5,
+      116.5
+     ]
+    },
+    "provenance": "MFR: the OEM three-quarter (116) and outside-rail montage (113.5) reads, ±2 register slop (twin row A6 / r2_7). Under the law the pad's outer landmarks are positioned FROM this radius (root = the E8 line at the upper-skirt top minus the MODEL root offset). The instrument's read is now the hem r on the D3 meridian about the cup (with an offset arc the one-circle fit radius belongs to E26); the Magnum's own hem 105.9 [102.4, 112.7] is the disclosed MODEL value."
+   },
+   {
+    "id": "T",
+    "title": "leather thickness at the hem edge",
+    "was": {
+     "v": 3.0,
+     "band": [
+      2.5,
+      4.0
+     ]
+    },
+    "now": {
+     "v": 2.8,
+     "band": [
+      2.5,
+      4.3
+     ]
+    },
+    "provenance": "MODEL: Magnum flap thickness 2.76 (sections.json thk_z10); the raw hem edge turns the thickness in (no fold). The instrument's radial read at the hem includes the tooth's lean (4.83 × tan 14.6° = 1.26) → roof 2.8 + 1.26 = 4.1 + slop."
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_3_magnum_pad",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_2_xw101_row (repo head below); this head lives IN THE REPO because the craft lane may not write Drive (SPIKE-TASK-CRAFT.md §5) — the orchestrator copies it onto the Drive twin at the r-bump. Internal working document under the 1:1 rebuild protocol.",
+  "parent": "proposal_ext_r3_2_xw101_row",
+  "date": "2026-09-02",
+  "lane": "craft R3-SNK-5 (ORDER-CRAFT-R3-SNK5.md B2 — review round 2 residual 2)",
+  "note": "The surround is rebuilt as the Magnum II's MEASURED padded band on the flush plate (SPIKE-REPORT-CRAFT-R2.md §R3c.10 B2; /tmp/craftr3/plate5/sections.json, roll_detail.json): flap to a ledge 22.1 under the top, a 2.2 mm step-in to an 18 mm pad face, a SHALLOW inner arc, a 35 mm flat with a +0.6 crown, an R 6.1 outer round, a near-vertical pad outer face 19 mm tall, the skirt hanging from UNDER the pad 2.7 mm inside its face (two-slope, knee on the E8 line). The r3_1 E3 (Ø 8, the Magnum's 4 mm round as first read from the middle top-skin section) was the wrong element: the corner's inner top round is the shallow arc, R 9.46 at the D3 meridian (chord 5.2 × 3.2, rms 0.11), growing to R 13.3 at ±45° and 23.5 at ±60° (the arc flattens toward the legs). Every other letter is unchanged and passes on the rebuilt surround (E2 47.0, E8 12.5°, E12 67.4, E26/E37 hem circle 114.1, collar.convex plate-top flat rms 0.16 with the +0.6 crown inside the E1 band).",
+  "rows": [
+   {
+    "id": "E3",
+    "title": "mouth-edge round Ø (the pad's inner top arc at the D3 meridian; was: the 4 mm round)",
+    "was": {
+     "v": 8.0,
+     "band": [
+      6.0,
+      12.0
+     ]
+    },
+    "now": {
+     "v": 18.9,
+     "band": [
+      14.0,
+      24.0
+     ]
+    },
+    "provenance": "Magnum corner tris, phi 0: inner top round R 9.46 (rms 0.11), chord 5.2 × 3.2 from the pad-face top (47.4, 36.4) to the flat start (52.1, 39.54); centre 8.1 outward / 9.8 under the top from the pad-face foot. Built verbatim on our datums; the instrument's one-circle fit over the D3 window (r < lip + 10, y > top − 9) reads Ø 17.1 (rms 0.03) on the sealed bytes — the window clips the arc's low end. Band = the phi-0 read ± 5 (the Magnum's own fit spread across the arc's flattening toward the legs starts at 19 and rises; the meridian read must stay near 19)."
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_2_xw101_row",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r3_1_magnum (repo head below); this head lives IN THE REPO because the craft lane may not write Drive (SPIKE-TASK-CRAFT.md §5) — the orchestrator copies it onto the Drive twin at the r-bump. Internal working document under the 1:1 rebuild protocol.",
+  "parent": "proposal_ext_r3_1_magnum",
+  "date": "2026-09-02",
+  "lane": "craft R3-SNK-3 (ORDER-CRAFT-R3-SNK3.md item C — the letter is the photo)",
+  "note": "R3-SNK-2 verification NO-GO: the stitch-row leg of ruling 2 was asserted, not met, and the re-ruling makes the PHOTO the letter. The XW101 dossier read from the pose-matched angles (SPIKE-REPORT-CRAFT-R2.md §R3c.3; crops /tmp/craftr3/stitch-rows/): the leather carries exactly ONE white saddle-stitch row per pocket and it sits on the OUTSIDE face — corner: the roll → skirt seam directly under the roll (Masters arena closeup 02-broadcast/masters-table-closeup.jpg: 7–8 px below the rail-top plane at ~4 m ≈ 10–15 mm; Welsh Open video frame g005; the loose piece in 00-pack-existing/star-xw101-pocket-hardware-montage.jpg; the retail outside shots 01-official/xpshop-2025053000504763 / 513821); middle: one row across the outer hanging tongue ~0.7 of the rail-cap band below the crest (01-official/xpshop-2025053000505073.jpg, 21 px of a 30 px band ≈ 21 mm). Crown top, inner lip and inner flap face are PLAIN in every photo (02-broadcast/masters-corner-pocket-topdown-sportphoto.jpg; 00-pack-existing/star-xw101-middle-mouth-cloth-closeup.jpg). The r3_1 E4 (the Magnum's flap-face net-seam row at +16.8) described the model, not the table, and moves to the photo's row.",
+  "rows": [
+   {
+    "id": "E4",
+    "title": "stitch row y (the ONE row: outer skirt, directly under the roll; was: the Magnum flap-face net seam)",
+    "was": {
+     "v": 16.8,
+     "band": [
+      12.0,
+      21.0
+     ]
+    },
+    "now": {
+     "v": 35.0,
+     "band": [
+      30.0,
+      40.0
+     ]
+    },
+    "provenance": "Photo: corner row 10–15 mm under the rail-top plane (Masters closeup at ~4 m, 7–8 px; video g005 'immediately under the roll'; loose piece: on the roll → skirt seam). Built: dash centre 12 mm under the plate top (+47) = +35.0 at the D3 meridian; E4 reads the top dashes of obPocketStitch at the meridian. Band ±5 mm = the photo read's scale uncertainty. The middle row (21 mm under the crest, xpshop-505073) has no E-letter of its own; the construction gate carries it."
+   }
+  ]
+ },
+ {
+  "frame": "proposal_ext_r3_1_magnum",
+  "status": "PROPOSAL — NOT SIGNED; the signed proposal_ext_r1_2 stays governing. Parent proposal_ext_r2_7_bootplan (Drive twin head); this head lives IN THE REPO because the craft lane may not write Drive (SPIKE-TASK-CRAFT.md §5) — the orchestrator copies it onto the Drive twin at the r-bump. Internal working document under the 1:1 rebuild protocol.",
+  "parent": "proposal_ext_r2_7_bootplan",
+  "date": "2026-09-02",
+  "lane": "craft R3-SNK-2 (ORDER-CRAFT-R3-SNK2.md rulings 1 and 3)",
+  "note": "Owner rejection of card 18 → the corner/middle pocket leather is rebuilt to the construction MEASURED on the purchased Rasson Magnum II (SPIKE-REPORT-CRAFT-R2.md §R3-SNK, §R3-SNK-2): one padded plate FLUSH with the capping top (Magnum leather top +40.13 vs rail top +40.14), 4 mm mouth-side and outer edge rounds, inner flap to +2.6 above the bed, skirt to the signed hem, two rows of 10.36 × 3.47 mm oval dashes (inner row = the net seam at +16.8, outer row 24.5 under the top), flat butt cut at the rail-end planes. The four r2_7 letters that described the retired dome/brim boot move with it; provenance per row below. The XW101 crest read that the ruling required (tools/audit/crest_489.py; xpshop-2025053000513821.jpg side elevation, 1.10 mm/px chained from the official 850 mm rail-top height): crest 2.8 ± 2.0 mm above the capping, second frame 0.9 ± 1.3 mm — FLUSH CLASS (< 8 mm); the installed-WST frames show a fatter rolled collar but are unreadable side-on (disclosed open item).",
+  "rows": [
+   {
+    "id": "E2",
+    "title": "leather crest / plate top",
+    "was": {
+     "v": 57.2,
+     "band": [
+      48.0,
+      69.0
+     ]
+    },
+    "now": {
+     "v": 47.0,
+     "band": [
+      46.5,
+      47.5
+     ]
+    },
+    "provenance": "Magnum: leather top = rail top (40.13 / 40.14); XW101 side-elevation read 2.8 ± 2.0 mm proud → flush class. Law: plate top = E1 (the capping top) — same band as E1."
+   },
+   {
+    "id": "E3",
+    "title": "mouth-edge round Ø (was: brim tube Ø30 at r 104–119)",
+    "was": {
+     "v": 30.0,
+     "band": [
+      22.0,
+      40.0
+     ]
+    },
+    "now": {
+     "v": 8.0,
+     "band": [
+      6.0,
+      12.0
+     ]
+    },
+    "provenance": "Magnum: edge rounds ≈ 4 mm (mouth-side skin r 47.8 @+37 → 48.8 @+38 → 51.1 @+39; middle top skin rounds 5 × 4). The r2_7 brim tube at the OUTER edge was a misread of the montage curl. Fit: one circle on the D3 section between the flap top and the flat top."
+   },
+   {
+    "id": "E4",
+    "title": "stitch row y (the inner row = the NET SEAM on the flap face)",
+    "was": {
+     "v": 10.0,
+     "band": [
+      4.0,
+      16.0
+     ]
+    },
+    "now": {
+     "v": 16.8,
+     "band": [
+      12.0,
+      21.0
+     ]
+    },
+    "provenance": "Magnum: inner dashes z +15.9…+17.6 (corner) / +16.8 (middle) on the flap's mouth face — the seam the net's selvage hangs behind. Bed-relative because the net is."
+   },
+   {
+    "id": "E28",
+    "title": "leather wrap about the mouth centre, seam to seam",
+    "was": {
+     "v": 207.0,
+     "band": [
+      175.0,
+      215.0
+     ]
+    },
+    "now": {
+     "v": 166.0,
+     "band": [
+      150.0,
+      185.0
+     ]
+    },
+    "provenance": "Magnum: the piece is CUT flat at the rail-end planes (butt, 0.07 mm), no lap on the wood; its 208° wrap about P follows from its end planes lying INSIDE its flap circle (42.7 < 47.5). On this table the end planes lie OUTSIDE the flap circle (dFace 50.8 > rFlap 48.2), so a butt-cut piece subtends 165.7° about the mouth centre (measured R3-SNK). The r2_7 207° counted the R1 boot's ≤ 15 mm lap ON the wood faces."
+   },
+   {
+    "id": "collar.convex",
+    "title": "crest arc law → plate-top law",
+    "was": "one convex dome crown, Ø [40, 80], rms ≤ 0.6",
+    "now": "plate top FLAT and LEVEL: D3 section points between the mouth round and the outer round lie within [E1 − 1.0, E1 + 0.5] mm (rms ≤ 0.6); the mouth round is one convex arc (E3 fit rms ≤ 0.6)",
+    "provenance": "Magnum: 0.61 mm crown over r 52–86; flush with the rail."
+   }
+  ]
+ }
+]

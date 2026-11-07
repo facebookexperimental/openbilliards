@@ -1,0 +1,1931 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* playback.css — 030 Phase C Playback (回放) DVR skin: the session-list
+   panel, the timeline player chrome over the LIVE bed, and the destination
+   card (owner-signed mockups feature 030 (internal spec)). LEAF
+   stylesheet, injected by web/app/playback.js as a <link> carrying
+   ?v=<PB_CSS_V> — bump the constant IN playback.js on EVERY edit here
+   (help.css/settings-modal.css precedent). Colors/sizes consume --ob-*
+   tokens ONLY (tokens.css owns the definitions; CI grep-gates hardcoded
+   colors — pot-marker dots are BALL_COLORS game content painted inline by
+   the module, never literals here). Control labels WRAP, never ellipsize
+   (kit audit law); row titles/urls are DATA and may ellipsize (mockup). */
+
+/* ---- toolbar pill: the #ob-help / #ob-gear / #ob-drills NEUTRAL register
+   (34px round icon-only pill, ONE toolbar family — border 1px --ob-line-1
+   over --ob-glass, --ob-text-0 ink, hover bg-2/line-2, pressed one rung
+   past hover at bg-3/accent-dim-2 per the kit.css ladder doctrine).
+
+   DEVIATION from the owner-signed mockup 01 (`.tb-pill--playback` drew this
+   pill in the accent voice, and it shipped that way in Phase C): build-11
+   device feedback rejected it — an always-accent pill reads as ACTIVE.
+   the design charter's single-accent doctrine reserves chalk blue for action /
+   selection / LIVE VALUES, kit.css `.ob-btn--primary` is the accent voice of
+   a primary action, and the app's one tinted-toolbar-pill precedent
+   (`#ob-record.rec`, danger wash) means "this is running". At rest the DVR
+   entry is running nothing, so it takes the neutral family voice. NO
+   open/expanded paint is added: no toolbar pill in this app has one (the
+   gear only flips aria-expanded), the panel is modal over its own backdrop,
+   and `html.ob-pb-live` stands the whole toolbar down while the player is
+   live — so an "open" state would never be visible next to its siblings.
+
+   Fixed offset = stale-app.html fallback ONLY — `#ob-toolbar > * {
+   position: static !important }` neutralizes it once containered. order 0
+   lives HERE (app.html is frozen; per-id order rules are additive CSS). */
+#ob-toolbar > #ob-playback { order: 0; }
+/* GH-668 B-K16: the pill is the kit toolbar part (playback.js stamps
+   .ob-btn.ob-btn--icon.ob-btn--glass.ob-toolbar-pill; kit.css owns the
+   material, the rungs, the text-fallback metrics, the coarse 44 circle and
+   the reduced-motion zeroing). This sheet keeps the stale-app.html
+   fallback slot only — right-edge ladder below drills (gear 10 / help 54 /
+   drills 98; top 10/right 268 was #ob-export-btn's anchor, v3 collision). */
+#ob-playback {
+  position: fixed;
+  top: 142px;
+  right: 10px;
+}
+
+/* ==== session-list panel (mockup 01; navmodal geometry) =================== */
+#ob-pb-panel {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(880px, 92vw);
+  height: min(620px, 86vh);
+  display: flex;
+  flex-direction: column;
+  background: var(--ob-glass);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-l);
+  box-shadow: var(--ob-el-2);
+  /* z:70 — ABOVE the promoted .ob-backdrop--top (kit.css z:69) that
+     playback.js pairs with this panel, matching the help/drills/confirm
+     ladder (QA wave: at the old z:60 the backdrop hit-tested OVER the
+     panel and every real tap/click dismissed the list). */
+  z-index: var(--ob-z-dialog);
+  font-family: var(--ob-font);
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-0);
+}
+.ob-pb-head {
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-3);
+  padding: var(--ob-sp-4) var(--ob-sp-5);
+  /* GH-668 B-K24: the --ob-line-0 hairline every panel head uses — the
+     dashed divider was a voice no other chrome spoke */
+  border-bottom: 1px solid var(--ob-line-0);
+  flex-shrink: 0;
+}
+.ob-pb-head .ob-pb-mark { color: var(--ob-accent-hi); flex: 0 0 auto; display: inline-flex; }
+.ob-pb-head h2 { margin: 0; } /* title role = kit .ob-title (B-K24); the noun is the launcher's */
+/* GH-668 S5 G4 (B-RP03): the filter strip is the kit `.ob-segmented`
+   (playback.js) — geometry, rungs, the checked register and the focus ring
+   composition are the kit's; this sheet keeps ONLY the placement voice. */
+/* GH-668 S5 G7 fix 3: the head's two registers (playback.js judgeHead) —
+   one line while the strip shares the title's line; `.ob-pb-head--stack`
+   keeps the close on the TITLE's line and drops the strip WHOLE onto its
+   own end-aligned line (a lone close under the strip was fr's 667 register
+   before). The strip keeps its intrinsic kit width in both. */
+.ob-pb-tools { display: flex; justify-content: flex-end; margin-left: auto; }
+/* TWO MEASURERS, ONE STRIP (GH-668 S5 replays F1e, the main merge of the
+   kit FIT LADDER — controls.js fitSegmented + kit.css minmax(0, 1fr)): the
+   kit judges the strip against ITS OWN well and changes the strip's pole
+   (--stack) when the equal tracks cannot hold a label; the head judges the
+   LINE (playback.js judgeHead) by overflow. While `.ob-pb-tools` could
+   shrink on the title's line the kit measured a CLAMPED well first, stacked
+   the strip inside the unstacked head, the head then never overflowed and
+   the head law never fired (480 / ja: a 128 px column beside the title).
+   The tools cell never shrinks on the line: the one-line register offers
+   the strip its INTRINSIC width only (the head overflows instead, and the
+   head law stacks it), the stacked register offers the full head width —
+   every well the kit ever measures is one the head law already chose. */
+.ob-pb-tools { flex-shrink: 0; }
+/* The kit's TIGHT rung (kit.css `[data-ob-seg-fit="tight"] > label`) sets
+   the LABEL's font-size; this strip's label text is a `span.ob-control`
+   (playback.js), whose kit type role re-pins --ob-fs-0 at (0,1,0) — the
+   rung was inert here and the ladder fell straight from pad-first to the
+   stack pole (480 / ja: a 448 px well the tight rung holds with a 9 px pad;
+   the pill stacked instead, F1e). The span follows the label's rung. */
+.ob-pb-tools .ob-segmented[data-ob-seg-fit="tight"] > label > .ob-control { font-size: inherit; }
+.ob-pb-head--stack { flex-wrap: wrap; }
+.ob-pb-head--stack .ob-pb-close { margin-left: auto; }
+.ob-pb-head--stack .ob-pb-tools { order: 9; flex-basis: 100%; margin-left: 0; }
+/* STALE-MODULE BELT (GH-668 S5 replays r7, review r4 P2-2 — the cache-poison
+   contract's FRESH-CSS + STALE-JS pairing, the ownership ledger mixed-freshness law):
+   a cached pre-segmented playback.js still builds the filter strip as
+   `.ob-pb-filterbtn` buttons and the speed detents as `.ob-pb-speedbtn`
+   buttons (aria-pressed = the painted truth, `data-filter` on each) — NOT
+   the kit segmented radios / toggles — and the G4 refit had dropped every
+   rule they stood on, so under this sheet the selected filter and the
+   selected speed read like their siblings and the coarse floor was gone.
+   Exactly these two legacy classes get the kit toggle's colours (the
+   `.ob-btn--toggle[aria-pressed="true"]` register: bg-3 / accent ink /
+   el-1), the kit pill geometry voice and — in the coarse block below — the
+   `--ob-h-coarse` floor. No other legacy rule (the strips' containers keep
+   the fresh module's layout). Arm X2 R-STALE-PLAYBACK serves a module
+   DERIVED with those classes (fixtures/playback-stale-pre-segmented.mjs)
+   and proves the selected state + the floor. */
+.ob-pb-filterbtn,
+.ob-pb-speedbtn {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: var(--ob-sp-1) var(--ob-sp-3);
+  border-radius: var(--ob-r-full);
+  color: var(--ob-text-1);
+  font: var(--ob-fw-med) var(--ob-fs-0)/var(--ob-lh-body) var(--ob-font);
+  white-space: nowrap; /* labels never ellipsize — the pill grows */
+  cursor: pointer;
+}
+.ob-pb-filterbtn[aria-pressed="true"],
+.ob-pb-speedbtn[aria-pressed="true"] {
+  background: var(--ob-bg-3);
+  color: var(--ob-accent-text);
+  box-shadow: var(--ob-el-1);
+}
+/* the ring on the legacy classes (not .ob-btn members, so the kit's own
+   :focus-visible never reaches them): the kit --ob-focus ring at rest, and
+   — the A9 COMPOSITION law (e2e-ui --audit; B-K06): a selected-state rule
+   that sets box-shadow carries a :focus-visible companion — composed over
+   the pressed register instead of being swallowed by it (the kit's
+   .ob-btn--toggle[aria-pressed="true"]:focus-visible pairing, restated) */
+.ob-pb-filterbtn:focus-visible,
+.ob-pb-speedbtn:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+}
+.ob-pb-filterbtn[aria-pressed="true"]:focus-visible,
+.ob-pb-speedbtn[aria-pressed="true"]:focus-visible {
+  box-shadow: var(--ob-focus), var(--ob-el-1);
+}
+/* .ob-pb-close (GH-245 close unification): the hand-rolled 34px/30px pair is
+   RETIRED — both closes carry the kit `.ob-btn .ob-btn--ghost .ob-btn--icon`
+   (playback.js), so geometry (34px/44pt), padding: 0 (the old QA
+   restatement's job — --icon states it at the kit), voice, rungs and the
+   focus ring are all the kit's. The class stays in the DOM as the structure
+   hook the frozen tools key on (`#ob-pb-card .ob-pb-close`); only the card
+   head's float below still styles through it. */
+
+.ob-pb-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+}
+/* B-K07 DVR measure: rows read at ≤ 640 px (the 880 panel stretched the
+   title track to 619 px for a 125 px title); the list column centres —
+   the panel keeps its width so the filter head still fits ×7 locales */
+.ob-pb-list:not(.ob-pb-list--rail) {
+  width: 100%;
+  max-width: calc(640px + 2 * var(--ob-sp-3));
+  margin-inline: auto;
+}
+.ob-pb-day {
+  padding: var(--ob-sp-3) var(--ob-sp-3) var(--ob-sp-1);
+  /* GH-668 B-K08 ONE day voice: 12 / 620 sentence case text-1 — a date is
+     DATA that groups rows, not a section label; the caps + text-2 voice
+     spoke 30 px from the card's 14 / 620 "Today" in a second register.
+     text-1 because both hosts sit on glass (B-K02 ground law). */
+  font-size: var(--ob-fs--1);
+  font-weight: var(--ob-fw-semi);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-1);
+}
+/* GH-668 B-K07 the row: face · body [· delete] [· chevron]. The tracks
+   DERIVE from what the row carries (`:has(> .ob-pb-del)` / `:has(> .ob-pb-chev)`
+   — structural, so the class-set stays one `.ob-pb-row` across hosts, 035
+   contract §4 law 3): `controls:false` drops the delete column and the rail (R15) drops the
+   chevron, so no host pays for an empty track's gap (the old fixed
+   `40px 1fr auto auto 14px` floated the rail's chevron 26 px in). The
+   body is a wrapping flow (see .ob-pb-what) — the title is the identity
+   and never truncates; the clock lives under it. */
+.ob-pb-row {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: var(--ob-sp-3);
+  align-items: center;
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  border-radius: var(--ob-r-m);
+  cursor: pointer;
+  /* GH-668 S5 replays r3 (P3, the visual checker's press-then-drag still):
+     the row is a BUTTON (role=button) — a press that drags selects no text
+     (the kit .ob-btn / .ob-segmented law); the session facts stay readable
+     from the player, never by selecting a row */
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ob-pb-row:has(> .ob-pb-del) { grid-template-columns: 40px minmax(0, 1fr) auto; }
+.ob-pb-row:has(> .ob-pb-chev) { grid-template-columns: 40px minmax(0, 1fr) 14px; }
+.ob-pb-row:has(> .ob-pb-del):has(> .ob-pb-chev) {
+  grid-template-columns: 40px minmax(0, 1fr) auto 14px;
+}
+/* GH-668 B-K15 guarded hover: touch hover is sticky, so an unguarded row
+   hover left the last tapped DVR row lifted; coarse feedback is :active. */
+@media (hover: hover) and (pointer: fine) {
+  .ob-pb-row:hover:not([aria-current="true"]) { background: var(--ob-bg-2); }
+}
+/* GH-668 S5 G7 (the pack's state sheet): the press rung must OUTRANK the
+   guarded hover above (0,3,0) — a bare `.ob-pb-row:active` (0,2,0) lost to
+   it under a fine pointer once G2 excluded the current row from hover, so
+   hover and active painted the same bg-2. Same `:not([aria-current])`
+   arithmetic = (0,3,0) declared later; the current row keeps its wash on a
+   press too (selection outranks hover AND press — one law). */
+.ob-pb-row:active:not([aria-current="true"]) { background: var(--ob-bg-3); }
+.ob-pb-row + .ob-pb-row { margin-top: 2px; }
+/* GH-668 S5 B-RP03 (RP:R-16): the replays place's band marks its NEWEST
+   row `aria-current="true"` (playback.js renderHost, rail hosts only — the
+   DVR modal never sets it) = the G9 register: --ob-accent-dim-3 fill +
+   --ob-accent-line inset hairline + --ob-accent-text title ink, NO glow
+   (ruling R1: the halo is the place rail's alone). Declared after the
+   hover / :active rungs at the same specificity so the register outranks
+   them (the guarded hover excludes the current row — the kit
+   .ob-card-option idiom; the row's own hover stays the lighter bg-2 step).
+   The ring is the kit's (`--ob-focus`; a role=button div gets no kit
+   selector) and COMPOSES with the hairline in the companion block (A9's
+   static law: a selected-state box-shadow needs its :focus-visible twin). */
+.ob-pb-row:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+}
+.ob-pb-row[aria-current="true"] {
+  background: var(--ob-accent-dim-3);
+  box-shadow: inset 0 0 0 1px var(--ob-accent-line);
+}
+.ob-pb-row[aria-current="true"] .ob-pb-title { color: var(--ob-accent-text); }
+/* the row's secondary voices (sub / score / when-line) re-ink to text-0 on
+   the lifted dim-3 ground — the kit .ob-card-option[aria-current] hint
+   idiom: text-1 on that fill reads 4.1:1, under the A2 ground law's 4.5 */
+.ob-pb-row[aria-current="true"] .ob-pb-sub,
+.ob-pb-row[aria-current="true"] .ob-pb-score,
+.ob-pb-row[aria-current="true"] .ob-pb-when { color: var(--ob-text-0); }
+.ob-pb-row[aria-current="true"]:focus-visible {
+  box-shadow: var(--ob-focus), inset 0 0 0 1px var(--ob-accent-line);
+}
+/* 035a (the replays contract (feature 035, internal) §3.2 `mountList`
+   variant:'rail'): the replays-place HOST modifier. The host is a plain
+   vertical scroll box — its band/panel geometry belongs to ui/replays.css;
+   rows and day labels keep the rules above unchanged (one row renderer,
+   contract §4 law 3) — only the day label compacts to the host's inset. */
+.ob-pb-list--rail {
+  display: flex;
+  flex-direction: column;
+}
+.ob-pb-list--rail .ob-pb-day { padding: var(--ob-sp-2) var(--ob-sp-2) var(--ob-sp-1); }
+.ob-pb-list--rail .ob-pb-day:first-child { padding-top: var(--ob-sp-1); }
+/* GH-668 S5 replays r3 (review visual audit r1 F3, integrator ruling (b)): a
+   rail host with a HEAD slot (playback.js mountList `head`) renders its
+   FIRST day label there — the group label ABOVE the scrollport (the B-RP04
+   caps-role precedent), so the scroll content starts on a row and the
+   band's end residual can be flush (contract §7 row 44). Same voice; the
+   rail's inset (sp-2 top under the title, as an in-flow second label); the
+   host sheet lets a filled slot own the scroll content's former top inset
+   (ui/replays.css), so nothing moves on screen; later labels keep the
+   in-flow rules above. */
+.ob-pb-day--head { padding: var(--ob-sp-2) var(--ob-sp-2) var(--ob-sp-1); }
+/* GH-668 S5 replays r4 (review visual audit r2 F5): the head slot names the
+   group at the TOP of the scroll window (playback.js trackHead, contract §7
+   row 48); an in-flow label that would sit at the very top under an
+   identical head is hidden by VISIBILITY only — its box, the fold atoms and
+   the stop lattice stay, so no two identical labels are ever visible and
+   nothing moves. */
+.ob-pb-day--twin { visibility: hidden; }
+/* GH-668 B-K08 (R15) `.ob-pb-face` names the GAME, no well tile (renamed off `.ob-pb-mode`, which is also the export-mode pill pair's class): the 40 px
+   bordered well was the disabled-button silhouette and its rack glyph ×6
+   read as a hazard-sign column. `--disc` = a 28 px ball in the money
+   ball's own paint (inline style from ballset — game content, the header
+   note) with an 18 px ivory counter carrying the number; `--chip` = the kit
+   badge voice (12 caps) for disciplines without a money ball. */
+/* `:where(.ob-pb-row > .ob-pb-mode)` = a CACHED playback.js's face (the old
+   name) under this sheet: it gets the face box, never the export pill's
+   (GH-668 review r2 P2 — the pill pair's rules are scoped under
+   .ob-pb-moderow). :where() keeps it at (0,0,0): the fresh face carries the
+   legacy name too, and a (0,2,0) belt outranked `--disc`'s 28 px width. */
+.ob-pb-face,
+:where(.ob-pb-row > .ob-pb-mode) {
+  width: 40px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ob-text-1);
+}
+.ob-pb-face--disc {
+  width: 28px;
+  border-radius: 50%;
+  background: var(--ob-bg-3);
+  justify-self: center;
+}
+.ob-pb-face--dark { box-shadow: inset 0 0 0 1px var(--ob-line-2); }
+.ob-pb-face__n {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ob-text-0);
+  color: var(--ob-bg-0);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--ob-fs--1);
+  font-weight: var(--ob-fw-semi);
+  line-height: var(--ob-lh-glyph);
+  text-align: center;
+}
+.ob-pb-face--chip.ob-badge {
+  width: auto;
+  max-width: 40px;
+  height: auto;
+  padding: 1px 5px;
+  justify-self: center;
+}
+/* the body: title + marks on one baseline while they fit, marks on their
+   own full-width line once the title wraps, the clock line always last */
+.ob-pb-what {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--ob-sp-2);
+  row-gap: 2px;
+}
+/* B-K07: the identity NEVER truncates — the kit's last ellipsis is gone;
+   the title wraps (≤ 2 lines at the row measure is the G8 copy budget) */
+.ob-pb-title {
+  flex: 0 1 auto;
+  min-width: 0;
+  font-weight: var(--ob-fw-med);
+  line-height: var(--ob-lh-control);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.ob-pb-title .ob-pb-sub { color: var(--ob-text-1); font-weight: var(--ob-fw-reg); }
+.ob-pb-title .ob-pb-score { color: var(--ob-text-2); font-weight: var(--ob-fw-reg); }
+/* GH-668 B-K16: the old-kernel mark is the kit badge in its warn voice
+   (.ob-badge.ob-badge--warn, playback.js) — this class keeps the ROW
+   PLACEMENT only; the third badge recipe is gone. */
+.ob-pb-badge {
+  margin-left: var(--ob-sp-2);
+  transform: translateY(-1px);
+}
+/* marker glyph strip — the row's fingerprint (mockup .marks).
+   `overflow: hidden` is a GH-242 consequence (review round 1 P2): the strip is
+   nowrap with flex:0 0 auto children, and the 12px cross made a foul-heavy
+   session's 24-marker cap (the module's own strip cap) reach ~403 CSS px —
+   wider than the row's 1fr marker column on a 667px phone, where the retired
+   2.5px bars still fit. Without this the crosses painted across the timestamp
+   column. Clipping at the column edge extends the SAME truncation policy the
+   24-child cap already applies, in the width dimension. */
+.ob-pb-marks {
+  /* B-K08: inline after the title on ITS baseline (`title · ● ● ✕`) while
+     the strip FITS beside it (basis = its content, so a lone foul chip is
+     never orphaned on a line of its own); a strip wider than the remaining
+     measure wraps to its own full-width line (B-K07 "the row's second
+     line") and clips there — never a third column */
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 16px;
+  overflow: hidden;
+}
+.ob-pb-marks:empty { display: none; }
+.ob-pb-pot { width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; }
+.ob-pb-pot--dark { box-shadow: inset 0 0 0 1px var(--ob-line-2); }
+/* foul marker (GH-242 owner decision): the ui/icons.js `foul` CROSS, not the
+   old 2.5x11 danger BAR — which read as a divider ("红色竖条是什么意思呢?")
+   and made a pot-plus-scratch row look like "pot, then a gap". A 12px glyph
+   box: the icon is 12px, so the box costs +9.5px over the old bar per marker
+   (+19px on the dense 15-mark strip = 3.3% of the phone width budget, no
+   overflow inside the module's own 24-child strip cap). The box also carries
+   the icons-less TEXT fallback (playback.js face(): '✕'), hence the
+   font-size/line-height — the strip must never inherit a row-sized glyph. */
+.ob-pb-foul {
+  /* GH-668 B-K08: the 12 px cross sits inside a 16 px --ob-danger-dim
+     CHIP — a badge, not a control: the bare red ✕ was the app's own dismiss
+     mark orphaned in the strip ("why are all my sessions flagged?") */
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-danger-dim);
+  /* GH-668 S5 review visual audit r1 F1 (P1): the cross ink is the kit's
+     danger READING ink, never the hue. `--ob-danger` on its own -dim wash
+     measured 2.30:1 under the newest row's accent-dim-3 wash (2.38 on the
+     solid rung, 2.44 on the phone glass; 4.6 only on the card's dark chip)
+     — below the 3:1 informational-icon floor, in every state of the current
+     row. The chip is the kit danger register at chip scale — the
+     `.ob-btn--danger` / `.ob-banner--foul` trio: `--ob-danger-dim` wash +
+     `--ob-danger-line` hairline (inset, the 16 px box unchanged) +
+     `--ob-danger-text` ink (tokens.css receipts 7.3–11.5:1 on the danger
+     washes over glass and the bg steps; arm V1 reads ≥ 5:1 on every ground
+     here). ONE renderer: the card's line 2, every rail row and the legend
+     sample read this register; the track's bare cross restates the hue
+     below (no chip there — nothing to read against). */
+  box-shadow: inset 0 0 0 1px var(--ob-danger-line);
+  color: var(--ob-danger-text);
+  font-size: 11px;
+  line-height: var(--ob-lh-glyph);
+}
+.ob-pb-foul > svg { display: block; }
+.ob-pb-star { color: var(--ob-text-0); margin: 0 -1px; display: inline-flex; flex: 0 0 auto; }
+/* B-K07: the clock is a SORT KEY, not identity — one 12 px line under the
+   title ("14:32 · 12 min · 9 shots"); text-1 on glass (B-K02), wraps as
+   data (a de "1440 Min · 9999 Stöße" on a 184 px rail measure) */
+.ob-pb-when {
+  flex: 1 0 100%;
+  font-size: var(--ob-fs--1);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-1);
+  font-variant-numeric: tabular-nums;
+  text-align: start;
+}
+/* row delete (GH-245): geometry/voice/rungs from the kit ghost icon circle
+   (28px → 34px, the unified register). What stays is the row's own ink
+   walk: quiet at rest, DANGER on hover — restated at the ghost rung's own
+   (0,3,0) specificity or the kit's text-0 hover ink would read a
+   destructive control as safe. */
+.ob-pb-del { color: var(--ob-text-2); }
+/* B-K08: the trash is REVEALED — row hover / focus-within on fine pointers
+   (a keyboard Tab onto it reveals it too); coarse pointers have no hover,
+   so the control rests visible there (never opacity-hidden behind a tap) */
+@media (hover: hover) and (pointer: fine) {
+  .ob-pb-del { opacity: 0; transition: opacity var(--ob-t-fast) var(--ob-ease); }
+  .ob-pb-row:hover .ob-pb-del,
+  .ob-pb-row:focus-within .ob-pb-del,
+  .ob-pb-del:focus-visible { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .ob-pb-del { transition: none; } }
+/* BOTH interaction rungs restated (review round 2: a keyboard Space press is
+   :active with no :hover, and the kit ghost's active ink is text-0 — the
+   danger voice must survive keyboard activation too) */
+@media (hover: hover) and (pointer: fine) { .ob-pb-del:hover:not(:disabled) { color: var(--ob-danger); } } /* B-K15 guard */
+.ob-pb-del:active:not(:disabled) { color: var(--ob-danger); }
+.ob-pb-chev { color: var(--ob-text-2); display: inline-flex; }
+.ob-pb-empty {
+  padding: var(--ob-sp-7) var(--ob-sp-5);
+  text-align: center;
+  color: var(--ob-text-2);
+}
+.ob-pb-foot {
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-3);
+  padding: var(--ob-sp-3) var(--ob-sp-5);
+  border-top: 1px solid var(--ob-line-0); /* B-K24 hairline */
+  font-size: var(--ob-fs--1);
+  color: var(--ob-text-2);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+/* clear-all (GH-245): kit ghost voice + rungs; this block keeps the footer
+   metrics + the danger ink, restated on hover at the ghost rung's own
+   specificity (destructive intent never reads as safe — kit ladder note) */
+.ob-pb-clear {
+  margin-left: auto;
+  color: var(--ob-danger);
+  font: var(--ob-fw-med) var(--ob-fs--1)/var(--ob-lh-body) var(--ob-font);
+  padding: 2px var(--ob-sp-3);
+}
+/* hover AND active (review round 2: keyboard activation is :active without
+   :hover — destructive ink must hold on both rungs) */
+@media (hover: hover) and (pointer: fine) { .ob-pb-clear:hover:not(:disabled) { color: var(--ob-danger); } } /* B-K15 guard */
+.ob-pb-clear:active:not(:disabled) { color: var(--ob-danger); }
+/* ---- marker-vocabulary legend (GH-242 decision 3a): the ONE surface that
+   teaches the strip without an interaction, sitting beside the storage note.
+   It reuses the REAL glyph elements (.ob-pb-pot / .ob-pb-foul / .ob-pb-star)
+   so what it teaches is byte-identical to what the rows paint. Items never
+   ellipsize — they wrap as whole items (the kit label law); each item's own
+   glyph+label pair is nowrap so a glyph can never orphan from its word. */
+.ob-pb-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px var(--ob-sp-4);
+  min-width: 0;
+}
+.ob-pb-legend .ob-pb-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ob-sp-2);
+  white-space: nowrap;
+}
+/* the legend's pot sample is CHROME, not a ball — it takes an --ob-* ink,
+   while row dots are BALL_COLORS game content painted inline by the module */
+.ob-pb-legend .ob-pb-pot { background: var(--ob-text-1); }
+
+/* kit-less degrade (cache-poison contract): module scrim stands in for the
+   kit .ob-backdrop (the record-quality.js nokit register) */
+.ob-pb-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--ob-z-scrim);
+  background: var(--ob-scrim);
+}
+
+/* ==== timeline player (mockup 02): floating glass chrome over the LIVE
+   WebGL bed. The bed IS the app canvas (WYSIWYG law) — only a barely-there
+   scrim strip top/bottom so glass reads over bright felt. ==== */
+#ob-pb-player { position: fixed; inset: 0; z-index: 55; pointer-events: none; }
+#ob-pb-player > * { pointer-events: auto; }
+.ob-pb-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none !important;
+  background:
+    linear-gradient(to bottom, var(--ob-scrim), transparent 16%),
+    linear-gradient(to top, var(--ob-scrim), transparent 24%);
+}
+.ob-pb-top {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-2);
+  font-family: var(--ob-font);
+  font-size: var(--ob-fs-0);
+  color: var(--ob-text-0);
+}
+/* over-bed icon pills (GH-245): rungs/centring/radius from the kit
+   `.ob-btn .ob-btn--icon`; this block keeps the player chrome's own
+   register — the 44px over-bed size (the kit's 34 is a panel size; these
+   float over the live table) and the GLASS material the shelf/chip share
+   (the kit's opaque bg-2 would read as a panel scrap over bright felt). */
+.ob-pb-pillico {
+  width: 44px;
+  height: 44px;
+  background: var(--ob-glass-thin);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+  border: 1px solid var(--ob-line-1);
+}
+@media (hover: hover) and (pointer: fine) { .ob-pb-pillico:hover:not(:disabled) { background: var(--ob-bg-2); } } /* B-K15 guard */
+.ob-pb-chip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5px var(--ob-sp-4);
+  border-radius: var(--ob-r-l);
+  background: var(--ob-glass-thin);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+  border: 1px solid var(--ob-line-1);
+  min-width: 0;
+}
+/* session DATA readout (GH-668 A8 never-ellipsize, S5 G4): wraps whole on
+   the .ob-pb-title idiom, the full text rides `title`; no clamp — a
+   -webkit-line-clamp paints Chrome's own ellipsis glyph and the A8 runtime
+   predicate reads a clamped box as a clipped text box (kit follow-up F1
+   .ob-clamp-2 decides the two-line law once for every readout) */
+.ob-pb-chip .ob-pb-chip-t {
+  font-weight: var(--ob-fw-med);
+  line-height: var(--ob-lh-control);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.ob-pb-chip .ob-pb-chip-m {
+  font-size: var(--ob-fs--1);
+  color: var(--ob-text-2);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.ob-pb-top .ob-pb-grow { flex: 1; }
+/* Save CTA (GH-245): voice + rungs from the kit `.ob-btn .ob-btn--primary`
+   — including the primary's OWN hue ladder on hover/active (the old
+   hand-rolled hover washed the accent out to grey bg-2, a rung the kit
+   doctrine forbids) and the kit's 0.38 disabled dim. Kept here: the
+   over-bed 44px height, the wide padding, the glass blur, and flex pinning
+   in the top row. */
+.ob-pb-save {
+  height: 44px;
+  padding: 0 var(--ob-sp-5);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+  flex: 0 0 auto;
+}
+
+.ob-pb-shelf {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  --ob-pb-shelf-pad: var(--ob-sp-3); /* #1180: the block-end pad, read by the coarse strip block's hit box */
+  padding: var(--ob-pb-shelf-pad) var(--ob-sp-4);
+  border-radius: var(--ob-r-l);
+  background: var(--ob-glass);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+  border: 1px solid var(--ob-line-1);
+  box-shadow: var(--ob-el-2);
+  font-family: var(--ob-font);
+  font-size: var(--ob-fs-0);
+  color: var(--ob-text-0);
+}
+.ob-pb-row1 { display: flex; align-items: center; gap: var(--ob-sp-2); }
+/* camera tiles (GH-245): shape/voice/rungs from the kit
+   `.ob-btn .ob-btn--tile`; kept here is the shelf's own DENSE register —
+   78px width, 6/4 padding, 2px gap (tighter than the tile default: six
+   tiles + detents share one phone row), the quiet text-1 ink. The column
+   axis + mid radius are restated as STALE-KIT BELTS: a cached pre-v015
+   kit.css has no --tile part, and without these two lines that pairing
+   would paint the shelf as a row of text pills (the record-quality belt
+   precedent — a belt never states what its kit part does not). */
+.ob-pb-cam {
+  width: 78px;
+  padding: 6px 0 4px;
+  flex-direction: column; /* stale-kit belt (pre-v015 --tile) */
+  border-radius: var(--ob-r-m); /* stale-kit belt (pre-v015 --tile) */
+  gap: 2px;
+  color: var(--ob-text-1);
+}
+.ob-pb-cam .ob-pb-cam-l { /* caps voice = kit .ob-caps (playback.js); the tile's own size + ink */
+  font-size: 0.625rem;
+  color: inherit;
+  white-space: nowrap; /* control label */
+}
+/* CJK captions take the caps role's CJK rung (13 px): the 10 px dense size
+   above outranked the kit's CJK arm and made 2–4 glyph captions illegible
+   (uiaudit GH-1011 F51). Latin keeps the dense 10 px: six 78 px tiles share
+   one phone row, and the CAM slots wear the preset geometry verbatim
+   (GH-301 A2) — a 12 px Latin caption would grow the tiles apart (kept as an accepted dense register, #1180) */
+.ob-pb-cam .ob-pb-cam-l:is(:lang(ja), :lang(ko), :lang(zh)) { font-size: var(--ob-fs--1-cjk); }
+.ob-pb-cam[aria-pressed="true"] {
+  background: var(--ob-accent-dim);
+  border-color: var(--ob-accent-line);
+  color: var(--ob-accent-text);
+}
+/* the SELECTED tile walks its own hue ladder (kit ladder doctrine): rest
+   dim, hover dim-2, pressed dim-3 — the kit's NEUTRAL hover/active rungs at
+   equal-or-lower specificity would drop the accent tile to grey under the
+   pointer, and (review round 2) a keyboard Space press is :active with no
+   :hover, so the active rung is restated too, never left to the kit's
+   bg-3. */
+@media (hover: hover) and (pointer: fine) { /* B-K15 guard: touch hover is sticky */
+  .ob-pb-cam[aria-pressed="true"]:hover:not(:disabled) { background: var(--ob-accent-dim-2); }
+}
+.ob-pb-cam[aria-pressed="true"]:active:not(:disabled) {
+  background: var(--ob-accent-dim-3);
+  border-color: var(--ob-accent);
+}
+.ob-pb-cam--desktop { display: none; }
+@media (min-width: 1000px) { .ob-pb-cam--desktop { display: inline-flex; } }
+.ob-pb-row1 .ob-pb-grow { flex: 1; }
+.ob-pb-montage {
+  display: none;
+  align-items: center;
+  gap: var(--ob-sp-1);
+  padding: 2px var(--ob-sp-3);
+  border-radius: var(--ob-r-full);
+  color: var(--ob-warn);
+  background: var(--ob-warn-dim);
+  border: 1px solid var(--ob-warn-line);
+  /* caps voice = kit .ob-caps (playback.js); the warn ink above is the pill's own */
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.ob-pb-montage.on { display: inline-flex; }
+/* .ob-pb-speed (GH-668 S5 G4): the speed detents are the kit `.ob-segmented`
+   (playback.js) — no surface rule left; tabular digits ride .ob-nums. */
+.ob-pb-row2 {
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-3);
+  margin-top: var(--ob-sp-3);
+}
+/* transport play/pause (GH-245): voice + rungs from the kit
+   `.ob-btn .ob-btn--icon`, on the CONTROL rung (40) — the transport's own
+   38 px size sat between rungs, off the height ladder (uiaudit GH-1011, A7) */
+.ob-pb-play {
+  width: var(--ob-h-control);
+  height: var(--ob-h-control);
+  min-height: var(--ob-h-control);
+}
+.ob-pb-tcur { color: var(--ob-text-0); font-weight: var(--ob-fw-med); font-variant-numeric: tabular-nums; }
+.ob-pb-ttot { color: var(--ob-text-2); font-variant-numeric: tabular-nums; }
+.ob-pb-track {
+  position: relative;
+  flex: 1;
+  height: 30px;
+  background: var(--ob-bg-0);
+  border: 1px solid var(--ob-line-0);
+  border-radius: var(--ob-r-s);
+  touch-action: none;
+  cursor: pointer;
+}
+.ob-pb-seg { position: absolute; top: 4px; bottom: 4px; width: 1px; background: var(--ob-line-0); }
+.ob-pb-trim {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  background: var(--ob-accent-dim);
+  border-top: 1px solid var(--ob-accent-line);
+  border-bottom: 1px solid var(--ob-accent-line);
+  pointer-events: none;
+}
+.ob-pb-dim { position: absolute; top: -1px; bottom: -1px; background: var(--ob-scrim); pointer-events: none; }
+.ob-pb-dim--l { left: -1px; border-radius: var(--ob-r-s) 0 0 var(--ob-r-s); }
+.ob-pb-dim--r { right: -1px; border-radius: 0 var(--ob-r-s) var(--ob-r-s) 0; }
+.ob-pb-handle {
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  width: 6px;
+  margin-left: -3px;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-accent-hi);
+  box-shadow: var(--ob-el-1);
+  cursor: ew-resize;
+}
+.ob-pb-handle::before {
+  /* invisible 24px grab zone so the 6px handle is draggable on coarse */
+  content: "";
+  position: absolute;
+  left: -9px;
+  right: -9px;
+  top: 0;
+  bottom: 0;
+}
+.ob-pb-handle::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  top: 12px;
+  bottom: 12px;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-bg-2);
+}
+/* track-scoped: `.ob-pb-mark` is ALSO the panel-head mark (flex child) —
+   unscoped absolute positioning yanked it to the panel's mid-left (v2) */
+.ob-pb-track .ob-pb-mark { position: absolute; top: 50%; pointer-events: none; }
+.ob-pb-track .ob-pb-mark > * { transform: translate(-50%, -50%); display: block; }
+/* GH-242: the track OWNS the foul mark's size again. The old rule forced
+   `height: 13px` at specificity 0,3,0 on what used to be a 2.5px BAR; with
+   the cross face that stretched the 12px glyph box by 1px and, worse, the
+   `> *` rule above wins `display: block` over the box's own inline-flex and
+   kills the icon centring. Restated here at the SAME 0,3,0 specificity but
+   LATER in the sheet, so both surfaces render one 12px square cross. */
+.ob-pb-track .ob-pb-mark .ob-pb-foul {
+  width: 12px;
+  height: 12px;
+  display: flex;
+  background: none; /* the track keeps the bare cross; the chip is the strip's */
+  border-radius: 0;
+  /* the strip's chip register (audit r1 F1: hairline + reading ink) is the
+     CHIP's — the track's bare 12 px cross keeps the hue on its own ground */
+  box-shadow: none;
+  color: var(--ob-danger);
+}
+.ob-pb-mark--out { opacity: 0.45; }
+.ob-pb-playhead {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--ob-text-0);
+  border-radius: var(--ob-r-full);
+  box-shadow: var(--ob-el-1);
+  pointer-events: none;
+}
+.ob-pb-playhead::after {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: var(--ob-text-0);
+  box-shadow: var(--ob-el-1);
+}
+.ob-pb-bubble {
+  position: absolute;
+  bottom: calc(100% + 16px);
+  transform: translateX(-50%);
+  padding: 1px var(--ob-sp-3);
+  background: var(--ob-bg-2);
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-s);
+  box-shadow: var(--ob-el-2);
+  font-size: var(--ob-fs--1);
+  font-weight: var(--ob-fw-med);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  display: none;
+  pointer-events: none;
+}
+.ob-pb-bubble.on { display: block; }
+
+/* ==== GH-301 director strip (contract §3 + owner amendments A1/A2) ========
+   The strip lane is a SIBLING pointer surface under .ob-pb-track inside
+   .ob-pb-row2 (playback-strip.js positions it against the track's own
+   geometry — wireTrack's pointer capture is untouched). Block identity
+   colors are the NON-accent --ob-pb-strip-* token family (tokens.css);
+   accent marks the SELECTED block/seam only (the GH-255 ruling). Block
+   labels NEVER ellipsize — playback-strip.js swaps the representation
+   (text → icon → color-only, amendment A1) and the aria-label persists. */
+.ob-pb-row2.ob-pb-hasstrip { position: relative; --ob-pb-strip-pad: 24px; padding-bottom: var(--ob-pb-strip-pad); } /* #1180: the pad is read by the coarse block hit box */
+.ob-pb-strip {
+  position: absolute;
+  --ob-pb-lane-h: 14px; /* #1180: the lane band, read by the coarse block hit box */
+  height: var(--ob-pb-lane-h);
+  border-radius: var(--ob-r-s);
+  background: var(--ob-pb-strip-lane);
+  touch-action: none;
+}
+.ob-pb-strip-block {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  overflow: hidden; /* belt only: A1 swaps representation BEFORE clipping —
+    the audit's scrollWidth probe is the red instrument for that law */
+  color: var(--ob-pb-strip-ink);
+  box-shadow: inset 0 0 0 1px var(--ob-line-0);
+  cursor: pointer;
+}
+/* family identity rides a custom property since GH-314 so the SLIVER can
+   re-target the same color onto its thin bar (::before below) — the
+   expanded paint is computed-value identical to the pre-314 rules */
+.ob-pb-strip-block[data-fam="broadcast"] { --ob-pb-fam: var(--ob-pb-strip-broadcast); }
+.ob-pb-strip-block[data-fam="chase"] { --ob-pb-fam: var(--ob-pb-strip-chase); }
+.ob-pb-strip-block[data-fam="pov"] { --ob-pb-fam: var(--ob-pb-strip-pov); }
+.ob-pb-strip-block[data-fam="overhead"] { --ob-pb-fam: var(--ob-pb-strip-overhead); }
+.ob-pb-strip-block[data-fam="rail"] { --ob-pb-fam: var(--ob-pb-strip-rail); }
+.ob-pb-strip-block[data-fam="close"] { --ob-pb-fam: var(--ob-pb-strip-close); }
+.ob-pb-strip-block[data-fam="custom"] { --ob-pb-fam: var(--ob-pb-strip-custom); }
+.ob-pb-strip-block { background: var(--ob-pb-fam, var(--ob-pb-strip-broadcast)); }
+.ob-pb-strip-block.ob-pb-strip--sel { box-shadow: inset 0 0 0 2px var(--ob-accent); }
+.ob-pb-strip-bl {
+  font-family: var(--ob-font);
+  font-size: 9px;
+  font-weight: var(--ob-fw-semi);
+  letter-spacing: var(--ob-track-caps);
+  line-height: var(--ob-lh-glyph);
+  white-space: nowrap; /* never ellipsized: the representation swaps (A1) */
+  padding: 0 3px;
+}
+.ob-pb-strip-bi { display: inline-flex; align-items: center; }
+.ob-pb-strip-bi svg { display: block; }
+/* seam: ≥24px hit target via the invisible pad (the .ob-pb-handle::before
+   grab-zone precedent), a 2px line, the transition glyph riding above */
+.ob-pb-strip-seam {
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  width: 24px;
+  margin-left: -12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ew-resize;
+  z-index: 2;
+}
+.ob-pb-strip-seam::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 11px;
+  width: 2px;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-pb-strip-seam);
+}
+.ob-pb-strip-seam.ob-pb-strip--sel::before { background: var(--ob-accent); }
+.ob-pb-strip-seam--snap::before {
+  background: var(--ob-warn);
+  box-shadow: 0 0 6px var(--ob-warn-line);
+}
+.ob-pb-strip-seam--lock { cursor: default; }
+.ob-pb-strip-seam--lock .ob-pb-strip-g { opacity: 0.55; }
+.ob-pb-strip-g {
+  position: relative;
+  z-index: 1;
+  font-family: var(--ob-font);
+  font-size: 9px;
+  font-weight: var(--ob-fw-bold);
+  line-height: var(--ob-lh-glyph);
+  color: var(--ob-text-0);
+  background: var(--ob-bg-2);
+  border: 1px solid var(--ob-line-2);
+  border-radius: 3px;
+  padding: 1px 2px;
+  transform: translateY(-14px);
+}
+/* the magnetized shot tick (snap engaged — §3.2): amber, never accent */
+.ob-pb-seg--lit {
+  background: var(--ob-warn);
+  box-shadow: 0 0 8px var(--ob-warn-line);
+}
+.ob-pb-strip-bubble {
+  position: absolute;
+  bottom: calc(100% + 22px);
+  transform: translateX(-50%);
+  padding: 1px var(--ob-sp-3);
+  background: var(--ob-bg-2);
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-s);
+  box-shadow: var(--ob-el-2);
+  font-size: var(--ob-fs--1);
+  font-weight: var(--ob-fw-med);
+  white-space: nowrap;
+  display: none;
+  pointer-events: none;
+  z-index: 5;
+}
+.ob-pb-strip-bubble--snap { border-color: var(--ob-warn-line); color: var(--ob-warn); }
+/* transition picker + slot flyout: hand-rolled .ob-pb-pop popovers over
+   the shelf; their controls are kit buttons (post-GH-245 register) */
+.ob-pb-pop {
+  position: fixed;
+  z-index: 90;
+  background: var(--ob-glass);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-m);
+  box-shadow: var(--ob-el-2);
+  padding: var(--ob-sp-2);
+  min-width: 170px;
+  font-family: var(--ob-font);
+  font-size: var(--ob-fs-0);
+  color: var(--ob-text-0);
+}
+.ob-pb-pop h4 { /* caps voice = kit .ob-caps (playback-strip.js) */
+  margin: 0 0 var(--ob-sp-1);
+  padding: 0 var(--ob-sp-2);
+}
+.ob-pb-transopt {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  white-space: nowrap; /* control label — never ellipsize; the pop grows */
+}
+.ob-pb-transopt[aria-pressed="true"] {
+  border-color: var(--ob-accent-line);
+  color: var(--ob-accent-text);
+  background: var(--ob-accent-dim);
+}
+/* the picker's Remove-cut action (review r4 P2 — the keyboard path to
+   delete): kit ghost with the destructive danger ink, hover+active rungs
+   restated (the del/clear/pcancel keyboard-activation law) */
+.ob-pb-transdel {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  white-space: nowrap;
+  color: var(--ob-danger);
+}
+@media (hover: hover) and (pointer: fine) { .ob-pb-transdel:hover { color: var(--ob-danger); } } /* B-K15 guard */
+.ob-pb-transdel:active { color: var(--ob-danger); }
+.ob-pb-pop-step {
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-2);
+  margin-top: var(--ob-sp-1);
+  padding: 0 var(--ob-sp-2);
+  font-variant-numeric: tabular-nums;
+}
+.ob-pb-transstep { /* a true icon square on the control rung beside the 40 px option pills —
+                     30 x 30 rendered 30 x 34 under the kit --icon floor (uiaudit GH-1011) */
+  width: var(--ob-h-control); height: var(--ob-h-control); min-height: var(--ob-h-control); }
+.ob-pb-pop-slotrow {
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-2);
+}
+.ob-pb-pop-slotrow + .ob-pb-pop-slotrow { margin-top: var(--ob-sp-1); }
+.ob-pb-slotact { white-space: nowrap; margin-left: auto; }
+/* slot pills: EXACT preset-pill geometry (amendment A2 — the same
+   .ob-pb-cam class carries it; empty slots dim their face) */
+.ob-pb-slot--empty > span:first-child { opacity: 0.45; }
+.ob-pb-slots { display: inline-flex; } /* the phone compound CAM ▾ pill */
+@media (min-width: 1000px) { .ob-pb-slots { display: none; } }
+/* capture bar (§3.2): pause → frame → save, floating over the bed above
+   the shelf; dashed accent = "live framing in progress" */
+.ob-pb-capbar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 150px;
+  z-index: 92;
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-3);
+  background: var(--ob-glass);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+  border: 1px dashed var(--ob-accent-line);
+  border-radius: var(--ob-r-l);
+  padding: var(--ob-sp-3) var(--ob-sp-4);
+  font-family: var(--ob-font);
+  font-size: var(--ob-fs-0);
+  color: var(--ob-text-0);
+  white-space: normal; /* the hint copy wraps, never ellipsizes */
+}
+.ob-pb-strip-hint {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 150px;
+  /* GH-331 (v29): UNDER the popovers (.ob-pb-pop is 90, capbar 92) — the
+     passive pointer-events:none hint must never paint over an interactive
+     surface; on the phone profile it sat on the transition picker's Move
+     row. The behavioral half (the hint HIDES while a popover is open)
+     lives in playback-strip.js syncHint — this is the stale-module belt. */
+  z-index: 89;
+  background: var(--ob-glass-thin);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-m);
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  font-family: var(--ob-font);
+  font-size: var(--ob-fs--1);
+  color: var(--ob-text-1);
+  white-space: normal;
+  pointer-events: none;
+}
+/* the live dip-to-black fade layer (§2.4): rendered CONTENT under the
+   chrome — the export composites the identical alpha into its frames */
+#ob-pb-player > #ob-pb-fade {
+  position: absolute;
+  inset: 0;
+  /* literal fallback (review r5 P2): tokens.css is data-optional and a
+     cached pre-012 sheet lacks the token — the export composites black
+     either way, so the live layer must too (WYSIWYG on the degraded
+     stylesheet path) */
+  background: var(--ob-pb-fade, #000);
+  opacity: 0;
+  pointer-events: none !important;
+}
+/* v31 (GH-364): the strike-point PREVIEW layer — rendered CONTENT like the
+   fade (the export burns the same plate via strikeglyph.js; the canvas
+   pixels are painted by playback.js syncLiveStrike, so no colors live
+   here). Sits UNDER #ob-pb-fade by DOM source order — the export
+   composites the plate BEFORE the dip. Element written only by the fresh
+   module (sheet-version law: stale module renders this rule inert). */
+#ob-pb-player > #ob-pb-strike {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none !important;
+}
+
+/* ==== GH-314 immersive console: the 3-state overlay ========================
+   playback.js syncUi() is the ONE writer of #ob-pb-player[data-ui]
+   (hidden / shown / pinned). Every rule here keys on that attribute or the
+   .ob-pb-strip--sliver class — both written ONLY by the fresh module — so
+   a STALE playback.js over this sheet renders the build-15 static console
+   byte-identically (the cache-poison degrade, red-proofed by e2e-playback
+   arm 18). Reveal/hide are opacity+transform ONLY (the video bed never
+   reflows — the renderer-size-constant law); visibility rides the
+   transition so a hidden console leaves hit-testing entirely (a bed tap
+   can never press an invisible control). #ob-pb-fade is EXCLUDED: the
+   dip-to-black layer is rendered CONTENT (GH-301 §2.4) and must keep
+   darkening the video beneath both the scrim and the controls in every
+   overlay state — the z-order law (fade < .ob-pb-shade scrim < controls)
+   is DOM source order inside the player layer. v31 (GH-364): #ob-pb-strike
+   joins the exclusion for the same reason — the strike-point preview is
+   rendered CONTENT the export burns, so it must survive every overlay
+   state (a stale module writes neither element; both :not()s are inert
+   there). */
+#ob-pb-player > :not(#ob-pb-fade):not(#ob-pb-strike) {
+  transition: opacity var(--ob-t-med) var(--ob-ease),
+              transform var(--ob-t-med) var(--ob-ease),
+              visibility 0s;
+}
+#ob-pb-player[data-ui="hidden"] > :not(#ob-pb-fade):not(#ob-pb-strike) {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--ob-t-med) var(--ob-ease-in),
+              transform var(--ob-t-med) var(--ob-ease-in),
+              visibility 0s var(--ob-t-med);
+}
+#ob-pb-player[data-ui="hidden"] .ob-pb-top { transform: translateY(-6px); }
+#ob-pb-player[data-ui="hidden"] .ob-pb-shelf { transform: translateY(8px); }
+
+/* ---- GH-314 D-lite: the director strip's resting SLIVER -------------------
+   VISUAL-ONLY (recorded choice): the lane box, every block/seam hit target
+   and the row2 rent are byte-identical to the expanded state — only the
+   PAINT thins to the --ob-pb-strip-sliver token bar and the glyph/label
+   furniture fades via opacity (never visibility/display, which would
+   change hit-testing and break the gesture-byte-identity law). The
+   coverage win of GH-314 comes from the overlay auto-hide; the sliver's
+   job is the resting register's visual quiet. */
+.ob-pb-strip.ob-pb-strip--sliver { background: transparent; }
+.ob-pb-strip--sliver .ob-pb-strip-block {
+  background: transparent;
+  box-shadow: none;
+}
+.ob-pb-strip--sliver .ob-pb-strip-block::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - var(--ob-pb-strip-sliver, 4px) / 2);
+  height: var(--ob-pb-strip-sliver, 4px);
+  background: var(--ob-pb-fam, var(--ob-pb-strip-broadcast));
+}
+.ob-pb-strip--sliver .ob-pb-strip-bl,
+.ob-pb-strip--sliver .ob-pb-strip-bi,
+.ob-pb-strip--sliver .ob-pb-strip-g { opacity: 0; }
+.ob-pb-strip--sliver .ob-pb-strip-seam::before {
+  top: calc(50% - var(--ob-pb-strip-sliver, 4px));
+  bottom: calc(50% - var(--ob-pb-strip-sliver, 4px));
+}
+/* the expand/collapse toggle (kit ghost icon voice + rungs; text-glyph
+   face — the S.slotsBtn '▾' precedent): lane FURNITURE riding the lane's
+   right end, under the passive total-time readout. 20px face on fine
+   pointers; the kit's own html.ob-touch --icon floor inflates it to 44pt
+   on coarse (it outranks this block's (0,1,0) size restatement — the law
+   working, not an accident). */
+.ob-pb-strip-toggle {
+  position: absolute;
+  left: calc(100% + 4px);
+  top: 50%;
+  transform: translateY(-50%);
+  /* the compact rung, square (uiaudit GH-1011): 20 x 20 rendered 20 x 34
+     under the kit --icon floor, with a 10 px glyph below the type scale */
+  width: var(--ob-h-compact);
+  height: var(--ob-h-compact);
+  min-height: var(--ob-h-compact);
+  font-size: var(--ob-fs--1);
+  line-height: var(--ob-lh-glyph);
+  color: var(--ob-text-1);
+  z-index: 3;
+}
+
+@media (min-width: 1000px) {
+  .ob-pb-top { top: 16px; left: 16px; right: 16px; }
+  .ob-pb-shelf {
+    left: 50%;
+    right: auto;
+    bottom: 16px;
+    width: min(1080px, calc(100vw - 32px));
+    transform: translateX(-50%);
+    --ob-pb-shelf-pad: var(--ob-sp-4);
+    padding: var(--ob-pb-shelf-pad) var(--ob-sp-5);
+  }
+  /* GH-314: the desktop shelf's centring transform COMPOSES with the
+     hidden-state slide (a bare translateY here would drop the -50% and
+     yank the shelf half a viewport right) */
+  #ob-pb-player[data-ui="hidden"] .ob-pb-shelf {
+    transform: translateX(-50%) translateY(8px);
+  }
+}
+
+/* live-bed chrome hiding (Screen-Studio law): while the player is open the
+   game HUD/toolbar/help chrome stands down — visibility (not display) so
+   module geometry never reflows under it. */
+html.ob-pb-live #hud,
+html.ob-pb-live #ob-toolbar,
+html.ob-pb-live #help,
+html.ob-pb-live #aimw,
+html.ob-pb-live #banner,
+html.ob-pb-live #hud-hint,
+html.ob-pb-live #hud-call,
+html.ob-pb-live #hud-decision,
+html.ob-pb-live #ob-mode-ind,
+html.ob-pb-live #ob-mode-chips,
+html.ob-pb-live #ob-drill-chips,
+html.ob-pb-live #ob-drill-dock,
+/* #ob-record-dock: the dock is RETIRED (GH-225 Phase D) and the fresh graph
+   never mounts it — the selector stays as a STALE-GRAPH GUARD, the same call
+   the §3.2 phone-toolbar hide list makes for #ob-record. record.js is a
+   plain unversioned static import while this sheet is cache-busted by
+   PB_CSS_V, so a cached PRE-Phase-D record.js can pair with this sheet; the
+   dock is a BODY-level node, so standing #ob-toolbar down does not touch it
+   and it would sit visible and hit-testable over the live player. Costs one
+   selector that matches nothing. (review review round 1, P2) */
+html.ob-pb-live #ob-record-dock,
+html.ob-pb-live #ob-aimw-warn,
+/* feature-014 touch widgets stand down too (QA wave: they are BODY-level
+   nodes, not #hud children — the power gauge stayed painted AND grabbable
+   over the DVR player and a stray drag rewrote the next live shot's power).
+   .ob-touchw covers the gauge/spin-button/fine-aim cluster (touchwidgets.js
+   namespace); the spin modal id is belt for its non-namespaced wrapper.
+   visibility (not display) keeps geometry + handlers intact for restore;
+   hidden nodes also drop out of hit-testing, so the gauge column stops
+   eating touches while the player is open. */
+html.ob-pb-live .ob-touchw,
+html.ob-pb-live #ob-spin-modal {
+  visibility: hidden !important;
+}
+
+/* ==== crash-resume banner (GH-362 layer 3) ================================= */
+/* The boot-time "continue export" affordance: a small centered card in the
+   destination-card register (same glass/line/radius family — it IS a save
+   surface), narrow, top-anchored so it never covers the table's action
+   area. Buttons take the kit voices (.ob-btn--primary / .ob-btn--ghost);
+   labels wrap, never ellipsize (kit audit law). */
+#ob-resume-banner {
+  position: fixed;
+  top: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(420px, calc(100vw - 32px));
+  z-index: 95; /* one rung over its own scrim (94), which sits above every
+                  action dialog/popover (review r8 P1); banner and card
+                  never coexist in an attempt (the `rendering` latch) */
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-2);
+  padding: var(--ob-sp-3) var(--ob-sp-4);
+  background: var(--ob-glass);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-l);
+  box-shadow: var(--ob-el-2);
+  font-family: var(--ob-font);
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-0);
+}
+/* the busy-state input lock (review r6 P1): while the recovered export
+   owns the table, every click lands here instead of the app chrome —
+   the save card's backdrop modality, banner-shaped. One rung under the
+   banner so its Cancel stays reachable. */
+#ob-resume-scrim {
+  position: fixed;
+  inset: 0;
+  /* ABOVE .ob-confirm/.ob-navmodal (70) and the select popovers (71) —
+     review r8 P1: a rerack/equipment confirmation already open when
+     Continue is pressed must not stay clickable under the lock */
+  z-index: 94;
+  background: var(--ob-scrim, oklch(0 0 0 / 0.35));
+}
+#ob-resume-banner .ob-pb-resume-text { white-space: normal; }
+#ob-resume-banner .ob-pb-resume-prog {
+  color: var(--ob-text-1);
+  min-height: 15px; /* progress line: no reflow when it fills in */
+  white-space: normal;
+}
+#ob-resume-banner .ob-pb-resume-prog:empty { display: none; }
+#ob-resume-banner .ob-pb-resume-row {
+  display: flex;
+  gap: var(--ob-sp-3);
+  flex-wrap: wrap; /* long locales wrap the pair, never clip */
+}
+/* kit-less fallback voice (the export.js dialog precedent): when kit.css
+   never loaded, the two buttons still need a readable native register */
+#ob-resume-banner button {
+  font: var(--ob-fw-med) var(--ob-fs-0)/var(--ob-lh-body) var(--ob-font);
+  white-space: normal; /* labels wrap, never ellipsize */
+}
+@media (pointer: coarse) {
+  #ob-resume-banner .ob-pb-resume-row button { min-height: 44px; }
+}
+
+/* ==== destination card (mockup 03) ======================================== */
+#ob-pb-card {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(560px, calc(100vw - 32px));
+  height: fit-content;
+  /* PINNED-HEAD FRAME (owner defect B, 2026-07): the card used to be the
+     scroller itself (`overflow-y: auto` here), so on a phone the title and
+     its ✕ scrolled out of reach the moment the body overflowed. Same frame
+     recipe as .ob-help (help.css) and #ob-settings-pane: the CARD never
+     scrolls, .ob-pb-card-body owns the scroll, head + foot stay pinned.
+     The vh line is declared FIRST so engines without dvh keep it. */
+  max-height: 92vh;
+  max-height: min(92dvh, calc(100dvh - env(safe-area-inset-top, 0px)
+    - env(safe-area-inset-bottom, 0px) - 16px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0; /* the head/body/foot rows own their padding */
+  background: var(--ob-glass);
+  backdrop-filter: blur(var(--ob-blur));
+  -webkit-backdrop-filter: blur(var(--ob-blur));
+  border: 1px solid var(--ob-line-1);
+  border-radius: var(--ob-r-l);
+  box-shadow: var(--ob-el-2);
+  /* z:70 — above its own promoted backdrop (kit.css z:69), the same
+     ladder fix as #ob-pb-panel (the card and panel never coexist). */
+  z-index: var(--ob-z-dialog);
+  font-family: var(--ob-font);
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-0);
+}
+.ob-pb-card-head {
+  flex: 0 0 auto; /* the close control never scrolls off-screen (defect B) */
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-3);
+  padding: var(--ob-sp-4) var(--ob-sp-5) var(--ob-sp-3);
+  border-bottom: 1px solid var(--ob-line-0); /* B-K24 hairline */
+}
+.ob-pb-card-head h2 {
+  margin: 0;
+  font-size: var(--ob-fs-1);
+  font-weight: var(--ob-fw-semi);
+  line-height: var(--ob-lh-tight);
+}
+/* GH-245: the 30px one-off is retired — the card close shares the unified
+   34px kit circle; only the head-row float stays surface-owned */
+.ob-pb-card-head .ob-pb-close { margin-left: auto; }
+.ob-pb-card-body {
+  flex: 1 1 auto;
+  min-height: 0; /* the flex-item floor that makes overflow-y real */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--ob-sp-3) var(--ob-sp-5);
+}
+/* scrollbar: the card body carries kit `.ob-scroll` (B-K23 one rule) */
+.ob-pb-card-foot {
+  flex: 0 0 auto; /* progress + the Export CTA stay reachable while scrolling */
+  padding: var(--ob-sp-3) var(--ob-sp-5) var(--ob-sp-5);
+  border-top: 1px solid var(--ob-line-0); /* B-K24 hairline */
+}
+.ob-pb-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--ob-sp-3);
+  flex-wrap: wrap;
+}
+.ob-pb-actions.off { display: none; } /* mid-render: Cancel is the only way out */
+.ob-pb-go { padding-inline: var(--ob-sp-5); }
+/* GH-305: the export-mode row (montage | full game) — two kit buttons in
+   an equal-width pair (the destination-tile grid voice, one row). The
+   PRESSED mode wears the accent material at the GH-255 working rung: this
+   accent states the LIVE selection steering the plan, which is the token
+   family's sanctioned "this is the active value" use (the design charter) — the
+   tiles below stay accent-free at rest, unchanged. Labels wrap, never
+   ellipsize (the tile law). */
+.ob-pb-moderow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--ob-sp-2);
+  margin-top: var(--ob-sp-2);
+}
+/* scoped under the moderow (GH-668 review r2 P2): the fresh session-row
+   face carries `.ob-pb-mode` as its fold hook for a cached replays.js, so
+   a bare `.ob-pb-mode` rule would dress the face as a pill again */
+.ob-pb-moderow .ob-pb-mode {
+  width: 100%; /* fill the grid cell — the kit pill is shrink-to-fit, and
+    two floating half-pills read unfinished beside the full-width tile
+    grid below (capture-pack round 1); equal halves also stop the longer
+    label wrapping at its own fit-width */
+  justify-content: center;
+  white-space: normal;
+  font-size: var(--ob-fs--1);
+}
+.ob-pb-moderow .ob-pb-mode[aria-pressed='true'] {
+  background: var(--ob-accent-dim);
+  border-color: var(--ob-accent);
+  color: var(--ob-accent-text);
+}
+/* GUARDED HOVER LAW (kit.css B-K15): touch hover is sticky, so the tinted
+   rung's own hover ladder rides the fine-pointer guard (fix round 5 — the
+   A10 static scan reads the rescoped selector) */
+@media (hover: hover) and (pointer: fine) {
+  .ob-pb-moderow .ob-pb-mode[aria-pressed='true']:hover:not(:disabled) {
+    background: var(--ob-accent-dim-2); /* the tinted rung's own hover ladder */
+  }
+}
+.ob-pb-moderow .ob-pb-mode:disabled { opacity: 0.45; cursor: default; }
+/* the honest reason under a DISABLED full option (the GH-274 "explain,
+   never a bare dead control" law) — the desthint voice, born hidden */
+.ob-pb-modenote {
+  display: none;
+  margin-top: var(--ob-sp-1);
+  font-size: var(--ob-fs--1);
+  color: var(--ob-text-2);
+  line-height: var(--ob-lh-body);
+  white-space: normal;
+}
+.ob-pb-modenote.on { display: block; }
+.ob-pb-quality {
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-2);
+  margin-top: 2px;
+  font-size: var(--ob-fs--1);
+  color: var(--ob-text-2);
+  font-variant-numeric: tabular-nums;
+  flex-wrap: wrap;
+}
+/* Advanced disclosure (GH-245): voice + rungs from the kit
+   `.ob-btn .ob-btn--ghost` (hover is now the ghost's bg-2 wash instead of
+   the old hairline border). Kept: the quality line's small metrics and its
+   tighter face gap. */
+.ob-pb-adv {
+  margin-left: auto;
+  gap: var(--ob-sp-1);
+  padding: 2px var(--ob-sp-3);
+  font: var(--ob-fw-med) var(--ob-fs--1)/var(--ob-lh-body) var(--ob-font);
+}
+.ob-pb-advrow {
+  display: none;
+  align-items: center;
+  gap: var(--ob-sp-3);
+  margin-top: var(--ob-sp-2);
+  color: var(--ob-text-1);
+  font-size: var(--ob-fs--1);
+}
+/* v17 (GH-259): grid, one labelled pair per row — the quality picker joins
+   resolution as a SECOND pair, and each control keeps its own line on
+   every locale/width (labels wrap, never ellipsize; single-pair degrade
+   renders exactly one row, visually the pre-GH-259 layout) */
+.ob-pb-advrow.on { display: grid; grid-template-columns: auto minmax(0, 1fr); }
+/* control rail for the kit combobox: .ob-select is width:100% by kit law,
+   which would stretch the whole Advanced row — pin it to its own column
+   (auto margins beat grid stretch, so the pill right-aligns in its cell) */
+.ob-pb-advrow .ob-select { width: auto; min-width: 132px; margin-left: auto; }
+/* kit-less degrade: the native select right-aligns the same way */
+.ob-pb-advrow > select { margin-left: auto; }
+/* v32 (GH-363): the pre-strike lead-in toggle joins the Advanced grid as a
+   third labelled pair — the state button right-aligns in its control cell
+   like the selects; its On/Off label wraps, never ellipsizes (kit audit
+   law). The coarse 44 px floor lives in the enumerated sweep below (the
+   arm-8e DOM sweep — GH-238 finding 1). */
+.ob-pb-advrow .ob-pb-lead { margin-left: auto; min-width: 132px; }
+/* v31 (GH-364): the strike-point overlay toggle — one wrapping-label row in
+   the Advanced grid, upgraded to the kit switch (controls.js upgradeToggle
+   adds .ob-toggle + the track to THIS label — the 8d no-native-controls
+   audit). Spans both grid columns; the track right-aligns like the
+   pickers. Classes written only by the fresh module (sheet-version law);
+   the kit-less degrade keeps a visible native checkbox. */
+.ob-pb-strikerow {
+  grid-column: 1 / -1;
+  display: flex;
+  position: relative; /* the stretched invisible input anchors here */
+  align-items: center;
+  gap: var(--ob-sp-2);
+  cursor: pointer;
+  min-height: 24px; /* the export dialog's fine-pointer WCAG 2.5.8 floor */
+}
+.ob-pb-strikerow .ob-toggle__track { margin-left: auto; }
+/* upgraded register only: the kit hides the input at 1×1 — stretch it over
+   the WHOLE row instead, so the invisible input IS the row-sized tap
+   target (the 8e coarse floor measures the input itself). Outranks the
+   kit's .ob-toggle input at (0,2,1). */
+.ob-pb-strikerow.ob-toggle .ob-pb-striketog {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.ob-pb-striketog:disabled { cursor: default; }
+/* kit-less degrade: a visible native checkbox, right-aligned */
+.ob-pb-strikerow:not(.ob-toggle) .ob-pb-striketog {
+  margin-left: auto;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--ob-accent);
+}
+/* GH-475: the elevation/power annotation knob rows — the overlay row's
+   own anatomy, indented one step to read as its children; a disabled
+   knob (overlay off / lifecycle lock) dims like the kit's disabled
+   controls. */
+.ob-pb-strikeanno { padding-left: var(--ob-sp-4); }
+.ob-pb-strikeanno:has(.ob-pb-striketog:disabled) { opacity: 0.55; }
+
+/* honest pre-render setup line: shot count · approximate size · ETA
+   (export.js estimateDrill — the SAME model the export dialog rows use) */
+.ob-pb-estimate {
+  margin-top: var(--ob-sp-1);
+  font-size: var(--ob-fs--1);
+  color: var(--ob-text-2);
+  font-variant-numeric: tabular-nums;
+  white-space: normal; /* wide locales wrap — never ellipsize */
+}
+/* GH-299 (owner over-cap verdict): the AMBER notice under the estimate —
+   over-budget one-take walk beats degrade to hard cuts and the card says
+   so. The --ob-warn caution voice (tokens.css: amber is cautions/slow-mo),
+   the estimate line's wrap law (copy wraps, never ellipsizes); born hidden,
+   playback.js cardQuality.refresh() is the ONE writer of `on`. */
+.ob-pb-beatwarn {
+  display: none;
+  margin-top: var(--ob-sp-1);
+  font-size: var(--ob-fs--1);
+  color: var(--ob-warn);
+  line-height: var(--ob-lh-body);
+  white-space: normal;
+}
+.ob-pb-beatwarn.on { display: block; }
+.ob-pb-dests {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--ob-sp-2);
+  margin-top: var(--ob-sp-3);
+}
+/* destination tiles (GH-245): shape/voice/rungs from the kit
+   `.ob-btn .ob-btn--tile` (its padding/gap/wrap ARE this tile's own —
+   the primitive was cut to the owner-signed mockup-03 geometry, so the
+   tracker's reserved "padding/row-gap re-tune" ships as NO change; the
+   sign-off sheets show the tiles byte-identical at rest). EVERY --tile
+   declaration is restated below as a STALE-KIT BELT (pre-v015 kit.css has
+   no --tile part; review round 1 P2 — a column+radius-only belt left that
+   supported pairing with the kit base's pill padding/gap and nowrap, so a
+   long localized label could overflow the card). Same call as .ob-pb-cam
+   above; a belt never states what its kit part does not. */
+.ob-pb-dest {
+  flex-direction: column; /* stale-kit belt (pre-v015 --tile) */
+  border-radius: var(--ob-r-m); /* stale-kit belt (pre-v015 --tile) */
+  padding: var(--ob-sp-3) 0 var(--ob-sp-2); /* stale-kit belt */
+  gap: var(--ob-sp-1); /* stale-kit belt */
+  white-space: normal; /* stale-kit belt — wrapped (de) labels grow the
+    tile, never ellipsize */
+  /* INSTANT paint, deliberately NOT the kit's soft transition: these tiles
+     carry the GH-255 per-attempt OUTCOME states (working/done/failed), and
+     that feedback must land on the same frame as the tap — the whole point
+     of the GH-255 wave was feedback the user's own gesture cannot erase or
+     delay. main's hand-rolled tiles painted instantly; the kit transition
+     would interpolate the state flip (~an --ob-t-fast of a tile that reads
+     neither rest nor working — e2e-playback 7e measures the material on
+     pixels and caught exactly that). Hover polish is forfeited on this ONE
+     surface by design. */
+  transition: none;
+}
+.ob-pb-dest small { font-size: var(--ob-fs--1); color: var(--ob-text-2); font-weight: var(--ob-fw-reg); }
+/* `:not(:disabled)` (GH-255): this rule outranks the state rules below by
+   specificity (0,2,0 vs 0,1,0), so without the guard a MOUSE still resting on
+   the tile it just tapped repainted the in-flight tile neutral grey — the
+   feedback erased by the very gesture that started it. A disabled tile also
+   has `cursor: default` and no business lighting up. */
+@media (hover: hover) and (pointer: fine) { .ob-pb-dest:hover:not(:disabled) { background: var(--ob-bg-3); } } /* B-K15 guard */
+.ob-pb-dest:disabled { opacity: 0.45; cursor: default; }
+/* ---- per-attempt tile states (GH-255) --------------------------------------
+   The retired `.ob-pb-dest--primary` accent block lived here: a STATIC chalk
+   wash on Photos that the owner read as "this tile is selected" (build-12
+   report), the same accent misuse the toolbar pill paid for at v11. The accent
+   voice now FOLLOWS THE LIVE ATTEMPT, and nothing wears it at rest.
+
+   SOURCE ORDER IS LOAD-BEARING. `.ob-pb-dest--working:disabled` ties
+   `.ob-pb-dest:disabled` at (0,2,0), so only the fact that these rules come
+   AFTER it lets the state tile restate `opacity: 1` — the tapped tile is
+   CORRECTLY disabled (the collective disarm prevents double posts) and must
+   still read at full strength, or the fix ships as "nothing happened" again.
+
+   Two registers inside one hue so working and done differ by MATERIAL, not
+   only by their label: working = the wash at the rest rung with a 1px
+   translucent accent edge (in progress); done = the same wash under a SOLID
+   accent edge doubled by an inset ring (settled, ~2px of accent). Failure
+   changes hue outright to the danger family. Each tinted state walks its OWN
+   hover rung (`-dim-2`) per the kit ladder doctrine — borrowing the neutral
+   `--ob-bg-3` hover mid-ladder would drop a tinted tile back to grey on
+   pointer-over.
+
+   STALE-GRAPH note (cache-poison contract): a heuristically cached pre-GH-255
+   playback.js still emitting `ob-pb-dest--primary` against this sheet matches
+   nothing and simply paints a NEUTRAL Photos tile — the de-accent is the
+   degrade, which is the point. */
+.ob-pb-dest--working:disabled,
+.ob-pb-dest--done:disabled,
+.ob-pb-dest--failed:disabled { opacity: 1; }
+.ob-pb-dest--working,
+.ob-pb-dest--done {
+  background: var(--ob-accent-dim);
+  border-color: var(--ob-accent-line);
+  color: var(--ob-accent-text);
+}
+.ob-pb-dest--done {
+  border-color: var(--ob-accent);
+  box-shadow: inset 0 0 0 1px var(--ob-accent-line);
+}
+.ob-pb-dest--working svg,
+.ob-pb-dest--done svg { color: var(--ob-accent-hi); }
+.ob-pb-dest--working small,
+.ob-pb-dest--done small { color: var(--ob-accent-text); }
+@media (hover: hover) and (pointer: fine) { /* B-K15 guard */
+  .ob-pb-dest--working:hover:not(:disabled),
+  .ob-pb-dest--done:hover:not(:disabled) { background: var(--ob-accent-dim-2); }
+}
+.ob-pb-dest--failed {
+  background: var(--ob-danger-dim);
+  border-color: var(--ob-danger);
+  box-shadow: inset 0 0 0 1px var(--ob-danger-line);
+  color: var(--ob-danger-text);
+}
+.ob-pb-dest--failed svg,
+.ob-pb-dest--failed small { color: var(--ob-danger-text); }
+@media (hover: hover) and (pointer: fine) { .ob-pb-dest--failed:hover:not(:disabled) { background: var(--ob-danger-dim-2); } } /* B-K15 guard */
+/* GH-274 (option a): the SETUP-state hint under the destination preview —
+   the two-step flow said nothing while all three tiles sat grey, and the
+   owner read that as broken. The muted .ob-pb-platform voice one register
+   up in placement (directly under the tiles it explains), wrap-allowed and
+   NEVER ellipsized (the .ob-pb-estimate law: copy wraps, labels never do);
+   playback.js syncDestHint() is the ONE writer of `off`. */
+.ob-pb-desthint {
+  margin-top: var(--ob-sp-2);
+  font-size: var(--ob-fs--1);
+  color: var(--ob-text-2);
+  line-height: var(--ob-lh-body);
+  white-space: normal;
+}
+.ob-pb-desthint.off { display: none; }
+.ob-pb-platform { margin-top: var(--ob-sp-2); font-size: var(--ob-fs--1); color: var(--ob-text-2); }
+.ob-pb-progress { display: none; margin-bottom: var(--ob-sp-2); }
+.ob-pb-progress.on { display: block; }
+.ob-pb-bar {
+  height: 6px;
+  border-radius: var(--ob-r-full);
+  background: var(--ob-bg-0);
+  border: 1px solid var(--ob-line-0);
+  overflow: hidden;
+}
+.ob-pb-bar > div { height: 100%; width: 0%; background: var(--ob-accent); }
+.ob-pb-ptext {
+  margin-top: var(--ob-sp-1);
+  display: flex;
+  align-items: center;
+  gap: var(--ob-sp-3);
+  color: var(--ob-text-1);
+  font-size: var(--ob-fs--1);
+  font-variant-numeric: tabular-nums;
+  min-height: 24px;
+}
+/* mid-render Cancel (GH-245): rungs from the kit `.ob-btn .ob-btn--ghost`;
+   kept: the outlined danger-ink register (a ghost with a hairline — the
+   only way out of a render must stay findable on the progress row) and the
+   row's compact metrics. Ink restated on hover (destructive-intent law). */
+.ob-pb-ptext button {
+  border: 1px solid var(--ob-line-1);
+  color: var(--ob-danger);
+  font: var(--ob-fw-med) var(--ob-fs--1)/var(--ob-lh-body) var(--ob-font);
+  padding: 1px var(--ob-sp-3);
+  margin-left: auto;
+}
+@media (hover: hover) and (pointer: fine) { .ob-pb-ptext button:hover:not(:disabled) { color: var(--ob-danger); } } /* B-K15 guard */
+.ob-pb-ptext button:active:not(:disabled) { color: var(--ob-danger); }
+.ob-pb-linkblock {
+  border-top: 1px solid var(--ob-line-0); /* B-K24 hairline */
+  margin-top: var(--ob-sp-4);
+  padding-top: var(--ob-sp-3);
+}
+/* GH-1023 (card 39 v2): the label and Copy share the first line and the link
+   runs the card's width under them, aligned with the note — inline beside the
+   label the compact link took two lines at 1280 in es (「Enlace de repetición」)
+   and, on the first inline version, needed three at 390 px in en (tail cut) */
+.ob-pb-linkrow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ob-sp-1) var(--ob-sp-3); min-width: 0; }
+.ob-pb-linkrow .ob-pb-copy { margin-left: auto; }
+.ob-pb-linkrow .ob-pb-lico { color: var(--ob-text-1); flex: 0 0 auto; display: inline-flex; }
+.ob-pb-linkrow .ob-pb-llabel { font-weight: var(--ob-fw-med); white-space: nowrap; }
+/* url DATA readout (GH-668 A8, S5 G4: wraps at any point, inside a two-line cap since GH-1023). GH-1023 (owner,
+   card 39 v2: 「链接显示太长了, 需要缩短 … 可以 truncate」): the one value the
+   owner allowed to be truncated — playback.js SHOWS it compact (host / scheme
+   + payload head…tail) and the shown text is capped at two lines; the full
+   link rides the title, the visually-hidden twin and Copy. Labels and
+   controls on the row keep the never-ellipsize law. */
+.ob-pb-linkrow .ob-pb-lurl {
+  position: relative;
+  color: var(--ob-info-text);
+  font-size: var(--ob-fs--1);
+  line-height: var(--ob-lh-control);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  order: 3;
+  flex: 1 0 100%;
+  padding-left: calc(20px + var(--ob-sp-3));
+}
+.ob-pb-linkrow .ob-pb-lurl-shown {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+.ob-pb-linkrow .ob-pb-lurl-full {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+/* copy-link (GH-245): the kit `.ob-btn` base IS this button's old recipe
+   (bg-2 / line-1 / pill / bg-3 hover) — only the link row's compact
+   padding stays surface-owned. */
+.ob-pb-copy {
+  flex: 0 0 auto;
+  padding: 3px var(--ob-sp-4);
+}
+.ob-pb-linknote {
+  margin-top: var(--ob-sp-1);
+  font-size: var(--ob-fs--1);
+  color: var(--ob-text-2);
+  padding-left: calc(20px + var(--ob-sp-3));
+}
+
+/* ==== phone (mockup breakpoints + 014 coarse laws) ======================== */
+@media (max-width: 1000px) {
+  #ob-pb-panel { width: 100vw; height: 100dvh; border-radius: 0; border: 0; }
+  .ob-pb-head {
+    padding: calc(env(safe-area-inset-top, 0px) + var(--ob-sp-3))
+      calc(env(safe-area-inset-right, 0px) + var(--ob-sp-4))
+      var(--ob-sp-3)
+      calc(env(safe-area-inset-left, 0px) + var(--ob-sp-4));
+    flex-wrap: wrap;
+  }
+  .ob-pb-list { padding: var(--ob-sp-1) var(--ob-sp-2); }
+  .ob-pb-foot {
+    padding: var(--ob-sp-2)
+      calc(env(safe-area-inset-right, 0px) + var(--ob-sp-4))
+      calc(env(safe-area-inset-bottom, 0px) + var(--ob-sp-2))
+      calc(env(safe-area-inset-left, 0px) + var(--ob-sp-4));
+  }
+  .ob-pb-top {
+    top: calc(env(safe-area-inset-top, 0px) + 10px);
+    left: calc(env(safe-area-inset-left, 0px) + 10px);
+    right: calc(env(safe-area-inset-right, 0px) + 10px);
+  }
+  .ob-pb-shelf {
+    left: calc(env(safe-area-inset-left, 0px) + 10px);
+    right: calc(env(safe-area-inset-right, 0px) + 10px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
+  }
+  /* GH-301: the strip lane pays less vertical rent on the phone (§3.1 —
+     ~10 px lane; the player total height is re-audited by e2e-ui) */
+  .ob-pb-strip { --ob-pb-lane-h: 10px; }
+  .ob-pb-row2.ob-pb-hasstrip { --ob-pb-strip-pad: 19px; }
+  /* pinned card rows carry the insets themselves (the .ob-pb-head/.ob-pb-foot
+     law) — the body between them keeps its own padding and scrolls */
+  .ob-pb-card-head {
+    padding: var(--ob-sp-4)
+      calc(env(safe-area-inset-right, 0px) + var(--ob-sp-4))
+      var(--ob-sp-3)
+      calc(env(safe-area-inset-left, 0px) + var(--ob-sp-4));
+  }
+  .ob-pb-card-body {
+    padding: var(--ob-sp-3)
+      calc(env(safe-area-inset-right, 0px) + var(--ob-sp-4))
+      var(--ob-sp-3)
+      calc(env(safe-area-inset-left, 0px) + var(--ob-sp-4));
+  }
+  .ob-pb-card-foot {
+    padding: var(--ob-sp-3)
+      calc(env(safe-area-inset-right, 0px) + var(--ob-sp-4))
+      var(--ob-sp-4)
+      calc(env(safe-area-inset-left, 0px) + var(--ob-sp-4));
+  }
+}
+/* ==== narrow footer: the legend takes its OWN line (GH-242 decision 3b) ====
+   Measured on the inline layout at 667x375: the German footer overflowed its
+   content box by 80.8 CSS px, the storage string wrapped, and "Partie
+   gewonnen" painted over "Alle löschen". Shortening the win label to "Sieg"
+   still failed by 8.0px — so shortening is NOT the fix, relayout is. Above
+   this breakpoint the inline layout fits on one line in en / zh-CN / de with
+   no shortening (measured phone slack +225.8 / +377.6 / +96.2 at 844x390). */
+@media (max-width: 750px) {
+  .ob-pb-foot { flex-wrap: wrap; }
+  .ob-pb-foot > .ob-nums { order: 1; }
+  .ob-pb-foot > .ob-pb-clear { order: 2; }
+  .ob-pb-foot > .ob-pb-legend { order: 3; flex: 1 0 100%; }
+}
+@media (pointer: coarse) {
+  /* the toolbar pill joins the gear's coarse-pointer register (touch.css
+     `html.ob-touch #ob-toolbar > #ob-gear` 44px precedent — help.css/
+     drills.css carry the same rule for their pills) */
+  /* (the pill's coarse 44 circle is the kit's --icon rule since GH-668) */
+  /* the two scroll regions declare their axis, the same clause every other
+     kit panel body carries (.ob-help__body, .ob-drills__body, #ob-x-tiers,
+     #ob-settings): without it a coarse drag inside the region can be claimed
+     by the browser's pan-x/pinch heuristics over the fixed modal */
+  html.ob-touch .ob-pb-card-body,
+  html.ob-touch .ob-pb-list { touch-action: pan-y; }
+  /* 44pt tap floors (014 law) */
+  html.ob-touch .ob-pb-close,
+  html.ob-touch .ob-pb-del { width: 44px; height: 44px; }
+  html.ob-touch .ob-pb-row { min-height: 44px; }
+  /* filter / speed segments: the kit's own coarse 44 floor (.ob-segmented) */
+  /* r6 (GH-668 S5 replays, visual r3 R3-1): the LEGACY filter form — the
+     kit .ob-btn--toggle pills built under a stale dialog leaf (no
+     DIALOG_CAPS.trapRadioGroups; e2e-replays F1i, coarse leg) — is not a
+     .ob-segmented member, and the kit keeps its no-blanket-floor law, so
+     the coarse floor is stated HERE for those pills (pad tracks height, the
+     kit's A6 pairing); measured 40 px at 844×390 before this rule */
+  html.ob-touch .ob-pb-filters:not(.ob-segmented) > .ob-btn--toggle {
+    min-height: var(--ob-h-coarse);
+    padding-inline: var(--ob-pill-pad-coarse);
+  }
+  /* r7 (review r4 P2-2): the STALE-MODULE BELT's two legacy button classes
+     (`.ob-pb-filterbtn` / `.ob-pb-speedbtn`, a cached pre-segmented
+     playback.js) meet the same floor here — arm X2 measures both strips
+     at 844×390 */
+  html.ob-touch .ob-pb-filterbtn,
+  html.ob-touch .ob-pb-speedbtn {
+    min-height: var(--ob-h-coarse);
+    padding-inline: var(--ob-pill-pad-coarse);
+  }
+  html.ob-touch .ob-pb-cam { min-height: 48px; }
+  html.ob-touch .ob-pb-play { width: 44px; height: 44px; }
+  html.ob-touch .ob-pb-dest { min-height: 64px; }
+  /* EVERY interactive control in the card head/body/foot is enumerated here:
+     e2e-playback arm 8e no longer reads a hand-written selector list, it
+     sweeps the card's own DOM, so a control added without its floor here is
+     caught by the same commit that adds it (GH-238 review finding 1 — the
+     .ob-pb-dismiss peer shipped at 39px past a 4-selector probe). */
+  html.ob-touch .ob-pb-copy,
+  html.ob-touch .ob-pb-clear,
+  html.ob-touch .ob-pb-go,
+  html.ob-touch .ob-pb-dismiss,
+  html.ob-touch .ob-pb-pcancel,
+  html.ob-touch .ob-pb-moderow .ob-pb-mode, /* GH-305: the mode pair joins the sweep (scoped: the row face's fold hook stays out) */
+  html.ob-touch .ob-pb-lead, /* GH-363: the lead-in toggle joins the sweep */
+  html.ob-touch .ob-pb-adv, /* GH-364: the overlay toggle row (wrapping
+     label = the tap target, the export-dialog checkbox law) */
+  html.ob-touch .ob-pb-strikerow { min-height: 44px; }
+  /* GH-301 strip controls join the enumerated coarse floors: the popover
+     options/steppers, the slot flyout action and the capture bar pair.
+     The strip SEAMS follow the .ob-pb-handle precedent instead (a 24px
+     grab zone on a timeline element, not a pill). */
+  html.ob-touch .ob-pb-transopt,
+  html.ob-touch .ob-pb-transdel,
+  html.ob-touch .ob-pb-slotact,
+  html.ob-touch .ob-pb-capsave,
+  html.ob-touch .ob-pb-capcancel { min-height: 44px; }
+  html.ob-touch .ob-pb-transstep { width: 44px; height: 44px; }
+  /* touch.css keeps kit selects out of the panel floors (they carry no
+     :active rung of their own) — the card states its own coarse floor */
+  html.ob-touch #ob-pb-card .ob-select { min-height: 44px; }
+  /* #1180 (#1011: a strip block's coarse hit area; ruling 2026-10-29, option
+     (b), sized by the measured reach). The block's own box runs from the
+     scrub track's bottom edge (the lane hangs 7 px under it:
+     playback-strip.js laneGeom; the row's 44 px content box ends there too)
+     down to (reach + 1) px above the player shelf's edge, so a touch on the
+     track always scrubs and the browser's touch adjustment (it snaps a touch
+     whose contact is 20 px or less up to --ob-pb-touch-reach from a tappable
+     edge onto it, measured in 1 px steps) stops before the shelf's edge: the
+     box is 7 + the row's strip pad + the shelf's block-end pad + its 1 px
+     border − (reach + 1) (29 px on the phone, 320–349 at 844x390;
+     38 px on a wider coarse viewport), under the 44 floor by that ruling
+     (the audit ledger's A15 row). A wider contact reaches up to 15 px (the
+     browser's cap), so such a finger can still land on a block from within
+     5 px below the shelf's edge; a box clearing it (23 px) would fail
+     WCAG 2.5.8's spacing exception against the track. The PAINT stays the
+     lane band: the family colour is clipped to the content box (the block
+     padding is what the band leaves of the box) and keeps the band's 3 px
+     corners (a content-box clip rounds by the outer radius minus the
+     padding, so each vertical radius adds its padding), the outline and the
+     selected ring ride an ::after over the band, the label centres on the
+     band and the sliver bar sits on it. The trim handles, which reach 4 px
+     under the track into the box, stay above it (the seams above them). */
+  html.ob-touch .ob-pb-strip-block {
+    --ob-pb-touch-reach: 9px; /* a contact of 20 px or less, measured 2026-10-29 at 844x390 and 667x375 */
+    --ob-pb-strip-pb: calc(var(--ob-pb-strip-pad) + var(--ob-pb-shelf-pad) - var(--ob-pb-touch-reach) - var(--ob-pb-lane-h));
+    top: -7px;
+    bottom: auto;
+    box-sizing: border-box;
+    height: calc(var(--ob-pb-strip-pad) + var(--ob-pb-shelf-pad) + 7px - var(--ob-pb-touch-reach));
+    padding-block: 7px var(--ob-pb-strip-pb);
+    border-radius: 3px / calc(7px + 3px) calc(7px + 3px) calc(var(--ob-pb-strip-pb) + 3px) calc(var(--ob-pb-strip-pb) + 3px);
+    background-clip: content-box;
+    box-shadow: none;
+  }
+  html.ob-touch .ob-pb-strip-block::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 7px;
+    height: var(--ob-pb-lane-h);
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 1px var(--ob-line-0);
+    pointer-events: none;
+  }
+  html.ob-touch .ob-pb-strip-block.ob-pb-strip--sel::after { box-shadow: inset 0 0 0 2px var(--ob-accent); }
+  html.ob-touch .ob-pb-handle { z-index: 1; } /* #1180: above the strip blocks' coarse boxes, below the seams (z 2) */
+  html.ob-touch .ob-pb-strip--sliver .ob-pb-strip-block::after { box-shadow: none; }
+  html.ob-touch .ob-pb-strip--sliver .ob-pb-strip-block::before {
+    top: calc(7px + var(--ob-pb-lane-h) / 2 - var(--ob-pb-strip-sliver, 4px) / 2);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* GH-314: overlay reveal/hide snaps instead of sliding. The HIDDEN-state
+     selector is restated verbatim (review GH-314 r1 P2): the hide rule's
+     [data-ui="hidden"] attribute outranks the bare child selector, so
+     without this restatement the HIDE still animated 200 ms while only
+     the reveal snapped. */
+  #ob-pb-player > :not(#ob-pb-fade):not(#ob-pb-strike),
+  #ob-pb-player[data-ui="hidden"] > :not(#ob-pb-fade):not(#ob-pb-strike) {
+    transition: none;
+  }
+}

@@ -1,0 +1,71 @@
+% ===========================================================================
+% Section 9 — Future work
+% Companion papers, outreach, before-submission items, the determinism
+% matrix's open cells, and the reinforcement-learning work (second paper).
+% ===========================================================================
+\section{Future work}
+\label{sec:future}
+
+\paragraph{Reinforcement learning on a validated substrate}
+A validated, bit-exact simulator bounds the trust-the-simulator caveat
+that runs through learning-era work consuming billiards physics
+\citep{fragkiadaki2016learning,xu2025deepphy,memery2025cuetip}, as it ran
+through the planner lineage before it
+\citep{smith2007pickpocket,archibald2016distributed}. Our
+reinforcement-learning program applies the same registration discipline
+as this paper's battery --- frozen kernel pins per generation and
+byte-reproducible evaluation --- and its generation-1 milestone is
+complete: planner-guided policy ranking against the frozen kernel
+promoted an incumbent policy under registered gates. The kernel pin
+validated in this paper, \code{0.1.0+fb3425ad}, is adopted at the
+generation-2 boundary. Those results belong to a second paper; their
+relevance here is that contribution C1's validity domains directly scope
+the state regions in which trained play can be physics-trusted.
+
+\paragraph{Footage and high-speed-video expansion}
+The validation corpus grows next on its measurement side: additional
+first-party table-session captures, currently staged under quality
+assurance; wider english and speed coverage on the kick/rebound coupling
+anchors; and a capture campaign on a K-66 rail profile that would retire
+the non-K-66 caveat of Section~\ref{sec:limitations} attached to the
+existing high-speed-video anchors \citep{alciatore_hsv_catalog}. Every
+new anchor enters through the same gate as the existing battery: design
+registered and frozen first, misses ledgered, nothing re-tuned.
+
+\paragraph{Completing the determinism matrix}
+Before camera-ready, the audit matrix of
+Section~\ref{sec:reproducibility} should be completed rather than
+argued. With the full battery now replayed through the canonical wasm
+runtime itself (matrix row 11, method H: 16{,}933/16{,}933
+digest-identical), the open cells are the remaining engines and
+platforms: trajectory hashes on SpiderMonkey, JavaScriptCore, and
+wasmtime, and a Windows leg plus the remaining OS/architecture
+combinations --- the replay harness already resolves its module graph
+through portable \code{file://} URLs, so the Windows leg needs only the
+platform, not new tooling. The same pass rebuilds the wheel at the
+submission-freeze commit so that raw hash equality holds with no
+normalization.
+
+\paragraph{Companion papers}
+Two companion manuscripts are planned. A methods paper develops the
+compliant frozen-cluster break resolver as a multiple-impact resolution
+technique for frozen-contact topologies, in the lineage of
+\citet{gismerosmoreno2022multiple} and \citet{cross2023oblique} and of
+the contact-force model it builds on \citep{lankarani1994continuous},
+with the frozen-pair throw excess
+(Section~\ref{sec:limitations}) as its opening problem. A short
+single-question paper quantifies the 30$^\circ$/90$^\circ$-rule and
+diamond-system validity domains for the physics-teaching audience in
+which those rules were first studied experimentally
+\citep{bayes1963collision,wallace1988billiard,mathavan2009highspeed}.
+
+\paragraph{Community validation loop}
+Finally, the artifact is built to be exercised by others: event-level
+reproductions of the technical-proof curves form the basis of a planned
+outreach and figure-permission workflow with their author
+\citep{alciatore_tp_catalog}; a third-party, CODECHECK-style tier-1
+attestation on all three operating systems is scheduled before
+submission; and cross-simulator work with pooltool
+\citep{kiefl2024pooltool} continues in the cooperative framing of
+Section~\ref{sec:oracle}, where shared scrutiny has already repaid both
+codebases.

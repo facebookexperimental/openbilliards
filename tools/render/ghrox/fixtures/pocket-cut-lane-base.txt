@@ -1,0 +1,840 @@
+  rasson_ox_9ft: {
+    kernel: {
+      length: 2.54, width: 1.27, // PF-01 MFR (design sheet 100 x 50 in)
+      noseHeightFrac: 0.635, // CU-03 MFR(WPA 63.5 %; corrects the out-of-band model 0.615)
+      cushionWidth: 0.048072, // CU-04 MODEL raw
+      cornerMouth: 0.11430, sideMouth: 0.12700, // CP-01 / SP-01 MFR 配置单 114 / 127 mm retail cut
+      cornerFacingDeviationDeg: 6.2509, sideFacingDeviationDeg: 9.978, // CP-02 / SP-02 MODEL planar cheek fits
+      cornerJawRadius: 0.008645, sideJawRadius: 0.002962, // CP-03 / SP-03 MODEL (r6 strict-window fits)
+      // corner shelf 45.429 DERIVED at the MFR mouth (CP-05, R2); side shelf 8.695 MODEL (SP-05, C16)
+      cornerPocketDepth: 0.045429 + 0.098103 / 2.0 - 0.11430 / 2.0, // CP-07
+      cornerPocketRadius: 0.098103 / 2.0, // CP-04 / CP-06 DERIVED throat
+      sidePocketDepth: 0.008695 + 0.110954 / 2.0, // SP-07
+      sidePocketRadius: 0.110954 / 2.0, // SP-04 / SP-06 DERIVED throat
+      exactSideFacing: true,
+    },
+    render: {
+      // RB-03 DERIVED rail top width = overhang − cushion width: long rails
+      // 125.928 (RB-01 174, across the width) / end rails 121.928 mm (RB-02 170,
+      // along the length; EN-01 2880 x 1618 − PF-01 2540 x 1270). A2 r7 axis fix.
+      frameWidth: 0.125928, frameWidthEnd: 0.121928,
+      // RB-04 MODEL rail-cap crest above the bed (long 43.138 mm, raw R1).
+      frameTop: 0.043138,
+      // EN-02 MFR 830 mm floor → rail top minus the RB-04 crest = 786.862 mm
+      // bed above floor; roomFloor opts this entry into the room reseat.
+      bedAboveFloor: 0.786862, roomFloor: true,
+      profileBallD: 0.05715, // PF-02 MFR(WPA 2 1/4 in)
+      cushionFamily: 'us_pool_k55', // CU-01 MFR Klematch P59 = K55 profile
+      sightInset: 0.0936625, // RB-07 MFR(WPA 3 11/16 in from the nose); 18 sights at L/8 pitch
+      // RC-17 MFR(broadcast overheads): rhombus 28.6 across × 13.7 along the rail
+      // (C17 adjudication); the loft's x axis runs along the rail.
+      sight: { r: 0.0143, elong: 0.479021 }, // RC-17: r = across/2 = 28.6/2, elong = along/across = 13.7/28.6
+      cloth: 'tournament_blue', // PF-03 MFR Simonis 860 Tournament Blue (OX default)
+      style: 'rasson_ox',
+      jawArcSegments: 12, // CP-03 / SP-03 are drawn fillets on OB-ROX-GEO-001 S1/S2
+      dmNames: true, // `dm-` mesh handles for the -rox gate instruments
+    },
+  },
+
+export function makeGeom(id) {
+  const spec = specFor(id);
+  const k = spec.kernel, r = spec.render;
+  // pocketless carom branch (feature 012): mirrors Table::from_carom_spec —
+  // 4 linear cushions with endpoints AT the four corner points, zero
+  // pockets; no jaw/pocket-derived quantities exist.
+  if (k.pocketless) {
+    return {
+      id, kernel: k, render: r,
+      L: k.length, W: k.width, CW: k.cushionWidth,
+      pockets: [],
+    };
+  }
+  // curved-pocket (CEBP template) branch — catalog v7 Amendment A1: mirrors
+  // Table::from_curved_pocket_spec. Rails end at the jaw tangency points,
+  // jaws are the sampled tangent two-arc composites (railPolysTemplate),
+  // pockets are the template FALL circles. The pool populate() consumes the
+  // fall discs through the same kernel-field names it uses for the 9-ft
+  // entries (cornerPocketRadius / sidePocketDepth / sidePocketRadius + cd),
+  // filled in here from the template construction.
+  if (k.template) {
+    const L = k.length, W = k.width, CW = k.cushionWidth;
+    const corner = cornerCanonical(k.cornerScale);
+    const middle = middleCanonical(k.middleScale);
+    const cfo = CEBP.cornerFallOff * k.cornerScale;
+    // catalog v16 (calibration B1): the cn8Molded corner family mirrors
+    // the kernel's R82 construction — rails end at the departure Y_N,
+    // capture disc = the Ø105 mouth circle about the drawing O_f
+    // (±(L/2 + C), ±(W/2 + C) — the bed-hole/cammatch datum). `cd`
+    // deliberately stays cfo (the slate-edge datum the dressed template
+    // consumers key on); the pocket centres carry the drawing C.
+    const cn8 = k.cornerFamily === 'cn8Molded';
+    const cRf = cn8 ? CN8_KERNEL.fallR : corner.rf;
+    const cOff = cn8 ? CN8_KERNEL.fallC : cfo;
+    const kk = {
+      ...k,
+      cornerPocketRadius: cRf,
+      sidePocketRadius: middle.rf,
+      sidePocketDepth: CEBP.middleFallDepth * k.middleScale,
+    };
+    return {
+      id, kernel: kk, render: r, L, W, CW,
+      template: true, corner, middle,
+      utc: cn8 ? CN8_KERNEL.dep : corner.ut, utm: middle.ut, cd: cfo,
+      pockets: [
+        { x: -L / 2 - cOff, z: -W / 2 - cOff, r: cRf, corner: true },
+        { x: 0, z: -W / 2 - kk.sidePocketDepth, r: middle.rf, corner: false },
+        { x: L / 2 + cOff, z: -W / 2 - cOff, r: cRf, corner: true },
+        { x: -L / 2 - cOff, z: W / 2 + cOff, r: cRf, corner: true },
+        { x: 0, z: W / 2 + kk.sidePocketDepth, r: middle.rf, corner: false },
+        { x: L / 2 + cOff, z: W / 2 + cOff, r: cRf, corner: true },
+      ],
+    };
+  }
+  const L = k.length, W = k.width, CW = k.cushionWidth;
+  const ca = (k.cornerFacingDeviationDeg + 45.0) * Math.PI / 180.0;
+  const sa = k.sideFacingDeviationDeg * Math.PI / 180.0;
+  const dc = k.cornerJawRadius / Math.tan((Math.PI / 2 + ca) / 2);
+  const ds = k.sideJawRadius / Math.tan((Math.PI / 2 + sa) / 2);
+  // true-mouth inversion (table.rs from_pocket_spec): recovers the pooltool
+  // widths bit-exactly for the default spec
+  const pwc = k.cornerMouth / Math.SQRT2 - dc;
+  const sw = k.sideMouth - 2.0 * ds;
+  // side-jaw back-endpoint rise: pooltool cw·sin(sa) quirk (default) vs the
+  // exact facing line cw·tan(sa) (measured entries) — table.rs `sjb`
+  const sjb = k.exactSideFacing ? CW * Math.tan(sa) : CW * Math.sin(sa);
+  const cd = k.cornerPocketDepth / Math.SQRT2;
+  return {
+    id, kernel: k, render: r, L, W, CW, ca, sa, dc, ds, pwc, sw, sjb, cd,
+    cosCa: Math.cos(ca), sinCa: Math.sin(ca), tanCa: Math.tan(ca),
+    cosSa: Math.cos(sa), sinSa: Math.sin(sa),
+    // pockets, kernel order lb lc lt rb rc rt (three.js frame)
+    pockets: [
+      { x: -L / 2 - cd, z: -W / 2 - cd, r: k.cornerPocketRadius, corner: true },
+      { x: 0, z: -W / 2 - k.sidePocketDepth, r: k.sidePocketRadius, corner: false },
+      { x: L / 2 + cd, z: -W / 2 - cd, r: k.cornerPocketRadius, corner: true },
+      { x: -L / 2 - cd, z: W / 2 + cd, r: k.cornerPocketRadius, corner: true },
+      { x: 0, z: W / 2 + k.sidePocketDepth, r: k.sidePocketRadius, corner: false },
+      { x: L / 2 + cd, z: W / 2 + cd, r: k.cornerPocketRadius, corner: true },
+    ],
+  };
+}
+
+const G0 =
+
+const ROX_BED_ABOVE_FLOOR = 0.786862; // EN-02 830 − RB-04 crest 43.138 → mm/1000 (same as the entry's bedAboveFloor)
+const ROX_CAP_TOP = [[47.9, 41.041], [52.9, 41.271], [57.9, 41.593], [62.9, 41.923], [67.9, 42.235], [72.9, 42.51], [77.9, 42.762], [82.9, 42.953], [87.9, 43.074], [92.9, 43.138], [97.9, 43.08], [102.9, 42.964], [107.9, 42.766], [112.9, 42.474], [117.9, 42.147], [122.9, 41.765], [127.9, 41.355], [132.9, 40.925], [137.9, 40.466], [142.9, 40.002], [147.9, 39.534], [152.9, 39.071], [156.1, 38.73], [157.9, 38.035], [158.9, 36.83]]; // RB-04 top_profile_du_z_long_x600_every5mm (u from the nose, z above the bed, mm, raw)
+const ROX_CAP_INNER_U = 47.83; // RB-04 inner_edge du long 47.83 (0.242 inside the cushion back, as the model)
+const ROX_CAP_TOP_Z_INNER = 41.041; // RB-04 cap_top_at_inner_edge_z long
+const ROX_CAP_EDGE_ROUND_START = 156.08; // RB-04 top_edge_round corner_start_du long
+const ROX_LIP = { // RC-01 (long) / RC-02 (short) lip + skin landmarks, mm raw
+  long: { face: 159.328, top: 36.0, bottom: 13.5, skinU: 135.935, skinTop: 13.25, skinBottom: -153.5, lowest: -159.0 }, // RC-01
+  short: { face: 159.328, top: 36.0, bottom: 13.5, skinU: 135.334, skinTop: 13.25, skinBottom: -151.5, lowest: -156.5 }, // RC-02 z landmarks on the RC-01 face (RC-03 note_short_rail: 158.728 recorded, not used)
+};
+const ROX_LIP_THICK = 2.875; // RB-04 vertical_lip thickness_mm
+const ROX_CAP_SHELL = 2.522; // RB-04 shell_thickness_mm vertical — the cap is a hollow skin (RB-04 construction: no solid rail body)
+const ROX_SHELF_Z = [14.28, 17.28]; // RB-05 shelf bed_rel (the 3 mm folded ledge under the cap, RB-04 ledge_under_cap z)
+const ROX_SHELF_STOP = 0.17; // RB-05 shelf stops_inboard_of_lip_inner_wall
+const ROX_BAND_SCALE = { long: 1.13188, short: 1.09592 }; // RC-03 u_scale_long / u_scale_short: RB-03 band over the RB-04 long profile's own band (RC-01 face 159.328 − CU-04)
+const ROX_CUSHION_W = 48.072; // CU-04 (the band rule's origin, RC-03 formula)
+const ROX_CORNER_SEAM = { long: 199.98, short: 201.57 }; // CP-15 casting_piece_plan_extent joint → sharp outer corner (mm, raw)
+const ROX_SIDE_SEAM_HALF = 151.61 / 2 + 0.37; // SP-15 pocket_rail_piece_seams_x piece_width 151.61 + seam_gap 0.37
+const ROX_SKIN_SETBACK = 23.394; // RB-05 setback_inboard_of_rail_lip_outer_face (long = short), raw
+const ROX_SKIN_THICK = 3.0; // RB-05 skin thickness
+const ROX_SKIN_CORNER_REF = [1309.40, 724.06]; // RB-05 skin_diagonal_setback_from_sharp_face_corner_1309p40_724p06 (model abs, +X+Y)
+const ROX_SKIN_CORNER = [[1158.48, 724.1], [1199.04, 723.96], [1227.64, 723.57], [1247.77, 722.8], [1262.26, 721.59], [1272.47, 719.85], [1279.76, 717.55], [1285.5, 714.64], [1290.59, 711.07], [1295.03, 706.86], [1298.82, 701.99], [1301.96, 696.48], [1304.47, 689.87], [1306.39, 680.78], [1307.78, 667.83], [1308.69, 649.63], [1309.2, 624.54], [1309.42, 590.34]]; // RB-05 skin_corner_outline_z700_plusXplusY_outer_face (model abs mm; used as offsets from the sharp corner)
+const ROX_SKIN_BLEND_STEPS = [[-149.1, 0.5, -152.0], [-152.0, 1.6, -154.8], [-154.8, 3.6, -156.8], [-156.8, 6.4, -158.3], [-158.3, 10.5, -159.05]]; // RB-05 bottom_blend_x600_plusY outer_polyline_z_u re-based to bed-rel z (785.8) and inward offset from u 724.03: five steps of the 11.6 mm blend
+const ROX_BED_MODEL = 785.8; // PF-05 bed_top_z_frame_mm (the A1 frame constant the RB-05 z values are quoted against)
+const ROX_PLATE_LOWER = 624.85; // RB-05 bottom_plate lower_face_z_long x0 (model abs, → bed-rel −160.95)
+const ROX_PLATE_THICK = 3.0; // RB-05 bottom_plate thickness
+const ROX_TRIM = [[1307.9, 666.03], [1307.49, 672.3], [1310.16, 672.52], [1311.54, 672.87], [1312.88, 673.24], [1312.94, 673.68], [1310.08, 684.98], [1308.48, 690.37], [1306.51, 695.6], [1303.84, 701.0], [1300.46, 705.99], [1296.2, 710.85], [1291.35, 715.11], [1286.36, 718.49], [1280.95, 721.17], [1275.72, 723.14], [1270.75, 724.63], [1259.03, 727.6], [1258.59, 727.54], [1258.21, 726.22], [1257.87, 724.84], [1257.65, 722.15], [1251.81, 722.54]]; // RC-04 outline_xy (+X+Y trim strip outer outline at z 700, model abs mm)
+const ROX_TRIM_PROUD = 3.54; // RC-04 plan_extreme_x 1312.94 − RB-05 sharp corner 1309.40
+const ROX_TRIM_INNER_CLEAR = 0.08; // CP-15b corner_trim_strip inner_face_outside_skin_on_diagonal
+const ROX_BADGE_HEAD = { height: 79.0, width: 490.5, centreAboveBottom: 69.9 }; // RC-07 (photo ratios × RC-18 visible apron 167.2 / EN-01 1618)
+const ROX_BADGE_LONG = { width: 402.5, height: 58.3, zFloor: [667.7, 726.0] }; // RC-08 long-apron logotype plate (photo, floor datum)
+const ROX_PED_STATION = 1147.2; // RC-10 pedestal plate station |x| (photo, 9-ft datum)
+const ROX_PED_WIDTH = [[100, 1292.1], [150, 1256.3], [200, 1233.8], [250, 1259.7], [300, 1234.6], [350, 1233.8], [400, 1233.6], [450, 1235.0], [500, 1235.1], [550, 1219.0]]; // RC-11 by_z_corrected (floor datum z → plate width), every station as read; above 550 the 500→550 slope (−0.322 mm/mm) runs to the body underside
+const ROX_PED_ARCH_APEX = 326.0; // RC-12 apex_z_floor_datum (photo); the model's EN-03 apex is 283.73
+const ROX_PED_ARCH_MODEL = [[40.5, 355.74], [60.5, 347.93], [80.5, 338.98], [100.5, 328.55], [120.5, 316.28], [140.5, 301.84], [160.5, 285.23], [180.5, 265.8], [200.5, 242.05], [220.5, 212.45], [240.5, 176.44], [260.5, 131.23], [270.5, 101.46], [280.5, 54.14], [283.5, 9.76]]; // EN-03 end_arch inner_face_half_width_polyline_z_to_abs_y (model raw)
+const ROX_PED_ARCH_MODEL_APEX = 283.73; // EN-03 end_arch apex_inner_face z
+const ROX_PED_ARCH_SPAN_SCALE = 1.255; // DERIVED: RC-12 span_mm_by_z 865.9 at z 77 over 2 × the EN-03 half-width at the scaled height (≈ 345) — the model arch widened to the photo
+const ROX_BOW_IN = { cx: 303.72, cz: 0.96, R: 774.28 }; // RC-13 inner_fit (model abs x, floor z; mm)
+const ROX_BOW_OUT = { cx: 303.63, cz: 1.07, R: 804.31 }; // RC-13 outer_fit
+const ROX_BOW_FOOT_MID = 1093.4; // RC-13 rows z 30: (x_in 1078.48 + x_out 1108.39) / 2 — the bow's foot centre on the model
+const ROX_FOOT = { length: 201.2, height: 46.1, across: 211.06 }; // RC-15 length/height (photo), RC-16 across (EN-04 model pad)
+const ROX_SPANDREL = { yFaces: [525.17, 555.17], thick: 30.0, topGap: 6.75 }; // RC-20 y_faces_abs / thickness / top_gap_below_body_underside (model raw, C18)
+const ROX_SPANDREL_ARC = { crownZ: 473.9, R: 2358.3 }; // RC-14 crown_z_floor_datum / soffit_circle_fit_det04_x0_constrained R (product photo)
+const ROX_PAD_TO_BOW = 62.085; // RC-21 bow_foot_mid_minus_pad_centroid (model raw)
+const ROX_CUSHION_TOP = 41.11; // CU-11 cushion_body_top_mm long (model raw): the rubber top sits flush with the cap's inner edge, not proud of it
+const ROX_BODY_UNDER = 625.9; // RB-05 bottom_plate lower face 624.85 raw + 1.06 (786.862 − 785.8 bed datum shift) → floor z of the body underside on the 9-ft table
+
+/** Inward polygon offset for a convex-ish closed outline (points [[x,z],...], metres): each vertex moves along
+ *  the inward bisector by d. Used for the 3 mm apron skin ring (RB-05) and the trim strip's inner face. */
+function roxOffsetPolygon(pts, d) {
+  const n = pts.length; const out = [];
+  let area = 0; for (let i = 0; i < n; i++) { const a = pts[i], b = pts[(i + 1) % n]; area += a[0] * b[1] - b[0] * a[1]; }
+  const s = area > 0 ? 1 : -1;
+  for (let i = 0; i < n; i++) {
+    const p = pts[(i - 1 + n) % n], c = pts[i], q = pts[(i + 1) % n];
+    const e1 = [c[0] - p[0], c[1] - p[1]], e2 = [q[0] - c[0], q[1] - c[1]];
+    const l1 = Math.hypot(e1[0], e1[1]) || 1, l2 = Math.hypot(e2[0], e2[1]) || 1;
+    const n1 = [-s * e1[1] / l1, s * e1[0] / l1], n2 = [-s * e2[1] / l2, s * e2[0] / l2];
+    let bx = n1[0] + n2[0], bz = n1[1] + n2[1]; const bl = Math.hypot(bx, bz) || 1; bx /= bl; bz /= bl;
+    const cosHalf = Math.max(Math.SQRT1_2 / 2, bx * n1[0] + bz * n1[1]); // mitre clamp at sharp vertices (cos 69°, a ratio, not a dimension)
+    out.push([c[0] + bx * d / cosHalf, c[1] + bz * d / cosHalf]);
+  }
+  return out;
+}
+
+/** Rail-band section polygons (u across the rail from the nose, z above the bed; mm) for one rail family:
+ *  the RB-04 dome shell carried to the 9-ft band (RC-03), the RC-01/RC-02 lip with its inner wall, and the
+ *  RB-05 shelf ledge; split into the wood dome and the aluminium lip piece (RB-06) at the top-edge round (RB-04). */
+function roxCapSections(fam) {
+  const k = ROX_BAND_SCALE[fam], lip = ROX_LIP[fam], t = ROX_CAP_SHELL;
+  const u9 = (u) => ROX_CUSHION_W + (u - ROX_CUSHION_W) * k; // RC-03 formula
+  const domeTop = ROX_CAP_TOP.filter((p) => p[0] <= ROX_CAP_EDGE_ROUND_START).map(([u, z]) => [u9(u), z]);
+  const roundTop = ROX_CAP_TOP.filter((p) => p[0] > ROX_CAP_EDGE_ROUND_START).map(([u, z]) => [u9(u), z]);
+  const lipFace = u9(lip.face);
+  const split = domeTop[domeTop.length - 1];
+  const inner = u9(ROX_CAP_INNER_U);
+  // Hollow shell (RB-04 construction): the dome's underside is the top offset down by the shell thickness; the
+  // inner face runs RB-04 inner_face_z 38.528 → 41.037 (= 41.041 − 2.522 at the inner edge).
+  const dome = [[inner, ROX_CAP_TOP_Z_INNER - t], [inner, ROX_CAP_TOP_Z_INNER], ...domeTop,
+    ...domeTop.slice().reverse().map(([u, z]) => [u, z - t])];
+  const wallU = lipFace - ROX_LIP_THICK; // RB-04 vertical_lip inner wall (thickness raw, A2-2)
+  const lipPts = [[split[0], split[1] - t], [split[0], split[1]], ...roundTop, [lipFace, lip.top], [lipFace, lip.bottom],
+    [wallU, lip.bottom], [wallU, split[1] - t]];
+  const skinU = lipFace - ROX_SKIN_SETBACK; // RB-05 apron skin outer face (setback raw)
+  const shelf = [[skinU, ROX_SHELF_Z[0]], [wallU - ROX_SHELF_STOP, ROX_SHELF_Z[0]], [wallU - ROX_SHELF_STOP, ROX_SHELF_Z[1]], [skinU, ROX_SHELF_Z[1]]];
+  return { dome, lip: lipPts, shelf, lipFace };
+}
+
+/** Extrude a 2-D section (points [[u,z]] in mm) along a rail run, in scene metres. fam 'long': section plane
+ *  z–y, run along x from a0 to a1 on the ±z rail (side); fam 'short': plane x–y, run along z on the ±x end.
+ *  The basis is always right-handed (no mirrored windings). */
+function roxExtrudeAlongRail(pts, fam, side, a0, a1, nose) {
+  const shape = new THREE.Shape(pts.map(([u, z]) => new THREE.Vector2(u / 1000, z / 1000)));
+  const len = a1 - a0;
+  const geo = new THREE.ExtrudeGeometry(shape, { depth: len, bevelEnabled: false, curveSegments: 1 });
+  const X = fam === 'long' ? new THREE.Vector3(0, 0, side) : new THREE.Vector3(side, 0, 0);
+  const Y = new THREE.Vector3(0, 1, 0);
+  const Z = new THREE.Vector3().crossVectors(X, Y);
+  geo.applyMatrix4(new THREE.Matrix4().makeBasis(X, Y, Z));
+  const along = fam === 'long' ? Z.x : Z.z;
+  const runStart = along > 0 ? a0 : a1;
+  if (fam === 'long') geo.translate(runStart, 0, side * nose); else geo.translate(side * nose, 0, runStart);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+/** Plate transverse outline (across y, height z; mm, floor datum): RC-11 width by height, the arch = EN-03's
+ *  polyline widened to RC-12, feet down to the foot-plate top. */
+function roxPlateOutline(zBottom, zTop) {
+  const halfW = (z) => {
+    const T = ROX_PED_WIDTH;
+    if (z <= T[0][0]) return T[0][1] / 2; // RC-11 foot line (z 100) carried down to the foot plate
+    for (let i = 1; i < T.length; i++) if (z <= T[i][0]) { const t = (z - T[i - 1][0]) / (T[i][0] - T[i - 1][0]); return (T[i - 1][1] + (T[i][1] - T[i - 1][1]) * t) / 2; }
+    const n = T.length; const slope = (T[n - 1][1] - T[n - 2][1]) / (T[n - 1][0] - T[n - 2][0]); // RC-11: the 500 → 550 slope extrapolated to the top
+    return (T[n - 1][1] + slope * (z - T[n - 1][0])) / 2;
+  };
+  const zScale = ROX_PED_ARCH_APEX / ROX_PED_ARCH_MODEL_APEX;
+  const archHalf = (z) => {
+    const zm = z / zScale; const P = ROX_PED_ARCH_MODEL;
+    if (zm <= P[0][0]) return P[0][1] * ROX_PED_ARCH_SPAN_SCALE;
+    for (let i = 1; i < P.length; i++) if (zm <= P[i][0]) { const t = (zm - P[i - 1][0]) / (P[i][0] - P[i - 1][0]); return (P[i - 1][1] + (P[i][1] - P[i - 1][1]) * t) * ROX_PED_ARCH_SPAN_SCALE; }
+    return 0;
+  };
+  const pts = [];
+  const zs = []; for (let z = zBottom; z < zTop; z += 12) zs.push(z); zs.push(zTop); // 12 mm sampling of the RC-11 taper
+  for (const z of zs) pts.push([-halfW(z), z]);
+  for (let i = zs.length - 1; i >= 0; i--) pts.push([halfW(zs[i]), zs[i]]);
+  pts.push([archHalf(zBottom), zBottom]);
+  const zA = []; for (let z = zBottom; z < ROX_PED_ARCH_APEX; z += 8) zA.push(z); zA.push(ROX_PED_ARCH_APEX);
+  for (const z of zA) pts.push([archHalf(z), z]);
+  for (let i = zA.length - 2; i >= 0; i--) pts.push([-archHalf(zA[i]), zA[i]]);
+  return { pts, halfW, archHalf };
+}
+
+/** One transverse pedestal plate + two foot plates (+ the beam once, on side = +1). side = ±1 = the ±x end.
+ *  The RC-11/RC-12 transverse outline is extruded 1 unit and bent onto the RC-13 bow circles. */
+function roxPedestal(group, dm, side, mats) {
+  const zFoot = ROX_FOOT.height, zTop = ROX_BODY_UNDER;
+  const outline = roxPlateOutline(zFoot, zTop);
+  const dx = ROX_PED_STATION + ROX_PAD_TO_BOW - ROX_BOW_FOOT_MID; // RC-10 plate centre + RC-21 offset = the bow's foot mid (RC-13 row z 30)
+  const xIn = (z) => ROX_BOW_IN.cx + Math.sqrt(Math.max(0, ROX_BOW_IN.R ** 2 - (z - ROX_BOW_IN.cz) ** 2)) + dx;
+  const xOut = (z) => ROX_BOW_OUT.cx + Math.sqrt(Math.max(0, ROX_BOW_OUT.R ** 2 - (z - ROX_BOW_OUT.cz) ** 2)) + dx;
+  const P = (x, y, z) => new THREE.Vector3(side * x / 1000, z / 1000 - ROX_BED_ABOVE_FLOOR, -side * y / 1000);
+  const apex = ROX_PED_ARCH_APEX; const zs = []; for (let z = zFoot; z < zTop; z += 12) zs.push(z); zs.push(zTop); // 12 mm rows of the RC-11 taper
+  const zLeg = [...zs.filter((z) => z < apex), apex], zHead = [apex, ...zs.filter((z) => z > apex)];
+  const tag = side > 0 ? 'px' : 'nx'; const meshes = [];
+  const grid = (rowsZ, y0f, y1f, xf) => rowsZ.map((z) => { const y0 = y0f(z), y1 = y1f(z); const row = []; for (let k = 0; k <= 12; k++) row.push(P(xf(z), y0 + (y1 - y0) * k / 12, z)); return row; }); // roxlit: construction
+  const edge = (rowsZ, yf) => rowsZ.map((z) => [P(xIn(z), yf(z), z), P(xOut(z), yf(z), z)]);
+  for (const sy of [-1, 1]) { // the two legs below the arch apex: outer edge → arch edge
+    const yO = (z) => sy * outline.halfW(z), yA = (z) => sy * outline.archHalf(z);
+    meshes.push(grid(zLeg, yO, yA, xIn), grid(zLeg, yO, yA, xOut), edge(zLeg, yO), edge(zLeg, yA));
+    meshes.push([[P(xIn(zFoot), yO(zFoot), zFoot), P(xIn(zFoot), yA(zFoot), zFoot)], [P(xOut(zFoot), yO(zFoot), zFoot), P(xOut(zFoot), yA(zFoot), zFoot)]]); // foot end face
+  }
+  const yL = (z) => -outline.halfW(z), yR = (z) => outline.halfW(z); // the head above the apex spans the full width
+  meshes.push(grid(zHead, yL, yR, xIn), grid(zHead, yL, yR, xOut), edge(zHead, yL), edge(zHead, yR));
+  meshes.forEach((rows, k) => group.add(dm(new THREE.Mesh(roxGrid(rows), mats.body), `pedestal-rox-${tag}-${k}`)));
+  const footCentre = (outline.halfW(zFoot) + outline.archHalf(zFoot)) / 2;
+  for (const sz of [-1, 1]) {
+    const foot = new THREE.Mesh(new THREE.BoxGeometry(ROX_FOOT.length / 1000, ROX_FOOT.height / 1000, ROX_FOOT.across / 1000), mats.metal);
+    foot.position.set(side * ROX_PED_STATION / 1000, ROX_FOOT.height / 2000 - ROX_BED_ABOVE_FLOOR, sz * footCentre / 1000);
+    group.add(dm(foot, `foot-plate-rox-${side > 0 ? 'px' : 'nx'}-${sz > 0 ? 'pz' : 'nz'}`));
+  }
+  if (side > 0) {
+    // RC-20 spandrel panels (two, raw stations / thickness / top gap) under the RC-14 soffit arc (product photo:
+    // crown 473.9, R 2358.3, centre on x = 0); each panel runs out to the bow's inner face and 15 mm into the plate.
+    const zPanelTop = zTop - ROX_SPANDREL.topGap;
+    const cz = ROX_SPANDREL_ARC.crownZ - ROX_SPANDREL_ARC.R;
+    const soffit = (x) => cz + Math.sqrt(Math.max(0, ROX_SPANDREL_ARC.R ** 2 - x * x));
+    let lo = 0, hi = xIn(zFoot); // xIn(soffit(x)) − x changes sign once between the centre and the bow foot
+    for (let i = 0; i < 48; i++) { const mid = (lo + hi) / 2; if (xIn(soffit(mid)) > mid) lo = mid; else hi = mid; } // roxlit: construction
+    const xEnd = lo + ROX_SPANDREL.thick / 2; // ends at the plate's mid-thickness (RC-20 thickness = EN-03 plate 30)
+    const prof = [[-xEnd, zPanelTop], [xEnd, zPanelTop]];
+    for (let x = xEnd; x >= -xEnd; x -= 25) prof.push([x, soffit(x)]); // 25 mm sampling of the RC-14 arc // roxlit: construction
+    prof.push([-xEnd, soffit(-xEnd)]);
+    const shape = new THREE.Shape(prof.map(([x, z]) => new THREE.Vector2(x / 1000, z / 1000 - ROX_BED_ABOVE_FLOOR)));
+    const yc = (ROX_SPANDREL.yFaces[0] + ROX_SPANDREL.yFaces[1]) / 2; // RC-20 y_centre_abs 540.17
+    for (const sy of [-1, 1]) {
+      const g = new THREE.ExtrudeGeometry(shape, { depth: ROX_SPANDREL.thick / 1000, bevelEnabled: false, curveSegments: 1 });
+      g.translate(0, 0, (sy * yc - ROX_SPANDREL.thick / 2) / 1000); g.computeVertexNormals();
+      group.add(dm(new THREE.Mesh(g, mats.body), `spandrel-rox-${sy > 0 ? 'pz' : 'nz'}`));
+    }
+  }
+}
+
+// ---- BUILD-2: pocket furniture. Plans / radii / heights are the purchased model's (raw); every assembly is centred on
+// the KERNEL pocket (the physics disc, the bed hole and the ball drop share that centre), so the cup's inner radius is
+// the kernel disc radius (CP-06 / SP-06) where the model's was its own 44.17 / 48.93 (CP-12 / SP-12 notes: the cup is
+// what the owner sees, the disc is the physics).
+const ROX_CUP_WALL = 1.07; // CP-12 wall_thickness value (SP-12 wall_thickness 1.07; CP-15c flange thickness 1.07)
+const ROX_CUP_OPEN_Z = -24.0; // CP-12 open_C_to_closed_bucket_transition open_at
+const ROX_CUP_FLOOR_Z = -61.88; // CP-12 floor inner_face_z_bed (SP-12 floor plate_top −61.879)
+const ROX_CUP_SPAN = 114.9; // CP-12 angular_span inner_wall_phi_at_z_bed+20 −114.8 / +115.0 (symmetrised)
+const ROX_CUP_DRAIN_R = { corner: 9.15, side: 9.49 }; // CP-12 drain_hole R_mm / SP-12 drain R
+const ROX_CORNER_RIM = [[0, 46.62], [15, 46.57], [30, 45.9], [45, 44.78], [60, 43.29], [75, 42.86], [90, 42.7], [105, 42.48], [120, 42.36]]; // CP-12 rim_height per_15deg_bin, ± bins averaged (phi from the outward diagonal)
+const ROX_CORNER_HS = [[-135, 72.4], [-120, 70.9], [-105, 58.6], [-90, 57.5], [-75, 60.1], [-60, 63.1], [-45, 66.9], [-30, 69.3], [-15, 70.3], [0, 69.8], [15, 69.3], [30, 66.3], [45, 63.4], [60, 59.6], [75, 58.0], [90, 59.1], [105, 71.3], [120, 72.2]]; // CP-15 inner_horseshoe r_of_phi_deg at bed+41 (+phi = long-rail side, CP-12 v_sign)
+const ROX_CORNER_FLANGE = [[44.26, 46.62], [45.29, 46.52], [46.96, 45.99], [49.05, 45.2], [51.23, 44.35], [53.13, 43.59], [54.94, 43.07], [56.89, 42.89], [69.68, 42.81]]; // CP-15c cup_flange profile_on_the_diagonal, R = u − 45.32 (CP-12 along_diagonal_u)
+const ROX_FLANGE_FLAT_Z = 42.89; // CP-15c cup_flange flat_top_z_bed top face
+const ROX_FLANGE_SPAN = 121.0; // CP-15c cup_flange plan_contour_at_bed_plus_42_3 phi_deg ±121
+const ROX_CASTING_PROUD = 0.357; // CP-15c cap_crest_line_continuation casting_crest_proud_of_the_cap_crest_by (at the joint plane)
+const ROX_CASTING_INNER_Z = 41.4; // CP-15 inner_horseshoe vertical_end_face_z_bed_on_diagonal top (the casting top's height at the horseshoe edge)
+const ROX_CASTING_CREST_R = 98.6; // CP-15 dome_crest_u_on_the_diagonal 143.92 − CP-12 along_diagonal_u 45.32: where the casting top reaches the dome crest
+const ROX_SIDE_PIECE_PROUD = 0.092; // SP-15 pocket_rail_piece_top at_seam 43.23 − RB-04 crest 43.138
+const ROX_LIP_CORNER = { a: 118.4, n: 3.19 }; // CP-15b rail_plan_corner_lip_outer_face superellipse (tangent to both lip runs)
+const ROX_LIP_BOTTOM = 13.5; // RC-01 z_lip_bottom (the lip's lower edge runs round the casting too, CP-15 cut_height)
+const ROX_SIDE_RIM = [[10, 42.372], [30, 42.816], [45, 43.61], [60, 45.597], [75, 46.609], [90, 46.805]]; // SP-12 rim_top_z_bed_rel by theta (mirror about 90)
+const ROX_SIDE_RIM_END = 42.25; // SP-12 rim_top_z_bed_rel ends_0-15deg_plan
+const ROX_SIDE_FLANGE_R = [[10, 60.02], [20, 61.41], [30, 63.78], [40, 66.32], [45, 67.4], [50, 68.22], [60, 69.36], [75, 70.21], [90, 70.66]]; // SP-15 flange_outer_edge_R_from_cup_centre by theta
+const ROX_SIDE_FLANGE_FLAT = [[10, 42.38], [20, 42.65], [30, 42.86], [40, 42.89]]; // SP-15 flange_flat_top_z_bed_rel top faces by theta
+const ROX_SIDE_FLANGE_SLOPE = { rimU: 51, flatU: 62, rimZ: 46.0 }; // SP-15 flange_back_slope: bed+46.0 at u 51 down to the flat at u ≈ 62 (u from the model cup centre)
+const ROX_SIDE_INNER_R_MODEL = 48.93; // SP-12 inner_R (the u origin of the SP-15 slope, re-based onto the kernel radius)
+const ROX_SIDE_BUCKET = { frontR: 51.5, frontCentreBack: 46.27, ringCentreBack: 49.6, closedZ: -23.74 }; // SP-12 bucket front_half_outer_circle c(0.69, 634.4) R 51.5 → 46.27 beyond the nose; centre_beyond_nose_line inner_fit; closed_oval_below
+const ROX_SIDE_FLANGE_THETA = [10, 170]; // SP-15 flange tables span theta 10..90 (mirrored): the flange stops 10° short of the cushion back
+const ROX_CUSHION_BACK = 48.072; // CU-04: the cushion back line both castings stop at (CP-15 tails run along it)
+const ROX_CUP_R_IN = { corner: 44.167, side: 48.93 }; // CP-12 inner_wall_circle R_mm / SP-12 inner_R — the liner is the model's own part (r9: was the kernel disc; the disc is the physics, the liner is the seen part)
+const ROX_CORNER_BUCKET = { backR: 43.24, backOff: 1.24, frontR: 39.1, frontOff: -18.7 }; // PK-03 corner bucket_below_slate better_model_compound_arcs: back (1207.29, 620.75) / front (1193.1, 606.73) about the liner centre, offsets along the outward diagonal
+const ROX_BED_HOLE_REVEAL = 4.0; // RC-22: the shared scene cuts every bed hole at the kernel disc + 4 mm (bedHoleIn) — the cloth edge the roll-over starts from
+const ROX_CUT_TOP_R = 3.039; // CP-14m top_roundover R_mm (cloth edge into the slab cut)
+const ROX_CUT_BOTTOM_R = 3.074; // CP-14m bottom_roundover R_mm
+const ROX_CUT_BOTTOM_Z = -20.083; // CP-14m bottom_roundover centre_z_bed_mm (the vertical cut face runs from the top round down to here)
+const ROX_SLAB_UNDER = -23.187; // CP-14m host_slab underside_z_bed_mm (RC-19 23.214 thick from the bed)
+const ROX_PAN_Z = { corner: 634.25 - 785.828, side: 627.91 - 785.828 }; // PK-03 below_cup pan_top_z (frame) − bed: the surface the drain opens onto
+
+function roxLerp(tab, x) {
+  if (x <= tab[0][0]) return tab[0][1];
+  for (let i = 1; i < tab.length; i++) if (x <= tab[i][0]) { const t = (x - tab[i - 1][0]) / (tab[i][0] - tab[i - 1][0]); return tab[i - 1][1] + (tab[i][1] - tab[i - 1][1]) * t; }
+  return tab[tab.length - 1][1];
+}
+/** Cap-top height (mm above the bed) at u mm from the nose on the 9-ft band of one rail family (RB-04 polyline through
+ *  the RC-03 band mapping); null outside the cap (inside the cushion back or beyond the lip face). */
+function roxDomeZ(fam, u) {
+  const k = ROX_BAND_SCALE[fam]; const uRaw = ROX_CUSHION_W + (u - ROX_CUSHION_W) / k; // RC-03 inverse
+  if (uRaw < ROX_CAP_TOP[0][0] - 0.1 || uRaw > ROX_LIP.long.face) return null;
+  return roxLerp(ROX_CAP_TOP, uRaw);
+}
+/** Non-indexed grid surface from rows of equal length ([[Vector3,...], ...]); flat normals. */
+function roxGrid(rows, orient = null) {
+  const pos = [], idx = []; const m = rows[0].length;
+  for (const row of rows) for (const v of row) pos.push(v.x, v.y, v.z);
+  for (let i = 1; i < rows.length; i++) for (let j = 1; j < m; j++) {
+    const a = (i - 1) * m + (j - 1), b = (i - 1) * m + j, c = i * m + j, d = i * m + (j - 1);
+    idx.push(a, b, c, a, c, d);
+  }
+  if (orient) { // 'up': the visible face is the top (+y); 'out': the visible face looks away from the table centre
+    let score = 0;
+    for (let k = 0; k < idx.length; k += 3) {
+      const A = new THREE.Vector3(pos[3 * idx[k]], pos[3 * idx[k] + 1], pos[3 * idx[k] + 2]), B = new THREE.Vector3(pos[3 * idx[k + 1]], pos[3 * idx[k + 1] + 1], pos[3 * idx[k + 1] + 2]), C = new THREE.Vector3(pos[3 * idx[k + 2]], pos[3 * idx[k + 2] + 1], pos[3 * idx[k + 2] + 2]);
+      const n = new THREE.Vector3().subVectors(B, A).cross(new THREE.Vector3().subVectors(C, A)); const c = new THREE.Vector3().addVectors(A, B).add(C);
+      score += orient === 'up' ? n.y : (n.x * c.x + n.z * c.z);
+    }
+    if (score < 0) for (let k = 0; k < idx.length; k += 3) { const t = idx[k + 1]; idx[k + 1] = idx[k + 2]; idx[k + 2] = t; }
+  }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); return g;
+}
+/** Smallest positive ray parameter t (mm) where P + t·dir crosses the closed polyline pts ([[x,z],...], mm); Infinity if none. */
+function roxRayPolyline(P, dir, pts) {
+  let best = Infinity, seg = -1;
+  for (let i = 1; i < pts.length; i++) {
+    const [x1, z1] = pts[i - 1], [x2, z2] = pts[i]; const ex = x2 - x1, ez = z2 - z1;
+    const den = dir[0] * ez - dir[1] * ex; if (Math.abs(den) < 1e-9) continue; // roxlit: construction
+    const t = ((x1 - P[0]) * ez - (z1 - P[1]) * ex) / den; const w = ((x1 - P[0]) * dir[1] - (z1 - P[1]) * dir[0]) / den;
+    if (t > 0 && w >= 0 && w <= 1 && t < best) { best = t; seg = i - 1; }
+  }
+  return [best, seg];
+}
+/** Content-free own environment cubes for the OX materials (2 x 2 px per face, ONE instance per tone,
+ *  module lifetime so a rebuild can never leak a texture onto the shared woodMat / apronMat).
+ *  WHY AN OWN CUBE AT ALL: envMapIntensity is a DEAD KNOB for scene.environment-lit materials on the
+ *  vendored three release (the GH-440 note at the woodMat block below) — re-measured on this branch at
+ *  the register rig, driving every OX env value to 0.0 changed not one pixel of either 3q register.
+ *  So each OX material that thought it had "cut" the environment was in fact lit by the FULL
+ *  cloth-and-lamp cubemap: at r9 the castings read 1.39 x the bed cloth and cream, and the black
+ *  cabinet carried the cloth's blue (b -10 to -20).  An own cube makes the term live AND puts one
+ *  declared constant behind it (the cn8 beamMat mechanism, same two-by-two canvas). */
+const ROX_ENV_CUBES = new Map();
+const ROX_ENV_CONTENT_FREE = '#000000'; // RC-26 env_cube_css — the tone is IRRELEVANT and the constant says so: a red cube renders byte-identically (probe RED2, corner_3q, 0 pixels changed) — hanging an own cube switches the environment term OFF, it does not recolour it
+function roxEnvCube(css) {
+  let cube = ROX_ENV_CUBES.get(css); if (cube) return cube;
+  const faces = [];
+  for (let f = 0; f < 6; f++) { const el = document.createElement('canvas'); el.width = 2; el.height = 2; const g2 = el.getContext('2d'); g2.fillStyle = css; g2.fillRect(0, 0, 2, 2); faces.push(el); }
+  cube = new THREE.CubeTexture(faces); cube.colorSpace = THREE.SRGBColorSpace; cube.needsUpdate = true;
+  ROX_ENV_CUBES.set(css, cube); return cube;
+}
+/** RC-26 — the OX ALUMINIUM family, ONE material for every aluminium part: the corner castings, the
+ *  side piece tops and lips, the rail-cap strip, the apron corner trims and the pedestal foot plates
+ *  ("CORNER & ALUMINUM STRIP - ALUMINUM", RB-06).  A PER-BUILD instance disposed with the geometry:
+ *  this entry no longer retunes the shared brushed-accent rimMat at all, so no OX appearance number
+ *  can survive a live table switch (the styleMaterials reset law covers woodMat / apronMat envMap and
+ *  rimMat's colour/metalness/roughness, but never covered rimMat.envMap).
+ *  Every constant is a leaf of row RC-26, which prints the frame, the rectangle and the 10 %-trimmed
+ *  mean behind it (luma 0.2126 / 0.7152 / 0.0722):
+ *    colour 0x9a9b9c  hue = mfr-ox-detail-18 casting / white-body ratio (1.000, 1.004, 1.013), i.e.
+ *      neutral with a 1.3 % blue lift; level set so the lit casting lands in the frame band below.
+ *    metalness 0.35 / roughness 0.6  OPEN(appearance): a bead-blasted satin casting; no OX frame shows
+ *      a sharp room reflection in any casting face, and none shows a diffuse chalky one either.
+ *    emissive 0x1a1a1c  the shaded-face floor, and the ONLY fill this family gets: an own cube cannot
+ *      supply one.  Probes D / E / RED2 hung a grey then a red cube on this material and both rendered
+ *      byte-identically to the black one (0 pixels changed, corner_3q / middle_3q / elev_side /
+ *      under_plan) — the cube's content is never sampled, so the cube only switches the environment
+ *      term OFF.  The floor is set from det18, which reads the foot plate at 0.657 x its own casting:
+ *      with no floor at all that ratio fell to 0.59; at 0x1a1a1c the render reads 0.61 (probe F).
+ *  Frame band the lit casting is derived against (all 10 %-trimmed, x the bed cloth of the same frame):
+ *  bc-mosconi2023 t0630 0.74 and 1.08, dlr-hld-oxchampionship t0140 0.80 (warm venue), t0250 0.49 at a
+ *  grazing far face.  Where this render lands (probe F, register rig, x the bed cloth of the same
+ *  register): corner casting 1.06, side piece top 0.88, foot plate 0.65 (0.61 x its own casting).
+ *  CHROMA is a RIG statement, not a material one: the body colour is neutral by construction, and the
+ *  lit casting still reads b +7.6 in corner_3q because the register key lamp is warm — det18's studio
+ *  frame reads the casting neutral (C 1.05) and t0140's warm venue frame reads it b +16.5, so ours sits
+ *  between the two.  r9 read the opposite sign (b -12 to -16 in the side elevation, the blue cloth
+ *  cubemap in a smooth metal); at r9b the same faces read C 0.3 to 2.9. */
+function roxAlMat() {
+  const m = new THREE.MeshStandardMaterial({ color: 0x9a9b9c, roughness: 0.6, metalness: 0.35, emissive: 0x1a1a1c }); // RC-26
+  m.envMap = roxEnvCube(ROX_ENV_CONTENT_FREE); // RC-26
+  return m;
+}
+/** The slab cut at one pocket (CP-14m / SP-14 form on the shared bed hole): the cloth rolls over the cut edge (top round
+ *  R 3.039), the vertical face runs down to the bottom round (R 3.074) and the slab underside; plus the PK-03 pan the
+ *  drain opens onto. Cloth material = the bed sheet's own; the pan takes the well material. */
+// ---- A3-PLAN (owner rejection of card 21b, ORDER-ROX-A3-PLAN): the liner meets the cushion end as the model does ----
+const ROX_SIDE_CUP_CENTRE = 49.33; // RC-32: model +Y liner centre behind the nose line, wall-split circle fits (inner 49.30 / outer 49.36, rms 0.29 / 0.32, 6 heights bed+20..+40; A1's SP-12 read 49.6 on the solid) — the SEEN part hangs here; the kernel axis (SP-07) keeps physics + the bed hole
+const ROX_CORNER_CUP_U = 45.05; // RC-32: model +X+Y liner centre along the pocket diagonal from the nose-line intersection, wall-split fits (inner 45.00..45.13 / outer 45.02, rms 0.29) — A1's CP-12 45.32 read the liner solid, this reads the walls
+const ROX_SIDE_MODEL_FACE = [50.228, 633.733 - 588.12]; // SP-10 cheek_plane_position: the model's side cheek plane passes through (±50.228, y 633.733) → 45.613 behind its nose line 588.12 (CP-15 frame); direction = SP-02 (the kernel's, read from the same plane)
+const ROX_CORNER_MODEL_FACE = [1174.07 - 1163.89, 635.38 - 588.12]; // CP-12 C_end_points inner (1163.89, 635.38): the model's liner end sits ON its long-rail cheek's back-top corner (gap 0.03-0.42) → 10.18 into the rail from the nose-line intersection 1174.07, 47.26 behind the long nose line 588.12; direction = CP-02
+const ROX_SIDE_NOTCH = { arcR: 69.3, arcCentreBack: 80.83, departX: 49.81, departV: 621.83 - 588.12, legX: 55.5, legV: 634.7 - 588.12 }; // SP-14: the model's side slab notch — the |x|<50 arc (first_pass_fit R 69.3, centre 80.83 beyond the nose line), leaving the arc at x ±49.81 (y 621.83) for the steeper leg to (±55.5, 634.7); nose line 588.12 (CP-15 frame)
+const ROX_SIDE_RING_END_V = 635.8 - 588.12; // SP-12 half_ring_above_slab end_y 635.6..636.0 (mid 635.8) → 47.68 behind the model's nose line 588.12: where the model's half-ring ends (on its cushion back-top corner, 0.4 mm in front of the CU-04 back line)
+const ROX_A3_EPS = 1 / 10; // roxlit: construction — a tenth of a millimetre clear of a face the sheet ends on (coincident curves read as crossings in c14)
+/** Smallest positive t where P + t·u crosses the segment A→B (2-D, mm); Infinity if none. */
+function roxRaySeg(P, u, A, B) { // roxlit: construction
+  const ex = B[0] - A[0], ey = B[1] - A[1]; const den = u[0] * ey - u[1] * ex; if (Math.abs(den) < 1e-12) return Infinity; // roxlit: construction
+  const t = ((A[0] - P[0]) * ey - (A[1] - P[1]) * ex) / den; const w = ((A[0] - P[0]) * u[1] - (A[1] - P[1]) * u[0]) / den;
+  return (t > 0 && w >= -1e-9 && w <= 1 + 1e-9) ? t : Infinity; // roxlit: construction
+}
+/** Intersection of the line A→B with the line C→D (2-D); null when parallel. */
+function roxLineLine(A, B, C, D) { // roxlit: construction
+  const ex = B[0] - A[0], ey = B[1] - A[1], fx = D[0] - C[0], fy = D[1] - C[1]; const den = ex * fy - ey * fx; if (Math.abs(den) < 1e-15) return null; // roxlit: construction
+  const t = ((C[0] - A[0]) * fy - (C[1] - A[1]) * fx) / den; return [A[0] + t * ex, A[1] + t * ey];
+}
+/** The K-55 loft of one rail polygon with VERTICAL end faces (the purchased model's: SP-10 / CP-10 planar cheeks, tip x constant
+ *  with height to 0.01 mm at bed+20..+40, only the nose profile's 1.85 mm bulge). The shared loft sweeps the profile round the
+ *  mouth vertex and rakes every jaw facing +23..26 mm (report §8.1.9 R9B-3, issue #643 item 5); here the two facings are FIXED
+ *  planes and every profile ring ends where its inset nose line meets that plane — the fins cannot exist. The o = 0 ring is the
+ *  plan polygon itself (009 colinearity law: the extreme fibre lies on the kernel cushion segments), the back edge is fixed, and
+ *  the mid-rail surface is the same K-55 profile as before; only the last few millimetres at each end change. The top is
+ *  clamped to CU-11 (cushion_body_top 41.11) exactly as the shared clamp did. Names / order stay `dm-cushion-<i>`. */
+function roxCushionGeom(G, poly, prof) {
+  const M = poly.length; const A = poly[0], B = poly[M - 1]; // back corners (the last edge B→A is the fixed slate-edge face)
+  let iN0 = 1, best = -1; // the nose run = the longest front edge
+  for (let i = 1; i < M - 2; i++) { const l = Math.hypot(poly[i + 1][0] - poly[i][0], poly[i + 1][1] - poly[i][1]); if (l > best) { best = l; iN0 = i; } }
+  const iN1 = iN0 + 1; const N0 = poly[iN0], N1 = poly[iN1];
+  let area2 = 0; for (let i = 0; i < M; i++) { const [x1, y1] = poly[i], [x2, y2] = poly[(i + 1) % M]; area2 += x1 * y2 - x2 * y1; }
+  const sgn = area2 > 0 ? 1 : -1;
+  const nl = Math.hypot(N1[0] - N0[0], N1[1] - N0[1]); const nd = [(N1[0] - N0[0]) / nl, (N1[1] - N0[1]) / nl]; const nn = [-nd[1] * sgn, nd[0] * sgn]; // inward normal of the nose edge
+  const rows = prof.rows; const capZ = ROX_CUSHION_TOP / 1000; // CU-11
+  const Q0 = roxLineLine(A, poly[1], N0, N1), Q1 = roxLineLine(B, poly[M - 2], N0, N1); // the sharp corners nose line ∩ facing plane (the kernel's jaw round is tangent to both)
+  const ringAt = (o) => { // every column keeps its index so the grid is rectangular; the back corners never move
+    if (o <= 0) return poly.map((q) => [q[0], q[1]]);
+    const P0 = [N0[0] + o * nn[0], N0[1] + o * nn[1]], P1 = [N1[0] + o * nn[0], N1[1] + o * nn[1]]; // the inset nose line
+    const R0 = roxLineLine(A, poly[1], P0, P1) ?? P0, R1 = roxLineLine(B, poly[M - 2], P0, P1) ?? P1; // fixed facing planes ∩ inset nose line
+    const d0 = Q0 && R0 ? [R0[0] - Q0[0], R0[1] - Q0[1]] : [0, 0], d1 = Q1 && R1 ? [R1[0] - Q1[0], R1[1] - Q1[1]] : [0, 0]; // the corner slides ALONG the facing plane
+    const out = []; // the jaw round (tangent to the nose line and to the facing) rides with its corner: radius and tangency are unchanged, only the corner moves
+    for (let j = 0; j < M; j++) out.push(j === 0 ? [A[0], A[1]] : j === M - 1 ? [B[0], B[1]] : j <= iN0 ? [poly[j][0] + d0[0], poly[j][1] + d0[1]] : [poly[j][0] + d1[0], poly[j][1] + d1[1]]);
+    return out;
+  };
+  const rings = rows.map((r) => ringAt(r.o)); const zs = rows.map((r) => Math.min(r.z, capZ));
+  const uBase = [0]; for (let i = 0; i < M; i++) { const [x1, y1] = poly[i], [x2, y2] = poly[(i + 1) % M]; uBase.push(uBase[i] + Math.hypot(x2 - x1, y2 - y1)); }
+  const vProf = [0]; for (let k = 1; k < rows.length; k++) vProf.push(vProf[k - 1] + Math.hypot(rows[k].o - rows[k - 1].o, rows[k].z - rows[k - 1].z));
+  const pos = [], uv = [], idx = [];
+  for (let k = 0; k < rows.length; k++) for (let j = 0; j < M; j++) { const [kx, ky] = rings[k][j]; pos.push(ky - G.L / 2, zs[k], kx - G.W / 2); uv.push(uBase[j], vProf[k]); }
+  const same = (k, j, k2, j2) => rings[k][j][0] === rings[k2][j2][0] && rings[k][j][1] === rings[k2][j2][1] && zs[k] === zs[k2];
+  for (let k = 0; k + 1 < rows.length; k++) for (let j = 0; j < M; j++) { // M edges per ring: the last one (B → A) is the fixed slate-edge back face, lofted like the rest
+    const j1 = (j + 1) % M; const a = k * M + j, b = k * M + j1, c = (k + 1) * M + j, d = (k + 1) * M + j1;
+    const t1 = !(same(k, j, k, j1) || same(k, j1, k + 1, j) || same(k, j, k + 1, j)), t2 = !(same(k, j1, k + 1, j1) || same(k + 1, j1, k + 1, j) || same(k, j1, k + 1, j));
+    if (sgn > 0) { if (t1) idx.push(a, b, c); if (t2) idx.push(b, d, c); } else { if (t1) idx.push(a, c, b); if (t2) idx.push(b, c, d); }
+  }
+  const top = rings[rings.length - 1]; const cap = top.filter((q, j) => j === 0 || Math.hypot(q[0] - top[j - 1][0], q[1] - top[j - 1][1]) > 1e-9); // roxlit: construction — the top ring, duplicates dropped; its ends lie on the two vertical planes
+  const contour = cap.map(([kx, ky]) => new THREE.Vector2(ky - G.L / 2, -(kx - G.W / 2)));
+  const base = pos.length / 3; for (const v of contour) { pos.push(v.x, zs[zs.length - 1], -v.y); uv.push(v.x, v.y); }
+  for (const t of THREE.ShapeUtils.triangulateShape(contour, [])) idx.push(base + t[0], base + t[1], base + t[2]);
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); g.setIndex(idx); g.computeVertexNormals(); return g;
+}
+/** Plan footprint of one cushion END in the pocket's own frame: the strip between its nose line and its back line, closed by the
+ *  facing segment J→B (vertical after roxCushionGeom) and the jaw round N→J. `f(x)` maps a frame point to [along, behind] with
+ *  `along` positive INTO the rail (away from the pocket) and `behind` positive behind that rail's nose line. All from G (the
+ *  kernel mirror railPolysKernel already uses: mouth, jaw radius, facing angle, cushion width). */
+function roxCushionEnd(G, kind) {
+  const CW = G.CW * 1000;
+  if (kind === 'side') { const h = G.sw / 2 * 1000, ds = G.ds * 1000; return { N: [h + ds, 0], J: [h - ds * G.sinSa, ds * G.cosSa], B: [h - G.sjb * 1000, CW], CW }; }
+  const pwc = G.pwc * 1000, dc = G.dc * 1000; return { N: [pwc + dc, 0], J: [pwc - dc * G.sinCa, dc * G.cosCa], B: [pwc - CW * G.tanCa, CW], CW };
+}
+const roxInsideEnd = (E, along, behind) => { // roxlit: construction
+  if (behind < 0 || behind > E.CW) return false;
+  const [Pa, Pb] = behind <= E.J[1] ? [E.N, E.J] : [E.J, E.B]; const t = (behind - Pa[1]) / ((Pb[1] - Pa[1]) || 1e-9); // roxlit: construction
+  return along >= Pa[0] + t * (Pb[0] - Pa[0]) - 1e-9; // roxlit: construction
+};
+/** The MODEL's cushion end in the same frame: our facing direction (CP-02 / SP-02 are the model's own planar cheek fits) through the
+ *  model's back-top corner (ROX_*_MODEL_FACE). Points inside it and outside ours are the mouth-ruling residual strip the derived top
+ *  closes (the model's rubber is 2.7-4.6 mm longer per side than the MFR mouth allows; RC-29). */
+const roxInsideModelEnd = (E, face, along, behind) => { // roxlit: construction
+  if (behind < 0 || behind > E.CW) return false;
+  const fx = E.B[0] - E.J[0], fy = E.B[1] - E.J[1]; return along >= face[0] + (behind - face[1]) * fx / fy - 1e-9; // roxlit: construction
+};
+/** Covered runs along a ray (mm): the derived furniture top exists where the ray is (i) outside every cushion footprint and
+ *  (ii) over the bed hole or behind a back line — never over the visible cloth shelf. Sampled every half millimetre. */
+function roxRayRuns(t0, t1, classify) { // classify(t) -> 'top' | 'cushion' | 'cloth' ; roxlit: construction
+  const runs = []; let cur = null; const step = 1 / 2;
+  for (let t = t0; t <= t1 + 1e-9; t += step) { const c = classify(t); if (c === 'top') { if (!cur) cur = [t, t]; else cur[1] = t; } else if (cur) { runs.push(cur); cur = null; if (c === 'cloth') break; } } // roxlit: construction
+  if (cur) runs.push(cur); return runs;
+}
+function roxPocketCut(group, dm, G, p, kind, mats, clothMaterial) {
+  const Rh = p.r * 1000 + ROX_BED_HOLE_REVEAL; const Rf = Rh - ROX_CUT_TOP_R;
+  const prof = [[Rh, 0]];
+  for (let k = 1; k <= 6; k++) { const t = Math.PI / 2 * k / 6; prof.push([Rh - ROX_CUT_TOP_R * Math.sin(t), -ROX_CUT_TOP_R * (1 - Math.cos(t))]); } // roxlit: construction
+  prof.push([Rf, ROX_CUT_BOTTOM_Z]);
+  for (let k = 1; k <= 6; k++) { const t = Math.PI / 2 * k / 6; prof.push([Rh - ROX_CUT_BOTTOM_R * Math.cos(t), ROX_CUT_BOTTOM_Z - ROX_CUT_BOTTOM_R * Math.sin(t)]); } // roxlit: construction
+  // A3: the cloth roll-over is a ring of angular segments about the shared hole (RC-22); the segments whose top edge lies under a
+  // cushion end are dropped — the cushion's vertical end face now stands on the hole's own footprint there (the model's notch runs
+  // under its rubber with no roll-over), and a lathe through the rubber read as a 50-60 mm crossing in the C14 bed slice
+  const L = G.L * 1000, W = G.W * 1000; const E = roxCushionEnd(G, p.corner ? 'corner' : 'side'); const cx = p.x * 1000, cz = p.z * 1000;
+  const inEnd = (x, z) => { if (!p.corner) return roxInsideEnd(E, Math.abs(x), (z - Math.sign(p.z) * W / 2) * Math.sign(p.z));
+    const a = (x - Math.sign(p.x) * L / 2) * Math.sign(p.x), b = (z - Math.sign(p.z) * W / 2) * Math.sign(p.z); return roxInsideEnd(E, -a, b) || roxInsideEnd(E, -b, a); };
+  // the seen cup (RC-32 centres, CP-12 / SP-12 radii): the model's notch is cut around its cup wall, so the roll-over has no segment
+  // where the cup wall stands — the wall itself is the edge there (the two circles are 0.1-1.2 mm apart at the corner's outward diagonal)
+  const Sm = p.corner ? [Math.sign(p.x) * (L / 2 + ROX_CORNER_CUP_U / Math.SQRT2), Math.sign(p.z) * (W / 2 + ROX_CORNER_CUP_U / Math.SQRT2)] : [0, Math.sign(p.z) * (W / 2 + ROX_SIDE_CUP_CENTRE)];
+  const Sr = (p.corner ? ROX_CUP_R_IN.corner : ROX_CUP_R_IN.side) + ROX_CUP_WALL + ROX_A3_EPS;
+  const inCup = (x, z) => Math.hypot(x - Sm[0], z - Sm[1]) < Sr;
+  const rows = []; const nA = 96; // roxlit: construction
+  for (let k = 0; k <= nA; k++) { const t = 2 * Math.PI * k / nA; const ux = Math.cos(t), uz = Math.sin(t); // roxlit: construction
+    const px = cx + Rh * ux, pz = cz + Rh * uz, qx = cx + Rf * ux, qz = cz + Rf * uz;
+    rows.push(inEnd(px, pz) || inCup(px, pz) || inCup(qx, qz) ? null : prof.map(([r, y]) => new THREE.Vector3((cx + r * ux) / 1000, y / 1000, (cz + r * uz) / 1000))); }
+  if (rows[nA] && rows[0]) rows[nA] = rows[0];
+  const runs = []; let cur = []; for (const r of rows) { if (r) cur.push(r); else if (cur.length) { runs.push(cur); cur = []; } } if (cur.length) runs.push(cur);
+  if (runs.length > 1 && rows[0] && rows[nA]) { runs[0] = runs[runs.length - 1].concat(runs[0]); runs.pop(); } // the ring closes through angle 0
+  runs.forEach((run, k) => { if (run.length > 1) group.add(dm(new THREE.Mesh(roxGrid(run), clothMaterial), k === 0 ? `pocket-rox-${kind}-cut` : `pocket-rox-${kind}-cut-${k}`)); });
+  const pan = new THREE.Mesh(new THREE.CircleGeometry(Rh / 1000, 48), mats.well); pan.rotation.x = -Math.PI / 2; pan.position.set(p.x, ROX_PAN_Z[kind.startsWith('side') ? 'side' : 'corner'] / 1000, p.z); // roxlit: construction
+  group.add(dm(pan, `pocket-rox-${kind}-pan`));
+}
+
+/** One corner pocket assembly: cup C-liner + closed bucket, flange sheet, aluminium casting (dome mitre + lip corner).
+ *  p = kernel pocket (scene metres). A3-PLAN: the SEEN liner hangs on the MODEL's own cup centre (CP-12 a3, ROX_CORNER_CUP_U along
+ *  the diagonal from the nose-line intersection); the kernel axis p keeps physics + the bed hole. The C ends where its outer circle
+ *  meets the cushion END FACE of the same height (vertical after roxCushionGeom); with the MFR corner mouth kept (CP-01, 114.3)
+ *  that intersection does not exist, so the C ends on the cushion BACK LINE — the line the model's own ends sit on — and the gap
+ *  to the kernel back corner is the mouth-ruling residual the flange closes (RC-29). Every top sheet (flange, ears, between-ends)
+ *  is a ray from the cup centre clipped against the real cushion footprint and the bed hole (roxRayRuns) — no band constant. */
+function roxCornerPocket(group, dm, G, p, mats, tag) {
+  const L = G.L * 1000, W = G.W * 1000, sx = Math.sign(p.x), sz = Math.sign(p.z);
+  const Ba = (G.CW + G.render.frameWidthEnd) * 1000, Bb = (G.CW + G.render.frameWidth) * 1000; // RB-02 / RB-01 bands: the lip lines
+  const aOf = (x) => (x - sx * L / 2) * sx, bOf = (z) => (z - sz * W / 2) * sz; // beyond the short / long nose lines, mm
+  const xOf = (a) => sx * (L / 2 + a), zOf = (b) => sz * (W / 2 + b);
+  const d = [sx / Math.SQRT2, sz / Math.SQRT2], n = [-sx / Math.SQRT2, sz / Math.SQRT2]; // outward diagonal, and toward the long rail
+  const Pm = [xOf(ROX_CORNER_CUP_U / Math.SQRT2), zOf(ROX_CORNER_CUP_U / Math.SQRT2)]; // RC-32: the model's cup centre on the pocket diagonal
+  const Rin = ROX_CUP_R_IN.corner, Rout = Rin + ROX_CUP_WALL; // CP-12 liner radius
+  const dir = (deg) => { const r = deg * Math.PI / 180; return [Math.cos(r) * d[0] + Math.sin(r) * n[0], Math.cos(r) * d[1] + Math.sin(r) * n[1]]; };
+  const V = (r, deg, z) => { const u = dir(deg); return new THREE.Vector3((Pm[0] + r * u[0]) / 1000, z / 1000, (Pm[1] + r * u[1]) / 1000); };
+  const rim = (deg) => roxLerp(ROX_CORNER_RIM, Math.abs(deg));
+  // cushion ends in this pocket's frame (kernel mirror, the same numbers railPolysKernel uses) and the shared bed hole (RC-22)
+  const E = roxCushionEnd(G, 'corner');
+  const inCushion = (x, z) => roxInsideEnd(E, -aOf(x), bOf(z)) || roxInsideEnd(E, -bOf(z), aOf(x)); // long-rail end, short-rail end
+  const hole = { x: p.x * 1000, z: p.z * 1000, R: p.r * 1000 + ROX_BED_HOLE_REVEAL };
+  const inHole = (x, z) => Math.hypot(x - hole.x, z - hole.z) < hole.R;
+  const inModel = (x, z) => roxInsideModelEnd(E, ROX_CORNER_MODEL_FACE, -aOf(x), bOf(z)) || roxInsideModelEnd(E, ROX_CORNER_MODEL_FACE, -bOf(z), aOf(x));
+  // top where: behind a back line (rail region), inside the model's rubber but outside ours (the residual strip), or over the bed hole
+  // behind a nose line; cloth (the shelf) in front of the nose lines or beside the cup where the model itself shows cloth
+  // no cut void in front of the liner: the model's slab cut (CP-14m, an arc R 52.6 about the cup centre spanning 125 deg about the front
+  // diagonal) lies UNDER its cloth — the model's bed-top sheet spans the cut to the cup wall (its own triangulation fan), and on the real
+  // table the cloth wraps the slab edge down into the pocket — so from above the top over the cut is cloth (the shelf), never the pan.
+  // (An earlier 'in front of both nose lines' void split the mouth into cloth slivers around the nose-line crossing 45.05 from the cup
+  // centre and dropped a ray's real shelf when its first run was such a sliver; a per-ray 125 deg void showed the pan where the model
+  // shows cloth: plan-law row (b) 44.8 / 45.0 vs the model's 17.0 / 21.2.)
+  const inCup = (x, z) => Math.hypot(x - Pm[0], z - Pm[1]) < Rout; // the cup's own opening — never a top (the model's corner opening is open all round its C)
+  // kinds: our rubber; the cup opening ('void'); 'strip' = the model's rubber or the rail region (flange sheet); 'shelf' = over the shared
+  // bed hole where the model's slate shelf stands (cloth patch at bed level); 'void' also over the hole inside the model's own cut (left
+  // open, as the model); 'cloth' = the shared bed sheet is the right top and the sheet stops
+  // the model-rubber-minus-ours wedge runs along the whole jaw face; only its part behind the model's back-top corner (CP-12 C end,
+  // 47.26 behind the nose line) is the between-ends top (flange); further forward the wedge is shelf beside a shorter rubber — cloth
+  const inStrip = (x, z) => inModel(x, z) && (bOf(z) >= ROX_CORNER_MODEL_FACE[1] || aOf(x) >= ROX_CORNER_MODEL_FACE[1]);
+  const kindAt = (x, z) => inCushion(x, z) ? 'cushion' : inCup(x, z) ? 'void' : (aOf(x) >= E.CW || bOf(z) >= E.CW || inStrip(x, z)) ? 'strip' : inHole(x, z) ? 'shelf' : 'cloth';
+  const classify = (x, z) => { const k = kindAt(x, z); return k === 'strip' || k === 'shelf' ? 'top' : k; };
+  // (0) where the C ends: its outer circle ∩ the long-rail facing segment (J→B, symmetric for the short rail) if that exists, else the back line
+  const Cf = [-aOf(Pm[0]), bOf(Pm[1])]; // cup centre in the long-rail end's frame (along, behind)
+  let phiEnd = null; {
+    const ex = E.B[0] - E.J[0], ey = E.B[1] - E.J[1]; const fx = E.J[0] - Cf[0], fy = E.J[1] - Cf[1];
+    const qa = ex * ex + ey * ey, qb = 2 * (fx * ex + fy * ey), qc = fx * fx + fy * fy - Rout * Rout; const disc = qb * qb - 4 * qa * qc; // roxlit: construction
+    if (disc >= 0) for (const sg of [-1, 1]) { const w = (-qb + sg * Math.sqrt(disc)) / (2 * qa); if (w >= 0 && w <= 1) { const al = E.J[0] + w * ex, be = E.J[1] + w * ey; phiEnd = Math.atan2((be - Cf[1]) - (-(al) - (-Cf[0])), (be - Cf[1]) + (-(al) - (-Cf[0]))) * 180 / Math.PI; } }
+  }
+  const contact = phiEnd !== null;
+  // no contact under the MFR mouth (RC-29): the C keeps the model's OWN span (CP-12 ±114.9, its ends on its cushion back-top corners);
+  // the outer circle ∩ back line would be ±114.0 — the two agree to 0.7 mm, the model's is the read
+  const span = contact ? Math.abs(phiEnd) : ROX_CUP_SPAN; // the C is symmetric about the diagonal: ±span from the outward diagonal
+  // (1) cup: open C from the floor to the rim, closed ring below the transition, floor annulus with the drain
+  const rows = [];
+  const nC = Math.ceil(2 * span / 3); // ~3° steps landing exactly on both ends // roxlit: construction
+  for (let k = 0; k <= nC; k++) { const deg = -span + 2 * span * k / nC; rows.push([V(Rin, deg, ROX_CUP_OPEN_Z), V(Rin, deg, rim(deg)), V(Rout, deg, rim(deg)), V(Rout, deg, ROX_CUP_OPEN_Z)]); }
+  // closed bucket below the transition (PK-03): the back arc continues the C, the front arc is set toward the table; the two
+  // meet where the circles intersect (solved here, no authored angle)
+  const B = ROX_CORNER_BUCKET; const dd = B.backOff - B.frontOff; const cosJ = (dd * dd + B.frontR ** 2 - B.backR ** 2) / (2 * dd * B.frontR);
+  const thJ = Math.acos(Math.max(-1, Math.min(1, cosJ))) * 180 / Math.PI; // front-arc angle (from the outward diagonal) at the junction
+  const jx = B.frontOff + B.frontR * Math.cos(thJ * Math.PI / 180), jy = B.frontR * Math.sin(thJ * Math.PI / 180);
+  const phiJ = Math.atan2(jy, jx - B.backOff) * 180 / Math.PI; // back-arc angle at the same point
+  const arcPt = (off, deg, r, z) => { const t = deg * Math.PI / 180; return new THREE.Vector3((Pm[0] + off * d[0] + r * (Math.cos(t) * d[0] + Math.sin(t) * n[0])) / 1000, z / 1000, (Pm[1] + off * d[1] + r * (Math.cos(t) * d[1] + Math.sin(t) * n[1])) / 1000); };
+  const rowsB = [];
+  const zB = ROX_CUP_OPEN_Z - 1 / 10; // the bucket's top ring sits a tenth of a millimetre under the C's bottom edge (coincident rings read as crossings)
+  const nB1 = Math.ceil(2 * phiJ / 3), nB2 = Math.ceil((360 - 2 * thJ) / 3); // roxlit: construction
+  for (let k = 0; k <= nB1; k++) { const deg = -phiJ + 2 * phiJ * k / nB1; rowsB.push([arcPt(B.backOff, deg, B.backR, ROX_CUP_FLOOR_Z), arcPt(B.backOff, deg, B.backR, zB), arcPt(B.backOff, deg, B.backR + ROX_CUP_WALL, zB), arcPt(B.backOff, deg, B.backR + ROX_CUP_WALL, ROX_CUP_FLOOR_Z)]); }
+  for (let k = 0; k <= nB2; k++) { const deg = thJ + (360 - 2 * thJ) * k / nB2; rowsB.push([arcPt(B.frontOff, deg, B.frontR, ROX_CUP_FLOOR_Z), arcPt(B.frontOff, deg, B.frontR, zB), arcPt(B.frontOff, deg, B.frontR + ROX_CUP_WALL, zB), arcPt(B.frontOff, deg, B.frontR + ROX_CUP_WALL, ROX_CUP_FLOOR_Z)]); }
+  const rowsF = [];
+  for (let deg = 0; deg <= 360 + 1e-6; deg += 6) { const back = deg <= phiJ || deg >= 360 - phiJ; const fd = deg <= 180 ? Math.max(deg, thJ) : Math.min(deg, 360 - thJ); rowsF.push([V(ROX_CUP_DRAIN_R.corner, deg, ROX_CUP_FLOOR_Z), back ? arcPt(B.backOff, deg, B.backR, ROX_CUP_FLOOR_Z) : arcPt(B.frontOff, fd, B.frontR, ROX_CUP_FLOOR_Z)]); } // roxlit: construction
+  const rowsT = []; // transition seat at the open_at height (CP-12 open_C_to_closed_bucket_transition): the C's open lower edge sits on the bucket, so the ledge runs from the bucket's outer wall out to the C circle all round — the PK-03 compound arcs run inside the C away from the diagonal
+  const seatRow = (q) => { const rq = Math.hypot(q.x * 1000 - Pm[0], q.z * 1000 - Pm[1]); // roxlit: construction
+    const ang = Math.atan2((q.x * 1000 - Pm[0]) * n[0] + (q.z * 1000 - Pm[1]) * n[1], (q.x * 1000 - Pm[0]) * d[0] + (q.z * 1000 - Pm[1]) * d[1]) * 180 / Math.PI;
+    const outerR = Math.abs(ang) <= span ? Rin : Rout; // within the C: up to its inner face; past the C ends (no wall there): up to the outer circle
+    return rq < outerR - 1 / 10 ? [q, V(outerR, ang, zB)] : null; }; // roxlit: construction
+  for (let k = 0; k <= nB1; k++) { const deg = -phiJ + 2 * phiJ * k / nB1; rowsT.push(seatRow(arcPt(B.backOff, deg, B.backR + ROX_CUP_WALL, zB))); }
+  for (let k = 0; k <= nB2; k++) { const deg = thJ + (360 - 2 * thJ) * k / nB2; rowsT.push(seatRow(arcPt(B.frontOff, deg, B.frontR + ROX_CUP_WALL, zB))); }
+  rowsT.push(rowsT[0]);
+  { const runsT = []; let cur = []; for (const r of rowsT) { if (r) cur.push(r); else if (cur.length) { runsT.push(cur); cur = []; } } if (cur.length) runsT.push(cur);
+    runsT.forEach((run, k) => { if (run.length > 1) group.add(dm(new THREE.Mesh(roxGrid(run, 'up'), mats.well), `pocket-rox-corner-${tag}-cup-seat-${k}`)); }); }
+  group.add(dm(new THREE.Mesh(roxGrid(rows), mats.well), `pocket-rox-corner-${tag}-cup-c`));
+  group.add(dm(new THREE.Mesh(roxGrid([[rows[0][0], rows[0][3]], [rows[0][1], rows[0][2]]]), mats.well), `pocket-rox-corner-${tag}-cup-c-end-0`)); // the C's end faces (CP-12 C_end_points)
+  group.add(dm(new THREE.Mesh(roxGrid([[rows[rows.length - 1][0], rows[rows.length - 1][3]], [rows[rows.length - 1][1], rows[rows.length - 1][2]]]), mats.well), `pocket-rox-corner-${tag}-cup-c-end-1`));
+  group.add(dm(new THREE.Mesh(roxGrid(rowsB), mats.well), `pocket-rox-corner-${tag}-cup-bucket`));
+  group.add(dm(new THREE.Mesh(roxGrid(rowsF), mats.well), `pocket-rox-corner-${tag}-cup-floor`));
+  // ray helper: where a ray from the cup centre leaves the corner square (a ≥ CU-04 or b ≥ CU-04) — the casting's inner limit
+  const exitT = (u) => { const da = u[0] * sx, db = u[1] * sz; const ta = da > 1e-9 ? (ROX_CUSHION_BACK - aOf(Pm[0])) / da : Infinity, tb = db > 1e-9 ? (ROX_CUSHION_BACK - bOf(Pm[1])) / db : Infinity; return Math.max(0, Math.min(ta, tb)); }; // roxlit: construction
+  const hs = (deg) => (deg < ROX_CORNER_HS[0][0] || deg > ROX_CORNER_HS[ROX_CORNER_HS.length - 1][0]) ? null : roxLerp(ROX_CORNER_HS, deg);
+  // (2) flange: from the C's outer face out to the horseshoe, clipped by the cushion footprints and the bed hole; a ray that passes
+  // THROUGH a cushion end resumes behind it (the ear: CP-15 inner end face 41.4 on both sides of each band); a ray past the C end
+  // belongs to the between-ends strip only while it still meets a cushion end face — the open throat gets no sheet
+  const zFl = (deg, R) => { // CP-15c profile re-based from the model rim radius onto the liner one, scaled by this ray's rim height
+    const Rm = R - (Rin - ROX_CORNER_FLANGE[0][0]); const zp = roxLerp(ROX_CORNER_FLANGE, Rm);
+    const g = Math.max(0, (zp - ROX_FLANGE_FLAT_Z) / (ROX_CORNER_FLANGE[0][1] - ROX_FLANGE_FLAT_Z));
+    return ROX_FLANGE_FLAT_Z + (rim(deg) - ROX_FLANGE_FLAT_Z) * g + Math.min(0, zp - ROX_FLANGE_FLAT_Z);
+  };
+  const sheetRows = [[], [], []]; // [flange rows, ear rows, shelf rows] per ray angle (null where absent)
+  const fanAngles = []; // half-degree rays round the full circle, tenth-degree rays within four degrees of the two C ends (where the sheets meet the cushion back line); the classifier decides where a sheet exists
+  for (let k = 0; k <= 2 * 360; k++) fanAngles.push(360 * k / (2 * 360) - 180); // roxlit: construction
+  for (const e of [-span, span]) for (let dd = 0 - 4; dd <= 4 + 1e-9; dd += 1 / 10) fanAngles.push(e + dd); // roxlit: construction
+  fanAngles.sort((p, q) => p - q);
+  for (const deg of fanAngles) { const u = dir(deg); const h = hs(deg);
+    const Ro = h ?? Rout; const beyond = Math.abs(deg) > span; // past the C end
+    if (Ro <= Rout + 1e-6 && !beyond) { sheetRows[0].push(null); sheetRows[1].push(null); sheetRows[2].push(null); continue; } // roxlit: construction
+    const far = h ?? 400; // roxlit: construction (past the horseshoe table the ray can only serve the between-ends strip, which ends on the cushion)
+    const R0 = beyond ? ROX_CUP_DRAIN_R.corner : Rout; // past the C end the ray starts at the drain: the model's slate shelf runs over the cup's own front, and there is no wall in the way
+    const runs = roxRayRuns(R0, far, (t) => classify(Pm[0] + t * u[0], Pm[1] + t * u[1]));
+    const mk = (run, capEnd, zf) => { let [ra, rb] = run; if (capEnd) rb -= ROX_A3_EPS; if (rb <= ra + 1e-6) return null; const row = []; for (let j = 0; j <= 8; j++) { const R = ra + (rb - ra) * j / 8; row.push(V(R, deg, zf(R))); } return row; }; // roxlit: construction
+    const first = runs.length ? runs[0] : null; // the first covered stretch (only 'void' — the model's own cut — may precede it; 'cloth' ends the ray)
+    if (first && first[1] >= far - 1 / 2 - 1e-9) first[1] = far; // roxlit: construction — a run whose last sample reaches the horseshoe ends ON it
+    let strip = null, shelf = null;
+    if (first) { // split the first run by kind: the flange sheet over the model's rubber / rail region, a bed-level cloth patch over the shared hole's shelf part
+      const kinds = []; for (let t = first[0]; t <= first[1] + 1e-9; t += 1 / 2) kinds.push([t, kindAt(Pm[0] + t * u[0], Pm[1] + t * u[1])]); // roxlit: construction
+      const seg = (kind) => { const ix = kinds.map((kv, i) => [kv[1], i]).filter(([kk]) => kk === kind).map(([, i]) => i); if (ix.length < 2) return null; const i0 = ix[0], i1 = ix[ix.length - 1];
+        return [i0 === 0 ? kinds[0][0] : (kinds[i0 - 1][0] + kinds[i0][0]) / 2, i1 === kinds.length - 1 ? kinds[i1][0] : (kinds[i1][0] + kinds[i1 + 1][0]) / 2]; }; // the two sheets meet at the midpoint between the last sample of one kind and the first of the other
+      const sh = seg('shelf'), st = seg('strip'); const capEnd = first[1] < far - 1e-6; // roxlit: construction
+      if (st) strip = mk(st, capEnd && (!sh || st[1] > sh[1]), (R) => zFl(deg, R));
+      if (sh) shelf = mk(sh, capEnd && (!st || sh[1] > st[1]), () => 0);
+    }
+    sheetRows[0].push(strip); sheetRows[2].push(shelf);
+    const second = h !== null && runs.length > 1 ? runs[1] : null; // the ear: the sheet resumes behind the cushion end (its exit onto the back line), out to the horseshoe
+    sheetRows[1].push(second ? mk(second, second[1] < far - 1e-6, (R) => zFl(deg, R)) : null); // roxlit: construction
+  }
+  const emitRuns = (list, name, mat) => { const runs = []; let cur = []; for (const r of list) { if (r) cur.push(r); else if (cur.length) { runs.push(cur); cur = []; } } if (cur.length) runs.push(cur);
+    runs.forEach((run, k) => { if (run.length > 1) group.add(dm(new THREE.Mesh(roxGrid(run, 'up'), mat), k === 0 ? name : `${name}-${k}`)); }); };
+  emitRuns(sheetRows[0], `pocket-rox-corner-${tag}-flange`, mats.cup);
+  emitRuns(sheetRows[1], `pocket-rox-corner-${tag}-flange-ear-0`, mats.cup);
+  emitRuns(sheetRows[2], `pocket-rox-corner-${tag}-shelf`, mats.cloth); // the model's slab shelf (cloth) where our shared bed hole would show the pan beside the jaw (RC-22 / issue #643 item 3)
+  // (3) casting: outer boundary polyline (long joint → long lip run → CP-15b superellipse → short lip run → short joint)
+  const aJ = Ba - ROX_CORNER_SEAM.long, bJ = Bb - ROX_CORNER_SEAM.short; // CP-15 joints measured from the sharp corner
+  const A = ROX_LIP_CORNER.a, nE = ROX_LIP_CORNER.n, ac = Ba - A, bc = Bb - A;
+  const outer = [[aJ, ROX_CUSHION_BACK], [aJ, Bb], [ac, Bb]];
+  for (let k = 1; k < 48; k++) { const th = Math.PI / 2 * (1 - k / 48); outer.push([ac + A * Math.pow(Math.cos(th), 2 / nE), bc + A * Math.pow(Math.sin(th), 2 / nE)]); } // roxlit: construction
+  outer.push([Ba, bc], [Ba, bJ], [ROX_CUSHION_BACK, bJ]);
+  const outerXZ = outer.map(([a, b]) => [xOf(a), zOf(b)]);
+  const domeAt = (x, z) => { const zl = roxDomeZ('long', bOf(z)), zs = roxDomeZ('short', aOf(x)); const c = [zl, zs].filter((v) => v !== null); return c.length ? Math.min(...c) : null; };
+  const angleTo = (a, b) => { const vx = xOf(a) - Pm[0], vz = zOf(b) - Pm[1]; return Math.atan2(vx * n[0] + vz * n[1], vx * d[0] + vz * d[1]) * 180 / Math.PI; };
+  const phi0 = angleTo(ROX_CUSHION_BACK, bJ), phi1 = angleTo(aJ, ROX_CUSHION_BACK); // rays to the two joint / cushion-back corners
+  const rowsC = [], wallTop = [];
+  const steps = Math.max(8, Math.round((phi1 - phi0) * 2 / 3)); // one ray per 1.5 degrees
+  for (let i = 0; i <= steps; i++) {
+    const deg = phi0 + (phi1 - phi0) * i / steps; const u = dir(deg); const h = hs(deg);
+    const rIn = Math.max(h ?? 0, exitT(u)); const [rOut, seg] = roxRayPolyline(Pm, u, outerXZ);
+    if (!isFinite(rOut) || rOut <= rIn + 0.5) { rowsC.push(null); wallTop.push(null); continue; }
+    const row = [];
+    const proud = ROX_CASTING_PROUD * Math.min(1, Math.abs(deg) / Math.max(Math.abs(phi0), Math.abs(phi1))); // CP-15c: 0.357 proud AT THE JOINT plane; on the diagonal the casting crest (43.11) sits on the dome
+    const rCrest = ROX_CASTING_CREST_R; // CP-15c crest u 143.92 on the diagonal − CP-12 cup u 45.32
+    for (let k = 0; k <= 8; k++) { const R = rIn + (rOut - rIn) * k / 8; const x = Pm[0] + R * u[0], z = Pm[1] + R * u[1]; const zt = (domeAt(x, z) ?? ROX_CAP_TOP_Z_INNER) + proud; // roxlit: construction
+      const t = Math.min(1, Math.max(0, (R - rIn) / Math.max(1, rCrest - rIn))); const zTop = ROX_CASTING_INNER_Z + (zt - ROX_CASTING_INNER_Z) * t; // CP-15: the top meets the horseshoe at the inner end face (41.4) and reaches the dome by the crest
+      row.push(new THREE.Vector3(x / 1000, Math.min(zt, zTop) / 1000, z / 1000)); }
+    rowsC.push(row);
+    if (seg === 0 || seg === outerXZ.length - 2) { // joint planes: the wall starts / ends at the joint's lip corner, flush with the straight strip's end
+      const [cxj, czj] = seg === 0 ? [xOf(aJ), zOf(Bb)] : [xOf(Ba), zOf(bJ)]; const zt = domeAt(cxj, czj);
+      wallTop.push(new THREE.Vector3(cxj / 1000, ((zt ?? ROX_CAP_TOP_Z_INNER) + ROX_CASTING_PROUD) / 1000, czj / 1000));
+    } else wallTop.push(row[8]);
+  }
+  const runs = []; let cur = [];
+  for (const r of rowsC) { if (r) cur.push(r); else if (cur.length) { runs.push(cur); cur = []; } } if (cur.length) runs.push(cur);
+  runs.forEach((run, k) => { if (run.length > 1) group.add(dm(new THREE.Mesh(roxGrid(run, 'up'), mats.metal), `pocket-rox-corner-${tag}-casting-top-${k}`)); });
+  const wallRuns = []; cur = []; let last = null;
+  for (const v of wallTop) { if (v) { if (!last || last.distanceTo(v) > 1e-6) cur.push([v, new THREE.Vector3(v.x, ROX_LIP_BOTTOM / 1000, v.z)]); last = v; } else if (cur.length) { wallRuns.push(cur); cur = []; last = null; } } if (cur.length) wallRuns.push(cur); // roxlit: construction
+  wallRuns.forEach((run, k) => { if (run.length > 1) group.add(dm(new THREE.Mesh(roxGrid(run, 'out'), mats.metal), `pocket-rox-corner-${tag}-casting-lip-${k}`)); });
+}
+/** One side pocket assembly: half-ring liner + closed lower bucket, flange (with the SP-15 end tabs), aluminium rail piece between
+ *  the SP-15 seams. p = kernel side pocket (scene metres). A3-PLAN: the SEEN liner hangs on the MODEL's cup centre (SP-12 a3,
+ *  ROX_SIDE_CUP_CENTRE behind the nose line); the kernel axis keeps physics + the bed hole. The half-ring ends where its outer
+ *  circle meets the cushion END FACE (vertical after roxCushionGeom) if that exists; with the MFR side mouth kept (SP-01, 127) it
+ *  does not (the kernel back corner is 2.6 mm outside the circle), so the ring ends on the cushion BACK LINE — where the model's
+ *  own ends sit — and the flange closes the residual strip (RC-29). Flange / tab / rail piece are rays from the cup centre clipped
+ *  against the real cushion footprint and the bed hole (roxRayRuns): nothing starts at the kernel axis any more. */
+function roxSidePocket(group, dm, G, p, mats, tag) {
+  const W = G.W * 1000, sz = Math.sign(p.z); const Bb = (G.CW + G.render.frameWidth) * 1000;
+  const bOf = (z) => (z - sz * W / 2) * sz; const Pm = [0, sz * (W / 2 + ROX_SIDE_CUP_CENTRE)]; // RC-32: the model's cup centre
+  const Rin = ROX_CUP_R_IN.side, Rout = Rin + ROX_CUP_WALL; // SP-12 liner radius
+  const dir = (deg) => { const r = deg * Math.PI / 180; return [Math.cos(r), sz * Math.sin(r)]; }; // theta 0 = +x, 90 = straight back into the rail
+  const V = (r, deg, z) => { const u = dir(deg); return new THREE.Vector3((Pm[0] + r * u[0]) / 1000, z / 1000, (Pm[1] + r * u[1]) / 1000); };
+  const mir = (deg) => Math.min(deg, 180 - deg);
+  const rim = (deg) => (mir(deg) < ROX_SIDE_RIM[0][0] ? ROX_SIDE_RIM_END : roxLerp(ROX_SIDE_RIM, mir(deg)));
+  // cushion ends in this pocket's frame (along = |x| from the pocket centre, behind = beyond the nose line) and the shared bed hole (RC-22)
+  const E = roxCushionEnd(G, 'side'); const vc = bOf(Pm[1]);
+  const inCushion = (x, z) => roxInsideEnd(E, Math.abs(x), bOf(z));
+  const hole = { x: p.x * 1000, z: p.z * 1000, R: p.r * 1000 + ROX_BED_HOLE_REVEAL };
+  const inHole = (x, z) => Math.hypot(x - hole.x, z - hole.z) < hole.R;
+  const inModel = (x, z) => roxInsideModelEnd(E, ROX_SIDE_MODEL_FACE, Math.abs(x), bOf(z));
+  // top where: behind the back line (rail region), inside the model's rubber but outside ours (the residual strip), or over the bed
+  // hole behind the nose line; cloth (the shelf) in front of the nose line or beside the cup where the model itself shows cloth
+  const inNotch = (x, z) => { const ax = Math.abs(x), v = bOf(z); const Nn = ROX_SIDE_NOTCH; // inside the model's slab notch (SP-14: the |x| < 49.81 arc): in front of its edge the model's slate shelf runs over the cup's own front; beside the cup the notch's steeper leg runs under the model's own rubber, where the between-ends cover applies
+    return ax <= Nn.departX && Math.hypot(ax, v - Nn.arcCentreBack) < Nn.arcR; };
+  const inCup = (x, z) => Math.hypot(x - Pm[0], z - Pm[1]) < Rout; // the cup's own opening
+  // kinds: our rubber; inside the cup opening: 'void' where the model's notch is open, the model's slate shelf ('shelf', cloth patch at
+  // bed level) where our shared hole reaches past the notch edge; outside the cup: 'strip' = the model's rubber or the rail region
+  // (flange sheet), 'shelf' = over the shared hole where the model's shelf stands, 'cloth' = the shared bed sheet is the right top
+  // the model-rubber-minus-ours wedge runs along the whole jaw face; only its part behind the model's back-top corner (SP-10 plane point,
+  // 45.61 behind the nose line) is the between-ends top (flange); further forward the wedge is shelf beside a shorter rubber — cloth
+  const inStrip = (x, z) => inModel(x, z) && bOf(z) >= ROX_SIDE_MODEL_FACE[1];
+  const kindAt = (x, z) => inCushion(x, z) ? 'cushion' : inCup(x, z) ? (inNotch(x, z) ? 'void' : inHole(x, z) ? 'shelf' : 'cloth') : (bOf(z) >= E.CW || inStrip(x, z)) ? 'strip' : inHole(x, z) ? 'shelf' : 'cloth';
+  const classify = (x, z) => { const k = kindAt(x, z); return k === 'strip' || k === 'shelf' ? 'top' : k; };
+  // (0) where the ring ends: outer circle ∩ facing segment J→B if it exists, else the cushion back line (behind = CU-04)
+  let thEnd = null; {
+    const ex = E.B[0] - E.J[0], ey = E.B[1] - E.J[1]; const fx = E.J[0], fy = E.J[1] - vc;
+    const qa = ex * ex + ey * ey, qb = 2 * (fx * ex + fy * ey), qc = fx * fx + fy * fy - Rout * Rout; const disc = qb * qb - 4 * qa * qc; // roxlit: construction
+    if (disc >= 0) for (const sg of [-1, 1]) { const w = (-qb + sg * Math.sqrt(disc)) / (2 * qa); if (w >= 0 && w <= 1) thEnd = Math.atan2(E.J[1] + w * ey - vc, E.J[0] + w * ex) * 180 / Math.PI; }
+  }
+  // no contact under the MFR mouth (RC-29): the ring ends where the model's own ends sit (SP-12 end_y → 47.68 behind the nose), 1.9° below
+  // the +x axis; the outer circle ∩ back line would be −1.44° — 0.4 mm apart, the model's is the read
+  const th0 = thEnd !== null ? thEnd : Math.asin(Math.max(-1, Math.min(1, (ROX_SIDE_RING_END_V - vc) / Rout))) * 180 / Math.PI;
+  const rows = [];
+  const nR = Math.ceil((180 - 2 * th0) / 3); // roxlit: construction
+  for (let k = 0; k <= nR; k++) { const deg = th0 + (180 - 2 * th0) * k / nR; rows.push([V(Rin, deg, ROX_SIDE_BUCKET.closedZ), V(Rin, deg, rim(deg)), V(Rout, deg, rim(deg)), V(Rout, deg, ROX_SIDE_BUCKET.closedZ)]); } // the ring above the closed oval; the bucket owns the floor → closedZ
+  // closed lower bucket (SP-12): the back ring continues; the front is the R 51.5 half-circle about the model's own front centre (46.27 beyond the nose)
+  const fc = [0, sz * (W / 2 + ROX_SIDE_BUCKET.frontCentreBack)];
+  const rowsB = [];
+  for (let deg = th0; deg <= 180 - th0 + 1e-6; deg += 3) { const u = dir(deg); const o = (r) => new THREE.Vector3((Pm[0] + r * u[0]) / 1000, 0, (Pm[1] + r * u[1]) / 1000); const pi = o(Rin), po = o(Rout); rowsB.push([new THREE.Vector3(pi.x, ROX_CUP_FLOOR_Z / 1000, pi.z), new THREE.Vector3(pi.x, (ROX_SIDE_BUCKET.closedZ - 1 / 10) / 1000, pi.z), new THREE.Vector3(po.x, (ROX_SIDE_BUCKET.closedZ - 1 / 10) / 1000, po.z), new THREE.Vector3(po.x, ROX_CUP_FLOOR_Z / 1000, po.z)]); } // back half of the closed oval: the ring's own circle continued down to the floor // roxlit: construction
+  for (let deg = 180 - th0; deg <= 360 + th0 + 1e-6; deg += 3) { // roxlit: construction
+    const u = dir(deg); const isFront = deg > 180 && deg < 360; const C = isFront ? fc : Pm; const R = isFront ? ROX_SIDE_BUCKET.frontR : Rout;
+    const o = (r) => new THREE.Vector3((C[0] + r * u[0]) / 1000, 0, (C[1] + r * u[1]) / 1000);
+    const pi = o(R - ROX_CUP_WALL), po = o(R);
+    rowsB.push([new THREE.Vector3(pi.x, ROX_CUP_FLOOR_Z / 1000, pi.z), new THREE.Vector3(pi.x, (ROX_SIDE_BUCKET.closedZ - 1 / 10) / 1000, pi.z), new THREE.Vector3(po.x, (ROX_SIDE_BUCKET.closedZ - 1 / 10) / 1000, po.z), new THREE.Vector3(po.x, ROX_CUP_FLOOR_Z / 1000, po.z)]); // a tenth of a millimetre under the ring's bottom edge
+  }
+  const rowsF = [];
+  for (let deg = 0; deg <= 360 + 1e-6; deg += 6) { const isFront = deg > 180 && deg < 360; const C = isFront ? fc : Pm; const R = (isFront ? ROX_SIDE_BUCKET.frontR : Rout) - ROX_CUP_WALL; const u = dir(deg); rowsF.push([V(ROX_CUP_DRAIN_R.side, deg, ROX_CUP_FLOOR_Z), new THREE.Vector3((C[0] + R * u[0]) / 1000, ROX_CUP_FLOOR_Z / 1000, (C[1] + R * u[1]) / 1000)]); } // roxlit: construction
+  rowsB.push(rowsB[0]); rowsF.push(rowsF[0]); // close both fans: the front half (about fc) and the back half (about Pm) meet at the ring end, and an open seam there showed the pan from above
+  group.add(dm(new THREE.Mesh(roxGrid(rows), mats.well), `pocket-rox-side-${tag}-cup-ring`));
+  group.add(dm(new THREE.Mesh(roxGrid([[rows[0][0], rows[0][3]], [rows[0][1], rows[0][2]]]), mats.well), `pocket-rox-side-${tag}-cup-ring-end-0`)); // the wall's end faces (SP-12 half_ring end caps)
+  group.add(dm(new THREE.Mesh(roxGrid([[rows[rows.length - 1][0], rows[rows.length - 1][3]], [rows[rows.length - 1][1], rows[rows.length - 1][2]]]), mats.well), `pocket-rox-side-${tag}-cup-ring-end-1`));
+  group.add(dm(new THREE.Mesh(roxGrid(rowsB), mats.well), `pocket-rox-side-${tag}-cup-bucket`));
+  group.add(dm(new THREE.Mesh(roxGrid(rowsF), mats.well), `pocket-rox-side-${tag}-cup-floor`));
+  // flange (SP-15): flat top by theta, back slope from the rim over the model's u 51 → 62 band re-based onto the liner radius; below
+  // theta 10 the tables clamp to their first row = the SP-15 end tab (x 50.2..61.1, flat 42.38); rays run from the ring's outer face
+  // to the flange edge, clipped by the cushion footprint and the bed hole — past the ring end only while the ray still meets the
+  // cushion end face (the between-ends strip), never over the open throat
+  const flangeR = (deg) => roxLerp(ROX_SIDE_FLANGE_R, mir(deg)); const flat = (deg) => roxLerp(ROX_SIDE_FLANGE_FLAT, mir(deg));
+  const zFl = (deg, R) => { const um = R - Rin + ROX_SIDE_INNER_R_MODEL; const g = Math.max(0, Math.min(1, (ROX_SIDE_FLANGE_SLOPE.flatU - um) / (ROX_SIDE_FLANGE_SLOPE.flatU - ROX_SIDE_FLANGE_SLOPE.rimU))); return flat(deg) + (rim(deg) - flat(deg)) * g; };
+  const rowsG = [], rowsS = []; // flange rows / bed-level shelf rows per ray
+  const angles = []; for (let deg = th0 - 90; deg <= 270 - th0 + 1e-6; deg += 1 / 2) angles.push(deg); // roxlit: construction (half-degree rays from a quarter turn before the ring end to a quarter turn after; the classifier decides where a sheet exists)
+  for (const e of [th0, 180 - th0]) for (let dd = 0 - 4; dd <= 4 + 1e-9; dd += 1 / 10) angles.push(e + dd); // roxlit: construction (tenth-degree rays where the sheets meet the cushion back line)
+  angles.sort((p, q) => p - q);
+  for (const deg of angles) {
+    const u = dir(deg); const beyond = deg < th0 || deg > 180 - th0;
+    const R0 = beyond ? ROX_CUP_DRAIN_R.side : Rout; // past the ring end the ray starts at the drain: the model's slate shelf runs over the cup's own front, and there is no wall in the way
+    const Ro = Math.max(Rout, flangeR(deg)); const runs = roxRayRuns(R0, Ro, (t) => classify(Pm[0] + t * u[0], Pm[1] + t * u[1]));
+    if (!runs.length) { rowsG.push(null); rowsS.push(null); continue; } // the first covered stretch (only 'void' — the model's own notch — may precede it; 'cloth' ends the ray)
+    const first = runs[0]; if (first[1] >= Ro - 1 / 2 - 1e-9) first[1] = Ro; const capEnd = first[1] < Ro - 1e-6; // roxlit: construction — a run whose last sample reaches the flange edge ends ON it
+    const kinds = []; for (let t = first[0]; t <= first[1] + 1e-9; t += 1 / 2) kinds.push([t, kindAt(Pm[0] + t * u[0], Pm[1] + t * u[1])]); // roxlit: construction
+    const seg = (kind) => { const ix = kinds.map((kv, i) => [kv[1], i]).filter(([kk]) => kk === kind).map(([, i]) => i); if (ix.length < 2) return null; const i0 = ix[0], i1 = ix[ix.length - 1];
+      return [i0 === 0 ? kinds[0][0] : (kinds[i0 - 1][0] + kinds[i0][0]) / 2, i1 === kinds.length - 1 ? kinds[i1][0] : (kinds[i1][0] + kinds[i1 + 1][0]) / 2]; }; // the two sheets meet at the midpoint between the last sample of one kind and the first of the other
+    const mk = (run, cap, zf) => { let [ra, rb] = run; if (cap) rb -= ROX_A3_EPS; if (rb <= ra + 1e-6) return null; const row = []; for (let k = 0; k <= 8; k++) { const R = ra + (rb - ra) * k / 8; row.push(V(R, deg, zf(R))); } return row; }; // roxlit: construction
+    const sh = seg('shelf'), st = seg('strip');
+    rowsG.push(st ? mk(st, capEnd && (!sh || st[1] > sh[1]), (R) => zFl(deg, R)) : null);
+    rowsS.push(sh ? mk(sh, capEnd && (!st || sh[1] > st[1]), () => 0) : null);
+  }
+  { const emit = (list, name, mat) => { const runsG = []; let cur = []; for (const r of list) { if (r) cur.push(r); else if (cur.length) { runsG.push(cur); cur = []; } } if (cur.length) runsG.push(cur);
+      runsG.forEach((run, k) => { if (run.length > 1) group.add(dm(new THREE.Mesh(roxGrid(run, 'up'), mat), k === 0 ? name : `${name}-${k}`)); }); };
+    emit(rowsG, `pocket-rox-side-${tag}-flange`, mats.cup);
+    emit(rowsS, `pocket-rox-side-${tag}-shelf`, mats.cloth); } // the model's slab shelf (cloth) where our shared bed hole would show the pan beside the jaw (RC-22 / issue #643 item 3)
+  // rail piece between the seams: polar heightfield from the flange edge out to the lip line or the seam planes, never over the
+  // cushion (the sweep now starts at the ring end, so the piece begins at the cushion BACK LINE, as the model's does)
+  const half = ROX_SIDE_SEAM_HALF; const outer = [[-half, ROX_CUSHION_BACK], [-half, Bb], [half, Bb], [half, ROX_CUSHION_BACK], [-half, ROX_CUSHION_BACK]].map(([x, b]) => [x, sz * (W / 2 + b)]);
+  const rowsC = [], wallTop = []; const phi0 = th0, phi1 = 180 - th0; const steps = Math.max(8, Math.round((phi1 - phi0) * 2 / 3)); // one ray per 1.5 degrees
+  const pieceAngles = []; for (let i = 0; i <= steps; i++) pieceAngles.push(phi0 + (phi1 - phi0) * i / steps);
+  for (let dd = 1 / 10; dd < 4; dd += 1 / 10) { pieceAngles.push(phi0 + dd, phi1 - dd); } pieceAngles.sort((p, q) => p - q); // tenth-degree rays where the piece meets the cushion back line (a coarse fan leaves a bed-cloth wedge there) // roxlit: construction
+  for (const deg of pieceAngles) {
+    const u = dir(deg);
+    const rIn = Math.max(Rout, flangeR(deg)); const [rOut, seg] = roxRayPolyline(Pm, u, outer);
+    if (!isFinite(rOut) || rOut <= rIn + 0.5) { rowsC.push(null); wallTop.push(null); continue; }
+    const runs = roxRayRuns(rIn, rOut, (t) => classify(Pm[0] + t * u[0], Pm[1] + t * u[1]));
+    if (!runs.length || runs[0][0] > rIn + 1) { rowsC.push(null); wallTop.push(null); continue; }
+    let [ra, rb] = runs[0]; if (rb >= rOut - 1 / 2 - 1e-9) rb = rOut; if (rb <= ra + 0.5) { rowsC.push(null); wallTop.push(null); continue; } // roxlit: construction — a run whose last half-millimetre sample reaches the outer polygon ends ON it (the lip wall stands there)
+    const row = [];
+    for (let k = 0; k <= 8; k++) { const R = ra + (rb - ra) * k / 8; const x = Pm[0] + R * u[0], z = Pm[1] + R * u[1]; const zt = roxDomeZ('long', bOf(z)); row.push(new THREE.Vector3(x / 1000, ((zt ?? ROX_CAP_TOP_Z_INNER) + ROX_SIDE_PIECE_PROUD) / 1000, z / 1000)); } // roxlit: construction
+    rowsC.push(row);
+    wallTop.push(seg === 1 && rb >= rOut - 1e-6 ? row[8] : null); // roxlit: construction — only the lip-line segment carries a visible outer wall; the seam planes are hidden inside the cap ends
+  }
+  const runs = []; let cur = [];
+  for (const r of rowsC) { if (r) cur.push(r); else if (cur.length) { runs.push(cur); cur = []; } } if (cur.length) runs.push(cur);
+  runs.forEach((run, k) => { if (run.length > 1) group.add(dm(new THREE.Mesh(roxGrid(run, 'up'), mats.metal), `pocket-rox-side-${tag}-piece-top-${k}`)); });
+  const wallRuns = []; cur = [];
+  for (const v of wallTop) { if (v) cur.push([v, new THREE.Vector3(v.x, ROX_LIP_BOTTOM / 1000, v.z)]); else if (cur.length) { wallRuns.push(cur); cur = []; } } if (cur.length) wallRuns.push(cur);
+  wallRuns.forEach((run, k) => { if (run.length > 1) group.add(dm(new THREE.Mesh(roxGrid(run, 'out'), mats.metal), `pocket-rox-side-${tag}-piece-lip-${k}`)); });
+}
+
+export function buildTable(

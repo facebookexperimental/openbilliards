@@ -1,0 +1,122 @@
+% ===========================================================================
+% supplement-main.tex — Supplementary Material master (the supplementary
+% split of the main text).
+%
+% Contents (S-numbered sections):
+%   S1  data provenance map            (sections/appendix-a-provenance.tex)
+%   S2  tier-1 reproduction mechanics  (sections/appendix-b-reproducibility.tex)
+%   S3  governing equations + frozen constants (sections/appendix-c-equations.tex)
+%   S4  extended results, groups B and D (sections/supplement-d-extended-results.tex)
+%   S5  full predicted-shift verification table
+%                                      (sections/supplement-e-predicted-shifts.tex)
+%   S6  video-artifact presentation methods (time remap / shutter)
+%                                      (sections/supplement-f-timeremap.tex)
+%
+% CONVENTION: SIMPAT (Elsevier) accepts supplementary material as separate
+% e-component files uploaded alongside the manuscript; this document is that
+% file, built from the same section sources and the same references.bib as
+% main.tex.
+%
+% CROSS-REFERENCES: \ref{...} into the MAIN text (sections, tables, figures
+% of main.pdf) resolve from main.aux via the xr package, so this document
+% must build AFTER main.pdf (the Makefile orders it). References in the
+% other direction (main text -> this document) are prose "Section S<n>"
+% pointers, never \ref — the labels live in separate PDFs.
+%
+% BUILD: `make supplement` (or plain `make`, which builds both PDFs).
+% ===========================================================================
+\documentclass[review,12pt,authoryear]{elsarticle}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{url}
+\usepackage{lineno}
+\modulolinenumbers[5]
+% Long unbreakable typewriter tokens (hashes, model IDs) need extra
+% justification headroom (same rationale as main.tex).
+\setlength{\emergencystretch}{3em}
+\journal{Simulation Modelling Practice and Theory}
+% Unsubmitted: the first-page footer reads "Preprint" (same as main.tex).
+\makeatletter
+\def\ps@pprintTitle{%
+  \let\@oddhead\@empty
+  \let\@evenhead\@empty
+  \def\@oddfoot{\footnotesize\itshape Preprint\hfill\today}%
+  \let\@evenfoot\@oddfoot}
+\makeatother
+
+% --------------------------------------------------------------------------
+% Shared manuscript macros (subset of main.tex; \figstub is main-only —
+% all figure artwork lives in the main document). Defined BEFORE
+% \externaldocument: main.aux label entries carry caption text that uses
+% these macros, and the xr import trips on undefined control sequences.
+% --------------------------------------------------------------------------
+\newcommand{\expid}[1]{\textsf{#1}}
+\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
+
+% Cross-references into the main text resolve from main.aux. main.aux is
+% written by a hyperref build (5-field \newlabel entries), so plain xr
+% leaks the extra fields into the typeset text; xr-hyper + hyperref parse
+% them correctly. xr-hyper must load BEFORE hyperref.
+\usepackage{xr-hyper}
+\usepackage{xcolor}
+\definecolor{obLink}{RGB}{28,60,138}
+\usepackage[colorlinks=true, allcolors=obLink, bookmarksnumbered=true,
+            bookmarksopen=true, bookmarksopenlevel=1]{hyperref}
+\externaldocument{main}
+
+% Supplementary numbering: S-prefixed counters per the Elsevier
+% online-supplement convention (sections S1..S5, tables S1.., equations S1..).
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\theequation}{S\arabic{equation}}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Supplementary Material for ``OpenBilliards: a validated, bit-exact
+event-driven simulator for cue-sports mechanics, with a systematic
+assessment of the empirical laws of pool''}
+
+\author{OpenBilliards contributors}
+
+\begin{abstract}
+This document is the online supplement to the main article. Section~S1
+maps every figure and table of the paper to its experiment, pinned
+output hash, and registered source. Section~S2 states the tier-1
+reproduction mechanics of the artifact bundle. Section~S3 reproduces the
+governing equations and frozen constants of every model-catalog row.
+Section~S4 carries the extended per-experiment result prose for
+experiment groups B (stick--ball) and D (curved paths), whose summaries
+appear in the main text. Section~S5 transcribes the full predicted-shift
+verification table for the slip-law and branch-selection fix cascade.
+Section~S6 documents the presentation methods behind the artifact
+bundle's validated-scenario video pack --- the $C^2$ log-domain time
+remap and shutter synthesis --- which render already-verified kernel
+records and carry no validation claims.
+Numbered cross-references to sections, tables, and figures without an
+``S'' prefix resolve to the main article.
+\end{abstract}
+
+\end{frontmatter}
+
+\linenumbers
+
+% ---------------------------------------------------------------------------
+\input{sections/appendix-a-provenance}
+\input{sections/appendix-b-reproducibility}
+\input{sections/appendix-c-equations}
+\input{sections/supplement-d-extended-results}
+\input{sections/supplement-e-predicted-shifts}
+\input{sections/supplement-f-timeremap}
+
+% ---------------------------------------------------------------------------
+\bibliographystyle{elsarticle-harv}
+\bibliography{references}
+
+\end{document}

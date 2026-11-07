@@ -1,0 +1,225 @@
+{
+  "schema": "openbilliards/ball-return-track/1",
+  "topology": "terminal-chutes",
+  "doc": {
+    "table_id": "wpa_generic_9ft",
+    "title": "TEST-terminal-chutes-high",
+    "status": "TEST",
+    "revision": "t1",
+    "date": "2026-09-05",
+    "issue": "#650 (ORDER-BALLRETURN-6)",
+    "sources": [
+      "synthetic: geometry chosen to exercise the terminal-chutes topology on the scripted pin table; NOT a read of any table",
+      "the wpa TEST fixture (entry height law, support, resistance class) — copied"
+    ],
+    "notes": "Serves pockets 1 and 4 (the middles) with a short lead and a terminal chute each; the corners are unserved for the same reason as the wpa fixture (legs under the corner cups). Each chute: 300 mm inboard run dropping 60 mm, stop face at s = 280 mm (capacity floor(280 / 57.15) = 4), a 26 mm up-turn beyond the stop = the stop body (exempt from drain, ≤ one ball diameter)."
+  },
+  "units": {
+    "length": "mm",
+    "angle": "deg"
+  },
+  "datum_frame": {
+    "id": "TCS-TBL-01",
+    "axes": {
+      "+X": "head rail toward foot rail",
+      "+Y": "up from the playing surface",
+      "+Z": "left to right viewed from head rail"
+    },
+    "runtime_mapping": "three.js (x, y, z) = (X, Y, Z) x 0.001; kernel (kx, ky, kz) = (Z, X, Y) x 0.001",
+    "pocket_order": "kernel order: 0 lb, 1 lc, 2 lt, 3 rb, 4 rc, 5 rt (l/r = sign of Z, b/c/t = -X / 0 / +X)"
+  },
+  "ball": {
+    "reference_diameter_mm": 57.15,
+    "provenance": {
+      "tag": "MFR",
+      "source": "WPA Equipment Specifications §16, 2 1/4 in pool ball (crates/pool-core default r 0.028575)"
+    }
+  },
+  "support": {
+    "kind": "twin-rail",
+    "gauge_mm": 40,
+    "rail_diameter_mm": 4,
+    "provenance": {
+      "tag": "TEST",
+      "source": "synthetic wire pair: gauge 40 < 57.15 + 4 (admits the ball, V9); derived h = sqrt(30.575^2 - 20^2) = 23.13, c = 20*28.575/30.575 = 18.69, rho = sqrt(28.575^2 - 18.69^2) = 21.61, k = 1/(1 + 0.4*(28.575/21.61)^2) = 0.5884"
+    }
+  },
+  "rolling_resistance": {
+    "class": "default",
+    "u_r": 0.01,
+    "provenance": {
+      "tag": "DERIVED",
+      "source": "PROXY: the kernel default class (params.rs ClothPreset::default, u_r 0.010 — Waldron stimpmeter roll-out, a first-hand cloth measurement) stands in for the unmeasured steel-wire class. On the twin rail the effective coefficient is (7/5)(r/ρ)·u_r = 1.4 × 1.322 × 0.010 = 0.0185 (track.js resistCoeff); drain margin at the shallowest edge: sin θ 0.0436 vs 0.0185."
+    }
+  },
+  "arrival": {
+    "restitution": 0,
+    "provenance": {
+      "tag": "DESIGN",
+      "source": "research.md R5 / the brief's 'inelastic arrival' and the owner's 「一个接一个堆」: arriving balls share a common velocity with the group they touch, the tray wall is infinite mass. A modelling decision, NOT a measurement — no ball-on-ball impact in a return tray has been captured in this repo; a measured e would enter through this block and a runtime law change (spec §7)."
+    }
+  },
+  "runways": [
+    {
+      "id": "lc-lead",
+      "role": "entry",
+      "points_mm": [
+        [
+          0,
+          -130,
+          -703.5
+        ],
+        [
+          0,
+          -140,
+          -653.5
+        ]
+      ],
+      "next": "lc-chute",
+      "provenance": {
+        "tag": "TEST",
+        "source": "TEST-terminal-chutes lead with Y raised from -263/-273 to -130/-140 (drop 10 over 50 kept); entry centre -130 + h 23.13 = -106.9, top -78.3 < exit_below_y -77.2 (V5)"
+      },
+      "notes": "order 18 item 0 fixture: the lead raised so the entry seat (centre -106.9) sits within one diameter of the sink hand-off centre (shield - r = -83.6): the XW101 class (six pockets -5.1 ... -8.1 mm) reproduced"
+    },
+    {
+      "id": "lc-chute",
+      "role": "chute",
+      "points_mm": [
+        [
+          0,
+          -140,
+          -653.5
+        ],
+        [
+          0,
+          -311.6477666666667,
+          -386.69
+        ],
+        [
+          0,
+          -301.6477666666667,
+          -362.69
+        ]
+      ],
+      "next": null,
+      "stop": {
+        "kind": "bumper",
+        "wall_s_mm": 317.4,
+        "capacity_balls": 5,
+        "provenance": {
+          "tag": "TEST",
+          "source": "stop face at s = 317.4 mm of the 343.3 mm run (the base fixture's 25.9 mm lip kept); capacity floor(317.4 / 57.15) = 5"
+        }
+      },
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "TEST-terminal-chutes chute with its end moved until route.total = 28.575 + 6 × 57.15 + 5.4 mm (bisection on the validator's own arclength); slope kept at the base ratio 193 / 300"
+      },
+      "notes": "chute shortened so the route total is 377.5 mm = r + 6·2r + 5.4: the queue's seventh seat stands 5.4 mm below the entry, the XW101 read (nearest drawn upstream seat at D − total = 5.4 mm)"
+    },
+    {
+      "id": "rc-lead",
+      "role": "entry",
+      "points_mm": [
+        [
+          0,
+          -130,
+          703.5
+        ],
+        [
+          0,
+          -140,
+          653.5
+        ]
+      ],
+      "next": "rc-chute",
+      "provenance": {
+        "tag": "TEST",
+        "source": "TEST-terminal-chutes lead with Y raised from -263/-273 to -130/-140 (drop 10 over 50 kept); entry centre -130 + h 23.13 = -106.9, top -78.3 < exit_below_y -77.2 (V5)"
+      },
+      "notes": "order 18 item 0 fixture: the lead raised so the entry seat (centre -106.9) sits within one diameter of the sink hand-off centre (shield - r = -83.6): the XW101 class (six pockets -5.1 ... -8.1 mm) reproduced"
+    },
+    {
+      "id": "rc-chute",
+      "role": "chute",
+      "points_mm": [
+        [
+          0,
+          -140,
+          653.5
+        ],
+        [
+          0,
+          -311.6477666666667,
+          386.69
+        ],
+        [
+          0,
+          -301.6477666666667,
+          362.69
+        ]
+      ],
+      "next": null,
+      "stop": {
+        "kind": "bumper",
+        "wall_s_mm": 317.4,
+        "capacity_balls": 5,
+        "provenance": {
+          "tag": "TEST",
+          "source": "stop face at s = 317.4 mm of the 343.3 mm run (the base fixture's 25.9 mm lip kept); capacity floor(317.4 / 57.15) = 5"
+        }
+      },
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "TEST-terminal-chutes chute with its end moved until route.total = 28.575 + 6 × 57.15 + 5.4 mm (bisection on the validator's own arclength); slope kept at the base ratio 193 / 300"
+      },
+      "notes": "chute shortened so the route total is 377.5 mm = r + 6·2r + 5.4: the queue's seventh seat stands 5.4 mm below the entry, the XW101 read (nearest drawn upstream seat at D − total = 5.4 mm)"
+    }
+  ],
+  "pockets": [
+    {
+      "index": 1,
+      "entry_runway": "lc-lead",
+      "exit_below_y_mm": -77.2,
+      "notes": "lc middle: kernel cup (0, -703.5) r 64.5; the lead starts at the cup centre in plan",
+      "provenance": {
+        "tag": "TEST",
+        "source": "exit_below_y -77.2 = the XW101 ring-bag plate read (the snooker lane's definition), so a ball seated at the raised entry is DRAWN (top -78.3) - the overlap class made visible on a TEST fixture"
+      }
+    },
+    {
+      "index": 4,
+      "entry_runway": "rc-lead",
+      "exit_below_y_mm": -77.2,
+      "notes": "rc middle: kernel cup (0, 703.5) r 64.5; the lead starts at the cup centre in plan",
+      "provenance": {
+        "tag": "TEST",
+        "source": "exit_below_y -77.2 = the XW101 ring-bag plate read (the snooker lane's definition), so a ball seated at the raised entry is DRAWN (top -78.3) - the overlap class made visible on a TEST fixture"
+      }
+    }
+  ],
+  "unserved_pockets": [
+    {
+      "index": 0,
+      "reason": "corner: the leg stands under the corner cup (wpa fixture reason); a TEST terminal fixture needs only the topology, served by the two middles"
+    },
+    {
+      "index": 2,
+      "reason": "corner: the leg stands under the corner cup (wpa fixture reason); a TEST terminal fixture needs only the topology, served by the two middles"
+    },
+    {
+      "index": 3,
+      "reason": "corner: the leg stands under the corner cup (wpa fixture reason); a TEST terminal fixture needs only the topology, served by the two middles"
+    },
+    {
+      "index": 5,
+      "reason": "corner: the leg stands under the corner cup (wpa fixture reason); a TEST terminal fixture needs only the topology, served by the two middles"
+    }
+  ],
+  "debug_visual": true,
+  "checks": {
+    "drain_monotonic": true,
+    "determinism_sha256": "8b857c7e2e1bded0032992b212ce0afdc0b3f7aefced4fd5559969d7251fe4f4"
+  }
+}

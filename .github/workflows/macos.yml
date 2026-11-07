@@ -1,0 +1,194 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+# CI gates for the native macOS shell (feature 023, spec US4, tasks T022).
+# The standing web CI (ci.yml, pages.yml) and the iOS shell CI (ios.yml)
+# are byte-untouched (SC-004).
+#
+# This is the UNSIGNED CI arm (research R14, stated honestly): builds and
+# tests run with CODE_SIGNING_ALLOWED=NO (credential-free, FR-016 — on
+# arm64 the linker's ad-hoc signature keeps binaries executable), so the
+# sandbox entitlements are LINT-checked here (exact-content gate below)
+# but runtime-enforced only on the signed local arm (quickstart §3/§7).
+#
+# Two jobs:
+#   packages — no project generation: MacShellCore + ShellCore swift test
+#              (the stays-green datum), bundle manifest generate+verify
+#              (SC-002 tool arm), xcstrings 7-locale completeness
+#              (SC-007), the entitlements lint (SC-010 lint arm), and the
+#              replay-link URL type lint (GH-1023).
+#   app      — the Xcode arm mirroring quickstart §2–§4: bundle pipeline →
+#              xcodegen generate → unsigned build → hosted MacAppTests on
+#              -destination 'platform=macOS'.
+#
+# The paths filter is the shared-source watch (plan risk register): a
+# later iOS edit to ShellCore, the scheme handler, or the bundle pipeline
+# must not break the mac shell silently.
+name: macos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "macos/**"
+      - "ios/ShellCore/**"
+      - "ios/App/Sources/BundleSchemeHandler.swift"
+      - "ios/tools/bundle-manifest.mjs"
+      - "tools/notice-inventory.mjs"
+      - ".github/workflows/macos.yml"
+  pull_request:
+    paths:
+      - "macos/**"
+      - "ios/ShellCore/**"
+      - "ios/App/Sources/BundleSchemeHandler.swift"
+      - "ios/tools/bundle-manifest.mjs"
+      - "tools/notice-inventory.mjs"
+      - ".github/workflows/macos.yml"
+  workflow_dispatch:
+
+jobs:
+  packages:
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # NEW macOS logic package (research R13): window-state laws +
+      # download-router policy/directive laws, natively via swift test.
+      - name: MacShellCore unit suite (swift test)
+        working-directory: macos/MacShellCore
+        run: swift test
+      # SHARED package consumed unedited (research R3) — the FR/US4
+      # stays-green datum re-runs here on every shared-source touch.
+      - name: ShellCore unit suite stays green (swift test)
+        working-directory: ios/ShellCore
+        run: swift test
+      # SC-002 tool arm (shared pipeline, invoked UNEDITED — research R5):
+      # sync web/ into the app resource tree, then independently re-hash
+      # both sides against the manifest.
+      - name: Bundle manifest generate + verify
+        run: |
+          node ios/tools/bundle-manifest.mjs generate
+          node ios/tools/bundle-manifest.mjs verify
+      # SC-007: every shell-owned key present with a non-empty value in
+      # all 7 locales (contracts/menu-i18n.md §2 frozen key list).
+      - name: Shell strings 7-locale completeness (xcstrings-check)
+        run: node macos/tools/xcstrings-check.mjs
+      # SC-010 lint arm (contracts/downloads.md §3 sandbox posture, plus
+      # the RECORDED FR-014 deviation of 2026-07-17 — see the entitlements
+      # file comment + the integration report of the macOS acceptance
+      # records): App Sandbox + user-selected read-write +
+      # network.client (macOS WebKit refuses to start ANY navigation in a
+      # sandboxed host without it, even for local custom-scheme content;
+      # the offline claim rides the runtime zero-non-app-request
+      # assertion instead). Any key beyond these three fails the wall as
+      # an unrecorded deviation.
+      - name: Entitlements lint (recorded posture, exactly three keys)
+        run: |
+          plutil -lint macos/App/OpenBilliards.entitlements
+          plutil -convert json -o /tmp/entitlements.json macos/App/OpenBilliards.entitlements
+          node -e '
+            const fs = require("node:fs");
+            const ent = JSON.parse(fs.readFileSync("/tmp/entitlements.json", "utf8"));
+            const expected = [
+              "com.apple.security.app-sandbox",
+              "com.apple.security.files.user-selected.read-write",
+              "com.apple.security.network.client", // recorded FR-014 deviation (T025 register (a))
+            ];
+            const got = Object.keys(ent).sort();
+            if (JSON.stringify(got) !== JSON.stringify([...expected].sort())) {
+              console.error("entitlements lint FAIL: keys", got, "!= exactly", expected);
+              process.exit(1);
+            }
+            for (const key of expected) {
+              if (ent[key] !== true) {
+                console.error("entitlements lint FAIL:", key, "must be true, got", ent[key]);
+                process.exit(1);
+              }
+            }
+            console.log("entitlements lint OK: recorded FR-014 posture (sandbox + user-selected r/w + network.client)");
+          '
+
+      # GH-1023: the app-owned replay link scheme is registered (CFBundleURLTypes)
+      # and is the very scheme ShellCore ReplayLink accepts — share.js mints
+      # openbilliards://replay#r=… inside the shell, so a lost registration would
+      # copy links that open nothing again.
+      - name: Replay link URL type lint (GH-1023)
+        run: |
+          plutil -lint macos/App/Info.plist
+          plutil -convert json -o /tmp/url-types.json macos/App/Info.plist
+          node -e '
+            const fs = require("node:fs");
+            const info = JSON.parse(fs.readFileSync("/tmp/url-types.json", "utf8"));
+            const src = fs.readFileSync("ios/ShellCore/Sources/ShellCore/ReplayLink.swift", "utf8");
+            const scheme = /public static let scheme = "([a-z]+)"/.exec(src)?.[1];
+            const types = Array.isArray(info.CFBundleURLTypes) ? info.CFBundleURLTypes : [];
+            const schemes = types.flatMap((t) => t.CFBundleURLSchemes ?? []);
+            if (!scheme || !schemes.includes(scheme)) {
+              console.error("URL type lint FAIL: CFBundleURLSchemes", schemes, "lacks ReplayLink.scheme", scheme);
+              process.exit(1);
+            }
+            console.log("URL type lint OK:", scheme, "registered");
+          '
+
+  app:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      # ios.yml T038 precedent: pin the newest installed Xcode and prove a
+      # macOS SDK exists before any build claim.
+      - name: Select newest Xcode (macOS SDK required)
+        run: |
+          sudo xcode-select -s "$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)"
+          xcodebuild -version
+          xcodebuild -showsdks | grep macosx
+      # The synced game bundle is a gitignored build product; the folder
+      # reference in project.yml only resolves if it exists BEFORE
+      # generation (project.yml note). The build re-runs generate+verify
+      # in its pre-build phase (SC-002 build arm).
+      - name: Bundle web resources (generate + verify)
+        run: |
+          node ios/tools/bundle-manifest.mjs generate
+          node ios/tools/bundle-manifest.mjs verify
+      # The gitignored owner overlay does not exist on CI; xcodegen's
+      # missingConfigFiles validation is disabled but xcodebuild still
+      # errors on a dangling baseConfiguration reference. An EMPTY file is
+      # correct for the unsigned CI arm (research R14; ios.yml precedent).
+      - name: Provide empty Signing.xcconfig (unsigned CI arm)
+        run: touch macos/Signing.xcconfig
+      - name: Generate project (xcodegen)
+        run: xcodegen generate --spec macos/project.yml
+      # quickstart §3 verbatim + a pinned derivedDataPath so failure
+      # evidence lands at a known location for the artifact upload.
+      - name: Unsigned build (platform=macOS)
+        working-directory: macos
+        run: |
+          xcodebuild build -project OpenBilliardsMac.xcodeproj \
+            -scheme OpenBilliardsMac -destination 'platform=macOS' \
+            -derivedDataPath DerivedData \
+            CODE_SIGNING_ALLOWED=NO
+      # quickstart §4: hosted MacAppTests headless on the macOS
+      # destination — scheme-served byte-equality + MIME, download adapter
+      # against the scripted panel seam, window-state adapter round-trip,
+      # xcstrings mirror (T018 + T021 suites).
+      - name: Hosted unit gates (xcodebuild test, MacAppTests)
+        working-directory: macos
+        run: |
+          xcodebuild test -project OpenBilliardsMac.xcodeproj \
+            -scheme OpenBilliardsMac -destination 'platform=macOS' \
+            -derivedDataPath DerivedData \
+            CODE_SIGNING_ALLOWED=NO
+      - name: Upload failure evidence (xcresults)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-app-failure-evidence
+          path: macos/DerivedData/Logs/Test/*.xcresult
+          if-no-files-found: ignore

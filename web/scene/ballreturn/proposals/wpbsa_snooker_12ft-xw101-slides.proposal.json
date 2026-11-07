@@ -1,0 +1,1472 @@
+{
+ "schema": "ball-return-track-proposal/1.0",
+ "for_track": "wpbsa_snooker_12ft-xw101-slides",
+ "table_id": "wpbsa_snooker_12ft",
+ "doc": {
+  "title": "XW101 slides — the re-route PROPOSAL (order 22 item 0; a JOINT byte round: this lane derives, the snooker lane re-exports)",
+  "status": "PROPOSAL — not the committed track (t6d: the track JSON stays byte-identical to the snooker export until they re-export)",
+  "date": "2026-09-08",
+  "issue": "#650 / #489",
+  "what_moves": "the wire centreline of every chute: the run start (the landing station) at the plate axis ± the lateral band, x_run0 inboard along the rail, L_v under the ring plane; the run at the initial slope over its first segment then straight to the clamp low point; the up-turned stop past the clamp. Frame TCS-TBL-01 (mm).",
+  "superseded": "the committed export's first vertex at 10.3 inboard / Y −130.05 on a lateral datum 19.7 outboard of the plate datum (Z 936.62 = the kernel cup), its clamp at 244.3 inboard (the render's at 264): both BODY-1 derivations without the vertical drop; the 276 / 453 / 280 runs from the ring centre are the PHOTO read used here"
+ },
+ "reads": {
+  "ring_plane_under": {
+   "value": 162,
+   "band": [
+    147,
+    177
+   ],
+   "tag": "PHOTO",
+   "source": "SE 3.679 mm/px, E10 (SNK-R25)"
+  },
+  "clamp_low_under": {
+   "value": 340,
+   "band": [
+    325,
+    355
+   ],
+   "tag": "PHOTO",
+   "source": "SE (SNK-R25/R27)"
+  },
+  "run_from_ring_centre": {
+   "p0": [
+    276,
+    [
+     256,
+     296
+    ]
+   ],
+   "p5": [
+    276,
+    [
+     256,
+     296
+    ]
+   ],
+   "p2": [
+    453,
+    [
+     428,
+     478
+    ]
+   ],
+   "p3": [
+    453,
+    [
+     428,
+     478
+    ]
+   ],
+   "p1": [
+    280,
+    [
+     260,
+     300
+    ]
+   ],
+   "p4": [
+    280,
+    [
+     260,
+     300
+    ]
+   ],
+   "tag": "PHOTO",
+   "source": "SE runs 276 / 453 / 280 ±20–25 (R25; table.js 10306)"
+  },
+  "L_v": {
+   "band": [
+    27.8,
+    44
+   ],
+   "tag": "PHOTO (MEDIUM) ∩ MID-SOFFIT constraint",
+   "source": "SNK-R25 L_v 30 [22, 44]; the soffit (SNK-R29): ball top ≥ 137 under while |x| > 41.9 − r ⇒ L_v ≥ 27.8 (vertical seat) at ring 162, one-for-one with the ring band"
+  },
+  "x_run0_inboard": {
+   "band_read": [
+    17,
+    44
+   ],
+   "band_unread": [
+    -10,
+    17
+   ],
+   "tag": "PHOTO (LOW) — the READ half; the lower half unread",
+   "source": "SNK-R27: the common run start in [−10, +44] inboard of the plate axis, the lower half unread"
+  },
+  "lateral_from_plate_axis": {
+   "value": 0,
+   "band": [
+    -25,
+    25
+   ],
+   "tag": "PHOTO (LOW) — BOUNDED, not read",
+   "source": "SNK-R28: no frame reads the run's lateral independently of the ring; the wires stay in the ring's vertical plane, the pairs straddle it by the OPEN gauge → ±14, band ±25; sign not resolved"
+  },
+  "s1_initial_slope": {
+   "band_low": [
+    0.2,
+    0.7
+   ],
+   "band_medium": [
+    0.4,
+    0.6
+   ],
+   "tag": "PHOTO (LOW; edge-on reads mostly 0.4–0.6)",
+   "source": "SNK-R27 initial slope over the first 50–100 mm; consistency: the bend-to-clamp average ≈ 0.57"
+  },
+  "s1_segment": {
+   "band": [
+    50,
+    100
+   ],
+   "tag": "PHOTO (LOW)",
+   "source": "SNK-R27: the first 50–100 mm"
+  },
+  "plate_axes": {
+   "corners_along": 1812.4,
+   "corners_lateral": 916.92,
+   "middles_along": 0,
+   "middles_lateral": 940.59,
+   "tag": "DERIVED (kernel plate axis, canonical per SNK-R25 ruling 1; SNK-R29 §R3c.33)",
+   "source": "fcx.cups |x| 1812.4; |z| 916.92 corners / 940.59 middles"
+  },
+  "pilaster_face_637": {
+   "value": 71.3,
+   "tag": "OURS-on-bf03b289 (snooker lane, SNK-R28)",
+   "source": "the pilaster obSnkPost outboard face 71.3 mm inboard of the plate datum on #637's tip (Star MODEL face 60.3)"
+  },
+  "soffit_underside_under": {
+   "value": 137,
+   "tag": "PHOTO + construction class (SNK-R29)",
+   "source": "railBandBot 129 PHOTO + the 8 mm slab; the slabs end at x ±41.9 (an 83.8 mm gap at the middle pocket)"
+  },
+  "stop_upturn": {
+   "rise": 15,
+   "run": 12,
+   "tag": "PHOTO",
+   "source": "the up-turned wire stop 15 up; built 12 mm before the clamp (SNK-R29 mesh_provenance)"
+  }
+ },
+ "variants": [
+  {
+   "id": "A-high-entry",
+   "note": "the highest admissible entry: L_v at the soffit bound, the run start at the READ half's inner end, the steeper MEDIUM initial slope",
+   "params": {
+    "L_v": 27.8,
+    "x_run0": 17,
+    "s1": 0.6,
+    "s1_segment": 75,
+    "lateral": 0
+   },
+   "validator": "admitted",
+   "runways": [
+    {
+     "id": "p0-chute",
+     "points_mm": [
+      [
+       -1795.4,
+       -149.62,
+       -916.92
+      ],
+      [
+       -1720.4,
+       -194.62,
+       -916.92
+      ],
+      [
+       -1536.4,
+       -299.82,
+       -916.92
+      ],
+      [
+       -1524.4,
+       -284.82,
+       -916.92
+      ]
+     ],
+     "wall_s_mm": 299.41
+    },
+    {
+     "id": "p1-chute",
+     "points_mm": [
+      [
+       -17,
+       -149.62,
+       -940.59
+      ],
+      [
+       -92,
+       -194.62,
+       -940.59
+      ],
+      [
+       -280,
+       -299.82,
+       -940.59
+      ],
+      [
+       -292,
+       -284.82,
+       -940.59
+      ]
+     ],
+     "wall_s_mm": 302.9
+    },
+    {
+     "id": "p2-chute",
+     "points_mm": [
+      [
+       1795.4,
+       -149.62,
+       -916.92
+      ],
+      [
+       1720.4,
+       -194.62,
+       -916.92
+      ],
+      [
+       1359.4,
+       -299.82,
+       -916.92
+      ],
+      [
+       1347.4,
+       -284.82,
+       -916.92
+      ]
+     ],
+     "wall_s_mm": 463.48
+    },
+    {
+     "id": "p3-chute",
+     "points_mm": [
+      [
+       -1795.4,
+       -149.62,
+       916.92
+      ],
+      [
+       -1720.4,
+       -194.62,
+       916.92
+      ],
+      [
+       -1359.4,
+       -299.82,
+       916.92
+      ],
+      [
+       -1347.4,
+       -284.82,
+       916.92
+      ]
+     ],
+     "wall_s_mm": 463.48
+    },
+    {
+     "id": "p4-chute",
+     "points_mm": [
+      [
+       17,
+       -149.62,
+       940.59
+      ],
+      [
+       92,
+       -194.62,
+       940.59
+      ],
+      [
+       280,
+       -299.82,
+       940.59
+      ],
+      [
+       292,
+       -284.82,
+       940.59
+      ]
+     ],
+     "wall_s_mm": 302.9
+    },
+    {
+     "id": "p5-chute",
+     "points_mm": [
+      [
+       1795.4,
+       -149.62,
+       916.92
+      ],
+      [
+       1720.4,
+       -194.62,
+       916.92
+      ],
+      [
+       1536.4,
+       -299.82,
+       916.92
+      ],
+      [
+       1524.4,
+       -284.82,
+       916.92
+      ]
+     ],
+     "wall_s_mm": 299.41
+    }
+   ],
+   "pockets": [
+    {
+     "index": 0,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 1,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 2,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 3,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 4,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 5,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    }
+   ],
+   "derived": {
+    "per_chute": {
+     "0": {
+      "run_along": 259,
+      "wall_s": 299.41,
+      "s2": 0.57174,
+      "avg_slope": 0.58,
+      "entry_top_under_vertical": 137.02
+     },
+     "1": {
+      "run_along": 263,
+      "wall_s": 302.9,
+      "s2": 0.55957,
+      "avg_slope": 0.571,
+      "entry_top_under_vertical": 137.02
+     },
+     "2": {
+      "run_along": 436,
+      "wall_s": 463.48,
+      "s2": 0.29141,
+      "avg_slope": 0.344,
+      "entry_top_under_vertical": 137.02
+     },
+     "3": {
+      "run_along": 436,
+      "wall_s": 463.48,
+      "s2": 0.29141,
+      "avg_slope": 0.344,
+      "entry_top_under_vertical": 137.02
+     },
+     "4": {
+      "run_along": 263,
+      "wall_s": 302.9,
+      "s2": 0.55957,
+      "avg_slope": 0.571,
+      "entry_top_under_vertical": 137.02
+     },
+     "5": {
+      "run_along": 259,
+      "wall_s": 299.41,
+      "s2": 0.57174,
+      "avg_slope": 0.58,
+      "entry_top_under_vertical": 137.02
+     }
+    },
+    "soffit_margin_middles_mm": {
+     "1": 0.02,
+     "4": 0.02
+    },
+    "pilaster_637_mm": {
+     "wire_centreline_to_face": 71.3,
+     "ball_surface_to_face": 45.05
+    },
+    "ownership_required": null
+   }
+  },
+  {
+   "id": "B-low-entry",
+   "note": "the lowest entry of the band: L_v 44, the run start at the READ half's outer end, the shallower MEDIUM initial slope",
+   "params": {
+    "L_v": 44,
+    "x_run0": 44,
+    "s1": 0.4,
+    "s1_segment": 75,
+    "lateral": 0
+   },
+   "validator": "admitted",
+   "runways": [
+    {
+     "id": "p0-chute",
+     "points_mm": [
+      [
+       -1768.4,
+       -165.82,
+       -916.92
+      ],
+      [
+       -1693.4,
+       -195.82,
+       -916.92
+      ],
+      [
+       -1536.4,
+       -299.82,
+       -916.92
+      ],
+      [
+       -1524.4,
+       -284.82,
+       -916.92
+      ]
+     ],
+     "wall_s_mm": 269.1
+    },
+    {
+     "id": "p1-chute",
+     "points_mm": [
+      [
+       -44,
+       -165.82,
+       -940.59
+      ],
+      [
+       -119,
+       -195.82,
+       -940.59
+      ],
+      [
+       -280,
+       -299.82,
+       -940.59
+      ],
+      [
+       -292,
+       -284.82,
+       -940.59
+      ]
+     ],
+     "wall_s_mm": 272.45
+    },
+    {
+     "id": "p2-chute",
+     "points_mm": [
+      [
+       1768.4,
+       -165.82,
+       -916.92
+      ],
+      [
+       1693.4,
+       -195.82,
+       -916.92
+      ],
+      [
+       1359.4,
+       -299.82,
+       -916.92
+      ],
+      [
+       1347.4,
+       -284.82,
+       -916.92
+      ]
+     ],
+     "wall_s_mm": 430.59
+    },
+    {
+     "id": "p3-chute",
+     "points_mm": [
+      [
+       -1768.4,
+       -165.82,
+       916.92
+      ],
+      [
+       -1693.4,
+       -195.82,
+       916.92
+      ],
+      [
+       -1359.4,
+       -299.82,
+       916.92
+      ],
+      [
+       -1347.4,
+       -284.82,
+       916.92
+      ]
+     ],
+     "wall_s_mm": 430.59
+    },
+    {
+     "id": "p4-chute",
+     "points_mm": [
+      [
+       44,
+       -165.82,
+       940.59
+      ],
+      [
+       119,
+       -195.82,
+       940.59
+      ],
+      [
+       280,
+       -299.82,
+       940.59
+      ],
+      [
+       292,
+       -284.82,
+       940.59
+      ]
+     ],
+     "wall_s_mm": 272.45
+    },
+    {
+     "id": "p5-chute",
+     "points_mm": [
+      [
+       1768.4,
+       -165.82,
+       916.92
+      ],
+      [
+       1693.4,
+       -195.82,
+       916.92
+      ],
+      [
+       1536.4,
+       -299.82,
+       916.92
+      ],
+      [
+       1524.4,
+       -284.82,
+       916.92
+      ]
+     ],
+     "wall_s_mm": 269.1
+    }
+   ],
+   "pockets": [
+    {
+     "index": 0,
+     "exit_below_y_mm": -114.9,
+     "entry_top_mm": -114.93
+    },
+    {
+     "index": 1,
+     "exit_below_y_mm": -114.9,
+     "entry_top_mm": -114.93
+    },
+    {
+     "index": 2,
+     "exit_below_y_mm": -114.9,
+     "entry_top_mm": -114.93
+    },
+    {
+     "index": 3,
+     "exit_below_y_mm": -114.9,
+     "entry_top_mm": -114.93
+    },
+    {
+     "index": 4,
+     "exit_below_y_mm": -114.9,
+     "entry_top_mm": -114.93
+    },
+    {
+     "index": 5,
+     "exit_below_y_mm": -114.9,
+     "entry_top_mm": -114.93
+    }
+   ],
+   "derived": {
+    "per_chute": {
+     "0": {
+      "run_along": 232,
+      "wall_s": 269.1,
+      "s2": 0.66242,
+      "avg_slope": 0.578,
+      "entry_top_under_vertical": 153.22
+     },
+     "1": {
+      "run_along": 236,
+      "wall_s": 272.45,
+      "s2": 0.6459600000000001,
+      "avg_slope": 0.568,
+      "entry_top_under_vertical": 153.22
+     },
+     "2": {
+      "run_along": 409,
+      "wall_s": 430.59,
+      "s2": 0.31138,
+      "avg_slope": 0.328,
+      "entry_top_under_vertical": 153.22
+     },
+     "3": {
+      "run_along": 409,
+      "wall_s": 430.59,
+      "s2": 0.31138,
+      "avg_slope": 0.328,
+      "entry_top_under_vertical": 153.22
+     },
+     "4": {
+      "run_along": 236,
+      "wall_s": 272.45,
+      "s2": 0.6459600000000001,
+      "avg_slope": 0.568,
+      "entry_top_under_vertical": 153.22
+     },
+     "5": {
+      "run_along": 232,
+      "wall_s": 269.1,
+      "s2": 0.66242,
+      "avg_slope": 0.578,
+      "entry_top_under_vertical": 153.22
+     }
+    },
+    "soffit_margin_middles_mm": {
+     "1": 16.22,
+     "4": 16.22
+    },
+    "pilaster_637_mm": {
+     "wire_centreline_to_face": 71.3,
+     "ball_surface_to_face": 45.05
+    },
+    "ownership_required": null
+   }
+  },
+  {
+   "id": "C-lateral-inboard",
+   "note": "variant A at the lateral band's INBOARD extreme (+25 toward the table centre): the pilaster-face check",
+   "params": {
+    "L_v": 27.8,
+    "x_run0": 17,
+    "s1": 0.6,
+    "s1_segment": 75,
+    "lateral": 25
+   },
+   "validator": "admitted",
+   "runways": [
+    {
+     "id": "p0-chute",
+     "points_mm": [
+      [
+       -1795.4,
+       -149.62,
+       -891.92
+      ],
+      [
+       -1720.4,
+       -194.62,
+       -891.92
+      ],
+      [
+       -1536.4,
+       -299.82,
+       -891.92
+      ],
+      [
+       -1524.4,
+       -284.82,
+       -891.92
+      ]
+     ],
+     "wall_s_mm": 299.41
+    },
+    {
+     "id": "p1-chute",
+     "points_mm": [
+      [
+       -17,
+       -149.62,
+       -915.59
+      ],
+      [
+       -92,
+       -194.62,
+       -915.59
+      ],
+      [
+       -280,
+       -299.82,
+       -915.59
+      ],
+      [
+       -292,
+       -284.82,
+       -915.59
+      ]
+     ],
+     "wall_s_mm": 302.9
+    },
+    {
+     "id": "p2-chute",
+     "points_mm": [
+      [
+       1795.4,
+       -149.62,
+       -891.92
+      ],
+      [
+       1720.4,
+       -194.62,
+       -891.92
+      ],
+      [
+       1359.4,
+       -299.82,
+       -891.92
+      ],
+      [
+       1347.4,
+       -284.82,
+       -891.92
+      ]
+     ],
+     "wall_s_mm": 463.48
+    },
+    {
+     "id": "p3-chute",
+     "points_mm": [
+      [
+       -1795.4,
+       -149.62,
+       891.92
+      ],
+      [
+       -1720.4,
+       -194.62,
+       891.92
+      ],
+      [
+       -1359.4,
+       -299.82,
+       891.92
+      ],
+      [
+       -1347.4,
+       -284.82,
+       891.92
+      ]
+     ],
+     "wall_s_mm": 463.48
+    },
+    {
+     "id": "p4-chute",
+     "points_mm": [
+      [
+       17,
+       -149.62,
+       915.59
+      ],
+      [
+       92,
+       -194.62,
+       915.59
+      ],
+      [
+       280,
+       -299.82,
+       915.59
+      ],
+      [
+       292,
+       -284.82,
+       915.59
+      ]
+     ],
+     "wall_s_mm": 302.9
+    },
+    {
+     "id": "p5-chute",
+     "points_mm": [
+      [
+       1795.4,
+       -149.62,
+       891.92
+      ],
+      [
+       1720.4,
+       -194.62,
+       891.92
+      ],
+      [
+       1536.4,
+       -299.82,
+       891.92
+      ],
+      [
+       1524.4,
+       -284.82,
+       891.92
+      ]
+     ],
+     "wall_s_mm": 299.41
+    }
+   ],
+   "pockets": [
+    {
+     "index": 0,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 1,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 2,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 3,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 4,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 5,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    }
+   ],
+   "derived": {
+    "per_chute": {
+     "0": {
+      "run_along": 259,
+      "wall_s": 299.41,
+      "s2": 0.57174,
+      "avg_slope": 0.58,
+      "entry_top_under_vertical": 137.02
+     },
+     "1": {
+      "run_along": 263,
+      "wall_s": 302.9,
+      "s2": 0.55957,
+      "avg_slope": 0.571,
+      "entry_top_under_vertical": 137.02
+     },
+     "2": {
+      "run_along": 436,
+      "wall_s": 463.48,
+      "s2": 0.29141,
+      "avg_slope": 0.344,
+      "entry_top_under_vertical": 137.02
+     },
+     "3": {
+      "run_along": 436,
+      "wall_s": 463.48,
+      "s2": 0.29141,
+      "avg_slope": 0.344,
+      "entry_top_under_vertical": 137.02
+     },
+     "4": {
+      "run_along": 263,
+      "wall_s": 302.9,
+      "s2": 0.55957,
+      "avg_slope": 0.571,
+      "entry_top_under_vertical": 137.02
+     },
+     "5": {
+      "run_along": 259,
+      "wall_s": 299.41,
+      "s2": 0.57174,
+      "avg_slope": 0.58,
+      "entry_top_under_vertical": 137.02
+     }
+    },
+    "soffit_margin_middles_mm": {
+     "1": 0.02,
+     "4": 0.02
+    },
+    "pilaster_637_mm": {
+     "wire_centreline_to_face": 46.3,
+     "ball_surface_to_face": 20.05
+    },
+    "ownership_required": null
+   }
+  },
+  {
+   "id": "D-lateral-outboard",
+   "note": "variant A at the lateral band's OUTBOARD extreme (−25): the apron / skirt check",
+   "params": {
+    "L_v": 27.8,
+    "x_run0": 17,
+    "s1": 0.6,
+    "s1_segment": 75,
+    "lateral": -25
+   },
+   "validator": "admitted",
+   "runways": [
+    {
+     "id": "p0-chute",
+     "points_mm": [
+      [
+       -1795.4,
+       -149.62,
+       -941.92
+      ],
+      [
+       -1720.4,
+       -194.62,
+       -941.92
+      ],
+      [
+       -1536.4,
+       -299.82,
+       -941.92
+      ],
+      [
+       -1524.4,
+       -284.82,
+       -941.92
+      ]
+     ],
+     "wall_s_mm": 299.41
+    },
+    {
+     "id": "p1-chute",
+     "points_mm": [
+      [
+       -17,
+       -149.62,
+       -965.59
+      ],
+      [
+       -92,
+       -194.62,
+       -965.59
+      ],
+      [
+       -280,
+       -299.82,
+       -965.59
+      ],
+      [
+       -292,
+       -284.82,
+       -965.59
+      ]
+     ],
+     "wall_s_mm": 302.9
+    },
+    {
+     "id": "p2-chute",
+     "points_mm": [
+      [
+       1795.4,
+       -149.62,
+       -941.92
+      ],
+      [
+       1720.4,
+       -194.62,
+       -941.92
+      ],
+      [
+       1359.4,
+       -299.82,
+       -941.92
+      ],
+      [
+       1347.4,
+       -284.82,
+       -941.92
+      ]
+     ],
+     "wall_s_mm": 463.48
+    },
+    {
+     "id": "p3-chute",
+     "points_mm": [
+      [
+       -1795.4,
+       -149.62,
+       941.92
+      ],
+      [
+       -1720.4,
+       -194.62,
+       941.92
+      ],
+      [
+       -1359.4,
+       -299.82,
+       941.92
+      ],
+      [
+       -1347.4,
+       -284.82,
+       941.92
+      ]
+     ],
+     "wall_s_mm": 463.48
+    },
+    {
+     "id": "p4-chute",
+     "points_mm": [
+      [
+       17,
+       -149.62,
+       965.59
+      ],
+      [
+       92,
+       -194.62,
+       965.59
+      ],
+      [
+       280,
+       -299.82,
+       965.59
+      ],
+      [
+       292,
+       -284.82,
+       965.59
+      ]
+     ],
+     "wall_s_mm": 302.9
+    },
+    {
+     "id": "p5-chute",
+     "points_mm": [
+      [
+       1795.4,
+       -149.62,
+       941.92
+      ],
+      [
+       1720.4,
+       -194.62,
+       941.92
+      ],
+      [
+       1536.4,
+       -299.82,
+       941.92
+      ],
+      [
+       1524.4,
+       -284.82,
+       941.92
+      ]
+     ],
+     "wall_s_mm": 299.41
+    }
+   ],
+   "pockets": [
+    {
+     "index": 0,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 1,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 2,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 3,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 4,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    },
+    {
+     "index": 5,
+     "exit_below_y_mm": -100.6,
+     "entry_top_mm": -100.62
+    }
+   ],
+   "derived": {
+    "per_chute": {
+     "0": {
+      "run_along": 259,
+      "wall_s": 299.41,
+      "s2": 0.57174,
+      "avg_slope": 0.58,
+      "entry_top_under_vertical": 137.02
+     },
+     "1": {
+      "run_along": 263,
+      "wall_s": 302.9,
+      "s2": 0.55957,
+      "avg_slope": 0.571,
+      "entry_top_under_vertical": 137.02
+     },
+     "2": {
+      "run_along": 436,
+      "wall_s": 463.48,
+      "s2": 0.29141,
+      "avg_slope": 0.344,
+      "entry_top_under_vertical": 137.02
+     },
+     "3": {
+      "run_along": 436,
+      "wall_s": 463.48,
+      "s2": 0.29141,
+      "avg_slope": 0.344,
+      "entry_top_under_vertical": 137.02
+     },
+     "4": {
+      "run_along": 263,
+      "wall_s": 302.9,
+      "s2": 0.55957,
+      "avg_slope": 0.571,
+      "entry_top_under_vertical": 137.02
+     },
+     "5": {
+      "run_along": 259,
+      "wall_s": 299.41,
+      "s2": 0.57174,
+      "avg_slope": 0.58,
+      "entry_top_under_vertical": 137.02
+     }
+    },
+    "soffit_margin_middles_mm": {
+     "1": 0.02,
+     "4": 0.02
+    },
+    "pilaster_637_mm": {
+     "wire_centreline_to_face": 96.3,
+     "ball_surface_to_face": 70.05
+    },
+    "ownership_required": null
+   }
+  },
+  {
+   "id": "N-nominal",
+   "note": "the reads' nominals: L_v 30, x_run0 30, s1 0.5, lateral 0 — a reference, not a point (every input is a band)",
+   "params": {
+    "L_v": 30,
+    "x_run0": 30,
+    "s1": 0.5,
+    "s1_segment": 75,
+    "lateral": 0
+   },
+   "validator": "admitted",
+   "runways": [
+    {
+     "id": "p0-chute",
+     "points_mm": [
+      [
+       -1782.4,
+       -151.82,
+       -916.92
+      ],
+      [
+       -1707.4,
+       -189.32,
+       -916.92
+      ],
+      [
+       -1536.4,
+       -299.82,
+       -916.92
+      ],
+      [
+       -1524.4,
+       -284.82,
+       -916.92
+      ]
+     ],
+     "wall_s_mm": 287.45
+    },
+    {
+     "id": "p1-chute",
+     "points_mm": [
+      [
+       -30,
+       -151.82,
+       -940.59
+      ],
+      [
+       -105,
+       -189.32,
+       -940.59
+      ],
+      [
+       -280,
+       -299.82,
+       -940.59
+      ],
+      [
+       -292,
+       -284.82,
+       -940.59
+      ]
+     ],
+     "wall_s_mm": 290.82
+    },
+    {
+     "id": "p2-chute",
+     "points_mm": [
+      [
+       1782.4,
+       -151.82,
+       -916.92
+      ],
+      [
+       1707.4,
+       -189.32,
+       -916.92
+      ],
+      [
+       1359.4,
+       -299.82,
+       -916.92
+      ],
+      [
+       1347.4,
+       -284.82,
+       -916.92
+      ]
+     ],
+     "wall_s_mm": 448.97
+    },
+    {
+     "id": "p3-chute",
+     "points_mm": [
+      [
+       -1782.4,
+       -151.82,
+       916.92
+      ],
+      [
+       -1707.4,
+       -189.32,
+       916.92
+      ],
+      [
+       -1359.4,
+       -299.82,
+       916.92
+      ],
+      [
+       -1347.4,
+       -284.82,
+       916.92
+      ]
+     ],
+     "wall_s_mm": 448.97
+    },
+    {
+     "id": "p4-chute",
+     "points_mm": [
+      [
+       30,
+       -151.82,
+       940.59
+      ],
+      [
+       105,
+       -189.32,
+       940.59
+      ],
+      [
+       280,
+       -299.82,
+       940.59
+      ],
+      [
+       292,
+       -284.82,
+       940.59
+      ]
+     ],
+     "wall_s_mm": 290.82
+    },
+    {
+     "id": "p5-chute",
+     "points_mm": [
+      [
+       1782.4,
+       -151.82,
+       916.92
+      ],
+      [
+       1707.4,
+       -189.32,
+       916.92
+      ],
+      [
+       1536.4,
+       -299.82,
+       916.92
+      ],
+      [
+       1524.4,
+       -284.82,
+       916.92
+      ]
+     ],
+     "wall_s_mm": 287.45
+    }
+   ],
+   "pockets": [
+    {
+     "index": 0,
+     "exit_below_y_mm": -101.8,
+     "entry_top_mm": -101.84
+    },
+    {
+     "index": 1,
+     "exit_below_y_mm": -101.8,
+     "entry_top_mm": -101.84
+    },
+    {
+     "index": 2,
+     "exit_below_y_mm": -101.8,
+     "entry_top_mm": -101.84
+    },
+    {
+     "index": 3,
+     "exit_below_y_mm": -101.8,
+     "entry_top_mm": -101.84
+    },
+    {
+     "index": 4,
+     "exit_below_y_mm": -101.8,
+     "entry_top_mm": -101.84
+    },
+    {
+     "index": 5,
+     "exit_below_y_mm": -101.8,
+     "entry_top_mm": -101.84
+    }
+   ],
+   "derived": {
+    "per_chute": {
+     "0": {
+      "run_along": 246,
+      "wall_s": 287.45,
+      "s2": 0.6462,
+      "avg_slope": 0.602,
+      "entry_top_under_vertical": 139.22
+     },
+     "1": {
+      "run_along": 250,
+      "wall_s": 290.82,
+      "s2": 0.6314299999999999,
+      "avg_slope": 0.592,
+      "entry_top_under_vertical": 139.22
+     },
+     "2": {
+      "run_along": 423,
+      "wall_s": 448.97,
+      "s2": 0.31753,
+      "avg_slope": 0.35,
+      "entry_top_under_vertical": 139.22
+     },
+     "3": {
+      "run_along": 423,
+      "wall_s": 448.97,
+      "s2": 0.31753,
+      "avg_slope": 0.35,
+      "entry_top_under_vertical": 139.22
+     },
+     "4": {
+      "run_along": 250,
+      "wall_s": 290.82,
+      "s2": 0.6314299999999999,
+      "avg_slope": 0.592,
+      "entry_top_under_vertical": 139.22
+     },
+     "5": {
+      "run_along": 246,
+      "wall_s": 287.45,
+      "s2": 0.6462,
+      "avg_slope": 0.602,
+      "entry_top_under_vertical": 139.22
+     }
+    },
+    "soffit_margin_middles_mm": {
+     "1": 2.22,
+     "4": 2.22
+    },
+    "pilaster_637_mm": {
+     "wire_centreline_to_face": 71.3,
+     "ball_surface_to_face": 45.05
+    },
+    "ownership_required": null
+   }
+  }
+ ],
+ "intervals_remaining": [
+  {
+   "quantity": "lateral offset from the plate axis",
+   "interval": "0 ± 25 mm",
+   "why": "BOUNDED, not read: no frame reads the run's lateral independently of the ring (SNK-R28); drawn at both extremes (variants C / D) — a single wire cannot be drawn from it"
+  },
+  {
+   "quantity": "L_v (the vertical drop under the ring plane)",
+   "interval": "[27.8, 44] mm at ring 162 (one-for-one with the ring's ±15)",
+   "why": "PHOTO MEDIUM [22, 44] cut from below by the MID-SOFFIT constraint; drawn at both extremes (A / B)"
+  },
+  {
+   "quantity": "x_run0 (the run start along, inboard of the plate axis)",
+   "interval": "[17, 44] mm read; [−10, 17) UNREAD",
+   "why": "SNK-R27: the lower half has no photographic support; drawn at the READ half's extremes (A / B); the unread half would put the landing on the axis"
+  },
+  {
+   "quantity": "the initial slope s₁ over the first 50–100 mm",
+   "interval": "[0.2, 0.7] LOW; [0.4, 0.6] MEDIUM",
+   "why": "edge-on reads only; the bend-to-clamp average (≈ 0.57) is a consistency bound the variants satisfy (0.55–0.60), not an input"
+  },
+  {
+   "quantity": "the ring plane",
+   "interval": "162 ± 15 under the rail top",
+   "why": "PHOTO; moves every height one-for-one (not drawn as variants here: the snooker lane's ring is at 162 on both trees)"
+  },
+  {
+   "quantity": "the run length from the ring centre",
+   "interval": "276 / 453 / 280 ±20–25",
+   "why": "PHOTO SE; drawn at the nominal (the clamp is the strap's PHOTO station; the export's 244.3 is superseded)"
+  }
+ ],
+ "checks": {}
+}

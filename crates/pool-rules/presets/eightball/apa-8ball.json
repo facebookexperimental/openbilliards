@@ -1,0 +1,76 @@
+{
+  "schema": "rules-preset-v1",
+  "preset": "apa-8ball",
+  "family": "eightball",
+  "display_key": "settings.variant.apa-8ball",
+  "source": {
+    "title": "APA 8-Ball Game Rules (APA/CPA Official Team Manual)",
+    "publisher": "American Poolplayers Association",
+    "edition": "League Years '26/27, '27/28 & '28/29 (© 2025 APA)",
+    "url": "https://rules.poolplayers.com/",
+    "tier": "secondary",
+    "inherits": null
+  },
+  "judged": {
+    "call_shot": {
+      "value": "eight_only",
+      "cite": "APA OTM Pocketed Balls pp.48-49; How To Win A Game pp.55-56 (a),(c),(d)"
+    },
+    "safety_call": {
+      "value": false,
+      "cite": "APA OTM Pocketed Balls pp.48-49 (no designation exists)"
+    },
+    "safety_pot_stays_down": {
+      "value": false,
+      "cite": "APA OTM Pocketed Balls pp.48-49 (inert: no safety call exists; pinned by slice)"
+    },
+    "open_table_assignment": {
+      "value": "take_what_you_make",
+      "cite": "APA OTM After The Break pp.46-47 (c),(d)"
+    },
+    "eight_on_break": {
+      "value": "win_unless_scratch",
+      "cite": "APA OTM After The Break pp.46-47 (b)"
+    },
+    "scratch_on_eight": {
+      "value": "loss",
+      "cite": "APA OTM How To Win A Game pp.55-56 (g)"
+    },
+    "jumped_ball": {
+      "value": "spot_no_foul",
+      "cite": "APA OTM Balls On The Floor p.49; Fouls pp.53-55 (a)"
+    },
+    "dry_break_rail_minimum": {
+      "value": 0,
+      "cite": "APA OTM Breaking pp.45-46 (spec-frozen R5 row 6; harvest finding HF-1)"
+    },
+    "dry_break_consequence": {
+      "value": "re_break",
+      "cite": "APA OTM Breaking pp.45-46 (re-break; harvest finding HF-2)"
+    }
+  },
+  "adapter": {
+    "rack_pattern": {
+      "value": "any_order",
+      "cite": "APA OTM Racking pp.44-45",
+      "owner": "adapter"
+    }
+  },
+  "not_modeled": [
+    {
+      "axis": "cue_ball_fouls_only",
+      "cite": "APA OTM Fouls pp.53-55; Accidentally Moved Balls pp.49-50",
+      "reason": "touched/accidentally-moved object balls are restore-in-place referee operations (NEW-4 external Ruling input); the engine judges cue-ball facts only"
+    },
+    {
+      "axis": "deferred_spot_timing",
+      "cite": "APA OTM Balls On The Floor p.49",
+      "reason": "APA defers spotting floored balls until the shooter's turn ends; the P13 respot chain emits respot ids on the detecting judgment (harvest Row 5)"
+    },
+    {
+      "axis": "league_operations",
+      "cite": "APA OTM Fouls pp.53-55 (f); How To Score 8-Ball",
+      "reason": "coaching/time-outs, defensive-shot scoring, and Equalizer handicaps are out of engine scope"
+    }
+  ]
+}

@@ -1,0 +1,1016 @@
+{
+ "format": "openbilliards.anchors.v1",
+ "anchor": "hsv_response_surface",
+ "provenance": "Rebound kinematics measured from Dr. Dave's classic high-speed-video archive (index https://drdavepoolinfo.com/high-speed-video/; direct MP4s under https://drdavepoolinfo.com/high_speed_videos/, A-series under /new/), camera Kodak Motion Corder Analyzer PS-110. CAVEATS -- read before fitting: (1) the table is an unspecified ~2004 HOME-TABLE cushion, NOT a spec K-66 at known conditions; (2) capture rate 1000 fps is OSD-stamped ('1/1000 ... 1000FPS') on A-series clips and INFERRED for classic 6.x clips (shared rig, typical-configuration statement, dwell consistency); angles and velocity RATIOS are independent of the fps assumption, absolute speeds and dwell-ms are not; (3) 320x240 grayscale limits centroid precision to ~1-2 px (~0.5-0.8 mm at ball scale); (4) no in-frame table markings, so perspective foreshortening is uncorrected within each clip (the same-rig same-incidence series design cancels most of it clip-to-clip); (5) initial spin magnitude is not independently known (stripe-visibility periodicity gives relative spin only, see spin_stripe section). USE FOR FUNCTIONAL SHAPE FITTING ONLY (the speed x spin-sense response surface of e_n, tangential ratio and rebound angle -- issues #5/#9); absolute constants must come from a first-party session on the target cushion spec. Pipeline: tools/hsv (ffmpeg frame extraction -> median background -> bright-pixel centroid -> cushion-edge fit -> pre/post linear velocity fits); every track eyeball-verified on annotated overlays. Measured 2026-07-02.",
+ "camera": {
+  "model": "Kodak Motion Corder Analyzer PS-110",
+  "capture_fps": 1000,
+  "fps_note": "A-series clips carry a camera OSD stamping '1/1000 ... 1000FPS' (verified on extracted frames); classic HSV 6.x clips have no OSD and 1000 fps is INFERRED from the shared rig (Kodak Motion Corder PS-110 typical configuration).",
+  "playback": "30 fps, 320x240 grayscale MP4"
+ },
+ "equipment_warning": "~2004 home-table cushion, rubber spec unknown -- NOT K-66; 57.15 mm pool ball used as in-frame scale",
+ "uncertainty_model": "1-sigma; velocity-component errors from linear-fit residual standard errors (absorb ~1-2 px centroid jitter), propagated first-order into angles and ratios; +/-2 deg added in quadrature when no cushion-edge fit (axis-aligned fallback); mm_per_px scale +/-15 percent; dwell +/-2-3 frames",
+ "spin_stripe": {
+  "caveats": [
+   "only HSV6-9 shows a clean periodic stripe signal in both windows",
+   "period is in VIDEO frames; divide by the clip frame_duplication_factor for capture frames (the omega_rad_s_if_1000fps field already applies this correction)",
+   "absolute omega is NOT trusted: a x2 stripe-arc-per-revolution harmonic ambiguity exists and the single-cycle value would exceed achievable cue-induced spin",
+   "the pre/post PERIOD RATIO is the robust observable (HSV6-9: 32 -> 20, spin rate x1.6 through contact, consistent with its tangential-velocity gain of 1.53)",
+   "spin sense (running/reverse/follow/draw) is taken from clip titles"
+  ],
+  "results": {
+   "HSV6-6": {
+    "apex_frame": 39,
+    "windows": {
+     "pre": {
+      "period_video_frames": null,
+      "autocorr_peak": 0.23,
+      "omega_rad_s_if_1000fps_single_cycle": null
+     },
+     "post": {
+      "period_video_frames": null,
+      "autocorr_peak": 0.19,
+      "omega_rad_s_if_1000fps_single_cycle": null
+     }
+    }
+   },
+   "HSV6-7": {
+    "apex_frame": 36,
+    "windows": {
+     "pre": {
+      "period_video_frames": null,
+      "autocorr_peak": 0.13,
+      "omega_rad_s_if_1000fps_single_cycle": null
+     },
+     "post": {
+      "period_video_frames": null,
+      "autocorr_peak": 0.2,
+      "omega_rad_s_if_1000fps_single_cycle": null
+     }
+    }
+   },
+   "HSV6-9": {
+    "apex_frame": 64,
+    "windows": {
+     "pre": {
+      "period_video_frames": 32,
+      "autocorr_peak": 0.43,
+      "omega_rad_s_if_1000fps_single_cycle": 392.7
+     },
+     "post": {
+      "period_video_frames": 20,
+      "autocorr_peak": 0.32,
+      "omega_rad_s_if_1000fps_single_cycle": 628.3
+     }
+    }
+   },
+   "HSV6-10": {
+    "apex_frame": 37,
+    "windows": {
+     "pre": {
+      "period_video_frames": null,
+      "autocorr_peak": 0.27,
+      "omega_rad_s_if_1000fps_single_cycle": null
+     },
+     "post": {
+      "period_video_frames": null,
+      "autocorr_peak": 0.38,
+      "omega_rad_s_if_1000fps_single_cycle": null
+     }
+    }
+   }
+  }
+ },
+ "clips": [
+  {
+   "clip_id": "HSV6-2",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-2_cue_bank_angled_top.mp4",
+   "title": "CB kicked off rail at angle, topspin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "topspin"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.85,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 32.5,
+   "mm_per_px": 0.879,
+   "measured": {
+    "apex_frame": 8,
+    "theta_in_deg": 26.77,
+    "theta_in_sigma_deg": 0.93,
+    "v_in_pxf": 9.148,
+    "n_frames_in": 5,
+    "theta_out_deg": 22.77,
+    "theta_out_sigma_deg": 0.79,
+    "v_out_pxf": 6.021,
+    "n_frames_out": 18,
+    "speed_ratio": 0.6582,
+    "speed_ratio_sigma": 0.0206,
+    "e_n": 0.6798,
+    "e_n_sigma": 0.0176,
+    "tangential_ratio": 0.5655,
+    "tangential_ratio_sigma": 0.0281,
+    "vn_in_pxf": 8.167,
+    "vt_in_pxf": 4.121,
+    "vt_out_pxf": 2.33,
+    "dwell_frames_capture": 12.0,
+    "v_in_mps_if_1000fps": 8.04,
+    "v_out_mps_if_1000fps": 5.29,
+    "dwell_ms_if_1000fps": 12.0
+   },
+   "qc": [
+    "short_pre_contact_capture",
+    "dwell_estimate_unreliable",
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSV6-3",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-3_cue_bank_angled_bottom.mp4",
+   "title": "CB kicked off rail at angle, bottom spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "draw"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.91,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 25.6,
+   "mm_per_px": 1.116,
+   "measured": {
+    "apex_frame": 23,
+    "theta_in_deg": 25.25,
+    "theta_in_sigma_deg": 0.91,
+    "v_in_pxf": 9.311,
+    "n_frames_in": 18,
+    "theta_out_deg": 22.56,
+    "theta_out_sigma_deg": 0.15,
+    "v_out_pxf": 6.935,
+    "n_frames_out": 18,
+    "speed_ratio": 0.7448,
+    "speed_ratio_sigma": 0.0176,
+    "e_n": 0.7605,
+    "e_n_sigma": 0.0148,
+    "tangential_ratio": 0.6699,
+    "tangential_ratio_sigma": 0.0248,
+    "vn_in_pxf": 8.421,
+    "vt_in_pxf": 3.972,
+    "vt_out_pxf": 2.661,
+    "dwell_frames_capture": 15.0,
+    "v_in_mps_if_1000fps": 10.39,
+    "v_out_mps_if_1000fps": 7.74,
+    "dwell_ms_if_1000fps": 15.0
+   },
+   "qc": [
+    "dwell_estimate_unreliable",
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSV6-4",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-4_cue_bank_angled_roll.mp4",
+   "title": "CB kicked off rail at angle, normal roll",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "roll"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.83,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 32.9,
+   "mm_per_px": 0.869,
+   "measured": {
+    "apex_frame": 39,
+    "theta_in_deg": 28.98,
+    "theta_in_sigma_deg": 0.77,
+    "v_in_pxf": 6.252,
+    "n_frames_in": 18,
+    "theta_out_deg": 32.67,
+    "theta_out_sigma_deg": 0.71,
+    "v_out_pxf": 4.12,
+    "n_frames_out": 18,
+    "speed_ratio": 0.659,
+    "speed_ratio_sigma": 0.0194,
+    "e_n": 0.6342,
+    "e_n_sigma": 0.0183,
+    "tangential_ratio": 0.7342,
+    "tangential_ratio_sigma": 0.0223,
+    "vn_in_pxf": 5.469,
+    "vt_in_pxf": 3.029,
+    "vt_out_pxf": 2.224,
+    "dwell_frames_capture": 11.0,
+    "v_in_mps_if_1000fps": 5.43,
+    "v_out_mps_if_1000fps": 3.58,
+    "dwell_ms_if_1000fps": 11.0
+   },
+   "qc": [
+    "dwell_estimate_unreliable",
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSV6-5",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-5_cue_bank_angled_stun.mp4",
+   "title": "CB kicked off rail at angle, stun",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "stun"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.44,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 32.3,
+   "mm_per_px": 0.885,
+   "measured": {
+    "apex_frame": 38,
+    "theta_in_deg": 26.73,
+    "theta_in_sigma_deg": 0.22,
+    "v_in_pxf": 6.516,
+    "n_frames_in": 18,
+    "theta_out_deg": 14.37,
+    "theta_out_sigma_deg": 0.16,
+    "v_out_pxf": 3.897,
+    "n_frames_out": 18,
+    "speed_ratio": 0.598,
+    "speed_ratio_sigma": 0.0041,
+    "e_n": 0.6486,
+    "e_n_sigma": 0.0036,
+    "tangential_ratio": 0.3299,
+    "tangential_ratio_sigma": 0.0045,
+    "vn_in_pxf": 5.82,
+    "vt_in_pxf": 2.931,
+    "vt_out_pxf": 0.967,
+    "dwell_frames_capture": 5.0,
+    "v_in_mps_if_1000fps": 5.77,
+    "v_out_mps_if_1000fps": 3.45,
+    "dwell_ms_if_1000fps": 5.0
+   },
+   "qc": [
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSV6-6",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-6_bank_fast_left.mp4",
+   "title": "Bank fast speed + reverse (left) spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "fast",
+    "spin": "reverse-english"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.0,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 30.6,
+   "mm_per_px": 0.934,
+   "measured": {
+    "apex_frame": 39,
+    "theta_in_deg": 28.54,
+    "theta_in_sigma_deg": 0.29,
+    "v_in_pxf": 6.186,
+    "n_frames_in": 18,
+    "theta_out_deg": 21.33,
+    "theta_out_sigma_deg": 0.1,
+    "v_out_pxf": 3.908,
+    "n_frames_out": 18,
+    "speed_ratio": 0.6317,
+    "speed_ratio_sigma": 0.006,
+    "e_n": 0.6698,
+    "e_n_sigma": 0.0065,
+    "tangential_ratio": 0.4808,
+    "tangential_ratio_sigma": 0.0043,
+    "vn_in_pxf": 5.435,
+    "vt_in_pxf": 2.956,
+    "vt_out_pxf": 1.421,
+    "dwell_frames_capture": 8.0,
+    "v_in_mps_if_1000fps": 5.78,
+    "v_out_mps_if_1000fps": 3.65,
+    "dwell_ms_if_1000fps": 8.0
+   },
+   "qc": [
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSV6-7",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-7_bank_fast_right.mp4",
+   "title": "Bank fast speed + natural/running (right) spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "fast",
+    "spin": "running-english"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.0,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 31.0,
+   "mm_per_px": 0.922,
+   "measured": {
+    "apex_frame": 36,
+    "theta_in_deg": 27.17,
+    "theta_in_sigma_deg": 0.5,
+    "v_in_pxf": 5.296,
+    "n_frames_in": 18,
+    "theta_out_deg": 39.08,
+    "theta_out_sigma_deg": 0.25,
+    "v_out_pxf": 3.996,
+    "n_frames_out": 18,
+    "speed_ratio": 0.7545,
+    "speed_ratio_sigma": 0.0113,
+    "e_n": 0.6583,
+    "e_n_sigma": 0.0093,
+    "tangential_ratio": 1.0415,
+    "tangential_ratio_sigma": 0.0195,
+    "vn_in_pxf": 4.712,
+    "vt_in_pxf": 2.419,
+    "vt_out_pxf": 2.519,
+    "dwell_frames_capture": 7.0,
+    "v_in_mps_if_1000fps": 4.88,
+    "v_out_mps_if_1000fps": 3.68,
+    "dwell_ms_if_1000fps": 7.0
+   },
+   "qc": [
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSV6-8",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-8_bank_slow_left.mp4",
+   "title": "Bank slow speed + reverse (left) spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "slow",
+    "spin": "reverse-english"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.0,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 31.5,
+   "mm_per_px": 0.907,
+   "measured": {
+    "apex_frame": 68,
+    "theta_in_deg": 23.93,
+    "theta_in_sigma_deg": 0.21,
+    "v_in_pxf": 2.73,
+    "n_frames_in": 18,
+    "theta_out_deg": 12.32,
+    "theta_out_sigma_deg": 0.19,
+    "v_out_pxf": 2.192,
+    "n_frames_out": 18,
+    "speed_ratio": 0.803,
+    "speed_ratio_sigma": 0.0056,
+    "e_n": 0.8582,
+    "e_n_sigma": 0.0047,
+    "tangential_ratio": 0.4224,
+    "tangential_ratio_sigma": 0.0075,
+    "vn_in_pxf": 2.495,
+    "vt_in_pxf": 1.107,
+    "vt_out_pxf": 0.468,
+    "dwell_frames_capture": 1.0,
+    "v_in_mps_if_1000fps": 2.48,
+    "v_out_mps_if_1000fps": 1.99,
+    "dwell_ms_if_1000fps": 1.0
+   },
+   "qc": [
+    "dwell_estimate_unreliable",
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSV6-9",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-9_bank_slow_right.mp4",
+   "title": "Bank slow speed + natural/running (right) spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "slow",
+    "spin": "running-english"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.0,
+   "frame_duplication_factor": 2,
+   "ball_radius_px": 31.1,
+   "mm_per_px": 0.919,
+   "measured": {
+    "apex_frame": 64,
+    "theta_in_deg": 23.88,
+    "theta_in_sigma_deg": 1.14,
+    "v_in_pxf": 6.746,
+    "n_frames_in": 18,
+    "theta_out_deg": 47.09,
+    "theta_out_sigma_deg": 1.24,
+    "v_out_pxf": 5.714,
+    "n_frames_out": 18,
+    "speed_ratio": 0.8471,
+    "speed_ratio_sigma": 0.0428,
+    "e_n": 0.6307,
+    "e_n_sigma": 0.0337,
+    "tangential_ratio": 1.5327,
+    "tangential_ratio_sigma": 0.0668,
+    "vn_in_pxf": 6.168,
+    "vt_in_pxf": 2.73,
+    "vt_out_pxf": 4.186,
+    "dwell_frames_capture": 6.0,
+    "v_in_mps_if_1000fps": 6.2,
+    "v_out_mps_if_1000fps": 5.25,
+    "dwell_ms_if_1000fps": 6.0
+   },
+   "qc": [
+    "duplicated_frames_factor_2",
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSV6-10",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-10_cue_bank_straight_right.mp4",
+   "title": "CB kicked straight into rail with (right) sidespin",
+   "conditions": {
+    "approach": "near-perpendicular",
+    "speed": "medium",
+    "spin": "sidespin"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.61,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 32.9,
+   "mm_per_px": 0.869,
+   "measured": {
+    "apex_frame": 37,
+    "theta_in_deg": 4.21,
+    "theta_in_sigma_deg": 0.7,
+    "v_in_pxf": 4.252,
+    "n_frames_in": 18,
+    "theta_out_deg": 20.6,
+    "theta_out_sigma_deg": 0.7,
+    "v_out_pxf": 2.834,
+    "n_frames_out": 18,
+    "speed_ratio": 0.6665,
+    "speed_ratio_sigma": 0.0188,
+    "e_n": 0.6256,
+    "e_n_sigma": 0.0141,
+    "tangential_ratio": -3.1905,
+    "tangential_ratio_sigma": 0.5428,
+    "vn_in_pxf": 4.241,
+    "vt_in_pxf": 0.312,
+    "vt_out_pxf": -0.997,
+    "dwell_frames_capture": 13.0,
+    "v_in_mps_if_1000fps": 3.69,
+    "v_out_mps_if_1000fps": 2.46,
+    "dwell_ms_if_1000fps": 13.0
+   },
+   "qc": [
+    "near_perpendicular_tangential_ratio_ill_conditioned",
+    "dwell_estimate_unreliable",
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSV6-11",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-11_cue_bank_angled_left.mp4",
+   "title": "CB kicked off rail with reverse (left) spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "reverse-english"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.83,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 32.6,
+   "mm_per_px": 0.877,
+   "measured": {
+    "apex_frame": 18,
+    "theta_in_deg": 28.06,
+    "theta_in_sigma_deg": 0.11,
+    "v_in_pxf": 6.848,
+    "n_frames_in": 14,
+    "theta_out_deg": 14.22,
+    "theta_out_sigma_deg": 0.22,
+    "v_out_pxf": 4.271,
+    "n_frames_out": 18,
+    "speed_ratio": 0.6237,
+    "speed_ratio_sigma": 0.0044,
+    "e_n": 0.6851,
+    "e_n_sigma": 0.0041,
+    "tangential_ratio": 0.3256,
+    "tangential_ratio_sigma": 0.0051,
+    "vn_in_pxf": 6.043,
+    "vt_in_pxf": 3.222,
+    "vt_out_pxf": 1.049,
+    "dwell_frames_capture": 5.0,
+    "v_in_mps_if_1000fps": 6.01,
+    "v_out_mps_if_1000fps": 3.75,
+    "dwell_ms_if_1000fps": 5.0
+   },
+   "qc": [
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSV6-12",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-12_cue_bank_angled_right.mp4",
+   "title": "CB kicked off rail with natural/running (right) spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "running-english"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.99,
+   "frame_duplication_factor": 2,
+   "ball_radius_px": 32.2,
+   "mm_per_px": 0.887,
+   "measured": {
+    "apex_frame": 8,
+    "theta_in_deg": 27.74,
+    "theta_in_sigma_deg": 6.52,
+    "v_in_pxf": 8.79,
+    "n_frames_in": 5,
+    "theta_out_deg": 33.03,
+    "theta_out_sigma_deg": 0.92,
+    "v_out_pxf": 6.696,
+    "n_frames_out": 18,
+    "speed_ratio": 0.7617,
+    "speed_ratio_sigma": 0.1518,
+    "e_n": 0.7215,
+    "e_n_sigma": 0.145,
+    "tangential_ratio": 0.8922,
+    "tangential_ratio_sigma": 0.1718,
+    "vn_in_pxf": 7.78,
+    "vt_in_pxf": 4.092,
+    "vt_out_pxf": 3.65,
+    "dwell_frames_capture": 12.5,
+    "v_in_mps_if_1000fps": 7.8,
+    "v_out_mps_if_1000fps": 5.94,
+    "dwell_ms_if_1000fps": 12.5
+   },
+   "qc": [
+    "short_pre_contact_capture",
+    "duplicated_frames_factor_2",
+    "dwell_estimate_unreliable",
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSV6-13",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-13_banked_ball_glanced_fast.mp4",
+   "title": "OB banked fast with cut-angle-induced spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "fast",
+    "spin": "cut-induced"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.0,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 29.4,
+   "mm_per_px": 0.972,
+   "measured": {
+    "apex_frame": 47,
+    "theta_in_deg": 43.52,
+    "theta_in_sigma_deg": 0.16,
+    "v_in_pxf": 3.33,
+    "n_frames_in": 14,
+    "theta_out_deg": 40.76,
+    "theta_out_sigma_deg": 0.49,
+    "v_out_pxf": 2.259,
+    "n_frames_out": 10,
+    "speed_ratio": 0.6784,
+    "speed_ratio_sigma": 0.0083,
+    "e_n": 0.7087,
+    "e_n_sigma": 0.0045,
+    "tangential_ratio": 0.6432,
+    "tangential_ratio_sigma": 0.011,
+    "vn_in_pxf": 2.415,
+    "vt_in_pxf": 2.293,
+    "vt_out_pxf": 1.475,
+    "dwell_frames_capture": 2.0,
+    "v_in_mps_if_1000fps": 3.24,
+    "v_out_mps_if_1000fps": 2.2,
+    "dwell_ms_if_1000fps": 2.0
+   },
+   "qc": [
+    "two_moving_balls",
+    "post_contact_curvature",
+    "dwell_estimate_unreliable",
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSV6-14",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/HSV6-14_banked_ball_glanced_slow.mp4",
+   "title": "OB banked slowly with cut-angle-induced spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "slow",
+    "spin": "cut-induced"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "inferred"
+   },
+   "cushion_tilt_deg": -0.0,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 29.7,
+   "mm_per_px": 0.962,
+   "measured": {
+    "apex_frame": 32,
+    "theta_in_deg": 26.69,
+    "theta_in_sigma_deg": 0.27,
+    "v_in_pxf": 4.073,
+    "n_frames_in": 16,
+    "theta_out_deg": 23.85,
+    "theta_out_sigma_deg": 0.26,
+    "v_out_pxf": 2.313,
+    "n_frames_out": 14,
+    "speed_ratio": 0.5679,
+    "speed_ratio_sigma": 0.0062,
+    "e_n": 0.5813,
+    "e_n_sigma": 0.0059,
+    "tangential_ratio": 0.5112,
+    "tangential_ratio_sigma": 0.0071,
+    "vn_in_pxf": 3.639,
+    "vt_in_pxf": 1.83,
+    "vt_out_pxf": 0.935,
+    "dwell_frames_capture": 4.0,
+    "v_in_mps_if_1000fps": 3.92,
+    "v_out_mps_if_1000fps": 2.23,
+    "dwell_ms_if_1000fps": 4.0
+   },
+   "qc": [
+    "two_moving_balls",
+    "post_contact_curvature",
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSVA-26",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/new/HSVA-26_kick_with_English.mp4",
+   "title": "Kick shot with english",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "sidespin"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "stamped_1000fps_osd"
+   },
+   "cushion_tilt_deg": null,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 18.5,
+   "mm_per_px": 1.545,
+   "measured": {
+    "apex_frame": 36,
+    "theta_in_deg": 4.11,
+    "theta_in_sigma_deg": 2.12,
+    "v_in_pxf": 4.513,
+    "n_frames_in": 18,
+    "theta_out_deg": 23.95,
+    "theta_out_sigma_deg": 2.04,
+    "v_out_pxf": 3.421,
+    "n_frames_out": 18,
+    "speed_ratio": 0.758,
+    "speed_ratio_sigma": 0.0139,
+    "e_n": 0.6946,
+    "e_n_sigma": 0.0084,
+    "tangential_ratio": -4.2908,
+    "tangential_ratio_sigma": 0.7335,
+    "vn_in_pxf": 4.502,
+    "vt_in_pxf": 0.324,
+    "vt_out_pxf": -1.389,
+    "dwell_frames_capture": 1.0,
+    "v_in_mps_if_1000fps": 6.97,
+    "v_out_mps_if_1000fps": 5.29,
+    "dwell_ms_if_1000fps": 1.0
+   },
+   "qc": [
+    "no_cushion_edge_fit_axis_aligned",
+    "near_perpendicular_tangential_ratio_ill_conditioned",
+    "dwell_estimate_unreliable",
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSVA-27",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/new/HSVA-27_small_angle_kick_with_reverse_English.mp4",
+   "title": "Small-angle kick with reverse english",
+   "conditions": {
+    "approach": "small-angle",
+    "speed": "medium",
+    "spin": "reverse-english"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "stamped_1000fps_osd"
+   },
+   "cushion_tilt_deg": null,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 18.6,
+   "mm_per_px": 1.536,
+   "measured": {
+    "apex_frame": 28,
+    "theta_in_deg": 19.46,
+    "theta_in_sigma_deg": 2.05,
+    "v_in_pxf": 6.478,
+    "n_frames_in": 18,
+    "theta_out_deg": 10.12,
+    "theta_out_sigma_deg": 2.01,
+    "v_out_pxf": 4.629,
+    "n_frames_out": 18,
+    "speed_ratio": 0.7146,
+    "speed_ratio_sigma": 0.0102,
+    "e_n": 0.7461,
+    "e_n_sigma": 0.0094,
+    "tangential_ratio": -0.3769,
+    "tangential_ratio_sigma": 0.011,
+    "vn_in_pxf": 6.108,
+    "vt_in_pxf": 2.158,
+    "vt_out_pxf": -0.814,
+    "dwell_frames_capture": 1.0,
+    "v_in_mps_if_1000fps": 9.95,
+    "v_out_mps_if_1000fps": 7.11,
+    "dwell_ms_if_1000fps": 1.0
+   },
+   "qc": [
+    "no_cushion_edge_fit_axis_aligned",
+    "dwell_estimate_unreliable",
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSVA-28",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/new/HSVA-28_small_angle_kick_with_running_English.mp4",
+   "title": "Small-angle kick with running english",
+   "conditions": {
+    "approach": "small-angle",
+    "speed": "medium",
+    "spin": "running-english"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "stamped_1000fps_osd"
+   },
+   "cushion_tilt_deg": null,
+   "frame_duplication_factor": 1,
+   "ball_radius_px": 17.4,
+   "mm_per_px": 1.642,
+   "measured": {
+    "apex_frame": 24,
+    "theta_in_deg": 11.85,
+    "theta_in_sigma_deg": 2.18,
+    "v_in_pxf": 5.965,
+    "n_frames_in": 18,
+    "theta_out_deg": 29.86,
+    "theta_out_sigma_deg": 2.01,
+    "v_out_pxf": 5.572,
+    "n_frames_out": 18,
+    "speed_ratio": 0.934,
+    "speed_ratio_sigma": 0.0308,
+    "e_n": 0.8277,
+    "e_n_sigma": 0.025,
+    "tangential_ratio": 2.2648,
+    "tangential_ratio_sigma": 0.1581,
+    "vn_in_pxf": 5.838,
+    "vt_in_pxf": -1.225,
+    "vt_out_pxf": -2.774,
+    "dwell_frames_capture": 8.0,
+    "v_in_mps_if_1000fps": 9.79,
+    "v_out_mps_if_1000fps": 9.15,
+    "dwell_ms_if_1000fps": 8.0
+   },
+   "qc": [
+    "no_cushion_edge_fit_axis_aligned",
+    "perspective_skew_uncorrected"
+   ]
+  },
+  {
+   "clip_id": "HSVA-68",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/new/HSVA-68_kick_shot_with_running-English_slow.mp4",
+   "title": "Large-angle kick with running english, slow",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "slow",
+    "spin": "running-english"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "stamped_1000fps_osd"
+   },
+   "measured": null,
+   "qc": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ]
+  },
+  {
+   "clip_id": "HSVA-69",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/new/HSVA-69_kick_shot_with_running-English_fast.mp4",
+   "title": "Large-angle kick with running english, fast",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "fast",
+    "spin": "running-english"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "stamped_1000fps_osd"
+   },
+   "measured": null,
+   "qc": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ]
+  },
+  {
+   "clip_id": "HSVA-70",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/new/HSVA-70_kick_shot_with_reverse-English_slow.mp4",
+   "title": "Large-angle kick with reverse english, slow",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "slow",
+    "spin": "reverse-english"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "stamped_1000fps_osd"
+   },
+   "measured": null,
+   "qc": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ]
+  },
+  {
+   "clip_id": "HSVA-71",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/new/HSVA-71_kick_shot_with_reverse-English_fast.mp4",
+   "title": "Large-angle kick with reverse english, fast",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "fast",
+    "spin": "reverse-english"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "stamped_1000fps_osd"
+   },
+   "measured": null,
+   "qc": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ]
+  },
+  {
+   "clip_id": "HSVA-72",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/new/HSVA-72_kick_shot_with_draw_slow.mp4",
+   "title": "Large-angle kick with draw, slow",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "slow",
+    "spin": "draw"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "stamped_1000fps_osd"
+   },
+   "measured": null,
+   "qc": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ]
+  },
+  {
+   "clip_id": "HSVA-73",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/new/HSVA-73_kick_shot_with_draw_fast.mp4",
+   "title": "Large-angle kick with draw, fast",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "fast",
+    "spin": "draw"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "stamped_1000fps_osd"
+   },
+   "measured": null,
+   "qc": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ]
+  },
+  {
+   "clip_id": "HSVA-74",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/new/HSVA-74_kick_shot_with_follow_slow.mp4",
+   "title": "Large-angle kick with follow, slow",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "slow",
+    "spin": "follow"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "stamped_1000fps_osd"
+   },
+   "measured": null,
+   "qc": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ]
+  },
+  {
+   "clip_id": "HSVA-75",
+   "url": "https://drdavepoolinfo.com/high_speed_videos/new/HSVA-75_kick_shot_with_follow_fast.mp4",
+   "title": "Large-angle kick with follow, fast",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "fast",
+    "spin": "follow"
+   },
+   "fps": {
+    "value": 1000,
+    "provenance": "stamped_1000fps_osd"
+   },
+   "measured": null,
+   "qc": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ]
+  },
+  {
+   "clip_id": "HSVB-41",
+   "url": "https://www.youtube.com/watch?v=wjeMWHfmMk4",
+   "title": "Bank shot speed effects, with Bob Jewett (narrated B-series video)",
+   "conditions": {
+    "approach": "various",
+    "speed": "various",
+    "spin": "various"
+   },
+   "fps": {
+    "value": 30,
+    "provenance": "broadcast_edit_playback_rate"
+   },
+   "measured": null,
+   "qc": [
+    "not_measurable_multi_scene_narrated_edit",
+    "live_table_scenes_oblique_no_homography",
+    "embedded_hsv_inserts_also_stamp_1000fps"
+   ]
+  }
+ ]
+}

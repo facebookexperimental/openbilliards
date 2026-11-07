@@ -1,0 +1,1056 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+# CI gates for the pool-core kernel (feature 001).
+#
+# Cross-platform determinism (spec SC-001 / FR-015(c)): the `determinism`
+# matrix job runs the two-backend (native pool-cli vs canonical wasm-under-
+# node) byte comparison on each platform and uploads the record bytes as
+# artifacts; the final `determinism-compare` job byte-compares those records
+# ACROSS platforms. Tracked in GitHub issue #6 (determinism infrastructure:
+# canonical binary, replay format, desync detection).
+name: ci
+
+on:
+  push:
+    branches: [main, "001-*"]
+    # Inert-directory filter (#170 load hygiene): research/artifact pushes
+    # trigger no gate that could observe them. Load-bearing prose
+    # (the ownership ledger, web/README.md, specs/) stays UNfiltered on purpose.
+    #
+    # `docs/**` USED TO SIT IN THIS LIST, on the stated grounds that "nothing
+    # in these trees is read by any CI step". That was true when it was
+    # written and stopped being true in S3 R4, which added the round tense +
+    # citation gate below — a gate whose declared scope is four files under
+    # the adr, reference and verification trees of docs/, and whose citation host
+    # is docs/reference/MANIFEST.md. The filter went on excluding them, so the
+    # one gate that reads docs/ was the one gate that could never see a
+    # docs-only change: the prose it polices could be edited freely and no run
+    # would start. A figure correct on the day it was typed, left standing
+    # while the thing it described grew — which is the defect class this
+    # round's gates exist to catch, one level up, in their own trigger.
+    #
+    # Negated `paths` rather than `paths-ignore` because the two keys cannot
+    # be combined and this needs BOTH senses. Order matters: later patterns
+    # override earlier ones, so the four re-includes must stay below the
+    # `!docs/**` that they narrow. check-round-tense.mjs reads this block and
+    # fails if any file in its scope is filtered out of it, so this list
+    # cannot quietly fall behind the gate a second time. The fourth is the
+    # ball-return track schema (docs/geometry/ball-return-track.schema.json):
+    # test-ballreturn.mjs's n1 compares it against its committed mirror
+    # web/scene/ballreturn/track-schema.js, so a schema-only change must start
+    # the run that holds that gate (review ciwire1 on the CIWIRE PR).
+    paths:
+      - "**"
+      - "!site/**"
+      - "!docs/**"
+      - "docs/adr/**"
+      - "docs/reference/**"
+      - "docs/geometry/ball-return-track.schema.json"
+  pull_request:
+    paths:
+      - "**"
+      - "!site/**"
+      - "!docs/**"
+      - "docs/adr/**"
+      - "docs/reference/**"
+      - "docs/geometry/ball-return-track.schema.json"
+  # GH-942: reusable surface so a nightly caller can run the full matrix
+  # (including the hosted macOS legs) without a push to main; manual dispatch
+  # gets the same full matrix for macOS verification on demand.
+  workflow_call:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * *" # daily 10:00 UTC, hosted legs only (self-hosted jobs skip schedule below)
+
+# Superseded-run dedupe (#170 load hygiene): a newer push to the same
+# ref cancels the older in-flight run — EXCEPT on main, where every merge
+# commit keeps its full verdict (the freshness/lineage doctrine reads
+# main's history as a ledger). GitHub keeps ONE pending run per group even
+# with cancel-in-progress false, so the shared main group displaced pending
+# main runs with 0 jobs (2026-10-06: push 37482768399 by the next push
+# 37482870495, which the 16:27Z schedule run then displaced). Every main
+# push therefore gets its own group (ci-<ref>-<sha>), and the schedule and
+# manual dispatches get theirs; every other ref keeps ci-<ref>.
+concurrency:
+  group: ci-${{ github.ref }}${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && format('-{0}', github.sha) || '' }}${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && format('-{0}', github.event_name) || '' }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  CARGO_TERM_COLOR: always
+  # Chrome launch and served-tree preflight budgets for web/tools/cdp.mjs. The self-hosted browser host is shared and runs
+  # under sustained load, where Chrome's debugger endpoint and the static server's first answer can take longer than the
+  # 15 s defaults (100 launch tries x 150 ms; a 15 s preflight). These raise the launch and preflight budgets only; no
+  # suite timing changes. OB_CDP_LAUNCH_MS is an elapsed-time deadline on the launch poll: a Chrome that accepts the
+  # connection and stalls /json/list costs up to 5 s per try, so the try count alone could outlast a job's timeout.
+  OB_CDP_LAUNCH_TRIES: "800"   # 800 x 150 ms = 120 s when the endpoint refuses fast
+  OB_CDP_LAUNCH_MS: "120000"   # the launch poll's hard deadline: budget + one in-flight try
+  OB_CDP_PREFLIGHT_MS: "60000"
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        # GH-942: hosted macOS leg only on push to main, schedule or workflow_dispatch; PRs run ubuntu-latest only. Under workflow_call, event_name is the caller's event.
+        os: ${{ ((github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && fromJSON('["ubuntu-latest", "macos-latest"]') || fromJSON('["ubuntu-latest"]') }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history. TWO steps in this job depend on it, and this is the
+          # only checkout in the workflow that has it — the other 21 are
+          # shallow, so a step that needs history cannot be moved to a cheaper
+          # job without bringing this line along:
+          #
+          #   1. the dist-freshness step resolves the commit hash embedded in
+          #      the committed canonical wasm;
+          #   2. `tools/check-round-tense.mjs --selftest` walks `base..HEAD` —
+          #      the `base` pin in tools/fixtures/round-tense-differential.json
+          #      plus every commit since — to assemble the corpus its retention
+          #      ratchet compares against. With a shallow checkout the pin does
+          #      not resolve and the gate is RED by design, not skipped.
+          #
+          # On a `pull_request` the walk is `base..refs/pull/N/merge`, which
+          # also holds every commit that landed on the base branch while the
+          # pull request was open: measured 95 revisions where a local run
+          # reads 16, at the same cost, because the gate groups revisions by
+          # corpus state.
+          fetch-depth: 0
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+      - name: cargo test (workspace)
+        run: cargo test --workspace
+      - name: clippy (deny warnings)
+        # chunks_exact_to_as_chunks is allowed at the invocation: its as_chunks
+        # rewrite implies a toolchain floor the workspace does not pin, and an
+        # in-source allow inside crates/pool-wasm would trip the dist-wasm
+        # freshness gate for a change that cannot reach the canonical binary.
+        # -A unknown_lints keeps the command valid on toolchains that predate the lint name.
+        run: cargo clippy --workspace --all-targets -- -D warnings -A unknown_lints -A clippy::chunks_exact_to_as_chunks
+      # Feature 013 migration-gate check M2 (contracts/conformance-gate.md §2):
+      # the float-discipline lint (crates/pool-rules/clippy.toml
+      # disallowed-methods — no hypot/mul_add/transcendentals; only
+      # + - * / sqrt and comparisons may touch judgment-relevant floats).
+      # Runs FROM the crate directory: clippy resolves clippy.toml from the
+      # invocation directory upward, so the workspace-root clippy above
+      # compiles the crate but does not apply the per-crate config.
+      - name: clippy pool-rules float discipline (013 M2)
+        working-directory: crates/pool-rules
+        # Same chunks_exact_to_as_chunks posture as the workspace clippy above:
+        # in-source allows would trip the dist-rules freshness gate.
+        run: cargo clippy --all-targets -- -D warnings -A unknown_lints -A clippy::chunks_exact_to_as_chunks
+      - name: forbidden-API grep (constitution P-III — libm-only transcendentals)
+        run: |
+          ! grep -rnE '(\.|f64::)(sin|cos|tan|asin|acos|atan|atan2|sqrt|cbrt|hypot|exp|exp2|ln|log|log2|log10|powf|sin_cos)\(' \
+              crates/pool-core/src crates/pool-wasm/src
+      # GH-246 glyph gate (STATIC STRING COMPARISON, no browser). The primary
+      # chrome pills carry their glyph path data INLINE so an absent
+      # ui/icons.js cannot degrade the mark, which means the same drawing lives
+      # in two places. This asserts, by string equality only: every
+      # /* OB-GLYPH:<name> */ constant is byte-identical to ui/icons.js's entry;
+      # the whole <svg> the module emits is byte-identical to iconHtml(name);
+      # the constant is actually used; and no required inlining disappeared.
+      # It judges NOTHING about the glyph's SHAPE — the mark's ring/triangle
+      # counter is measured on PIXELS by e2e-playback arm 6e, because the
+      # renderer, not a path parser, is the instrument for that claim.
+      - name: glyph audit (GH-246 — inlined-glyph string identity)
+        run: node web/tools/glyph-audit.mjs
+      # Hero-wave replay grammar (the scenario edit-law-v3 port into the hero
+      # renderer): pure rate-program + replay-plan law cases — no browser, no
+      # wasm init. Guards the single-run bit-parity law (plans without
+      # rewinds emit the exact pre-replay clock — proven against a frozen
+      # copy of the pre-port builder, never a host-float sha pin: ubuntu
+      # red-proved that Math.pow ulps differ per platform), the per-run
+      # KEY-CROSSING /
+      # RAMP-DURATION asserts, the measured ≤ 1.35× cut-less step scan and
+      # the dissolve run-length law. PLUS the two-tier verify-law red-proofs
+      # (issues #345/#346, web/tools/lib/pixelverdict.mjs): synthetic
+      # content-blob / LSB-speckle frames must classify content-red /
+      # speckle-green per envelope rule — those cases run the production
+      # python classifier, hence the numpy+Pillow install (the fixtures are
+      # deterministic, no RNG, so the verdicts are platform-stable).
+      # scenario-render's verify may stamp
+      # its law verdict on a clip's gates record only when the report's
+      # augustLook block matches the run's --august-look knob (kernel and
+      # renderer digest are the same either way). The arm checks the guard's
+      # cases, recordVerifyLaw's wiring, and that two planted guards are caught.
+      # scenario-batch's inputsDigest must
+      # cover every module the render/verify path imports (lib/batch-inputs.mjs)
+      # unless it is exempted there with a reason; a module missing from it
+      # would let a guard or law change slip past the DONE ledger and the
+      # mid-batch frozen-input check. The arm red-proves a planted omission.
+      # Feature 006 design-token gate: UI chrome consumes --ob-* tokens only.
+      # Covers the chrome JS modules + app.html AND the consumer stylesheets
+      # (kit/help/settings-modal/touch — #49 review finding 4; tokens.css is
+      # the one file that OWNS literals and stays out). GH-535: the gate is
+      # web/tools/token-grep.mjs, not a raw grep — comments (JS // and
+      # /* */, CSS /* */, HTML <!-- -->) are lexed OUT of the scanned
+      # surface, because issue/PR references in comments ('PR #531', '#523')
+      # parse as 3-digit hex colors and cost two red rounds in one week
+      # (dc9eeb85, b1c6fecc). The lexer is string-aware ('https://…' never
+      # opens a comment) and only comment bytes leave the surface, so a
+      # literal beside a trailing comment on the same line still fails.
+      # Allowed escapes are UNCHANGED: ob-color-exempt line annotations,
+      # BALL_COLORS (game content, not chrome), and the token expressions
+      # themselves — var(--ob-*, fallback) / tok('--ob-x', fallback) /
+      # v('--ob-x', fallback) are stripped per-EXPRESSION before the
+      # color-literal match (a line-wide exclusion could hide a hardcoded
+      # color sitting beside a token use on the same line). The selftest
+      # step red-proves both directions on every run: the verbatim
+      # historical false-positive comments must pass, and hardcoded-color
+      # canaries (including digit-only hex like #333/#523-in-code) must
+      # still fail.
+      - name: design-token gate selftest (GH-535 red-proofs)
+        run: node web/tools/token-grep.mjs --selftest
+      # GH-668 (S5 kit): tokens.css contrast RECEIPTS as a machine test —
+      # every (ink, ground) pair the kit charter names, composited over the
+      # four scene bases the glass sits on, plus the height ladder / z scale
+      # / lh-control / pill-pad-ratio values. The selftest red-proves seven
+      # mutations of the shipped sheet (a gate that cannot fail is
+      # decoration). No browser, no wasm.
+      - name: design-token receipts selftest (GH-668 red-proofs)
+        run: node web/tools/token-receipts.mjs --selftest
+      - name: design-token receipts (GH-668 B-K02 / B-K20 ground + ink laws)
+        run: node web/tools/token-receipts.mjs
+      # GH-668 B-K23 / B-K13 (S5 kit step 8): the SAME run also applies the
+      # hygiene law — line-height / bare z-index / ::-webkit-scrollbar /
+      # scrollbar-* and uppercase outside kit.css / letter-spacing literals
+      # are red unless a FROZEN shrink-only ledger row (token-grep.mjs
+      # HYG_OK, liveness-checked) names the exact literal and the slice that
+      # retires it. The selftest above red-proves every rule + the judge.
+      - name: design-token grep (feature 006 (internal spec) T013 — no hardcoded UI colors; GH-668 hygiene law)
+        run: |
+          node web/tools/token-grep.mjs \
+              web/app/settings.js web/app/export.js web/app/share.js \
+              web/app/record.js web/app/hud.js web/app/aimwidgets.js \
+              web/app/flow.js web/app/preview.js web/app/previewink.js \
+              web/app.html \
+              web/app/swupdate.js web/app/ui/swupdate.css \
+              web/app/help.js web/app/ui/icons.js web/app/ui/navmodal.js \
+              web/app/touchwidgets.js web/app/touch.js \
+              web/app/drills.js web/app/drills/catalog.js \
+              web/app/playback.js web/app/playback-strip.js \
+              web/app/shell.js web/app/shellmover.js \
+              web/app/atelier.js web/app/ateliercue.js \
+              web/app/ui/strip.js web/app/ui/scrollfade.js \
+              web/app/ui/foldsnap.js \
+              web/app/ui/cardrail.js \
+              web/app/ui/kit.css web/app/ui/help.css \
+              web/app/ui/settings-modal.css web/app/ui/touch.css \
+              web/app/ui/drills.css web/app/ui/modes.css \
+              web/app/ui/playback.css web/app/ui/shell.css \
+              web/app/ui/atelier.css \
+              web/app/play.js web/app/ui/play.css \
+              web/app/practice.js web/app/ui/practice.css \
+              web/app/replays.js web/app/ui/replays.css \
+              web/app/ui/switchprogress.js web/app/ui/switchprogress.css
+      # Cue LOOK registry gate (GH-525 D5 / ADR-0016). Plain node against the
+      # committed vendored three — no browser, no wasm. Two laws in one
+      # checker: the ENVELOPE CONTAINMENT proof (every per-cue dimension pack
+      # stays inside the kernel twin's clearance envelope, so cue_clearance.rs
+      # and the renderer cannot diverge) and the PROVENANCE HONESTY ledger
+      # (every shipped dimension AND every shipped reflectance value carries a
+      # Published(...)/Estimated(...) tag, a changed value may not inherit the
+      # default's tag, and no orphan tag survives). It ran only by hand until
+      # now, which is how eight false Published tags lived in the tree —
+      # a gate nobody runs is decoration (review r1 on PR #550).
+      - name: cue LOOK registry gate (envelope containment + ADR-0016 provenance)
+        run: node web/tools/check-cue-looks.mjs
+      # GH-1055: the bug-report analyzer measures the rack ON THE TABLE. The
+      # scenario ring never resets, so after a game switch its last entry is
+      # the previous game's, and its radii false-fired the #44 overlap verdict
+      # (pool → snooker) or false-cleared it (snooker → pool). Synthesised
+      # bundles in the field shapes of real captures, run through the analyzer
+      # as a child process. Plain node, no browser, no wasm.
+      - name: bug-report analyzer radii follow the rack on the table (GH-1055)
+        run: node tools/test-analyze-bugreport.mjs
+      # run-gate's ledger reads its arm count and the failed arms' names through
+      # ONE verdict grammar (web/tools/lib/verdict-grammar.mjs), judged here against
+      # lines from a census of every run-gate suite's PASS/FAIL formats and whole-log
+      # cases (retried runs, uncaught crashes, a summary's own count). It runs before
+      # the census selftest and the tree probe, which read the same grammar, so a
+      # regression names its own rows first. Plain node, no browser.
+      - name: verdict grammar (run-gate ledger arm count and failed arms)
+        run: node web/tools/test-verdict-grammar.mjs
+      # GH-816 review 885r1 P2: the gate ledger's arm count is harvested from
+      # the wrapped command's combined output, and the wrapper's own
+      # 'E2E-RETRY:' narration used to count a second time (practice 37 ->
+      # 75). run-gate's countArms now excludes that prefix before counting;
+      # this proof runs the real wrapper over every recorded PASS/FAIL
+      # fixture plus a bare PASS specimen and asserts the suite's own
+      # number. Plain node, no browser, no wasm.
+      - name: run-gate arm-census selftest (#816 review 885r1)
+        run: node web/tools/run-gate.mjs --selftest-census
+      # GH-935: the hygiene suite's live teeth-proof storm guard waited out its
+      # own 120 s calm bound while the 420 s global watchdog fired first, so a
+      # storm ended as a hang instead of a named SKIPPED-STORM. The guard now
+      # takes a caller deadline; this proof drives it on a virtual clock over
+      # the nightly's replayed busy samples, pins the hygiene wiring, and
+      # checks the nice-aware ps rows the storm lines print (live ps: BSD on
+      # macos, procps on ubuntu). Plain node, no browser, no wasm.
+      - name: pacing deadline selftest (GH-935)
+        run: node web/tools/test-pacing-deadline.mjs
+      # GH-248: lib/boottrace.mjs + perf-aim's wiring. The keep/discard
+      # table, the traced launch order over a fake clock (a 130 s launch
+      # that returns a ready page is kept; a stall after the app navigation
+      # is kept with its reason), the finish budget over a stub browser
+      # endpoint, and a source census of perf-aim.mjs. Plain node, no
+      # browser, no wasm.
+      - name: boot-trace trigger selftest (GH-248)
+        run: node web/tools/test-boottrace.mjs
+      # GH-1115: the boot overlay's slow register and stall card count idle
+      # time only. The shipped clock block of app.html's #ob-boot driver and
+      # its ?obstallms= seam run on a virtual clock: a dead boot cards at the
+      # bound, a long busy task does not, hidden-tab throttling is not
+      # credited, a progress beat restarts the clock. --selftest-plants
+      # mutates the block (no credit, no visibility gate, no beat, ...) and
+      # requires each plant to go red on its target case. Plain node, no
+      # browser, no wasm. The browser legs are e2e-userboot arm 12c.
+      - name: boot overlay idle-only clock (GH-1115)
+        run: node web/tools/test-boot-stall-clock.mjs
+      - name: boot overlay idle-only clock planted reds (GH-1115)
+        run: node web/tools/test-boot-stall-clock.mjs --selftest-plants
+      # GH-1244: previewink.js kicks and resolves no readback through the
+      # boot overlay's fade. The shipped OB-INK-EMBARGO block runs on a
+      # virtual hook-frame clock against overlay timelines (a normal fade,
+      # reduced motion, a stuck fade, slow frames, warming frames, a late
+      # removal, a late module, no overlay), and a census reads the hook's
+      # guards outside the block (the resolve poll, the sampling gate, the
+      # boot-settle hold, degrade()); --selftest-plants mutates the block
+      # and the source (no settle, no cap, edge-only trigger, a tClock
+      # clock, an unguarded hold, ...) and requires each plant to go red on
+      # its target row. Plain node, no browser, no wasm. The browser legs
+      # are the nightly e2e-inkboot.
+      - name: preview-ink boot readback embargo (GH-1244)
+        run: node web/tools/test-ink-embargo.mjs
+      - name: preview-ink boot readback embargo planted reds (GH-1244)
+        run: node web/tools/test-ink-embargo.mjs --selftest-plants
+      # GH-387 / GH-248 class: the corner sweep runs one evaluate per corner
+      # and is merged node-side; this pins the merge on synthetic parts
+      # (sums, order, the 40 cap, bays). Plain node, no browser, no wasm.
+      - name: corner-probe split merge selftest
+        run: node web/tools/test-cornerprobe-merge.mjs
+      # GH-926: a cancelled job left its harness browser listening inside a
+      # dead, released claim, and the next job on that band refused to start.
+      # The claim path now reaps an orphan harness browser it can attribute to
+      # the stale claim (profile marker, PPID 1). This probe plants a PPID-1
+      # stand-in carrying the marker argv and drives the real claim path.
+      # macOS only: under a subreaper on ubuntu-latest the stand-in's PPID is
+      # not 1. Plain node, no browser, no wasm.
+      - name: orphan browser claim-time reap probe (GH-926)
+        if: runner.os == 'macOS'
+        run: node web/tools/test-orphan-browser-claim.mjs
+      # GH-1082: a cancelled or timed-out self-hosted job ended only the step's
+      # shell; run-gate, the suite and its Chrome lived on under launchd with the
+      # band claimed, and the next job in that band failed with exit 75. run-gate
+      # now runs the suite in its own process group, ends the whole tree on
+      # SIGINT/SIGTERM/SIGHUP (SIGKILL after the grace, detached descendants by
+      # pid + start time) and frees the band only once it is gone; under GitHub
+      # Actions a vanished parent counts as SIGHUP; one signal delivered twice
+      # within 1 s (a group signal plus a wrapper's forward) counts once. This
+      # probe SIGTERMs run-gate over a fake suite whose grandchildren hold ports
+      # in the band (one ignores SIGTERM, one is detached), sends a doubled and a
+      # repeated SIGTERM, leaves an unreaped zombie in the suite's group (it must
+      # not count as a survivor), kills a stand-in step shell with the parent
+      # watch off and on, and checks the ledger names a 0-arm red's failed arm.
+      # The zombie stand-in is forked by python3. GH-1140 rows: run-gate's own
+      # --deadline (flag and env) ends the same tree, frees the band and exits
+      # 124 with the deadline in the ledger; bad values are refused by name.
+      # Plain node, no browser, no wasm.
+      - name: run-gate suite-tree teardown probe (GH-1082)
+        run: node web/tools/test-run-gate-tree.mjs
+      # hygiene arm 4e judges the loser's refusal against the LATEST of
+      # the frozen session's reap, a GH-665 retained-profile release and the
+      # last HTTP-readiness answer from the served origin (a slow static server
+      # delays a relaunch's arrival at the launch lock and must not count). Real
+      # runs produce neither on demand, so this runs the arm's own text against
+      # scripted stand-ins (launchChrome with a local readiness server,
+      # pidAlive): a later release or a late readiness becomes the anchor, a
+      # refusal more than 2 s after it is red by name, and a release line for
+      # another port or an answer from another origin is ignored. The import()
+      # hook needs --experimental-vm-modules. Node, no browser.
+      - name: hygiene arm 4e anchors (retained release, readiness arrival)
+        run: node --experimental-vm-modules web/tools/test-hygiene-4e-anchor.mjs
+      # GH-1119: node tests that stage a private band registry still arbitrated
+      # its writers on the host-wide registry mutex (loopback :47997), and their
+      # reaping scans hold it 0.3-1.6 s per claim under load, starving live
+      # claimants past their 10 s bound (a lane's title-card run, the nightly's
+      # hygiene arms). A private registry now arbitrates on a private mutex port
+      # too (the OB_BAND_MUTEX_PORT test seam). This probe runs the orphan
+      # probe against a stand-in host mutex port while a second claimant takes
+      # that port every 50 ms; every acquisition must stay within 250 ms, and the
+      # subject's traced holds must sit on its own port. It also checks that a
+      # refused claim names its holders only after the mutex is released, that
+      # the seam is refused over the shared registry under any spelling (/tmp
+      # vs /private/tmp), and that the endpoint-evidence lsof never runs while
+      # the mutex is held. macOS only, like its subject. Plain node, no
+      # browser, never binds :47997.
+      - name: band registry mutex isolation probe (GH-1119)
+        if: runner.os == 'macOS'
+        run: node web/tools/test-band-mutex-isolation.mjs
+      # GH-1082 layer 2: a cancelled or timed-out job can leave a tree whose
+      # wrapper was never signalled (parent pid 1, cwd inside the runner's
+      # _work) holding its port band. runner-job-cleanup.mjs, the self-hosted
+      # runner's job-completed hook (scripts/runner-job-completed.sh), ends
+      # such trees by pid + start time and records them. This probe stages an
+      # orphaned tree inside a stand-in work dir, an orphan outside it and a
+      # non-orphan inside it, and checks that only the first tree ends. macOS
+      # only (an orphan's parent is pid 1 only without a subreaper). Plain
+      # node, no browser.
+      - name: runner job-completed cleanup probe (GH-1082)
+        if: runner.os == 'macOS'
+        run: node web/tools/test-runner-job-cleanup.mjs
+      # GH-877: the kit-laws A2 sampler (a2Sample) reads ink and ground in one
+      # settled state. The selftest drives it over stub CDP clients and a
+      # synthetic PNG: the positive is byte-identical to the direct runs +
+      # still judge, a moved run and a never-settling probe are bounded
+      # unsettled rows, and the scoped settle rule blocks only on an animation
+      # that is a run's ancestor or overlaps a run box (an unrelated infinite
+      # animation settles). Plain node, no browser, no wasm.
+      - name: kit-laws A2 sampler selftest (#877)
+        run: node web/tools/kit-laws-selftest.mjs
+      # GH-626 (PR #633 skeptic item 3): the three sink gates were hand-run
+      # only, cited from web/scene/pocket-geometry.md and never enforced.
+      # test-sinkpivot.mjs is dependency-free ESM over the byte-frozen #236
+      # lip-pivot leaf (determinism, blend law, phase continuity, spin, cup
+      # containment, shield cull) — plain node, no browser, no wasm, so it
+      # belongs here with the other static gates. Its two siblings
+      # (test-sinkdress / test-sinkrest) drive the REAL app over CDP and
+      # ride the browser runner: job e2e-sink below.
+      - name: sink pivot gate (#236 lip-pivot leaf, plain node)
+        run: node web/tools/test-sinkpivot.mjs
+      # GH-975: the lighting tools' validity rule — the matrix judge
+      # (web/tools/lib/lighting-judge.mjs) over fixture rows, the shared
+      # guards behind the env / live arms and the gain solver
+      # (web/tools/lib/lighting-guard.mjs), and a STATIC check that the
+      # committed MATCH_GAINS / BAKED_MATCH_GAINS tables hold only finite
+      # positive numbers. A missing / non-finite / zero-filled read must fail
+      # by name, never pass on a NaN comparison. Plain node, no browser.
+      - name: lighting matrix judge selftest (GH-975, plain node)
+        run: node web/tools/test-lighting-matrix-judge.mjs
+      # a CDP protocol-error reply keeps Chrome's text as its message
+      # (String, the stack's first line, util.inspect = stack, JSON '{}', the
+      # frames identical across replies) and names its request on a
+      # non-enumerable `cdp` property; answerPausedRequest still tolerates
+      # the stale-id reply through that REAL path; the lighting matrix names
+      # its failing worker, cell, phase and camera in ONE line and exits 2,
+      # with no retry, a lost browser included. cdp.mjs's real client drives
+      # a scripted endpoint (web/tools/lib/fake-cdp-endpoint.mjs). "Plain
+      # node" means no browser; the step still needs python3 on PATH: the E
+      # and L rows run the lighting matrix gate, which serves web/ with
+      # `python3 -m http.server` (cdp.mjs spawnStaticServer). Where the job
+      # sets up Python, the step stays after that step.
+      - name: cdp reply detail + matrix instrument line (plain node)
+        run: node web/tools/test-cdp-reply-detail.mjs
+      # GH-1070: the lighting tools resolve a shipped baked-GI entry exactly as
+      # web/scene/gi.js entryFor() does (lifted verbatim; parity over every
+      # committed fixture x look x table class; the pre-fix lookup is caught).
+      - name: gi manifest entry parity (GH-1070, plain node)
+        run: node --test tools/render/lib/gi-entry.test.mjs
+      # GH-971: the env-tail scheduler (lifted verbatim from web/app/main.js)
+      # owes >= ENV_BOOT_TAIL bakes after the LAST scene change before the
+      # boot reads done — a rebake inside the boot tail restarts the count; a
+      # plant of the pre-fix rule (cut to ENV_TAIL: done after 4) must fail.
+      - name: env-tail scheduler selftest (GH-971, plain node)
+        run: node web/tools/test-env-tail.mjs
+      # the covered arrival's draw-wait budget (keysDrawClock, lifted verbatim from
+      # web/app/shell.js) spends visible time only: a hidden interval with suspended timers never reaches it, and one long
+      # draw adds at most 1 s; a plant of the pre-fix clock (no split at visibilitychange) must fail.
+      - name: keys-draw visible clock selftest (plain node)
+        run: node web/tools/test-keysdraw-clock.mjs
+      # GH-248 / KF-008: the software-GL GPU gate (web/app/main.js createGpuGate): the predicate (a superset of
+      # perf-aim.mjs's software-GPU class, read from its source), the fence pacing and its end states, main.js's own
+      # frame() hold lifted verbatim (with an env-tail spy: a held tick bakes nothing) and a source census of the
+      # wiring. Plain node, no browser, no wasm.
+      - name: software-GL GPU gate selftest (GH-248 / KF-008, plain node)
+        run: node web/tools/test-gpugate.mjs
+      # GH-1103: the cinelight studio bake hides every cue rod and aim overlay
+      # (lifted verbatim from web/app/cinelight.js over a stub scene graph);
+      # plants of the pre-fix bake, a preview-only rule, an unguarded name
+      # read and the undo outside the finally must each fail.
+      - name: cinelight studio-bake selftest (GH-1103, plain node)
+        run: node web/tools/test-cinelight-bake.mjs
+      # GH-1131 option A: the shipped snooker occlusion transport (web/scene/snktransport-data.js) is table.js's own
+      # aOccl bake. This selftest needs no float math of the host: it decodes the committed artifact through the shipped
+      # loader (the CN8 carrier), plants corrupt / mis-sized / mis-typed artifacts, and pins the table.js wiring (every
+      # hit site, no engine trig in the sampler) and the loader (no platform stream or crypto API). The byte-for-byte
+      # regeneration runs in e2e-lighting-matrix, on the pinned node of the generator's platform. GH-1170: it also runs
+      # table.js's transport preparation on a fake clock (the snooker and Chinese-8 waits are bounded per build, a late map
+      # serves the next build, a timeout never latches) and refuses a plant of each.
+      - name: snooker transport loader selftest (GH-1131, GH-1170, plain node)
+        run: node web/tools/test-snk-transport.mjs
+      # GH-1110 / #860 / GH-1118 (review P2): settledRead in
+      # web/tools/lib/locale-settle.mjs — the settled read behind e2e-shell
+      # K05 / Q1(c), e2e-settings G5 D2/D4 and e2e-replays R5d — counts
+      # animation frames only. With frames stalled and timers live it reads
+      # unsettled at its cap, never early, it waits out a pending
+      # rAF-scheduled write, and every change restarts the run. Three plants
+      # must fail: the pre-fix wakeup (a 250 ms timer counted as a frame), a
+      # wait without the deadline, a run that never restarts. Plain node, no
+      # browser.
+      - name: locale settled-read selftest (GH-1110, plain node)
+        run: node web/tools/test-locale-settle.mjs
+      # #763: lib/port-state.mjs reads a loopback port as listening / refused /
+      # unknown, and a connect that times out is never a verdict (a one-shot
+      # 400 ms probe read a listening hygiene fixture as down under load). The
+      # rows reproduce the race (the probe's process blocked while its connect
+      # completes), a late start, a port that stays up and one that closes.
+      # Plain node, no browser.
+      - name: port-state probe selftest (#763, plain node)
+        run: node web/tools/test-port-state.mjs
+      # #763: e2e-harness-hygiene's arm-8h probe run on its own with its test
+      # seams: under the stalled-connect race every leg passes with its setup
+      # rows; a fixture server that escapes the tree keeps r4 red, also over a
+      # checkout path with a space; a fixture that never listens fails r4's
+      # setup row by name. Every run arbitrates its private registry on a
+      # private band mutex port (never the host-wide :47997). macOS only, like
+      # the suite that owns the probe (python3 http.server fixtures, run-gate).
+      - name: hygiene arm-8h probe selftest (#763)
+        if: runner.os == 'macOS'
+        run: node web/tools/test-hygiene-8h-probe.mjs
+      # #763: lib/endpoint-pair.mjs judges a candidate free only on
+      # ECONNREFUSED, gives a probe that times out one longer look before
+      # skipping it, and warms fetch before its first timed probe (a process's
+      # first fetch timed out on a FREE port and shifted the pair: hygiene 8o).
+      # Stub probes for the verdicts; the warm-up's order in a fresh process
+      # (E5), and a fresh process with a starved first fetch (E6, defence in
+      # depth). macOS only, like hygiene arm 8o.
+      - name: endpoint-pair probe selftest (#763)
+        if: runner.os == 'macOS'
+        run: node web/tools/test-endpoint-pair-probe.mjs
+      # GH-1099: Playback's live capture holds its first pose until the
+      # recorder really starts (record.js started(): the native 'start' event
+      # or the first encoded chunk), bounded by RT_START_SEC — the real
+      # record.js seam and the startRealtime controller slice over a fake
+      # recorder (late first frames, no start event, a recorder that dies,
+      # cancel / hide / close / external stop). Three plants must fail: the
+      # pre-fix controller, the gate without its bound, a record.js without
+      # the chunk fallback. Plain node, no browser.
+      - name: playback recorder-startup selftest (GH-1099, plain node)
+        run: node web/tools/test-playback-recorder-startup.mjs
+      # GH-626 (PR #633 r8): the closed forms a ball resting in a Predator
+      # well is lit by (shading.js SPIKE_WELL_PARS — the plug's through-mouth
+      # transport evaluated per fragment) against the plug's own sampler and
+      # a 2e6-ray MC. Pure node, no browser: the JS mirror of the GLSL.
+      - name: well-ball transport derivation gate (GH-626 r8)
+        run: node tools/derive-well-ball-transport.mjs
+      # GH-1143: the band registry's process birth tokens (ps lstart) are the C
+      # form for every writer and reader: a lease written under fr_FR / zh_CN
+      # reads as a live holder in C (no prune, no reap), a pre-GH-1143 token in
+      # another locale is no verdict for 24 h and pid reuse after (leases,
+      # owners, tombstones, retirer tokens, server markers), a C-form mismatch
+      # is still pid reuse, spawnStaticServer / stopStaticServer and
+      # e2e-retry's marker reap end the server group under fr_FR and with a
+      # UTF-8 docroot, endpoint evidence under fr_FR leases a C-form token,
+      # and a failed birth-time read never reads as our server's group.
+      # macOS only (the rows need the fr_FR / zh_CN locales). Plain node.
+      - name: process birth tokens across locales (GH-1143)
+        if: runner.os == 'macOS'
+        run: node web/tools/test-lstart-locale.mjs
+      # Compile probe only — the canonical artifact is the COMMITTED
+      # web/dist/pool-wasm binary (P-III), checked by the next step.
+      - name: wasm release build (compile check)
+        run: cargo build -p pool-wasm --target wasm32-unknown-unknown --release
+      # The licence notices of the third-party Rust crates in both wasm binaries
+      # (web/vendor/LICENSE-rust-crates.txt and its copies next to each binary)
+      # regenerated from cargo's own closure and licence files, byte-compared.
+      - name: Rust-crate notices are current (cargo closure of both wasm binaries)
+        run: node tools/gen-rust-notices.mjs --check
+
+  # Feature 012 T056 (constitution v1.3.0 Performance Budget): the
+  # per-discipline kernel budgets asserted on the COMMITTED canonical wasm
+  # (P-III doctrine — the shipped binary, never a CI rebuild), plus the LIVE
+  # discipline frame gate (pool 16-ball / snooker 22-ball / carom pocketless
+  # scenes under real Chrome: frame budget, ball counts, zero console
+  # errors). GitHub runners are not the reference 2020-class laptop — and
+  # headless Chrome here rasterizes in software — so the limits widen by an
+  # explicit documented factor; quiet-host reference numbers live in
+  # the internal perf baseline The strict ≤ 1 ms pool live-regression
+  # arm remains the quiet-host interleaved A/B protocol (perf-aim.mjs
+  # --probe-only / --regress-baseline).
+  perf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # GH-691: the resting baseline, once per job, BEFORE the job's own
+      # load. Sampled and logged here for the record (the hosted rest is
+      # unmeasured so far); the perf-aim step below pins its bar explicitly
+      # at STEP level so this step still samples (review r1 P2).
+      - name: storm baseline (GH-691)
+        run: node web/tools/storm-baseline.mjs --github-env >> "$GITHUB_ENV"
+      - name: kernel budgets on the committed canonical wasm
+        env:
+          OB_PERF_BUDGET_SCALE: "2"
+        run: node scripts/bench-wasm.mjs
+      # Feature 013 (conformance-gate.md §4, FR-008/SC-006): per-judgment
+      # rules-adjudication budget on the COMMITTED web/dist/pool-rules
+      # artifact — the wasm/TS half of the < 1 ms gate (the native half
+      # runs in the rules-conformance job).
+      - name: rules adjudication budget on the committed rules artifact
+        env:
+          OB_PERF_BUDGET_SCALE: "2"
+        run: node scripts/bench-rules.mjs
+      # The frame BUDGET is auto-downgraded to an advisory on the runner's
+      # software rasterizer (perf-aim --gate detects SwiftShader/llvmpipe);
+      # what stays fatal here is the structural gate — rerack kinds work,
+      # 16/22/3 balls render, zero console errors. Probe cost is trimmed
+      # (software rasterization of the full pipeline is ~seconds per frame,
+      # and the boot pins obtool=0 so the gate measures the LIVE gameplay
+      # shader tier, not the scripted cinema tier).
+      # #170: the perf job was the ONE browser job without the warm step —
+      # the cold-start class ("chrome debugger endpoint never came up",
+      # first recorded on 043df83) re-hit it on the degraded fleet (run
+      # 30142877456, 50 s failure). Same defense as the e2e-* jobs.
+      - name: warm Chrome (cold-start flake defense)
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+        run: |
+          timeout 60 "$CHROME_BIN" --headless=new --no-first-run \
+            --disable-extensions --user-data-dir=/tmp/obw-warmup \
+            --dump-dom about:blank >/dev/null 2>&1 || true
+      # Budget note (2026-09-04): on ubuntu-latest Chrome rasterises through
+      # SwiftShader, where one renderAt(0) costs ~19 s (pool) / ~52 s (snooker)
+      # / ~4.4 s (carom). With OB_PROBE_RENDERS=6 the four probes alone were
+      # 28 renders (~11 min) and the job collided with its 25-minute timeout
+      # on main from 08-21 (fully red from 08-31), cancelled with an empty log
+      # because the CDP command timeout (600 s) outlived the job budget. The
+      # frame budget is advisory on a software GPU anyway (pacing guard skips
+      # it); the fatal asserts — ball counts and console errors — need one
+      # render per probe. OB_CDP_TIMEOUT_MS keeps a slow runner failing loudly
+      # with the evaluate name instead of a silent cancel.
+      - name: LIVE discipline scene gate (16/22/3 balls, real Chrome)
+        env:
+          OB_PERF_BUDGET_SCALE: "6"
+          OB_PROBE_RENDERS: "1"
+          OB_GATE_ROUNDS: "1"
+          OB_CDP_TIMEOUT_MS: "300000"
+          CHROME_BIN: /usr/bin/google-chrome
+          # GH-691: the storm bar is DERIVED on the self-hosted runner (whose
+          # rest the derivation was measured on); this HOSTED step keeps its
+          # explicit bar (today's value) until the storm-baseline lines above
+          # have shown the hosted rest. Step-level so the baseline step
+          # itself still samples.
+          OB_PACING_STORM_BUSYCPU: "300"
+          # GH-248 diagnostic (web/tools/lib/boottrace.mjs): a Chrome trace of
+          # the run (toplevel, gpu, devtools.timeline), started before the app
+          # loads and written here only when __test.ready comes 120 s or more
+          # after Chrome's launch, never comes, or the step fails (the 300 s
+          # CDP stall included; boot-trace.why.txt names the failure). On a
+          # stall the frame that never finished shows as open begin events.
+          # Writing has its own 120 s budget (OB_PERF_BOOT_TRACE_END_MS).
+          OB_PERF_BOOT_TRACE_DIR: ${{ runner.temp }}/perf-boot-trace
+        run: >
+          node web/tools/perf-aim.mjs --gate
+          --url 'http://127.0.0.1:20280/app.html?seed=1&obtool=0'
+      - name: upload the boot trace (GH-248; only when written)
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf-boot-trace-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/perf-boot-trace/
+          if-no-files-found: ignore
+          retention-days: 3
+
+  # Feature 014 (contracts/touch-e2e.md §2): the touch driver joins CI.
+  # Phone emulation is pure CDP (setDeviceMetricsOverride +
+  # setTouchEmulationEnabled BEFORE app boot — touch-cdp.mjs); the suite
+  # self-serves web/ and carries its own hard global watchdog.
+  #
+  # Runner-capability record (2026-07-10, runs 29082540596/29083011638):
+  # the GESTURE-LAW scenarios are host-timing-sensitive — the classifier's
+  # velocity-adaptive m(v) reads WALL-CLOCK pointer velocity, and this
+  # runner dispatches synthesized touch moves 10–20x slower than the
+  # requested cadence (a "fast" 8 ms/step drag realizes m(v) ≈ 0.1, and
+  # the whole battery blows the suite watchdog). Same class as the frame
+  # budgets the perf job downgrades on software rasterizers. So on CI:
+  # the timing-INSENSITIVE inertness arm is the blocking gate; the
+  # fullrack arm runs as a recorded ADVISORY (convergence-based, but its
+  # aim loops still ride the throttled event clock); the full gesture-law
+  # battery is a standing LOCAL gate (web/README.md headless-e2e list,
+  # quickstart §1 — reference-host runs recorded in spec.md Status).
+  # Self-hosted since #170: the browser batteries run on the repo's own
+  # ci-host runner (label ob-browser — M-series, real GPU, ~3-10x the
+  # 2-core GitHub hosts), which removes both the fleet-slowdown exposure
+  # and the macOS-minute billing. One runner = one job at a time; the
+  # OB_E2E_PORT/OB_E2E_CDP_PORT overrides below keep CI's servers off the
+  # suite-default ports so interactive local runs on the same machine
+  # never collide. Budgets re-tightened from the #170 containment values
+  # to reference-host timings; the containment knobs stay available if the
+  # runner ever degrades.
+  # GH-687: every CI browser job's port band is a literal in this file (and
+  # in e2e-nightly.yml); web/tools/ci-bands.json is the ONE source they are
+  # linted against — a job's --band and OB_E2E_PORT/OB_E2E_CDP_PORT must
+  # equal its row, every band must lie inside the reserved range, no two
+  # bands may intersect, a declared PORT_INVENTORY must fit, and no tool
+  # under web/tools may default a port into the range. run-gate and
+  # claimPortBand refuse any local claim inside the range, so a local
+  # session can no longer sit on a CI band and red the job at its claim.
+  ci-bands-lint:
+    runs-on: ubuntu-latest
+    # GH-750 FIX7. The 5-minute wall was sized on 3c7c1895, when step 5 was a
+    # 53 s corpus test. FIX1 gave the differential a base reader loaded live
+    # out of git and a scan over all 421 tracked sources, and nobody re-took
+    # the number: step 5 has been CUT AT THE WALL on every head since
+    # (f5262842 205 s, 2cb15216 161 s, both `cancelled`). A cancelled gate is
+    # a gate that did not run — it must never be spendable as a pass — so the
+    # budget is re-measured here and stated:
+    #
+    #   calibration, same tree 2cb15216, same command: step 4
+    #   (`ci-bands-lint.mjs`) = 65 s on ubuntu-latest, 20.9 s local (mean of
+    #   two runs on the M4, itself saturated) -> ubuntu/local = 3.10x.
+    #   step 5 (`--test test-js-scan.mjs`) = 92.5 s local -> ~287 s predicted.
+    #   worst observed checkout at fetch-depth 0 = 85 s (it was 14 s at
+    #   3c7c1895 and grows with history).
+    #   1 + 85 + 1 + 65 + 287 = 439 s = 7.3 min of measured work.
+    #
+    # 439 s is a LOWER bound and the wall is sized for that, not for it. The
+    # 3.10x was taken on a CPU-bound lint and applied to a step that is
+    # fork-heavy (`git show`, `node --check`) on a 2-core runner; fork-heavy
+    # work does not scale with a CPU-bound ratio, it scales worse. Ratios not
+    # excluded by any measurement I hold:
+    #
+    #   ratio   step 5    job total
+    #   3.10x   287 s     439 s =  7.3 min
+    #   6x      555 s     707 s = 11.8 min   <- lands ON a 12-minute wall
+    #   8x      740 s     892 s = 14.9 min   <- over it
+    #
+    # A wall's job is to catch a HANG, not to budget the work, and a third
+    # cancellation would cost another round and produce another non-answer.
+    # So 20, which no ratio up to ~11x defeats. It is a resource budget, not a
+    # gate threshold: no assertion, baseline or allowlist moves with it.
+    #
+    # The first run that COMPLETES puts the real step-5 number here; the
+    # follow-up then tightens to measured + 50 % with that number quoted.
+    #
+    # That follow-up, re-taken when the 20-minute wall cut a run: on
+    # ubuntu-latest, ci run 40545029581 attempt 2 (job 122432945190, the
+    # build-20 release tree) completed in 1010 s. Set up 0 s, checkout 141 s,
+    # setup-node 1 s; the port-band lint 108 s, the scanner corpus (step 5)
+    # 376 s, the provenance gate arms 73 s, the competitor-brand gate arms
+    # 71 s, the competitor-brand gate matrix (9 cells) 201 s, the other 15
+    # steps 35 s (steps 864 s). The checkout is the term that moves: 48 s on
+    # main's scheduled run just before that batch (job 122128577192), 377 s on
+    # attempt 1 (job 122333212214), which the 20-minute wall cut inside the
+    # matrix. The brand-gate arms and matrix grew in that batch (23 s and 93 s
+    # before). Measured work with the worst observed checkout, as above:
+    # set-up 1 (the worst observed) + checkout 377 + setup-node 1 + steps 864
+    # + post steps 1 = 1244 s; + 50 % = 1866 s -> 32 min. Still a resource
+    # budget: no assertion, baseline or allowlist moves with it.
+    timeout-minutes: 32
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # GH-750 FIX1: test-js-scan.mjs loads the text reader AS IT WAS at
+          # the #750 base sha (868bbd57) straight out of git for its
+          # differential — a shallow checkout cannot `git show` that object,
+          # and the loader fails closed on it rather than skipping the guard.
+          # GH-911 K1 (below) reads 67855b4f:web/app/playback.js the same way,
+          # and the competitor-brand gate arms (below) model the public
+          # snapshot, which ships the held site set from the snapshot
+          # manifest's HOLD_REV; these three need the history.
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Rust-crate notices match Cargo.lock
+        run: node tools/gen-rust-notices.mjs --check-lock
+      # The notice inventory the iOS bundle and Pages checks require is derived from
+      # web/vendor/LICENSES.md; its planted variants (canonical paths, refused references, the
+      # census). The census keeps LICENSES.md complete: every tracked file under web/vendor/ is
+      # named in it by its full path, so a newly vendored file cannot ship without its notice.
+      - name: notice inventory arms (derived from LICENSES.md)
+        run: node tools/notice-inventory.mjs --selftest
+      - name: vendored files named in LICENSES.md (census)
+        run: node tools/notice-inventory.mjs --census
+      # Competitor product names (other billiards games, by name or by initials) in
+      # anything the app ships: the Pages artifact, the native bundles and the shell
+      # sources, derived from pages.yml and ios/tools/bundle-manifest.mjs at HEAD.
+      # The scan reads git trees only; the arms also read the snapshot manifest's
+      # HOLD_REV blobs (fetch-depth 0 above) and plant through a
+      # temporary index, never touching the checkout.
+      - name: competitor brands absent from shipped surfaces
+        run: node tools/check-competitor-brands.mjs
+      - name: competitor-brand gate arms
+        run: node tools/check-competitor-brands.mjs --selftest
+      # The gate must hold on every tree it meets: the private tree, the modelled public snapshot,
+      # that snapshot after a permitted scrub, and the emit -> export round trip (exit 0 each).
+      # Private tree only (it builds the snapshot through scripts/opensource); a named SKIP elsewhere.
+      - name: competitor-brand matrix runner arms (fail closed on bad arguments)
+        run: node tools/test-competitor-brands-matrix.mjs --selftest
+      - name: competitor-brand gate matrix (private / public / scrubbed / round trip)
+        run: node tools/test-competitor-brands-matrix.mjs
+      # GH-789: every table id the app can be asked to build has a scene spec.
+      # resolveBootTableId and prepareEquipment turn an id with no TABLE_SPECS
+      # key into the scripted pin table without an error, so a catalog table
+      # that ships without its scene key renders another table under its id.
+      # Plain node, no browser, no history: TABLE_SPECS through the vendored
+      # three (the render tools' catalogTableIds), the games and the tables
+      # from the committed dist SDK. The arms plant on copies of the live data.
+      - name: table specs cover every game-class and selectable table (GH-789)
+        run: node tools/check-table-specs-coverage.mjs
+      - name: table specs coverage gate arms (GH-789)
+        run: node tools/check-table-specs-coverage.mjs --selftest
+      # #811: shell.js links the content places' sheets at boot idle (PLACE_SHEETS; rIC without a timeout, after boot
+      # ready, under a <module id>-pre id); each module's ensureSheet() adopts a preload with its own href or unlinks
+      # another; a cleanup unlinks a preload once an older module's own link beside it settles. The gate holds the
+      # table to every *_CSS_V, runs the chain, its cleanup and every ensureSheet() strict on a fake document, and
+      # --selftest catches each plant by the failure it targets and keeps its pass arms green. Node-only.
+      - name: place sheets preload, table and adoption (#811)
+        run: node web/tools/test-place-sheets.mjs
+      - name: place sheets gate arms (#811)
+        run: node web/tools/test-place-sheets.mjs --selftest
+
+  # Spec 005 SC-003/SC-004: pool-sdk-ts gates — the strict tsc build, the
+  # node --test suite (golden re-simulation against the COMMITTED canonical
+  # wasm), and web/dist/pool-sdk (the compiled copy the web app imports)
+  # staying in sync with sdk/ts sources.
+  ts-sdk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sdk/ts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: sdk/ts/package-lock.json
+      - run: npm ci
+      - name: tsc build + node --test (committed canonical wasm)
+        run: npm test
+      # `git add -A` + `--cached` (not a bare `git diff`): a bare diff
+      # ignores UNTRACKED files, so an added SDK module whose compiled copy
+      # was never committed — or a deleted module whose stale copy sync-web
+      # just mirror-removed — would pass the gate silently.
+      - name: web/dist/pool-sdk in sync with sdk/ts
+        # GH-621 (D621-FIX condition 10a): run even when the preceding
+        # `npm test` step failed. On a declared kernel branch the drift test
+        # against the COMMITTED canonical wasm is red by construction until
+        # the landing ceremony rebakes it, and a skipped step is not a green
+        # one — this sync gate must stay observable independently of it.
+        if: ${{ !cancelled() }}
+        run: |
+          node tools/sync-web.mjs
+          git add -A -- ../../web/dist/pool-sdk
+          git diff --cached --exit-code -- ../../web/dist/pool-sdk
+
+  # Spec 005 SC-003: the pool-py behavior gate is maturin develop + pytest,
+  # NOT cargo test — crates/pool-py sets [lib] test=false because a native
+  # pyo3 test binary links libpython at an @rpath CI hosts may not resolve.
+  # The ubuntu leg also runs the SC-001 cross-surface byte-identity gate
+  # (native pool-cli vs TS-SDK-over-committed-wasm vs pool_py).
+  py-sdk:
+    strategy:
+      fail-fast: false
+      matrix:
+        # GH-942: hosted macOS leg only on push to main, schedule or workflow_dispatch; PRs run ubuntu-latest only. Under workflow_call, event_name is the caller's event.
+        os: ${{ ((github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && fromJSON('["ubuntu-latest", "macos-latest"]') || fromJSON('["ubuntu-latest"]') }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: maturin develop + pytest
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install --quiet maturin numpy pytest
+          VIRTUAL_ENV="$PWD/.venv" .venv/bin/maturin develop --release \
+            -m crates/pool-py/Cargo.toml
+          .venv/bin/python -m pytest crates/pool-py/tests -q
+      - name: cross-surface byte identity (spec 005 SC-001)
+        if: matrix.os == 'ubuntu-latest'
+        run: POOL_PY_PYTHON="$PWD/.venv/bin/python" scripts/cross-surface.sh
+
+  # Feature 017 (contracts/export-surface.md §2, research R9): the manylinux
+  # leg of the committed-wheels channel. Grafted onto the py-sdk job's
+  # toolchain/maturin mechanics; PRIVATE CI ONLY (the staging template
+  # scripts/opensource/templates/ci.public.yml consumes the committed
+  # wheels, it never builds them). The artifact is downloaded and committed
+  # to the wheel store  like any canonical-binary repin (quickstart §1) — one wheel
+  # per platform (manylinux_x86_64 here + macosx_arm64 from the dev
+  # machine), wheels only, NEVER an sdist. The wheel metadata must carry
+  # the 'Private :: Do Not Upload' PyPI interlock classifier
+  # (crates/pool-py/pyproject.toml); the assert step below gates both the
+  # abi3/manylinux tag shape and the classifier so a repin can never pick
+  # up an interlock-free or non-portable wheel.
+  py-wheel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: maturin build (manylinux wheel for wheel artifacts)
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install --quiet 'maturin>=1.7'
+          .venv/bin/maturin build --release -m crates/pool-py/Cargo.toml
+      - name: assert wheel tag + interlock classifier
+        run: |
+          ls target/wheels/
+          whl=$(ls target/wheels/openbilliards-*-cp39-abi3-manylinux*_x86_64.whl)
+          test -n "$whl"
+          unzip -p "$whl" '*/METADATA' | grep -F 'Private :: Do Not Upload'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openbilliards-manylinux-wheel
+          path: target/wheels/openbilliards-*-cp39-abi3-manylinux*_x86_64.whl
+          if-no-files-found: error
+
+  # Feature 013 (conformance-gate.md §3, SC-002): the three-leg rules
+  # verdict-determinism gate — native pool-cli judge vs pool_py vs the
+  # COMMITTED web/dist/pool-rules artifact under node, every corpus case
+  # byte-compared across surfaces AND against the frozen corpus `expect`
+  # bytes with cmp (NO normalization: judgments carry no version stamp).
+  # Grafted onto the py-sdk job's toolchain/maturin mechanics; unlike the
+  # physics cross-surface gate (ubuntu-only), ALL steps run on BOTH
+  # platforms — verdict determinism is contractual on two platforms.
+  # The final step is the native half of the FR-008/SC-006 perf gate
+  # (conformance-gate.md §4): < 1 ms/judgment, widened by the existing
+  # OB_PERF_BUDGET_SCALE convention (CI hosts are not the reference
+  # 2020-class laptop; quiet-host numbers: the internal perf baseline).
+  rules-conformance:
+    strategy:
+      fail-fast: false
+      matrix:
+        # GH-942: hosted macOS leg only on push to main, schedule or workflow_dispatch; PRs run ubuntu-latest only. Under workflow_call, event_name is the caller's event.
+        os: ${{ ((github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && fromJSON('["ubuntu-latest", "macos-latest"]') || fromJSON('["ubuntu-latest"]') }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: maturin develop (python leg toolchain)
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install --quiet maturin numpy
+          VIRTUAL_ENV="$PWD/.venv" .venv/bin/maturin develop --release \
+            -m crates/pool-py/Cargo.toml
+      # Feature 022 (FR-003/SC-003): the citation-lint wall — every shipped
+      # preset parses, resolves to its pinned task_hash, and carries a
+      # non-empty cite on every judged/adapter entry; the recorded NEGATIVE
+      # fixture (a missing cite fails loudly) is part of the same test set.
+      # Redundant with `cargo test --workspace` in the test job BY DESIGN:
+      # the lint is a named, greppable gate next to the conformance run it
+      # guards.
+      - name: preset citation lint (022 SC-003, incl. the negative fixture)
+        run: cargo test -p pool-rules --lib -- preset
+      - name: three-leg byte identity (cli vs py vs committed wasm vs corpus + variant slices)
+        run: POOL_PY_PYTHON="$PWD/.venv/bin/python" scripts/rules-conformance.sh
+      - name: native judge latency gate (< 1 ms/judgment, conformance-gate.md §4)
+        env:
+          OB_PERF_BUDGET_SCALE: "2"
+        run: |
+          ./target/release/pool-cli judge \
+            --cases scripts/fixtures/rules-corpus.json \
+            --out /tmp/judgments-bench.jsonl --bench
+
+  determinism:
+    strategy:
+      fail-fast: false
+      matrix:
+        # GH-942: hosted macOS leg only on push to main, schedule or workflow_dispatch; PRs run ubuntu-latest only. Under workflow_call, event_name is the caller's event.
+        os: ${{ ((github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && fromJSON('["ubuntu-latest", "macos-latest"]') || fromJSON('["ubuntu-latest"]') }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+      # issue #669: the CLI writes the bindings, the CRATE compiled into the
+      # .wasm reads them, and wasm-bindgen refuses a schema mismatch. An
+      # unpinned tool resolves to the newest release at run time, so a
+      # publish upstream reddened every branch's determinism job with nothing
+      # changed in the repo (0.2.128 CLI vs 0.2.126 crate, 2026-09-06). The
+      # version therefore comes from Cargo.lock — the one place the crate
+      # version lives — never a second hand-maintained number here.
+      - name: read the locked wasm-bindgen version (issue #669)
+        id: wasm_bindgen_lock
+        run: |
+          set -euo pipefail
+          v="$(awk '/^name = "wasm-bindgen"$/ { getline; if ($1 == "version") { gsub(/"/, "", $3); print $3; exit } }' Cargo.lock)"
+          if [ -z "$v" ]; then
+            echo "::error file=Cargo.lock::could not read the wasm-bindgen crate version from Cargo.lock — the determinism job cannot pin its CLI (issue #669)"
+            exit 1
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "Cargo.lock pins the wasm-bindgen crate at $v"
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-bindgen@${{ steps.wasm_bindgen_lock.outputs.version }}
+      - name: wasm-bindgen CLI/crate SCHEMA match (issue #669)
+        run: |
+          set -euo pipefail
+          crate="${{ steps.wasm_bindgen_lock.outputs.version }}"
+          cli="$(wasm-bindgen --version | awk '{ print $2 }')"
+          if [ "$cli" != "$crate" ]; then
+            echo "::error::wasm-bindgen SCHEMA MISMATCH — CLI $cli vs crate $crate (Cargo.lock). The CLI writes the bindings the compiled crate reads, so the node wasm smoke test would fail with a bindgen-format error. Pin or install the CLI at $crate (issue #669); do NOT bump the crate to chase the tool — that re-bakes the canonical wasm."
+            exit 1
+          fi
+          echo "wasm-bindgen CLI $cli == crate $crate"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: node wasm smoke test
+        run: |
+          cargo build -p pool-wasm --target wasm32-unknown-unknown --release
+          wasm-bindgen --target nodejs --out-dir crates/pool-wasm/pkg \
+            target/wasm32-unknown-unknown/release/pool_wasm.wasm
+          node crates/pool-wasm/tests/node-smoke.mjs
+      - name: two-backend determinism (native pool-cli vs wasm under node)
+        run: ./scripts/determinism-cross.sh target/determinism
+      - name: upload record bytes for the cross-platform comparison
+        uses: actions/upload-artifact@v4
+        with:
+          name: records-${{ matrix.os }}
+          path: target/determinism/native/*.json
+          if-no-files-found: error
+
+  # SC-001: bit-identical event streams verified across two host platforms
+  # (issue #6). Any byte difference between the ubuntu and macos records of
+  # the same scenario fails the build.
+  determinism-compare:
+    needs: determinism
+    # GH-942: only runs when the macOS determinism leg ran (push to main, schedule or workflow_dispatch); on PRs there are no macOS records to compare.
+    if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: records
+      - name: byte-compare records across platforms
+        run: |
+          set -euo pipefail
+          ls records/records-ubuntu-latest/*.json >/dev/null
+          for f in records/records-ubuntu-latest/*.json; do
+            n="$(basename "$f")"
+            if cmp "$f" "records/records-macos-latest/$n"; then
+              echo "OK        $n"
+            else
+              echo "MISMATCH  $n (ubuntu vs macos — SC-001 violation)"
+              exit 1
+            fi
+          done

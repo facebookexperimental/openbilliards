@@ -1,0 +1,7 @@
+{
+  "format": "openbilliards.anchors.v1",
+  "anchor": "ball_ball_throw",
+  "provenance": "Dr. Dave TP A-14 throw curve (peak stun-throw window for a slow half-ball hit) and Alciatore mu(v) speed dependence; docs/research/literature.md sec 2.2. A digitized full cut-angle/speed grid (SC-002 +-0.5 deg) does not exist in the repo yet - tracked in GitHub issue #5 (anchor test datasets).",
+  "peak": { "cue_v0": 0.325, "min_deg": 4.0, "max_deg": 6.0 },
+  "monotone_speed_grid_cue_v0": [0.325, 0.65, 1.3, 1.95]
+}

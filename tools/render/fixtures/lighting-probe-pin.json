@@ -1,0 +1,431 @@
+{
+ "sha": "30b62641",
+ "mode": "occluder",
+ "pinned_at": "2026-10-13T12:56:11Z",
+ "tolerance": 0.005,
+ "tolerance_basis": "max(5e-3, 3 \u00d7 the max pairwise |\u0394 coefficient| over 3 fresh boots per look: {\"default\": 0.0, \"sp\": 0.0}); the red arm is a REAL, different probe (the ring boot for the studio pin, the studio boot for the canopy / ring / pendant pins \u2014 FIX4 verifier item 3); an absent probe is a MISSING read (the +inf convention is gone)",
+ "boot_noise": {
+  "default": 0.0,
+  "sp": 0.0
+ },
+ "boot_states": {
+  "default": 1,
+  "sp": 1
+ },
+ "overlap": {
+  "default": "tracer (bake's own lib/scene+trace, table as occluder, room bounce only, 2048 dirs): the shipped probe grid already carries the room at the BAKE albedo (floor [0.045, 0.03, 0.021], wall [0.055, 0.047, 0.038]): E(+y) 0.00288, E(\u00b1x) 0.00164, E(\u2212y) -3e-05; the same room at the CLASS albedo (0.10/0.25): E(+y) 0.01496, E(\u00b1x) 0.00854 \u2014 so the residual overlap is 0.00288/0.01496 = 19 % of the runtime room term at +y (19 % at \u00b1x), i.e. 0.0029 absolute against a baked E(+y) of 13.46261 (\u00d72 applied) and E(\u2212y) 0.99888: 0.021 % of what the ball already receives. Runtime GPU capture of the same room term: E(+y) 0.02885, E(\u00b1x) 0.01934, E(\u2212y) 0.00168 (cross-check vs the tracer's class-albedo 0.01496 / 0.00854; the runtime capture carries the GH-975 match gain pdt_studio 1.9306 on predator_apex_9ft, the tracer does not).",
+  "sp": "tracer (bake's own lib/scene+trace, table as occluder, room bounce only, 2048 dirs): the shipped probe grid already carries the room at the BAKE albedo (floor [0.03, 0.03, 0.03], wall [0.018, 0.016, 0.014]): E(+y) 0.001, E(\u00b1x) 0.00057, E(\u2212y) -1e-05; the same room at the CLASS albedo (0.10/0.25): E(+y) 0.01536, E(\u00b1x) 0.00876 \u2014 so the residual overlap is 0.001/0.01536 = 7 % of the runtime room term at +y (7 % at \u00b1x), i.e. 0.0010 absolute against a baked E(+y) of 13.811 (\u00d72 applied) and E(\u2212y) 1.50253: 0.007 % of what the ball already receives. Runtime GPU capture of the same room term: E(+y) 0.02956, E(\u00b1x) 0.01982, E(\u2212y) 0.00172 (cross-check vs the tracer's class-albedo 0.01536 / 0.00876; the runtime capture carries the GH-975 match gain pdt_studio 1.9306 on predator_apex_9ft, the tracer does not)."
+ },
+ "provenance": "ORDER-LIGHT-7 R-A: the ROOM term only \u2014 captured with the table as a black occluder (every obTable mesh rendered unlit black: it blocks what it blocks for the ball and radiates nothing), fixture meshes hidden, table LED spots off, emitters (RectAreaLights) on, hemi/PointLight stand-ins and the legacy probe at 0; the capture waits for the CURRENT GI apply (gi.state.appliedSeq === applySeq) and re-bakes the env cube map itself. Coefficients read from three fresh boots of code commit 30b62641 (tools/render/lighting-eval.mjs), re-pinned for the GH-975 match gains (the previous pin came from e3604f8f); three fresh boots of 7c3279f2 (batch 4) read the same coefficients bit for bit). Earlier pins (seal 5/6: 90510d70\u2192dc765746, 708e319e\u2190b54052ac, 9f6631c3\u219020c40fa0, 255aadd6\u21905dc9fbe5) captured the lit TABLE too and double-counted the bake's cloth bounce (review round 1: E(\u2212y) 0.903/0.921 against 0.999/1.503 already applied).",
+ "note": "derived venue fill: 27 SH-L2 radiance coefficients (three basis order, r,g,b \u00d7 9) at (0, R_ball, 0), 64\u00b2 float cube faces; compared by max |\u0394 coefficient|; applied as the obVenueSH uniform on ball + cue programs only (no scene LightProbe), evaluated with the world-space normal",
+ "predator_apex_9ft": {
+  "default": {
+   "sh": [
+    0.022694,
+    0.022824,
+    0.026339,
+    0.008263,
+    0.013893,
+    0.021915,
+    0.000412,
+    0.000437,
+    0.000319,
+    -0.000266,
+    -0.000244,
+    -0.000177,
+    -0.00013,
+    -8e-05,
+    -4.4e-05,
+    0.0002,
+    0.000136,
+    8.1e-05,
+    0.019802,
+    0.010767,
+    0.002825,
+    0.000295,
+    0.000381,
+    0.000319,
+    0.009935,
+    0.00422,
+    -0.00123
+   ],
+   "E": {
+    "px": 0.01934,
+    "nx": 0.01984,
+    "py": 0.02885,
+    "ny": 0.00168,
+    "pz": 0.02686,
+    "nz": 0.026
+   },
+   "pos": [
+    0,
+    0.028575,
+    0
+   ],
+   "res": 64,
+   "mode": "occluder",
+   "hooked": {
+    "balls": 10,
+    "cue": 6,
+    "arm": 0
+   },
+   "scope": "unbaked (balls, cue): the ROOM term only \u2014 the bake owns the cloth bounce",
+   "boot_noise": 0.0,
+   "boot_states": 1,
+   "giSeq": {
+    "started": 2,
+    "completed": 2,
+    "ready": true
+   },
+   "captures": 4,
+   "waitedMs": 16460
+  },
+  "sp": {
+   "sh": [
+    0.023214,
+    0.023397,
+    0.027061,
+    0.008435,
+    0.014238,
+    0.022516,
+    0.000392,
+    0.000448,
+    0.000331,
+    -0.000234,
+    -0.000248,
+    -0.000187,
+    -0.000114,
+    -8.1e-05,
+    -4.8e-05,
+    0.000185,
+    0.00014,
+    8.6e-05,
+    0.020332,
+    0.011065,
+    0.00291,
+    0.000303,
+    0.000391,
+    0.000327,
+    0.010143,
+    0.004318,
+    -0.001267
+   ],
+   "E": {
+    "px": 0.01982,
+    "nx": 0.02031,
+    "py": 0.02956,
+    "ny": 0.00172,
+    "pz": 0.02754,
+    "nz": 0.02666
+   },
+   "pos": [
+    0,
+    0.028575,
+    0
+   ],
+   "res": 64,
+   "mode": "occluder",
+   "hooked": {
+    "balls": 10,
+    "cue": 6,
+    "arm": 0
+   },
+   "scope": "unbaked (balls, cue): the ROOM term only \u2014 the bake owns the cloth bounce",
+   "boot_noise": 0.0,
+   "boot_states": 1,
+   "giSeq": {
+    "started": 2,
+    "completed": 2,
+    "ready": true
+   },
+   "captures": 3,
+   "waitedMs": 12967
+  }
+ },
+ "predator_apex_9ft@canopy_panel": {
+  "default": {
+   "sh": [
+    0.009497,
+    0.010079,
+    0.009741,
+    0.004716,
+    0.007712,
+    0.009076,
+    0.00013,
+    0.000108,
+    6.6e-05,
+    -0.00015,
+    -8.3e-05,
+    -4e-05,
+    -6.6e-05,
+    -2.6e-05,
+    -7e-06,
+    5.9e-05,
+    2.6e-05,
+    1.1e-05,
+    0.004124,
+    0.001032,
+    -0.000967,
+    9.7e-05,
+    0.000113,
+    8.3e-05,
+    0.004406,
+    0.001074,
+    -0.001153
+   ],
+   "E": {
+    "px": 0.00902,
+    "nx": 0.00921,
+    "py": 0.01506,
+    "ny": 0.00038,
+    "pz": 0.00968,
+    "nz": 0.00945
+   },
+   "pos": [
+    0,
+    0.028575,
+    0
+   ],
+   "res": 64,
+   "mode": "occluder",
+   "hooked": {
+    "balls": 10,
+    "cue": 6,
+    "arm": 0
+   },
+   "scope": "unbaked (balls, cue): the ROOM term only \u2014 the bake owns the cloth bounce",
+   "boot_noise": 0.0,
+   "boot_states": 1,
+   "boots": 3,
+   "fixture": "canopy_panel"
+  },
+  "sp": {
+   "sh": [
+    0.013126,
+    0.016514,
+    0.021987,
+    0.007073,
+    0.013078,
+    0.020746,
+    8.2e-05,
+    0.000112,
+    0.000113,
+    -0.000127,
+    -9.9e-05,
+    -7.6e-05,
+    -4.8e-05,
+    -2.5e-05,
+    -1.2e-05,
+    1.5e-05,
+    1.1e-05,
+    1.2e-05,
+    0.003452,
+    8.5e-05,
+    -0.003281,
+    0.000133,
+    0.000166,
+    0.00017,
+    0.006638,
+    0.002059,
+    -0.002282
+   ],
+   "E": {
+    "px": 0.01527,
+    "nx": 0.01548,
+    "py": 0.02569,
+    "ny": 0.0004,
+    "pz": 0.01473,
+    "nz": 0.01452
+   },
+   "pos": [
+    0,
+    0.028575,
+    0
+   ],
+   "res": 64,
+   "mode": "occluder",
+   "hooked": {
+    "balls": 10,
+    "cue": 6,
+    "arm": 0
+   },
+   "scope": "unbaked (balls, cue): the ROOM term only \u2014 the bake owns the cloth bounce",
+   "boot_noise": 0.0,
+   "boot_states": 1,
+   "boots": 3,
+   "fixture": "canopy_panel"
+  }
+ },
+ "predator_apex_9ft@perimeter_ring": {
+  "default": {
+   "sh": [
+    0.043233,
+    0.03224,
+    0.025303,
+    0.013563,
+    0.016094,
+    0.018337,
+    0.000773,
+    0.000749,
+    0.000421,
+    -0.000346,
+    -0.000353,
+    -0.000213,
+    -0.000174,
+    -0.00011,
+    -5.2e-05,
+    0.000368,
+    0.000239,
+    0.000116,
+    0.042155,
+    0.021381,
+    0.007272,
+    0.000591,
+    0.000637,
+    0.000389,
+    0.020337,
+    0.009254,
+    0.001557
+   ],
+   "E": {
+    "px": 0.02845,
+    "nx": 0.02915,
+    "py": 0.0354,
+    "ny": 0.00323,
+    "pz": 0.04322,
+    "nz": 0.04173
+   },
+   "pos": [
+    0,
+    0.028575,
+    0
+   ],
+   "res": 64,
+   "mode": "occluder",
+   "hooked": {
+    "balls": 10,
+    "cue": 6,
+    "arm": 0
+   },
+   "scope": "unbaked (balls, cue): the ROOM term only \u2014 the bake owns the cloth bounce",
+   "boot_noise": 0.0,
+   "boot_states": 1,
+   "boots": 3,
+   "fixture": "perimeter_ring"
+  },
+  "sp": {
+   "sh": [
+    0.044283,
+    0.033074,
+    0.026029,
+    0.013873,
+    0.016514,
+    0.018883,
+    0.000762,
+    0.000767,
+    0.000438,
+    -0.000316,
+    -0.000362,
+    -0.000225,
+    -0.000159,
+    -0.000112,
+    -5.6e-05,
+    0.000358,
+    0.000243,
+    0.000123,
+    0.043261,
+    0.021942,
+    0.007449,
+    0.000606,
+    0.000654,
+    0.0004,
+    0.020811,
+    0.009478,
+    0.001581
+   ],
+   "E": {
+    "px": 0.02918,
+    "nx": 0.02988,
+    "py": 0.03632,
+    "ny": 0.00332,
+    "pz": 0.04433,
+    "nz": 0.04281
+   },
+   "pos": [
+    0,
+    0.028575,
+    0
+   ],
+   "res": 64,
+   "mode": "occluder",
+   "hooked": {
+    "balls": 10,
+    "cue": 6,
+    "arm": 0
+   },
+   "scope": "unbaked (balls, cue): the ROOM term only \u2014 the bake owns the cloth bounce",
+   "boot_noise": 0.0,
+   "boot_states": 1,
+   "boots": 3,
+   "fixture": "perimeter_ring"
+  }
+ },
+ "predator_apex_9ft@pendant_bar": {
+  "default": {
+   "sh": [
+    0.023828,
+    0.016014,
+    0.009146,
+    0.010766,
+    0.012388,
+    0.008675,
+    0.000257,
+    0.000196,
+    6.8e-05,
+    -0.000203,
+    -0.000127,
+    -4.2e-05,
+    -9.4e-05,
+    -3.7e-05,
+    -9e-06,
+    0.000117,
+    5e-05,
+    1.5e-05,
+    0.015458,
+    0.002331,
+    -0.001105,
+    0.000186,
+    0.000176,
+    7.3e-05,
+    0.008667,
+    0.000571,
+    -0.001351
+   ],
+   "E": {
+    "px": 0.0148,
+    "nx": 0.01508,
+    "py": 0.02514,
+    "ny": 0.00104,
+    "pz": 0.01784,
+    "nz": 0.01743
+   },
+   "pos": [
+    0,
+    0.028575,
+    0
+   ],
+   "res": 64,
+   "mode": "occluder",
+   "hooked": {
+    "balls": 10,
+    "cue": 6,
+    "arm": 0
+   },
+   "scope": "unbaked (balls, cue): the ROOM term only \u2014 the bake owns the cloth bounce",
+   "boot_noise": 0.0,
+   "boot_states": 1,
+   "boots": 3,
+   "fixture": "pendant_bar"
+  }
+ }
+}

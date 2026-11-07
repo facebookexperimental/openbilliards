@@ -1,0 +1,920 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TypeScript SDK — openbilliards API docs</title>
+  <meta name="description" content="Full reference for the openbilliards TypeScript SDK: Engine, ScenarioBuilder, ShotBuilder, records, per-frame sampling, the equipment catalog, the game catalog, and rulesets. Typed wrappers over the canonical wasm kernel.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TypeScript SDK — openbilliards API docs">
+  <meta property="og:description" content="Full reference for the openbilliards TypeScript SDK: Engine, ScenarioBuilder, ShotBuilder, records, per-frame sampling, the equipment catalog, the game catalog, and rulesets. Typed wrappers over the canonical wasm kernel.">
+  <meta property="og:image" content="../assets/img/hero-poster.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b100c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23efe9d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/docs.css">
+  <script src="../assets/site.js" defer></script>
+  <script src="../assets/motion.js" defer></script>
+</head>
+<body>
+  <a class="bb-skip" href="#main">Skip to content</a>
+
+  <header>
+    <nav class="bb-nav" aria-label="Primary">
+      <a class="bb-wordmark" href="../index.html">Openbilliards</a>
+      <button class="bb-nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <ul class="bb-nav-links" id="nav-links">
+        <li><a href="../guide/en/index.html">Guide</a></li>
+        <li><a href="index.html">API docs</a></li>
+        <li><a href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a></li>
+        <li><a class="bb-pill bb-pill--fill" href="../web/app.html">Play now</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="docs-shell">
+
+      <aside class="docs-side">
+        <nav class="docs-toc" aria-label="API documentation">
+          <p class="bb-label docs-toc-head">API docs</p>
+          <ul class="docs-toc-pages">
+            <li><a href="index.html">Getting started</a></li>
+            <li><a href="ts.html" aria-current="page">TypeScript SDK</a></li>
+            <li><a href="python.html">Python SDK</a></li>
+            <li><a href="cli.html">CLI</a></li>
+            <li><a href="concepts.html">Concepts</a></li>
+            <li><a href="physics.html">The engine</a></li>
+          </ul>
+          <p class="bb-label docs-toc-head">On this page</p>
+          <ul class="docs-toc-anchors">
+            <li><a href="#load">01 — Loading the kernel</a></li>
+            <li><a href="#engine">02 — Engine</a></li>
+            <li><a href="#scenarios">03 — Scenarios &amp; shots</a></li>
+            <li><a href="#options">04 — Options &amp; cloth</a></li>
+            <li><a href="#records">05 — Shot records</a></li>
+            <li><a href="#sampling">06 — Sampling</a></li>
+            <li><a href="#catalog">07 — Equipment catalog</a></li>
+            <li><a href="#types">08 — Wire types</a></li>
+            <li><a href="#deep">09 — Beyond the barrel</a></li>
+            <li><a href="#games">10 — Game catalog</a></li>
+            <li><a href="#rules">11 — Rulesets</a></li>
+            <li><a href="#respots">12 — Layouts &amp; respots</a></li>
+          </ul>
+        </nav>
+        <div class="docs-side-plate">
+          <p class="bb-label">Barrel — web/dist/pool-sdk</p>
+          <p class="bb-label"><a class="bb-cite" href="../web/dist/pool-sdk/index.d.ts">index.d.ts</a></p>
+        </div>
+      </aside>
+
+      <article class="docs-main">
+        <div class="docs-head">
+          <nav class="docs-crumbs bb-label bb-reveal" aria-label="Breadcrumb">
+            <a href="../index.html">Openbilliards</a><span class="sep" aria-hidden="true">/</span><a href="index.html">API docs</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">TypeScript SDK</span>
+          </nav>
+          <p class="bb-label bb-marker bb-reveal">Reference — node &#8805; 20 &#183; browser</p>
+          <h1 class="bb-heading bb-reveal bb-d1">TypeScript SDK</h1>
+          <p class="bb-body docs-lede bb-reveal bb-d2">
+            Typed wrappers over the canonical wasm kernel: load it once, build
+            scenarios with kernel-identical validation, simulate to a replayable
+            <code style="font-family:var(--bb-mono);font-size:.9em;color:var(--bb-chalk)">ShotRecord</code>,
+            and sample exact ball states at any time. The SDK exposes the kernel;
+            it never reimplements physics
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/engine.ts">sdk/ts/src/engine.ts</a>.
+          </p>
+        </div>
+        <section class="docs-section" id="load">
+          <p class="bb-label bb-marker">01 — Loading the kernel</p>
+          <h2 class="bb-heading-s">Loading the kernel</h2>
+          <div class="api-item" style="border-top:0; margin-top:8px;">
+            <h3 class="api-name" id="init">init(source, wasmBytes?)</h3>
+            <pre class="bb-code api-sig"><code>init(source: string | URL | WasmGlueModule, wasmBytes?: BufferSource): Promise&lt;Engine&gt;</code></pre>
+            <div class="bb-prose">
+              <p>Load and instantiate the wasm kernel, returning an <code>Engine</code>.
+                <code>source</code> is the glue module's path/URL
+                (<code>pool_wasm.js</code>; the sibling <code>pool_wasm_bg.wasm</code> is
+                found automatically: in node via <code>node:fs</code>, in the browser via
+                the glue's own fetch) or an already-imported glue namespace.
+                Double-init is safe: the glue caches its instance.</p>
+            </div>
+          </div>
+          <div class="api-item">
+            <h3 class="api-name" id="engineerror">EngineError</h3>
+            <div class="bb-prose">
+              <p>Thrown when the kernel rejects a scenario with
+                <code>{"error": …}</code>: malformed documents, rule breaches,
+                unknown equipment ids.</p>
+            </div>
+          </div>
+          <div class="api-item">
+            <h3 class="api-name" id="kernelmodule">KernelModule &#183; WasmGlueModule</h3>
+            <div class="bb-prose">
+              <p>The raw wasm-bindgen surface the SDK wraps:
+                <code>kernel_version()</code>, <code>simulate_json()</code>,
+                <code>new_rack_scenario()</code>, <code>catalog_json()</code>,
+                <code>table_geometry_json()</code>, <code>WasmSampler</code>.
+                <code>WasmGlueModule</code> adds the <code>default()</code> initializer.
+                You only need these types when passing a pre-imported glue namespace
+                to <code>init()</code>.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="docs-section" id="engine">
+          <p class="bb-label bb-marker">02 — Engine</p>
+          <h2 class="bb-heading-s">Engine — the simulate surface</h2>
+          <table class="docs-table">
+            <thead><tr><th scope="col">Member</th><th scope="col">Does</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>version()</code></th>
+                <td>Kernel version string, embedded in every <code>ShotRecord</code>.</td></tr>
+              <tr><th scope="row"><code>table(ballR?)</code></th>
+                <td>The WPA 9-ft <code>Table</code> geometry exactly as simulated; the cushion nose height derives from <code>ballR</code> (omit for the kernel default).</td></tr>
+              <tr><th scope="row"><code>catalog()</code></th>
+                <td>The shipped <code>EquipmentCatalog</code>, read from the wasm itself (<code>catalog_json()</code>).</td></tr>
+              <tr><th scope="row"><code>nineBallRack(seed, equipment?)</code></th>
+                <td>Seeded 9-ball rack <code>Scenario</code>: same seed, bit-identical rack. The placeholder shot is meant to be overwritten. Partial <code>equipment</code> ids fill with defaults; unknown ids throw <code>EngineError</code>.</td></tr>
+              <tr><th scope="row"><code>fifteenBallRack(seed, equipment?)</code></th>
+                <td>Seeded 15-ball rack; same contract as <code>nineBallRack</code>.</td></tr>
+              <tr><th scope="row"><code>simulateJson(scenario)</code></th>
+                <td>Simulate, returning the raw <code>ShotRecord</code> JSON, the lossless replay/transfer format.</td></tr>
+              <tr><th scope="row"><code>simulate(scenario)</code></th>
+                <td>Simulate into a typed, shape-validated <code>ShotRecord</code>. Throws <code>EngineError</code> or <code>RecordError</code>.</td></tr>
+              <tr><th scope="row"><code>loadRecord(json)</code></th>
+                <td>Strict replay load: format version AND kernel version must match this engine.</td></tr>
+              <tr><th scope="row"><code>sampler(record)</code></th>
+                <td>Build a <code>Sampler</code> over a record. Prefer passing the raw JSON string, the only lossless path for foreign records with u64 seeds above 2<sup>53</sup>&#8722;1.</td></tr>
+            </tbody>
+          </table>
+        </section>
+        <section class="docs-section" id="scenarios">
+          <p class="bb-label bb-marker">03 — Scenarios &amp; shots</p>
+          <h2 class="bb-heading-s">Building scenarios</h2>
+          <div class="bb-prose">
+            <p>A <code>Scenario</code> is the one JSON payload every surface shares:
+              <code>{system, shot, options?}</code>. Build it fluently; <code>build()</code>
+              validates with the same rules the kernel applies, so bad input fails
+              fast with kernel semantics
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/scenario.ts">sdk/ts/src/scenario.ts</a>.</p>
+          </div>
+          <p class="bb-label well-cap">TypeScript — <strong>verified</strong> node 26, kernel 0.1.0+3856cb9</p>
+          <pre class="bb-code"><code><b class="tk-n">import</b> { init, ScenarioBuilder, ShotBuilder, realisticOptions }
+  <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/index.js'</b>;
+<b class="tk-n">const</b> engine = <b class="tk-n">await</b> init(<b class="tk-n">'./web/dist/pool-wasm/pool_wasm.js'</b>);
+
+<b class="tk-n">const</b> table = engine.<b class="tk-n">table</b>();                    <i class="tk-c">// the kernel's WPA 9-ft geometry</i>
+<b class="tk-n">const</b> scenario = <b class="tk-n">new</b> ScenarioBuilder(table)
+  .<b class="tk-n">ball</b>(<b class="tk-n">0</b>, { x: <b class="tk-n">0</b>, y: <b class="tk-n">-0.6</b> })                  <i class="tk-c">// cue ball, on-bed at z = R</i>
+  .<b class="tk-n">ball</b>(<b class="tk-n">9</b>, { x: <b class="tk-n">0</b>, y: <b class="tk-n">0.3</b> })                    <i class="tk-c">// object ball up the long string</i>
+  .<b class="tk-n">shot</b>(<b class="tk-n">new</b> ShotBuilder().<b class="tk-n">v0</b>(<b class="tk-n">2</b>).<b class="tk-n">phi</b>(Math.PI / <b class="tk-n">2</b>).<b class="tk-n">tip</b>(<b class="tk-n">0</b>, <b class="tk-n">0.3</b>).<b class="tk-n">build</b>())
+  .<b class="tk-n">options</b>(<b class="tk-n">realisticOptions</b>())                 <i class="tk-c">// calibrated Stronge cushion</i>
+  .<b class="tk-n">build</b>();                                    <i class="tk-c">// ValidationError on any breach</i>
+<b class="tk-n">const</b> record = engine.<b class="tk-n">simulate</b>(scenario);</code></pre>
+          <p class="bb-label well-cap">Output — event stream head</p>
+          <pre class="bb-code well-out"><code>21 events; kinds: Strike, Transition, BallBall, BallTable, BallTable &#8230;; last t = 5.503</code></pre>
+
+          <div class="api-item">
+            <h3 class="api-name" id="scenariobuilder">ScenarioBuilder(table)</h3>
+            <table class="docs-table">
+              <thead><tr><th scope="col">Method</th><th scope="col">Does</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><code>.ball(id, {x, y, params?})</code></th>
+                  <td>Place a stationary on-bed ball at kernel (x, y); z is set to R.</td></tr>
+                <tr><th scope="row"><code>.rawBall(ball)</code></th>
+                  <td>Add a fully specified <code>Ball</code> for advanced states such as Airborne replays.</td></tr>
+                <tr><th scope="row"><code>.shot(shotParams)</code></th>
+                  <td>Set the shot; validated in <code>build()</code>.</td></tr>
+                <tr><th scope="row"><code>.options(simOptions)</code></th>
+                  <td>Set options. Never called &#8594; <code>build()</code> omits the key so the kernel's own v1 default applies.</td></tr>
+                <tr><th scope="row"><code>.cushionResponse(response)</code></th>
+                  <td>Override the table's cushion response, the required pairing for the fitted presets below.</td></tr>
+                <tr><th scope="row"><code>.equipment(ids)</code></th>
+                  <td>Tag the scenario with its catalog composition (provenance; validated; the default composition is omitted for byte parity).</td></tr>
+                <tr><th scope="row"><code>.build()</code></th>
+                  <td>Validate with kernel-identical rules and return the <code>Scenario</code>.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="api-item">
+            <h3 class="api-name" id="shotbuilder">ShotBuilder &#183; ShotParams</h3>
+            <pre class="bb-code api-sig"><code>new ShotBuilder().v0(9).phi(Math.PI / 2).theta(0).tip(a, b).seed(42).build(): ShotParams</code></pre>
+            <table class="docs-table">
+              <thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><code>v0</code></th><td>Cue-tip speed, m/s, in (0, 15].</td></tr>
+                <tr><th scope="row"><code>phi</code></th><td>Azimuth, rad: 0 is +x; &#960;/2 aims +y toward the foot rail.</td></tr>
+                <tr><th scope="row"><code>theta</code></th><td>Cue elevation, rad, in [0, &#960;/2).</td></tr>
+                <tr><th scope="row"><code>a, b</code></th><td>Side / vertical tip offsets in units of R: a&#178; + b&#178; &#8804; 0.25, the miscue limit.</td></tr>
+                <tr><th scope="row"><code>seed</code></th><td>Shot-scoped randomness; a non-negative safe integer.</td></tr>
+              </tbody>
+            </table>
+            <div class="bb-prose">
+              <p><code>validateShot(shot)</code> applies the same rules to a plain object;
+                breaches throw <code>ValidationError</code>.</p>
+            </div>
+          </div>
+          <div class="api-item">
+            <h3 class="api-name" id="validateplacements">validatePlacements(balls, table)</h3>
+            <div class="bb-prose">
+              <p>Mirrors the kernel's input validation: unique u8 ids, cue id 0 present
+                and Stationary, z/vz-versus-Airborne rules, motion/velocity consistency,
+                pinch constraints, in-bounds, and pairwise gap &#8805; r&#7522;+r&#11388;&#8722;<code>EPS_KISS</code>.
+                Constants exported alongside: <code>EPS_KISS</code> 1e-6 m,
+                <code>EPS_SPACE</code> 1e-9 m, <code>EPS_VEL</code> 1e-9 m/s,
+                <code>EPS_SPIN</code> 1e-9 rad/s.</p>
+            </div>
+          </div>
+          <div class="api-item">
+            <h3 class="api-name" id="scenariotojson">scenarioToJson(scenario)</h3>
+            <div class="bb-prose">
+              <p>Serialize a <code>Scenario</code> to the wire document accepted by
+                <code>simulateJson</code>, pool-cli, and <code>pool_py</code>.</p>
+            </div>
+          </div>
+        </section>
+        <section class="docs-section" id="options">
+          <p class="bb-label bb-marker">04 — Options &amp; cloth</p>
+          <h2 class="bb-heading-s">Options presets &amp; cloth</h2>
+          <table class="docs-table">
+            <thead><tr><th scope="col">Factory</th><th scope="col">Physics</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>defaultOptions()</code></th>
+                <td>Han 2005 cushion: the frozen v1 physics an omitted <code>options</code> key means.</td></tr>
+              <tr><th scope="row"><code>realisticOptions()</code></th>
+                <td>Stronge compliant cushion (&#969;-ratio 1.8) + footage-calibrated friction, the web app&rsquo;s preset.</td></tr>
+              <tr><th scope="row"><code>mathavanFittedOptions()</code></th>
+                <td>Mathavan 2010 dual-contact cushion, HSV joint fit. Pair the table with <code>cushionResponse({… ee0: 0.80})</code>.</td></tr>
+              <tr><th scope="row"><code>gripFittedOptions()</code></th>
+                <td>Cushion v5 grip-mode stick-slip. Pair with <code>gripFittedCushionResponse()</code> (e0 0.85, k_v 0.18, ee0 0.65).</td></tr>
+            </tbody>
+          </table>
+          <div class="bb-prose">
+            <p class="bb-note">Note: the two fitted presets are <em>joint</em> fits whose
+              third parameter lives on the table. Applying the options without the
+              paired <code>cushionResponse</code> silently runs a physics nobody
+              calibrated
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/shot.ts">sdk/ts/src/shot.ts</a>.</p>
+            <p>Cloth presets swap the friction trio in place:
+              <code>ClothPresetId</code> is <code>'default' | 'simonis_860_tournament' |
+              'simonis_760_fast' | 'worn_slow' | 'snooker_napped'</code>;
+              <code>clothPreset(id)</code> returns the trio and
+              <code>applyCloth(system, cloth)</code> writes it onto every ball.
+              Supporting types: <code>SimOptions</code> (<code>max_events</code>,
+              <code>t_max</code>, <code>bb_friction</code>, <code>cushion_model</code>,
+              <code>cushion_friction</code>, hop/bounce thresholds, <code>cue?</code>),
+              <code>CushionModel</code> (<code>'Han2005'</code> |
+              <code>{StrongeCompliant}</code> | <code>{Mathavan2010}</code>),
+              <code>TangentialCompliance</code>, <code>CueParams</code>
+              (<code>m</code>, <code>tip_radius</code>, <code>end_mass</code>),
+              <code>ClothPreset</code>.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="records">
+          <p class="bb-label bb-marker">05 — Shot records</p>
+          <h2 class="bb-heading-s">Shot records</h2>
+          <div class="bb-prose">
+            <p>A <code>ShotRecord</code> is <code>{kernel_version, format_version,
+              initial, shot, options, events, stats?}</code>: the complete, replayable
+              result of one shot. Each <code>Event</code> is <code>{t, kind, post}</code>
+              where <code>post</code> snapshots the states of affected balls.
+              <code>EventKind</code> is an externally-tagged union:
+              <code>'Rest'</code>, <code>Strike</code>, <code>BallBall</code>,
+              <code>BallLinearCushion</code>, <code>BallCircularCushion</code>,
+              <code>BallPocket</code>, <code>BallTable</code>, <code>BallOffTable</code>,
+              <code>Transition</code>
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/record.ts">sdk/ts/src/record.ts</a>.</p>
+          </div>
+          <table class="docs-table">
+            <thead><tr><th scope="col">Export</th><th scope="col">Does</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>FORMAT_VERSION</code></th>
+                <td>= 1. Record schema version; parsing requires an exact match.</td></tr>
+              <tr><th scope="row"><code>parseShotRecord(json, expectedKernelVersion?)</code></th>
+                <td>Strict parse: format version must equal exactly; kernel version must match when given (cross-version replay is not bit-reproducible).</td></tr>
+              <tr><th scope="row"><code>validateRecordShape(rec)</code></th>
+                <td>Walks every field against the mirrored serde shapes and names the first drifted path.</td></tr>
+              <tr><th scope="row"><code>recordDuration(record)</code></th>
+                <td>Total simulated seconds: the final event time, 0 if empty.</td></tr>
+              <tr><th scope="row"><code>RecordError</code></th>
+                <td>Malformed JSON, version mismatch, or shape drift.</td></tr>
+              <tr><th scope="row"><code>ShotStats</code></th>
+                <td>Diagnostic counters (<code>cushion_impacts_beyond_validity</code>).</td></tr>
+            </tbody>
+          </table>
+          <div class="bb-prose">
+            <p class="bb-note">Precision caveat: <code>shot.seed</code> is a kernel u64
+              but a JS number: <code>parseShotRecord</code> REJECTS seeds above
+              2&#8309;&#179;&#8722;1 rather than silently rounding. For foreign records, keep the raw
+              JSON string and feed it straight to <code>engine.sampler(json)</code>,
+              the lossless path.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="sampling">
+          <p class="bb-label bb-marker">06 — Sampling</p>
+          <h2 class="bb-heading-s">Sampling &amp; playback</h2>
+          <div class="bb-prose">
+            <p>A <code>Sampler</code> reconstructs exact analytic ball states at any
+              time, never resampled physics. It owns ONE reusable
+              <code>Float64Array</code>, 8 slots per ball
+              (<code>[x, y, z, qw, qx, qy, qz, motion_code]</code>), zero allocation
+              per frame
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/sampler.ts">sdk/ts/src/sampler.ts</a>.</p>
+          </div>
+          <table class="docs-table">
+            <thead><tr><th scope="col">Member</th><th scope="col">Does</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>.sampleAt(t)</code></th>
+                <td>Fill the buffer and return it. Before the first event &#8594; initial states; after the last &#8594; final states.</td></tr>
+              <tr><th scope="row"><code>.data &#183; .ballIds &#183; .ballCount</code></th>
+                <td>The flat buffer; ball ids in <code>record.initial.balls</code> order (stable); ball count.</td></tr>
+              <tr><th scope="row"><code>.offset(i) &#183; .ball(i) &#183; .balls()</code></th>
+                <td>Slot offset (8&#183;i); decode one <code>BallSampleView</code> of the last frame; decode all (allocates).</td></tr>
+              <tr><th scope="row"><code>.free()</code></th>
+                <td>Release the wasm-side index when done.</td></tr>
+              <tr><th scope="row"><code>FLOATS_PER_BALL</code></th>
+                <td>= 8, the flat layout stride.</td></tr>
+              <tr><th scope="row"><code>MOTION_CODES</code></th>
+                <td>Frozen code &#8594; state mapping: 0 Stationary, 1 Spinning, 2 Sliding, 3 Rolling, 4 Pocketed, 5 Airborne.</td></tr>
+            </tbody>
+          </table>
+          <div class="bb-prose">
+            <p class="bb-note">Gotcha: <code>MOTION_CODES</code> buffer order
+              (Pocketed = 4, Airborne = 5) differs from the <code>MOTION_STATES</code>
+              type-declaration order. Decode buffer codes with <code>MOTION_CODES</code>,
+              never by eyeballing the union.</p>
+          </div>
+        </section>
+        <section class="docs-section" id="catalog">
+          <p class="bb-label bb-marker">07 — Equipment catalog</p>
+          <h2 class="bb-heading-s">Equipment catalog</h2>
+          <div class="bb-prose">
+            <p>Five axes of brand/environment parameter sets (tables, cloths,
+              ball sets, cues, cushion models), versioned and immutable once shipped
+              (new measurements get NEW ids). <code>CATALOG</code> is a hand-mirrored
+              copy of the kernel registry, pinned by a drift test against the wasm's
+              own <code>catalog_json()</code>
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/catalog.ts">sdk/ts/src/catalog.ts</a>.</p>
+          </div>
+          <p class="bb-label well-cap">TypeScript — <strong>verified</strong> node 26, kernel 0.1.0+6adb7fd9</p>
+          <pre class="bb-code"><code><b class="tk-n">import</b> { init, CATALOG, catalogEntry, calibrationKind }
+  <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/index.js'</b>;
+<b class="tk-n">const</b> engine = <b class="tk-n">await</b> init(<b class="tk-n">'./web/dist/pool-wasm/pool_wasm.js'</b>);
+
+console.<b class="tk-n">log</b>(CATALOG.cloths.<b class="tk-n">map</b>((c) =&gt; c.id));
+<i class="tk-c">// axis = the EquipmentIds FIELD name ('cloth_id'), not the plural key</i>
+<b class="tk-n">const</b> worn = <b class="tk-n">catalogEntry</b>(<b class="tk-n">'cloth_id'</b>, <b class="tk-n">'worn_slow'</b>);
+console.<b class="tk-n">log</b>(worn.display_name, <b class="tk-n">calibrationKind</b>(worn.calibration));
+
+<i class="tk-c">// compose a rack on worn cloth + a low-deflection cue</i>
+<b class="tk-n">const</b> scenario = engine.<b class="tk-n">nineBallRack</b>(<b class="tk-n">7</b>,
+  { cloth_id: <b class="tk-n">'worn_slow'</b>, cue_id: <b class="tk-n">'low_deflection'</b> });</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>[
+  'simonis_860_tournament',
+  'simonis_760_fast',
+  'worn_slow',
+  'snooker_napped',
+  'carom_worsted_heated',
+  'pool_worsted_new',
+  'pool_worsted_fast',
+  'pool_worsted_measured'
+]
+Worn/dirty slow cloth estimated</code></pre>
+          <table class="docs-table">
+            <thead><tr><th scope="col">Export</th><th scope="col">Does</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>CATALOG &#183; CATALOG_VERSION</code></th>
+                <td>The registry mirror; version = 21.</td></tr>
+              <tr><th scope="row"><code>EQUIPMENT_AXES &#183; EquipmentAxis</code></th>
+                <td>The five axes, keyed by <code>EquipmentIds</code> field: <code>table_id &#8594; tables</code>, <code>cloth_id &#8594; cloths</code>, <code>ballset_id &#8594; ballsets</code>, <code>cue_id &#8594; cues</code>, <code>cushion_model_id &#8594; cushion_models</code>.</td></tr>
+              <tr><th scope="row"><code>DEFAULT_EQUIPMENT &#183; isDefaultEquipment(ids)</code></th>
+                <td>wpa_generic_9ft / simonis_860_tournament / aramith_pool / standard / han2005_default; serde-skipped when equal, so omit it for byte parity. Note: this kernel/serde default is FROZEN and is <em>not</em> the app default &#8212; the game now boots on <code>pool_pro_9ft</code> + <code>stronge_realistic</code> (web layer only), so app scenarios always serialize their equipment tag.</td></tr>
+              <tr><th scope="row"><code>catalogEntries(axis) &#183; catalogEntry(axis, id)</code></th>
+                <td>Entries along one axis (kernel order); one entry or <code>undefined</code>.</td></tr>
+              <tr><th scope="row"><code>validateEquipmentIds(ids) &#183; EquipmentError</code></th>
+                <td>Validate a full spec; throws naming the axis and offending id.</td></tr>
+              <tr><th scope="row"><code>Calibration &#183; calibrationKind(c)</code></th>
+                <td>The provenance union (<code>Calibrated</code>, fitted by this project; <code>Literature</code>; <code>Estimated</code>) and its badge string.</td></tr>
+              <tr><th scope="row"><code>TableEntry &#183; ClothEntry &#183; BallSetEntry &#183; CueEntry &#183; CushionModelEntry</code></th>
+                <td>Entry shapes. <code>TableEntry.recommended_cushion_model_id</code> is a picker hint, NOT applied by resolve; <code>BallSetEntry.bb_friction</code> carries the worn-ball fitted override; fitted cushion models carry a <code>response_override</code> applied to the table at resolve.</td></tr>
+            </tbody>
+          </table>
+          <div class="bb-prose">
+            <p>Shipped ids: tables <code>wpa_generic_9ft</code>,
+              <code>wpa_spec_9ft</code>, <code>diamond_redlabel_9ft</code>,
+              <code>diamond_proam_9ft</code>, <code>predator_apex_9ft</code>,
+              <code>wpbsa_snooker_12ft</code>, <code>umb_carom_284</code>,
+              <code>joy_q8_9ft</code>, <code>chinese8_pro_9ft</code>,
+              <code>diamond_proam_8ft</code>, <code>diamond_proam_7ft</code>,
+              <code>rasson_ox_9ft</code>, <code>pool_pro_9ft_older_gen</code>,
+              <code>pool_pro_9ft</code> (the app boot default),
+              <code>pool_pro_9ft_metal_rim</code>, <code>pool_pro_9ft_measured</code>,
+              <code>pool_pro_8ft</code>, <code>pool_pro_7ft</code>,
+              <code>pool_pro_9ft_k55</code>;
+              cloths <code>simonis_860_tournament</code>,
+              <code>simonis_760_fast</code>, <code>worn_slow</code>,
+              <code>snooker_napped</code>, <code>carom_worsted_heated</code>,
+              <code>pool_worsted_new</code>, <code>pool_worsted_fast</code>,
+              <code>pool_worsted_measured</code>; ball sets <code>aramith_pool</code>,
+              <code>aramith_pool_worn</code>, <code>snooker</code>, <code>carom</code>,
+              <code>aramith_black</code>, <code>arcos_reserve</code>,
+              <code>pool_standard</code>, <code>pool_used</code>,
+              <code>pool_black_cap</code>, <code>pool_ivory_gunsight</code>;
+              cues <code>standard</code>, <code>low_deflection</code>,
+              <code>predator_z2</code>, <code>predator_314</code>,
+              <code>meucci_reddot</code>, <code>break_phenolic</code>,
+              <code>standard_dime_tip</code>, <code>masse_trick</code>,
+              <code>masse_trick_dwell</code>, <code>carbon_ld</code>,
+              <code>jump_phenolic</code>, <code>snooker_ash</code>,
+              <code>carom_conical</code>, <code>pro_ld_pivot_141</code>,
+              <code>pro_ld_pivot_118</code>, <code>pro_ld_pivot_101</code>; cushion models
+              <code>han2005_default</code>, <code>stronge_realistic</code>,
+              <code>mathavan_fitted</code>, <code>grip_fitted</code>.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="types">
+          <p class="bb-label bb-marker">08 — Wire types</p>
+          <h2 class="bb-heading-s">Core wire types</h2>
+          <div class="bb-prose">
+            <p>Hand-mirrored serde shapes: SI units, z-up
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/types.ts">sdk/ts/src/types.ts</a>.</p>
+          </div>
+          <table class="docs-table">
+            <thead><tr><th scope="col">Type</th><th scope="col">Shape</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>BallId</code></th><td>number (kernel u8).</td></tr>
+              <tr><th scope="row"><code>Vec3 &#183; Quat</code></th><td><code>{x, y, z}</code> SI z-up; <code>{w, x, y, z}</code> render-only orientation.</td></tr>
+              <tr><th scope="row"><code>MotionState &#183; MOTION_STATES</code></th><td><code>'Stationary' | 'Spinning' | 'Sliding' | 'Rolling' | 'Airborne' | 'Pocketed'</code>; array in kernel declaration order.</td></tr>
+              <tr><th scope="row"><code>BallState</code></th><td><code>{pos, vel, avel, motion, pinch?}</code>; <code>PinchBoost {k, t_rem}</code> is the post-pinch slide phase.</td></tr>
+              <tr><th scope="row"><code>BallParams &#183; Ball</code></th><td><code>{m, r, u_s, u_r, u_sp, e_b, e_c, f_c, e_t?}</code>; <code>{id, params, state}</code>.</td></tr>
+              <tr><th scope="row"><code>defaultBallParams()</code></th><td>Kernel default 57.15 mm US ball: m 0.170097 kg, r 0.028575 m.</td></tr>
+              <tr><th scope="row"><code>Table</code></th><td><code>{width, length, linear, circular, pockets, cushion_response}</code>.</td></tr>
+              <tr><th scope="row"><code>LinearCushionSegment &#183; CircularCushionSegment &#183; Pocket</code></th><td>Rail segment; pocket-jaw arc; pocket circle.</td></tr>
+              <tr><th scope="row"><code>CushionResponse &#183; CushionFriction</code></th><td><code>{e0, k_v, v_ref, e_min, e_max, ee0?}</code>; <code>{k, v_ref, mu_min, mu_max}</code>.</td></tr>
+              <tr><th scope="row"><code>BallBallFriction</code></th><td><code>{a, b, c}</code>: Alciatore &#956;(v) = a + b&#183;e&#8315;&#7580;&#7515;.</td></tr>
+              <tr><th scope="row"><code>SystemState &#183; EquipmentIds</code></th><td><code>{balls, table, equipment?}</code>; the five-id composition tag.</td></tr>
+            </tbody>
+          </table>
+        </section>
+        <section class="docs-section" id="deep">
+          <p class="bb-label bb-marker">09 — Beyond the barrel</p>
+          <h2 class="bb-heading-s">Deep imports</h2>
+          <div class="bb-prose">
+            <p>Four modules are intentionally NOT exported from the frozen SDK barrel;
+              consume them by deep import: the share codec (below), the game catalog
+              (<a href="#games">&#167;10</a>) and the rulesets
+              (<a href="#rules">&#167;11</a>).</p>
+            <p><strong>Share codec</strong> (<code>share.js</code>). A
+              <code>SharedGame</code> (rack kind, seed, five-id equipment, shot list,
+              cue-ball placements, game id, calls) is enough to reconstruct every
+              record byte-for-byte on the same kernel version; replays re-simulate on
+              the canonical wasm, never ship frames. <code>SHARE_FORMAT_VERSION</code>
+              = 4 adds the game axis: <code>game</code> (a GameCatalog id) and
+              <code>calls</code> (<code>ShotAnnotation[]</code> — per-shot pocket
+              calls, safety declarations, and rulebook-decision resolutions; a
+              decision at <code>shotIndex</code> k applies after shot k settles).
+              v1/v2/v3 legacy shares still decode, always as
+              <code>game: 'nine_ball'</code>, <code>calls: []</code> — never a prompt,
+              and byte-frozen equipment mapping. <code>MAX_RACK_SEED</code> = 2&#179;&#185;
+              keeps derived shot seeds (rackSeed&#183;1000+shotIndex) safe integers
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/share.ts">sdk/ts/src/share.ts</a>.</p>
+          </div>
+          <p class="bb-label well-cap">TypeScript — <strong>verified</strong> excerpt (a <code style="font-family:var(--bb-mono);text-transform:none;letter-spacing:0">SharedGame</code> literal omitted) &#183; node 26</p>
+          <pre class="bb-code"><code><b class="tk-n">import</b> { encodeShare, decodeShare, kernelGate } <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/share.js'</b>;
+
+<b class="tk-n">const</b> code = <b class="tk-n">await</b> <b class="tk-n">encodeShare</b>(game);       <i class="tk-c">// compact JSON &#8594; deflate-raw &#8594; base64url</i>
+<b class="tk-n">const</b> back = <b class="tk-n">await</b> <b class="tk-n">decodeShare</b>(code);       <i class="tk-c">// ShareError on malformed input</i>
+<i class="tk-c">// constitution gate: {ok} or {ok:false, message}</i>
+console.<b class="tk-n">log</b>(<b class="tk-n">kernelGate</b>(back, engine.<b class="tk-n">version</b>()));</code></pre>
+          <p class="bb-label well-cap">Output — a one-shot nine-ball game</p>
+          <pre class="bb-code well-out"><code>code: FczRCoQgEIXhd_F2B5myNJ9FRIbVNqHGMKPX3-Rc&#8230; (164 chars)
+{ ok: true }</code></pre>
+          <div class="bb-prose">
+            <p>Exports: <code>encodeShare</code>, <code>decodeShare</code>,
+              <code>kernelGate</code>, <code>ShareError</code>,
+              <code>SHARE_FORMAT_VERSION</code>, <code>MAX_RACK_SEED</code>,
+              <code>RackKind</code>, <code>SharedShot</code>, <code>SharedGame</code>,
+              <code>ShotAnnotation</code>,
+              plus the legacy decode maps <code>PresetId</code>, <code>PRESET_IDS</code>,
+              <code>CLOTH_PRESET_IDS</code>, <code>PRESET_TO_CUSHION_MODEL</code>.
+              Kernel mismatch is NOT a decode error: gate it and let the UI offer
+              view-anyway.</p>
+            <p><strong>Nine-ball judge primitives</strong>: <code>rules/index.js</code>
+              re-exports the original pure referee unchanged (its verdicts are the
+              conformance oracle): <code>judgeShot(state, record)</code> returns a
+              <code>NineBallJudgment</code> (legal iff the cue's first contact is the
+              lowest ball AND afterwards any ball pockets or touches a cushion;
+              fouls <code>'no-contact' | 'wrong-first-ball' | 'no-rail-after-contact' |
+              'scratch'</code> with <code>FOUL_LABELS</code> strings).
+              <code>deriveOnTable(record)</code> reads the object balls from the initial
+              snapshot. Respot helpers: <code>footSpot(table)</code>,
+              <code>respotBallSpot(table, r, obstacles)</code> (any ball; foot spot &#8594;
+              long-string fallback), <code>respotNineSpot</code> (its 9-ball alias),
+              <code>placementFits</code>, <code>clampToBed</code> (ball-in-hand),
+              <code>PLACE_CLEARANCE</code> 1e-4 m, <code>SpotXY</code>. v1
+              simplifications: no push-out, no three-foul rule, break judged like any
+              shot <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/nineball.ts">sdk/ts/src/rules/nineball.ts</a>.
+              The multi-game <code>Ruleset</code> interface over these primitives is
+              <a href="#rules">&#167;11</a>.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="games">
+          <p class="bb-label bb-marker">10 — Game catalog</p>
+          <h2 class="bb-heading-s">Game catalog &amp; rack templates</h2>
+          <div class="bb-prose">
+            <p>Five disciplines as data (<code>games/index.js</code>, a leaf module —
+              deep import, never in the barrel). Every <code>GameEntry</code> carries
+              full rulebook provenance (governing body, rulebook title, pinned
+              edition, URL, transcribed sections) and a readiness tier. Since
+              feature 012 all five entries are <code>playable</code>: each is bound
+              to a shipped ruleset and a catalog table class, with empty
+              prerequisite inventories (the <code>config_ready</code> tier remains in
+              the type for future disciplines). Like equipment entries, game
+              entries are immutable once shipped: a correction is a NEW id
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/games/catalog.ts">sdk/ts/src/games/catalog.ts</a>.</p>
+          </div>
+          <p class="bb-label well-cap">TypeScript — <strong>verified</strong> node 26, kernel 0.1.0+ee629a3</p>
+          <pre class="bb-code"><code><b class="tk-n">import</b> { GAME_CATALOG, DEFAULT_GAME, getGameEntry, validateGameCatalog }
+  <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/games/index.js'</b>;
+
+<b class="tk-n">validateGameCatalog</b>(GAME_CATALOG);          <i class="tk-c">// throws GameCatalogError on any uncited entry</i>
+console.<b class="tk-n">log</b>(DEFAULT_GAME, GAME_CATALOG.<b class="tk-n">map</b>((g) =&gt; <b class="tk-n">`${g.id}:${g.readiness}`</b>));
+
+<b class="tk-n">const</b> snooker = <b class="tk-n">getGameEntry</b>(<b class="tk-n">'snooker'</b>);
+console.<b class="tk-n">log</b>(<b class="tk-n">`${snooker.provenance.body} — ${snooker.provenance.rulebook}`</b>);
+console.<b class="tk-n">log</b>(snooker.ruleset_id, snooker.table_class, snooker.prerequisites.length);</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>nine_ball ['nine_ball:playable', 'eight_ball:playable', 'snooker:playable',
+  'carom_3cushion:playable', 'one_pocket:playable']
+WPBSA — Official Rules of the Games of Snooker and English Billiards
+snooker-v1 {kind: 'catalog', table_ids: ['wpbsa_snooker_12ft']} 0</code></pre>
+          <table class="docs-table">
+            <thead><tr><th scope="col">Export</th><th scope="col">Does</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><code>GAME_CATALOG &#183; DEFAULT_GAME</code></th>
+                <td>The five frozen v1 entries, all <code>playable</code> since feature 012 (rulesets <code>nineball-v1</code>, <code>eightball-v1</code>, <code>snooker-v1</code>, <code>carom3c-v1</code>, <code>onepocket-v1</code>); the app default is <code>'nine_ball'</code> (a fresh profile plays exactly as before).</td></tr>
+              <tr><th scope="row"><code>getGameEntry(id)</code></th>
+                <td>Lookup; throws <code>GameCatalogError</code> on unknown ids.</td></tr>
+              <tr><th scope="row"><code>validateGameEntry(e) &#183; validateGameCatalog(c)</code></th>
+                <td>Provenance-required validation: missing/empty citations are INVALID, not lower-tier (there is deliberately no &#8220;estimated&#8221; equivalent). Also checks reference resolution (ballsets, table class, rack template) and readiness coherence (<code>playable</code> &#8658; bound ruleset, no prerequisites; <code>config_ready</code> &#8658; non-empty prerequisites).</td></tr>
+              <tr><th scope="row"><code>GameEntry</code></th>
+                <td><code>{id, display_name, discipline_family, provenance, readiness, ball_count, ballset_ids, table_class, rack_template, break_requirements, legal_shot, foul_taxonomy, scoring_win, respot_rules, turn_rotation, call_shot, ruleset_id, prerequisites}</code> — every rules field is a <code>CitedText</code>/<code>FoulDef</code> carrying its rule number.</td></tr>
+              <tr><th scope="row"><code>RACK_TEMPLATES &#183; RACK_TEMPLATE_CITES &#183; resolveRackTemplate(id)</code></th>
+                <td>Kernel-backed rack templates, all five resolving since feature 012: <code>nine_standard</code>, <code>eight_wpa</code>, <code>one_pocket_wpa</code> (kernel kind <code>'fifteen'</code> + seeded shuffle), <code>snooker_wpbsa</code> (kind <code>'snooker'</code>, shuffle <code>'none'</code> — reds are interchangeable, colours fixed; WPBSA Sec3 R2(a)(i)) and <code>carom_umb</code> (kind <code>'carom'</code>; UMB Art. 22/23).</td></tr>
+              <tr><th scope="row"><code>applyRackTemplate(template, scenarioJson, rackSeed)</code></th>
+                <td>Pure seeded id-permutation over a kernel rack scenario: renumbers ball IDS only (splitmix64, integer-only — same seed &#8658; same permutation on every platform); positions/topology/cue untouched. <code>nine_standard</code> is the byte-identity. <code>eight_wpa</code> makes the kernel lattice WPA 4.2-legal: 8 on the row-3 center slot, one seeded solid + one seeded stripe on the rear corners, the rest a seeded shuffle.</td></tr>
+              <tr><th scope="row"><code>GameCatalogError &#183; RackTemplateError</code></th>
+                <td>Validation and template/scenario-mismatch errors (programming errors, not game outcomes).</td></tr>
+            </tbody>
+          </table>
+          <div class="bb-prose">
+            <p class="bb-note">Note: pre-012 kernel behavior is untouched —
+              <code>Engine.fifteenBallRack</code> keeps producing its shipped
+              frozen-contact lattice (the 012 kernel additions are additive rack
+              kinds: <code>snookerRack(seed)</code> and
+              <code>caromStart(breakerRight)</code>) and the permutation is SDK-side
+              data, so share-link recipients re-simulate byte-identical records.
+              The app's game selector lists <code>playable</code> entries only — all
+              five since feature 012, each with its rulebook citation. Display
+              strings ride i18n keys <code>game.&lt;id&gt;</code> /
+              <code>prereq.&lt;id&gt;</code> in all 7 locales.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="rules">
+          <p class="bb-label bb-marker">11 — Rulesets</p>
+          <h2 class="bb-heading-s">Rulesets — the multi-game referee</h2>
+          <div class="bb-prose">
+            <p>A <code>Ruleset&lt;S&gt;</code> is a pure referee over kernel
+              <code>ShotRecord</code> events: verdicts derive exclusively from
+              serializable inputs (prior match state, the event stream, recorded
+              calls/decisions) — no re-simulation, no clock, no randomness. For
+              identical inputs it returns deeply-equal outputs on every platform;
+              order-of-events questions resolve by event-stream position, never by
+              timestamp comparison
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/index.ts">sdk/ts/src/rules/index.ts</a>.</p>
+            <p class="bb-note">Feature 013: judging is <strong>crate-backed</strong> —
+              these modules keep their frozen 011/012 import paths, exports, and
+              byte-identical verdicts, but delegate to the committed
+              <code>pool-rules</code> wasm artifact. Nothing on this page changes;
+              see the <a href="#rules-crate">crate backing</a> note below and the
+              primitives guide
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/docs/sdk/rules-crate.md">docs/sdk/rules-crate.md</a>.</p>
+          </div>
+          <p class="bb-label well-cap">TypeScript — <strong>verified</strong> node 26, kernel 0.1.0+5bd2803 (seed-7 break scratches)</p>
+          <pre class="bb-code"><code><b class="tk-n">import</b> { init, ShotBuilder, scenarioToJson } <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/index.js'</b>;
+<b class="tk-n">import</b> { getGameEntry } <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/games/index.js'</b>;
+<b class="tk-n">import</b> { resolveRackTemplate, applyRackTemplate } <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/games/rack.js'</b>;
+<b class="tk-n">import</b> { getRuleset } <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/rules/index.js'</b>;
+
+<b class="tk-n">const</b> engine = <b class="tk-n">await</b> init(<b class="tk-n">'./web/dist/pool-wasm/pool_wasm.js'</b>);
+
+<i class="tk-c">// seeded WPA 4.2 rack: 8 centered, one solid + one stripe on the rear corners</i>
+<b class="tk-n">const</b> entry = <b class="tk-n">getGameEntry</b>(<b class="tk-n">'eight_ball'</b>);
+<b class="tk-n">const</b> template = <b class="tk-n">resolveRackTemplate</b>(entry.rack_template);   <i class="tk-c">// 'eight_wpa'</i>
+<b class="tk-n">const</b> scenario = JSON.<b class="tk-n">parse</b>(<b class="tk-n">applyRackTemplate</b>(
+  template, <b class="tk-n">scenarioToJson</b>(engine.<b class="tk-n">fifteenBallRack</b>(<b class="tk-n">7</b>)), <b class="tk-n">7</b>));
+scenario.shot = <b class="tk-n">new</b> ShotBuilder().<b class="tk-n">v0</b>(<b class="tk-n">8</b>).<b class="tk-n">phi</b>(Math.PI / <b class="tk-n">2</b>).<b class="tk-n">seed</b>(<b class="tk-n">7000</b>).<b class="tk-n">build</b>();
+<b class="tk-n">const</b> record = engine.<b class="tk-n">simulate</b>(scenario);
+
+<i class="tk-c">// judge the break — a pure function of (state, record, call)</i>
+<b class="tk-n">const</b> rules = <b class="tk-n">getRuleset</b>(entry.ruleset_id);                  <i class="tk-c">// 'eightball-v1'</i>
+<b class="tk-n">const</b> j = rules.<b class="tk-n">judge</b>(rules.<b class="tk-n">initialState</b>(<b class="tk-n">1</b>), record, <b class="tk-n">null</b>);  <i class="tk-c">// break: no call, 4.3(a)</i>
+console.<b class="tk-n">log</b>(j.legal, j.fouls, j.decisionRequired);
+
+<i class="tk-c">// the incoming player exercises the 4.3(g) option: cue in hand in the kitchen</i>
+<b class="tk-n">const</b> state = rules.<b class="tk-n">applyDecision</b>(j.next, { decision: <b class="tk-n">4</b>, choice: <b class="tk-n">2</b> });
+<b class="tk-n">const</b> hud = rules.<b class="tk-n">hudState</b>(state);
+console.<b class="tk-n">log</b>(hud.phase, <b class="tk-n">'&#183; shooter'</b>, hud.shooter, <b class="tk-n">'&#183; groups'</b>, hud.groups);</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>false [ { code: 'scratch', cite: 'WPA 3.1 via 4.3(g),(h)' } ] { kind: 'break_foul', chooser: 2 }
+open &#183; shooter 2 &#183; groups null</code></pre>
+          <div class="api-item">
+            <h3 class="api-name" id="ruleset">Ruleset&lt;S&gt;</h3>
+            <table class="docs-table">
+              <thead><tr><th scope="col">Member</th><th scope="col">Does</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><code>id</code></th>
+                  <td><code>RulesetId</code>: <code>'nineball-v1' | 'eightball-v1' | 'onepocket-v1' | 'snooker-v1' | 'carom3c-v1'</code>; look rulesets up via <code>getRuleset(id)</code> (throws <code>RulesError</code> on unknown ids); <code>RULESET_IDS</code> is the frozen list.</td></tr>
+                <tr><th scope="row"><code>initialState(breaker)</code></th>
+                  <td>Fresh-rack match state for breaker seat 1 or 2. Pure.</td></tr>
+                <tr><th scope="row"><code>judge(state, record, call)</code></th>
+                  <td>Adjudicate one settled shot into a <code>Judgment&lt;S&gt;</code>. Pure, never mutates inputs. MUST NOT be called while a decision is pending or after the match ends (throws <code>RulesError</code>).</td></tr>
+                <tr><th scope="row"><code>applyDecision(state, {decision, choice})</code></th>
+                  <td>Resolve a pending rulebook option (enums frozen in the share codec: 1 dry_break &#183; 2 eight_legal_break &#183; 3 eight_foul_break &#183; 4 break_foul &#183; 5 stalemate &#183; and since feature 012: 6 one-pocket break pocket, WPA 12.3 &#183; 7 snooker play-again, WPBSA Sec3 R13 &#183; 8 snooker re-spotted-black toss, Sec3 R4 &#183; 9 one-pocket stalemate lag, WPA 12.10 &#183; 10 carom break spot, UMB Art 23.2). Throws <code>RulesError</code> when nothing matching is pending or the choice is out of range.</td></tr>
+                <tr><th scope="row"><code>hudState(state)</code></th>
+                  <td>Serializable match-state projection for HUD/e2e introspection (<code>window.__rules.matchState()</code> in the app).</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="api-item">
+            <h3 class="api-name" id="judgment">Judgment&lt;S&gt; &#183; ShotCall &#183; CitedFoul</h3>
+            <div class="bb-prose">
+              <p><code>Judgment</code> is <code>{legal, fouls, pocketed, ballInHand,
+                respot, turn, decisionRequired, terminal, next}</code>. Every foul is a
+                <code>CitedFoul {code, cite}</code> — the rule number is data, not
+                display copy (<code>code</code> doubles as the i18n key
+                <code>foul.&lt;code&gt;</code>). <code>ballInHand</code> is a
+                <code>PlacementRight</code>:
+                <code>'none' | 'anywhere' | 'kitchen' | 'd_zone'</code>
+                (8-ball break fouls grant kitchen-only placement per 4.3(g),(h);
+                standard fouls grant anywhere per 4.9; snooker in-hand is on or
+                within the D — WPBSA Sec3 R8(a), feature 012). <code>respot</code>
+                lists ball ids to return to their spots (pool: foot spot with the
+                <code>respotBallSpot</code> long-string occlusion fallback; snooker
+                and carom resolve through the
+                <a class="bb-cite" href="#respots">discipline respot plans</a>).
+                <code>terminal</code>
+                carries <code>{winner, reason, cite}</code>. <code>next</code> is the
+                complete post-shot match state — a match replays as a left fold of
+                (judge &#8728; applyDecision) over the shot list and calls axis.</p>
+              <p><code>ShotCall</code> is the per-shot rule input:
+                <code>{kind: 'call', ball, pocket}</code> (pocket = kernel
+                <code>Table.pockets</code> index, identical to the u16 in
+                <code>BallPocket</code> events), <code>{kind: 'safety'}</code>,
+                <code>{kind: 'nominate', ball}</code> (snooker colour nomination,
+                ids 16&#8211;21 — share-codec calls-axis kind 3, feature 012), or
+                <code>null</code> for games without call rules.</p>
+            </div>
+          </div>
+          <div class="api-item">
+            <h3 class="api-name" id="rulesets-shipped">Shipped rulesets</h3>
+            <div class="bb-prose">
+              <p><strong>nineball-v1</strong> wraps the original judge (verdict logic
+                byte-unchanged — the untouched <code>nineball.test.ts</code> suites are
+                its oracle) onto the shared interface: <code>call</code> is always
+                <code>null</code>, <code>decisionRequired</code> always
+                <code>null</code>, <code>respotNine</code> maps to
+                <code>respot: [9]</code>. <code>nineballStateFromRecord(record,
+                shooter)</code> derives the wrapper state straight from a record.</p>
+              <p><strong>eightball-v1</strong> transcribes the WPA Rules of Play
+                (eff. 2025-09-15) &#167;4 with &#167;3 fouls; every verdict carries its rule
+                number. Call-shot mode is the strictest 1.7 reading: every non-break,
+                non-safety shot MUST carry a <code>call</code> — a missing call is a
+                <code>RulesError</code> (programming error), not a game foul; the break
+                carries none (4.3(a)). <code>EIGHTBALL_V1_CONFIG</code> is frozen
+                rulebook transcription, not house-rule toggles
+                (<code>threeFoulRule: false</code> permanently, WPA 3.13
+                self-exclusion). Match state (<code>EightBallMatchState</code>) tracks
+                <code>phase</code> (break/open/grouped/over), <code>groups</code>
+                (solids 1&#8211;7 / stripes 9&#8211;15, assigned per 4.4), pending decisions and
+                the foul context
+                <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/eightball.ts">sdk/ts/src/rules/eightball.ts</a>.</p>
+              <p><strong>snooker-v1</strong> (feature 012) transcribes the WPBSA
+                Official Rules (Revised Sep 2024): red/colour ball-on sequencing
+                through the final-colours endgame, penalty =
+                clamp(4, value of ball on / ball concerned, 7) (Sec3 R11), colour
+                nomination via <code>{kind: 'nominate', ball}</code> (a missing
+                nomination on a colour shot is a <code>RulesError</code>, the 8-ball
+                call convention), respot ids emitted highest-value first and never
+                in final colours (Sec3 R3(h)(ii)), in-hand as
+                <code>'d_zone'</code> (Sec3 R8(a)), play-again (decision 7) and
+                re-spotted-black toss (decision 8). Referee-judgment clauses
+                (foul-and-a-miss R14, free ball Sec2 R13, touching ball R9, push
+                stroke R18) are documented OUT of scope in the module header —
+                nothing is invented. <code>hudState</code> surfaces
+                <code>{scores, currentBreak, ballOn, phase, penalty,
+                respotQueue}</code>
+                <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>.</p>
+              <p><strong>carom3c-v1</strong> (feature 012) transcribes the UMB World
+                Rules (1 Jan 1989): a point requires the cue ball to contact
+                &#8805; 3 cushions before the SECOND object ball (Art 83), counted by
+                event-stream position; an honest miss is
+                <code>legal: true, turn: 'pass'</code> with the cited non-scoring
+                reason <code>insufficient-cushions</code> in <code>lastReason</code>;
+                the starting cannon must contact the red first
+                (<code>wrong-first-ball-break</code>, Art 23.3/41.12); off-table
+                balls respot via the Art 27.3(b)/28.1(b) spot-swap plan; race to a
+                configurable target (settings data, never on the share wire).
+                Physical-world fouls (Art 41.4&#8211;41.11) and the equal-innings format
+                (Art 29.3/29.4) are documented OUT with cites. <code>hudState</code>
+                surfaces <code>{points, innings, target, cushionsThisShot}</code>
+                <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/carom3c.ts">sdk/ts/src/rules/carom3c.ts</a>.</p>
+              <p><strong>onepocket-v1</strong> (feature 012) transcribes WPA Rules
+                of Play (eff. 2025-09-15) &#167;12: break-pocket assignment with the
+                12.3 default (decision 6), own-pocket scoring with continuation,
+                opponent-pocket balls counting for the opponent even on fouls
+                (12.5), neutral-pocket and off-table balls queued to end-of-turn
+                spotting (12.6), owed-ball debts (12.4), cue ball REMAINING after
+                standard fouls with kitchen in-hand only for the 3.1 scratch
+                (12.8), three consecutive fouls losing the rack (12.9), stalemate
+                re-rack with tally carry-over and lag decision (decision 9;
+                12.10). <code>hudState</code> surfaces <code>{tallies, owed,
+                pockets, consecutiveFouls}</code>
+                <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/onepocket.ts">sdk/ts/src/rules/onepocket.ts</a>.</p>
+            </div>
+          </div>
+          <p class="bb-label well-cap">TypeScript — <strong>verified</strong> node 26, kernel 0.1.0+ee629a3</p>
+          <pre class="bb-code"><code><i class="tk-c">// snooker: a safety off the pack is legal (first contact = a red, the ball on);</i>
+<i class="tk-c">// driving the cue into the blue while reds are on is value-of-ball 5 away</i>
+<b class="tk-n">const</b> snooker = <b class="tk-n">getRuleset</b>(<b class="tk-n">'snooker-v1'</b>);
+<b class="tk-n">const</b> rack = engine.<b class="tk-n">snookerRack</b>(<b class="tk-n">3</b>);
+rack.shot = { ...rack.shot, v0: <b class="tk-n">3.5</b> };
+<b class="tk-n">const</b> s0 = snooker.<b class="tk-n">initialState</b>(<b class="tk-n">1</b>);
+<b class="tk-n">const</b> safety = snooker.<b class="tk-n">judge</b>(s0, engine.<b class="tk-n">simulate</b>(rack), <b class="tk-n">null</b>);
+console.<b class="tk-n">log</b>(safety.legal, safety.turn, snooker.<b class="tk-n">hudState</b>(safety.next).ballOn);
+
+<b class="tk-n">const</b> intoBlue = engine.<b class="tk-n">snookerRack</b>(<b class="tk-n">3</b>);
+intoBlue.shot = { ...intoBlue.shot, v0: <b class="tk-n">2.5</b>, phi: Math.<b class="tk-n">atan2</b>(<b class="tk-n">1.0475</b>, -<b class="tk-n">0.146</b>) };
+<b class="tk-n">const</b> foul = snooker.<b class="tk-n">judge</b>(s0, engine.<b class="tk-n">simulate</b>(intoBlue), <b class="tk-n">null</b>);
+console.<b class="tk-n">log</b>(foul.fouls, snooker.<b class="tk-n">hudState</b>(foul.next).scores, foul.decisionRequired);
+
+<i class="tk-c">// one-pocket: the breaker resolves decision 6 (WPA 12.3), pockets assign</i>
+<b class="tk-n">const</b> op = <b class="tk-n">getRuleset</b>(<b class="tk-n">'onepocket-v1'</b>);
+<b class="tk-n">const</b> assigned = op.<b class="tk-n">applyDecision</b>(op.<b class="tk-n">initialState</b>(<b class="tk-n">1</b>), { decision: <b class="tk-n">6</b>, choice: <b class="tk-n">2</b> });
+console.<b class="tk-n">log</b>(op.<b class="tk-n">hudState</b>(assigned).pockets);</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>true pass red
+[ { code: 'wrong-first-ball', cite: 'WPBSA Sec2 R13; Sec3 R10' } ] { '1': 0, '2': 5 } { kind: 'play_again', chooser: 2 }
+{ '1': 5, '2': 2 }</code></pre>
+          <div class="api-item">
+            <h3 class="api-name" id="rules-crate">Crate backing (feature 013) &#183; rulesVersion()</h3>
+            <div class="bb-prose">
+              <p>The rulesets above are one implementation, three surfaces: judging
+                executes in the committed <code>pool-rules</code> wasm artifact
+                (<code>web/dist/pool-rules/</code> — a separate artifact from the
+                physics wasm, with its own CI freshness gate), and the Python and CLI
+                surfaces return the identical crate bytes. The TS loader uses module
+                top-level await (the <code>engine.ts</code> dual-env precedent): the
+                first <code>rules/</code> import settles the wasm before any judge
+                call — no init hook, no API change, and the frozen 011/012 modules
+                (<code>rules/index.js</code>, the five ruleset modules,
+                <code>rules/respot.js</code>) keep their paths and exports. Crate
+                errors cross as structured payloads and re-throw as
+                <code>RulesError</code> with the message verbatim.</p>
+              <p><code>rulesVersion()</code> and <code>rulesCatalogJson()</code>
+                (module <code>rules/backend.js</code>, the 013 introspection surface
+                beside the raw conformance hook <code>judgeRaw(id, state, record,
+                call)</code> in <code>rules/index.js</code>) return the rules build
+                stamp <code>0.1.0+&lt;git&gt;</code> — independent of the physics
+                <code>kernelVersion()</code>, so rules iteration never repins the
+                kernel — and the crate registry's catalog (every foul code, cite, and
+                decision table). The primitives the crate is built from, and the
+                worked money-ball example for composing a NEW game in &#8804; 200
+                bespoke lines, are documented in
+                <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/docs/sdk/rules-crate.md">docs/sdk/rules-crate.md</a>.</p>
+            </div>
+          </div>
+          <p class="bb-label well-cap">TypeScript — <strong>verified</strong> node 26, rules 0.1.0+a758268</p>
+          <pre class="bb-code"><code><b class="tk-n">import</b> { rulesVersion, rulesCatalogJson } <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/rules/backend.js'</b>;
+<b class="tk-n">import</b> { judgeRaw } <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/rules/index.js'</b>;
+
+console.<b class="tk-n">log</b>(<b class="tk-n">rulesVersion</b>());  <i class="tk-c">// the rules stamp — NOT kernelVersion()</i>
+<b class="tk-n">const</b> catalog = JSON.<b class="tk-n">parse</b>(<b class="tk-n">rulesCatalogJson</b>());
+console.<b class="tk-n">log</b>(catalog.rulesets.<b class="tk-n">map</b>((r) =&gt; r.id).<b class="tk-n">join</b>(<b class="tk-n">' '</b>));
+<i class="tk-c">// errors cross the wasm boundary as structured payloads, never exceptions</i>
+console.<b class="tk-n">log</b>(<b class="tk-n">judgeRaw</b>(<b class="tk-n">'stub-v0'</b>, <b class="tk-n">'{}'</b>, <b class="tk-n">'{}'</b>, <b class="tk-n">'null'</b>));</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>0.1.0+a758268
+nineball-v1 carom3c-v1 onepocket-v1 eightball-v1 snooker-v1
+{"error":{"code":"unknown-ruleset","message":"unknown ruleset 'stub-v0'"}}</code></pre>
+        </section>
+
+        <section class="docs-section" id="respots">
+          <p class="bb-label bb-marker">12 — Layouts &amp; respots</p>
+          <h2 class="bb-heading-s">Discipline layouts &amp; respot plans</h2>
+          <div class="bb-prose">
+            <p><code>games/layouts.js</code> is the kernel-mirror layout data
+              (drift-tested against the <code>rack.rs</code> constants):
+              <code>SNOOKER_LAYOUT</code> — the six colour spots by ball id
+              (16&#8211;21), baulk line, D radius and default cue address (WPBSA Sec1
+              R1(d)&#8211;(f)) — and <code>CAROM_LAYOUT</code> — top/centre/bottom spots
+              and start-spot offset (UMB Art 11.6/22/23).
+              <code>colourValue(id)</code> maps colour ids to point values
+              (yellow 2 &#8230; black 7)
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/games/layouts.ts">sdk/ts/src/games/layouts.ts</a>.</p>
+            <p>The respot planners in <code>rules/respot.js</code> are pure
+              functions of layout data and final ball positions — placements are
+              always DERIVED, never recorded, so replays resolve identically.
+              <code>snookerRespotPlan(layout, balls, ids)</code> transcribes WPBSA
+              Sec3 R7: own spot &#8594; highest-VALUE vacant spot &#8594; nearest
+              centre-line point toward the top cushion, never touching another
+              ball; multiple colours resolve highest first.
+              <code>caromRespotPlan(layout, balls, ids, shooter)</code> transcribes
+              UMB Art 27.3(b)/28.1(b): red &#8594; top, shooter&#8217;s ball &#8594; bottom,
+              opponent&#8217;s &#8594; centre, with the occupied-spot swap rule — only the
+              balls concerned respot. The pool helpers
+              (<code>respotBallSpot</code>, <code>respotNineSpot</code>) are
+              byte-unchanged
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/respot.ts">sdk/ts/src/rules/respot.ts</a>.</p>
+          </div>
+          <p class="bb-label well-cap">TypeScript — <strong>verified</strong> node 26, kernel 0.1.0+ee629a3</p>
+          <pre class="bb-code"><code><b class="tk-n">import</b> { SNOOKER_LAYOUT, CAROM_LAYOUT, colourValue }
+  <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/games/layouts.js'</b>;
+<b class="tk-n">import</b> { snookerRespotPlan, caromRespotPlan }
+  <b class="tk-n">from</b> <b class="tk-n">'./web/dist/pool-sdk/rules/respot.js'</b>;
+
+console.<b class="tk-n">log</b>(SNOOKER_LAYOUT.spots[<b class="tk-n">21</b>], SNOOKER_LAYOUT.dRadius, <b class="tk-n">colourValue</b>(<b class="tk-n">21</b>));
+
+<i class="tk-c">// black (21) to respot while another ball sits ON the black spot:</i>
+<i class="tk-c">// own spot occupied -&gt; the highest-VALUE vacant spot (the pink spot here)</i>
+<b class="tk-n">const</b> onTable = [{ x: <b class="tk-n">0</b>, y: <b class="tk-n">1.4605</b> }];
+console.<b class="tk-n">log</b>(<b class="tk-n">snookerRespotPlan</b>(SNOOKER_LAYOUT, onTable, [<b class="tk-n">21</b>]));
+
+<i class="tk-c">// carom: player 1's cue ball jumped the rail -&gt; the shooter's ball returns</i>
+<i class="tk-c">// to the bottom spot; only the ball concerned respots (UMB Art 28.1(b))</i>
+<b class="tk-n">const</b> finals = [{ x: <b class="tk-n">0.4</b>, y: <b class="tk-n">0.2</b> }, { x: -<b class="tk-n">0.3</b>, y: <b class="tk-n">0</b> }, { x: <b class="tk-n">0.9</b>, y: <b class="tk-n">0.6</b> }];
+console.<b class="tk-n">log</b>(<b class="tk-n">caromRespotPlan</b>(CAROM_LAYOUT, finals, [<b class="tk-n">0</b>], <b class="tk-n">1</b>));</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>{ x: 0, y: 1.4605 } 0.292 7
+[ { ball: 21, xy: { x: 0, y: 0.89225 } } ]
+[ { ball: 0, xy: { x: 0, y: -0.71 } } ]</code></pre>
+        </section>
+
+        <nav class="docs-prevnext" aria-label="Docs pagination">
+          <a href="index.html"><p class="bb-label">Previous</p><p class="pn-title">&#8592; Getting started</p></a>
+          <a href="python.html"><p class="bb-label">Next</p><p class="pn-title">Python SDK &#8594;</p></a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <footer class="bb-footer docs-footer">
+    <div class="bb-footer-grid">
+      <nav aria-label="API docs">
+        <p class="bb-label">API docs</p>
+        <ul>
+          <li><a class="bb-link" href="index.html">Getting started</a></li>
+          <li><a class="bb-link" href="ts.html">TypeScript SDK</a></li>
+          <li><a class="bb-link" href="python.html">Python SDK</a></li>
+          <li><a class="bb-link" href="cli.html">CLI reference</a></li>
+          <li><a class="bb-link" href="concepts.html">Concepts</a></li>
+          <li><a class="bb-link" href="physics.html">The engine</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site">
+        <p class="bb-label">Site</p>
+        <ul>
+          <li><a class="bb-link" href="../index.html">Home</a></li>
+          <li><a class="bb-link" href="../guide/en/index.html">Gameplay guide</a></li>
+          <li><a class="bb-link" href="../web/app.html">Play</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Project">
+        <p class="bb-label">Project</p>
+        <ul>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards">GitHub</a></li>
+          <li><a class="bb-link" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/index.ts">SDK barrel source</a></li>
+          <li><a class="bb-link" href="../web/dist/pool-sdk/index.d.ts">Shipped typings</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="bb-label">Colophon</p>
+        <p class="bb-body-s bb-muted" style="max-width: 34ch;">Every example on these
+          pages ran against the shipped kernel before publication. No trackers, no
+          CDNs, no requests beyond this origin.</p>
+      </div>
+    </div>
+    <p class="bb-footer-credits">
+      <span>&copy; 2026 Meta Platforms, Inc. &#183; MIT &#183; <a href="../web/vendor/NOTICE-pooltool.txt" style="white-space: nowrap;">includes Apache-2.0 code</a> &#183; <a href="https://opensource.fb.com/legal/terms" style="white-space: nowrap;">Terms of Use</a> &#183; <a href="https://opensource.fb.com/legal/privacy" style="white-space: nowrap;">Privacy Policy</a></span>
+      <span>Docs verified against kernel 0.1.0</span>
+    </p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,7 @@
+[
+ {"name": "gold band strip bottom", "value_mm": 103, "band": [97, 109], "edge_pick": "nearest", "tag": "PHOTO", "source": "R3c.23.2 row: 40 -> 103 +-6 (official SE, both agents)"},
+ {"name": "recess step (rail band bottom)", "value_mm": 129, "band": [121, 137], "edge_pick": "nearest", "tag": "PHOTO", "source": "R3c.23.2 row: 129 +-8 (official SE 133 / WST 125)"},
+ {"name": "leather hem", "value_mm": 132, "band": [117, 147], "edge_pick": "nearest", "tag": "PHOTO", "source": "R3c.23.2 row: 132 +-15 (official SE, both ends)"},
+ {"name": "bottom molding top", "value_mm": 285, "band": [273, 297], "edge_pick": "nearest", "tag": "PHOTO", "source": "R3c.23.2 row: 285 +-12 (official SE, WST, Masters)"},
+ {"name": "bottom molding bottom", "value_mm": 338, "band": [323, 353], "edge_pick": "nearest", "tag": "PHOTO", "source": "R3c.23.2 row: 338 +-15"}
+]

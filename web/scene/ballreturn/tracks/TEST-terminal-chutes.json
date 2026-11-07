@@ -1,0 +1,222 @@
+{
+  "schema": "openbilliards/ball-return-track/1",
+  "topology": "terminal-chutes",
+  "doc": {
+    "table_id": "wpa_generic_9ft",
+    "title": "TEST — terminal chutes (schema 1.1): two per-pocket wire chutes under the middle pockets with a stop each, no trunk, no tray (the Star XW101 class, synthetic)",
+    "status": "TEST",
+    "revision": "t2",
+    "date": "2026-09-10",
+    "issue": "#650 (ORDER-BALLRETURN-6)",
+    "sources": [
+      "synthetic: geometry chosen to exercise the terminal-chutes topology on the scripted pin table; NOT a read of any table",
+      "the wpa TEST fixture (entry height law, support, resistance class) — copied"
+    ],
+    "notes": "Serves pockets 1 and 4 (the middles) with a short lead and a terminal chute each; the corners are unserved for the same reason as the wpa fixture (legs under the corner cups). Each chute: 300 mm inboard run dropping 60 mm, stop face at s = 280 mm (capacity floor(280 / 57.15) = 4), a 26 mm up-turn beyond the stop = the stop body (exempt from drain, ≤ one ball diameter). Revision t2 (2026-09-10, #737 r12 / ORDER-BR-737-FIX10 ruling (a)): both entries moved 8.0 mm DOWN THEIR OWN LEAD, measurement-corrected against the generic table's body — see the lead provenance for the number and the mesh. The topology this fixture pins is unchanged: two entry leads and two terminal chutes, lc then rc, no trunk and no tray, stop face and capacity untouched."
+  },
+  "units": {
+    "length": "mm",
+    "angle": "deg"
+  },
+  "datum_frame": {
+    "id": "TCS-TBL-01",
+    "axes": {
+      "+X": "head rail toward foot rail",
+      "+Y": "up from the playing surface",
+      "+Z": "left to right viewed from head rail"
+    },
+    "runtime_mapping": "three.js (x, y, z) = (X, Y, Z) x 0.001; kernel (kx, ky, kz) = (Z, X, Y) x 0.001",
+    "pocket_order": "kernel order: 0 lb, 1 lc, 2 lt, 3 rb, 4 rc, 5 rt (l/r = sign of Z, b/c/t = -X / 0 / +X)"
+  },
+  "ball": {
+    "reference_diameter_mm": 57.15,
+    "provenance": {
+      "tag": "MFR",
+      "source": "WPA Equipment Specifications §16, 2 1/4 in pool ball (crates/pool-core default r 0.028575)"
+    }
+  },
+  "support": {
+    "kind": "twin-rail",
+    "gauge_mm": 40,
+    "rail_diameter_mm": 4,
+    "provenance": {
+      "tag": "TEST",
+      "source": "synthetic wire pair: gauge 40 < 57.15 + 4 (admits the ball, V9); derived h = sqrt(30.575^2 - 20^2) = 23.13, c = 20*28.575/30.575 = 18.69, rho = sqrt(28.575^2 - 18.69^2) = 21.61, k = 1/(1 + 0.4*(28.575/21.61)^2) = 0.5884"
+    }
+  },
+  "rolling_resistance": {
+    "class": "default",
+    "u_r": 0.01,
+    "provenance": {
+      "tag": "DERIVED",
+      "source": "PROXY: the kernel default class (params.rs ClothPreset::default, u_r 0.010 — Waldron stimpmeter roll-out, a first-hand cloth measurement) stands in for the unmeasured steel-wire class. On the twin rail the effective coefficient is (7/5)(r/ρ)·u_r = 1.4 × 1.322 × 0.010 = 0.0185 (track.js resistCoeff); drain margin at the shallowest edge: sin θ 0.0436 vs 0.0185."
+    }
+  },
+  "arrival": {
+    "restitution": 0,
+    "provenance": {
+      "tag": "DESIGN",
+      "source": "research.md R5 / the brief's 'inelastic arrival' and the owner's 「一个接一个堆」: arriving balls share a common velocity with the group they touch, the tray wall is infinite mass. A modelling decision, NOT a measurement — no ball-on-ball impact in a return tray has been captured in this repo; a measured e would enter through this block and a runtime law change (spec §7)."
+    }
+  },
+  "runways": [
+    {
+      "id": "lc-lead",
+      "role": "entry",
+      "points_mm": [
+        [
+          0,
+          -264.57,
+          -695.65
+        ],
+        [
+          0,
+          -273,
+          -653.5
+        ]
+      ],
+      "next": "lc-chute",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "entry under the lc middle cup, MEASUREMENT-CORRECTED (#737 r12, ORDER-BR-737-FIX10 ruling (a)). The authored entry at Y −263 (the wpa fixture law: cup bottom −199 − r − 12.3 − h) left 49.217 mm of clear runway above it — V20's own read on the live wpa_generic_9ft, bisected off the 0.005 m scan interval, not the grid figure — which is 7.933 mm short of the one ball diameter (57.15 mm) the landing law seats an arriving ball in, so the band above the entry stood inside obTable/ExtrudeGeometry@(0,-124,0)[2926×260×1656], the generic table's body: 3 drawn stations, worst 7.78 mm deep. The entry moves along its own lead by that minimal distance: 7.933 mm, taken UP to the 0.1 mm export grain (track.js EXPORT_GRAIN) as 8.0 mm; written at the fixture's own 0.01 mm vertex precision the realised move is 8.005 mm, exactly on the lead's line (0 µm residual), and V20 now reads the full diameter clear with 0.073 mm to spare. Lead now 42.98 mm dropping 8.43 (sin θ 0.196116, unchanged — the move is ALONG the line — and above the 0.0185 effective coefficient this fixture states in rolling_resistance; the t1 text's 0.0136 was neither the file's own number nor derivable from it); plan offset from the cup centre 7.85 mm of the 64.5 mm cup radius (V5)."
+      }
+    },
+    {
+      "id": "lc-chute",
+      "role": "chute",
+      "points_mm": [
+        [
+          0,
+          -273,
+          -653.5
+        ],
+        [
+          0,
+          -333,
+          -353.5
+        ],
+        [
+          0,
+          -323,
+          -329.5
+        ]
+      ],
+      "next": null,
+      "stop": {
+        "kind": "bumper",
+        "wall_s_mm": 280.0,
+        "capacity_balls": 4,
+        "provenance": {
+          "tag": "TEST",
+          "source": "stop face at s = 280.0 mm of the 305.9 mm run; capacity floor(280.0 / 57.15) = 4; the 26 mm up-turn beyond it is the stop body"
+        }
+      },
+      "provenance": {
+        "tag": "TEST",
+        "source": "300 mm inboard run dropping 60 mm (sin θ 0.196), then the stop"
+      }
+    },
+    {
+      "id": "rc-lead",
+      "role": "entry",
+      "points_mm": [
+        [
+          0,
+          -264.57,
+          695.65
+        ],
+        [
+          0,
+          -273,
+          653.5
+        ]
+      ],
+      "next": "rc-chute",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "entry under the rc middle cup, MEASUREMENT-CORRECTED (#737 r12, ORDER-BR-737-FIX10 ruling (a)). The authored entry at Y −263 (the wpa fixture law: cup bottom −199 − r − 12.3 − h) left 49.217 mm of clear runway above it — V20's own read on the live wpa_generic_9ft, bisected off the 0.005 m scan interval, not the grid figure — which is 7.933 mm short of the one ball diameter (57.15 mm) the landing law seats an arriving ball in, so the band above the entry stood inside obTable/ExtrudeGeometry@(0,-124,0)[2926×260×1656], the generic table's body: 3 drawn stations, worst 7.78 mm deep. The entry moves along its own lead by that minimal distance: 7.933 mm, taken UP to the 0.1 mm export grain (track.js EXPORT_GRAIN) as 8.0 mm; written at the fixture's own 0.01 mm vertex precision the realised move is 8.005 mm, exactly on the lead's line (0 µm residual), and V20 now reads the full diameter clear with 0.073 mm to spare. Lead now 42.98 mm dropping 8.43 (sin θ 0.196116, unchanged — the move is ALONG the line — and above the 0.0185 effective coefficient this fixture states in rolling_resistance; the t1 text's 0.0136 was neither the file's own number nor derivable from it); plan offset from the cup centre 7.85 mm of the 64.5 mm cup radius (V5)."
+      }
+    },
+    {
+      "id": "rc-chute",
+      "role": "chute",
+      "points_mm": [
+        [
+          0,
+          -273,
+          653.5
+        ],
+        [
+          0,
+          -333,
+          353.5
+        ],
+        [
+          0,
+          -323,
+          329.5
+        ]
+      ],
+      "next": null,
+      "stop": {
+        "kind": "bumper",
+        "wall_s_mm": 280.0,
+        "capacity_balls": 4,
+        "provenance": {
+          "tag": "TEST",
+          "source": "stop face at s = 280.0 mm of the 305.9 mm run; capacity floor(280.0 / 57.15) = 4; the 26 mm up-turn beyond it is the stop body"
+        }
+      },
+      "provenance": {
+        "tag": "TEST",
+        "source": "300 mm inboard run dropping 60 mm (sin θ 0.196), then the stop"
+      }
+    }
+  ],
+  "pockets": [
+    {
+      "index": 1,
+      "entry_runway": "lc-lead",
+      "exit_below_y_mm": -199,
+      "notes": "lc middle: kernel cup (0, -703.5) r 64.5; the lead starts at the cup centre in plan",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "lowest solid of the wpa_generic_9ft pocket assembly (cup floor disc −197, throat wall −199) — copied from the wpa fixture"
+      }
+    },
+    {
+      "index": 4,
+      "entry_runway": "rc-lead",
+      "exit_below_y_mm": -199,
+      "notes": "rc middle: kernel cup (0, 703.5) r 64.5; the lead starts at the cup centre in plan",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "lowest solid of the wpa_generic_9ft pocket assembly (cup floor disc −197, throat wall −199) — copied from the wpa fixture"
+      }
+    }
+  ],
+  "unserved_pockets": [
+    {
+      "index": 0,
+      "reason": "corner: the leg stands under the corner cup (wpa fixture reason); a TEST terminal fixture needs only the topology, served by the two middles"
+    },
+    {
+      "index": 2,
+      "reason": "corner: the leg stands under the corner cup (wpa fixture reason); a TEST terminal fixture needs only the topology, served by the two middles"
+    },
+    {
+      "index": 3,
+      "reason": "corner: the leg stands under the corner cup (wpa fixture reason); a TEST terminal fixture needs only the topology, served by the two middles"
+    },
+    {
+      "index": 5,
+      "reason": "corner: the leg stands under the corner cup (wpa fixture reason); a TEST terminal fixture needs only the topology, served by the two middles"
+    }
+  ],
+  "debug_visual": true,
+  "checks": {
+    "drain_monotonic": true,
+    "determinism_sha256": "972da48d75a7a06df3afcd52beb4926029270e3a85b6147902db2c1219e18692",
+    "determinism_sha256_note": "RE-PINNED t1 → t2 (2026-09-10, #737 r12 / ORDER-BR-737-FIX10 ruling (b)), MEASUREMENT-CORRECTED, not a law change: the previous pin 8b857c7e2e1bded0032992b212ce0afdc0b3f7aefced4fd5559969d7251fe4f4 was cut on the t1 entries, which V20 refuses (7.933 mm short of the one ball diameter of clear runway above them). Both leads moved 8.0 mm DOWN THEIR OWN LINE, so every route is 8.005 mm shorter and the sampled solve differs; nothing in the solver moved. Gated by t7 here, by r63 (the move is the derived minimum and the topology is unchanged) and by V16/V20 clean + drawn-frame probe 0 on the real table (e2e arms 13f/13g/13i). The sibling fixtures TEST-bend-90 and TEST-hairpin-170 moved the same way and carry no pin."
+  }
+}

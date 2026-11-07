@@ -1,0 +1,240 @@
+% ===========================================================================
+% Section 8 — Limitations
+% Drafted from the study's waiver ledger (38 rows) and the non-ledger
+% scope boundaries of the determinism matrix and the study design.
+% Known gaps are stated as found; nothing re-tuned.
+% ===========================================================================
+\section{Limitations}
+\label{sec:limitations}
+
+Every limitation in this section is either a row of the machine-readable
+deviation ledger kept in the artifact bundle (38 rows across
+nine categories; per-category counts in
+Table~\ref{tab:waiver-categories}, Section~\ref{sec:methodology}) or a
+declared scope boundary of the study itself.
+The resolved rows and the oracle waiver are treated in
+Section~\ref{sec:oracle}; the declared-model-content rows and the frame
+artifact are reported alongside their experiments in
+Section~\ref{sec:results}. The remaining categories --- those that bound
+what this paper's conclusions may claim --- are collected here, by
+category.
+
+\subsection{From the waiver ledger, by category}
+
+\paragraph{Registered-band misses (seven rows)}
+Seven registered acceptance bands or source claims were missed.
+Following the anti-overfit doctrine of Section~\ref{sec:methodology} ---
+and ASME V\&V~20's position that validation is not pass/fail
+\citep{asme2009vv20} --- each miss is measured and characterized, no
+band was re-tuned, and each row's full characterization lives in the
+ledger itself (artifact bundle). (i)~The 30$^\circ$-rule peak height is in-band
+only at slow speed ($E = -0.83^\circ$ at 2.0\,m/s; band membership
+itself $e_b$-fragile, Section~\ref{sec:results-a}). (ii)~One of 240 anchored
+cushion-rebound points from \citet{mathavan2010cushion} misses at the
+band edge ($E = +0.0577$ against 0.056), a tolerance-edge flip recorded
+as a miss all the same.
+(iii)~Under the calibrated Stronge cushion pairing, the 30$^\circ$
+sliding-bank speed-independence anchor spreads $+2.71^\circ$ against its
+$\leq 1.9^\circ$ window, and the 45$^\circ$ sliding bank
+\emph{lengthens} with speed where the source claims shortening; the admissible-space sweep of
+Section~\ref{sec:results-c} attributes the \emph{magnitude} of the
+speed-direction reversal to
+the interaction of the fitted $\mu(v_{\mathrm{slip}})$ curves
+with the tangential-compliance pairings --- over the full cross-form
+crossing every
+flat-$\mu_w$ cell restores the source direction (270 of 270) and
+every fitted-curve~$\times$~compliant-pairing cell reverses (54 of
+54), while the fitted curves leave the non-compliant
+forms source-correct in 44 of 54 cells (the exceptions, Han under
+the \code{hsv_fitted} curve, flip by $+0.28$ to $+2.72^\circ$ off the
+default operating point, still well below this row's reversals at
+matched corners) --- so this row's reversal magnitude is content of
+the
+calibrated compliant pairing. (iv)~Three further
+banking
+targets fail as pinned, documented gates --- steep rolling banks go long
+under every preset (\code{han2005_default} tangent ratio 1.701 against
+the $\leq 1.45$ cap), and draw \emph{lengthens} the Han impact rebound
+where the source ordering says shorten; the same sweep and
+crossing find
+the draw-ordering reversal in \emph{every} Han/Stronge cell --- all
+210 crossing cells, both fitted curves included --- and in no cell of
+the shipped tangential-compliance Mathavan form (0 of 84; its
+compliance-free variant flips in 6 of 84 cells at flat
+$\mu_w \geq 0.25$, by at most $+0.52^\circ$), i.e.\ a model-form
+boundary
+of the single-contact impulse class rather than a parameter choice.
+All of these banking
+residuals are bit-identical across cushion branch-selection variants ---
+none is a remnant of the resolved branch-selection defect.
+(v)~The frozen all-six bank criterion is met at only five of six aims
+--- five are inside the envelope and the criterion fails on one: aim 1.0
+banks 0.108 diamonds beyond the five-table TP~B.28 envelope
+\citep{alciatore_tp_b28}.
+(vi)~Break effective mass scales with the connected cluster but caps at
+$E = -0.14$ below the high-speed-video concept value of 1.5
+\citep{alciatore_hsv_catalog}, a scaling the sequential baseline erases
+entirely. (vii)~The trisect rule
+holds within 10\% of its $3\times$ factor only for $22.5$--$40^\circ$
+cuts, a miss of the registered ``below $40^\circ$'' phrasing that we
+regard as the study's flagship domains-of-validity result rather than a
+defect (Section~\ref{sec:results-f}).
+
+\paragraph{Convention sensitivities (four rows)}
+Four results depend on an input or measurement convention; both readings
+are recorded per row, one adopted with rationale. The squirt catalog's
+tip-center reading of the robot protocol undershoots all four
+robot-measured shafts by $0.32$--$0.42^\circ$, with the contact
+re-reading closing the gap (Section~\ref{sec:results-b}). The miscue limit is a one-sidedly
+conservative commanded-offset envelope with no tip-friction model,
+implied tip friction 0.39--0.58. The
+jump chart's overhead clearance criterion overstates reach by up to one
+grid step at the window's far edge, against the sphere criterion the
+paper adopts. And oracle parity is
+pinned permanently to the pre-fix slip law, so the oracle channel
+measures the slip-law convention gap ($0.1301^\circ$ in throw) by design
+(Section~\ref{sec:oracle}).
+
+\paragraph{Post-registration input-envelope amendment}
+After the registered baseline was recorded, the kernel's input-envelope
+convention was revised (kernel
+\code{0.1.0+8efd660e}): the miscue limit now binds the ball-surface
+\emph{contact} offset --- the variable in which the $0.5$--$0.55R$
+literature bracket is stated --- raising the commanded tip-center cap
+from $0.5R$ to $0.5\,(1 + r_{\mathrm{tip}}/R)$, i.e.\ $0.686R$ for the
+shipped nickel tip (contact offset exactly $0.5R$ at the cap). The
+revision widens input validation only, and bit-exact reproduction
+holds for every previously \emph{accepted} input --- which includes
+every simulated trajectory in the battery. One behavioral change class
+exists and is disclosed rather than absorbed: \expid{B3}'s registered
+rejection probes are boundary probes \emph{of} the registered envelope
+itself, and the nine run under the nickel tip (eight sweep-tail cells
+at commanded $0.525$--$0.6R$, contact $0.383$--$0.438R$, plus one
+combined-axis probe) would be accepted and simulate under the revised
+convention, while the eight contact-mode cells still reject (their
+contact offsets exceed the $0.5R$ contact limit under every
+convention). Those recorded rejections are convention-bound results of
+the registered kernel, not reproducible behaviors of the revised one;
+the pinned \expid{B3} artifact stands unchanged as the
+registered-envelope record referenced by the registered results, while
+post-registration maintenance re-baselines under the revised envelope
+are recorded in the study's baseline manifest. No simulated
+registered result changes, and the registered battery results remain
+pinned to the \code{0.1.0+fb3425ad} lineage
+(Section~\ref{sec:reproducibility}). The contact-offset band
+$(0.5, 0.55]R$ remains unreachable --- the envelope stays on the
+conservative side of the literature bracket.
+
+\paragraph{Source discrepancies (three rows)}
+Three deviations belong to the source material itself; the battery
+records both readings. The 2005 printing of one technical proof fits
+the ball--ball friction decay with $c = 0.77$ where the current
+revision --- and the kernel --- use $c = 1.088$; each document
+transcription-checks against its own form
+\citep{alciatore_tp_catalog,alciatore_tp_a14}. Seven points in
+\citet{mathavan2010cushion} are internally inconsistent between the
+paper's equations and its printed figures; the kernel reproduces the
+equations, and the points are excluded with that attribution. The corner-five fourth-rail lore
+splits against itself: the ``one diamond short'' benchmark plays
+on-system ($n_4 = -0.02$ diamonds) while the secondary speed and
+english direction claims measure sign-reversed.
+
+\paragraph{Preset validity domains (three rows)}
+The fitted equipment presets carry documented validity domains rather
+than blanket endorsements. \code{grip_fitted} is out of domain on
+bank/kick observables in three independent measurement frames (worst: a
+$+9.6^\circ$ bank speed spread against a $\leq 1.9^\circ$ window) and
+has been demoted from new selection in the application layer, the model
+retained and persisted selections grandfathered. \code{mathavan_fitted} is in-domain for
+kick/rebound spin coupling and the snooker pairing, out-of-domain for
+shallow-aim US-pool banks and for the lag (3.45 table lengths against
+the WPA 4.0--4.5 window; Section~\ref{sec:results-f}); per the
+anti-overfit doctrine it stays opt-in and is not re-tuned. And the fitted tangential-compliance
+presets break kick mirror symmetry at up to $\sim 1.1\times10^{-2}$
+diamonds through last-ulp branch divergence --- verification-side
+numerical noise, recorded per cell.
+
+\paragraph{Open investigations (three rows)}
+One physics investigation remains open: the compliant resolver's
+frozen-pair combination throw exceeds the measured $\sim 1.04\times$
+frozen excess at $1.13$--$1.55\times$, speed-dependent, while the
+sequential baseline shows no excess at all --- the sign is right, the
+magnitude is not, the row stays open as the honest
+edge of contribution C3, and its possible contamination of the
+\expid{E1} conclusion is bounded, not assumed away
+(Section~\ref{sec:results-e}). The
+other two rows are bookkeeping on internal worksheet and note strings
+whose residuals equal the slip-law shift by design and touch no measured
+column.
+
+\subsection{Scope limitations outside the ledger}
+
+\paragraph{Determinism audit gaps}
+The determinism audit matrix of Section~\ref{sec:reproducibility} has
+gaps, which we state as untested rather than argued away. No trajectory
+hashes have been collected on SpiderMonkey, JavaScriptCore, or any
+non-browser WebAssembly runtime such as wasmtime; there is no Windows leg
+and no linux-arm64 or macOS-x86\_64 leg. (The battery-through-wasm cell
+is closed by measurement: matrix row 11,
+Section~\ref{sec:reproducibility}.) The bundle wheel's version stamp
+is coherent with the expected-hash manifest only up to a declared
+normalization until the planned submission-freeze rebuild, and no
+non-author has yet executed the tier-1 protocol. The structural argument
+for the untested engines --- kernel-internal transcendentals compiled
+into the binary, a NaN-free state invariant, no relaxed SIMD
+\citep{wasm2015nondeterminism} --- is given in
+Section~\ref{sec:reproducibility}; the posture remains \emph{measure,
+don't argue}.
+
+\paragraph{Model scope}
+The physical model is bounded by design. There is no air drag and no
+Magnus force: the deliberate constraint that keeps ball motion piecewise
+polynomial and event detection closed-form. Cloth wear and humidity are
+not modeled --- precisely the unspecified ``typical pool table''
+condition class that the fourth-rail lore rows implicate. Cushion models inherit their sources'
+validity domains: the rigid-cushion analysis of
+\citet{mathavan2010cushion} is declared valid to 2.5\,m/s by its authors,
+and beyond that domain the kernel overlay overshoots monotonically, from
+$+0.018$\,m/s at 2.53\,m/s to $+0.359$\,m/s at 3.40\,m/s. Vertical-channel (hop) physics after the
+break is constrained only by a one-sided bound: the kernel's post-break
+cue-ball hop apex is $\leq 0.039$ ball diameters everywhere, satisfying
+the footage's one-sided $\lesssim 0.3$-diameter expectation, but the
+observed clip value of $\sim 0.23$ diameters shows the vertical channel
+is under-constrained by the available evidence.
+
+\paragraph{Anchor-material caveats}
+Three caveats travel with the validation data. The first-party
+table-session footage carries a leg-rotation orientation drift (an open
+item). The high-speed-video footage used for cushion anchors was
+not recorded on a K-66 rail profile, so cushion-geometry conclusions
+drawn from it do not transfer unmodified to regulation US-pool rails
+\citep{alciatore_hsv_catalog}. And the lag residual on the fitted
+Mathavan pairing is stated with its preset-domain row above.
+
+\paragraph{Source availability and the kernel revision of record}
+The kernel source is public under the MIT license, with the portions
+derived from pooltool under the Apache License~2.0, so readers can
+inspect the implementation and rebuild it. The public history, however,
+begins at a snapshot later than this paper's canonical kernel
+\code{0.1.0+fb3425ad}, and the canonical binary of record, the experiment
+scripts, pinned outputs, expected-hash manifest, and ledger belong to an
+artifact bundle that has not been published
+(Section~\ref{sec:availability}). This paper's
+figures and hashes therefore cannot be regenerated from the public tree,
+and until the bundle is published the study's independently checkable
+surface is the public source, the reported outputs, and the kernel's own
+anchor fixtures rather than a re-run of the battery.
+Section~\ref{sec:reproducibility} describes the mitigations that take
+effect once the bundle is published --- a hash-defined artifact of
+record, one regeneration script per figure, and planned third-party
+attestation.
+
+\paragraph{Chaotic outcome bits at break energy}
+Contribution C4 is a per-binary claim. Bit-exactness holds for a fixed
+binary across platforms, runtimes, and runs; it does not extend across
+model revisions, where downstream outcome bits of long slip cascades at
+break-scale energies can flip. At the post-cascade re-baseline, three
+extreme break rows (quarter-ball offsets at 12--13.4\,m/s) flipped a
+scratch outcome bit, with no registered band attached. The paper claims
+bit-exact reproduction of every figure from the canonical binary; it does
+not claim insensitivity of chaotic outcome bits to model evolution.

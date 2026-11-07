@@ -1,0 +1,5 @@
+shell-fail.log: verbatim lines (GitHub log timestamps stripped) of the SECOND pass of main push run 38352665680, job 115148362681
+(e2e-shell on 30b62641, 2026-10-13 08:10:42-08:40:52Z, log lines 362-566): its four 'E2E-SHELL FAIL:' rows, the two lines
+before the verdict, and the completion line 'E2E-SHELL FAIL'.
+shell-pass.log: the last lines of the green SECOND pass of run 36090769095, job 107952338252 (2026-09-25 09:01:54-09:18:18Z,
+log lines 297-458), ending with the completion line 'E2E-SHELL PASS'.

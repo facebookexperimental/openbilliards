@@ -1,0 +1,313 @@
+{
+  "scenario": "ten-times-fuller",
+  "title": "“Ten times fuller” — frozen-pair kiss-shot direction control (battery E1)",
+  "kernel": "0.1.0+208e1dc4",
+  "anchor": {
+    "predictedR": 0.1,
+    "measuredR": 0.14109111035439756,
+    "legacySequentialR": 0.029505370227486793
+  },
+  "badge": {
+    "line1": "predicted r 0.100 · measured r 0.141",
+    "line2": "TEN-TIMES-FULLER RULE · JEWETT / BD DEC 2024 · BATTERY E1 (EXP_E1_TENFULLER) · COMPLIANT CHAIN (LEGACY MODEL r 0.030)"
+  },
+  "segments": [
+    {
+      "id": "segA",
+      "batterySha": "51fe20a71353235b907744d88b3faa744e8b6200c852af301315b9ccd24f5a38",
+      "videoSha": "239cb65ffa2f284ceaf4843ac31ca38a71604a56f7b27e7ae5c3a685b9aa2457",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "thetaRollVideoDeg": 1.1110521431397211,
+        "tKiss": 0.18567992343160156,
+        "tRoll1": 0.5084076533893391,
+        "uPre": 2.306589279914261,
+        "rhoPre": 0.0012056979753664492,
+        "tEnd": 1.0087881791821405,
+        "duration": 5.281285889451026,
+        "ob2FirstCushionT": null,
+        "ruleThetaDeg": 1.010174497761503,
+        "measuredThetaDeg": 1.1110521431397211,
+        "cbStart": [
+          -0.5980431628841396,
+          -0.230889436458365
+        ],
+        "cbContact": [
+          -0.14503159649852398,
+          -0.151011274731577
+        ],
+        "pair1": [
+          -0.08678021790785179,
+          -0.14073998502257806
+        ],
+        "pair2": [
+          -0.08678021790785179,
+          -0.08358948502257807
+        ],
+        "approachTravelM": 0.46,
+        "railPosY": -0.12718684474754258,
+        "minPairMm": 57.14999999999953,
+        "minPairAt": 1.336070553403942,
+        "minPair": [
+          0,
+          1
+        ]
+      },
+      "plan": {
+        "frames": 412,
+        "outputSec": 6.866666666666666,
+        "maxCutlessStepRatio": 1.0746606147002977,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              216,
+              240
+            ]
+          ],
+          "deliveredFrames": 388,
+          "deliveredSec": 6.466666666666667,
+          "firstReplayFrame": 216,
+          "recoveredFrames": 92,
+          "dissolveS": 0.4
+        }
+      }
+    },
+    {
+      "id": "segB",
+      "batterySha": "906c80bb93ad4e58409ea2d26466c9b190bf55b5ce32336d119f00a8eb315821",
+      "videoSha": "1781b82f8e7f74a72f7ef5cd0fbea357c5efef98dce85e038ce678a86a645a09",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "thetaRollVideoDeg": 10.071459044593398,
+        "tKiss": 0.23713570296562841,
+        "tRoll1": 0.3910451482509646,
+        "uPre": 2.3065892782233504,
+        "rhoPre": 0.0012056987598939694,
+        "tEnd": 1.6805975441333458,
+        "duration": 7.633382290429822,
+        "ob2FirstCushionT": 1.1745503911016015,
+        "ruleThetaDeg": 9.826429815832284,
+        "measuredThetaDeg": 10.071459044593398,
+        "cbStart": [
+          -0.41635521790785174,
+          -0.7115806299270908
+        ],
+        "cbContact": [
+          -0.1163552179078518,
+          -0.19196538765642762
+        ],
+        "pair1": [
+          -0.08678021790785179,
+          -0.14073998502257806
+        ],
+        "pair2": [
+          -0.08678021790785179,
+          -0.08358948502257807
+        ],
+        "approachTravelM": 0.6,
+        "minPairMm": 57.150499999999994,
+        "minPairAt": 0,
+        "minPair": [
+          1,
+          2
+        ]
+      },
+      "plan": {
+        "frames": 435,
+        "outputSec": 7.25,
+        "maxCutlessStepRatio": 1.0746606147002977,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              633,
+              657
+            ]
+          ],
+          "deliveredFrames": 411,
+          "deliveredSec": 6.85,
+          "firstReplayFrame": 633,
+          "recoveredFrames": 64,
+          "dissolveS": 0.4
+        }
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 6,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 0.30000000000000004,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1.3161290322580645,
+        "wanted": 1.3161290322580645,
+        "dropSec": 0.6838235294117647,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.30000000000000004,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "10°",
+              "naive aim — at the pocket"
+            ],
+            "availSec": 1.3333333333333333,
+            "spanSec": 1.32,
+            "entrySec": 0.9400000000000001,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.0029411764705882,
+            "settledSec": 0.33039215686274503,
+            "needScale": 1.2774193548387098,
+            "settledFrames": 19
+          },
+          {
+            "text": [
+              "1.11°",
+              "the kissed ball hugs the tangent — miss"
+            ],
+            "availSec": 1.3333333333333333,
+            "spanSec": 1.3599999999999999,
+            "entrySec": 0.98,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.0333333333333332,
+            "settledSec": 0.30000000000000004,
+            "needScale": 1.3161290322580645,
+            "settledFrames": 17
+          },
+          {
+            "text": [
+              "frozen pair · balls touching"
+            ],
+            "availSec": 2.6166666666666667,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 0.8965686274509805,
+            "settledSec": 1.7200980392156862,
+            "needScale": 0.5093525179856115,
+            "settledFrames": 102
+          }
+        ],
+        "refused": false
+      },
+      {
+        "segIdx": 1,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.32000000000000006,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "60°",
+              "aim ten times fuller"
+            ],
+            "availSec": 1.7,
+            "spanSec": 1.32,
+            "entrySec": 0.9400000000000001,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.32,
+            "settledSec": 0.3799999999999999,
+            "needScale": 0.942857142857143,
+            "settledFrames": 22
+          },
+          {
+            "text": [
+              "10.07°",
+              "rule 9.83° · swings onto the pocket line"
+            ],
+            "availSec": 1.7,
+            "spanSec": 1.38,
+            "entrySec": 1,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.38,
+            "settledSec": 0.32000000000000006,
+            "needScale": 0.9857142857142857,
+            "settledFrames": 19
+          },
+          {
+            "text": [
+              "frozen pair · balls touching"
+            ],
+            "availSec": 2.6666666666666665,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.1800000000000002,
+            "settledSec": 1.4866666666666664,
+            "needScale": 0.4985915492957747,
+            "settledFrames": 89
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "segA",
+      "frames": 412,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "e0ef653df8ed8470f2a2264f04d45745b0ff551775ee77b4e5dabe19f5fb3bd9",
+      "sha256_last": "225332aa3683fcbf7bdd38d18b03995199a728123d1732570deec81d5358e079"
+    },
+    {
+      "segment": "segB",
+      "frames": 435,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "3201a10dc79575b8b7370a922d463ecd5a5538e4784109420e5cafff0ae3f161",
+      "sha256_last": "02e412bba4a3a44211cc58d01f05f100aa38fcb7d9ae3533b9bdb24690a9755c"
+    }
+  ],
+  "titleCard": {
+    "value": "“Ten times fuller”",
+    "claim": "frozen-pair kiss-shot direction control (battery E1)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "0fcdfb7f388ddb1cfc3b56e2dc3890337cca2d4d105a8b0450129a8ec52c33b4",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "9e360a09ea20744fed33a61ebbce16b9d7fcd94e6817744ab3512ddefbb630b6"
+  }
+}

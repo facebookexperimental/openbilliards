@@ -1,0 +1,65 @@
+{
+  "schema": "d621-identity-law/2",
+  "title": "D621 MATERIAL-IDENTITY law — every table other than the target set is per-mesh AND per-material identical to main",
+  "principle": "THE GATE TRUSTS ONLY THE TREE. The BASE is the RECORDED MERGE BASE pinned below (never a moving `main`): the card wrapper archives that commit (`git archive <base.commit> -- web tools`), serves it, captures it, and the verdict carries its commit + tree hash; the HEAD is the audited commit's own archive. After the landing, the merged tree is audited by the merged-tree fences (mesh + material identity per table vs this same base sha), not by re-running this fold against a main that already contains HEAD's entries (CEREMONY-PREP-2 ruling B2).",
+  "catalog_tables": [
+    "wpa_generic_9ft",
+    "wpa_spec_9ft",
+    "diamond_redlabel_9ft",
+    "diamond_proam_9ft",
+    "predator_apex_9ft",
+    "wpbsa_snooker_12ft",
+    "umb_carom_284",
+    "chinese8_pro_9ft",
+    "diamond_proam_8ft",
+    "diamond_proam_7ft",
+    "rasson_ox_9ft",
+    "pool_pro_9ft_measured"
+  ],
+  "expect_differ": [
+    "diamond_proam_9ft",
+    "diamond_proam_8ft",
+    "diamond_proam_7ft",
+    "pool_pro_9ft_measured"
+  ],
+  "allow_sharing": {
+    "diamond_redlabel_9ft": "its two side boots moved from collarMat onto collarMatSide (D621-PLAN-3 P2): 24 → 25 material instances, content byte-identical — a stated, content-neutral sharing delta, never IDENTICAL"
+  },
+  "new_on_head_rule": "an expect-differ id absent from the pinned base's table.js text (table_declared) AND built as the scripted pin by the base tree is a FREE row (NEW on head), not a positive control; only ids present on both trees are positive controls; a pending id not yet declared on HEAD is PENDING (free, stated)",
+  "texture_census": {
+    "tainted_must_be": 0,
+    "note": "envMap render-target slots read noimg (parameter-only, content-blind) — counted, stated, not a failure"
+  },
+  "instrument": "tools/render/meshident-488d.mjs (committed; per mesh: world-space vertex hash, an ATTRIBUTE-BYTES hash over every geometry attribute the renderer reads (positions, normals, uvs, tangents, colors, every custom attribute), the index, the groups and the draw range (raw bytes, order-sensitive — NOTE-FENCE-NORMALS 2026-09-09), every shader scalar, injection fingerprint, userData holders by value, texture content hashes, material instance group id)",
+  "capture_schema": "d621-meshident-capture/3",
+  "base": {
+    "commit": "6e329ea77222f256994104e0bd5c9684323b2e8d",
+    "tree": "d08a4f7fa0d97c14a2ba1f92cccd8fe85f07c9be",
+    "rule": "the merge base recorded for the ONE kernel landing (main at the ceremony's dry run, 2026-09-04; its web tree == 97205801's, the branch's git merge-base). The wrapper refuses to build if this commit is not reachable; changing the pin is a tracked-file edit that shows in the diff.",
+    "previous": {
+      "commit": "be25b147c088f6abcb6368cd131a166002c5590e",
+      "tree": "5ad21970d96a23304aa19e1d5f0973b10e23a5c4",
+      "evidence": "the D-0 record: the deciding card on 825341e4 (HEAD) vs this base (be25b147, the C5 fold) — PASS 205/209, identity 14/14 (diamond_proam_9ft + owner_proam_9ft_2026_07 DIFFER, 8 / 7 ft NEW, rasson_ox_9ft PENDING, the rest IDENTICAL), <private evidence>/diamond/gully/card-825341e4/; chain: \"c01bb53568a3eb33e4992250d94e617537aed4ec\" <- be25b147c088f6abcb6368cd131a166002c5590e <- 6e329ea77222f256994104e0bd5c9684323b2e8d",
+      "previous": {
+        "commit": "c01bb53568a3eb33e4992250d94e617537aed4ec",
+        "tree": "541fe1e56141f01d3b09fa2b3d0d799a6365f8ae",
+        "evidence": "the pre-fold B2 pair — HEAD c7cae26ab6c85e33a074cd36c8b5d56018cc09c0 (C4B, the last commit before main was folded into the branch) vs BASE c01bb535: Drive diamond-d621-pack/ceremony-2026-09-04/ (d7b8b0f0 vs c01bb535, PASS 94/98) and <private evidence>/diamond/adopt-prep/evidence-19679cb0 (identity 12/14 with the two folded-main rows named); after the fold the recorded merge base IS be25b147"
+      }
+    },
+    "amended": "D-3 (ceremony, ORDER-CEREMONY-v1 §2.3 / ADDENDUM-2 D-RB1, 2026-09-18): the merge of main 6e329ea7 into diamond-variants-2026-09 makes `git merge-base` = 6e329ea7; the pin follows the merge as ONE tracked edit inside the merge commit. rasson_ox_9ft is declared on this base (when #642 is in), so its row compares normally from here (IDENTICAL wanted)."
+  },
+  "pending_on_head": {
+    "rasson_ox_9ft": "LANDED at the b18 ceremony (main 9018b450, 2026-09-21; CATALOG_VERSION 19): the audited HEAD declares it, so it is compared normally; it is absent on the pinned base 6e329ea7, so the new_on_head_rule applies (a NEW row, free by construction, stated). The pending rule (a free row while the audited HEAD did not declare it) is history as of W-9."
+  },
+  "note_catalog": "12 fenced ids = the v19 catalog's 13 tables minus joy_q8_9ft, EXEMPT by ruling (ORDER-CEREMONY-v1 §9 Q10 (b): a ui_hidden resolve-only alias with no geometry of its own; Refuter A asserts the RULED count 12, not 13). History: 10 → 11 at CEREMONY-PREP-2 (rasson_ox_9ft listed ahead of its landing), the two Diamond sizes already listed; the OX landed at the ceremony (main 9018b450, 2026-09-21). W-9 fixed this note's arithmetic (it read 13).",
+  "wasm": {
+    "mode": "archive",
+    "pool_wasm_bg_sha256": "1e8e92cf475f1058dc9594216918387f7d9d4253515c24689da655d06a3cc6d8",
+    "kernel": "0.1.0+b6b5dc3f",
+    "rule": "the served kernel is PINNED here and verified by the card driver BEFORE the dump (fail-closed, named exit codes). mode 'overlay': the driver serves the overlay directory D621_WASM_OVERLAY (default <private evidence>/diamond/wasm-overlay/pool-wasm — never /tmp) in place of the archive's web/dist/pool-wasm and refuses when pool_wasm_bg.wasm is missing (exit 4, WASM_OVERLAY_MISSING) or its sha256 differs from this pin (exit 5, WASM_PIN_MISMATCH). mode 'archive': the archive's own web/dist/pool-wasm is served and its pool_wasm_bg.wasm sha256 must equal this pin (same exit codes). The ceremony rebakes the canonical wasm on the merged tree and switches THREE fields: mode=archive + rebaked SHA256 + kernel string in ONE tracked edit of this file, which shows in the diff and in the verdict's law_files digests.",
+    "status": "W-9 (2026-09-21, ORDER-CEREMONY-v1 §2.3 / §9 Q10): the b18 ceremony rebaked the canonical wasm ONCE on the merged tree (W, da3b3cea; stamp 0.1.0+b6b5dc3f; catalog v19, 13 tables) and it landed on main 9018b450 via #642 (2026-09-21); mode=archive — the archive's own web/dist/pool-wasm is served and its pool_wasm_bg.wasm sha256 must equal this pin. History: the pinned overlay (the lane's local rebake with the 8 / 7 ft catalog entries) was REAPED from /tmp/d621 on 2026-09-07 by the host's temp-file cleaner; every card run refused with exit 4 until the ceremony tree carried the rebaked wasm.",
+    "amended": "D621-WASM-PIN (2026-09-08); W-9 archive pin (2026-09-21)"
+  },
+  "owner_alias_ruling": "FIX1 addendum 2026-09-09: owner_proam_9ft_2026_07 follows the Pro-Am render-only profile. Its fence-base-490 row is expected to differ and needs a named ceremony re-pin; physics and camera calibration remain unchanged.",
+  "settle_rule": "NOTE-CENSUS-SETTLE (2026-09-09) + ADOPTION finding (2026-09-11): every capture FIRST drains the runtime occlusion transport through the documented determinism seam window.__snkOccl.flush (aOccl attaches only when a trace job completes — an undrained queue is invisible to a version poll; measured on card 4a4316e9: two boots of the same tree hashed different aOccl sets; after the flush 0 differences across boots and trees), THEN polls each mesh's attribute + index versions and the attribute set until they hold still for >= 3 consecutive reads at ~250 ms (cap 30 s); on the cap the capture is REFUSED naming the mesh + attribute that kept changing; drained / drain_ms and the settle wait (reads, seconds, changes) are recorded in the capture"
+}

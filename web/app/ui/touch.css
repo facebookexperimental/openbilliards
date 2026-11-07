@@ -1,0 +1,1639 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* touch.css — ALL phone touch-mode CSS (feature 014, lane H).
+ *
+ * PIN: ?v=041 — the cache key touch.js requests for this sheet (GH-699
+ * review r1 P2: a sheet edit without a bump leaves returning clients on the
+ * cached old sheet). Bump BOTH on every edit; e2e-touch's static pin check
+ * and gen-sw-precache --check keep touch.js / this header / sw.js in step.
+ *
+ * GATING LAW (FROZEN — contracts/phone-hud.md §1): every rule in this file
+ * is DOUBLY gated — scoped under the `.ob-touch` root class (set on <html>
+ * only by touch.js installTouch, i.e. only when `(pointer: coarse)`
+ * matched at boot) AND inside a `(pointer: coarse)` media query, plus
+ * width/orientation conditions as stated per surface. Consequences:
+ * desktop computed styles stay byte-identical with the feature shipped
+ * (SC-002); this file is loaded ONLY by the touch leaf's link injection —
+ * it never appears in app.html. No DOM node is moved or removed for the
+ * phone layout: visibility and position are CSS concerns.
+ *
+ * This is the T007 foundation: the browser-gesture defense matrix
+ * (contracts/phone-hud.md §4 / research.md R11) + safe-area variables.
+ * The landscape reflow (T022), rotate-prompt styling (T023) and
+ * decision-prompt sizing (T034) land below under the same law.
+ *
+ * Tokens: consume --ob-* only (ui/tokens.css owns definitions).
+ */
+
+@media (pointer: coarse) {
+
+  /* ---- safe areas (enabled by app.html's viewport-fit=cover) ------------- */
+  html.ob-touch {
+    --ob-safe-t: env(safe-area-inset-top, 0px);
+    --ob-safe-r: env(safe-area-inset-right, 0px);
+    --ob-safe-b: env(safe-area-inset-bottom, 0px);
+    --ob-safe-l: env(safe-area-inset-left, 0px);
+  }
+
+  /* ---- browser-gesture defense matrix (FR-004, research.md R11) ----------
+     touch-action is the declarative, race-free mechanism: without it the
+     browser pointercancels any canvas drag a few moves in (measured in the
+     T003 spike). NO global preventDefault anywhere — the page outside the
+     game surface stays a well-behaved web citizen. ONE scoped exception
+     (issue GH-145, recorded in touch.js): Safari's proprietary zoom-channel
+     GestureEvents (gesturestart/gesturechange/gestureend) are cancelled at
+     window level — Safari ignores touch-action for window-crossing pinches
+     and user-scalable=no for accessibility, no game surface consumes those
+     events, and this declarative matrix cannot reach them. */
+
+  /* app root: kill pull-to-refresh / rubber-banding */
+  html.ob-touch,
+  html.ob-touch body {
+    overscroll-behavior: none;
+  }
+
+  /* the gesture surface: the renderer canvas (main.js appends it directly
+     to <body>; #tip and the aimwidget canvases are element-scoped gesture
+     widgets — plane B) */
+  html.ob-touch body > canvas {
+    touch-action: none;
+  }
+
+  /* gesture widgets: element-scoped drag surfaces own their pointers via
+     setPointerCapture and must never hand the browser a pan gesture.
+     Covers the HUD tip picker, the aimwidget canvases + power track, the
+     HUD sliders, and every lane-H touch widget (namespaced .ob-touchw-*). */
+  html.ob-touch #tip,
+  html.ob-touch #aimw canvas,
+  html.ob-touch #aw-track,
+  html.ob-touch input[type="range"],
+  html.ob-touch [class^="ob-touchw"],
+  html.ob-touch [class*=" ob-touchw"] {
+    touch-action: none;
+  }
+
+  /* scrollable surfaces scroll vertically and nothing else: the settings
+     drawer (full-height right sheet on phone, T022) and kit sheets */
+  html.ob-touch #ob-settings,
+  html.ob-touch .ob-sheet {
+    touch-action: pan-y;
+  }
+
+  /* game chrome: no text selection, no iOS long-press callout */
+  html.ob-touch #hud,
+  html.ob-touch #aimw,
+  html.ob-touch #ob-toolbar,
+  html.ob-touch #help,
+  html.ob-touch #banner,
+  html.ob-touch #hud-decision,
+  html.ob-touch #hud-hint,
+  html.ob-touch #ob-rotate,
+  html.ob-touch body > canvas {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  /* rotate prompt scaffold: node injected empty by the touch leaf (T006);
+     hidden until the lane-H portrait styling (T023) shows it at
+     (orientation: portrait) under this same gating law */
+  html.ob-touch #ob-rotate {
+    display: none;
+  }
+
+  /* ==== touch control widgets (T018–T020, phone-hud.md §3.5–3.7) ==========
+     The touchwidgets.js leaf builds these nodes on coarse boots only; they
+     are styled under (pointer: coarse) WITHOUT a width cap so tablets keep
+     working controls too (no scroll wheel there either). Every drag surface
+     already carries touch-action: none via the ob-touchw-* matcher above. */
+
+  /* power gauge (§3.5): left-edge vertical rail, ≥44 pt wide × ≥200 px tall,
+     inside env(safe-area-inset-left). left = safe-l + 2px keeps the rail's
+     right edge < 0.12·viewport-width at 844 px — the e2e fast-aim drags
+     start there and must land on the canvas, not the gauge. */
+  html.ob-touch .ob-touchw-gauge {
+    position: fixed;
+    left: calc(var(--ob-safe-l) + 2px);
+    top: 0;
+    bottom: 0;
+    margin: auto 0; /* vertical centering without transform */
+    height: clamp(200px, 52vh, 260px);
+    width: 44px;
+    z-index: 6;
+    border-radius: var(--ob-r-full);
+    background: var(--ob-glass-thin);
+    border: 1px solid var(--ob-line-1);
+    overflow: visible;
+  }
+  html.ob-touch .ob-touchw-gauge-fill {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    height: 0;
+    border-radius: var(--ob-r-full);
+    background: var(--ob-accent);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  html.ob-touch .ob-touchw-gauge-readout {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    padding: 1px 6px;
+    border-radius: var(--ob-r-s);
+    background: var(--ob-glass);
+    border: 1px solid var(--ob-line-1);
+    color: var(--ob-text-0);
+    font-size: var(--ob-fs--1);
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  /* issue #70 (phone-hud.md §3.5 amendment) — in-gesture promoted readout:
+     touchwidgets.js flips --live for the duration of a gauge gesture; the
+     m/s value grows near the finger on the chalk-info voice and drops with
+     the release. Non-interactive (pointer-events: none inherited above) and
+     gesture-scoped only, so the audit walker's resting geometry/occlusion
+     sweeps are unaffected. Tokens only. */
+  html.ob-touch .ob-touchw-gauge--live .ob-touchw-gauge-readout {
+    font-size: var(--ob-fs-2);
+    font-weight: var(--ob-fw-semi);
+    color: var(--ob-info-text);
+    border-color: var(--ob-info-line);
+  }
+  html.ob-touch .ob-touchw-gauge-label {
+    position: absolute;
+    bottom: calc(100% + 4px); /* above the rail — clear of the fine cluster */
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    font-size: var(--ob-fs--1);
+    font-weight: var(--ob-fw-semi);
+    letter-spacing: var(--ob-track-caps);
+    text-transform: uppercase;
+    color: var(--ob-text-2);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  /* spin popup button (§3.6): ≥56 px live cue-ball face, bottom-right
+     cluster ABOVE the FIRE pill (right-thumb arc) */
+  html.ob-touch #ob-spin-btn {
+    position: fixed;
+    right: calc(var(--ob-safe-r) + var(--ob-sp-3));
+    bottom: calc(var(--ob-safe-b) + var(--ob-h-thumb) + 2 * var(--ob-sp-3)); /* over the FIRE thumb rung (GH-668 B-K16 token) */
+    width: 60px;
+    height: 60px;
+    padding: 2px;
+    z-index: 6;
+    border-radius: var(--ob-r-full);
+    background: var(--ob-glass);
+    border: 1px solid var(--ob-line-1);
+    box-shadow: var(--ob-el-2);
+    cursor: pointer;
+  }
+  html.ob-touch #ob-spin-btn canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--ob-r-full);
+  }
+
+  /* spin popup (§3.6): kit dialog pattern — fixed full-viewport positioning
+     wrapper (export-modal precedent), card above the kit .ob-backdrop (z 40
+     inside this stacking context) */
+  html.ob-touch #ob-spin-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none; /* touchwidgets.js flips to flex while open */
+    align-items: center;
+    justify-content: center;
+  }
+  html.ob-touch #ob-spin-card {
+    position: relative;
+    z-index: 50;
+    max-width: min(92vw, 560px);
+  }
+  html.ob-touch #ob-spin-card .ob-tw-controls-row {
+    display: flex;
+    gap: var(--ob-sp-4);
+    align-items: stretch;
+  }
+  html.ob-touch #ob-spin-pad {
+    width: min(220px, 56vh);  /* ≥200 px pad on every supported viewport */
+    height: min(220px, 56vh);
+    flex: 0 0 auto;
+    cursor: crosshair;
+  }
+  html.ob-touch .ob-tw-elev-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: var(--ob-sp-3);
+    min-width: 170px;
+  }
+  html.ob-touch .ob-spin-elev {
+    display: block;
+    min-height: 44px;
+    color: var(--ob-text-2);
+    font-size: var(--ob-fs--1);
+  }
+  html.ob-touch .ob-spin-elev .ob-nums {
+    float: right;
+    color: var(--ob-text-0);
+    font-variant-numeric: tabular-nums;
+  }
+  html.ob-touch #ob-spin-elev {
+    width: 100%;
+    box-sizing: border-box;
+    margin-inline: 0; /* the UA's 2px side margins overflow the label box */
+    min-height: 44px; /* ≥44 pt track (§3.6) */
+    accent-color: var(--ob-accent);
+  }
+  html.ob-touch #ob-spin-done {
+    min-height: 44px;
+  }
+
+  /* pocket-picker sheet (§3.8, T032): bottom sheet on the kit dialog
+     pattern — fixed full-viewport wrapper (spin-popup precedent), card
+     pinned to the bottom edge, option rows ≥44 pt, the pocket list scrolls
+     pan-y when the target set is tall (SE-class heights) */
+  html.ob-touch #ob-pocket-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none; /* touchwidgets.js flips to flex while open */
+    align-items: flex-end;
+    justify-content: center;
+  }
+  html.ob-touch #ob-pocket-picker {
+    position: relative;
+    z-index: 50;
+    width: min(92vw, 560px);
+    max-height: calc(100dvh - var(--ob-safe-t) - var(--ob-sp-5));
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ob-sp-2);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+    padding-bottom: calc(var(--ob-safe-b) + var(--ob-sp-3));
+  }
+  html.ob-touch .ob-picker-hint {
+    color: var(--ob-text-2);
+    font-size: var(--ob-fs--1);
+    letter-spacing: var(--ob-track-caps);
+    text-transform: uppercase;
+  }
+  html.ob-touch #ob-picker-targets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ob-sp-2);
+  }
+  html.ob-touch #ob-picker-targets .ob-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  html.ob-touch #ob-picker-pockets {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--ob-sp-2);
+  }
+  html.ob-touch #ob-picker-pockets .ob-btn {
+    min-height: 44px;
+    width: 100%;
+  }
+  html.ob-touch .ob-picker-foot {
+    display: flex;
+    gap: var(--ob-sp-2);
+  }
+  html.ob-touch .ob-picker-foot .ob-btn {
+    min-height: 44px;
+    flex: 1 1 auto;
+  }
+
+  /* fine-aim cluster (§3.7): bottom-left thumb arc — ratchet chevrons
+     flanking the azimuth readout, plus the aim-view toggle */
+  html.ob-touch .ob-touchw-cluster {
+    position: fixed;
+    left: calc(var(--ob-safe-l) + var(--ob-sp-2));
+    bottom: calc(var(--ob-safe-b) + var(--ob-sp-3));
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    gap: var(--ob-sp-2);
+  }
+  html.ob-touch .ob-touchw-nudge {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    font-size: var(--ob-fs-3);
+    line-height: 1;
+    /* #49: the face is a 20px SVG chevron — flex centering covers both
+       the icon and the ‹ › stale-cache text fallback */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  html.ob-touch #ob-azimuth {
+    min-width: 52px;
+    text-align: center;
+    color: var(--ob-text-1);
+    font-size: var(--ob-fs--1);
+    font-variant-numeric: tabular-nums;
+  }
+  html.ob-touch .ob-touchw-view {
+    min-width: 44px;
+    height: 44px;
+    padding: 0 var(--ob-sp-3);
+  }
+}
+
+/* ==== landscape phone reflow (T022, phone-hud.md §3 / data-model.md §4.1)
+   Doubly gated (.ob-touch + coarse) PLUS the phone width condition: at
+   ≥1024 logical px (tablet class) these rules relax and the desktop-like
+   layout stays, per the §6 viewport matrix. Every rule repositions or hides
+   EXISTING nodes by CSS only — no DOM node moves, handlers stay attached. */
+@media (pointer: coarse) and (max-width: 1023.98px) {
+
+  /* ==== §3.11 — phone top-band contract (issue #81 lane A) =================
+     The phone's fixed top chrome had NO coordinated layout: banner,
+     #hud-hint, the #88 warn chip, the #90 call pill, the toolbar cluster,
+     the status strip, the #68 mode / #66 drill chip strips, the power
+     readout and #err all positioned independently and collided on coarse
+     registers (worst at 844x390; DOM numbers in the #81 tri-platform QA
+     audit). One slot allocation now owns the whole top field — every
+     surface below consumes these tokens instead of picking its own y:
+
+       band T (top chrome row, y = --ob-band-t .. + --ob-band-t-h):
+         LEFT corner  — the toolbar cluster (gear/help/drills), reserved
+                        to --ob-corner-l; nothing else may enter it.
+         CENTER       — the read-only status strip, inset from BOTH
+                        corners (never under the toolbar or the pill).
+                        Issue GH-144: the #66/#80 drill strip joins this
+                        span (status-only badges since GH-120; the old
+                        left-anchored band-S stack sat OVER the felt and
+                        covered balls — owner build3). It renders first
+                        in the row and stays pointer-inert.
+       band S (secondary strip row, y = --ob-band-s):
+         the #68 playground ACTION chips — LEFT-anchored clear of the
+         --ob-col-gauge column (build-4 QA: the §3.5 gauge label + rail
+         top live in this y-range at the left edge); the CONTAINER stays
+         pointer-inert and each chip re-enables its own events (build-4
+         QA, the GH-120 dock law — they are interactive controls, unlike
+         their #hud host strip, but the strip box must never eat felt
+         drags once it wraps). GH-156 (chrome diet): the strip is
+         PLAYGROUND-ONLY and icon chips (four 44pt squares) — the
+         read-only mode badge left it for the band-T center span
+         (#ob-mode-ind below), so practice reserves NO band-S row and
+         nothing in this band ever floats below the help pill as
+         text-heavy chrome again (the owner-flagged defect). The GH-120
+         drill dock rail parks right-anchored in this
+         y-range while a run is live (drills.css owns its skin; the
+         :has() bump below reserves its depth for band X). The
+         shared-replay bar also lands here (share.js placeBar drops
+         it below the toolbar; the strip + pill hide via the existing
+         :has rules). Each surface present grows the band via the
+         :has() bumps below.
+       band X (transient stack, y = --ob-band-x):
+         banner → warn chip → hint, each in a fixed-height lane (px, not
+         the old 18%/24%/27% — percent anchors squeeze into each other
+         at coarse heights ≤520px). #err joins this band top-anchored
+         (last-resort surface: it also lifts ABOVE the toolbar z so
+         pills can never paint over or intercept it).
+
+     Every offset is safe-area aware; the e2e-ui --audit band-contract arm
+     asserts zero pairwise intersection + hit-testability + the 44 pt
+     floor over this exact set on coarse registers x en/de/ja. */
+  html.ob-touch {
+    --ob-band-t: calc(var(--ob-safe-t) + var(--ob-sp-2));
+    --ob-band-t-h: 44px;
+    /* toolbar cluster reservation: sp-2 inset + 5 x 44px pills + 4 x sp-3
+       gaps + sp-2 clearance (hall + playback + gear + help + drills — the
+       full family; GH-225 Phase C added the playback pill at order 0, the
+       shell's hall re-entry pill leads the toolbar since 031). The static
+       value is the stale-module floor; touch.js measures the live cluster
+       into --ob-corner-l-live and #hud takes the larger (uiaudit F37: the
+       four-pill reserve parked the status strip 48 px under #ob-drills). */
+    --ob-corner-l: calc(2 * var(--ob-sp-2) + 5 * 44px + 4 * var(--ob-sp-3));
+    /* call-pill slot: enough for the one-line ball-on/call copy in every
+       locale at 844+, floored so it stays usable on 667-class widths;
+       long labels WRAP inside the cap (no-ellipsize law) */
+    --ob-corner-r: clamp(150px, 34vw, 320px);
+    /* gauge column (build-4 QA, badge-over-gauge-label MAJOR): the §3.5
+       power rail owns the viewport's LEFT edge from band S down — rail
+       inset 2px + 44px rail + sp-2 clearance. The rail is vertically
+       CENTERED (top ≈ 87 on 375-class heights) and its max-content label
+       rides ABOVE the rail top (bottom: 100% + 4px → y ≈ 66..91 across
+       the phone registers) — exactly the y-range of band S, so the
+       left-anchored band-S strips painted over the label ('KRAFT'/
+       'SANDBOX' interleave) and, once wrapped, over the interactive rail
+       itself (38x64.5px tap-dead at 667x375 de/ja). Band-S strips may
+       never enter this column. */
+    --ob-col-gauge: calc(2px + 44px + var(--ob-sp-2));
+    --ob-band-s: calc(var(--ob-band-t) + var(--ob-band-t-h) + var(--ob-sp-2));
+    --ob-band-s-h: 0px;  /* mode strip allowance — :has bump below */
+    --ob-band-s2-h: 0px; /* drill dock-rail allowance — :has bump below */
+    --ob-band-x: calc(var(--ob-band-s) + var(--ob-band-s-h)
+      + var(--ob-band-s2-h) + var(--ob-sp-2));
+  }
+  /* presence bumps: each visible band-S strip reserves its row. The replay
+     bar ALSO lands in band S — share.js's placeBar() fallback drops it
+     below the toolbar with an inline top (= toolbar.bottom + 8 = the
+     band-S line) whenever the centered span can't clear the cluster,
+     which on phone is always — so a replay reserves the S band too (the
+     mode/drill strips never coexist with a replay: renderModeChips is
+     off while replay-locked). 64px = the bar's 44pt-button row + its
+     sp-2 padding + border.
+     Build-4 QA (band-S wrap discipline): the reservation is CONTENT-AWARE.
+     The GH-140 5-chip playground strip legally WRAPS to a second row at
+     667-class widths in de/ja under the (now-deleted, GH-225 Phase D)
+     §3.12 record-dock cap — no width existed that fit five 44pt chips
+     beside the dock column — and the one-row assumption let a
+     band-X banner paint straight through row 2 (staged 228x32px at
+     667x375). touch.js measures the strip's border-box height into
+     --ob-band-s-strip-h (ResizeObserver — re-render/locale/register
+     changes all re-fire); the max() floor keeps a stale-JS pairing at the
+     one-row geometry, byte-identical whenever the strip does not wrap.
+     GH-156: the shipped strip is four fixed-width ICON chips — it never
+     wraps at any register/locale (188px < the tightest cap in force: the
+     §3.12 caps were RE-HOMED below, not dropped, so a cap still applies —
+     review 2026-07-27 finding 5 corrected the earlier "no cap at all now"
+     wording), so the
+     measured height stays one row; the wrap machinery is KEPT because the
+     stale-icons.js degrade re-inflates the chips to their text labels and
+     the wrapped register returns. The bump also arms only in PLAYGROUND
+     now (practice renders no strip), so idle-practice band-X geometry
+     equals the play-mode stack. */
+  html.ob-touch:has(#ob-mode-chips.on) {
+    --ob-band-s-h: calc(max(44px, var(--ob-band-s-strip-h, 44px))
+      + var(--ob-sp-2));
+  }
+  /* issue GH-144: the drill strip left band S for the band-T status span, so
+     the s2 allowance re-keys onto the GH-120 dock RAIL (STOP is in the DOM
+     only while a run is live — the #79 teardown law): the right-column
+     2×44pt rail runs from band-s + sp-1 down 92px (GH-150 moved the
+     column top sp-2 → sp-1 so the co-present record dock stacks below the
+     rail inside the spin-button budget), and band X must start clear of
+     it. Backing out --ob-band-s-h makes the reservation
+     mode-strip-independent: band X lands at band-s + 104px + sp-2
+     (rail top inset sp-1 + 44 + sp-1 + 44, plus sp-2 clearance) whenever
+     the rail is up. Idle practice (opener-only dock, hidden on phone)
+     keeps the pre-GH-144 band-X geometry byte-identical. (The GH-150
+     RECORD dock used to stack below this rail and needed no extra depth
+     here — it is retired, GH-225 Phase D, so the drill rail is once again
+     the only occupant of this column.) DESCENDANT (not child)
+     combinator on purpose: STOP anywhere inside the dock IS the live-run
+     signal — the in-flight GH-133 branch owns the dock's internal DOM shape
+     and may wrap the buttons; a hard-coded child chain would silently
+     collapse this bump and re-collide the banner/hint at 667x375
+     (e2e-ui --audit 'band drill' is the tripwire). */
+  html.ob-touch:has(#ob-drill-dock.on #ob-drill-stop) {
+    --ob-band-s2-h: calc(2 * 44px + 2 * var(--ob-sp-1) + var(--ob-sp-2)
+      - var(--ob-band-s-h));
+  }
+  html.ob-touch:has(body > #ob-replay) {
+    --ob-band-s-h: calc(64px + var(--ob-sp-2));
+  }
+  /* build-4 QA: the DONE-register bar (share.js stamps .ob-rp-done) wraps
+     into two rows on phone (§3.3 below), so its reservation grows with it:
+     the wrapped bar measures 114px (2 x 44pt rows + 2 x sp-1 line gaps —
+     the zero-height .ob-rp-break line carries its own gap — + 2 x sp-2
+     padding + 2px border), so 110px + the shared sp-2 clearance = 118px
+     covers it. Single-row done bars (wide registers / short locales)
+     simply leave band X a little lower — the reservation is an upper
+     bound, never a fit. */
+  html.ob-touch:has(body > #ob-replay.ob-rp-done) {
+    --ob-band-s-h: calc(110px + var(--ob-sp-2));
+  }
+
+  /* -- toolbar (§3.2): the phone toolbar carries the 44 pt Playback / gear /
+        help / drills pills; the Export + Share pills hide (their drawer rows
+        dispatch the same handler chains). Top-LEFT per the §4.1 region map —
+        band T's left corner slot (§3.11), whose --ob-corner-l reserves the
+        FOUR-pill family.
+        GH-225 Phase D: #ob-record's pill is retired (record.js ships no
+        chrome), but the selector STAYS — as a STALE-GRAPH GUARD, annotated,
+        exactly like the inert `#ob-record { order: 2 }` rule this wave
+        deliberately left in frozen app.html. touch.css is cache-busted
+        (?v= in touch.js) while record.js is a plain unversioned static
+        import from main.js, so a browser/shell cache can legally pair an
+        OLD record.js (which still builds #ob-record and mounts the dock)
+        with THIS sheet. Without the hide rule that pairing paints five
+        pills into a --ob-corner-l slot that reserves exactly four
+        (2*sp-2 + 4*44px + 3*sp-3) and collides with the band-T status
+        strip. Removing a defensive rule that costs nothing is the wrong
+        half of the app.html decision (review 2026-07-27, finding 4).
+        #ob-share and #ob-export-btn hide for the live reason: both pills
+        still exist on desktop, and Share still has a drawer row. */
+  html.ob-touch #ob-toolbar {
+    top: var(--ob-band-t);
+    left: calc(var(--ob-safe-l) + var(--ob-sp-2));
+    right: auto;
+  }
+  html.ob-touch #ob-toolbar > #ob-export-btn,
+  html.ob-touch #ob-toolbar > #ob-record, /* stale-graph guard, see above */
+  html.ob-touch #ob-toolbar > #ob-share {
+    display: none;
+  }
+  /* (the gear's coarse 44 circle + fs-3 fallback glyph are the kit toolbar
+     part's since GH-668 B-K16 — .ob-btn--icon / .ob-toolbar-pill) */
+
+  /* -- HUD panel → top-center read-only status strip (§3.3): the SAME #hud
+        node dissolves into a transparent fixed strip; every body row hides
+        except the state line + match/call chips + (GH-144) the drill strip.
+        backdrop-filter must clear (a filtered ancestor would become the
+        containing block for the fixed-position FIRE pill below AND would
+        re-clip the fixed band-S mode strip, §3.11). pointer-events: none
+        keeps the top band tappable through to the canvas (pocket tap
+        zones live there) — #shoot, the call pill and the band-S mode
+        strip re-enable their own; the drill strip stays inert (GH-81a).
+        §3.11: the strip owns band T's CENTER slot — inset from the
+        toolbar corner on the left and the viewport (or, via the :has rule
+        below, the call-pill slot) on the right, so it can never run under
+        either; `safe center` keeps cropping single-ended when content
+        still overflows the slot (the single-row law crops, never wraps). */
+  html.ob-touch #hud {
+    top: var(--ob-band-t);
+    left: calc(var(--ob-safe-l) + max(var(--ob-corner-l),
+      var(--ob-corner-l-live, 0px) + 2 * var(--ob-sp-2)));
+    right: calc(var(--ob-safe-r) + var(--ob-sp-2));
+    margin-inline: 0;
+    width: auto;
+    max-width: none;
+    justify-content: safe center;
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    display: flex;
+    /* one centre line for band T (uiaudit F38): the strip spans the 44 pt
+       band and centres its members on it — hung from the top edge, the
+       28 px state pill and 22 px chips sat 8–16 px above the toolbar
+       pills' centre line beside a 44 px call pill */
+    min-height: var(--ob-band-t-h);
+    align-items: center;
+    gap: var(--ob-sp-3);
+    overflow: hidden;
+    pointer-events: none;
+  }
+  html.ob-touch #hud > h1,
+  html.ob-touch #hud > .row,
+  html.ob-touch #hud > #tip,
+  html.ob-touch #hud > #rack {
+    display: none; /* §3.9 hidden panel body */
+  }
+  /* the FIRE row stays renderable (display: contents removes its box) so
+     the fixed-position #shoot survives; its siblings hide individually */
+  html.ob-touch #hud > .row:has(> #shoot) {
+    display: contents;
+  }
+  html.ob-touch #hud #replay,
+  html.ob-touch #hud #rerack {
+    display: none;
+  }
+  html.ob-touch #hud #state {
+    margin: 0;
+    /* the read-only status pill sits on the compact rung (28 = the line
+       box + its 1 px hairlines), not on a padding-derived height (uiaudit
+       F38); a block box keeps the sanctioned ellipsis working */
+    box-sizing: border-box;
+    min-height: 0;
+    line-height: calc(var(--ob-h-compact) - 2px);
+    padding: 0 var(--ob-sp-3);
+    border-radius: var(--ob-r-full);
+    background: var(--ob-glass-thin);
+    border: 1px solid var(--ob-line-1);
+    color: var(--ob-text-0);
+    font-size: var(--ob-fs--1);
+    white-space: nowrap; /* single row, never wraps (§3.3) */
+    overflow: hidden;
+    text-overflow: ellipsis; /* read-only status text, not a control label */
+    flex: 0 1 auto;
+    /* build-4 QA (nit): a usable residual floor. Under the snooker 5-chip
+       load the sanctioned-ellipsis pill collapsed to a 26px border-box with
+       a 0px CONTENT box — the ellipsis glyph itself (≈8.4px) never painted
+       and the padding-box clip left a 2-glyph fragment ('AI|'). 16ch keeps
+       a readable prefix + a real ellipsis; past the floor the strip box
+       crops chips at the slot edge instead (the sanctioned single-row
+       crop, `justify-content: safe center` keeps it single-ended). */
+    min-width: 16ch;
+  }
+  html.ob-touch #hud #hud-match,
+  html.ob-touch #hud #hud-snooker,
+  html.ob-touch #hud #hud-carom,
+  html.ob-touch #hud #hud-tenball,
+  html.ob-touch #hud #hud-fourteenone,
+  html.ob-touch #hud #hud-heyball {
+    margin-top: 0 !important; /* the 10-ball / 14.1 / heyball hosts carry an inline sp-2 top margin (hud.js) */
+    flex: 0 0 auto;
+  }
+  /* chips stay whole; the strip crops overflow instead of wrapping —
+     single-row law. GH-316 hardening: pre-316 "whole" only meant no
+     INTERNAL wrap, while the strip's overflow:hidden crop stayed
+     GLYPH-BLIND and sliced the ACTIVE snooker score chip mid-digit on the
+     owner's build-15 phone ("P2 · 45" cut by its own container, dead
+     reserved slot to its right). The single-row law stands, but crop
+     granularity is now WHOLE CHIPS: the touch.js band-fit pass walks the
+     row and applies the squeeze ladder below, so a badge either paints
+     complete or not at all (the no-truncation law extends to HUD chips).
+     Ladder, in order — each stage only arms when the previous still
+     overflows, and a content re-render resets it:
+       0. reclaim — the :has() retreat above tracks the pill's measured
+          width, so the ladder starts from the honest slot;
+       1. compress (.ob-band-tight) — member gap sp-3→sp-1, chip gaps
+          sp-1→2px, state-pill residual floor 16ch→8ch;
+       2. drop whole badges (.ob-band-drop, display:none) — casualty
+          order: the mode badge first (collapse rule 1), then WARN badges
+          (owed/foul/penalty registers — their truth also rides the band-X
+          banner) right-to-left, then plain badges right-to-left, and the
+          ACTIVE-register accent chips (the shooter's score chip) dead
+          last; score truth outlives everything, and where a slot cannot
+          geometrically hold both players' chips (the de one-pocket
+          ~240px pocket/tally pair at 852x393) the IDLE player's chip
+          yields whole — never the shooter's, and never a partial clip.
+     Terminal fallback: with every badge dropped the elastic state pill
+     still ellipsizes at its tight floor; below even that (absurd slots)
+     the old strip-box crop remains. Stale-JS pairing (no fit pass): the
+     ladder classes never appear and the pre-316 pixel crop is the
+     documented degrade. */
+  html.ob-touch #hud .hm-chips,
+  html.ob-touch #hud .hc-chips {
+    flex-wrap: nowrap;
+  }
+  html.ob-touch #hud .hm-chips .ob-badge,
+  html.ob-touch #hud .hc-chips .ob-badge {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  /* GH-316 ladder stage 1: spacing compression BEFORE anything drops. The
+     8ch state floor keeps a readable prefix + a real ellipsis — the build-4
+     26px-collapse defect the 16ch floor fixed cannot return. */
+  html.ob-touch #hud.ob-band-tight {
+    gap: var(--ob-sp-1);
+  }
+  html.ob-touch #hud.ob-band-tight .hm-chips,
+  html.ob-touch #hud.ob-band-tight .hc-chips,
+  html.ob-touch #hud.ob-band-tight #ob-drill-chips.on {
+    gap: 2px;
+  }
+  html.ob-touch #hud.ob-band-tight #state {
+    min-width: 8ch;
+  }
+  /* GH-316 ladder stage 2: whole-badge drop — never a partial clip.
+     display:none takes the badge out of flow so the survivors center
+     honestly; hud.js re-renders chips as FRESH nodes on every content
+     change (replaceChildren), so a drop can never go stale against a
+     grown or shrunk score. */
+  html.ob-touch #hud .ob-band-drop {
+    display: none;
+  }
+  /* GH-449 ladder stage 3: rules-chip COMPACTION — a standing referee
+     call (ob-badge--rule: touching ball / free ball / miss warning) is
+     never the squeeze ladder's casualty while decorative chips survive;
+     when even the decorative drops leave the row clipped, the fit pass
+     swaps the chip's full label for its compact form (chipEl mini span,
+     hud.js) instead of dropping the call. The .bd-mini default-hidden
+     rule lives in hud.js's synchronous matchStyle block (every register);
+     these two outrank it at the phone band only. Stale-JS pairing: the
+     classes never appear and the pre-449 chips stand; stale-CSS pairing:
+     the swap is a no-op and the ladder falls through to its drop
+     terminal. */
+  html.ob-touch #hud .ob-band-mini .bd-full {
+    display: none;
+  }
+  html.ob-touch #hud .ob-band-mini .bd-mini {
+    display: inline;
+  }
+  /* issue GH-144: the drill strip joins the band-T CENTER span as read-only
+     status (owner build3: the old left-anchored band-S stack sat at
+     y 112..130 over the felt — top ≈ 97..101 at 844x390/667x375,
+     110.9 at 926x428 — and covered balls). It renders FIRST in the row
+     (order: -1) so the
+     live drill's name + counters survive the slot crop; #state (flex
+     0 1 auto, min-width 0, sanctioned ellipsis) yields width instead.
+     The strip inherits #hud's pointer-events: none — the GH-81a inert law
+     for free (post-GH-120 it is status-only badges; the e2e-ui --audit
+     felt-occlusion dimension asserts both). Badges stay whole (nowrap,
+     the desktop internal-wrap cap lifted); the STRIP BOX crops at the
+     slot edge (single-row law, the .hm-chips precedent). */
+  html.ob-touch #hud #ob-drill-chips.on {
+    order: -1;
+    margin-top: 0;
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+  }
+  html.ob-touch #hud #ob-drill-chips .ob-badge {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    max-width: none;
+  }
+  /* GH-156 (chrome diet): the read-only MODE indicator joins the band-T
+     CENTER span (the GH-144 drill-strip precedent) as a compact
+     icon+label badge — a #hud flow child inheriting the host's
+     pointer-events: none (the GH-81a inert law) and the strip-box crop.
+     DOM-last / order 0: flow.js APPENDS the badge as #hud's LAST child
+     (no CSS order) — createFlow boots after createHud, whose #hud-match/
+     #hud-carom/#hud-snooker game-chip family is already anchored afterend
+     of #rack, so the badge renders AFTER the drill segments (order -1),
+     the state pill AND the match/game chips, at the span's right end near
+     the call-pill corner, and is the FIRST chrome the sanctioned
+     single-ended crop drops under width pressure (collapse rule 1: mode
+     context yields to drill/state/rules truth). Review MAJOR (2026-07):
+     the original afterend-of-#rack insert landed the badge BEFORE the
+     game chips and the crop dropped state truth first — the e2e-ui
+     --audit crop-order leg pins the corrected order now. The pre-diet
+     register — the badge leading the band-S strip at (54,60), directly
+     below the help '?' pill and over the felt — is retired with the
+     flow.js indicator/actions split. */
+  html.ob-touch #hud #ob-mode-ind.on {
+    margin-top: 0;
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  /* §3.11: while the call pill is up, the strip's right edge retreats to
+     the pill's boundary — chips can never slide under the pill
+     (pre-contract the fixed pill fully covered the Ball-on/Break/group
+     chips on snooker en/de/ja and 8-ball call de/ja).
+     GH-316: the retreat tracks the pill's MEASURED painted width
+     (--ob-corner-r-live, written by the touch.js band ResizeObserver — the
+     --ob-band-s-strip-h pattern), not the --ob-corner-r slot CAP. The cap
+     is a worst-case bound the real pill rarely fills ("Nominated: black"
+     paints ~127px against a ~290px cap at 852x393), and the fixed-cap
+     retreat parked a dead reserved gap between the strip's crop edge and
+     the pill while the ACTIVE snooker score chip was cropped mid-digit
+     (the owner's build-15 "P2 · 45" screenshot — empty background to the
+     right of the cut). min() keeps a garbled token from ever pushing the
+     strip under the pill; a stale-JS pairing (no token) falls back to the
+     cap = the pre-GH-316 geometry, never a collision. */
+  html.ob-touch #hud:has(#hud-call.on) {
+    right: calc(var(--ob-safe-r)
+      + min(var(--ob-corner-r-live, var(--ob-corner-r)), var(--ob-corner-r))
+      + 2 * var(--ob-sp-2));
+  }
+
+  /* -- band S (§3.11): the #68 playground ACTION strip — a fixed row below
+        the chrome band, LEFT-anchored, with pointer events restored ON
+        THE CHIPS (build-4 QA: per-chip, never on the container — the
+        GH-120 dock law): these are the sandbox CONTROLS, not read-only
+        status. Interactive chips get the 44 pt floor here — the 32px
+        modes.css register predates the tap-target law. (Issue GH-144: the
+        #66/#80 drill strip no longer joins this band — status-only badges
+        since GH-120, it stays in the band-T center span above; the old
+        GH-120 max-width retreat off the dock column retired with it.
+        GH-156: the read-only mode badge ALSO left for band T's center
+        span — this strip is playground-only icon chips now.) */
+  html.ob-touch #hud #ob-mode-chips.on {
+    /* build-4 QA: the CONTAINER is pointer-inert and each chip re-enables
+       its own events (the GH-120 dock law) — the old container-level
+       `auto` made the strip BOX the tap surface, so once the strip
+       legally wraps, the empty row-2 span beside the intrinsic-width
+       chip still ate ball drags over the felt. (Review nit: the strip is
+       playground-only interactive chips since GH-156 — the read-only mode
+       badge lives in the band-T center span above.) */
+    pointer-events: none;
+    position: fixed;
+    top: var(--ob-band-s);
+    /* build-4 QA: LEFT-anchored CLEAR of the gauge column (--ob-col-gauge)
+       — the old sp-2 inset put the strip's leading badge over the §3.5
+       gauge label on every phone register (rule-2 pairwise overlap,
+       'KRAFT'/'SANDBOX' interleave) and the wrapped strip over the
+       interactive rail's top segment. */
+    left: calc(var(--ob-safe-l) + var(--ob-col-gauge));
+    margin: 0;
+    max-width: calc(100vw - var(--ob-safe-l) - var(--ob-safe-r)
+      - var(--ob-col-gauge) - var(--ob-sp-2));
+  }
+  html.ob-touch #ob-mode-chips .ob-mode-chip-btn {
+    pointer-events: auto; /* the chips are the controls, not the strip */
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* -- FIRE pill (§3.4): the SAME #shoot element, same hud.onShoot chain
+        (nomination gates / decision locks / replay locks come free), fixed
+        bottom-right at ≥64 px with the kit's accent primary styling */
+  html.ob-touch #hud #shoot {
+    pointer-events: auto;
+    position: fixed;
+    right: calc(var(--ob-safe-r) + var(--ob-sp-3));
+    bottom: calc(var(--ob-safe-b) + var(--ob-sp-3));
+    min-width: 96px;
+    min-height: var(--ob-h-thumb); /* the kit's 64 THUMB rung (GH-668 B-K16) */
+    padding: 0 var(--ob-sp-5);
+    border-radius: var(--ob-r-full);
+    font-size: var(--ob-fs-1);
+    font-weight: var(--ob-fw-semi);
+    letter-spacing: var(--ob-track-caps);
+    text-transform: uppercase;
+    box-shadow: var(--ob-el-2);
+  }
+  /* GH-245 (deferred item A3): #shoot carries .ob-btn--primary, so the kit's
+     .ob-btn:focus-visible ring exists — but the el-2 shadow above sits at
+     (1,2,1) and box-shadow is ONE property, so the ring silently lost on
+     exactly this register. Restated at the same specificity, ring COMPOSED
+     over the elevation (the pill must not drop its lift while focused). */
+  html.ob-touch #hud #shoot:focus-visible {
+    outline: none;
+    box-shadow: var(--ob-focus), var(--ob-el-2);
+  }
+
+  /* -- push-out FIRE-strip button (GH-360, feature 026 / WPA 6.4): the
+        10-ball push-out stance as a FIRST-CLASS control on the FIRE strip —
+        a touchwidgets.js-built pill immediately LEFT of the FIRE pill,
+        shown by JS exactly while the 6.4 window is open on an aiming boot
+        (phase 'pushout', machine AIM/BALL_IN_HAND, no replay lock; the
+        armed/available truth stays in aim.js — this file owns geometry
+        only). The x-anchor consumes --ob-fire-w-live (the FIRE pill's
+        MEASURED width — touchwidgets.js ResizeObserver, the §3.11
+        band-token pattern) so the strip packs against every locale's FIRE
+        label; the 96px fallback = the pill's own min-width, so a stale-JS
+        pairing keeps a sane strip (and a stale pairing ships no button at
+        all — both surfaces ride touchwidgets.js). 48px tall (≥44 pt floor)
+        centered on the 64px FIRE pill via the +8px bottom lift; the label
+        is max-content/nowrap — it fits by construction, never ellipsizes
+        (rule 3). Armed state recolors via aria-pressed with the SAME
+        tokens as the desktop #aw-push (aimwidgets.js), so the two device
+        classes read as one affordance. Phone-width block on purpose
+        (review r1 P1): coarse ≥1024 keeps the DESKTOP HUD (§6 tablet
+        relaxation — #shoot is in-flow, no fixed FIRE strip) and GH-225
+        hides #aimw there, so the tablet's push-out surface is the picker
+        row (touchwidgets stripUsable() gate) — never this button. The
+        'position: fixed' below doubles as the JS capability probe for a
+        stale-sheet pairing (see touchwidgets.js). */
+  html.ob-touch #ob-push-btn {
+    position: fixed;
+    right: calc(var(--ob-safe-r) + var(--ob-sp-3)
+      + var(--ob-fire-w-live, 96px) + var(--ob-sp-2));
+    bottom: calc(var(--ob-safe-b) + var(--ob-sp-3) + 8px);
+    height: 48px;
+    min-width: 44px;
+    width: max-content;
+    white-space: nowrap;
+    padding: 0 var(--ob-sp-4);
+    z-index: 6;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--ob-r-full);
+    background: var(--ob-glass);
+    border: 1px solid var(--ob-line-1);
+    box-shadow: var(--ob-el-2);
+    font-size: var(--ob-fs-0);
+    font-weight: var(--ob-fw-semi);
+    letter-spacing: var(--ob-track-caps);
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  html.ob-touch #ob-push-btn[aria-pressed="true"] {
+    color: var(--ob-accent-text);
+    background: var(--ob-accent-dim);
+    border-color: var(--ob-accent-line);
+  }
+  html.ob-touch #ob-push-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--ob-focus), var(--ob-el-2);
+  }
+
+  /* -- desktop-only panels hidden on phone (§3.9): the HUD duplicates the
+        aim-widget cluster, #help/aw-keys are keyboard-mouse text.
+        !important: aimwidgets.js drives #aimw's state-scoped visibility with
+        an INLINE display:block while aiming — the phone hide must outrank it
+        (visibility stays a CSS concern; the node and its handlers remain). */
+  html.ob-touch #aimw,
+  html.ob-touch #help {
+    display: none !important;
+  }
+
+  /* -- replay bar (§3.3/§3.11): compact single row; share.js's placeBar()
+        inline-tops it onto the band-S line on phone (below the toolbar),
+        and the html :has token bump above reserves that band for it so
+        the band-X transients — e.g. a shared replay's foul banner — start
+        clear of the bar instead of vanishing behind its z:42 glass. The
+        CSS top below is the stale-cache fallback (no toolbar container:
+        placeBar removes its inline top and band T is free). */
+  html.ob-touch #ob-replay {
+    top: var(--ob-band-t);
+    left: calc(var(--ob-safe-l) + var(--ob-sp-1));
+    right: calc(var(--ob-safe-r) + var(--ob-sp-1));
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ob-sp-1);
+    /* build-4 QA: the centered bar must clear the §3.5 power-gauge COLUMN
+       (left = safe-l + 2px, 44px rail, viewport-vertically-centered — its
+       top reaches the bar's band-S row at 375-class heights). The share.js
+       92vw cap let the DONE bar's left edge reach x=26.7 at 667x375 and
+       paint 19.3px over the gauge + its label. 46px = the rail's right
+       edge offset (2px + 44px), sp-2 = clearance, symmetric so the bar
+       stays viewport-centered. */
+    max-width: calc(100vw - var(--ob-safe-l) - var(--ob-safe-r)
+      - 2 * (46px + var(--ob-sp-2)));
+  }
+  html.ob-touch #ob-replay .ob-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  /* the slow-mo toggle joins the 44 pt floor (measured 76x21 pre-contract;
+     the kit label wrapper is the tap surface) */
+  html.ob-touch #ob-replay label {
+    min-height: 44px;
+  }
+  /* -- DONE register (build-4 QA, play lane): the finished bar is the
+        widest set (label + 3 transports + toggle + Continue + Exit); under
+        the single-row nowrap the flex shrink drove the text pills past
+        their labels' min-content (de Continue rendered 'on hier
+        weiterspiele' — sw/cw 140/130 — and the toggle track painted under
+        Continue at 667x375). share.js stamps .ob-rp-done while
+        replay.done; the bar then wraps at the .ob-rp-break marker into
+        two deterministic rows — row 1 label + transports + toggle, row 2
+        Continue + Exit — with every control shrink-frozen at its label
+        width (44 pt floors intact; rule 3: control labels never clip).
+        The PLAYING register keeps its proven single-row geometry
+        byte-identical. */
+  html.ob-touch #ob-replay.ob-rp-done {
+    flex-wrap: wrap;
+  }
+  html.ob-touch #ob-replay.ob-rp-done .ob-btn,
+  html.ob-touch #ob-replay.ob-rp-done label {
+    flex-shrink: 0;
+  }
+  html.ob-touch #ob-replay.ob-rp-done .ob-rp-break {
+    display: block;
+    flex-basis: 100%;
+    height: 0;
+  }
+  html.ob-touch body:has(> #ob-replay) #hud #state,
+  html.ob-touch body:has(> #ob-replay) #hud #hud-match,
+  html.ob-touch body:has(> #ob-replay) #hud #hud-snooker,
+  html.ob-touch body:has(> #ob-replay) #hud #hud-carom {
+    display: none;
+  }
+
+  /* -- status-strip call indicator → picker opener (§3.8, T032): while a
+        call view is on, the read-only strip's ONE sanctioned interactive
+        element re-enables its own pointer events (the strip is otherwise
+        tap-through to the canvas) and grows to the 44 pt floor */
+  /* issue #90: the pill leaves the strip flow — position: fixed at the
+     TOP-RIGHT corner, in the same y-band the strip occupies. Inside the
+     centered max-content strip its x was content-dependent: a narrow
+     strip slid the ONE interactive pill under the (also interactive)
+     top-LEFT toolbar cluster (gear/help/drills, ~172 px — wider than the
+     strip's historical 110 px symmetric clearance), and the strip's
+     overflow: hidden could clip it entirely on long content. The
+     top-right corner is pill-free on phone (export/record/share hide;
+     the power gauge sits LEFT, the spin button bottom-right), the y-band
+     stays above every pocket tap point (the strip's own proven band —
+     a lower centered row ate the far-pocket 22 pt taps, e2e-touch S9),
+     it is replay-safe (the replay bar hides #hud-match and the pill
+     with it), and it never coexists with the decision panel (a pending
+     decision suppresses the nomination affordance). */
+  html.ob-touch #hud #hud-call.on {
+    pointer-events: auto;
+    position: fixed;
+    top: var(--ob-band-t);
+    right: calc(var(--ob-safe-r) + var(--ob-sp-2));
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+    /* the whole y-offset lives in the `top` calc above; zero out the
+       strip-flow remnant hud.js base margin (its sp-1 would double-offset
+       the fixed pill 4px below the status band) */
+    margin-top: 0;
+    padding: 0 var(--ob-sp-3);
+    border-radius: var(--ob-r-full);
+    background: var(--ob-glass);
+    border: 1px solid var(--ob-line-1);
+    cursor: pointer;
+    /* §3.11 slot cap: the pill owns band T's RIGHT corner and may never
+       leave it — the old viewport-minus-toolbar cap let it stretch most
+       of the band and fully cover the status-strip chips (#81 finding);
+       long labels WRAP inside the cap (the badge pattern — no-ellipsize
+       law: wrap, don't clip), growing DOWN the pill-free right column.
+       border-box (build-4 QA): kit.css's border-box reset is scoped to
+       ob-* classes and never reached this id-styled pill, so the cap
+       bound the CONTENT box — the painted box ran corner-r + 24px padding
+       + 2px border wide and slid 4.5–18px back over the status-strip
+       chips the #hud:has() retreat had just cleared (partial recurrence
+       of the pre-contract defect). The cap must bound the PAINTED box. */
+    box-sizing: border-box;
+    max-width: var(--ob-corner-r);
+    white-space: normal;
+  }
+
+  /* -- band X (§3.11): the transient stack — banner, #88 warn chip, hint —
+        in fixed px lanes below whatever bands T/S currently hold. The old
+        anchors (banner 18%, warn 24%, hint 27%) squeezed into one another
+        at coarse heights ≤520px (all three legitimately coexist right
+        after a foul re-entry: fading foul banner + wrong-ball chip +
+        rejection hint). Lane heights: banner ≤72px measured one-line
+        glass banner + gap; warn chip ≤34px.
+        Build-4 QA (content-aware lanes): the fixed 76/112 lane split was
+        sized from the FORCED one-line fallback copy — a real cited de/ja
+        foul judgment wraps to 3 lines (~120px at 375-class widths) and
+        crossed both lower lanes (the warn chip painted fully under the
+        banner during the exact legal coexistence the contract names).
+        touch.js measures the visible banner's border-box height into
+        --ob-band-x-banner-h (ResizeObserver; 0/unset while hidden), and
+        the lower lanes yield downward by max(): the resting and one-line
+        geometries stay byte-identical (64px + sp-2 < 76px floor), only
+        the wrapped multi-line register shifts the lanes below the real
+        banner bottom. A stale-JS pairing keeps the pre-QA floors. */
+  html.ob-touch #banner {
+    top: var(--ob-band-x);
+    /* 116px per side, NOT the 2·sp-3 edge inset: the centered banner must
+       clear BOTH corner columns (left §3.5 gauge, right spin button / any
+       right-column rail). This value moved here from §3.12 in GH-225
+       Phase D — it lived there keyed on `:has(#ob-record-dock.on)`, a
+       predicate that was ALWAYS true on phone (record.js mounted the dock
+       with `.on` at boot), so it silently overrode the 2·sp-3 form below
+       it on every phone boot. Dropping the dead predicate keeps shipped
+       geometry byte-identical; keeping the old 2·sp-3 value instead
+       overlapped the gauge/spin columns at 667x375 (e2e-ui --audit band
+       arm, en/de/ja). Copy WRAPS inside the cap (no-ellipsize law).
+       ONE MEASURED EXCEPTION to "byte-identical", deliberate (review
+       2026-07-27, finding 3): the old §3.12 selector scored (2,2,1); this
+       one scores (1,1,1), which is BELOW drills.css's
+       `html.ob-touch #banner.ob-drills-banner` (1,2,1) inside
+       `@media (pointer: coarse) and (orientation: landscape)`. So during a
+       DRILL-COMPLETE hold on a coarse landscape phone the #81 drills.css
+       cap (100vw - 240px: "120px per side clears the FIRE pill column and
+       the power rail") now WINS where the dock rule used to bury it.
+       Measured with .ob-drills-banner staged, zero insets, old -> new:
+       844x390 612 -> 604px, 667x375 435 -> 427px, 926x428 640 -> 686px
+       (the 640 ceiling stops binding; the copy also loses one wrapped line,
+       banner top 248 -> 277 against an unchanged bottom edge). That is a
+       RESTORATION, not drift: the drills.css rule was authored for exactly
+       this composition (#81 finding 2) and had been dead ever since the
+       record dock began mounting `.on` at boot. It is deliberately NOT
+       re-boosted to the old precedence — that would resurrect a
+       dock-shaped cap over the rule written for the surface actually on
+       screen. Covered by e2e-ui --audit's `band drill-done` composition
+       (BAND_FORCE_JS marks the banner) across the phone viewports, and by
+       e2e-drills arm 13 (banner x hint overlap at 844x390). */
+    max-width: min(calc(100vw - var(--ob-safe-l) - var(--ob-safe-r)
+      - 2 * 116px), 640px);
+  }
+  html.ob-touch #ob-aimw-warn {
+    top: calc(var(--ob-band-x)
+      + max(76px, var(--ob-band-x-banner-h, 0px) + var(--ob-sp-2)));
+  }
+  html.ob-touch #hud-hint {
+    top: calc(var(--ob-band-x)
+      + max(112px, var(--ob-band-x-banner-h, 0px) + var(--ob-sp-2) + 36px));
+  }
+
+  /* -- #err on phone (§3.11): the last-resort error card joins band X
+        top-anchored and lifts ABOVE the toolbar/replay chrome. Pre-contract
+        it sat at the app.html desktop anchor (top-left, z 9) exactly under
+        the phone toolbar cluster (z 40): pills painted over the card AND
+        intercepted its taps. It also needs the right-edge inset on narrow
+        portrait (the 60ch cap used to pin it flush to the viewport edge)
+        and the 44 pt dismiss floor. z 45 > toolbar 40 / replay bar 42 —
+        belt for very short viewports where the bands can't all fit; a
+        GENUINE error outranks game chrome (app.html #err doctrine). */
+  html.ob-touch #err {
+    top: var(--ob-band-x);
+    left: calc(var(--ob-safe-l) + var(--ob-sp-2));
+    right: calc(var(--ob-safe-r) + var(--ob-sp-2));
+    z-index: 45;
+  }
+  /* while the error card is up it OWNS band X: the passive transients
+     (banner/warn/hint — pointer-inert, z 6/7 under the card's 45) yield
+     instead of painting as clutter behind the glass. visibility, not
+     display: hud.js drives #banner/#hud-hint display INLINE, and the
+     timers/tweens must keep running — presentation stays a CSS concern.
+     Build-4 QA: the §3.5 power gauge joins the yield family (the retired
+     §3.12 record-dock precedent — interactive chrome also defers to a
+     genuine boot error): the vertically-centered rail crosses the card's band-X
+     footprint on every phone register, and game input is pointless while
+     the last-resort surface is up. It returns on dismiss. */
+  html.ob-touch body:has(#err:not(:empty):not([hidden])) #banner,
+  html.ob-touch body:has(#err:not(:empty):not([hidden])) #ob-aimw-warn,
+  html.ob-touch body:has(#err:not(:empty):not([hidden])) #hud-hint,
+  html.ob-touch body:has(#err:not(:empty):not([hidden])) .ob-touchw-gauge {
+    visibility: hidden;
+  }
+
+  /* -- overlays / dialogs (§3.10): option height ≥44 pt, capped width,
+        safe-area padding — decision prompts, hint banner, export card */
+  html.ob-touch #hud-decision,
+  html.ob-touch #hud-hint {
+    max-width: min(calc(100vw - var(--ob-safe-l) - var(--ob-safe-r) - 2 * var(--ob-sp-3)), 560px);
+  }
+  html.ob-touch #hud-decision {
+    /* GH-447 (review r3/r4): phones dock the prompt as a COMPACT option
+       column in the RIGHT-THUMB ACTION CORNER — over the FIRE pill,
+       which is inert for exactly the prompt's lifetime (a pending
+       rulebook decision locks the stroke), so the pending decision
+       replaces the dead action slot in the arc the thumb already owns.
+       Measured on the fresh one-pocket pose (844x390 / 667x375): every
+       PARKED band elsewhere hits a live actor — mid bands cover the
+       rack (y≈130–195, the original 22%-top bug), the bottom-center
+       dock covered the opening cue-ball address (y≈250; 12.3 placement
+       is legal while the choice pends), and the band-x row covered the
+       foot-left pocket MARK (461,99 / 371,95 — a tap aimed at the
+       PRIMARY scene choice would press the wrong DOM button). The
+       chooser line collapses on phones (the title stays — uiaudit F39
+       below): the status strip + CHOOSING-POCKETS badge carry the
+       who-decides context, and the sc4 cite poll reads textContent
+       (populated either way). top:auto outranks a STALE top-anchored hud.js rule
+       by specificity; the reverse stale pairing is over-constraint
+       guarded in hud.js (never a stretched box). */
+    top: auto;
+    bottom: calc(var(--ob-safe-b) + var(--ob-sp-3));
+    left: auto;
+    right: calc(var(--ob-safe-r) + var(--ob-sp-3));
+    margin: 0;
+    padding: var(--ob-sp-2);
+  }
+  /* GH-685: the GH-447 dead-slot premise extends to the SPIN & ELEVATION
+     button (touchwidgets.js #ob-spin-btn — fixed in the same right-thumb
+     arc directly above the FIRE slot). The docked prompt paints over it
+     (100 % on the 3-option 8-ball dry-break column, 63 % on the 2-option
+     carom column) while flow.js's decision lock covers only the stroke,
+     so the button stayed LIVE and a tap through the pointer-passive glass
+     seams between the option buttons opened #ob-spin-modal under a
+     pending decision. hud.js shows/hides the prompt through its inline
+     display (block / none — the synchronous e2e read), so exactly for the
+     prompt's lifetime the button leaves the hit-test, layout and
+     accessibility trees (checkVisibility() false) the way the FIRE slot
+     it sits above is dead; it is position:fixed, so nothing reflows — no
+     layout change; touchwidgets.js never writes its inline display. */
+  html.ob-touch body:has(#hud-decision[style*="display: block"]) #ob-spin-btn {
+    display: none;
+  }
+  /* uiaudit F39 (#1010, release ruling): the rule QUESTION stays fully
+     visible on every register. GH-447 collapsed it on the premise that the
+     status strip carries the context, but the strip obeys the single-row
+     crop law and cut the question mid-word (665 > 333 px at 844 en), so
+     the column showed bare answers. The title returns as one compact head
+     over the option column: it never widens the column (0 inline
+     contribution, then the column's width) and wraps inside it (G8 <= 2
+     lines). Only the who-decides / cite line stays collapsed below. */
+  html.ob-touch #hud-decision .hd-title {
+    width: 0;
+    min-width: 100%;
+    margin: 0 0 var(--ob-sp-2);
+    font-size: var(--ob-fs-0);
+    font-weight: var(--ob-fw-semi);
+    line-height: var(--ob-lh-control);
+    text-wrap: balance;
+  }
+  html.ob-touch #hud-decision .hd-chooser {
+    /* visually hidden, NEVER display:none (review GH-447 r5 P2): the
+       prompt is the assistive-tech secondary path, so the pending rule's
+       cite and the acting player must stay in the accessibility tree —
+       only the VISUAL rows collapse into the compact corner column.
+       Out-of-flow + micro-font + opacity 0 rather than the sr-only clip
+       pattern: a width-clamped clip box reports scrollWidth > clientWidth
+       and would trip the sc4 no-clip audit, while an unconstrained
+       max-content box at 2px overflows nothing (scroll == client), takes
+       no layout space, and stays AT-readable (opacity is not an
+       accessibility-tree removal, unlike display/visibility). */
+    position: absolute;
+    font-size: 2px;
+    line-height: 1;
+    letter-spacing: 0;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+    width: max-content;
+  }
+  html.ob-touch #hud-decision .hd-btns {
+    margin-top: 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  /* the §3.10 44 pt floors for #hud-decision .hd-btns, the kit confirm
+     (GH-120) and the export card moved OUT of this width-gated block to the
+     ONE coarse floor rule after the tablet clause (GH-699) — a pointer
+     law, stated once for every coarse width. */
+  /* export card must FIT 375-class heights (US1 gate finding, 667×375: the
+     455 px card centered in a 375 px viewport pushed the close row past the
+     bottom edge — untappable). Column flex + viewport-capped height; the
+     tier list takes the squeeze and scrolls (pan-y per the §4 defense
+     matrix), so title and footer buttons always stay reachable. */
+  html.ob-touch #ob-export-card {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100dvh - var(--ob-safe-t) - var(--ob-safe-b) - 2 * var(--ob-sp-3));
+  }
+  html.ob-touch #ob-x-tiers {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* -- settings sheet (§3.2/§3.10 as amended by 015): the drawer-as-right-
+        sheet clause is SUPERSEDED for #ob-settings — the settings modal's
+        full-screen sheet register lives in ui/settings-modal.css under this
+        same double gate (see the amendment note in contracts/phone-hud.md).
+        The §3.10 ≥44 pt option-row floor below and the pan-y defense-matrix
+        rule above STAND unchanged. */
+  html.ob-touch #ob-settings label,
+  html.ob-touch #ob-settings summary,
+  html.ob-touch #ob-settings button,
+  html.ob-touch #ob-settings select,
+  html.ob-touch #ob-settings input[type="range"],
+  html.ob-touch #ob-settings [data-ob="select-button"] {
+    min-height: 44px;
+  }
+  html.ob-touch #ob-settings label {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  html.ob-touch #ob-settings summary {
+    display: flex;
+    align-items: center;
+  }
+  html.ob-touch .ob-touch-row {
+    display: flex;
+    width: 100%;
+    min-height: 44px;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: var(--ob-sp-2);
+  }
+
+  /* ==== §3.12 — record-dock seams: RETIRED, caps re-homed (GH-225 Phase D)
+     record.js's phone record dock (#ob-record-dock + #ob-rec-*) is retired
+     with the rest of the manual-recording chrome (030 the design charter DVR
+     amendment clause 4). §3.12's rules were all keyed on
+     `:has(#ob-record-dock.on)` — but record.js mounted that dock with the
+     `on` class UNCONDITIONALLY at boot, so on every coarse phone register
+     the predicate was ALWAYS true and these were, in practice, plain §3.11
+     retreats. Deleting them outright therefore was NOT a no-op: it
+     un-capped #banner, which then overlapped the §3.5 gauge column and the
+     spin button at 667x375 (caught by e2e-ui --audit's band-contract arm,
+     compositions `band play` / `band playground-max`, en/de/ja).
+     So the two caps that were unconditionally live are RE-HOMED here as
+     §3.11 rules with the dock predicate dropped and their values
+     byte-identical — shipped geometry is unchanged, the dead dependency is
+     gone. What IS deleted, because it needed a LIVE recording that can no
+     longer exist: the recording-register #hud-hint cap (keyed on
+     `#ob-rec-time`) and the dock's #err yield.
+     The 116px term keeps its original derivation (it was sized for the
+     retired two-column register and covers a ≤60px chip + sp-1 + a 44px
+     right column with margin); it now simply reads as "keep the centered
+     transients clear of BOTH corner columns", which is what §3.11 is.
+     The 68px term is a DELIBERATE conservative retention (review 2026-07-27,
+     finding 5): it was derived as the record-dock column (44px + edge sp-2 +
+     gap sp-2), and nothing occupies that column at rest any more, so the
+     strip could legally widen by 68px. It is kept anyway, because widening
+     it is a real geometry change that only shows up in the stale-icons
+     text-label degrade (the shipped 4-icon strip measures 188px and binds
+     no cap at any register), and a late unmeasured widening is worse than a
+     conservative cap: the GH-140 5-chip degrade wraps a little earlier than
+     the bare geometry requires, which the band contract already supports
+     (touch.js measures the wrapped height into --ob-band-s-strip-h). Filed
+     as a follow-up widening candidate rather than taken blind here. */
+  /* build-4 QA: the caps' left term is the §3.11 gauge column (the mode
+     strip's left anchor), not the sp-2 edge inset — otherwise the capped
+     strip box would overhang its own anchor arithmetic. The cap is inert
+     for #ob-drill-chips (its band-T slot, inset --ob-corner-l, is narrower
+     than this cap at every phone register) but the two strips share the
+     rule so the retreat stays single-owned. */
+  html.ob-touch #hud #ob-mode-chips.on,
+  html.ob-touch #hud #ob-drill-chips.on {
+    max-width: calc(100vw - var(--ob-safe-l) - var(--ob-safe-r)
+      - var(--ob-col-gauge) - var(--ob-sp-2) - 68px);
+  }
+  /* a live drill run holds the right column with the GH-120 rail */
+  html.ob-touch:has(#ob-drill-stop) #hud #ob-mode-chips.on,
+  html.ob-touch:has(#ob-drill-stop) #hud #ob-drill-chips.on {
+    max-width: calc(100vw - var(--ob-safe-l) - var(--ob-safe-r)
+      - var(--ob-col-gauge) - var(--ob-sp-2) - 116px);
+  }
+  /* (the #banner cap moved UP into the §3.11 band-X block above, where the
+     banner's other geometry lives — single-owner law) */
+
+  /* ==== §3.11 continued — hint corner-column clearance (build-4 QA) =========
+     The centered #hud-hint's 560px cap let a WRAPPED (2-line) rejection
+     hint reach both corner columns on the shortest register: it clipped
+     the gauge's m/s readout ('2.0 m/s' → '2.0 m/') on the left and the
+     spin disc's top on the right (18.5x19 / 20.8x22px at 667x375, all
+     locales, real snooker nominate-rejection path). 104px per side clears
+     both columns with margin: the readout slot's right edge sits ≤
+     safe-l + ~88px (9ch box anchored at max(safe-l, sp-1)), the spin
+     column starts at 100vw - safe-r - 72px (sp-3 + 60px disc). Copy still
+     WRAPS inside the narrower cap (no-ellipsize law) — depth is free in
+     the center span; the columns are not. File order: this OVERRIDES the
+     §3.10 shared 560px cap at equal specificity — keep after it. (The
+     §3.12 recording-register cap that used to outrank both while the dock
+     recorded is gone with the dock — GH-225 Phase D; 104px per side is now
+     the unconditional hint cap on phone.) */
+  html.ob-touch #hud-hint {
+    max-width: min(calc(100vw - var(--ob-safe-l) - var(--ob-safe-r)
+      - 2 * 104px), 560px);
+  }
+}
+
+/* ==== §3.11 reconciliation seam — drill-complete banner × band-X hint =======
+   (#81 lanes A×B merge — RECORDED DEVIATION: this rule edits touch.css, 81a's
+   file, on behalf of a drills.css [81b] surface, because §3.11 is the
+   authoritative band contract and MUST stay the single owner of #hud-hint
+   positioning — the two lanes cannot each pick a y or they re-collide.)
+
+   The seam: drills.css bottom-parks the drill-complete banner
+   (#banner.ob-drills-banner) on coarse landscape under the stale assumption
+   the reason hint sat near top 27%. §3.11 (81a) instead lands #hud-hint at
+   --ob-band-x + 112px — top 288px while the GH-120 dock rail holds the
+   presence bump (GH-144 re-keyed it off the retired band-S drill strip onto
+   the live rail), and top 232px once the run ends and the rail collapses
+   (the completion-hold register). The bottom-parked banner's own bottom
+   edge (viewport − safe-b − 88px) crosses that hint lane either way
+   (measured post-GH-144: banner 241..281 × hint 232..262 at 844x390; the
+   pre-GH-144 numbers were 27px at 926x428). The drill-complete summary
+   SUPERSEDES the generic last-shot hint during the hold, so the hint
+   yields — exactly as the band-X transients yield to #err above. Only the
+   short-landscape register collides (tall landscape parks the banner far
+   below the hint), so the yield is gated to it; portrait keeps the banner
+   in the band-X stack, no collision.
+
+   display:none (not visibility:hidden — that keeps a layout box and the lanes
+   would still intersect) collapses the lane; !important is required to beat
+   hud.js's inline `display:block` (hud.js still LOGICALLY shows the hint — its
+   timers/tweens run untouched; presentation is the band contract's call, per
+   the #err-yield doctrine). Bumped touch.css ?v in touch.js. */
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 430px) {
+  html.ob-touch:has(.ob-drills-banner) #hud-hint {
+    display: none !important;
+  }
+}
+
+/* ==== portrait rotate prompt (T023, phone-hud.md §3.1) =====================
+   Shown PURELY by CSS at (orientation: portrait) + coarse; the node is
+   injected by the touch leaf, its two-line copy by touchwidgets.js. Static
+   ◆ text-diamond marker (no third-party asset, constitution P-VI); no
+   entrance tween at all, so prefers-reduced-motion is satisfied trivially.
+   Game chrome stays inert beneath the scrim (full-viewport fixed overlay
+   above every phone surface; z 80 > drawer/toolbar 40, popups 60). */
+@media (pointer: coarse) and (orientation: portrait) {
+  html.ob-touch #ob-rotate {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ob-sp-3);
+    text-align: center;
+    padding: max(var(--ob-safe-t), var(--ob-sp-6))
+      max(var(--ob-safe-r), var(--ob-sp-6))
+      max(var(--ob-safe-b), var(--ob-sp-6))
+      max(var(--ob-safe-l), var(--ob-sp-6));
+    box-sizing: border-box;
+    background: var(--ob-glass); /* slate scrim */
+    backdrop-filter: blur(var(--ob-blur));
+    -webkit-backdrop-filter: blur(var(--ob-blur));
+  }
+  html.ob-touch #ob-rotate .ob-rotate-mark {
+    font-size: 40px; /* static glyph — never animated */
+    line-height: 1;
+    color: var(--ob-accent);
+  }
+  html.ob-touch #ob-rotate .ob-rotate-title {
+    font-size: 12px; /* caps wayfinding line (§3.1) */
+    font-weight: var(--ob-fw-semi);
+    letter-spacing: var(--ob-track-caps);
+    text-transform: uppercase;
+    color: var(--ob-text-1);
+  }
+  html.ob-touch #ob-rotate .ob-rotate-body {
+    font-size: var(--ob-fs-1);
+    line-height: var(--ob-lh-body);
+    color: var(--ob-text-0);
+    max-width: 30ch;
+  }
+}
+
+/* ==== tablet relaxation (≥1024 logical px, coarse — phone-hud.md §6) =======
+   Desktop-like density allowed; touch targets stay ≥44 pt. */
+@media (pointer: coarse) and (min-width: 1024px) {
+  /* keyboard/mouse-only surfaces hide on EVERY coarse register — §3.9's
+     own rationale ("#help/aw-keys are keyboard-mouse text") stops being
+     width-gated (GH-225 QA wave: at ≥1024 they returned as dead
+     'wheel/right-drag/?' affordances, the power gauge overlapped #aimw
+     and the chevron cluster occluded #help's copy). !important mirrors
+     the §3.9 rule: aimwidgets.js drives #aimw with inline display. */
+  html.ob-touch #aimw,
+  html.ob-touch #help {
+    display: none !important;
+  }
+  /* §6's "touch targets stay ≥44 pt" applies to the KEPT desktop HUD too
+     (GH-225 QA wave: Fire/Replay/Re-rack measured 36px tall and the HUD
+     range sliders 20px on coarse ≥1024 boots). */
+  html.ob-touch #shoot,
+  html.ob-touch #replay,
+  html.ob-touch #rerack {
+    min-height: 44px;
+  }
+  html.ob-touch #hud input[type="range"] {
+    min-height: 44px;
+  }
+  html.ob-touch #ob-toolbar > * {
+    min-height: 44px;
+  }
+  /* (gear coarse circle: kit .ob-btn--icon since GH-668 B-K16) */
+  html.ob-touch #ob-settings label,
+  html.ob-touch #ob-settings summary,
+  html.ob-touch #ob-settings button,
+  html.ob-touch #ob-settings select,
+  html.ob-touch #ob-settings [data-ob="select-button"] {
+    min-height: 44px;
+  }
+}
+
+/* ==== the 44 pt floor is a POINTER law, not a width law (GH-699) ==========
+   S4 journey QA round 2 measured the decision answers at the kit's
+   intrinsic 39 px on every coarse register >= 1024 (iPad landscape 1024/
+   1180/1366: #hud-decision at the table, the Switch-game kit confirm), the
+   toolbar export/share pills 34 px wide and the HUD cue select 36 px tall
+   — the floors above sat inside the (max-width: 1023.98px) phone block and
+   the tablet clause enumerated shoot/replay/rerack/range/toolbar/gear/
+   settings only. ONE rule, no width gate (coordinator ruling): the
+   decision answers, the kit confirm actions (GH-120), the export card
+   buttons, every toolbar pill (min-WIDTH too — the clause above floors
+   height only) and the HUD kit select. Same double gate as every rule in
+   this sheet; kit.css keeps its no-blanket-floor law (the in-hall
+   #ob-shell-decision floor rides shell.js's critical block). */
+@media (pointer: coarse) {
+  html.ob-touch #hud-decision .hd-btns button,
+  html.ob-touch [data-ob="confirm"] .ob-btn,
+  html.ob-touch #ob-export-card button,
+  html.ob-touch #ob-toolbar > *,
+  html.ob-touch #hud .ob-select {
+    min-height: 44px;
+  }
+  /* the WIDTH half for the pills that measured narrow (one-glyph decision
+     labels — §3.10; confirm actions; the 34px export/share toolbar pills) */
+  html.ob-touch #hud-decision .hd-btns button,
+  html.ob-touch [data-ob="confirm"] .ob-btn,
+  html.ob-touch #ob-toolbar > * {
+    min-width: 44px;
+  }
+}
+
+/* ==== long-press selection defense (issue #60) =============================
+   iOS long-press on chrome started a WKWebView text selection (loupe /
+   highlight) — reads as web slop, not a native control. AUDIT (recorded in
+   the #60 commit body): NO touch surface legitimately needs selectable
+   text — the share/replay URL copies via navigator.clipboard.writeText
+   behind the Share button (share.js), the help overlay is reference copy
+   with a tappable guide link, and the app ships ZERO user-typed text
+   inputs (range/checkbox/radio only; no textarea, no contenteditable) —
+   so the defense is page-wide UNDER THE SAME DOUBLE GATE as every rule in
+   this file (desktop selection behavior stays byte-identical, SC-002).
+   The pre-#60 id-scoped rule in the defense matrix above STANDS: it is
+   the belt for a stale-cache boot that pairs old chrome with this sheet.
+   Shell twin: GameViewController sets isTextInteractionEnabled = false
+   under the same no-text-input audit (browser serves ride this sheet). */
+@media (pointer: coarse) {
+  html.ob-touch,
+  html.ob-touch body {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  /* tap-highlight: transparent ONLY where the #49 :active pressed ladder
+     already provides replacement feedback — kit.css .ob-btn / .ob-panel
+     buttons (drawer rows, dialog buttons, FIRE pill) and the id-styled
+     toolbar pills (#ob-playback/#ob-gear/#ob-help/#ob-drills/#ob-share/
+     #ob-export-btn, each restating :active at id specificity; #ob-record
+     left the list with the pill — GH-225 Phase D). Kit selects and summary
+     rows have no :active rung of their own, so they KEEP the UA flash —
+     never remove the flash without a replacement affordance. */
+  html.ob-touch .ob-btn,
+  html.ob-touch :where(.ob-panel) button:where(:not(.ob-select)),
+  html.ob-touch #ob-toolbar > * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* double-tap-zoom defense: since issue GH-145 the app.html viewport meta
+     pins maximum-scale=1 + user-scalable=no (the primary zoom cap in the
+     WKWebView shell and on Chrome-class serves), but this blanket STAYS as
+     the belt for (a) a stale-cache boot pairing old app.html with this
+     sheet and (b) Safari-class coarse browsers, which ignore
+     user-scalable=no for accessibility and could still double-tap-zoom on
+     controls OUTSIDE the §4 defense matrix (toolbar pills, FIRE pill,
+     decision/replay/dialog buttons — the matrix's none/pan-y surfaces
+     already block it; the native shell also clamps min/max zoomScale, but
+     its double-tap recognizer is not the pinchGestureRecognizer).
+     :where() keeps this blanket at specificity (0,1,1) so EVERY existing
+     defense-matrix rule (touch-action: none / pan-y, all ≥ (0,2,1))
+     outranks it — gesture widgets keep `none`. */
+  html.ob-touch :where(button, .ob-btn, summary, [role="button"]) {
+    touch-action: manipulation;
+  }
+}
+
+/* ==== numeric-readout width law (issue #86) ================================
+   LAW: numeric readouts never drive container width. The spin popup card
+   was shrink-to-fit over a chain that ended at the elevation readout's
+   text (#ob-spin-elev-val → .ob-tw-elev-col max-content → #ob-spin-card
+   fit-content), so every digit-count change while dragging elevation
+   re-laid the whole modal per frame (measured 483.7→491.2 px at 844×390/
+   en; the defect reproduced in all 7 locales). Fixes, same double gate as
+   every rule in this sheet:
+   - the spin card joins the pocket picker's FIXED touch-dialog width
+     register (width: min(92vw, 560px), border-box — the sibling sheet in
+     this file), so neither the value nor the locale sizes the modal; the
+     elevation column absorbs the slack (longer slider, no dead space);
+   - every live numeric readout reserves a ch-based slot (ch/em so token
+     font changes scale) with the digits already tabular via .ob-nums /
+     the gauge rule: the elevation degree readout ("88.5°"-class widest
+     legal register) and the power gauge m/s readout ("12.0 m/s" widest;
+     its box is centered on the rail and must not breathe as the integer
+     part gains a digit — the #70 promoted register scales with its own
+     font-size because the slot is ch-based).
+   Ordering: these OVERRIDE the base §3.6 rules by file order at equal
+   specificity — keep this section after them. */
+@media (pointer: coarse) {
+  html.ob-touch #ob-spin-card {
+    width: min(92vw, 560px);
+    box-sizing: border-box;
+  }
+  html.ob-touch .ob-tw-elev-col {
+    flex: 1 1 auto;
+  }
+  html.ob-touch #ob-spin-elev-val {
+    min-width: 6ch; /* "88.5°" ≈ 5.1ch measured — 6ch holds any legal value */
+    text-align: right;
+  }
+  html.ob-touch .ob-touchw-gauge-readout {
+    min-width: 9ch; /* "12.0 m/s" content ≈ 8.5ch at this element's measured
+                       ch resolution — 9ch holds the widest legal rendering */
+    text-align: center;
+  }
+}
+
+/* ==== §3.11 continued — band-contract rules that hold on EVERY coarse
+   register (no width cap: tablets share these surfaces). Same double gate
+   as the whole sheet. Ordering: the readout rule OVERRIDES the base §3.5
+   centering by file order at equal specificity — keep after it. ============ */
+@media (pointer: coarse) {
+  /* power-gauge m/s readout (#81 finding 9): the 9ch slot centered on the
+     44px rail overhung the viewport's LEFT edge by ~10.7px whenever
+     env(safe-area-inset-left) = 0 (Android, no-cutout devices, desktop
+     serves) — and the #70 in-gesture promoted register grew the slot and
+     clipped the leading DIGIT of the m/s value. Anchor the slot's left
+     edge to a safe-area-aware inset with a nonzero floor instead: the
+     rail sits at safe-l + 2px, so this offset puts the readout's viewport
+     x at max(safe-l, sp-1) — never off-screen, notch-safe, and the #70
+     promoted register grows RIGHTWARD from the same anchor. */
+  html.ob-touch .ob-touchw-gauge-readout {
+    left: calc(max(var(--ob-safe-l), var(--ob-sp-1)) - var(--ob-safe-l) - 2px);
+    transform: none;
+  }
+
+  /* kit select popover rows (#81 finding 10): the option UL is PORTALED to
+     <body> (select.js placement law), so the #ob-settings-scoped 44 pt
+     floor above never reached it — coarse pointers got 37px rows. The
+     floor lives here, on the list itself, wherever it is mounted. */
+  html.ob-touch .ob-select__list .ob-option {
+    min-height: 44px;
+    align-items: center;
+  }
+
+  /* #err dismiss (#81 finding 11): the 20px ghost pill joins the 44 pt
+     floor on coarse pointers (app.html styles it statically for the
+     no-JS boot-guard path — desktop keeps the quiet 20px register). */
+  html.ob-touch #err-x {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ==== issue #58 — a genuine error outranks the rotate prompt ===============
+   The portrait rotate scrim (z 80) masked #err entirely: a boot error on a
+   portrait phone showed nothing but "rotate your device" — rotating dropped
+   the scrim but a user holding portrait never saw the card. While #err has
+   content, the scrim yields (the #err doctrine: last-resort surface must
+   ALWAYS render); the prompt returns as soon as the card is dismissed
+   (#err gets [hidden]) or emptied. */
+@media (pointer: coarse) and (orientation: portrait) {
+  html.ob-touch body:has(#err:not(:empty):not([hidden])) #ob-rotate {
+    display: none;
+  }
+}

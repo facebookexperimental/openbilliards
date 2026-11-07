@@ -1,0 +1,23 @@
+{
+ "_about": "ORDER-LIGHT-C2-FIX10 (maintainer ruling 2026-09-14 17:2xZ): which control tables the venue term RUNS on and which are identity by design, declared here per table x look and asserted by lighting-ctrl-judge.py in BOTH directions every run (declared runs + census derived 0 = RED, a regression; declared identity-by-design + census derived 1 = UNJUDGEABLE, the fixture changed under the declaration; agreement = n/a quoting this file). A class derived from the census it exempts would read a silently stopped venue term as identity by design.",
+ "predator_apex_9ft": {
+  "default": {
+   "venue": "runs",
+   "why": "pendant-class default fixture: the venue fill derives from the room lamp (ORDER-LIGHT-6 Q1) on both the frozen A web and B"
+  },
+  "sp": {
+   "venue": "runs",
+   "why": "same table, sp look: the venue term re-derives per look"
+  }
+ },
+ "wpa_spec_9ft": {
+  "default": {
+   "venue": "identity-by-design",
+   "why": "the WPA-spec table's class-default fixture is the canopy: the venue fill is identity under the canopy (lightingvisuals.js api.apply boot path: FIXTURES[fixture] && fixture !== 'canopy_panel'); census signature venueOn 1, venueDerivable 1, venueDerived 0, no error, no bake, no wait, uniform L1 0 \u2014 on A and B alike (land37 controls)"
+  },
+  "sp": {
+   "venue": "identity-by-design",
+   "why": "same table, sp look"
+  }
+ }
+}

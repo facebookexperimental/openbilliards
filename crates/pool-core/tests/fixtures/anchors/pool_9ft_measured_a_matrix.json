@@ -1,0 +1,706 @@
+{
+ "format": "openbilliards.anchors.v1",
+ "anchor": "pool_9ft_measured_a_matrix",
+ "provenance": "RECORD-TIER anchor (019 doctrine: deviations are reported, never gated). Single-session first-hand measurement, 2026-07-11, owner's Diamond Pro-Am 9-ft (catalog geometry diamond_proam_9ft, independently confirmed by the diamond-sight homography at 0.33-0.38 mm RMS), one uncharacterized cue, one striped training ball standing in for the cue ball; iPhone slow-motion VFR originals on the exact per-frame pts clock (pipeline v3 definitive; v1/v2 bake-clock numbers retracted). Full session, method, uncertainty and adjudication record: docs/verification/pool-9ft-measured-calibration.md (audit trail: GitHub issue #5). Anti-overfit doctrine (constitution P-IV): this data legitimizes ONLY the opt-in Measured-tier catalog entries (owner_proam_9ft_2026_07 / owner_proam_cloth_2026_07) and these record-tier anchors; it is NEVER grounds to change global kernel defaults. KNOWN GAP carried on every english cell: ball spin omega was not measured anywhere in Set A - 'run'/'rev' are slate-confirmed ~0.4R tip-offset protocol labels, so any model comparison MUST derive the english-cell arrival spin from the 0.4R tip-offset strike protocol via the kernel's own cue model + cloth transport; e_normal/f_tangential are velocity-component proxies, not spin-decomposed cushion coefficients.",
+ "title": "Set A - angled-cushion rebound matrix, 12 cells (30/50 deg x slow/fast x english none/run/rev)",
+ "status": "v3 DEFINITIVE (exact per-frame pts clock); supersedes all v1/v2 Set A numbers",
+ "sources": [
+  "/tmp/ob-calib/results-A-v3.json (30 deg cells, IMG_4277 slow + IMG_4278 fast)",
+  "/tmp/ob-calib/results-A50-v3.json (50 deg cells, IMG_4279 slow + IMG_4280 fast). PROVENANCE CAVEAT - weaker chain than the 30 deg cells: this artifact postdates the session package's adversarially-reviewed journal pass (the package journal v3-originals.json covers IMG_4279/4280 only at the cut/label/timebase level; its Set A physics entry is scoped to the 30 deg cells) and was later lost to a /tmp sweep. Surviving per-cell check source: docs/verification/pool-9ft-measured-a50-v3-summary.md (recovered summary, committed verbatim; all 42 values of the six 50 deg cells cross-check exactly). This fixture is the primary surviving record for the 50 deg cells; re-derivation requires re-running the v3 pipeline on the retained source footage (sample/a/IMG_4279, IMG_4280). See the Traceability section of docs/verification/pool-9ft-measured-calibration.md."
+ ],
+ "metadata": {
+  "table": "Diamond Pro-Am 9-ft, owner-confirmed, owner's venue (kernel catalog geometry diamond_proam_9ft, playing field 2540x1270 mm nose-to-nose)",
+  "session_date": "2026-07-11",
+  "analysis_date": "2026-07-12 (v3 originals era)",
+  "ball": "striped training ball standing in for cue ball",
+  "pipeline_version": "v3 (camera VFR originals; per-frame pts_time is the time base; no slow factor, no dup handling)",
+  "method": {
+   "timeline": "exact per-frame pts (VFR ~75% 1/240s + ~25% 1/80s, finely interleaved); cuts decoded with -fps_mode passthrough; decoded frame count == cut pts>=0 count verified for all 25 cuts; frame k <-> k-th pts",
+   "tracking": "v1 HSV colored-stripe centroid + white-disk fallback at half-res, plus v3 additions: box-sum big-blob suppression (owner/arm/cue), interior acquisition gate, lock area cap; 3 shots re-tracked with per-frame independent cluster extraction + bidirectional coherence linking from a manual anchor (IMG_4277-s09, IMG_4278-s07, IMG_4278-s12)",
+   "geometry": "v2 diamond-sight rectification method re-fit on v3 median backgrounds: 17 sights on the L/8=317.5mm grid of the 2540x1270mm nose rect, alternating DLT/offset solve; fit RMS 0.35mm (4277) / 0.33mm (4278); corner positions within 0.2px of the v2 bake-era fit (same rig confirmed); ball-plane parallax factor 1.00536 applied to speeds",
+   "extraction": "identical event logic and physical windows as v2: first cushion contact via normal-distance vertex fit; robust quadratic legs over <=0.7s real (= v2's 0.28s bake-clock) with 0.05s guard; velocity thresholds converted by the confirmed 2.498 clock factor; NEW: address-rest points excluded from incoming legs (fast shots' launch gate can fire ~0.07s early)",
+   "uncertainty": "cell spread = std over 4 repeats; speed scale systematic +-0.3% (catalog sight grid + rail-plane/ball-plane parallax with camera height 2.73+-0.15m); angle window-sensitivity typically <2deg (slow outgoing legs up to ~10deg on individual shots due to post-cushion curvature - cell std covers it)",
+   "timeline_50deg_note": "exact per-frame pts (VFR ~75% 1/240s + ~25% 1/80s, finely interleaved); cuts decoded with -fps_mode passthrough; decoded frame count == pts count verified for all 24 cuts; frame k <-> k-th pts. PTS GOTCHA: IMG_4280 cuts are rebased (leading RASL packets have negative pts, packet-level pts>=0 filter correct); IMG_4279 cuts keep SOURCE-ABSOLUTE pts (RASL packets positive, still decoder-dropped) -> FRAME-level ffprobe pts used there (e.g. s01: 1416 packets vs 1413 decoded frames). IMG_4279 track clocks are source-absolute."
+  },
+  "scale_source": {
+   "30deg": "homography from the 18 diamond sights (17 used; L/8 = 317.5 mm catalog grid, owner-confirmed Diamond Pro-Am 9ft), re-fit on v3 original frames; fit RMS 0.33-0.35 mm; ball 57.15 mm assumed for the plane-parallax factor only (fit RMS 0.35 mm IMG_4277 / 0.33 mm IMG_4278)",
+   "50deg": "homography from diamond sights (17 used; L/8 = 317.5 mm catalog grid, owner-confirmed Diamond Pro-Am 9ft), re-fit on v3 original frames; ball 57.15 mm assumed for plane-parallax factor only (fit RMS 0.36 mm IMG_4279 / 0.38 mm IMG_4280)",
+   "speed_scale_systematic": "+-0.3% (catalog sight grid + rail-plane/ball-plane parallax, camera height 2.73+-0.15 m; parallax factor 1.00536 applied)"
+  },
+  "angle_convention": "angles measured from the cushion normal; theta_out_minus_in positive = rebound more tangential (bank runs long), negative = steeper (bank shortens); cell spread = std over 4 repeats (ddof=1)",
+  "shots_accounting": {
+   "30deg": {
+    "tracked": 24,
+    "used": 24,
+    "rejected": [
+     {
+      "shot": "IMG_4278-s08",
+      "label": "setA-30-fast-run-04 (flub)",
+      "reason": "flubbed stroke (video-confirmed, no verbal zuofei); silently re-shot as s09 - excluded per protocol, not tracked"
+     }
+    ]
+   },
+   "50deg": {
+    "tracked": 24,
+    "used": 24,
+    "rejected": []
+   }
+  },
+  "known_limitations": [
+   "SPIN OMEGA NOT MEASURED for any cell (stripe-phase extraction not attempted). The english cells ('run'/'rev') are protocol labels only: slate-confirmed strikes at ~0.4R tip offset. Any cushion-model fit against these cells MUST model the english-cell arrival spin state from the 0.4R tip-offset strike protocol (cue speed + tip offset -> squirt/spin -> cloth transport to the cushion); do NOT treat these cells as measured-spin data.",
+   "e_normal and f_tangential are velocity-component PROXIES only (vn_out/vn_in and vt_out/vt_in); a cushion friction vs slip-velocity decomposition needs omega and is not possible from this set.",
+   "'fast' is a speed band, not a point: v_in spans ~2.3-4.5 m/s across fast-cell shots; 'slow' spans ~0.7-1.1 m/s.",
+   "angle window-sensitivity typically <2 deg; slow outgoing legs up to ~10 deg on individual shots due to post-cushion curvature (cell std covers it).",
+   "arrival spin state is unmeasured even for 'none' cells (slow cells plausibly arrive near-rolling; not verified)."
+  ],
+  "timebase_adjudication_summary": {
+   "30deg_verdict": "x2.5 BAKE-ERA HYPOTHESIS CONFIRMED AND CLOSED for Set A 30deg cells",
+   "50deg_verdict": "x2.5 BAKE-ERA HYPOTHESIS CONFIRMED for the 50deg cells as well (consistent with results-A-v3.json 30deg verdict)"
+  }
+ },
+ "cells": {
+  "30-slow": {
+   "none": {
+    "n": 4,
+    "shots": [
+     "setA-30-slow-noeng-01",
+     "setA-30-slow-noeng-02",
+     "setA-30-slow-noeng-03",
+     "setA-30-slow-noeng-04"
+    ],
+    "english": "none",
+    "spin_state": "center-ball strike per protocol; arrival spin state UNMEASURED",
+    "theta_in_deg": {
+     "mean": 31.754,
+     "sd": 1.718,
+     "n": 4
+    },
+    "theta_out_deg": {
+     "mean": 36.757,
+     "sd": 5.287,
+     "n": 4
+    },
+    "theta_out_minus_in_deg": {
+     "mean": 5.003,
+     "sd": 3.681,
+     "n": 4
+    },
+    "v_in_mps": {
+     "mean": 0.795,
+     "sd": 0.074,
+     "n": 4
+    },
+    "v_out_mps": {
+     "mean": 0.448,
+     "sd": 0.042,
+     "n": 4
+    },
+    "speed_ratio": {
+     "mean": 0.564,
+     "sd": 0.015,
+     "n": 4
+    },
+    "e_normal_proxy": {
+     "mean": 0.529,
+     "sd": 0.02,
+     "n": 4
+    },
+    "f_tangential": {
+     "mean": 0.639,
+     "sd": 0.064,
+     "n": 4
+    }
+   },
+   "run": {
+    "n": 4,
+    "shots": [
+     "setA-30-slow-run-01",
+     "setA-30-slow-run-02",
+     "setA-30-slow-run-03",
+     "setA-30-slow-run-04"
+    ],
+    "english": "run",
+    "spin_state": "running english, ~0.4R tip offset per protocol (slate-confirmed label); spin NOT measured - arrival spin state must be MODELED from the 0.4R tip-offset strike protocol",
+    "theta_in_deg": {
+     "mean": 31.281,
+     "sd": 2.524,
+     "n": 4
+    },
+    "theta_out_deg": {
+     "mean": 44.61,
+     "sd": 4.661,
+     "n": 4
+    },
+    "theta_out_minus_in_deg": {
+     "mean": 13.329,
+     "sd": 3.935,
+     "n": 4
+    },
+    "v_in_mps": {
+     "mean": 0.85,
+     "sd": 0.048,
+     "n": 4
+    },
+    "v_out_mps": {
+     "mean": 0.588,
+     "sd": 0.06,
+     "n": 4
+    },
+    "speed_ratio": {
+     "mean": 0.691,
+     "sd": 0.032,
+     "n": 4
+    },
+    "e_normal_proxy": {
+     "mean": 0.573,
+     "sd": 0.015,
+     "n": 4
+    },
+    "f_tangential": {
+     "mean": 0.936,
+     "sd": 0.106,
+     "n": 4
+    }
+   },
+   "rev": {
+    "n": 4,
+    "shots": [
+     "setA-30-slow-rev-01",
+     "setA-30-slow-rev-02",
+     "setA-30-slow-rev-03",
+     "setA-30-slow-rev-04"
+    ],
+    "english": "rev",
+    "spin_state": "reverse english, ~0.4R tip offset per protocol (slate-confirmed label); spin NOT measured - arrival spin state must be MODELED from the 0.4R tip-offset strike protocol",
+    "theta_in_deg": {
+     "mean": 31.374,
+     "sd": 0.727,
+     "n": 4
+    },
+    "theta_out_deg": {
+     "mean": 28.634,
+     "sd": 2.093,
+     "n": 4
+    },
+    "theta_out_minus_in_deg": {
+     "mean": -2.739,
+     "sd": 1.839,
+     "n": 4
+    },
+    "v_in_mps": {
+     "mean": 0.878,
+     "sd": 0.028,
+     "n": 4
+    },
+    "v_out_mps": {
+     "mean": 0.426,
+     "sd": 0.042,
+     "n": 4
+    },
+    "speed_ratio": {
+     "mean": 0.485,
+     "sd": 0.032,
+     "n": 4
+    },
+    "e_normal_proxy": {
+     "mean": 0.498,
+     "sd": 0.024,
+     "n": 4
+    },
+    "f_tangential": {
+     "mean": 0.447,
+     "sd": 0.057,
+     "n": 4
+    }
+   }
+  },
+  "30-fast": {
+   "none": {
+    "n": 4,
+    "shots": [
+     "setA-30-fast-noeng-01",
+     "setA-30-fast-noeng-02",
+     "setA-30-fast-noeng-03",
+     "setA-30-fast-noeng-04"
+    ],
+    "english": "none",
+    "spin_state": "center-ball strike per protocol; arrival spin state UNMEASURED",
+    "theta_in_deg": {
+     "mean": 33.226,
+     "sd": 2.374,
+     "n": 4
+    },
+    "theta_out_deg": {
+     "mean": 26.67,
+     "sd": 1.5,
+     "n": 4
+    },
+    "theta_out_minus_in_deg": {
+     "mean": -6.556,
+     "sd": 2.992,
+     "n": 4
+    },
+    "v_in_mps": {
+     "mean": 3.699,
+     "sd": 0.606,
+     "n": 4
+    },
+    "v_out_mps": {
+     "mean": 2.428,
+     "sd": 0.46,
+     "n": 4
+    },
+    "speed_ratio": {
+     "mean": 0.654,
+     "sd": 0.028,
+     "n": 4
+    },
+    "e_normal_proxy": {
+     "mean": 0.7,
+     "sd": 0.052,
+     "n": 4
+    },
+    "f_tangential": {
+     "mean": 0.536,
+     "sd": 0.028,
+     "n": 4
+    }
+   },
+   "run": {
+    "n": 4,
+    "shots": [
+     "setA-30-fast-run-01",
+     "setA-30-fast-run-02",
+     "setA-30-fast-run-03",
+     "setA-30-fast-run-04r"
+    ],
+    "english": "run",
+    "spin_state": "running english, ~0.4R tip offset per protocol (slate-confirmed label); spin NOT measured - arrival spin state must be MODELED from the 0.4R tip-offset strike protocol",
+    "theta_in_deg": {
+     "mean": 34.637,
+     "sd": 1.875,
+     "n": 4
+    },
+    "theta_out_deg": {
+     "mean": 48.174,
+     "sd": 3.086,
+     "n": 4
+    },
+    "theta_out_minus_in_deg": {
+     "mean": 13.537,
+     "sd": 2.144,
+     "n": 4
+    },
+    "v_in_mps": {
+     "mean": 2.799,
+     "sd": 0.428,
+     "n": 4
+    },
+    "v_out_mps": {
+     "mean": 2.42,
+     "sd": 0.238,
+     "n": 4
+    },
+    "speed_ratio": {
+     "mean": 0.87,
+     "sd": 0.054,
+     "n": 4
+    },
+    "e_normal_proxy": {
+     "mean": 0.704,
+     "sd": 0.035,
+     "n": 4
+    },
+    "f_tangential": {
+     "mean": 1.14,
+     "sd": 0.076,
+     "n": 4
+    }
+   },
+   "rev": {
+    "n": 4,
+    "shots": [
+     "setA-30-fast-rev-01",
+     "setA-30-fast-rev-02",
+     "setA-30-fast-rev-03",
+     "setA-30-fast-rev-04"
+    ],
+    "english": "rev",
+    "spin_state": "reverse english, ~0.4R tip offset per protocol (slate-confirmed label); spin NOT measured - arrival spin state must be MODELED from the 0.4R tip-offset strike protocol",
+    "theta_in_deg": {
+     "mean": 32.943,
+     "sd": 3.086,
+     "n": 4
+    },
+    "theta_out_deg": {
+     "mean": 17.203,
+     "sd": 3.67,
+     "n": 4
+    },
+    "theta_out_minus_in_deg": {
+     "mean": -15.74,
+     "sd": 0.689,
+     "n": 4
+    },
+    "v_in_mps": {
+     "mean": 2.989,
+     "sd": 0.45,
+     "n": 4
+    },
+    "v_out_mps": {
+     "mean": 1.68,
+     "sd": 0.236,
+     "n": 4
+    },
+    "speed_ratio": {
+     "mean": 0.564,
+     "sd": 0.048,
+     "n": 4
+    },
+    "e_normal_proxy": {
+     "mean": 0.642,
+     "sd": 0.047,
+     "n": 4
+    },
+    "f_tangential": {
+     "mean": 0.303,
+     "sd": 0.022,
+     "n": 4
+    }
+   }
+  },
+  "50-slow": {
+   "none": {
+    "n": 4,
+    "shots": [
+     "setA-50-slow-noeng-01",
+     "setA-50-slow-noeng-02",
+     "setA-50-slow-noeng-03",
+     "setA-50-slow-noeng-04"
+    ],
+    "english": "none",
+    "spin_state": "center-ball strike per protocol; arrival spin state UNMEASURED",
+    "theta_in_deg": {
+     "mean": 49.918,
+     "sd": 2.31,
+     "n": 4
+    },
+    "theta_out_deg": {
+     "mean": 55.156,
+     "sd": 3.468,
+     "n": 4
+    },
+    "theta_out_minus_in_deg": {
+     "mean": 5.237,
+     "sd": 1.912,
+     "n": 4
+    },
+    "v_in_mps": {
+     "mean": 0.834,
+     "sd": 0.082,
+     "n": 4
+    },
+    "v_out_mps": {
+     "mean": 0.528,
+     "sd": 0.036,
+     "n": 4
+    },
+    "speed_ratio": {
+     "mean": 0.634,
+     "sd": 0.022,
+     "n": 4
+    },
+    "e_normal_proxy": {
+     "mean": 0.562,
+     "sd": 0.038,
+     "n": 4
+    },
+    "f_tangential": {
+     "mean": 0.68,
+     "sd": 0.02,
+     "n": 4
+    }
+   },
+   "run": {
+    "n": 4,
+    "shots": [
+     "setA-50-slow-run-01",
+     "setA-50-slow-run-02",
+     "setA-50-slow-run-03",
+     "setA-50-slow-run-04"
+    ],
+    "english": "run",
+    "spin_state": "running english, ~0.4R tip offset per protocol (slate-confirmed label); spin NOT measured - arrival spin state must be MODELED from the 0.4R tip-offset strike protocol",
+    "theta_in_deg": {
+     "mean": 50.596,
+     "sd": 0.886,
+     "n": 4
+    },
+    "theta_out_deg": {
+     "mean": 62.281,
+     "sd": 1.617,
+     "n": 4
+    },
+    "theta_out_minus_in_deg": {
+     "mean": 11.685,
+     "sd": 1.953,
+     "n": 4
+    },
+    "v_in_mps": {
+     "mean": 0.893,
+     "sd": 0.084,
+     "n": 4
+    },
+    "v_out_mps": {
+     "mean": 0.744,
+     "sd": 0.06,
+     "n": 4
+    },
+    "speed_ratio": {
+     "mean": 0.835,
+     "sd": 0.037,
+     "n": 4
+    },
+    "e_normal_proxy": {
+     "mean": 0.611,
+     "sd": 0.029,
+     "n": 4
+    },
+    "f_tangential": {
+     "mean": 0.957,
+     "sd": 0.057,
+     "n": 4
+    }
+   },
+   "rev": {
+    "n": 4,
+    "shots": [
+     "setA-50-slow-rev-01",
+     "setA-50-slow-rev-02",
+     "setA-50-slow-rev-03",
+     "setA-50-slow-rev-04"
+    ],
+    "english": "rev",
+    "spin_state": "reverse english, ~0.4R tip offset per protocol (slate-confirmed label); spin NOT measured - arrival spin state must be MODELED from the 0.4R tip-offset strike protocol",
+    "theta_in_deg": {
+     "mean": 49.889,
+     "sd": 1.537,
+     "n": 4
+    },
+    "theta_out_deg": {
+     "mean": 54.71,
+     "sd": 2.702,
+     "n": 4
+    },
+    "theta_out_minus_in_deg": {
+     "mean": 4.822,
+     "sd": 2.787,
+     "n": 4
+    },
+    "v_in_mps": {
+     "mean": 0.962,
+     "sd": 0.149,
+     "n": 4
+    },
+    "v_out_mps": {
+     "mean": 0.519,
+     "sd": 0.108,
+     "n": 4
+    },
+    "speed_ratio": {
+     "mean": 0.536,
+     "sd": 0.039,
+     "n": 4
+    },
+    "e_normal_proxy": {
+     "mean": 0.479,
+     "sd": 0.015,
+     "n": 4
+    },
+    "f_tangential": {
+     "mean": 0.573,
+     "sd": 0.059,
+     "n": 4
+    }
+   }
+  },
+  "50-fast": {
+   "none": {
+    "n": 4,
+    "shots": [
+     "setA-50-fast-noeng-01",
+     "setA-50-fast-noeng-02",
+     "setA-50-fast-noeng-03",
+     "setA-50-fast-noeng-04"
+    ],
+    "english": "none",
+    "spin_state": "center-ball strike per protocol; arrival spin state UNMEASURED",
+    "theta_in_deg": {
+     "mean": 48.691,
+     "sd": 3.084,
+     "n": 4
+    },
+    "theta_out_deg": {
+     "mean": 44.641,
+     "sd": 1.958,
+     "n": 4
+    },
+    "theta_out_minus_in_deg": {
+     "mean": -4.051,
+     "sd": 3.93,
+     "n": 4
+    },
+    "v_in_mps": {
+     "mean": 3.411,
+     "sd": 0.339,
+     "n": 4
+    },
+    "v_out_mps": {
+     "mean": 2.237,
+     "sd": 0.134,
+     "n": 4
+    },
+    "speed_ratio": {
+     "mean": 0.658,
+     "sd": 0.034,
+     "n": 4
+    },
+    "e_normal_proxy": {
+     "mean": 0.71,
+     "sd": 0.034,
+     "n": 4
+    },
+    "f_tangential": {
+     "mean": 0.618,
+     "sd": 0.07,
+     "n": 4
+    }
+   },
+   "run": {
+    "n": 4,
+    "shots": [
+     "setA-50-fast-run-01",
+     "setA-50-fast-run-02",
+     "setA-50-fast-run-03",
+     "setA-50-fast-run-04"
+    ],
+    "english": "run",
+    "spin_state": "running english, ~0.4R tip offset per protocol (slate-confirmed label); spin NOT measured - arrival spin state must be MODELED from the 0.4R tip-offset strike protocol",
+    "theta_in_deg": {
+     "mean": 49.102,
+     "sd": 2.952,
+     "n": 4
+    },
+    "theta_out_deg": {
+     "mean": 56.838,
+     "sd": 1.572,
+     "n": 4
+    },
+    "theta_out_minus_in_deg": {
+     "mean": 7.736,
+     "sd": 4.223,
+     "n": 4
+    },
+    "v_in_mps": {
+     "mean": 3.168,
+     "sd": 0.92,
+     "n": 4
+    },
+    "v_out_mps": {
+     "mean": 2.294,
+     "sd": 0.136,
+     "n": 4
+    },
+    "speed_ratio": {
+     "mean": 0.757,
+     "sd": 0.15,
+     "n": 4
+    },
+    "e_normal_proxy": {
+     "mean": 0.626,
+     "sd": 0.077,
+     "n": 4
+    },
+    "f_tangential": {
+     "mean": 0.847,
+     "sd": 0.205,
+     "n": 4
+    }
+   },
+   "rev": {
+    "n": 4,
+    "shots": [
+     "setA-50-fast-rev-01",
+     "setA-50-fast-rev-02",
+     "setA-50-fast-rev-03",
+     "setA-50-fast-rev-04"
+    ],
+    "english": "rev",
+    "spin_state": "reverse english, ~0.4R tip offset per protocol (slate-confirmed label); spin NOT measured - arrival spin state must be MODELED from the 0.4R tip-offset strike protocol",
+    "theta_in_deg": {
+     "mean": 48.935,
+     "sd": 1.686,
+     "n": 4
+    },
+    "theta_out_deg": {
+     "mean": 44.276,
+     "sd": 1.806,
+     "n": 4
+    },
+    "theta_out_minus_in_deg": {
+     "mean": -4.659,
+     "sd": 3.254,
+     "n": 4
+    },
+    "v_in_mps": {
+     "mean": 2.492,
+     "sd": 0.471,
+     "n": 4
+    },
+    "v_out_mps": {
+     "mean": 1.412,
+     "sd": 0.227,
+     "n": 4
+    },
+    "speed_ratio": {
+     "mean": 0.569,
+     "sd": 0.029,
+     "n": 4
+    },
+    "e_normal_proxy": {
+     "mean": 0.62,
+     "sd": 0.024,
+     "n": 4
+    },
+    "f_tangential": {
+     "mean": 0.528,
+     "sd": 0.051,
+     "n": 4
+    }
+   }
+  }
+ },
+ "cell_deltas_vs_mirror_deg": {
+  "note": "theta_out minus theta_in (deg, from cushion normal), cell means; positive = rebound more tangential (bank runs long), negative = steeper (bank shortens)",
+  "30-slow": {
+   "none_deg": 5.01,
+   "run_deg": 13.33,
+   "rev_deg": -2.74
+  },
+  "30-fast": {
+   "none_deg": -6.56,
+   "run_deg": 13.53,
+   "rev_deg": -15.74
+  },
+  "50-slow": {
+   "none": 5.237,
+   "rev": 4.822,
+   "run": 11.685
+  },
+  "50-fast": {
+   "none": -4.051,
+   "rev": -4.659,
+   "run": 7.736
+  }
+ }
+}

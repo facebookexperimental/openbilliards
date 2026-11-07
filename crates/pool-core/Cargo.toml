@@ -1,0 +1,33 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+[package]
+name = "pool-core"
+description = "Event-driven analytic billiards physics kernel (openbilliards)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+# Deterministic transcendentals — std f64 math is forbidden in kernel code
+# (constitution P-III; CI grep gate).
+libm = "0.2"
+serde = { version = "1", features = ["derive"] }
+# float_roundtrip: lossless f64 parse for ShotRecord round-trips (contract §M8).
+serde_json = { version = "1", features = ["float_roundtrip"] }
+
+[dev-dependencies]
+criterion = { version = "0.5", default-features = false, features = [
+    "cargo_bench_support",
+] }
+
+[[bench]]
+name = "break"
+harness = false
+
+[[bench]]
+name = "rail_hugger"
+harness = false
+
+[features]
+dbg-events = []

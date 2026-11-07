@@ -1,0 +1,39 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+[package]
+name = "pool-py"
+description = "PyO3 bindings for pool-core (openbilliards Python SDK)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+name = "pool_py"
+# cdylib: the Python extension module; rlib lets native `cargo check`/clippy
+# compile the crate without a Python link.
+crate-type = ["cdylib", "rlib"]
+# No rust-side test targets: the SDK's behavior tests are the pytest suite
+# (tests/test_pool_py.py, run against the maturin-built module). A native
+# unit-test binary would link libpython at an @rpath the host may not
+# resolve (pyo3 extension crates are load-tested through Python, not dyld),
+# so `cargo test --workspace` (CI) must not build one.
+test = false
+doctest = false
+
+[features]
+# maturin enables this via pyproject.toml [tool.maturin] features. Keeping it
+# OFF by default lets `cargo clippy -p pool-py` run in the plain workspace
+# (extension-module suppresses the libpython link, which only the final
+# maturin-built artifact wants).
+extension-module = ["pyo3/extension-module"]
+
+[dependencies]
+pool-core = { path = "../pool-core" }
+# Feature 013: the rules surface (contracts/rules-crate-api.md §4c) — thin
+# wrappers over pool-rules returning the crate's canonical bytes verbatim.
+pool-rules = { path = "../pool-rules" }
+# abi3-py39: one wheel per platform covers CPython >= 3.9 (issue #12 CI wheels).
+pyo3 = { version = "0.29", features = ["abi3-py39"] }
+numpy = "0.29"
+serde_json = { version = "1", features = ["float_roundtrip"] }

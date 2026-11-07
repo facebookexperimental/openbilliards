@@ -1,0 +1,147 @@
+{
+  "v": 1,
+  "name": "capabilities",
+  "notes": [
+    "Issue #51 shell QA: the WKWebView capability truth table, measured by",
+    "RUNNING probes (never assumed) — media APIs (MediaRecorder mimes,",
+    "canvas.captureStream, WebCodecs under the non-secure app://local",
+    "origin), a LIVE record proving real frames reach the encoder (API",
+    "presence is not evidence: WebKit's WebGL captureStream black-frame",
+    "soft spot), the obShare bridge handoff end-to-end (share-log.json via",
+    "StatusSeam), and the touch-sheet Re-rack row (the toolbar-law fix).",
+    "The matrix artifact (capabilities.json) is printed + consistency-",
+    "checked by e2e-ios.mjs's capabilitiesReport assert. Simulator WebKit",
+    "may differ from device WebKit for media (hardware encoders) — the",
+    "report says so; the runbook carries the on-device recipe.",
+    "Boots obtool&seed=1 WITHOUT norec so record/export ARE wired",
+    "(fullrack precedent); SC-003 determinism boots stay ?norec elsewhere.",
+    "Issue #157: the matrix gains the transcode-leg DECODE probes",
+    "(VideoDecoder vp9/vp8, AudioDecoder opus, via __record.transcodeProbe)",
+    "and the photos-handoff routing assert is transcode-aware — webm +",
+    "transcode ok -> obPhotos; webm + transcode failed (the measured",
+    "simulator VideoToolbox zero-output stall is the EXPECTED sim verdict)",
+    "-> the share ladder + the honest record.prepareFailed notice. Device",
+    "column (transcode ok + live Photos write) re-owner at next install."
+  ],
+  "viewport": { "width": 844, "height": 390 },
+  "boot": { "query": "obtool&seed=1", "ephemeralStore": true, "statusSeam": true },
+  "phases": [
+    {
+      "name": "matrix",
+      "steps": [
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 60 },
+        { "kind": "assertEval", "name": "touch mode installed (coarse-pointer shell boot)",
+          "js": "document.documentElement.classList.contains('ob-touch') && window.__touch?.installed === true" },
+        { "kind": "eval", "saveAs": "capabilities.json",
+          "js": "(async () => { const cap = { origin: location.origin, secureContext: window.isSecureContext === true, ua: navigator.userAgent, mediaRecorder: typeof MediaRecorder !== 'undefined', mimes: {}, captureStream: typeof HTMLCanvasElement.prototype.captureStream === 'function', webcodecs: { videoEncoder: typeof VideoEncoder !== 'undefined', videoDecoder: typeof VideoDecoder !== 'undefined', videoFrame: typeof VideoFrame !== 'undefined', audioEncoder: typeof AudioEncoder !== 'undefined', audioDecoder: typeof AudioDecoder !== 'undefined' }, share: typeof navigator.share === 'function', canShare: typeof navigator.canShare === 'function', clipboard: !!navigator.clipboard, bridges: { obHaptics: !!window.webkit?.messageHandlers?.obHaptics, obShare: !!window.webkit?.messageHandlers?.obShare, obPhotos: !!window.webkit?.messageHandlers?.obPhotos }, record: { supported: window.__record?.supported === true, mime: window.__record?.mime ?? null, ext: window.__record?.ext ?? null }, exportTiers: null, exportSupport: null }; for (const m of ['video/webm', 'video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/mp4', 'video/mp4;codecs=avc1.42E01E,mp4a.40.2']) { cap.mimes[m] = cap.mediaRecorder && MediaRecorder.isTypeSupported(m); } try { if (window.__export) { await window.__export.open(); cap.exportSupport = window.__export.support(); cap.exportTiers = window.__export.tiers(); window.__export.close(); } } catch (e) { cap.exportSupport = 'probe failed: ' + e; } try { cap.transcodeProbe = window.__record?.transcodeProbe ? await window.__record.transcodeProbe() : null; } catch (e) { cap.transcodeProbe = 'probe failed: ' + e; } cap.probed = true; window.__cap = cap; return JSON.stringify(cap); })()" },
+        { "kind": "assertEval", "name": "capability matrix collected",
+          "js": "window.__cap?.probed === true" }
+      ]
+    },
+    {
+      "name": "record-live-frames",
+      "steps": [
+        { "kind": "assertEval", "name": "settle shot accepted",
+          "js": "__test.shoot({ v0: 1.2, phi: Math.PI / 2, theta: 0, a: 0, b: 0 }) === null" },
+        { "kind": "eval", "js": "__test.seek(__test.duration() + 1)" },
+        { "kind": "waitEval", "tries": 60,
+          "js": "!['SIMULATING', 'PLAYBACK'].includes(__test.state())" },
+        { "kind": "eval", "js": "window.__rules?.matchState?.()?.pendingDecision != null ? (window.__rules.decide(1), true) : true" },
+        { "kind": "sleep", "ms": 400 },
+        { "kind": "eval", "note": "live capture arm, VIDEO-ONLY so the byte floor cannot be satisfied by an audio track over dead video (measured trap: audio-muxed capture of a black canvas still yields ~90 KB); skipped clean when MediaRecorder negotiated no mime",
+          "js": "window.__record?.supported === true ? (window.__record.start(false), true) : true" },
+        { "kind": "assertEval", "name": "recorder running when supported",
+          "js": "window.__record?.supported !== true || window.__record.recording() === true" },
+        { "kind": "assertEval", "name": "recorded shot accepted",
+          "js": "window.__record?.supported !== true || __test.shoot({ v0: 2.0, phi: Math.PI / 2, theta: 0, a: 0, b: 0 }) === null" },
+        { "kind": "sleep", "ms": 4000 },
+        { "kind": "eval", "js": "window.__record?.supported !== true || window.__record.stop(false)" },
+        { "kind": "waitEval", "tries": 40,
+          "js": "window.__record?.supported !== true || window.__record.lastSize() > 0" },
+        { "kind": "waitEval", "tries": 60,
+          "js": "!['SIMULATING', 'PLAYBACK'].includes(__test.state())" },
+        { "kind": "eval", "js": "window.__rules?.matchState?.()?.pendingDecision != null ? (window.__rules.decide(1), true) : true" },
+        { "kind": "eval", "saveAs": "capabilities.json",
+          "note": "record the live-capture evidence + a RENDERER-canvas pixel probe. body > canvas, NEVER querySelector('canvas'): the touch spin-pad canvas shadows it (measured trap — a blank 440x440 2D pad reads as an all-black 'renderer'). VideoFrame.copyTo is the proven same-task readback; drawImage is the no-WebCodecs fallback.",
+          "js": "(async () => { const cap = window.__cap ?? {}; cap.liveRecord = window.__record?.supported === true ? { exercised: true, bytes: window.__record.lastSize(), audioTracks: window.__record.audioTracks() } : { exercised: false }; cap.audioTap = !!(window.__sound && window.__sound.captureStream && window.__sound.captureStream()); try { const src = [...document.querySelectorAll('body > canvas')][0]; const t = Math.min(1, __test.duration() || 0); window.__test.renderAt(t); let lit = 0, sampled = 0; if (typeof VideoFrame !== 'undefined') { const f = new VideoFrame(src, { timestamp: 0 }); const size = f.allocationSize({ rect: { x: 0, y: 0, width: 64, height: 64 } }); const buf = new Uint8Array(size); await f.copyTo(buf, { rect: { x: 0, y: 0, width: 64, height: 64 } }); f.close(); sampled = size; for (let i = 0; i < buf.length; i++) { if (buf[i] > 24) lit++; } } else { const c = document.createElement('canvas'); c.width = 64; c.height = 64; const cx = c.getContext('2d'); cx.drawImage(src, 0, 0, 64, 64); const d = cx.getImageData(0, 0, 64, 64).data; sampled = d.length; for (let i = 0; i < d.length; i += 4) { if (d[i] + d[i + 1] + d[i + 2] > 24) lit++; } } cap.canvasPixels = { sampled, lit, via: typeof VideoFrame !== 'undefined' ? 'videoframe' : 'drawimage' }; window.__test.setManual(false); } catch (e) { cap.canvasPixels = { error: String(e) }; try { window.__test.setManual(false); } catch (e2) {} } window.__cap = cap; return JSON.stringify(cap); })()" }
+      ]
+    },
+    {
+      "name": "rerack-row",
+      "steps": [
+        { "kind": "tapEl", "el": "window.__tp.el('#ob-gear')", "minPt": 44 },
+        { "kind": "waitEval", "tries": 30,
+          "js": "(() => { const d = document.getElementById('ob-settings'); return !!d && d.getClientRects().length > 0 && getComputedStyle(d).visibility !== 'hidden'; })()" },
+        { "kind": "eval", "saveAs": "capabilities.json",
+          "note": "sheet-row inventory rides the matrix (the row law is asserted host-side: since GH-225 Phase D the sheet is Share + Re-rack and the Export/Record rows must be ABSENT regardless of the capture matrix)",
+          "js": "(() => { const cap = window.__cap ?? {}; cap.sheetRows = [...document.querySelectorAll('#ob-touch-drawer-rows [data-i18n]')].map((n) => n.dataset.i18n); window.__cap = cap; return JSON.stringify(cap); })()" },
+        { "kind": "assertEval", "name": "Re-rack row present in the touch sheet (issue #51 fix; index 1 since GH-225 Phase D retired the Export + Record rows)",
+          "js": "(() => { const r = window.__tp.drawerRows(); return r.rows?.[1]?.key === 'hud.rerack' && r.rows[1].found === true; })()",
+          "diag": "(() => window.__tp.drawerRows())()" },
+        { "kind": "eval", "js": "window.__e2eBalls0 = JSON.stringify(__test.balls()); true" },
+        { "kind": "tapElUntil", "minPt": 44, "tries": 3, "waitTries": 15,
+          "el": "(() => { const r = window.__tp.drawerRows(); return r.rows?.[1]?.found ? r.rows[1] : { found: false }; })()",
+          "until": "JSON.stringify(__test.balls()) !== window.__e2eBalls0 && ['AIM','BALL_IN_HAND'].includes(__test.state())",
+          "diag": "(() => ({ state: __test.state(), pocketed: __test.balls().filter((b) => b.pocketed).map((b) => b.id) }))()" },
+        { "kind": "assertEval", "name": "re-rack produced a fresh rack (nothing pocketed, aiming state — GH-370: a fresh rack parks in the opening BALL_IN_HAND kitchen grant)",
+          "js": "['AIM','BALL_IN_HAND'].includes(__test.state()) && __test.balls().every((b) => !b.pocketed)" },
+        { "kind": "assertEval", "name": "the sheet yielded before dispatching (rows close it first)",
+          "js": "(() => { const d = document.getElementById('ob-settings'); return !d || !d.getClientRects().length || getComputedStyle(d).visibility === 'hidden'; })()" }
+      ]
+    },
+    {
+      "name": "share-handoff",
+      "steps": [
+        { "kind": "eval", "note": "issue #139: shell stop(true) now PREFERS the obPhotos leg (mp4 + bridge present) — shadow obPhotos for THIS phase only so the recorded obShare end-to-end proof (decode -> present, share-log.json) stays exercised; the photos-handoff phase below restores the real bridge set",
+          "js": "(() => { window.__realWebkit = window.webkit; window.webkit = { messageHandlers: { obHaptics: window.__realWebkit?.messageHandlers?.obHaptics, obShare: window.__realWebkit?.messageHandlers?.obShare } }; return true; })()" },
+        { "kind": "eval", "note": "stop(true) hands the file to the obShare bridge and the native share sheet presents over the app",
+          "js": "window.__record?.supported === true ? (window.__record.start(false), true) : true" },
+        { "kind": "assertEval", "name": "handoff shot accepted (fresh rack from the re-rack arm)",
+          "js": "window.__record?.supported !== true || __test.shoot({ v0: 2.0, phi: Math.PI / 2, theta: 0, a: 0, b: 0 }) === null" },
+        { "kind": "sleep", "ms": 2500 },
+        { "kind": "eval", "js": "window.__record?.supported !== true || window.__record.stop(true)" },
+        { "kind": "waitEval", "tries": 40,
+          "js": "window.__record?.supported !== true || window.__record.lastSize() > 0" },
+        { "kind": "eval", "saveAs": "capabilities.json",
+          "js": "(() => { const cap = window.__cap ?? {}; cap.shareExercised = window.__record?.supported === true; cap.shareBytes = window.__record?.lastSize?.() ?? 0; window.__cap = cap; return JSON.stringify(cap); })()" },
+        { "kind": "sleep", "ms": 2500,
+          "note": "bridge decode + StatusSeam share-log.json mirror (500 ms poll)" },
+        { "kind": "eval", "note": "restore the real bridge set for the photos phase",
+          "js": "window.webkit = window.__realWebkit ?? window.webkit; true" }
+      ]
+    },
+    {
+      "name": "photos-handoff",
+      "steps": [
+        { "kind": "eval", "note": "issue #139 LAST phase (page-JS only — the share sheet from the previous phase may still cover the app): a second capture exercising pause/resume on the LIVE WKWebView recorder at its NEGOTIATED container, then stop(true) driving the deliver ladder. AMENDED BY #157 (webm negotiation falsified the #51 claim) and RETARGETED BY GH-251: record.js's transcode tier + obPhotos leg are REMOVED — every stop(true) delivers down the share/anchor ladder, and the Photos route lives on the DVR save card (GH-252 probed transcode + obSaveVideo wire; device evidence = the sim-save/device harnesses, not this scenario)",
+          "js": "window.__record?.supported === true ? (window.__record.start(false), true) : true" },
+        { "kind": "assertEval", "name": "photos-arm shot accepted",
+          "js": "window.__record?.supported !== true || __test.shoot({ v0: 1.6, phi: Math.PI / 2, theta: 0, a: 0, b: 0 }) === null" },
+        { "kind": "sleep", "ms": 1500 },
+        { "kind": "eval",
+          "js": "window.__record?.supported !== true || (window.__e2ePause = { paused: window.__record.pause(), flipped: window.__record.paused() }, true)" },
+        { "kind": "sleep", "ms": 800 },
+        { "kind": "eval",
+          "js": "window.__record?.supported !== true || (window.__e2ePause.resumed = window.__record.resume(), true)" },
+        { "kind": "sleep", "ms": 1500 },
+        { "kind": "eval",
+          "note": "review rounds 4+5 P2: lastSize/lastSaveTarget SURVIVE from the share-handoff phase, and distinct captures can share a byte length — snapshot the Blob IDENTITY (the GH-250 lastRecording getter) so the wait sequences on THIS stop's blob, never stale state",
+          "js": "window.__phPrevBlob = window.__record?.lastRecording?.() ?? null; true" },
+        { "kind": "eval", "js": "window.__record?.supported !== true || window.__record.stop(true)" },
+        { "kind": "waitEval", "tries": 220,
+          "note": "GH-251 retarget: record.js's transcode tier is REMOVED (the DVR save card owns webm→Photos via its probed transcode + the obSaveVideo wire) — a stop(true) delivers straight down the share/anchor ladder inside its own onstop, so THIS stop's NEW blob landing means the delivery ran",
+          "js": "window.__record?.supported !== true || (window.__record.lastSize() > 0 && window.__record.lastRecording?.() !== window.__phPrevBlob)" },
+        { "kind": "assertEval", "name": "shell stop(true) routes the share ladder for EVERY container (GH-251: the obPhotos leg + transcode tier left record.js — the DVR save card owns the Photos route, gated by e2e-playback arms 4f2/14a)",
+          "js": "window.__record?.supported !== true || window.__record.lastSaveTarget() === 'share'" },
+        { "kind": "eval", "saveAs": "capabilities.json",
+          "js": "(() => { const cap = window.__cap ?? {}; cap.photosExercised = window.__record?.supported === true; cap.photosBytes = window.__record?.lastSize?.() ?? 0; cap.photosTarget = window.__record?.lastSaveTarget?.() ?? null; cap.pauseResume = window.__e2ePause ?? null; cap.transcode = { removed: 'GH-251: record.js tier deleted - the DVR card runs transcode.js; capability evidence stays in cap.transcodeProbe' }; window.__cap = cap; return JSON.stringify(cap); })()" },
+        { "kind": "sleep", "ms": 2500,
+          "note": "bridge decode + StatusSeam photos-log.json mirror (500 ms poll) before the driver terminates the app. GH-251: record.js posts nothing to obPhotos any more, so photos-log.json stays EMPTY on sim and device alike for this scenario — the device Photos evidence belongs to the DVR save card lane (obSaveVideo)" }
+      ]
+    }
+  ],
+  "asserts": [
+    { "kind": "capabilitiesReport", "artifact": "capabilities.json", "shareLog": "share-log.json",
+      "requirePresented": true }
+  ]
+}

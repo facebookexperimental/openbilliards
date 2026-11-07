@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en" data-ob-html="523de191b5bc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<link rel="icon" href="data:,"><link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#050907"><!-- ob-color-exempt: --ob-bg-0 resolved for the PWA chrome (no var() reach in meta) -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="OpenBilliards">
+<link rel="apple-touch-icon" href="app/icons/apple-touch-icon.png">
+<title>OpenBilliards</title>
+<link rel="stylesheet" href="./app/ui/tokens.css?v=016" data-optional>
+<link rel="stylesheet" href="./app/ui/kit.css?v=043" data-optional>
+<style>
+  /* module styles: CONSUME --ob-* tokens only (tokens.css owns definitions).
+     the pure-black body backdrop is the scene clear color, not a panel
+     surface (annotated ob-color-exempt below). */
+  html, body { margin: 0; padding: 0; background: #000; /* ob-color-exempt: scene clear color */ overflow: hidden; }
+  /* the design charter's geometry contracts: the rem root stays the UA 16px —
+     the product's 14px body size lives on <body> ONLY. font-size on <html>
+     would deflate every rem token by 12.5% (12px labels render 10.5px). */
+  html { font-size: 100%; }
+  body { font-family: var(--ob-font); font-size: var(--ob-fs-0);
+         font-weight: var(--ob-fw-reg); line-height: var(--ob-lh-body);
+         color: var(--ob-text-0); }
+  canvas { display: block; }
+  /* #err: LAST-RESORT surface for GENUINE errors only (boot failures,
+     mirror drift, frame-hook exceptions, unhandled rejections — expected
+     gameplay rejections ride the HUD hint banner instead, web/app/flow.js).
+     Styled STATICALLY here because it must render on the no-JS boot-guard
+     path, with literal fallbacks inside var() because tokens.css itself is
+     a [data-optional] link that can fail. Quiet danger card on the panel
+     register: glass well, danger hairline, 12px card radius, mono detail
+     voice, height capped with scroll. Hidden while empty; main.js
+     deduplicates rows (×N counter) and re-shows after a dismiss. */
+  #err { position: fixed; top: var(--ob-sp-2, 8px); left: var(--ob-sp-2, 8px);
+         z-index: 9; box-sizing: border-box; max-width: 60ch;
+         max-height: 40vh; overflow-y: auto; overscroll-behavior: contain;
+         background: var(--ob-glass, oklch(15.5% 0.01 165 / 0.92));
+         backdrop-filter: blur(var(--ob-blur, 14px));
+         -webkit-backdrop-filter: blur(var(--ob-blur, 14px));
+         border: 1px solid var(--ob-danger-line, oklch(66% 0.18 28 / 0.55));
+         border-radius: var(--ob-r-l, 12px);
+         box-shadow: var(--ob-el-2, 0 6px 20px oklch(0% 0 0 / 0.42));
+         padding: var(--ob-sp-2, 8px) var(--ob-sp-3, 12px);
+         color: var(--ob-danger-text, oklch(92% 0.05 28));
+         font: var(--ob-fs--1, 12px)/1.5 ui-monospace, Menlo, monospace;
+         white-space: pre-wrap; overflow-wrap: break-word; }
+  #err:empty, #err[hidden] { display: none; }
+  #err .err-row { display: flex; align-items: baseline;
+                  gap: var(--ob-sp-2, 8px); padding: 2px 0; }
+  #err .err-row + .err-row { margin-top: 2px; padding-top: 4px;
+         border-top: 1px dashed var(--ob-line-0, oklch(97% 0.01 91 / 0.08)); }
+  #err .err-msg { flex: 1 1 auto; min-width: 0; }
+  #err .err-n { flex: 0 0 auto; /* repeat counter — trailing, chip register */
+         font-size: var(--ob-fs--1, 12px);
+         font-weight: var(--ob-fw-semi, 620);
+         color: var(--ob-danger, oklch(66% 0.18 28));
+         border: 1px solid var(--ob-danger-line, oklch(66% 0.18 28 / 0.55));
+         border-radius: var(--ob-r-full, 999px); padding: 0 6px; }
+  #err-x { /* dismiss: quiet ghost pill, sticky through the scroll cap */
+         position: sticky; top: 0; display: block; margin-left: auto;
+         appearance: none; width: 20px; height: 20px; padding: 0;
+         line-height: 1; font: inherit; cursor: pointer;
+         color: inherit; background: transparent;
+         border: 1px solid var(--ob-danger-line, oklch(66% 0.18 28 / 0.55));
+         border-radius: var(--ob-r-full, 999px); }
+  /* terminal BOOT FAILED (boot guard, bottom of <body>): the module graph
+     died AGAIN after the one-shot cache heal — the app never booted, i18n
+     never loads, so the static chrome skeleton (#hud/#help/#ob-toolbar with
+     empty data-i18n labels, dead controls) is dead ink and must not show
+     behind the #err card (QA #81). The guard stamps <body>; everything but
+     #err drops. !important (the #ob-toolbar > * precedent): a boot that
+     died between scene-up and __test-live leaves elements carrying INLINE
+     display (three.js canvas, aimwidgets #aimw) that outrank any plain
+     rule. Runtime errors over a HEALTHY app never stamp (the guard exits
+     on window.__test), so live chrome behind a mid-session #err stays. */
+  /* GH-694: #ob-boot is exempt — in failure mode it IS the honest card
+     (reason + Retry) and sits under #err (its z drops to 8, rule below). */
+  body[data-ob-boot-failed] > :not(#err):not(#ob-boot) { display: none !important; }
+  /* HUD: glass panel via .ob-panel (kit.css); module block owns placement +
+     row layout. Width stays ~236px (aim widgets align to it). */
+  #hud { position: fixed; right: var(--ob-sp-3); top: 54px;
+         /* below the 34px toolbar at top:10 — decoupled surfaces: wide
+            locale pills must never breach the panel edge */
+         width: 236px; z-index: 5; box-sizing: border-box;
+         /* bottom = sp-4: the chip row is solid ink to its rect edge while
+            the title's ink starts ~3px into its line box — 12/16 makes the
+            top and bottom OPTICAL gaps match (panel rhythm law, ±2px) */
+         padding: var(--ob-sp-3) var(--ob-sp-4) var(--ob-sp-4); }
+  #hud h1 { /* the kit title role (.ob-panel__title, 16 px — GH-1180) on the compact HUD's sp-2 rhythm */
+            font-size: var(--ob-fs-1); font-weight: var(--ob-fw-semi);
+            line-height: var(--ob-lh-tight); color: var(--ob-text-0);
+            margin: 0 0 var(--ob-sp-2); }
+  #hud .row { display: flex; align-items: center; gap: var(--ob-sp-2);
+              margin: var(--ob-sp-2) 0; }
+  #hud label { flex: 0 0 80px; color: var(--ob-text-2);
+               /* 80px fits the widest caps label across locales at the
+                  design 12px (INCLINAISON/INCLINACIÓN = 79px) so both
+                  slider tracks share one start x (panel rhythm) */
+               font-size: var(--ob-fs--1); font-weight: var(--ob-fw-semi);
+               letter-spacing: var(--ob-track-caps); white-space: nowrap;
+               text-transform: uppercase; } /* one caps dialect everywhere */
+  /* the toggle row has slack: its label takes natural width so SLOW-MO /
+     CÁMARA LENTA never hyphen- or space-wrap. [for]
+     scopes it to the TEXT label — the kit's .ob-toggle wrapper label must
+     not inherit the column basis (a 34px track in an 80px ghost box). */
+  #hud .row:has(input[type=checkbox]) label[for] { flex: 0 0 auto;
+               min-width: 80px; }
+  #hud .row label.ob-toggle { flex: 0 0 auto; min-width: 0; }
+  /* the rate value sits on the same right rail as the slider values */
+  #hud .row:has(input[type=checkbox]) .val { margin-left: auto; }
+  /* mid-rack cue swap select (design 277 slice 3 PR-2): native fallback
+     styling in the HUD voice — the kit upgrade (ui/select.js) hides it
+     behind the .ob-select combobox (kit.css owns that geometry). The row
+     STACKS (label line above, control full-width below): the 80px label
+     column would leave the closed combobox ~116px and the kit label's
+     ellipsis would truncate long localized cue names — control labels
+     never ellipsize (the e2e-ui law). */
+  #cue-row { flex-wrap: wrap; }
+  #cue-row label { flex: 1 0 100%; }
+  #cue-row select, #cue-row .ob-select { flex: 1 1 100%; min-width: 0; }
+  /* …and the closed label WRAPS instead of ellipsizing (kit.css defaults
+     to nowrap+ellipsis): catalog cue names run 30+ chars localized, past
+     any width this panel can give one line — the settings popover rows
+     already wrap under the same law */
+  #cue-row .ob-select { height: auto; } /* the kit control rung (40) stands (uiaudit GH-1009: a 32 px floor + the
+                                           #hud button pads put the trigger at 34 px / 12 px under 40 px pills) */
+  /* the select label wraps by kit law (GH-668 B-K21, step 9) — the #cue-row
+     restatement is gone */
+  #hud .row select { flex: 1; min-width: 0; font: inherit;
+    color: var(--ob-text-1); background: var(--ob-glass);
+    border: 1px solid var(--ob-line-1); border-radius: var(--ob-r-s);
+    padding: var(--ob-sp-1); }
+  #hud input[type=range] { flex: 1; min-width: 0;
+                           accent-color: var(--ob-accent); }
+  #hud .val { flex: 0 0 50px; /* widest value "12.0 m/s" = 48px at 12px
+              tabular nums — 50 clears it and buys the slider track width */
+              text-align: right; color: var(--ob-text-0);
+              font-size: var(--ob-fs--1);
+              font-variant-numeric: tabular-nums; }
+  #tip { display: block; margin: var(--ob-sp-1) auto; cursor: crosshair;
+         width: 92px; height: 92px; }
+  /* GH-1051: the pad is the spin control's keyboard stop (hud.js) — the
+     kit focus ring, round like the pad */
+  #tip:focus-visible { outline: none; box-shadow: var(--ob-focus);
+                       border-radius: 50%; }
+  #hud button:not(.ob-select) { flex: 1 1 auto; padding: var(--ob-sp-2) var(--ob-sp-1);
+                font-size: var(--ob-fs--1); } /* nowrap labels share the row
+                by content width — long locales grow, never wrap. The kit
+                select trigger is a <button> too: it keeps the kit control
+                voice (uiaudit GH-1009). */
+  /* four actions (10-ball push-out joins Shoot / Replay / Re-rack) share a
+     2 x 2 grid instead of a 3 + 1 wrap that stretched Re-rack — the
+     destructive action — to the full panel width (uiaudit GH-1009) */
+  #hud .row:has(> #aw-push:not([style*="none"])) { display: grid;
+                grid-template-columns: 1fr 1fr; }
+  /* pills that outgrow the row (ja ラックを組み直す) wrap to a second row
+     instead of breaching the panel edge (decoupled-surfaces law) */
+  #hud .row:has(button) { flex-wrap: wrap; }
+  #state { margin-top: var(--ob-sp-2); color: var(--ob-text-1);
+           font-size: var(--ob-fs--1); min-height: 36px; /* 2-line slot:
+           locale wraps must not collapse the rhythm below */ }
+  #rack { margin-top: var(--ob-sp-2); display: flex; gap: 3px;
+          flex-wrap: wrap; } /* 9 x 19px + 8 x 3px = 195 <= content width */
+  .chip { width: 19px; height: 19px; border-radius: var(--ob-r-full);
+          background: #efe9d8; /* ob-color-exempt: ball ivory (matches hud.js drawTip face) */
+          color: #222; /* ob-color-exempt: chip glyph on ball-cream */
+          display: inline-flex; align-items: center;
+          justify-content: center; font-weight: var(--ob-fw-bold);
+          font-size: var(--ob-fs--1); }
+  .chip.down { opacity: 0.25; text-decoration: line-through; }
+  /* banner: glass + type from .ob-banner (kit.css); placement here. hud.js
+     toggles display + the .foul tone class. */
+  /* centered via margins, NOT translateX: motion.js owns el.style.transform
+     during banner enter/exit tweens (a transform-based centering would snap
+     half a width sideways on clearProps). */
+  /* pointer-events none (issue #71): the banner is PASSIVE CHROME — a tap
+     in its box passes through to the game surface beneath (pre-#71 the
+     strip swallowed the pointer and the owner waited the timer out);
+     tap-to-dismiss lives in hud.js. It has no interactive children. */
+  #banner { display: none; position: fixed; left: 0; right: 0; top: 18%;
+            margin-inline: auto; width: fit-content; z-index: 6;
+            pointer-events: none;
+            /* QA finding: the banner had NO desktop width cap, so
+               long real judgment copy (de two-foul + cite strings) painted
+               its z:6 glass over the z:5 HUD panel's rows at 1280x800
+               (64.1x62.8px measured). Centered geometry: the cap keeps the
+               banner's right edge left of the panel (right sp-3, 236px wide)
+               by >= sp-3 at ANY copy length — long reasons WRAP inside it
+               (no-ellipsize law; the phone register keeps its own touch.css
+               §3.11 cap, which outranks this one under html.ob-touch). */
+            max-width: calc(100vw - 2 * (236px + 2 * var(--ob-sp-3))); }
+  /* GH-1180: the leaving text rides the exit fade (hud.setBanner) — shown only
+     while the box is empty, so a banner written meanwhile never doubles */
+  #banner:empty[data-ob-fade]::before { content: attr(data-ob-fade); }
+  /* fouls must read as a penalty, not success green (hud.setBanner tone) */
+  #banner.foul { background: linear-gradient(var(--ob-danger-dim),
+                   var(--ob-danger-dim)), var(--ob-glass);
+                 border-color: var(--ob-danger-line);
+                 color: var(--ob-danger-text); }
+  /* toolbar: one flex container replaces four magic right-offsets — pills
+     size to content, uniform gap, collisions impossible in any locale.
+     Modules append their buttons here when present (feature-detected; an
+     old cached module falls back to its own fixed positioning). */
+  #ob-toolbar { position: fixed; top: 10px; right: 10px; z-index: 40;
+                display: flex; align-items: center; gap: var(--ob-sp-3); }
+  #ob-toolbar > * { position: static !important; /* neutralize modules'
+                fixed-position fallback styles once containered */
+                box-sizing: border-box; display: inline-flex;
+                align-items: center; /* one pill height for the family */
+                font-size: var(--ob-fs--1); /* ONE text token (12px) and one
+                line-height for every text pill — modules restate the same
+                values for their stale-cache fixed-position fallback */
+                line-height: var(--ob-lh-body); }
+  /* the family height at ZERO specificity: the kit toolbar part
+     (.ob-btn--icon / .ob-toolbar-pill, GH-668 B-K16) owns its rungs —
+     34 on fine pointers, 44 under html.ob-touch (G10, the ONE coarse
+     floor) — and a plain id rule here outranked it (44 × 34 pills on the
+     phone registers, e2e-ui --audit tap floor); kit-less siblings keep 34 */
+  :where(#ob-toolbar > *) { height: var(--ob-h-toolbar); }
+  #ob-toolbar > #ob-export-btn { order: 1; }
+  #ob-toolbar > #ob-record { order: 2; }
+  #ob-toolbar > #ob-share { order: 3; }
+  #ob-toolbar > #ob-gear { order: 4; }
+  #ob-toolbar > #ob-help { order: 5; }
+  #help { position: fixed; left: var(--ob-sp-3); bottom: var(--ob-sp-2);
+          z-index: 5; font-size: var(--ob-fs--1);
+          /* the SOLID rung + the text-1 hint role (uiaudit GH-1014; the ground
+             law, tokens.css): text-2 on the 62 % thin glass sampled 2.74:1
+             over the felt — the scene set the ground */
+          color: var(--ob-text-1); background: var(--ob-glass-solid);
+          border-radius: var(--ob-r-s);
+          padding: var(--ob-sp-1) var(--ob-sp-2); }
+  /* ---- #ob-boot: boot loading overlay (issue #48; GH-668 S5 slice 2,
+     B-SH03 / owner Q1 default B) -----------------------------------------
+     The hall's FIRST FRAME: a quiet wordmark on the slate void, one
+     stage-driven progress rung with the current stage word beside it, the
+     tagline in the body role under it. Lives INLINE (markup + styles +
+     classic driver script, below) because it must paint before the module
+     graph loads (the ownership ledger corollary — no new import edges into
+     main.js's boot graph); every var() carries a literal fallback because
+     tokens.css / kit.css are [data-optional] links that can fail, and this
+     overlay is exactly the surface that renders when they do (#err doctrine
+     above). The kit class names below (.ob-progress / .ob-progress__fill /
+     .ob-btn) are BELTS: this sheet restates the kit part with literal
+     fallbacks and never states what the kit part does not (the design charter
+     progress + button recipes; GH-668 kit follow-up 3 documents the
+     first-paint restatement). NO entrance animation: every node paints AT
+     REST on its first frame — the pre-slice-2 rise+fade ladder started
+     every element at opacity 0 (`ob-boot-in … both`) and produced the black
+     first phone frame (critique S-03 / bootreal sheet). The only motion is
+     the rung's fill, the stage-word crossfade and the exit, all on
+     var(--ob-t-med, 200ms) — the ONE literal duration this sheet carries
+     (kit-laws MOTION_OK app.html row: the token fallback at first paint).
+     The stage matrix is "show one": the three .ob-boot__row[data-bs] nodes
+     stay (the driver's copy fill and the 3G arm read them), only the
+     CURRENT stage's row paints. z 60 clears the toolbar (40, the highest
+     chrome); on any GENUINE boot error the driver REMOVES the overlay so
+     #err (z 9) is never masked. The driver below keeps the shell-arrival
+     hold (shell.md §9 entry 22); GH-1061 preserves a delayed foreground
+     fade. This style block owns the field's appearance. */
+  #ob-boot { position: fixed; inset: 0; z-index: 60; overflow: hidden;
+             box-sizing: border-box; padding: max(24px, 5vw);
+             display: flex; flex-direction: column; justify-content: center;
+             align-items: flex-start; cursor: progress;
+             background: var(--ob-bg-0, oklch(13.5% 0.009 165));
+             color: var(--ob-text-0, #efe9d8);
+             font-family: var(--ob-font, system-ui, sans-serif);
+             font-size: var(--ob-fs-0, 14px);
+             line-height: var(--ob-lh-body, 1.5); }
+  #ob-boot[hidden] { display: none; } /* lesson: pin [hidden] against
+             the author display rule (app:// / web-alone serves) */
+  #ob-boot.ob-boot--out { opacity: 0; pointer-events: none;
+             transition: opacity var(--ob-t-med, 200ms) var(--ob-ease-in, cubic-bezier(0.55, 0, 0.55, 0.2)); }
+  /* wordmark: the banner role (fs-3 / semi / tight), sentence case — no
+     hero lockup metrics, no caps, no tracking; inside the viewport at 844
+     and 1440 in the swap-in fallback font too (e2e-userboot BOOT-FIRSTFRAME) */
+  #ob-boot .ob-boot__mark { margin: 0; max-width: 100%;
+             font-size: var(--ob-fs-3, 24px);
+             font-weight: var(--ob-fw-semi, 620);
+             line-height: var(--ob-lh-tight, 1.2);
+             letter-spacing: 0; color: var(--ob-text-0, #efe9d8); }
+  /* the stage register: ONE rung + the current stage word beside it */
+  #ob-boot .ob-boot__stages { display: flex; align-items: center;
+             gap: var(--ob-sp-3, 12px); box-sizing: border-box;
+             margin: var(--ob-sp-5, 20px) 0 0; width: min(380px, 100%);
+             min-height: 24px; }
+  /* .ob-progress belt (kit: 6 px border-box pill, --ob-bg-0 well, --ob-line-0
+     hairline, fill via transform: scaleX only, t-med) */
+  #ob-boot .ob-boot__rung { flex: 1 1 auto; box-sizing: border-box;
+             height: 6px; min-width: 120px; position: relative; overflow: hidden;
+             border-radius: var(--ob-r-full, 999px);
+             background: var(--ob-bg-0, oklch(13.5% 0.009 165));
+             border: 1px solid var(--ob-line-0, oklch(97% 0.01 91 / 0.08)); }
+  #ob-boot .ob-boot__rung .ob-progress__fill { display: block; height: 100%;
+             width: 100%; border-radius: var(--ob-r-full, 999px);
+             background: var(--ob-accent, oklch(74% 0.11 252));
+             transform-origin: left center; transform: scaleX(0.15);
+             transition: transform var(--ob-t-med, 200ms) var(--ob-ease, cubic-bezier(0.22, 1, 0.36, 1)); }
+  #ob-boot[data-stage="scene"] .ob-boot__rung .ob-progress__fill { transform: scaleX(0.55); }
+  #ob-boot[data-stage="ready"] .ob-boot__rung .ob-progress__fill { transform: scaleX(1); }
+  /* stage word: body 14 / semi / text-1, sentence case (boot.kernel /
+     boot.scene / boot.ready — no copy change); min-height holds the slot
+     while data-i18n text is still empty (the driver fills it once the
+     dictionary lands). Show-one matrix: selectors never overlap. */
+  #ob-boot .ob-boot__row { display: none; flex: 0 0 auto; margin: 0;
+             min-height: 21px; min-width: 1px; white-space: nowrap;
+             font-size: var(--ob-fs-0, 14px);
+             font-weight: var(--ob-fw-semi, 620);
+             line-height: var(--ob-lh-body, 1.5);
+             color: var(--ob-text-1, oklch(76% 0.018 91));
+             transition: opacity var(--ob-t-med, 200ms) var(--ob-ease, cubic-bezier(0.22, 1, 0.36, 1)); }
+  #ob-boot[data-stage="kernel"] .ob-boot__row[data-bs="kernel"],
+  #ob-boot[data-stage="scene"] .ob-boot__row[data-bs="scene"],
+  #ob-boot[data-stage="ready"] .ob-boot__row[data-bs="ready"] { display: block; }
+  /* the stage-word crossfade rides @starting-style on the LATER rows only:
+     the first frame (kernel) paints at rest, a stage advance fades the next
+     word in over t-med (unsupported engines cut — no motion, no error) */
+  @starting-style {
+    #ob-boot:not([data-stage="kernel"]) .ob-boot__row { opacity: 0; }
+  }
+  /* tagline: the body role under the rung (boot.tagline) */
+  #ob-boot .ob-boot__tag { margin: var(--ob-sp-2, 8px) 0 0; min-height: 21px;
+             font-size: var(--ob-fs-0, 14px);
+             font-weight: var(--ob-fw-reg, 430);
+             line-height: var(--ob-lh-body, 1.5);
+             color: var(--ob-text-1, oklch(76% 0.018 91)); }
+  /* GH-694 honest registers (hold law — see the driver note). SLOW: 30 s
+     on one stage shows a line under the tagline ("slow connection" copy +
+     bytes received) instead of failing open. FAILURE: a fatal condition
+     turns the field into a card (title, reason, Retry = reload); the
+     field drops UNDER #err (z 8 < 9) so the error log is never masked,
+     and the boot guard's body stamp hides the dead chrome skeleton. */
+  #ob-boot .ob-boot__slow, #ob-boot .ob-boot__fail { display: none; }
+  #ob-boot[data-slow] .ob-boot__slow { display: block; }
+  #ob-boot[data-boot-failed] .ob-boot__fail { display: block; }
+  #ob-boot[data-boot-failed] .ob-boot__slow { display: none; }
+  #ob-boot[data-boot-failed] { z-index: 8; cursor: default; }
+  #ob-boot .ob-boot__slow { margin: var(--ob-sp-2, 8px) 0 0; min-height: 21px;
+             width: min(380px, 100%); font-size: var(--ob-fs-0, 14px);
+             font-weight: var(--ob-fw-reg, 430); line-height: var(--ob-lh-body, 1.5);
+             color: var(--ob-text-1, oklch(76% 0.018 91)); }
+  #ob-boot .ob-boot__bytes { margin-left: var(--ob-sp-3, 12px);
+             color: var(--ob-text-0, #efe9d8); }
+  #ob-boot .ob-boot__fail { margin: var(--ob-sp-5, 20px) 0 0;
+             width: min(380px, 100%); padding: var(--ob-sp-4, 16px) 0 0;
+             border-top: 1px solid var(--ob-danger-line, oklch(66% 0.18 28 / 0.55)); }
+  /* title role (fs-1 / semi / text-0), reason in the body role */
+  #ob-boot .ob-boot__failtitle { margin: 0 0 var(--ob-sp-1, 4px);
+             font-size: var(--ob-fs-1, 16px); line-height: var(--ob-lh-tight, 1.2);
+             font-weight: var(--ob-fw-semi, 620); color: var(--ob-text-0, #efe9d8); }
+  #ob-boot .ob-boot__reason { margin: 0 0 var(--ob-sp-4, 16px);
+             font-size: var(--ob-fs-0, 14px); font-weight: var(--ob-fw-reg, 430);
+             line-height: var(--ob-lh-body, 1.5); color: var(--ob-text-1, oklch(76% 0.018 91)); }
+  /* Retry: the kit .ob-btn recipe as a belt (control rung 40, sp-4 pad,
+     r-full, fs-0 / semi, ivory on the void — this static recovery UI can
+     paint before kit.css ever lands) */
+  #ob-boot .ob-boot__retry { appearance: none; font: inherit; cursor: pointer;
+             display: inline-flex; align-items: center; justify-content: center;
+             min-height: var(--ob-h-control, 40px); padding: 0 var(--ob-sp-4, 16px);
+             border: 1px solid transparent; box-sizing: border-box;
+             font-size: var(--ob-fs-0, 14px); font-weight: var(--ob-fw-semi, 620);
+             line-height: var(--ob-lh-tight, 1.2);
+             color: var(--ob-bg-0, oklch(13.5% 0.009 165));
+             background: var(--ob-text-0, #efe9d8);
+             border-radius: var(--ob-r-full, 999px); }
+  /* the design charter's CJK register: never letter-space CJK (the boot
+     register carries no tracking anywhere; pinned so a later caps role
+     cannot re-introduce it on zh/ja/ko) */
+  html[lang^="zh"] #ob-boot, html[lang^="ja"] #ob-boot, html[lang^="ko"] #ob-boot {
+             letter-spacing: 0; }
+  /* GH-699 review r1 P2 (PR 706): the 44 pt floor for every interactive
+     control (phone-hud.md) in the card's OWN sheet — this static recovery
+     UI can paint before touch.js (and its sheet) ever load. */
+  @media (pointer: coarse) {
+    #ob-boot .ob-boot__retry { min-height: 44px; min-width: 44px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #ob-boot .ob-boot__rung .ob-progress__fill, #ob-boot .ob-boot__row,
+    #ob-boot.ob-boot--out { transition: none; }
+  }
+</style>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<div id="err" role="log" aria-label="application errors"></div>
+<div id="ob-boot" data-stage="kernel">
+  <p class="ob-boot__mark">Open<wbr>billiards</p>
+  <div class="ob-boot__stages">
+    <span class="ob-boot__rung ob-progress" aria-hidden="true"><i class="ob-progress__fill"></i></span>
+    <div class="ob-boot__row" data-bs="kernel"><span data-i18n="boot.kernel"></span></div>
+    <div class="ob-boot__row" data-bs="scene"><span data-i18n="boot.scene"></span></div>
+    <div class="ob-boot__row" data-bs="ready"><span data-i18n="boot.ready"></span></div>
+  </div>
+  <p class="ob-boot__tag" data-i18n="boot.tagline"></p>
+  <p class="ob-boot__slow" aria-live="polite"><span data-i18n="boot.slow"></span><span class="ob-boot__bytes ob-nums"><span data-i18n="boot.received"></span> <span class="ob-boot__mb"></span></span></p>
+  <div class="ob-boot__fail" role="alert">
+    <p class="ob-boot__failtitle" data-i18n="boot.failTitle"></p>
+    <p class="ob-boot__reason" data-i18n="boot.failModule"></p>
+    <button type="button" class="ob-boot__retry ob-btn" data-i18n="boot.retry"></button>
+  </div>
+</div>
+<script>
+/* #ob-boot driver (issue #48, hold law GH-694). Classic inline script: it
+   must run before the module graph exists and may add ZERO import edges
+   (the ownership ledger corollary) — progression is observed by polling
+   boot's public milestones on rAF, never by importing anything:
+     renderer <canvas> appended to <body>  → kernel up, scene building;
+     window.__test.ready === true          → loop live. ready flips
+       SYNCHRONOUSLY before the first frame() renders (main.js startLoop),
+       so dismissal waits two further rAF ticks — the poll callback is
+       registered before frame(), so two ticks guarantee the first
+       composer.render() has PRESENTED — then fades 0.6s and REMOVES the
+       node (fully gone well inside e2e-userboot's ready+1.5s pixel probe,
+       and it can never intercept input afterwards).
+   Scripted boots are suppressed at parse time (mirror of main.js's exact
+   resolution: ?obtool/?cinema with the ?obtool=0 opt-out, plus the
+   sessionStorage ob-scripted carry across share-replay navigations) so
+   committed capture fixtures stay bit-identical; this driver only READS
+   the pin — main.js owns the write.
+   HOLD LAW (GH-694): the overlay never fails OPEN onto the pre-shell
+   chrome. The old 30 s no-stage-advance failsafe fired on EVERY 3G-class
+   first visit (data-stage sits on 'kernel' for 30-130 s while main.js's
+   static graph + the wasm stream in) and exposed the raw HUD on a black
+   canvas. Now: the field stays until __test.ready; progress is the
+   PerformanceObserver 'resource' heartbeat (every module/asset that
+   lands) plus stage advances; 30 s on one stage shows an honest register
+   (stage row + "slow connection" copy + bytes received); a fatal
+   condition — #err content (main.js reportError: wasm / WebGL / module
+   failures), a non-[data-optional] error event, an unhandled rejection,
+   or 120 s without ANY progress — turns the field into a failure card
+   (reason + Retry = reload). The browser's ResizeObserver-loop
+   notification (or the "Script error." older WebKit censors it to) is
+   none of these, as an event or as an #err row (GH-1081, benign below).
+   Failure honesty: in failure mode the field
+   drops UNDER #err (z 8 < 9) so the error log is never masked, and the
+   boot guard's body stamp hides the never-booted chrome skeleton; a boot
+   that still reaches ready afterwards un-fails and dismisses normally.
+   Copy: i18n.js rides the module graph that has not arrived yet, so the
+   driver fetches the resolved locale's dictionary itself at parse time
+   (same resolution + URL as i18n.js, warming its cache) and fills the
+   empty data-i18n slots — never overwriting text applyDom already
+   filled; an English last-resort map (the #err aria-label precedent)
+   covers an offline dictionary, and — PER KEY, the moment a register
+   shows — a dictionary still pending or a stale one lacking the key
+   (review r1 P2 on PR 706: neither register may ever paint EMPTY copy;
+   the fallback swaps to the locale string when it lands). */
+(function () {
+  var el = document.getElementById('ob-boot');
+  if (!el) return;
+  var scripted = false;
+  try {
+    var q = new URLSearchParams(location.search);
+    var on = function (k) { return q.has(k) && q.get(k) !== '0'; };
+    scripted = on('obtool') || on('cinema');
+    if (!scripted && q.get('obtool') !== '0') {
+      scripted = sessionStorage.getItem('ob-scripted') === '1';
+    }
+  } catch (_) { /* malformed URL / storage unavailable — interactive */ }
+  if (scripted) { el.parentNode.removeChild(el); return; }
+  var SLOW_MS = 30000, STALL_MS = 120000;
+  // OB-BOOT-STALL-SEAM:BEGIN (GH-1115; lifted by web/tools/test-boot-stall-clock.mjs)
+  // Test seam for the stall arms: ?obstallms=<ms> shortens the stall bound,
+  // clamped to [3000, 120000]. Real-user boots only (this driver is gone on
+  // scripted boots). It has no other effect.
+  try {
+    var stallQ = q && q.get('obstallms');
+    if (stallQ && /^[0-9]+$/.test(stallQ)) {
+      STALL_MS = Math.min(120000, Math.max(3000, Number(stallQ)));
+    }
+  } catch (_) { /* no seam */ }
+  // OB-BOOT-STALL-SEAM:END
+  var LOCALES = ['en', 'zh-CN', 'es', 'ja', 'de', 'fr', 'ko']; // = i18n.js LOCALES
+  var KEYS = { module: 'boot.failModule', kernel: 'boot.failKernel',
+    webgl: 'boot.failWebgl', stall: 'boot.failStall' };
+  var FALLBACK = { 'boot.tagline': 'Setting the table', 'boot.kernel': 'Physics kernel',
+    'boot.scene': 'Table & lighting', 'boot.ready': 'First frame',
+    'boot.slow': 'Slow connection — still loading',
+    'boot.received': 'Received', 'boot.failTitle': 'Could not start',
+    'boot.failModule': 'A module failed to load.',
+    'boot.failKernel': 'The physics kernel failed to load.',
+    'boot.failWebgl': 'WebGL is unavailable in this browser.',
+    'boot.failStall': 'Loading stalled for two minutes.',
+    'boot.retry': 'Retry' };
+  var gone = false, failed = false;
+  // clocks run from NAVIGATION START (performance.now(); on a slow link the
+  // head stylesheets hold this script back several seconds — the user's
+  // wait began at navigation, so the registers key on that clock)
+  var now = function () {
+    try { return performance.now(); } catch (_) { return Date.now() - t0; }
+  };
+  var t0 = Date.now(), lastStage = 0, lastProgress = 0, bytes = 0;
+  var dict = null, dictState = 0; // 0 idle, 1 fetching, 2 landed, 3 failed
+  var urgent = false; // a register is showing: never paint EMPTY copy (fill)
+  function remove() {
+    if (gone) return;
+    gone = true;
+    if (el.parentNode) el.parentNode.removeChild(el);
+  }
+  function fade() {
+    if (gone || el.classList.contains('ob-boot--out')) return;
+    var instant = false;
+    try { instant = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (_) {}
+    if (instant) { remove(); return; }
+    el.classList.add('ob-boot--out');
+    // GH-668 S5 review r2 P2-1: the rung / stage-row children run their own
+    // t-med transitions ~2 frames ahead of this fade and their transitionend
+    // BUBBLES here — unfiltered, it removed the field at opacity ~0.3. Act
+    // only on the overlay's OWN opacity end; the 900 ms belt is the only
+    // other exit (the HOLD law's timing is untouched: WHEN fade() runs is
+    // unchanged, only WHICH transitionend may finish it).
+    el.addEventListener('transitionend', function (e) {
+      if (e.target === el && e.propertyName === 'opacity') remove();
+    });
+    var cleanupFramePending = false;
+    function cleanup() {
+      if (gone) return;
+      // GH-1061: a foreground transition can still be opaque when the
+      // wall-clock fallback expires. Give rendering and its own end event
+      // another turn; collect a transparent field if the event was lost.
+      if (document.hidden) { remove(); return; }
+      if (!cleanupFramePending) {
+        cleanupFramePending = true;
+        requestAnimationFrame(function () {
+          if (gone) { cleanupFramePending = false; return; }
+          requestAnimationFrame(function () {
+            cleanupFramePending = false;
+            if (gone) return;
+            try { if (parseFloat(getComputedStyle(el).opacity) <= 0) remove(); } catch (_) {}
+          });
+        });
+      }
+      // Keep hidden-tab cleanup live even when animation frames stop. At
+      // most one frame pair and one retry timer remain pending at a time.
+      setTimeout(cleanup, 200);
+    }
+    setTimeout(cleanup, 900);
+  }
+  // ---- copy (locale dictionary; wantDict() runs at parse time, below)
+  function resolveLocale() {
+    var saved;
+    try { saved = JSON.parse(localStorage.getItem('ob-settings-v1') || '{}').language; } catch (_) {}
+    if (LOCALES.indexOf(saved) >= 0) return saved;
+    var tags = navigator.languages || [navigator.language];
+    for (var i = 0; i < tags.length; i++) {
+      var tag = tags[i] || '';
+      if (LOCALES.indexOf(tag) >= 0) return tag;
+      var base = tag.toLowerCase().split('-')[0];
+      if (base === 'zh') return 'zh-CN';
+      for (var j = 0; j < LOCALES.length; j++) {
+        if (LOCALES[j].toLowerCase() === base) return LOCALES[j];
+      }
+    }
+    return 'en';
+  }
+  function fill() {
+    // GH-694 review r1 P2 (PR 706): PER-KEY copy. Locale string when the
+    // dictionary carries the key; else, once a register is SHOWING (slow /
+    // failure — `urgent`) or the dictionary failed, the English last-resort
+    // string IMMEDIATELY (pre-fix: a fetch still pending at the 30 s mark, or
+    // a stale dictionary lacking a key, left status / reason / Retry EMPTY
+    // indefinitely). A fallback-filled node is marked (data-ob-fb) and swaps
+    // to the locale string the moment it lands; text applyDom (or an earlier
+    // locale fill) owns is never overwritten. Nothing paints before a
+    // register shows: no English flash on a healthy non-English boot.
+    var useFb = urgent || dictState === 3;
+    var nodes = el.querySelectorAll('[data-i18n]');
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i], k = n.getAttribute('data-i18n');
+      var s = dict ? dict[k] : undefined, fb = false;
+      if (typeof s !== 'string' && useFb) { s = FALLBACK[k]; fb = true; }
+      if (typeof s !== 'string') continue;
+      if (n.textContent && (fb || !n.hasAttribute('data-ob-fb'))) continue;
+      n.textContent = s;
+      if (fb) n.setAttribute('data-ob-fb', ''); else n.removeAttribute('data-ob-fb');
+    }
+  }
+  function wantDict() {
+    if (dictState) return;
+    dictState = 1;
+    var done = function (d) { dict = d; dictState = d ? 2 : 3; fill(); };
+    try {
+      fetch('./app/locales/' + resolveLocale() + '.json', { priority: 'high' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(done, function () { done(null); });
+    } catch (_) { done(null); }
+  }
+  function renderBytes() {
+    var mb = el.querySelector('.ob-boot__mb');
+    if (mb) mb.textContent = (bytes / 1048576).toFixed(1) + ' MB';
+  }
+  // ---- progress heartbeat: every resource that lands (buffered: entries
+  // from before this script count too). No 'resource' timing → stage
+  // advances remain the only heartbeat (the stall clock still bounds it).
+  try {
+    new PerformanceObserver(function (list) {
+      var es = list.getEntries();
+      for (var i = 0; i < es.length; i++) {
+        bytes += es[i].transferSize || es[i].encodedBodySize || 0;
+        noteBad(es[i]);
+      }
+      if (es.length) { lastProgress = now(); renderBytes(); }
+    }).observe({ type: 'resource', buffered: true });
+  } catch (_) { /* no Resource Timing */ }
+  // ---- registers
+  function advance(stage) {
+    el.setAttribute('data-stage', stage);
+    lastStage = lastProgress = now();
+    el.removeAttribute('data-slow');
+  }
+  // WHAT failed: error texts are not reliable (the SDK's wasm 404 reads
+  // "HTTP status code is not ok"), so a resource that came back >= 400 names
+  // the kind — .wasm = kernel, anything else = module. Resource Timing can
+  // report the entry a task AFTER the error text lands, so a card opened as
+  // 'module' upgrades once (never downgrades).
+  var badKind = '';
+  function noteBad(e) {
+    if (!(e.responseStatus >= 400)) return;
+    badKind = /\.wasm(\?|$)/i.test(e.name) ? 'kernel' : (badKind || 'module');
+    if (failed && el.getAttribute('data-boot-failed') === 'module') setKind(badKind);
+  }
+  function classify(text) {
+    if (/webgl/i.test(text)) return 'webgl';
+    try { performance.getEntriesByType('resource').forEach(noteBad); } catch (_) {}
+    if (badKind) return badKind;
+    if (/webassembly|wasm|kernel/i.test(text)) return 'kernel';
+    return 'module';
+  }
+  function setKind(kind) {
+    var reason = el.querySelector('.ob-boot__reason');
+    if (reason) { reason.setAttribute('data-i18n', KEYS[kind]); reason.textContent = ''; }
+    el.setAttribute('data-boot-failed', kind);
+    fill();
+  }
+  function fail(kind) {
+    if (gone || failed) return;
+    failed = true;
+    urgent = true;
+    setKind(kind);
+    // the never-booted skeleton (#hud/#ob-toolbar/#help, renderer canvas)
+    // is dead ink: the boot guard's stamp hides everything but #err + this
+    document.body.setAttribute('data-ob-boot-failed', '');
+    wantDict(); fill(); renderBytes();
+  }
+  function unfail() {
+    failed = false;
+    el.removeAttribute('data-boot-failed');
+    document.body.removeAttribute('data-ob-boot-failed');
+  }
+  // GH-1081: when ResizeObserver callbacks leave notifications undelivered
+  // in a frame, the browser reports "ResizeObserver loop completed with
+  // undelivered notifications." (older Chromium: "ResizeObserver loop limit
+  // exceeded") as a window error event with no error object. It is a
+  // notification, not a failure (the skipped notifications arrive next
+  // frame), and under load it lands mid-boot: a Mac cold launch stopped on
+  // "A module failed to load". WebKit before 262989@main (iOS 16 and stock
+  // macOS 13, which both shells still support) censors it, once parsing
+  // has finished, to a detail-less cross-origin "Script error."
+  // (webkit.org/b/255439). A censored error is no evidence of an app
+  // failure in any engine: the app's modules are never censored and its
+  // classic scripts are inline. Neither shape counts here, as an event or
+  // as an #err row; main.js still logs both (__test.errors feeds the
+  // observer-cycle arms). Same filter as the boot guard below.
+  var RO_LOOP = /^ResizeObserver loop (completed with undelivered notifications|limit exceeded)/;
+  var CENSORED = 'Script error.';
+  function benign(e) {
+    if (!e || e.error) return false;
+    var m = e.message || '';
+    return RO_LOOP.test(m) || (m === CENSORED && !e.filename && !e.lineno);
+  }
+  var err = document.getElementById('err');
+  // the #err text that counts: everything but main.js's dismiss pill and
+  // its rows that carry only a benign notification
+  function errText() {
+    var t = '';
+    for (var n = err.firstChild; n; n = n.nextSibling) {
+      if (n.id === 'err-x') continue;
+      if (n.classList && n.classList.contains('err-row')) {
+        var m = n.querySelector('.err-msg'), s = m ? m.textContent : '';
+        if (RO_LOOP.test(s) || s === CENSORED) continue;
+      }
+      t += n.textContent;
+    }
+    return t;
+  }
+  if (err && typeof MutationObserver === 'function') {
+    // only NEW counted text fails: a mutation confined to benign rows or
+    // the pill must not re-raise a card that ready already un-failed
+    var counted = '';
+    new MutationObserver(function () {
+      var t = errText();
+      if (t === counted) return;
+      counted = t;
+      if (t) fail(classify(t));
+    }).observe(err, { childList: true, subtree: true, characterData: true });
+  }
+  window.addEventListener('error', function (e) {
+    // same soft-dependency filter as the boot guard: [data-optional]
+    // load failures (kit css) degrade by design
+    var tgt = e && e.target;
+    if (tgt && tgt.getAttribute && tgt.hasAttribute
+        && tgt.hasAttribute('data-optional')) return;
+    if (benign(e)) return;
+    fail(classify((e && e.message) || ''));
+  }, true);
+  window.addEventListener('unhandledrejection', function (e) {
+    fail(classify(String(e && e.reason)));
+  });
+  var retry = el.querySelector('.ob-boot__retry');
+  if (retry) retry.addEventListener('click', function () { location.reload(); });
+  // fetch the dictionary NOW, not at the 30 s mark: on Slow 3G the module
+  // graph saturates the per-host connections within seconds and a fetch
+  // queued at 30 s lands 10+ s late (measured: empty register at 33 s);
+  // at parse time the graph is still being discovered, so the 70 KB JSON
+  // lands early and the stage rows label themselves ~1 s in instead of
+  // after the whole graph. i18n.js fetches the same URL later (cache hit).
+  wantDict();
+  // OB-BOOT-CLOCK:BEGIN (GH-1115; lifted by web/tools/test-boot-stall-clock.mjs)
+  // 1 s clock (survives hidden tabs where rAF pauses): the 30 s slow
+  // register keys on the STAGE clock, the 120 s stall on the PROGRESS clock.
+  // GH-1115: both clocks count IDLE time only. A tick that arrives late
+  // (gap > LATE_MS) means the main thread was busy in a long task: the boot
+  // is slow, not dead. The late span is credited to both clocks before
+  // they are checked, so the order in which the late tick, the
+  // PerformanceObserver delivery and the rAF stage advance run after a
+  // long task no longer decides the card. A dead boot (a module that never
+  // answers) leaves the thread idle; its ticks arrive on time and still
+  // reach the bounds. No credit across a visibility change or while
+  // hidden: throttled timers in a hidden tab are not busy time, so a dead
+  // boot in a hidden tab still raises the card as before.
+  var TICK_MS = 1000, LATE_MS = 1500;
+  var lastTick = now(), visEpoch = 0, tickEpoch = 0;
+  document.addEventListener('visibilitychange', function () { visEpoch += 1; });
+  // progress beat: main.js dispatches 'ob:boot-beat' between the parts of
+  // the scene build (a stale main.js sends none; a stale driver ignores it)
+  window.addEventListener('ob:boot-beat', function () { lastProgress = now(); });
+  var clock = setInterval(function () {
+    if (gone) { clearInterval(clock); return; }
+    var t = now(), gap = t - lastTick;
+    if (gap > LATE_MS && visEpoch === tickEpoch
+      && document.visibilityState === 'visible') {
+      lastProgress = Math.min(t, lastProgress + gap - TICK_MS);
+      lastStage = Math.min(t, lastStage + gap - TICK_MS);
+    }
+    lastTick = t;
+    tickEpoch = visEpoch;
+    if (failed) return;
+    if (!el.hasAttribute('data-slow') && t - lastStage >= SLOW_MS) {
+      el.setAttribute('data-slow', '');
+      urgent = true;
+      wantDict(); fill(); renderBytes();
+    }
+    if (t - lastProgress >= STALL_MS) fail('stall');
+  }, TICK_MS);
+  // OB-BOOT-CLOCK:END
+  var readyTicks = -1, legacyAt = 0;
+  function poll() {
+    if (gone) return;
+    if (window.__test && window.__test.ready === true) {
+      readyTicks += 1;
+      if (readyTicks === 0) advance('ready');
+      if (readyTicks >= 2) {
+        /* GH-525 S1 shell-arrival hold (the shell contract, internal):
+           a real-user boot that will ARRIVE in the shell must not start
+           the fade before the shell module can cover the gameplay chrome
+           (storm-loaded boots land the module up to ~0.9s after ready —
+           the translucent fade exposed the HUD/aim/cue). main.js marks
+           'pending' before ready flips (never on
+           scripted boots — this driver is already parse-stripped there);
+           shell.js resolves 'done' from every boot-split branch and
+           main.js resolves it on module failure (import rejected / a
+           stale module lacking the export).
+           GH-715 (S4 journey QA round 3): the hold has NO time bound of
+           its own. The old 1.6 s wall-clock cap expired on warm-cache and
+           delayed-shell boots (kernel/scene from the disk cache, shell.js
+           and its leaf graph still on the wire at 2 s RTT per hop) and
+           the field faded onto the raw pre-shell HUD + toolbar for 1-10 s
+           before the hall opened. A delayed or absent shell is a BOOT
+           STATE: the field keeps holding while the arrival is pending;
+           the only caps are this driver's own HOLD-law registers — the
+           slow register at SLOW_MS on the 'ready' stage (lastStage is
+           stamped by advance('ready') above) and the stall failure card
+           at STALL_MS without any resource progress (a module that never
+           answers) — plus main.js's import-failure resolution (a 404
+           releases at once). The un-fail sits BEHIND the hold on purpose:
+           a stall card raised while the shell is still pending (ready
+           flipped, nothing arriving) must persist with its Retry — the
+           old order un-failed it on the very next frame because ready was
+           already true, a 1 s card/hold flicker.
+           GH-715 review r4 P1 — CAPABILITY HANDSHAKE: the unbounded wait
+           applies ONLY to a shell that CLAIMED the protocol (shell.js sets
+           window.__obShellProtocol = 1 synchronously at module evaluation,
+           before it can resolve anything). A fresh app.html paired with a
+           LEGACY cached shell.js (exports createShell, predates the
+           marker — the ownership ledger mixed-cache law) would otherwise strand
+           'pending' forever and the user sits on the field until the
+           stall card; Retry repeats the pairing. main.js marks 'legacy'
+           the moment such an import resolves unclaimed; a stale main.js
+           that cannot mark it is covered by the shell's own footprint
+           (window.__shell / body.ob-shell-open with NO claim — the current
+           shell claims before either exists). A legacy shell releases on
+           the pre-GH-715 bounded law: its open signal, capped at 1.6 s.
+           An UNCLAIMED 'pending' with no footprint is a shell still on
+           the wire (its claim lands only when its graph evaluates) and
+           keeps the unbounded hold. */
+        var arrival = window.__obShellArrival;
+        if (arrival === 'pending' || arrival === 'legacy') {
+          var claimed = Number(window.__obShellProtocol) >= 1;
+          var open = !!(document.body && document.body.classList.contains('ob-shell-open'));
+          var legacy = arrival === 'legacy' || (!claimed && (open || !!window.__shell));
+          if (!legacy) { requestAnimationFrame(poll); return; }
+          if (!legacyAt) legacyAt = now();
+          if (!open && now() - legacyAt < 1600) { requestAnimationFrame(poll); return; }
+        }
+        if (failed) unfail();
+        fade();
+        return;
+      }
+      if (failed) unfail();
+    } else if (el.getAttribute('data-stage') === 'kernel'
+      && document.querySelector('body > canvas')) {
+      advance('scene');
+    }
+    requestAnimationFrame(poll);
+  }
+  requestAnimationFrame(poll);
+})();
+</script>
+<div id="ob-toolbar"></div>
+<div id="banner" class="ob-banner"></div>
+<div id="hud" class="ob-panel">
+  <h1 data-i18n="game.nine_ball"></h1>
+  <div class="row"><label for="power" data-i18n="hud.power"></label>
+    <input id="power" type="range" min="0.5" max="12" step="0.1" value="2.0">
+    <span class="val" id="power-val"></span></div>
+  <div class="row"><label for="elev" data-i18n="hud.elevation"></label>
+    <input id="elev" type="range" min="0" max="80" step="1" value="0">
+    <span class="val" id="elev-val"></span></div>
+  <canvas id="tip" width="184" height="184" tabindex="0" role="slider"
+    data-i18n-title="hud.tipTitle"></canvas>
+  <div class="row" id="cue-row" hidden>
+    <label for="cue-select" data-i18n="hud.cue"></label>
+    <select id="cue-select"></select></div>
+  <div class="row">
+    <button id="shoot" class="ob-btn ob-btn--primary" data-i18n="hud.shoot"></button>
+    <button id="replay" class="ob-btn" data-i18n="hud.replay" disabled></button>
+    <button id="rerack" class="ob-btn" data-i18n="hud.rerack"></button>
+  </div>
+  <div class="row"><label for="slowmo" data-i18n="hud.slowmo"></label>
+    <input id="slowmo" type="checkbox" style="accent-color:var(--ob-accent)"> <span class="val ob-nums">0.25×</span></div>
+  <div id="state"></div>
+  <div id="rack"></div>
+</div>
+<div id="help" data-i18n="hud.help"></div>
+<script>
+/* Boot guard (user-boot black-page fix, 2026-07). A module-graph load
+   failure dies BEFORE main.js's error handlers exist — the classic cause is
+   heuristic HTTP caching (python -m http.server sends no Cache-Control)
+   pairing a revalidated main.js with a STALE cached dependency: the import
+   throws a SyntaxError and the page stays black. Self-heal once: re-fetch
+   every seen .js AND .css with cache:'reload' (the module loader, <link>,
+   and fetch share the HTTP cache), then reload; a repeat failure is
+   surfaced in #err instead of a black screen. main.js clears the one-shot
+   marker on a healthy boot. CSS joined the heal 2026-07-13 (owner bug: a
+   heuristically-cached pre-redesign settings-modal.css against fresh card
+   DOM clipped text mid-word + overlapped badges — a heal that refreshes
+   only .js CONSTRUCTS that mixed state; the primary defense is the ?v=
+   param every stylesheet URL now carries, incl. JS-injected ones). */
+(function () {
+  var acted = false;
+  window.addEventListener('error', function (e) {
+    if (window.__test || acted) return; // app is up / heal already running
+    // soft dependencies opt out: [data-optional] assets (kit css)
+    // degrade by design — a 404 there must not trigger heal-reload cycles
+    var tgt = e && e.target;
+    if (tgt && tgt.getAttribute && tgt.hasAttribute
+        && tgt.hasAttribute('data-optional')) return;
+    // nor is a benign notification a load failure (GH-1081; same filter as
+    // the #ob-boot driver above: the ResizeObserver-loop text, or the
+    // detail-less "Script error." older WebKit censors it to): a heal here
+    // restarts the boot, and a second one in the session ends it on BOOT
+    // FAILED
+    if (e && !e.error
+        && (/^ResizeObserver loop (completed with undelivered notifications|limit exceeded)/.test(e.message || '')
+          || (e.message === 'Script error.' && !e.filename && !e.lineno))) return;
+    acted = true;
+    var msg = (e && e.message)
+      || ('failed to load ' + ((e && e.target && e.target.src) || 'resource'));
+    var err = document.getElementById('err');
+    var tried = false;
+    try { tried = sessionStorage.getItem('ob-bootfix-attempted') === '1'; } catch (_) {}
+    if (tried) {
+      // terminal register: the one-shot heal is spent and the graph is
+      // still dead. Suppress the never-booted chrome skeleton so only the
+      // #err card shows (body[data-ob-boot-failed] rule, style block above).
+      document.body.setAttribute('data-ob-boot-failed', '');
+      if (err) err.textContent = '[app] BOOT FAILED: ' + msg
+        + '\ncache self-heal already attempted; hard-reload (Cmd/Ctrl-Shift-R) or clear site data.';
+      return;
+    }
+    try { sessionStorage.setItem('ob-bootfix-attempted', '1'); } catch (_) {}
+    if (err) err.textContent = '[app] boot failed: ' + msg
+      + '\nrefreshing cached modules and reloading…';
+    var urls = performance.getEntriesByType('resource')
+      .map(function (r) { return r.name; })
+      .filter(function (u) { return /\.(js|css)($|\?)/.test(u); });
+    urls.push(location.href);
+    Promise.allSettled(urls.map(function (u) { return fetch(u, { cache: 'reload' }); }))
+      .then(function () { location.reload(); });
+  }, true); // capture: window-level runtime errors AND element load errors
+})();
+</script>
+<script>
+/* Service-worker registration (branch pwa-standalone). Classic inline
+   script on the boot-guard pattern: zero import edges (the ownership ledger rule 5
+   corollary), feature-detected, failures SILENT — no SW support (WKWebView,
+   http:// LAN serves outside the localhost secure context) degrades to the
+   plain network app, never a console error or a boot difference. './sw.js'
+   resolves against THIS document, so the scope is the web/ dir in every
+   serving layout. Registration waits for window load: the SW precache
+   (sw.js) must never compete with the boot module graph for the network.
+   sw.js versions its cache and the browser's own update cycle installs the
+   next snapshot in the background, where it WAITS (stale-but-CONSISTENT
+   beats fresh-but-mixed: the cache-poison doctrine). GH-1047: once
+   registered, app/swupdate.js (a guarded import — no file or offline = no
+   notice) offers the waiting generation's Reload; every controlled page
+   reloads at its controllerchange (the listener below, outside that
+   import), so none runs two generations.
+   AUTOMATION SUPPRESSION (?sw= overrides): the e2e battery drives ONE
+   browser profile through many boots and simulates stale-graph degradation
+   by intercepting module fetches at the NETWORK layer (e2e-ui H11,
+   e2e-settings stale-navmodal, e2e-userboot poisoned settings.js — 15
+   Fetch-intercept arms across 8 suites); a controlling SW answers those
+   URLs cache-first, the request never reaches the network stack, and the
+   arm's stub can never land (observed red on e2e-ui H11). Suites test the
+   APP's degradation laws, not SW freshness, so navigator.webdriver boots
+   default to NO registration; ?sw=1 forces it (PWA/offline validation
+   drives exactly this), ?sw=0 forces it off for a real-browser debug.
+   The OFF path also EXITS existing control (review r3 P2): skipping
+   registration alone leaves an already-controlling worker serving its
+   snapshot — the documented opt-out could never actually disable caching,
+   and local dev stayed pinned to pre-edit files after one normal load.
+   While this page is CONTROLLED, unregister the page's registration and
+   reload once; the reloaded page has no controller (the registration is
+   gone), so the controller guard makes a loop impossible. Caches are left
+   in place deliberately — opt-out exits CONTROL; a later opted-in load
+   re-registers and installs/reuses a generation as usual. */
+(function () {
+  if (!('serviceWorker' in navigator)) return;
+  var on = true;
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('sw') === '0') on = false;
+    else if (q.get('sw') !== '1' && navigator.webdriver) on = false;
+  } catch (e) { /* malformed URL — keep the default */ }
+  if (!on) {
+    try {
+      if (!navigator.serviceWorker.controller) return; // already free
+      navigator.serviceWorker.getRegistration().then(function (reg) {
+        return reg ? reg.unregister() : false;
+      }).then(function (did) {
+        // reload ONCE, only while still controlled — post-unregister
+        // loads have no controller, so this branch cannot re-fire
+        if (did && navigator.serviceWorker.controller) location.reload();
+      }).catch(function () { /* silent — degradation law */ });
+    } catch (e) { /* silent — degradation law */ }
+    return;
+  }
+  // GH-1047: a newer generation took control (the update notice's
+  // Reload, in this tab or another): reload at once, inert meanwhile, so no
+  // page keeps running the old generation's modules over the new snapshot.
+  // Registered here, before any module runs; a page that was never
+  // controlled sees no change (the worker never claims clients).
+  var wasControlled = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', function () {
+    if (!wasControlled || window.__obSwReloading) return;
+    window.__obSwReloading = true;
+    try { document.body.inert = true; } catch (e) { /* engine without inert */ }
+    location.reload();
+  });
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js').then(function (reg) {
+      return import('./app/swupdate.js').then(function (m) {
+        if (typeof m.watchUpdates === 'function') m.watchUpdates(reg);
+      });
+    }).catch(function () {});
+    // GH-714 review r4 P2: every loaded page re-arms the background fill
+    // (the worker kicks inside the message's waitUntil, or no-ops while a
+    // kick is in flight): a worker the browser stopped before its fill
+    // turns finished resumes from here even without a fetch event.
+    // `ready` resolves for an uncontrolled first visit too (no claim).
+    navigator.serviceWorker.ready.then(function (r) { if (r.active) r.active.postMessage({ ob: 'fill', why: 'client' }); }).catch(function () {});
+  });
+})();
+</script>
+<script type="module" src="./app/main.js"></script>
+</body>
+</html>

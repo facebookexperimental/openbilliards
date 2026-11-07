@@ -1,0 +1,182 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shell template — openbilliards</title>
+  <meta name="description" content="Internal shell template and living styleguide for the openbilliards brand site.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b100c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23efe9d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/site.js" defer></script>
+  <script src="assets/motion.js" defer></script>
+</head>
+<body>
+  <a class="bb-skip" href="#main">Skip to content</a>
+
+  <header>
+    <nav class="bb-nav" aria-label="Primary">
+      <a class="bb-wordmark" href="index.html">Openbilliards</a>
+      <button class="bb-nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <ul class="bb-nav-links" id="nav-links">
+        <li><a href="guide/en/index.html">Guide</a></li>
+        <li><a href="docs/index.html">API docs</a></li>
+        <li><a href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a></li>
+        <li><a class="bb-pill bb-pill--fill" href="web/app.html">Play now</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="bb-hero-100vh bb-section" aria-labelledby="hero-h">
+      <p class="bb-edge-tab bb-label">Openbilliards — kernel 0.1</p>
+
+      <p class="bb-label bb-marker bb-reveal">Open-source billiards simulation</p>
+      <h1 id="hero-h" class="bb-display bb-reveal bb-d1" style="margin: 24px 0 32px; max-width: 10em;">
+        Solved,<br>not stepped.
+      </h1>
+      <p class="bb-body bb-reveal bb-d2" style="max-width: 34em;">
+        An event-driven physics kernel that resolves every collision
+        analytically — sample copy; real claims carry a chip, like this:
+        the full break settles in about 4&nbsp;ms
+        <span class="bb-cite">the internal verification archive</span>.
+      </p>
+
+      <p class="bb-reveal bb-d3" style="display:flex; gap:12px; flex-wrap:wrap; margin-top:48px;">
+        <a class="bb-pill" href="docs/index.html">Read the docs</a>
+        <a class="bb-pill" href="guide/en/index.html">Learn the game</a>
+      </p>
+
+      <p class="bb-label" style="margin-top:10vh;">
+        <a class="bb-link bb-link--down" href="#components" style="text-decoration:none; color:inherit;">Scroll</a>
+      </p>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="components" aria-labelledby="comp-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">01 — System</p>
+        <div>
+          <h2 id="comp-h" class="bb-heading bb-reveal" style="max-width: 14em;">
+            Every component,<br>one slate room.
+          </h2>
+          <p class="bb-body bb-reveal bb-d1" style="max-width: 32em; margin-top: 32px;">
+            Two surfaces, one accent, dashed hairlines. Depth is a single
+            luminance step — shadows are banned. This band demonstrates the
+            split layout, the diamond list, and the reveal stagger.
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d2" style="margin-top: 32px; max-width: 44em;">
+            <li>Display and headings are uppercase graphic objects — weight 560, line-height &le; 1.</li>
+            <li>The 12&nbsp;px caps label layer carries all wayfinding: nav, markers, captions, edge tabs.</li>
+            <li>Chalk blue is rationed to citations, credits, active markers and link hovers.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bb-grid" style="margin-top: 72px;">
+        <article class="bb-card bb-reveal">
+          <p class="bb-label">Kernel</p>
+          <h3 class="bb-heading-s">Event-driven</h3>
+          <p class="bb-body-s bb-muted" style="margin-top:12px;">Collisions are roots of
+            polynomials, not accumulated timesteps. Sample copy.</p>
+          <p style="margin-top:16px;"><a class="bb-link bb-body-s" href="docs/index.html">Concepts</a></p>
+        </article>
+        <article class="bb-card bb-reveal bb-d1">
+          <p class="bb-label">Physics</p>
+          <h3 class="bb-heading-s">Paper-grounded</h3>
+          <p class="bb-body-s bb-muted" style="margin-top:12px;">Every model cites its source
+            <span class="bb-cite">the design charter &#183; voice</span>.</p>
+          <p style="margin-top:16px;"><a class="bb-link bb-body-s" href="docs/index.html">References</a></p>
+        </article>
+        <article class="bb-card bb-reveal bb-d2">
+          <p class="bb-label">SDK</p>
+          <h3 class="bb-heading-s">Scriptable</h3>
+          <p class="bb-body-s bb-muted" style="margin-top:12px;">TypeScript, Python and a CLI
+            over the same deterministic core. Sample copy.</p>
+          <p style="margin-top:16px;"><a class="bb-link bb-link--ext bb-body-s" href="https://github.com/facebookexperimental/openbilliards">Repository</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="bb-section" aria-labelledby="code-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">02 — Code voice</p>
+        <div style="max-width: 68ch;">
+          <h2 id="code-h" class="bb-heading-s bb-reveal">Duotone wells</h2>
+          <pre class="bb-code bb-reveal bb-d1" style="margin-top: 24px;"><code><i class="tk-c">// rack, break, and read the table — sample</i>
+<b class="tk-n">import</b> { Table } <b class="tk-n">from</b> <b class="tk-n">"@openbilliards/sdk"</b>;
+
+<b class="tk-n">const</b> table = Table.<b class="tk-n">rack</b>(<b class="tk-n">"9-ball"</b>, { seed: 42 });
+<b class="tk-n">const</b> events = table.<b class="tk-n">strike</b>({ v: 6.2, cut: 0.31 });
+console.<b class="tk-n">log</b>(events.<b class="tk-n">at</b>(-1).state);</code></pre>
+          <p class="bb-body-s bb-muted bb-reveal bb-d2" style="margin-top: 16px;">
+            Inline names like <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">Table.rack</code>
+            take chalk; captions sit in the muted body voice.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section" aria-labelledby="prose-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">03 — Docs register</p>
+        <div class="bb-prose bb-reveal bb-d1">
+          <h2 id="prose-h" class="bb-heading-s">Reading measure</h2>
+          <p>Documentation bodies drop to a calmer 16.5&nbsp;px on a 68ch measure.
+            Body copy is mixed case, left-aligned, never justified. Inline code
+            such as <code>ShotParams.spin</code> is set in mono chalk.</p>
+          <p class="bb-note">Note — the brass wash is reserved for docs warnings
+            and equipment caveats. It never appears on marketing sections.</p>
+          <nav class="bb-lang-switch bb-label" aria-label="Guide language">
+            <a data-lang="en" href="guide/en/index.html">English</a>
+            <a data-lang="zh-CN" href="guide/zh-CN/index.html" lang="zh-CN">中文</a>
+            <a data-lang="ja" href="guide/ja/index.html" lang="ja">日本語</a>
+            <a data-lang="ko" href="guide/ko/index.html" lang="ko">한국어</a>
+            <a data-lang="de" href="guide/de/index.html" lang="de">Deutsch</a>
+            <a data-lang="es" href="guide/es/index.html" lang="es">Español</a>
+            <a data-lang="fr" href="guide/fr/index.html" lang="fr">Français</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bb-footer">
+    <p class="bb-display bb-footer-statement bb-reveal">The break,<br>in 4 milliseconds.</p>
+
+    <div class="bb-footer-grid">
+      <nav aria-label="Site">
+        <p class="bb-label">Site</p>
+        <ul>
+          <li><a class="bb-link" href="index.html">Home</a></li>
+          <li><a class="bb-link" href="guide/en/index.html">Gameplay guide</a></li>
+          <li><a class="bb-link" href="docs/index.html">API docs</a></li>
+          <li><a class="bb-link" href="web/app.html">Play</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Project">
+        <p class="bb-label">Project</p>
+        <ul>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards">GitHub</a></li>
+          <li><a class="bb-link" href="https://github.com/facebookexperimental/openbilliards/blob/main/README.md">Readme</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="bb-label">Colophon</p>
+        <p class="bb-body-s bb-muted" style="max-width: 34ch;">Set in Space&nbsp;Grotesk and JetBrains&nbsp;Mono, vendored.
+          No trackers, no CDNs, no requests beyond this origin.</p>
+      </div>
+    </div>
+
+    <p class="bb-footer-credits">
+      <span>&copy; 2026 Meta Platforms, Inc. &#183; MIT &#183; <a href="web/vendor/NOTICE-pooltool.txt" style="white-space: nowrap;">includes Apache-2.0 code</a> &#183; <a href="https://opensource.fb.com/legal/terms" style="white-space: nowrap;">Terms of Use</a> &#183; <a href="https://opensource.fb.com/legal/privacy" style="white-space: nowrap;">Privacy Policy</a></span>
+      <span>Rendered by its own engine</span>
+    </p>
+  </footer>
+</body>
+</html>

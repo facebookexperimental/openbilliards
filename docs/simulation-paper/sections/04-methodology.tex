@@ -1,0 +1,615 @@
+% ===========================================================================
+% Section 4 — V&V methodology
+% Sources of record: the study's registered designs, its waiver ledger,
+% and its baseline manifest (kernel identity, ORACLE-X protocol). No
+% number in this section is quoted from memory; every quantitative claim
+% traces to one of these.
+% ===========================================================================
+\section{Verification and validation methodology}
+\label{sec:methodology}
+
+The experiment battery reported in Section~\ref{sec:results} was designed,
+registered, and executed under a single doctrine: comparisons are stated in
+ASME V\&V~20 vocabulary \citep{asme2009vv20}, every acceptance criterion was
+frozen before any sweep ran, and every miss is recorded in a machine-readable
+ledger rather than absorbed by parameter adjustment. This section defines the
+vocabulary, the four evidence tiers the anchors draw on, the registration
+discipline, the waiver-ledger doctrine, and the cross-simulator oracle
+protocol.
+
+\subsection{Vocabulary: ASME V\&V 20}
+
+Every validation anchor declares a validation variable, one or more
+validation points, and a comparison error $E = S - D$, where $S$ is the
+simulation value and $D$ the source datum \citep{asme2009vv20}. V\&V~20
+composes the validation uncertainty from numerical, input, and
+experimental-data components,
+$u_{\mathrm{val}}^2 = u_{\mathrm{num}}^2 + u_{\mathrm{input}}^2 + u_D^2$;
+Table~\ref{tab:uval} states, per source family, how each component is
+estimated in this battery, and the paragraphs below give the estimation
+procedures honestly, including where a component is zero by construction
+and where it cannot be estimated at all.
+
+\emph{Numerical uncertainty.} $u_{\mathrm{num}} \approx 0$ at the scale of
+every registered band, and we say why rather than assert it: between
+events ball motion is closed form and event times are polynomial roots
+polished to machine precision, the kernel's solution-verification floors
+measure $10^{-16}$--$10^{-13}$ in the native observables of each channel
+(Sections~\ref{sec:results-b}, \ref{sec:results-f}), and the canonical
+binary is bit-exact across runs and across every platform--runtime
+configuration the determinism matrix actually tests --- V8-based
+runtimes (Node, Chrome) on macOS arm64 and Linux x86\_64, native builds
+on both operating systems, and the Python-SDK legs the battery itself
+ran on (Section~\ref{sec:reproducibility}) --- so run-to-run and
+cross-platform variance contribute exactly zero \emph{on the tested
+configurations}. The claim is scoped to those legs: the matrix's
+untested cells (non-V8 engines, wasmtime, Windows) are enumerated in
+Section~\ref{sec:limitations} and are not covered by it; every battery
+output was produced and replay-verified on tested legs. The one
+time-stepped component, the compliant break resolver, is step-converged
+on its battery observables at both energy scales: the E1 kiss-energy
+retention curve (spread $\leq 6.3\times10^{-4}$ under step
+halving/doubling) and the E3 break-scale squat and effective-mass
+observables (spreads $\leq 2.8\times10^{-4}$ on the squat fraction and
+$\leq 7.7\times10^{-4}$ on $M_{\mathrm{eff}}/m$ under the same bracket,
+with every evidence-band verdict invariant; both post-hoc sweeps
+recorded in the artifact bundle; Section~\ref{sec:results-e}). The
+$u_{\mathrm{num}} \approx 0$ statement carries one further scoped
+exception: the Mathavan-port cushion family integrates its contact in
+$\Delta P$ impulse steps ($N = 10^3$, first-order bias control) rather
+than in closed form. Its discretization error is measured directly
+rather than proxied: halving and doubling the impulse step around the
+shipped defaults moves no scored overlay point by more than
+0.0022\,m/s on speed observables or $0.044^\circ$ on angle observables
+(recorded maxima 0.0021\,m/s and $0.0431^\circ$ on the overlay's 4-dp
+values; the quoted bounds sit one rounding quantum above),
+with every per-figure within-tolerance count invariant across the three
+step arms (post-hoc convergence sweep recorded in the artifact bundle;
+the kernel's own anchor suite independently records $\Delta P$
+convergence stable to $2\times10^{-6}$ on its scenario family). The
+0.005\,m/s and $0.07^\circ$ residuals of the figure-versus-equations
+source-discrepancy row are a different quantity --- the protocol
+comparison of the kernel
+against the source's \emph{printed equations}, whose pin tolerance is
+itself 0.005\,m/s --- and are not a discretization measurement.
+
+\emph{Input uncertainty.} The frozen catalog is a declared point choice,
+not a measured distribution, so no prior input uncertainty was propagated
+at registration. After registration, one-at-a-time brackets --- $e_b \in
+[0.92, 0.98]$ around the declared 0.95, and the $\mu(v)$ source-revision
+spread the ledger itself records ---
+measure the input-uncertainty response of every headline domain boundary
+post hoc; the measured responses are woven into Section~\ref{sec:results}
+and Table~\ref{tab:domains}, and the analyses are declared as
+post-registration characterization recorded in the artifact bundle (a
+pinned sensitivity report), never re-tunes. One scoping
+statement applies to the whole sensitivity pack: unlike the battery
+itself, whose 16{,}933 recorded simulations replay end-to-end through
+the shipped wasm binary (Section~\ref{sec:reproducibility}), the
+sensitivity scripts ran on the native Python surface only, under the
+same source-identity argument the pre-replay battery used (the Python
+environment's kernel source-identical to the canonical binary); they are
+not part of
+the wasm replay corpus, and extending the tap/replay harness to the
+sensitivity pack is left as an artifact-maintenance item. Relatedly, the
+battery runs one simulation per grid cell by design: the kernel is
+deterministic and byte-stable across repeated runs
+(Section~\ref{sec:reproducibility}), so replicate statistics would measure
+exactly zero variance; the error bars available to a deterministic
+simulator are grid quantization and parameter sensitivity, and those are
+what the brackets report.
+
+\emph{Provenance of $e_b$ and its bracket.} The declared ball--ball
+restitution $e_b = 0.95$ is a catalog point choice, and we state its
+provenance at the precision it actually has: the value sits at the
+center of the 0.92--0.98 phenolic ball--ball range printed, without
+attribution, in Alciatore's physical-properties compilation
+\citep{alciatore_faq} --- a community constant. We could locate no
+systematic first-hand measurement behind that range: the book-length
+treatment the community often associates with such constants
+\citep{marlow1995physics} is out of print and reached us only through
+secondary quotations, and the Marlow discussions we could verify (e.g.\
+in \citealp{mathavan2010cushion}) concern \emph{cushion} restitution,
+not ball--ball impacts. No source states an uncertainty for the range,
+and the battery's own reference
+forms variously idealize $e = 1$ (TP~A-14) or fix $e = 0.94$ (TP~A.5's
+own evaluation). The bracket endpoints $[0.92, 0.98]$ therefore coincide
+with the compilation's range but are a \emph{declared
+sensitivity range}, not a measured interval. One modeling asymmetry is
+deliberate and should be visible: $e_b$ is held speed-constant from the
+battery's slowest throw-sweep impacts (0.45\,m/s ball--ball speed,
+experiment \expid{A3}) to its fastest break impacts (12.9\,m/s,
+experiment \expid{E3}) while the cushion channel carries a velocity
+hook $e_c(v)$ --- we know of no published pool measurement that either
+supports or contradicts an $e_b(v)$ slope at break speeds. What the
+artifact can measure is constant-$e_b$ sensitivity, and we scope it as
+exactly that: re-running \expid{E3} with every contact held at each
+point of a 62-point grid over $[0.92, 0.98]$ moves the squat fraction
+by up to 0.0201 and $M_{\mathrm{eff}}/m$ by up to 0.0551 --- observed
+grid maxima, not interval bounds: the response is non-monotone and
+event-discrete in $e_b$, with an interior jump discontinuity near
+$e_b = 0.958$ at which one clip-target band membership flips
+(Section~\ref{sec:results-e}) --- but a speed-dependent $e_b(v)$, which would mix
+effective values across the break's contact spectrum, is not
+expressible in the kernel and is not bounded by these constant-$e_b$
+runs, so the speed-constancy assumption itself remains a declared
+limitation (Section~\ref{sec:results-e}; analysis recorded in the
+artifact bundle).
+
+\emph{Source-data uncertainty.} Three distinct procedures produced the
+source comparisons, and ``digitization'' honestly applies to only one of
+them. (1)~The cushion-impact figures of \citet{mathavan2010cushion} were
+pixel-digitized (2026-07-02) from a 600-dpi \code{pdftoppm} render of the
+publisher PDF by pixel-cluster and per-column color sampling, calibrated
+against each figure's own frame and tick marks, with overlapping markers
+merged to cluster centroids; the per-series spreads recorded in the
+shipped fixture are $u_D = 0.01$--$0.04$\,m/s on speed observables and
+$1.0$--$2.0^\circ$ on angle observables (the Fig.~7a camera points carry
+$u_x = u_y = 0.04$\,m/s). No repeat-digitization study was performed; the
+recorded values are cluster spreads from the single digitization pass.
+(2)~The technical-proof comparisons are \emph{transcriptions}, not pixel
+digitizations: each source's printed closed forms, fitted constants, and
+tabulated values are transcribed and self-checked against the numbers
+printed in the source PDF (every battery script embeds its transcription
+check), so their $u_D$ is a transcription floor rather than a pixel
+spread. What survives for this family is source-revision drift, which is
+ledgered as a source row rather than absorbed as uncertainty: where a
+source exists in mutually inconsistent revisions, both readings are
+transcription-checked against their own equations (the worked example is
+the TP~A.17 revision row, where TP~A.17's printed $\mu(v)$ decay
+constant of $0.77$ conflicts with the $1.088$ of the current TP~A-14
+revision and of the kernel). The five measured TP~B.28 bank tables are
+printed numeric tables transcribed exactly; the source states its
+measurements were careful but gives no error bars, so no measurement
+$u_D$ can be estimated for them. What the shipped fixture records
+instead is \emph{equipment} context: the spread between the two
+on-system tables is at most 0.25 diamond per point --- carried as a
+brand-agnostic equipment window, with the full five-table envelope as
+the brand-bias envelope --- which characterizes table-to-table
+variability, not measurement uncertainty.
+(3)~High-speed-video observables carry the capture chain's stated
+precision --- ${\sim}1$--2\,px centroiding ($\approx 0.5$--$0.8$\,mm at
+ball scale) at $320\times240$, with speed \emph{ratios} independent of
+the frame-rate assumption --- and are consumed as evidence bands, not
+point data. For rule-of-thumb lore anchors (the FAQ charts and
+practitioner systems: the trisect multiplier, the ten-times-fuller flat
+retention, the corner-five corrections, the jump chart), the sources
+state no uncertainty and no measurement conditions, so
+$u_{\mathrm{val}}$ \emph{cannot be estimated}; those rows are labeled
+lore in Table~\ref{tab:domains}, and their comparisons are
+characterizations against the rule as printed, not validation with
+quantified uncertainty. Finally, one anchor family carries a composite
+\emph{acceptance tolerance} that is deliberately not an uncertainty:
+experiment \expid{C4} accepts a point when $|E| \le u_y + 0.05\,|D|$,
+where $u_y$ is the recorded digitization uncertainty and the
+5\%-of-$|D|$ term is an acceptance allowance inherited verbatim from the
+kernel's continuous-integration anchor suite; the two terms are reported
+separately wherever quoted, and the composite is never called
+$u_{\mathrm{val}}$.
+
+% Per-source u_val decomposition. Component values trace to the kernel's
+% anchor fixtures (crates/pool-core/tests/fixtures/anchors/*.json
+% provenance and u_x/u_y fields), the solution-verification floors of
+% Section 5, and the pinned post-registration sensitivity report.
+% Table typography: \RaggedRight rebalanced
+% columns (kills the justification rivers and the 11--12-line u_num
+% cells), the two long u_num parentheticals moved verbatim to lettered
+% notes under \bottomrule, and longtable continuation furniture added
+% (the old \endfoot printed a false table-end \bottomrule mid-table).
+{\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}>{\RaggedRight}p{0.20\linewidth}>{\RaggedRight}p{0.17\linewidth}>{\RaggedRight}p{0.26\linewidth}>{\RaggedRight}p{0.29\linewidth}@{}}
+\caption{Per-source $u_{\mathrm{val}}$ decomposition. $u_{\mathrm{num}}
+\approx 0$ for every family (bit-exact binary; closed-form solution
+verification at $10^{-16}$--$10^{-13}$ floors) except where noted: the
+compliant-resolver families carry measured step brackets and the
+Mathavan $\Delta P$ port a measured step-convergence bound
+($\leq 0.0022$\,m/s\,/\,$0.044^\circ$ under step halving/doubling). $u_{\mathrm{input}}$ is measured post hoc by the one-at-a-time
+brackets ($e_b \in [0.92, 0.98]$; $\mu(v)$ revision spread); per-boundary
+responses in Section~\ref{sec:results} and Table~\ref{tab:domains}.
+Lettered marks resolve to the notes at the end of the table.}
+\label{tab:uval}\\
+\toprule
+Source family (anchor class) & $u_{\mathrm{num}}$ & $u_{\mathrm{input}}$
+& $u_D$ (procedure) \\
+\midrule
+\endfirsthead
+\multicolumn{4}{@{}l}{Table~\ref{tab:uval} \emph{(continued)}}\\
+\toprule
+Source family (anchor class) & $u_{\mathrm{num}}$ & $u_{\mathrm{input}}$
+& $u_D$ (procedure) \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r@{}}{\emph{Continued on next page}}\\
+\endfoot
+\bottomrule
+\multicolumn{4}{@{}>{\RaggedRight}p{0.98\linewidth}@{}}{%
+\rule{0pt}{2.4ex}%
+Notes.
+\textsuperscript{a}\,measured $\leq 0.0022$\,m/s and $\leq 0.044^\circ$
+under step halving/doubling; verdicts invariant.
+\textsuperscript{b}\,compliant-step brackets: E1 retention spread
+$\leq 6.3\times10^{-4}$; E3 squat/$M_{\mathrm{eff}}$ spreads
+$\leq 2.8/7.7\times10^{-4}$.}\\
+\endlastfoot
+Mathavan Fig.~7a camera points (measured) & $\Delta P$ stepping
+  ($N = 10^3$): measured bound\textsuperscript{a} &
+  incident-speed digitization $u_x = 0.04$\,m/s propagated through the
+  local response slope ($\mathrm{d}S/\mathrm{d}V \approx 0.91$):
+  0.036\,m/s (model constants: source's own fit) &
+  $u_y = 0.04$\,m/s per point (pixel digitization, cluster spread);
+  combined $u_{\mathrm{val}} \approx 0.054$\,m/s \\
+\addlinespace
+Mathavan Figs.~8--10 numerics (derived; verification-of-port) &
+  $\Delta P$ stepping: same measured bound\textsuperscript{a} &
+  none: source scheme at source constants &
+  0.01--0.02\,m/s speeds; $1.0$--$2.0^\circ$ angles (pixel
+  digitization) \\
+\addlinespace
+TP master curves and constructions (derived) & $\approx 0$ &
+  $e_b$ bracket: A2 peak family shifts $\mp 0.88$--$0.96^\circ$ per
+  $\pm0.03$; $\mu(v)$ revision: boundaries $+1.6$--$2.9^\circ$ &
+  transcription floor (self-checked against printed values);
+  revision drift ledgered \\
+\addlinespace
+TP B.28 bank tables (measured) & $\approx 0$ &
+  restitution-dominated: $e_0$ 0.75--0.95 moves arrivals $-0.34$ to
+  $+0.35$ dia (Section~\ref{sec:results-c}) &
+  exact transcription; source states no error bars, so measurement
+  $u_D$ is not estimable --- the ${\leq}0.25$-dia on-system
+  inter-table spread is an equipment window, not $u_D$ \\
+\addlinespace
+High-speed-video catalog (measured, band form) &
+  $\approx 0$ (compliant-step brackets)\textsuperscript{b} &
+  bracketed where consumed (Section~\ref{sec:results-e}) &
+  1--2\,px centroiding ($\approx 0.5$--$0.8$\,mm); evidence bands, not
+  point data \\
+\addlinespace
+Platinum robot squirt band (measured; consumed as in-sample
+calibration consistency) & $\approx 0$ &
+  not independently estimable: the catalog's per-shaft end masses were
+  derived from the same Platinum pivot data (Shepard inversion), so
+  the comparison closes a calibration loop &
+  published band (8--14\,in), no per-shaft uncertainty stated;
+  convention-dominated \\
+\addlinespace
+FAQ / practitioner lore (lore) & $\approx 0$ & bracketed where
+  quoted & \emph{not estimable}: no stated uncertainty or conditions;
+  characterization only \\
+\addlinespace
+Cross-simulator oracle (verification tier) & \multicolumn{3}{>{\RaggedRight}p{0.72\linewidth}}{%
+  $u_{\mathrm{val}}$ not applicable (code against code); agreement
+  floors $7.4\times10^{-14}$\,s, $1.12\times10^{-4}\,{}^\circ$
+  (Section~\ref{sec:oracle})} \\
+\end{longtable}
+}
+
+Verification is kept strictly separate from validation, and the anchors
+themselves are classified so that the word ``validation'' cannot lean on
+sources that are not measurements. Every anchor carries one of three
+classes, printed per rule in Table~\ref{tab:domains}: a \emph{measured
+datum} (an instrumented measurement: the Mathavan Fig.~7a camera points,
+the five TP~B.28 bank tables, the high-speed-video observations, the
+Platinum robot band); a \emph{derived idealized reference} (a source's own
+closed form, construction, or numerical model output: the TP~3.3
+frictionless-elastic peak, the gearing and trisect constructions, the
+Mathavan Figs.~8--10 numerics); or \emph{rule-of-thumb lore} (practitioner
+systems and FAQ charts with no stated conditions). We reserve
+\emph{validation} for measured-datum comparisons. Comparisons against
+derived references are \emph{model benchmarking} against an idealized
+form; and where the kernel implements the reference's own model verbatim,
+the comparison is \emph{verification of the port} --- the central Group~A
+case, since the kernel's catalog implements TP~A-14's fitted $\mu(v)$
+verbatim, making the \expid{A3} master-curve comparison
+code-against-its-own-source-model (Section~\ref{sec:results-a}); the same
+classification governs \expid{C4}'s headline count
+(Section~\ref{sec:results-c}). Verification rows in the classic sense
+compare the code against its own closed forms or against the
+cross-simulator oracle: the internal worksheet forms embedded in the
+outputs of experiments \expid{A1}, \expid{A3}, \expid{A4}, \expid{A6},
+\expid{A7}, and \expid{E2} (closed-form re-derivations of the kernel's own
+impact laws), the \expid{D1} tangent-frame criterion, the \expid{C3}
+mirror-symmetry check, and both ORACLE-X ledger rows. Under the
+classification, the battery's validation content proper anchors to the
+measured class --- the TP~B.28 envelope (\expid{C1}), the Mathavan Fig.~7a
+camera points (\expid{C4}), and the frame-tracked high-speed-video bands
+(\expid{E2}, \expid{E3}). The robot band (\expid{B1}/\expid{B2}) is
+measured but consumed as \emph{in-sample calibration consistency}, not
+independent validation: the catalog's per-shaft end masses were derived
+from the same Platinum pivot measurements
+(Section~\ref{sec:results-b}). Applying the measured-only rule strictly
+also reclassifies two rows earlier drafts filed as measured:
+\expid{E1}'s numeric datum is the instructional retention constant 0.10
+(the video documents the scenario, not a measured retention), and
+\expid{F3} carries no numeric video anchor (its airborne-cut reference
+is analytic contact geometry) --- both are benchmarking. They join the
+\expid{A2} peak band, the trisect multiplier, and their kin as
+benchmarking against derived forms and lore, labeled as such wherever
+quoted. Verification of the numerical
+core itself (quartic event detection, the terminal-rest round-trip law) is
+described with the simulator in Section~\ref{sec:simulator}.
+
+One boundary of the standard deserves an explicit statement. V\&V~20
+quantifies validation uncertainty \emph{at} the validation points and
+declares extrapolation beyond them out of scope: the standard declines to
+certify model behavior where no measurement exists. That excluded
+question---over what range of inputs an empirical law keeps holding---is
+precisely this paper's thesis. The battery is therefore designed to sweep
+across each rule's presumed domain and to report where $E$ grows beyond the
+registered bands, turning the standard's scoping boundary into the object of
+study.
+
+\subsection{Four-tier anchor discipline}
+
+Each acceptance criterion anchors to one of four evidence tiers:
+(i)~published sources---further classified per anchor, under the taxonomy
+above, as measured data (the Mathavan Fig.~7a camera points, the five
+measured through-diamond bank tables of TP~B.28 \citep{alciatore_tp_b28})
+or derived reference forms (the transcribed technical-proof master curves
+and constructions \citep{alciatore_tp_a14}, the Mathavan Figs.~8--10
+numerics \citep{mathavan2010cushion});
+(ii)~high-speed-video catalog observations \citep{alciatore_hsv_catalog};
+(iii)~a published specification window---the WPA lag criterion of 4.0--4.5
+table lengths, which earlier drafts of this program filed as
+``first-party table-session data'' and which we correct here: it is a
+specification anchor, not a measurement of ours, and the first-party
+table-session captures remain staged under quality assurance
+(Section~\ref{sec:limitations}) and are consumed by \emph{no} registered
+anchor in this battery; and (iv)~a cross-simulator oracle, pooltool
+\citep{kiefl2024pooltool} at a pinned commit, described below. Tiers and
+classes are declared per anchor, so a reader can weight each verdict by
+the strength of its source.
+
+The discipline is deliberately anti-overfit: the default constants the
+battery scores were frozen before any battery sweep ran --- unchanged
+since their 2026-07-01 introduction, with the last calibration touching
+the family nineteen days before registration; the per-literal
+chronology, including the younger and not-static equipment-catalog
+registry, is stated in Section~\ref{sec:methodology-registration} ---
+and one parameter set must satisfy independent datasets simultaneously. ``Out-of-sample'' is scoped precisely in
+Section~\ref{sec:methodology-registration}: it means no re-tuning against
+any battery observable, not blindness, since most anchors pre-existed the
+registration as continuous-integration tests. The worked example is
+experiment \expid{F1} (slot F13, Fig.~\ref{fig:F13}): the same cloth
+catalog must reproduce both the lag window (a pass) and the bank-table
+dataset (a registered miss of the frozen all-six criterion), with
+neither dataset re-tuned against the other --- quantified once, in
+Section~\ref{sec:results-f}. Where the joint requirement fails for a
+fitted preset, the failure is ledgered as a validity domain rather than
+repaired by re-tuning. Source-data
+uncertainty is recorded per anchor under the per-source procedures and
+magnitudes of Table~\ref{tab:uval}: pixel-digitization spreads for the
+Mathavan figures, transcription floors for the technical-proof forms and
+tables, capture-chain precision for the high-speed-video bands.
+
+\subsection{Frozen registered designs}
+\label{sec:methodology-registration}
+
+Every experiment received a registered design---sweep grid, measured output,
+and acceptance or reporting criterion---committed on 2026-07-21,
+\emph{before} any sweep ran. The registered battery comprises 24 experiments
+in six groups (\expid{A1}--\expid{A7}, ball--ball impact and throw;
+\expid{B1}--\expid{B4}, stick--ball; \expid{C1}--\expid{C4}, cushion and
+diamond systems; \expid{D1}--\expid{D3}, curved paths;
+\expid{E1}--\expid{E3}, frozen contacts and the break;
+\expid{F1}--\expid{F3}, kinematics closed forms and the jump) plus the
+ORACLE-X cross-run, i.e.\ 25 pinned outputs. Roughly 60\% of the registered
+rules were already covered by standing continuous-integration anchor tests;
+those experiments promote the anchors to figure grade rather than re-derive
+them, and anchors whose calibration targets fail are retained as documented
+ignored gates---never deleted---with each failure carried as a ledger row
+(e.g.\ the steep rolling-bank and Han banking targets of
+Section~\ref{sec:limitations}).
+
+Registration provenance is stated here from the version-control history,
+because several of its facts qualify the out-of-sample claim.
+(1)~\emph{Defaults with the first anchors; the registry after them;
+both long before registration.} The four default constants the battery
+scores ($\mu_s = 0.20$, $\mu_r = 0.01$, $e_b = 0.95$, cushion
+$e_0 = 0.85$) entered the kernel as literature-sourced defaults at the
+kernel scaffold commit (2026-07-01), the same day the
+first continuous-integration anchor suite --- including the lag anchor
+--- was created; the banking anchor suite followed
+two days later (2026-07-03). Checked per literal
+against the version history, none of the four default literals has
+changed since that introduction; later commits only added preset
+entries alongside them (fitted cushion presets, 2026-07-02; cloth
+presets, 2026-07-04). The \code{EquipmentCatalog} registry that
+packages these constants is younger and was \emph{not} static: it was
+introduced on 2026-07-04, three days \emph{after}
+the first anchors, and its entries were revised through 2026-07-12
+(catalog v8) --- nine days before registration --- so
+the freeze claim is scoped to the four battery-scored defaults, not to
+the registry as a whole (a post-registration catalog v9 added two
+visual-variant ball sets whose physics parameters byte-copy their
+existing class). One catalog value is explicitly anchor-informed: the
+flat rail-friction intercept $\mu_w = 0.20$ was pinned by a 2026-07-02
+calibration whose hard constraint was the kick-anchor windows
+--- the same anchor family that experiment \expid{C3}
+later promotes to figure grade --- so \expid{C3}'s verdict is
+calibration-consistent rather than out-of-sample, and its results
+paragraph says so. None of the four defaults (nor $\mu_w$) changed
+between that calibration and the 2026-07-21 registration --- nineteen
+days --- and none has changed since.
+(2)~\emph{Blind versus anchor-informed bands.} The registration index
+labels every design's prior coverage, and we restate the split here
+rather than leave it at ``roughly 60\%'': six designs promote standing
+anchors (\expid{A3}, \expid{B1}, \expid{C1}, \expid{C3}, \expid{C4},
+\expid{F1}), eight extend partial coverage (\expid{A2}, \expid{B3},
+\expid{C2}, \expid{D1}, \expid{D3}, \expid{E3}, \expid{F2}, \expid{F3})
+--- fourteen of 24 --- and ten were registered blind, with no prior
+kernel evidence on the observable (\expid{A1}, \expid{A4}--\expid{A7},
+\expid{B2}, \expid{B4}, \expid{D2}, \expid{E1}, \expid{E2}). For the
+anchored and partial rows the registered bands were set by authors who
+already knew how the kernel scored against the standing anchors:
+``frozen before any sweep ran'' is exact for the battery's sweeps, but
+it is not blindness for those fourteen rows, and both halves of the
+flagship one-parameter-set exhibit of Section~\ref{sec:results-f} (lag,
+banks) pre-existed as anchors during kernel development. What the freeze
+certifies is narrower and checkable: no catalog parameter and no
+acceptance band moved after registration, including after misses were
+measured. (3)~\emph{The 22-to-24 amendment.} The registration index was
+drafted at 22 designs; \expid{A6} and \expid{A7} were added during the
+same registration pass, and the index as first committed (2026-07-21)
+already carries all 24 --- the ``22-experiment'' count survives in that
+commit's message and in an internal planning document, and we disclose
+the amendment here. No design, \expid{A6}/\expid{A7} included, was
+registered after any sweep of any experiment had run: the first battery
+scripts landed 43 minutes after the registration commit, and the
+\expid{A6}/\expid{A7} scripts the following day. (4)~\emph{Attestation
+boundary.} All of these timestamps are commits in an author-controlled
+development repository whose history is not public (the public
+repository's history begins at a later snapshot); this is \emph{internal}
+registration, not an external timestamping service, and a reader must
+weigh it as self-attested. We state the dates (registration,
+2026-07-21; battery-script commits, two on 2026-07-21 and three on
+2026-07-22), and we scope every out-of-sample claim in this paper to
+what this history supports.
+
+Deviations from a registered design are themselves declared and ledgered
+rather than silently absorbed. Two worked examples: experiment \expid{A4}
+registered an english grid of $-100..100\%$ but executed $0..100\%$ in steps
+of 2.5\%---sign-symmetric up to squirt direction, so the negative arm adds
+no information on the locus under study---declared in the output's parameter
+block; experiment \expid{E3} executed the
+elevation subset $\{0, 3\}^\circ$ of its registered $0$--$5^\circ$ range and
+realized its registered ``momentum-theft baseline'' as the kernel's own
+sequential-impulse legacy arm, the external hack being a documented rejected
+alternative.
+
+Every experiment script emits a self-describing output: the kernel version
+hash, the full shot parameters, fixture identifiers, and a canonical
+event-log hash, following the FAIR and FAIR4RS principles
+\citep{wilkinson2016fair,chuehong2022fair4rs}. The complete mapping from
+figures and tables to pinned outputs is given in
+Supplementary Material Section~S1. When the kernel itself changed
+mid-program (the two inherited-defect fixes discussed in
+Section~\ref{sec:oracle}), the entire battery was re-baselined under the new
+pin with per-row drift characterized on byte-verified endpoints, rather than
+selectively re-run (Section~\ref{sec:reproducibility}).
+
+\subsection{Waiver-ledger doctrine}
+
+V\&V~20 is explicit that validation is not a pass/fail exercise
+\citep{asme2009vv20}: a missed band with a characterized mechanism is a
+result, not a failure to be engineered away. The battery operationalizes
+this with a machine-readable waiver ledger (38 rows at the time of
+writing). Each row
+records the anchor identifier, the observed delta against its tolerance, a
+physical rationale, a disposition, a tracking reference, and the kernel
+identity whose artifacts produced its numbers. Nothing is ever silently
+re-tuned: a registered band that is missed stays missed in the record, with
+the miss quantified. Table~\ref{tab:waiver-categories} summarizes the nine
+row categories.
+
+% Page-breakable longtable — the [review,12pt] float overflowed the page
+% by ~131pt and clipped trailing rows.
+{\small
+\begin{longtable}{@{}lrp{0.55\linewidth}@{}}
+\caption{Waiver-ledger categories and row counts (38 rows total; the
+machine-readable ledger belongs to the artifact bundle of
+Section~\ref{sec:reproducibility}).}
+\label{tab:waiver-categories}\\
+\toprule
+Category & Rows & Meaning \\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{Table~\ref{tab:waiver-categories} \emph{(continued)}}\\
+\toprule
+Category & Rows & Meaning \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r@{}}{\emph{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
+Resolved & 9 & Formerly ledgered deviation resolved by a landed fix (including ledger-evaluation corrections); retained with the resolving reference \\
+Registered-band miss & 7 & A registered acceptance band or source claim was missed; measured and characterized, band not re-tuned \\
+Declared model content & 7 & Deviation is declared catalog parameter or design content (or a declared registration deviation), not a defect \\
+Convention sensitivity & 4 & Result depends on an input or measurement convention; both readings recorded, one adopted with rationale \\
+Source discrepancy & 3 & The source material itself carries the inconsistency (revision drift, figure-vs-equations artifact, unspecified-condition lore) \\
+Preset domain & 3 & A fitted equipment preset is outside its validity domain on this observable; domain documented, preset not re-tuned \\
+Open investigation & 3 & Characterized residual or queued maintenance with an open tracking reference \\
+Frame artifact & 1 & The registered criterion was frame- or definition-sensitive; the physics verifies exactly in the correct frame \\
+Oracle waiver & 1 & Cross-simulator tolerance exceedance attributed to a documented oracle-side mechanism \\
+\end{longtable}
+}
+
+The ledger's maintenance law keeps it honest over time: row identifiers are
+stable and rows are never deleted; a fixed deviation moves to the
+resolved category with the resolving reference retained; and when a ledger
+\emph{evaluation} is itself found wrong, the row is recategorized in place
+with the correction recorded inside it (two such corrections exist in the
+ledger, one where the original entry had scored the wrong observable
+and one where a one-sided evidence bound had been misread as a two-sided
+band).
+
+One decision rule separates repair from disclosure, and it was applied
+uniformly. A deviation is \emph{fixed} only when root-cause analysis
+identifies a mechanism error --- the implementation demonstrably deviating
+from its own intended mathematical law --- and every fix must land behind
+a preserved legacy option, carry written predicted shifts registered
+before the re-run, and trigger a full battery re-baseline
+(Section~\ref{sec:oracle}). A miss with no such diagnosed mechanism ---
+the model disagreeing with external data or lore --- is \emph{ledgered}
+and never re-tuned. A discrepancy traced to a defensible derivation or
+convention choice rather than an error is recorded as a convention row,
+not fixed; the permanent oracle parity pin is the standing example. Applied to the
+nine resolved rows: two are mechanism fixes under the rule
+(the slip-law defect, a mis-scaled Coulomb-cap slip impulse inherited
+from the reference lineage; the branch-selection defect, a
+numerically discontinuous branch selection at a structural double root);
+six are script-bookkeeping re-pins that changed no measured column; and one is a
+ledger-evaluation correction in which the original row had scored the
+wrong observable. The seven
+registered-band misses stayed misses because none has a diagnosed
+mechanism error: the banking direction reversals, for instance, are
+candidate model-form limits of the affected presets, not identified
+implementation defects, and they remain ledgered with exactly that
+framing (Section~\ref{sec:limitations}).
+
+Two rows illustrate how the doctrine reads in practice, each quantified
+once in Section~\ref{sec:results}. First, the registered \expid{C1}
+criterion requires all six through-diamond bank aims inside the measured
+TP~B.28 envelope; the default cushion model is inside on five of six,
+reported as a miss under the frozen criterion even though the shortfall
+is smaller than the source's own table-to-table equipment spread ---
+context that is recorded, not invoked as $u_{\mathrm{val}}$ to excuse
+the criterion (Section~\ref{sec:results-c}). Second, the same mechanics turn misses
+into findings: the trisect-rule row, a
+registered-band miss in ledger terms, is simultaneously the paper's
+flagship domains-of-validity result
+(Section~\ref{sec:results-f}). This stance follows the
+non-pass/fail reading of V\&V~20 \citep{asme2009vv20}, and it is consistent
+with the value that artifact-review practice places on documented
+non-reproduction (the ACM artifact review and badging framework) and with
+CODECHECK's principle of recording, rather than fixing, discrepancies found
+during independent execution. The open rows are restated as limitations in
+Section~\ref{sec:limitations}.
+
+\subsection{Oracle protocol}
+
+Wherever the two simulators' model registries coincide, pooltool
+\citep{kiefl2024pooltool} at a pinned commit serves as a cross-simulator
+oracle (experiments \expid{A3}, \expid{A6}, \expid{D1}, and
+\expid{F1}/\expid{F2}; the matched registry runs Han-model cushions only).
+The comparison is event-by-event: both simulators emit their event streams
+for identical shot parameters, and event times, event sequences, and
+post-event states are compared point by point. The registered tolerances are
+$\leq 1\,\mu$s on event times and $\leq 0.1$\,mm on rest positions where
+models coincide. Exceedances are governed by waiver bounds, not discretion:
+the oracle suite carries an event-level waiver fixture with per-observable
+ceilings, and every tolerance exceedance must name an attributed
+oracle-side or convention-side mechanism to be waived. The measured
+agreement, and the six waived exceedances with their single attributed
+oracle-side mechanism, are reported in
+Section~\ref{sec:oracle} (slot F14, Fig.~\ref{fig:F14}).
+
+One convention rule is permanent: oracle parity is pinned to the
+\emph{legacy} slip law (the convention pooltool shares by inheritance,
+corrected in our kernel by the slip-law fix), keeping the oracle channel a
+like-for-like verification instrument across kernel evolution
+(rationale and the measured convention
+gap in Section~\ref{sec:oracle}).

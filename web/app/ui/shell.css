@@ -1,0 +1,597 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* ui/shell.css — UI shell chrome leaf (feature 031, program 525 S1).
+   Kit leaf per the cache-poison contract: loaded by web/app/shell.js via a
+   `?v=` stamped <link> (bump SHELL_CSS_V in shell.js on EVERY change to this
+   file). Tokens only (--ob-*, ci.yml token-grep gated); labels wrap or grow,
+   never ellipsize (e2e-ui --audit law). Selectors here are the frozen §6
+   surface of the shell contract (feature 031, internal). */
+
+/* ---- shell root: full-viewport chrome layer over the live scene ---------
+   pointer-events: none on the root — only the chrome children take input;
+   scene input routes through the shell's capture-phase gate (contract §7).
+   z-index 8: above the canvas/HUD family, BELOW #err (9), the toolbar (40)
+   and #ob-boot (60) — the error card and the boot overlay are never
+   covered by shell chrome. */
+#ob-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  font-family: var(--ob-font);
+  color: var(--ob-text-0);
+}
+#ob-shell[hidden] { display: none; }
+
+/* ---- B-K05 shell seam: the band geometry the shell PUBLISHES -------------
+   (GH-668 S5 slice 2, the shell half.) shell.js measures #ob-shell-rail and
+   #ob-shell-quickplay-wrap (ResizeObserver + resize / locale / ob:perftier
+   / transition re-reads) and writes five px values on #ob-shell AND :root,
+   then fires `ob:shell-bands` on window; `window.__shell.bands()` is the
+   same truth as an object. Modules DOCK to these instead of guessing the
+   rail or quick-play edge (atelier txbar → reserve-b / reserve-r, the drill
+   badge → bandt-r; the A3 reachability audit is every consumer's red arm).
+   These defaults hold until the first write and describe a CLOSED shell:
+   nothing reserved, the rail band sits at the bottom edge with no height,
+   band T's corner slot edge at 0 (fine pointers). body.ob-shell-stacked
+   rides alongside while the quick-play stack sits ABOVE the rail. */
+:root {
+  --ob-shell-rail-top: 100vh;
+  --ob-shell-rail-h: 0px;
+  --ob-shell-reserve-b: 0px;
+  --ob-shell-reserve-r: 0px;
+  --ob-shell-bandt-r: 0px;
+}
+
+/* ---- place rail (bottom center) -----------------------------------------
+   GH-534 round 7 (owner directive 2026-08-19): the rail's geometry — the
+   flex row, sp-2 optical inset, sp-1 gap, centered content block, pill
+   anatomy, the selected/hover/focus registers and the coarse floor — now
+   rides the ONE kit strip control (kit.css .ob-strip / .ob-strip__seg;
+   behavior in ui/strip.js). This sheet keeps only the rail's VOICE:
+   placement, the width cap and the smoked-glass material membership below.
+   Consequence rebase (+8px rail height, sp-1 -> sp-2 block inset): the
+   derived chrome constants shift below — #ob-shell-note 76 -> 84, the
+   stacked quick-play escape 80 -> 88 (both blocks). */
+#ob-shell-rail {
+  position: absolute;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  /* material: the SOLID rung (B-K14, GH-668 S5 slice 2) — the section
+     below owns the background; the rail takes no glass lift and no blur */
+  box-shadow: var(--ob-el-2);
+  pointer-events: auto;
+  /* the rail never wraps and its labels never clip: long locales grow the
+     pill row horizontally, and on narrow (portrait phone) viewports the
+     single row PANS (the 015 §5 phone tab-strip idiom — pan-x, one row;
+     the pan/no-wrap mechanics live in kit.css .ob-strip) */
+  max-width: calc(100vw - 16px);
+}
+/* ---- quick-play (persistent, bottom right) ------------------------------ */
+#ob-shell-quickplay-wrap {
+  position: absolute;
+  right: calc(14px + env(safe-area-inset-right, 0px));
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  /* one stack width (R4): the primary and the hint row share a right-anchored
+     column; the longer of the two sets it (the row on fine pointers). The
+     cap keeps the stack inside the corner reserve the atelier rail and the
+     play card still HARD-CODE (atelier.css: the widest pre-G2 wrap measured
+     247.55 px; slices 3 / 5 dock them to the G1 bands seam) — a long
+     locale's row WRAPS to its second line (kit .ob-btn--row), never widens
+     the stack, never ellipsizes. */
+  align-items: stretch;
+  max-width: 240px;
+  gap: var(--ob-sp-1);
+  pointer-events: auto;
+}
+/* quick-play = the kit PRIMARY on the 48 rung (GH-668 S5 slice 2, B-SH04:
+   .ob-btn--primary.ob-btn--lg). Height, pad-primary, type role, the rest /
+   hover / active / focus ladder (B-K15) and the reduced-motion rung are the
+   kit's. This sheet keeps ONLY the shell's voice: the el-2 lift over the
+   live scene — at (0,1,0) via :where(), later than the kit's rest rung so
+   it wins it by source order and BELOW every kit hover / active / focus
+   rung (an id rule swallows the ladder and the ring: the pattern the kit
+   retired) — and, below, the SOLID base + the accent-tint material. */
+:where(#ob-shell-quickplay-wrap) > .ob-btn--primary {
+  box-shadow: var(--ob-el-2);
+}
+/* the base is the SOLID rung on EVERY register, glass mode included (the
+   charter's material ladder: solid = the ground of chrome that must read
+   over the live scene). The audit's A2 ground law measured the verb at
+   3.7–3.9:1 over the felt through glass + tint at the practice pose in
+   every locale; over the solid it clears 4.5:1 everywhere. The kit's
+   hover / active rungs speak through their border step + the inset press
+   (the wash step is a background-color the solid outranks here — a wash
+   over a live scene is a contrast lottery, the reason for the rung). */
+#ob-shell-quickplay { background-color: var(--ob-glass-solid); }
+/* the remember row = a quiet switch row (release ruling D1, below); the
+   coarse register folds it into the quick-play long-press (phone block). */
+
+/* ---- place cards (top left column; ALL DOM-present, hidden toggles) ----- */
+#ob-shell-cards {
+  position: absolute;
+  top: calc(14px + env(safe-area-inset-top, 0px));
+  left: calc(14px + env(safe-area-inset-left, 0px));
+  width: min(280px, 62vw);
+  pointer-events: auto;
+}
+#ob-shell-cards > section[hidden] { display: none; }
+#ob-shell-cards > section {
+  border-radius: var(--ob-r-l);
+  border: 1px solid var(--ob-line-1);
+  /* material: the smoked-glass section below owns background/blur */
+  box-shadow: var(--ob-el-2);
+  padding: var(--ob-sp-3);
+}
+#ob-shell-cards h2 {
+  margin: 0 0 var(--ob-sp-2);
+  font-size: var(--ob-fs-2);
+  font-weight: var(--ob-fw-semi);
+  line-height: var(--ob-lh-tight);
+  color: var(--ob-text-0);
+}
+#ob-shell-cards .ob-shell-line {
+  margin: 0 0 var(--ob-sp-1);
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-body);
+  /* B-SH02 / S-01 ground law: the summary is BODY voice (text-1), its lead
+     the primary ink — text-2 stays the hint role (the hold hint below) */
+  color: var(--ob-text-1);
+  overflow-wrap: anywhere;
+}
+#ob-shell-cards .ob-shell-line b {
+  font-weight: var(--ob-fw-med);
+  color: var(--ob-text-0);
+}
+#ob-shell-cards .ob-shell-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-1);
+  margin-top: var(--ob-sp-2);
+}
+/* the card actions are kit .ob-btn--row parts (GH-668 B-K01, S5 kit step 9):
+   the 44 floor / start alignment / ≤ 2-line wrap / mid pole come from the
+   kit — the pill-wrap override this sheet used to carry is gone */
+/* STALE-KIT BELT (the ownership ledger mixed-cache rule; GH-668 review r1 P2): a
+   returning client can pair THIS sheet with a cached pre-v028 kit.css that
+   has no .ob-btn--row part. The row declarations are restated at the kit's
+   own values so that pairing degrades to the ROW register (wrap / start /
+   mid pole / 44 floor), never to a nowrap pill; the token fallbacks cover a
+   stale tokens.css. A belt never states what its kit part does not. */
+/* (G7, the e2e-ui stale-kit lab: the remember switch row joins the row
+   pole whenever the kit's auto-row judge stamps it — en wraps beside the
+   switch track — so on that pole it wears the same belt.) */
+#ob-shell-cards .ob-shell-actions .ob-btn--row,
+#ob-shell-quickplay-wrap [data-ob="shell-remember"].ob-btn--row {
+  justify-content: flex-start;
+  min-height: var(--ob-h-coarse, 44px);
+  border-radius: var(--ob-r-m);
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  line-height: var(--ob-lh-control, 1.35);
+  text-align: start;
+  white-space: normal;
+}
+#ob-shell-cards .ob-shell-actions .ob-btn--row .ob-btn__label,
+#ob-shell-quickplay-wrap [data-ob="shell-remember"].ob-btn--row .ob-btn__label { white-space: normal; }
+/* the remember SETTING row (release ruling D1, uiaudit F3/F58): the kit
+   switch track + label, start-aligned on an opaque ground with no border —
+   a preference under the primary, never a second boxed control. The fine
+   pointer takes the control rung (40); a long locale wraps the label (a
+   row, not a pill); coarse pointers keep the fold below + the kit floor. */
+/* :where() keeps the rest rung at (0,1,0) so the kit hover / active / focus
+   rungs still speak over it (A10) */
+:where(#ob-shell-quickplay-wrap) [data-ob="shell-remember"] {
+  justify-content: flex-start;
+  min-height: var(--ob-h-control, 40px);
+  border-radius: var(--ob-r-m);
+  border-color: transparent;
+  background-color: var(--ob-bg-1); /* an opaque panel ground (text-1 receipts on bg-1), never the quick-play's tinted solid */
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  color: var(--ob-text-1);
+  font-weight: var(--ob-fw-reg);
+  line-height: var(--ob-lh-control, 1.35);
+  text-align: start;
+  white-space: normal;
+}
+/* the 34 px switch track leaves the label 172 px of the 240 px stack; the
+   copy is cut to fit ONE line in every locale (release ruling D1-B: en "Skip
+   the hall next time" 151 px, de 164, fr 165, es 156). A wrap stays legal
+   (larger text, future copy): pretty keeps the natural breaks of a
+   start-aligned label and never strands the last word (balance split
+   "the / table" on the old two-line en) */
+#ob-shell-quickplay-wrap [data-ob="shell-remember"] .ob-btn__label { white-space: normal; text-wrap: pretty; }
+:where(#ob-shell-quickplay-wrap) [data-ob="shell-remember"][aria-pressed="true"] { color: var(--ob-text-0); }
+/* mixed-cache belt (b20 UI audit, review r1 P2): a cached pre-D1 kit.css moves
+   the switch track only under input:checked, and this row is an aria-pressed
+   BUTTON — so beside a fresh shell the pressed track would keep reading off
+   while startAtTable is on. The belt repeats the kit's pressed-track register
+   (kit.css "a pressed-state BUTTON can host the switch track too"); :where()
+   keeps it at the kit part's own (0,1,0) / (0,1,1), so the kit's (0,2,0) rule
+   wins whenever it is present and the belt wins over a stale kit by this
+   sheet's later link. A belt never states what its kit part does not
+   (e2e-shell G2 D5 serves the derived pre-D1 kit and reads the ON track). */
+:where(#ob-shell-quickplay-wrap [data-ob="shell-remember"][aria-pressed="true"]) > .ob-toggle__track {
+  background: var(--ob-accent-dim);
+  border-color: var(--ob-accent-line);
+}
+:where(#ob-shell-quickplay-wrap [data-ob="shell-remember"][aria-pressed="true"]) > .ob-toggle__track::after {
+  transform: translateX(14px);
+  background: var(--ob-accent-hi);
+}
+#ob-shell-cards .ob-shell-hold {
+  margin: var(--ob-sp-2) 0 0;
+  font-size: var(--ob-fs--1);
+  color: var(--ob-text-2);
+  line-height: var(--ob-lh-body);
+}
+/* release ruling D3 (uiaudit F14): the press-and-hold hint is a TOUCH idiom
+   — on fine pointers the card's visible action already does it, so the hint
+   leaves the paint there (a mouse hold still works); coarse keeps it */
+@media (pointer: fine) {
+  #ob-shell-cards .ob-shell-hold { display: none; }
+}
+
+/* ---- transient entry-refusal / status notice -----------------------------
+   GH-668 S5 slice 2 (B-SH08): #ob-shell-note IS the kit notice register
+   (div.ob-prompt.ob-prompt--notice — kit.css owns the box, the 84 / 88 +
+   safe-area bottom, the --ob-info-line register cue, balanced wrapping,
+   the coarse 56vw bound, the smoke material and its fallback rungs). The
+   shell contributes ONE thing: --ob-prompt-lift while the quick-play stack
+   sits ABOVE the rail (body.ob-shell-stacked, written by the B-K05 band
+   observer in shell.js) AND shares columns with the notice
+   (.ob-shell-note--lift, toggled by the same observer from the live rects:
+   the fine-pointer <= 700 px stack — quick-play + the remember row, 240 px
+   right-anchored — meets a centred notice; the folded coarse stack sits
+   beside it and must not float the notice off its rail register) — read
+   from the published seam, never a guessed stack height (the fine stack is
+   48 + 44 tall, the coarse one 48): --ob-shell-reserve-b = viewport bottom
+   - stack top + sp-2, so bottom = 84 + lift + safe = reserve-b + 2 = stack
+   top + 10 px of clearance. max(0px, …) keeps the kit bottom whenever the
+   seam reads under the kit's own clearance. */
+/* STALE-KIT BELT (the ownership ledger mixed-cache rule; GH-668 review r2 P2-3): a
+   returning client can pair THIS sheet with a kit.css that fails to load or
+   predates the .ob-prompt family — the notice register lived in this sheet
+   before slice 2, so without a belt the migrated notice fell into static
+   flow BELOW the viewport (body overflow hidden: unreachable). The kit's
+   PLACEMENT geometry is restated at the kit's own values — fixed, centred
+   by inset-inline + auto margins on a fit-content box, the 84 / 88 + lift +
+   safe-area bottom, the shell layer, the 480 bound, pointer-inert (a status
+   line is never a hit target over the table) — and NO chrome: colour,
+   material, padding, radius, hairline and wrapping stay the kit's alone.
+   SPECIFICITY (review r2v P3): the belt is wrapped in :where() — ZERO
+   specificity on both arms — so the kit's own .ob-prompt--notice register
+   (0,1,0 / the coarse 0,2,1) WINS whenever kit.css is present and the belt
+   applies only when nothing else declares these properties (kit.css 404 or
+   pre-prompt). A bare #ob-shell-note (1,0,0) would outrank the kit and
+   silently freeze the kit's placement at the belt's copy of it. (The
+   e2e-ui stale-kit lab serves kit.css 404 and reads the rect + proves the
+   belt is the winner there; the e2e-shell G4 notice arms prove the kit is
+   the winner with kit.css present — a perturbed belt value must not move
+   the computed box.) */
+:where(#ob-shell-note) {
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: fit-content;
+  bottom: calc(84px + var(--ob-prompt-lift, 0px) + env(safe-area-inset-bottom, 0px));
+  z-index: var(--ob-z-shell, 8);
+  max-width: min(480px, calc(100vw - 32px));
+  pointer-events: none;
+}
+@media (pointer: coarse) {
+  :where(html.ob-touch #ob-shell-note) {
+    bottom: calc(88px + var(--ob-prompt-lift, 0px) + env(safe-area-inset-bottom, 0px));
+    max-width: min(480px, 56vw);
+  }
+}
+body.ob-shell-stacked #ob-shell-note.ob-shell-note--lift {
+  --ob-prompt-lift: max(0px, calc(var(--ob-shell-reserve-b, 0px) + 2px - 84px
+    - env(safe-area-inset-bottom, 0px)));
+}
+@media (pointer: coarse) {
+  html.ob-touch body.ob-shell-stacked #ob-shell-note.ob-shell-note--lift {
+    --ob-prompt-lift: max(0px, calc(var(--ob-shell-reserve-b, 0px) + 2px - 88px
+      - env(safe-area-inset-bottom, 0px)));
+  }
+}
+
+/* STALE-KIT BELT for the ROUTED decision prompt (GH-738; the #ob-shell-note
+   belt's twin, same law: the ownership ledger mixed-cache / unstyled-but-functional
+   contract). #ob-shell-decision IS the kit .ob-prompt--routed part since S5
+   slice 2 (PR #726) — kit.css owns its box and placement. Paired with a
+   kit.css that fails to load or predates the .ob-prompt family, the prompt
+   fell into static flow BEHIND the absolutely positioned place cards (the
+   critical block still hides #hud-decision while the hall is open), so a
+   pending decision (push-out, re-rack, break_spot, …) was unanswerable: a
+   tap on an answer's centre hit the Play card. The kit's PLACEMENT geometry
+   is restated at the kit's own values — fixed, the sp-3 + safe-area top,
+   centred by inset-inline + auto margins on a fit-content box, the 560 bound,
+   the shell layer; under 1180 px the band RIGHT of the card column (12 px
+   band, 318 = 14 + 280 + 12 + 12, both side insets); the coarse arm = the
+   kit's coarse placement (the same numbers, keyed on html.ob-touch) plus the
+   kit's --ob-h-coarse floor on the ANSWERS (a hit target under a finger is
+   operability, not skin; the value is the kit's token). NO chrome: colour,
+   material, padding, radius, hairline, the pill anatomy and the R6 registers
+   stay the kit's alone. The GH-698 equipment-place top offset and the quick-
+   play yield ride the shell.js critical block (present under a kit 404 by
+   construction, (1,2,0) specificity) — the belt's `position: fixed` is what
+   lets that voice take effect there.
+   SPECIFICITY (the review r2v P3 law): every arm is :where()-wrapped — ZERO
+   specificity — so the kit's own .ob-prompt / .ob-prompt--routed rules
+   (0,1,0 / the coarse 0,3,1) WIN whenever kit.css is present; the belt
+   applies only when nothing else declares these properties. (The e2e-ui
+   stale-kit lab serves kit.css 404, reads the rect, hit-tests every answer
+   and proves the belt is the winner there; the e2e-shell G4 D1 arm proves
+   the kit is the winner with kit.css present — a perturbed belt top must
+   not move the computed box.) */
+:where(#ob-shell-decision) {
+  position: fixed;
+  top: calc(var(--ob-sp-3, 12px) + env(safe-area-inset-top, 0px));
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: fit-content;
+  max-width: min(560px, calc(100vw - 32px));
+  z-index: var(--ob-z-shell, 8);
+}
+@media (max-width: 1180px) {
+  :where(#ob-shell-decision) {
+    left: auto;
+    margin-inline: 0;
+    right: calc(var(--ob-sp-3, 12px) + env(safe-area-inset-right, 0px));
+    max-width: min(100vw - 318px - env(safe-area-inset-left, 0px)
+      - env(safe-area-inset-right, 0px), 560px);
+  }
+}
+@media (pointer: coarse) and (max-width: 1180px) {
+  :where(html.ob-touch #ob-shell-decision) {
+    top: calc(var(--ob-sp-3, 12px) + env(safe-area-inset-top, 0px));
+    bottom: auto;
+    left: auto;
+    right: calc(var(--ob-sp-3, 12px) + env(safe-area-inset-right, 0px));
+    margin: 0;
+    max-width: min(100vw - 318px - env(safe-area-inset-left, 0px)
+      - env(safe-area-inset-right, 0px), 560px);
+  }
+}
+@media (pointer: coarse) {
+  :where(html.ob-touch #ob-shell-decision .ob-prompt__actions > button) {
+    min-height: var(--ob-h-coarse, 44px);
+  }
+}
+
+/* ---- smoked-glass material language (owner ruling 2026-08-15; contract
+   §6 material note). One law for every chrome surface: the shell sits over
+   the LIVE hall render, so its panels are smoked glass the warm key light
+   visibly bleeds through — backdrop blur + saturate on --ob-glass-* tokens,
+   a 1px top-edge ivory specular, and 2.5% noise (the token's inline tile)
+   against gradient banding. Quick-play keeps its accent fill (affordance
+   law) and joins the family via blur-under-tint + specular + noise.
+   Fallback ladder — ALL rungs land the tinted solid (--ob-glass-solid,
+   ~80% visual parity, zero blur cost):
+     1. no backdrop-filter support (the base rules below);
+     2. prefers-reduced-transparency (a11y — the media block at the end);
+     3. body.ob-glass-off — the D7 perf-tier gate (shell.js toggles it off
+        the tier seam; glass sits between D7 ladder rungs 1 and 2).
+   THE RAIL IS EXEMPT FROM THE LIFT (GH-668 S5 slice 2, B-K14 / the A2
+   ground law): the place rail is text-dense micro-chrome over the
+   brightest ground in the hall (the felt / wood seam), and the selected
+   pill's accent ink on the 36 % wash over 52 % smoke measured 4.45–4.59:1
+   — a contrast lottery the camera pose decides. Its base is the SOLID
+   rung on every register (the same --ob-glass-solid every fallback lands),
+   no blur under it; the cards keep the smoke (the note is the kit
+   .ob-prompt register since S5 slice 2 G4 — kit.css owns its material). */
+#ob-shell-rail,
+#ob-shell-cards > section {
+  background-color: var(--ob-glass-solid);
+}
+#ob-shell-rail,
+#ob-shell-cards > section,
+#ob-shell-quickplay {
+  background-image: var(--ob-glass-noise);
+  border-top-color: var(--ob-glass-edge);
+}
+/* quick-play: the accent tint rides a gradient LAYER under the noise, so
+   the fallback rungs stay opaque (solid base) while glass mode lifts only
+   the base to transparent under the blur (review review r1 P2) */
+#ob-shell-quickplay {
+  background-image: var(--ob-glass-noise),
+    linear-gradient(var(--ob-accent-dim-2), var(--ob-accent-dim-2));
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  /* THE PLAY AND REPLAYS HOSTS ARE EXEMPT FROM THE LIFT TOO (GH-638 venue
+     lighting, #727 ORDER-LIGHT-C2-FIX21 — the rail's exemption generalised,
+     the kit law B-K14 / A2: text-dense chrome over the scene takes the SOLID
+     rung, tokens.css text-2 is guaranteed on solid grounds only). Under the
+     venue's class-albedo room (walnut floor LRV 9–13, painted walls LRV
+     20–30 — the legacy room was near-black) the 52 % smoke let the scene
+     set the ground under #ob-play-choose, the rules h3, the card names /
+     badges / editions, the variant labels and the replays list rows: the
+     e2e-ui A2 walker read 3.07–4.32:1 on 37 rows (2026-09-16). Exempt by
+     OMISSION from both lift rules — the same mechanism as the rail; the
+     base (solid, above) and the a11y rung (below) are untouched; no token
+     value moves. The practice host keeps the smoke (the equipment host left
+     with ORDER-LIGHT-C2-FIX26 — below).
+     The exemption sits inside `:where()` (ORDER-LIGHT-C2-FIX22, review 727c3
+     P2): a bare `:not(.x)` costs a class unit each and lifted this rule to
+     (1,3,2), above the reduced-transparency fallback below (1,1,2) that
+     wins by SOURCE ORDER at matching specificity; `:where()` contributes
+     zero, so the lift stays (1,1,2) and the a11y rung keeps its win.
+     THE EQUIPMENT HOST IS THE THIRD EXEMPTION (ORDER-LIGHT-C2-FIX26, the §6
+     census of the merged tree): e2e-atelier's S5-C read the cues hint (kit
+     .ob-body, text-1 14 px) at 3.93:1 over the walnut floor through the
+     smoke at 844x390 de — the same class on the atelier host's surface; it
+     joins the play and replays hosts on the solid rung (the base rule above
+     paints it), on every register and on both rooms. The practice host is
+     the one place that keeps the smoke. */
+  body:not(.ob-glass-off) #ob-shell-cards > section:where(:not(.ob-play-host):not(.ob-replays-host):not(.ob-atelier-host)) {
+    background-color: var(--ob-glass-bg);
+  }
+  /* quick-play AND the rail are EXEMPT from the lift and the blur (GH-668
+     S5 slice 2): their base is the solid rung on every register (above),
+     so blur under them buys nothing; noise (+ the accent tint on
+     quick-play) is their material. The blur rule carries the SAME three
+     host exemptions as the background rule above — play, replays and,
+     since ORDER-LIGHT-C2-FIX26, equipment (the practice host alone keeps
+     the blur). */
+  body:not(.ob-glass-off) #ob-shell-cards > section:where(:not(.ob-play-host):not(.ob-replays-host):not(.ob-atelier-host)) {
+    backdrop-filter: blur(var(--ob-glass-blur)) saturate(var(--ob-glass-sat));
+    -webkit-backdrop-filter: blur(var(--ob-glass-blur))
+                             saturate(var(--ob-glass-sat));
+  }
+}
+/* a11y solid (rung 2) — AFTER the @supports block at matching specificity,
+   so it wins the cascade wherever the preference is exposed */
+@media (prefers-reduced-transparency: reduce) {
+  body:not(.ob-glass-off) #ob-shell-cards > section {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  body:not(.ob-glass-off) #ob-shell-cards > section {
+    background-color: var(--ob-glass-solid);
+  }
+}
+/* selected place: chalk-blue hairline glow + the focus-ring composition —
+   both now the kit strip control's selected-pill register (kit.css
+   .ob-strip__seg[aria-current="true"], GH-534 round 7; the review r2 P2
+   ring-composition law carried over verbatim) */
+
+/* ---- theater dim (owner ruling 2026-08-15; contract §7.1 note) -----------
+   A card expansion (show-then-open — the settings modal over the shell)
+   dims the live scene behind the chrome: a CSS overlay on the shell root
+   (z 8, under the modal + its backdrop), NEVER a renderer change. Subtle
+   flat dim + edge vignette; ::before paints under the chrome children. */
+#ob-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse 120% 100% at 50% 42%,
+    transparent 28%, var(--ob-scrim) 125%);
+  transition: opacity var(--ob-t-med) var(--ob-ease);
+}
+body.ob-shell-theater #ob-shell::before { opacity: 1; }
+
+/* ---- gameplay chrome inertness while the shell is open (FR-017) ----------
+   The class rides <body> so the rule survives settings.js's own hudVis
+   restore (an inline-style reset cannot outrank it while the class holds). */
+body.ob-shell-open #hud,
+body.ob-shell-open #ob-toolbar,
+body.ob-shell-open #help,
+body.ob-shell-open #aimw,
+body.ob-shell-open #banner,
+/* the touch register's BODY-LEVEL gameplay chrome (touchwidgets.js mounts
+   outside #hud): power gauge, spin disc, fine-aim cluster, push pill,
+   drag ghost — review visual audit P0: these collided with shell chrome on
+   phone captures. #ob-rotate (the orientation prompt) deliberately stays. */
+body.ob-shell-open #ob-push-btn,
+body.ob-shell-open #ob-power-gauge,
+body.ob-shell-open #ob-spin-btn,
+body.ob-shell-open #ob-fine-cluster,
+body.ob-shell-open #ob-touch-ghost,
+/* the drills dock (drills.js mounts it body-level, outside #hud) — the
+   FR-017 hole 036a closes (shell.md §7 FR-017 strengthened, spec R-14: hide
+   list, never a gatePointerDown extension); its state is untouched, so it
+   returns `.on` exactly as it was at the exit */
+body.ob-shell-open #ob-drill-dock {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* ---- reduced motion ------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  /* rail pills, quick-play and the remember row ride the kit reduced-motion
+     block (.ob-btn transition: none) */
+  #ob-shell::before { transition: none; } /* theater dim: instant */
+}
+
+/* ---- phone register (coarse pointer; contract §6 phone law) --------------
+   rail gap + the 48px pill floor ride the kit strip control (kit.css) */
+@media (pointer: coarse) {
+  #ob-shell-cards { width: min(280px, 58vw); }
+  /* the rail spans most of a phone's width: quick-play + remember stack
+     ABOVE it (review visual audit P0: the corner position collided with the
+     rail/Settings at 844x390). 88 = 12 + 66 (coarse strip-control rail:
+     48 pill + 2x8 inset + 2 border) + 10 breathing — the GH-534 round-7
+     rebase (was 80 over the 58px hand-rolled rail; same clearance). */
+  #ob-shell-quickplay-wrap {
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  }
+  /* R4 (GH-668 S5 slice 2): under a finger the remember row FOLDS into
+     quick-play as its long-press secondary (shell.js armQuickPlayHold) —
+     the row stays in the DOM for the frozen §6 selector and the e2e seam;
+     the phone shell reserve drops from 212 to <= 150 px (B-PL02's window).
+     review r4 P2: it also stays in the TAB ORDER — an external-keyboard /
+     switch user has no long-press and Enter / Space on quick-play EXITS the
+     hall, so `display: none` left startAtTable (sole writer: this control,
+     shell.md §5) unreachable. The skip-link idiom: at rest the row is the
+     kit's sr-only box (1 x 1, clip-path inset(50%) — the B-K19 pane-title
+     idiom the audits already read as "off the paint"), out of flow, inert to
+     pointers and transparent; while focused (:focus-visible / :focus-within)
+     it is the kit .ob-btn--row.ob-btn--toggle it always was, in flow under
+     quick-play, and Enter / Space is the button's native activation
+     (toggleRemember). No transition of its own — the reveal is instant, as a
+     skip link's; the kit's reduced-motion block covers .ob-btn. (1,3,0)
+     outranks the (1,2,0) row belt above (min-height / padding). */
+  #ob-shell [data-ob="shell-remember"]:not(:focus-visible):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+@media (max-width: 700px) {
+  /* narrow desktop windows: same stacking escape (fine-pointer rail is
+     62px tall: 44 + 2x8 + 2 — 88 keeps >=10px clearance here too). Since
+     GH-989 this is the STALE-MODULE belt: shell.js measures the real
+     collision (rail content width vs the stack's column) and lifts the
+     stack through #ob-shell.ob-shell-qp-lift below at any width / locale. */
+  #ob-shell-quickplay-wrap {
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  }
+}
+/* GH-989: the measured lift — the stack rises above the rail band by the
+   rail's published height (--ob-shell-rail-h, shell.js) + its 12 px inset
+   + sp-3, instead of the literal 88 */
+#ob-shell.ob-shell-qp-lift #ob-shell-quickplay-wrap {
+  bottom: calc(var(--ob-shell-rail-h, 62px) + 12px + var(--ob-sp-3) + env(safe-area-inset-bottom, 0px));
+}
+/* ...and at the equipment place the lifted stack stands in the right column
+   the in-shell decision prompt and the cue card already share (GH-698): with
+   a carom break_spot pending at 800x600 the card's band ended on the stack
+   (its Try-it under the primary, e2e-atelier S5-Q) or, with the stack in
+   the bottom reserve, the docked bar sat on the showroom cards (S5-X2). The
+   decision precedes play: the quick-play YIELD the equipment place takes on
+   short viewports (shell.js, lane question 34) covers the lifted stack too —
+   hidden and pointer-inert while the prompt is up, back with its removal
+   (bands() reads the yielded stack as absent: the rail band alone) */
+#ob-shell.ob-shell-at-equipment.ob-shell-qp-lift #ob-shell-quickplay-wrap {
+  transition: opacity var(--ob-t-fast) var(--ob-ease);
+}
+#ob-shell.ob-shell-at-equipment.ob-shell-qp-lift.ob-shell-decision-up #ob-shell-quickplay-wrap {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--ob-t-fast) var(--ob-ease),
+              visibility 0s linear var(--ob-t-fast);
+}
+@media (prefers-reduced-motion: reduce) {
+  #ob-shell.ob-shell-at-equipment.ob-shell-qp-lift #ob-shell-quickplay-wrap,
+  #ob-shell.ob-shell-at-equipment.ob-shell-qp-lift.ob-shell-decision-up #ob-shell-quickplay-wrap {
+    transition: none;
+  }
+}

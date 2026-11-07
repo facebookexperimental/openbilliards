@@ -1,0 +1,165 @@
+{
+ "noTailControl": {
+  "tailMaxErr": 0.0050653,
+  "within": 0
+ },
+ "what": "C2-FIX1 class C: the shader read (table + the 1/c² far tail) vs the exact integral at h/r ∈ {2,4,8,10,16,32} × n_y ∈ {−1,−0.5,0}; within = the tail's far error ≤ the far rows' own interpolation error AND every far node ≤ the contact ring's (the refuter round's rule)",
+ "generator": "tools/render/lighting-occlusion-lut.mjs",
+ "N_table": 384,
+ "label": "generated",
+ "nh": 65,
+ "etaMax": 8,
+ "tail": "inv-c2",
+ "nodes": [
+  {
+   "ny": -1,
+   "eta": 2,
+   "exact": 0.9397889,
+   "lut": 0.9397889,
+   "err": 0,
+   "regime": "table"
+  },
+  {
+   "ny": -1,
+   "eta": 4,
+   "exact": 0.9808861,
+   "lut": 0.9808732,
+   "err": -0.0000129,
+   "regime": "table"
+  },
+  {
+   "ny": -1,
+   "eta": 8,
+   "exact": 0.9945577,
+   "lut": 0.9945577,
+   "err": 0,
+   "regime": "table"
+  },
+  {
+   "ny": -1,
+   "eta": 10,
+   "exact": 0.9964216,
+   "lut": 0.9963568,
+   "err": -0.0000649,
+   "regime": "tail"
+  },
+  {
+   "ny": -1,
+   "eta": 16,
+   "exact": 0.9985435,
+   "lut": 0.9984746,
+   "err": -0.0000689,
+   "regime": "tail"
+  },
+  {
+   "ny": -1,
+   "eta": 32,
+   "exact": 0.999623,
+   "lut": 0.9995952,
+   "err": -0.0000278,
+   "regime": "tail"
+  },
+  {
+   "ny": -0.5,
+   "eta": 2,
+   "exact": 0.9683724,
+   "lut": 0.9683723,
+   "err": 0,
+   "regime": "table"
+  },
+  {
+   "ny": -0.5,
+   "eta": 4,
+   "exact": 0.9896697,
+   "lut": 0.989663,
+   "err": -0.0000068,
+   "regime": "table"
+  },
+  {
+   "ny": -0.5,
+   "eta": 8,
+   "exact": 0.9970447,
+   "lut": 0.9970447,
+   "err": 0,
+   "regime": "table"
+  },
+  {
+   "ny": -0.5,
+   "eta": 10,
+   "exact": 0.9980572,
+   "lut": 0.9980633,
+   "err": 0.0000061,
+   "regime": "tail"
+  },
+  {
+   "ny": -0.5,
+   "eta": 16,
+   "exact": 0.9992101,
+   "lut": 0.9992157,
+   "err": 0.0000056,
+   "regime": "tail"
+  },
+  {
+   "ny": -0.5,
+   "eta": 32,
+   "exact": 0.9997959,
+   "lut": 0.9997979,
+   "err": 0.000002,
+   "regime": "tail"
+  },
+  {
+   "ny": 0,
+   "eta": 2,
+   "exact": 0.9880468,
+   "lut": 0.9880468,
+   "err": 0,
+   "regime": "table"
+  },
+  {
+   "ny": 0,
+   "eta": 4,
+   "exact": 0.9959665,
+   "lut": 0.995964,
+   "err": -0.0000025,
+   "regime": "table"
+  },
+  {
+   "ny": 0,
+   "eta": 8,
+   "exact": 0.9988379,
+   "lut": 0.9988379,
+   "err": 0,
+   "regime": "table"
+  },
+  {
+   "ny": 0,
+   "eta": 10,
+   "exact": 0.9992357,
+   "lut": 0.9992563,
+   "err": 0.0000206,
+   "regime": "tail"
+  },
+  {
+   "ny": 0,
+   "eta": 16,
+   "exact": 0.9996892,
+   "lut": 0.9997095,
+   "err": 0.0000203,
+   "regime": "tail"
+  },
+  {
+   "ny": 0,
+   "eta": 32,
+   "exact": 0.9999197,
+   "lut": 0.9999274,
+   "err": 0.0000077,
+   "regime": "tail"
+  }
+ ],
+ "maxErr": 0.0000689,
+ "tailMaxErr": 0.0000689,
+ "interpMaxErr": 0.0110814,
+ "interpFarMaxErr": 0.0000881,
+ "within": 1,
+ "err_ny_m1_eta10": -0.0000649
+}

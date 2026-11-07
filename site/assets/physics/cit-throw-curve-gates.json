@@ -1,0 +1,214 @@
+{
+  "scenario": "cit-throw-curve",
+  "title": "Cut-induced throw — the μ(v) master curve, dead-on at half-ball (battery A3)",
+  "kernel": "0.1.0+208e1dc4",
+  "anchor": {
+    "rule": "Cut-induced throw: contact friction drags the object ball off the frictionless line of centers by up to ~5°, worst near half-ball at slow speed; the kernel's slip throw is EXACTLY the TP A-14 form atan(mu*|v_bt|/v_rel) since the #77 Coulomb-cap fix.",
+    "rule_zh": "切击摩擦使目标球偏离几何线（掷偏）最多约 5°，慢速半球厚度最明显；#77 修正后滑移支路与 TP A-14 闭式完全一致。",
+    "sources": "Dr. Dave TP A-14 Eqs 15-17 + mu(v) fit p.4 (Marlow Table 10 lineage); TP A.28 / B.3",
+    "battery": "A3 — examples/paper/exp_a3_cit.py (the internal paper baselines §2, hash re-recorded through §9 physics bit-identical; published out: examples/paper/out/exp_a3_cit.json @ 0.1.0+a321d64f)",
+    "cell": {
+      "state": "stun",
+      "speed": "slow",
+      "cut_deg": 35,
+      "target_ball_speed_mps": 0.447,
+      "why_this_cell": "the slip-branch grid cell nearest the slow-stun peak: kernel and TP A-14 agree DEAD-ON (E -0.0001°, tan-arg ratio 0.99997 — the post-#77 headline). The 32.5° grid peak (S 5.3239) is the declared stick/slip boundary-band cell (E +0.1237, branch_kernel slip vs branch_tp stick) — a worse 'predicted vs measured' story. The inventory's '5.30°' is the dense NOMINAL peak (D 5.3023 @ 33.01°), not a grid cell."
+    },
+    "predictedDeg": 5.246143531809289,
+    "predictedConvention": "D = TP A-14 closed form (e = 1 normal) at the kernel-MEASURED impact conditions (v_n, v_bt, v_rel from pre-impact FD, h = 5e-5 s) — the battery's own E = S - D convention",
+    "nominalDAtCellDeg": 5.2372,
+    "densePeakNominal": {
+      "cut_deg": 33.01,
+      "throw_deg": 5.3023
+    },
+    "figPeakReadSlow": {
+      "cut_deg": 33,
+      "throw_deg": 5.3
+    }
+  },
+  "badge": {
+    "line1": "predicted 5.25° · measured 5.25°",
+    "line2": "CUT-INDUCED THROW · DR. DAVE TP A-14 (EQS 15–17) · BATTERY A3 (EXP_A3_CIT) · STUN · CUT 35.0° · SLOW (1 MPH)"
+  },
+  "segments": [
+    {
+      "id": "main",
+      "batterySha": "04a8e4037936cce25cfe817355c9115318d8f3348c1f1b1251b1fcb6f3a89c45",
+      "videoSha": "141b1d97c152a5bbf6f42fc6ad51c6fd60704b8b890f85a5f5bd8a9dfbc4b482",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tImpact": 0.2061362406882046,
+        "vImpact": 0.43872214128406334,
+        "rhoPre": 0.047170281743386354,
+        "phiEffDeg": 35.00000000000001,
+        "vN": 0.35901852423955805,
+        "vBt": 0.251387477029464,
+        "vBz": -0.017856098894208,
+        "vRel": 0.25202084016001336,
+        "S_throw_deg": 5.246005951327902,
+        "D_tpA14_deg": 5.246143531809289,
+        "E_deg": -0.00013758048138701184,
+        "throwSign": 1,
+        "aimHeadingDeg": 90,
+        "contactCb": [
+          -0.3627798933374623,
+          0.0571854606688841
+        ],
+        "obStart": [
+          -0.33,
+          0.10399999999999998
+        ],
+        "hGhostDeg": 55,
+        "hPredDeg": 60.24614353180929,
+        "hMeasDeg": 60.24600595132786,
+        "tRollCb": 0.23620581162192605,
+        "tRollOb": 0.25814979554685236,
+        "tRestCb": 1.872224836578392,
+        "tRestOb": 2.799913277510656,
+        "cbRest": [
+          -0.46996195921935763,
+          0.1425069567008695
+        ],
+        "obRest": [
+          -0.1651516834106823,
+          0.3927742608599923
+        ],
+        "obTravelM": 0.3325139714622031,
+        "gapAtRestM": 0.3372394366861715,
+        "railY": 1.27,
+        "ghostRailX": 0.48644198955252155,
+        "predRailX": 0.3365280262277612,
+        "gapAtRailM": 0.14991396332476037,
+        "duration": 2.799913277510656,
+        "minPairMm": 57.150000000000006,
+        "minPairAt": 0.2061362406882046,
+        "cbStart": [
+          -0.3627798933374623,
+          -0.0748145393311159
+        ],
+        "approachTravelM": 0.13,
+        "tEnd": 2.799913277510656,
+        "minPair": [
+          0,
+          1
+        ]
+      },
+      "plan": {
+        "frames": 500,
+        "outputSec": 8.333333333333334,
+        "maxCutlessStepRatio": 1.0740832436737175,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 3,
+          "dissolveSpans": [
+            [
+              248,
+              272
+            ]
+          ],
+          "deliveredFrames": 476,
+          "deliveredSec": 7.933333333333334,
+          "firstReplayFrame": 104,
+          "recoveredFrames": 100,
+          "dissolveS": 0.4
+        }
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 2,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 0.5533333333333332,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.5533333333333332,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "+5.25°",
+              "velocity-dependent friction · 35° cut"
+            ],
+            "availSec": 2.2333333333333334,
+            "spanSec": 1.38,
+            "entrySec": 1,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.38,
+            "settledSec": 0.8533333333333335,
+            "needScale": 0.7137931034482758,
+            "settledFrames": 51
+          },
+          {
+            "text": [
+              "150 mm off the frictionless line"
+            ],
+            "availSec": 1.7333333333333334,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.1800000000000002,
+            "settledSec": 0.5533333333333332,
+            "needScale": 0.8232558139534885,
+            "settledFrames": 33
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "main",
+      "frames": 500,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "5090abc12daf0d7eac1dd5424f34c81fed44d3158d0d5d8a73432d10d36b298c",
+      "sha256_last": "34217ce7ba2d446cfaca67129f4c88a0784e7c7d5c63cd816311292c99ffe1ce"
+    }
+  ],
+  "titleCard": {
+    "value": "Cut-induced throw",
+    "claim": "the mu(v) master curve, dead-on at half-ball (battery A3)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "56a4db43e49cb40c904ec6996170b322b7986c720994fcbd3ee60477390b08a8",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "3b85d7e94a3eacd9fc355768a09deb3ae294888c27979882e9369630fbc3e3bc"
+  }
+}

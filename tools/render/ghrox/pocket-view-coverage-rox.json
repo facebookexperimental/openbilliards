@@ -1,0 +1,20 @@
+{
+  "schema": "openbilliards/rox-pocket-view-coverage/1",
+  "origin": "DERIVED: FIX8 registered viewer silhouettes, not a MODEL or geometry tolerance",
+  "render_commit": "2f44adde31b7447f20a50da0fb3e38bc902b0fa4",
+  "viewport": { "width": 1600, "height": 1000 },
+  "inputs_sha256": {
+    "registered_frames": "eadd19c785451ac7ae707333ae71a501cb16da1993f138ed20be43ed70868c20",
+    "sealed_ray_census": "5c00fea578c3b07eeb62cd733d87a4afe888f7866c73b4b4d856a2a6209fd09c",
+    "baseline_mask_dump": "4fd32b45923dff1ecef6485076d1f2c22b68be4c358ccafcf0de9d0a8d18b831"
+  },
+  "rule": "Minimum fraction = min(tested_pixels / projected_pixels) across the six registered FIX8 views = 1. Each current view must test at least that fraction of both its complete projected silhouette and the registered silhouette at this viewport. Empty, unresolved or depth-clipped projections refuse. A changed viewport needs a new explicit registration.",
+  "rows": [
+    { "pocket": "nxnz", "projected_pixels": 75903, "tested_pixels": 75903 },
+    { "pocket": "pxnz", "projected_pixels": 75903, "tested_pixels": 75903 },
+    { "pocket": "pxpz", "projected_pixels": 75903, "tested_pixels": 75903 },
+    { "pocket": "nxpz", "projected_pixels": 75903, "tested_pixels": 75903 },
+    { "pocket": "nz", "projected_pixels": 71121, "tested_pixels": 71121 },
+    { "pocket": "pz", "projected_pixels": 71121, "tested_pixels": 71121 }
+  ]
+}

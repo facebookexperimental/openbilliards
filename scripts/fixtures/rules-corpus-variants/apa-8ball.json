@@ -1,0 +1,1516 @@
+{
+ "comment": [
+  "DO NOT REGENERATE (rules-corpus.json discipline; frozen at the T012",
+  "review, feature 022). Per-preset byte oracle for the variant",
+  "conformance gate: every expect line harvested ONCE from the",
+  "pool-rules crate through the pool-cli judge leg at the harvestedAt",
+  "commit and reviewed case-by-case against its cited clause (WPA Rules",
+  "of Play eff. 2025-09-15 / the T002 APA harvest,",
+  "the APA clause-harvest audit (internal), incl. findings",
+  "HF-1/HF-2). Post-freeze changes ONLY via the erratum protocol:",
+  "a pinned-clause proof against the preset's cited text (issue #19",
+  "precedent) \u2014 NEVER a re-run to fix a red gate; a byte diff at any",
+  "conformance leg is resolved by fixing the code to reproduce THESE",
+  "bytes. Cases sharing a 'pair' value with the sibling slice carry",
+  "byte-identical 'record' values: the same physics under both configs",
+  "yields the documented divergent judgments (US1). Every judged delta",
+  "axis of this preset is covered at least once (SC-004); each case's",
+  "'comment' cites its justifying clause.",
+  "ERRATUM issue #62 (2026-07-22, RULES_VERSION 0.1.4): the",
+  "miss-on-eight case's no-contact cite WPA 3.2 via 4.9 -> WPA 3.3",
+  "via 4.9 (audit-8ball F1; pinned WPA text: 3.3 first sentence",
+  "carries the contact requirement, 3.2 presupposes a contact) \u2014",
+  "expect regenerated through the pool-cli judge leg; record bytes",
+  "(the divergence-pair invariant) untouched.",
+  "SCHEMA-EVOLUTION REPIN GH-371 (2026-08-05, RULES_VERSION 0.1.7,",
+  "contracts/variant-config.md par.6 full-repin law): the eightball",
+  "family grew the appended `kitchen_rule` axis (WPA 3.11 kitchen-shot",
+  "law; default `wpa` = the WPA-baseline behavior). Every input state's",
+  "variant block re-derived (config + new-field default, task_hash",
+  "recomputed via the crate's one hasher); every expect regenerated",
+  "through the pool-cli judge leg. Per-case deltas are MECHANICAL only:",
+  "the appended kitchen_rule value, the new task_hash, the additive",
+  "trailing kitchenBih flag, and the strict-parse error text growing",
+  "the new field name -- ZERO verdict flips (no frozen case stages a",
+  "kitchen-BIH stroke on a dimensioned record). New 3.11 behavior is",
+  "pinned by the eightball_v2 kitchen unit tests (both paragraphs, the",
+  "off/parity point, the context gate, the decision-armed transitions)."
+ ],
+ "harvestedAt": "66d0942285a9c13501acc36c9b971f68b8f3274d",
+ "preset": "apa-8ball",
+ "cases": [
+  {
+   "id": "apa-8ball/initialState-001-task-config",
+   "ruleset": "eightball-v2",
+   "kind": "initialState",
+   "breaker": 1,
+   "task_config": {
+    "schema": "task-config-v1",
+    "kind": "rules-variant",
+    "family": "eightball",
+    "config": {
+     "call_shot": "eight_only",
+     "safety_call": false,
+     "safety_pot_stays_down": false,
+     "open_table_assignment": "take_what_you_make",
+     "eight_on_break": "win_unless_scratch",
+     "scratch_on_eight": "loss",
+     "jumped_ball": "spot_no_foul",
+     "dry_break_rail_minimum": 0,
+     "dry_break_consequence": "re_break",
+     "break_scratch_bih": "kitchen"
+    }
+   },
+   "comment": "task_initial_state_json on the canonical apa-8ball envelope (the resolved judged overlay; APA OTM edition pinned in the APA clause-harvest audit).",
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":true}",
+   "expectSha256": "71029281be7277018a604ba5f03dd8cfc1ff10c32ed9cfe5e2ef19e94e68fb65"
+  },
+  {
+   "id": "apa-8ball/initialState-002-preset",
+   "ruleset": "eightball-v2",
+   "kind": "initialState",
+   "breaker": 2,
+   "preset": "apa-8ball",
+   "comment": "preset_initial_state_json('apa-8ball') resolves the preset file's judged overlay to the same config point (registry-api.md par.2); breaker seat 2.",
+   "expect": "{\"phase\":\"break\",\"shooter\":2,\"breaker\":2,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":true}",
+   "expectSha256": "db40b8af2e3a975d685cbd75ba3a277138701519e68d1a15e5e0a5f3b684613d"
+  },
+  {
+   "id": "apa-8ball/judge-003-zero-rail-break-legal",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "pair": "dry-break",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM Breaking pp.45-46 (dry_break_rail_minimum=0, spec-frozen R5 row 6, harvest finding HF-1): the same 0-rail contact-only break is LEGAL; seat passes, table open. dry_break_consequence=re_break is carried in these config bytes but is unreachable under minimum 0 (harvest HF-2) -- its behavioral row is pinned by the engine's eightball_v2 unit pair, not by this slice. Pair of wpa-8ball/judge-003 (bad-break + option there).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":2,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "624a100606eb67848b8aaa8e8d13af7570ba0bcc17a44c5cc35f78795ffa9eb7"
+  },
+  {
+   "id": "apa-8ball/judge-004-break-pot-assigns",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "pair": "break-assignment",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallPocket": {
+        "ball": 2,
+        "pocket": 3
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM After The Break pp.46-47 (c) (open_table_assignment=take_what_you_make): a one-group break pot assigns that group to the breaker; grouped phase, breaker continues. Pair of wpa-8ball/judge-004.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[2],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "3b5fe3ff980e296b7e4863680b732b3675a9a1de5e6437645d6ec1d4afe6a804"
+  },
+  {
+   "id": "apa-8ball/judge-005-eight-on-break-win",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "pair": "eight-on-break",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallPocket": {
+        "ball": 8,
+        "pocket": 2
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM After The Break pp.46-47 (b) (eight_on_break=win_unless_scratch): the 8 on the break wins the game for the breaker outright -- terminal, no decision (WPA decision ids 1-5 keep their frozen meanings; the rows simply do not fire). Pair of wpa-8ball/judge-005.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[8],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":{\"winner\":1,\"reason\":\"eight-on-break\",\"cite\":\"APA OTM After The Break pp.46-47 (b)\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":{\"winner\":1,\"reason\":\"eight-on-break\",\"cite\":\"APA OTM After The Break pp.46-47 (b)\"},\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "80e667b54700bc5d73ca0b28640871e92849cd4be240b5ae760300cfcc28fe7b"
+  },
+  {
+   "id": "apa-8ball/judge-006-eight-on-break-scratch-loss",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "pair": "eight-on-break-scratch",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallPocket": {
+        "ball": 8,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.5,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 4
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM After The Break pp.46-47 (b): the 8 on the break with a same-shot cue scratch is LOSS for the breaker -- terminal. Pair of wpa-8ball/judge-006.",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 3.1 via 4.3(g),(h)\"}],\"pocketed\":[8],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":2,\"reason\":\"eight-on-break-scratch\",\"cite\":\"APA OTM After The Break pp.46-47 (b)\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":{\"winner\":2,\"reason\":\"eight-on-break-scratch\",\"cite\":\"APA OTM After The Break pp.46-47 (b)\"},\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 3.1 via 4.3(g),(h)\"}],\"by\":1},\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "d3ac6577ba0cc007975c91caa60976e9802b486b6836e16da7e22ddb1d71c48c"
+  },
+  {
+   "id": "apa-8ball/judge-007-break-jumped-spot-no-foul",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "pair": "jumped-on-break",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallPocket": {
+        "ball": 2,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.5,
+      "kind": {
+       "BallOffTable": {
+        "ball": 9
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.6,
+      "kind": {
+       "BallOffTable": {
+        "ball": 5
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM Balls On The Floor p.49; Fouls pp.53-55 (a) (jumped_ball=spot_no_foul): object balls off the table on the break are NOT a foul; they respot (P13, numeric order) and return to next.onTable; the legal break pot continues. Deferred-spot timing is a not_modeled row (harvest Row 5). Pair of wpa-8ball/judge-007.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[2],\"ballInHand\":\"none\",\"respot\":[5,9],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "7ac94e5e208bdac0ce3cc7b5433d1f8dc1f75ab334b88da10766c95c4ab865fd"
+  },
+  {
+   "id": "apa-8ball/judge-008-slop-counts-continue",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "pair": "call-shot",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     8,
+     9,
+     10
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallPocket": {
+        "ball": 2,
+        "pocket": 5
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM Pocketed Balls pp.48-49 (call_shot=eight_only): no designation exists during the shot -- the uncalled pot of the shooter's ball counts and the shooter continues. Pair of wpa-8ball/judge-error-009 (IDENTICAL record and call bytes: the null call is a bad-call error there).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[2],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,8,9,10],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "79fda4ffef19397f949b59ce1a77ddd817426a46b3e1cbbfe50f0579f47d0792"
+  },
+  {
+   "id": "apa-8ball/judge-009-safety-input-inert",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "pair": "safety-call",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     8,
+     9,
+     10
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallPocket": {
+        "ball": 2,
+        "pocket": 5
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "safety"
+   },
+   "comment": "APA OTM Pocketed Balls pp.48-49 (safety_call=false): no judged safety call exists -- APA defensive-shot marking is a SCOREKEEPING device (How To Score 8-Ball), so the declared-safety input is inert: the pot counts and the shooter continues exactly as with no input. This case also pins safety_pot_stays_down=false as INERT under this preset (data-model par.2: value pinned by slice). Pair of wpa-8ball/judge-010 (legal safety PASSES there; same record and call bytes).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[2],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,8,9,10],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "79fda4ffef19397f949b59ce1a77ddd817426a46b3e1cbbfe50f0579f47d0792"
+  },
+  {
+   "id": "apa-8ball/judge-010-scratch-on-eight-loss",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "pair": "scratch-on-eight",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     8,
+     9,
+     10
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 8
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 8
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 4
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM How To Win A Game pp.55-56 (g) (scratch_on_eight=loss): a cue scratch while shooting the 8 loses the game -- terminal for the opponent, rack over. Pair of wpa-8ball/judge-011 (ordinary foul there).",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 3.1 via 4.9\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":2,\"reason\":\"scratch-on-eight\",\"cite\":\"APA OTM How To Win A Game pp.55-56 (g)\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[8,9,10],\"pendingDecision\":null,\"result\":{\"winner\":2,\"reason\":\"scratch-on-eight\",\"cite\":\"APA OTM How To Win A Game pp.55-56 (g)\"},\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 3.1 via 4.9\"}],\"by\":1},\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "7cc59eb87ca302f25dd495c3131bf4b364d55d0a4f595679b385f3a548add240"
+  },
+  {
+   "id": "apa-8ball/judge-011-jumped-ball-spot-no-foul",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "pair": "jumped-in-play",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     2,
+     8,
+     9,
+     10
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallOffTable": {
+        "ball": 9
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM Balls On The Floor p.49; Fouls pp.53-55 (a) (jumped_ball=spot_no_foul): the jumped 9 is not a foul; it respots and stays in play; no pot, so the seat passes. Pair of wpa-8ball/judge-013.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[9],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,2,8,9,10],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "8dc317f466324fd7806eded52926c385ae362a7cd14b6fd446aaac2bb91d6c7b"
+  },
+  {
+   "id": "apa-8ball/judge-012-miss-on-eight-is-foul-not-loss",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "pair": "miss-on-eight",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     8,
+     9,
+     10
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": []
+   },
+   "call": null,
+   "comment": "APA OTM How To Win A Game pp.55-56 NOTE 1: a table scratch (missing the 8 entirely, no cue scratch) is only a ball-in-hand foul, NEVER loss of game -- the loss row keys on the P9 cue-scratch fact. Pair of wpa-8ball/judge-012. ERRATUM issue #62 (2026-07-22, RULES_VERSION 0.1.4), regenerated through the pool-cli judge leg: no-contact cite WPA 3.2 via 4.9 -> WPA 3.3 via 4.9 (audit-8ball F1).",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA 3.3 via 4.9\"}],\"pocketed\":[],\"ballInHand\":\"anywhere\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":2,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[8,9,10],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPA 3.3 via 4.9\"}],\"by\":1},\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "aaab97efe06a14f411b5807572a0ae603e6470e6c0cc617bd0c84e3b13a50068"
+  },
+  {
+   "id": "apa-8ball/judge-013-open-pot-assigns-without-call",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "pair": "open-assignment",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallPocket": {
+        "ball": 2,
+        "pocket": 5
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM After The Break pp.46-47 (d) (open_table_assignment=take_what_you_make): while open, any ball pocketed without fouling counts and fixes the shooter's group -- no call input exists. Pair of wpa-8ball/judge-013 (called_pot assignment there).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[2],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"grouped\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "3b5fe3ff980e296b7e4863680b732b3675a9a1de5e6437645d6ec1d4afe6a804"
+  },
+  {
+   "id": "apa-8ball/judge-014-eight-marked-pocket-wins",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     8,
+     9,
+     10
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 8
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallPocket": {
+        "ball": 8,
+        "pocket": 2
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "call",
+    "ball": 8,
+    "pocket": 2
+   },
+   "comment": "APA OTM How To Win A Game pp.55-56 (a) (call_shot=eight_only): the 8 legally pocketed in the properly MARKED pocket wins (the mark rides the P16 call input, nomination unchanged).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[8],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":{\"winner\":1,\"reason\":\"eight-ball-pocketed\",\"cite\":\"APA OTM How To Win A Game pp.55-56 (a)\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[9,10],\"pendingDecision\":null,\"result\":{\"winner\":1,\"reason\":\"eight-ball-pocketed\",\"cite\":\"APA OTM How To Win A Game pp.55-56 (a)\"},\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "5e28a451362edf5a4dab4e1a796d7972aea6532ae7d2660155c960d6e52f4404"
+  },
+  {
+   "id": "apa-8ball/judge-015-eight-unmarked-pocket-loses",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     8,
+     9,
+     10
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 8
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallPocket": {
+        "ball": 8,
+        "pocket": 2
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM How To Win A Game pp.55-56 (c),(d): the 8 pocketed in a wrong/unmarked pocket loses the game -- terminal for the opponent.",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[8],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":2,\"reason\":\"eight-wrong-pocket\",\"cite\":\"APA OTM How To Win A Game pp.55-56 (c),(d)\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[9,10],\"pendingDecision\":null,\"result\":{\"winner\":2,\"reason\":\"eight-wrong-pocket\",\"cite\":\"APA OTM How To Win A Game pp.55-56 (c),(d)\"},\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "75d480b6dc4cd1a1552156786732c1300142f4a0401ea385dfd890f6e03c2611"
+  },
+  {
+   "id": "apa-8ball/hudState-016-initial",
+   "ruleset": "eightball-v2",
+   "kind": "hudState",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "comment": "hud_state on an apa-8ball state is the v1 8-ball HUD shape unchanged (registry-api.md par.1) -- display metadata comes from the catalog, never the match state.",
+   "expect": "{\"phase\":\"break\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":null,\"onEight\":null,\"openClaim\":false}",
+   "expectSha256": "b38f87da1ba2898433cbca6de2ed80d1cced71502041d759167a373e57618a52"
+  },
+  {
+   "id": "apa-8ball/initialState-error-017-unknown-preset",
+   "ruleset": "eightball-v2",
+   "kind": "initialState-error",
+   "breaker": 1,
+   "preset": "bcapl-8ball",
+   "comment": "SC-006 payload pin: preset_initial_state_json on an unregistered id ships the structured unknown-preset bytes, identical from all three surfaces (US2 scenario 5).",
+   "expect": "{\"error\":{\"code\":\"unknown-preset\",\"message\":\"unknown preset 'bcapl-8ball'\"}}",
+   "expectSha256": "317d5043844c4bdb5db025761a865081bd41e964d9d6ce1af8f16922b718be11"
+  },
+  {
+   "id": "apa-8ball/judge-018-break-eight-off-table-foul",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallOffTable": {
+        "ball": 8
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallOffTable": {
+        "ball": 9
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM Balls On The Floor p.49 (jumped_ball=spot_no_foul): jumped object balls spot without penalty UNLESS the 8 leaves the table -- the 8 on the floor on the break IS a foul (ball-off-table); the 9 spots by judgment while the 8 stays down decision-gated (break_foul election, WPA 4.7 analog), BIH kitchen scope (break_scratch_bih). Issue #92 audit pin (the 8-off-table break path was unpinned).",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA 3.5 via 4.3(g),(h)\"}],\"pocketed\":[],\"ballInHand\":\"kitchen\",\"respot\":[9],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"break_foul\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,9,10,11,12,13,14,15],\"pendingDecision\":{\"kind\":\"break_foul\",\"chooser\":2},\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA 3.5 via 4.3(g),(h)\"}],\"by\":1},\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "23f0f8a31ed86b5ebddd306c4b4770088aff17245783264b8886960988c969ff"
+  },
+  {
+   "id": "apa-8ball/applyDecision-019-break-foul-spots-eight",
+   "ruleset": "eightball-v2",
+   "kind": "applyDecision",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "ball-off-table",
+       "cite": "WPA 3.5 via 4.3(g),(h)"
+      }
+     ],
+     "by": 1
+    },
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "decision": {
+    "decision": 4,
+    "choice": 1
+   },
+   "comment": "WPA 4.7-analog decision gate on the APA config: resolving the break_foul election spots the 8 BACK onto the table (with_eight_spotted -- the judged respot never returns the 8) and seats the opponent; both choices of decision 4 seat the opponent (the BIH kitchen domain rode the judgment). State = the judge-018 next state. Issue #92 audit pin.",
+   "expect": "{\"phase\":\"open\",\"shooter\":2,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPA 3.5 via 4.3(g),(h)\"}],\"by\":1},\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}",
+   "expectSha256": "f221e260a0299871cc8f54f1663a381f37e87b0c66667c33954db6f163d62664"
+  },
+  {
+   "id": "apa-8ball/judge-020-play-eight-off-table-loss",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "state": {
+    "phase": "grouped",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": {
+     "1": "solids",
+     "2": "stripes"
+    },
+    "onTable": [
+     1,
+     8,
+     9,
+     10
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallOffTable": {
+        "ball": 8
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM Balls On The Floor p.49: the 8 ball on the floor is a LOSS of game -- the terminal fires outright in play under every shipped jumped_ball value (spot_no_foul never spot-rescues the 8); rack over, winner the opponent. Issue #92 audit pin (the play-phase 8-off-table loss was unpinned).",
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":2,\"reason\":\"eight-off-table\",\"cite\":\"APA OTM Balls On The Floor p.49\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"breaker\":1,\"groups\":{\"1\":\"solids\",\"2\":\"stripes\"},\"onTable\":[1,9,10],\"pendingDecision\":null,\"result\":{\"winner\":2,\"reason\":\"eight-off-table\",\"cite\":\"APA OTM Balls On The Floor p.49\"},\"foulContext\":null,\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "4b584c23ab484555b9c12fe1a48e48fbeccba28902cdc49b412849af5656f384"
+  },
+  {
+   "id": "apa-8ball/judge-021-break-scratch-election",
+   "ruleset": "eightball-v2",
+   "kind": "judge",
+   "state": {
+    "phase": "break",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": null,
+    "result": null,
+    "foulContext": null,
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "record": {
+    "initial": {
+     "balls": []
+    },
+    "events": [
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallLinearCushion": {
+        "ball": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.5,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 3
+       }
+      },
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "comment": "APA OTM Breaking pp.45-46 (scratch on the break): a break scratch is a foul -- the opponent takes cue ball in hand behind the head string (break_scratch_bih=kitchen keys the BIH domain on the judgment) via the break_foul election (decision 4). Issue #92 audit pin (the APA break-scratch election flow was unpinned).",
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 3.1 via 4.3(g),(h)\"}],\"pocketed\":[],\"ballInHand\":\"kitchen\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"break_foul\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"open\",\"shooter\":1,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":{\"kind\":\"break_foul\",\"chooser\":2},\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 3.1 via 4.3(g),(h)\"}],\"by\":1},\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":false}}",
+   "expectSha256": "dd3cffb9f5b2f22f3c512afe34dbe45c7e2ad354ef67c70b3f92d4504ba6d14b"
+  },
+  {
+   "id": "apa-8ball/applyDecision-022-break-scratch-resolves",
+   "ruleset": "eightball-v2",
+   "kind": "applyDecision",
+   "state": {
+    "phase": "open",
+    "shooter": 1,
+    "breaker": 1,
+    "groups": null,
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "pendingDecision": {
+     "kind": "break_foul",
+     "chooser": 2
+    },
+    "result": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "scratch",
+       "cite": "WPA 3.1 via 4.3(g),(h)"
+      }
+     ],
+     "by": 1
+    },
+    "variant": {
+     "task_hash": "b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe",
+     "config": {
+      "call_shot": "eight_only",
+      "safety_call": false,
+      "safety_pot_stays_down": false,
+      "open_table_assignment": "take_what_you_make",
+      "eight_on_break": "win_unless_scratch",
+      "scratch_on_eight": "loss",
+      "jumped_ball": "spot_no_foul",
+      "dry_break_rail_minimum": 0,
+      "dry_break_consequence": "re_break",
+      "break_scratch_bih": "kitchen",
+      "kitchen_rule": "wpa"
+     }
+    }
+   },
+   "decision": {
+    "decision": 4,
+    "choice": 2
+   },
+   "comment": "APA OTM Breaking pp.45-46: the opponent takes over after the break scratch -- choice 2 of the break_foul election produces the SAME state as choice 1 (both seat the opponent; the kitchen BIH right was already granted by the judgment). State = the judge-021 next state. Issue #92 audit pin.",
+   "expect": "{\"phase\":\"open\",\"shooter\":2,\"breaker\":1,\"groups\":null,\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],\"pendingDecision\":null,\"result\":null,\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPA 3.1 via 4.3(g),(h)\"}],\"by\":1},\"variant\":{\"task_hash\":\"b312498e35602e4d23435144255514586457b90979c731f98cf60ce0f1ef38fe\",\"config\":{\"call_shot\":\"eight_only\",\"safety_call\":false,\"safety_pot_stays_down\":false,\"open_table_assignment\":\"take_what_you_make\",\"eight_on_break\":\"win_unless_scratch\",\"scratch_on_eight\":\"loss\",\"jumped_ball\":\"spot_no_foul\",\"dry_break_rail_minimum\":0,\"dry_break_consequence\":\"re_break\",\"break_scratch_bih\":\"kitchen\",\"kitchen_rule\":\"wpa\"}},\"kitchenBih\":true}",
+   "expectSha256": "1b1a49476216a0fb2548cf2d30c09f12c4d6205427ce4f4850466abbf3ebca07"
+  }
+ ]
+}

@@ -1,0 +1,4 @@
+E2E-PRACTICE FAIL: P-D4: accept must show the "Drill stopped" toast within 500 ms: {"open":false,"mode":"playground","st":null,"dialogs":0}
+E2E-PRACTICE: 1 failure(s) in this arm — OK line withheld (P-D4 OK)
+E2E-PRACTICE: P-D4 red (1)
+E2E-PRACTICE FAIL

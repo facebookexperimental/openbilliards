@@ -1,0 +1,210 @@
+{
+  "scenario": "thirty-rule",
+  "title": "The 30° rule — natural-roll peak deflection (battery A2)",
+  "kernel": "0.1.0+dedc61cd",
+  "anchor": {
+    "rule": "A naturally rolling cue ball departs ~30° from its aim line after a 1/4-to-3/4-ball hit; the true peak is 33.7° near half-ball fullness.",
+    "sources": "Dr. Dave TP 3.3 (10/2/2010) + TP A.4 Eq 38 (Wallace & Schroeder 1987 lineage)",
+    "battery": "A2 — examples/paper/exp_a2_thirty.py (the internal paper baselines §2, physics bit-identical through §9)",
+    "predictedDeg": 33.7,
+    "eq38AtStagedFullnessDeg": 33.74772014848729
+  },
+  "battery": {
+    "recordSha256": "e739e6e39d6135b025bf58a44cd0045f44fa5fa79f2d7fa0620833a118ab4e55",
+    "thetaCDeg": 33.710295753389346,
+    "phiEffDeg": 28.35935002815748,
+    "fraction": 0.525,
+    "pinned": {
+      "recordSha256": "e739e6e39d6135b025bf58a44cd0045f44fa5fa79f2d7fa0620833a118ab4e55",
+      "thetaCDeg": 33.7103,
+      "phiEffDeg": 28.35935,
+      "tImpact": 0.209218927,
+      "fraction": 0.525
+    },
+    "parity": "byte-identical (normalized sha)"
+  },
+  "video": {
+    "recordSha256": "7932ddb78f6deb9d178df5b430e34c346c1cee531f04099e64916a88824be876",
+    "marks": {
+      "tImpact": 0.20921892654347787,
+      "tRollCb": 0.3440464293657829,
+      "rolledPre": true,
+      "rhoPre": 0.9999999999998723,
+      "aimHeadingDeg": 90,
+      "phiEffDeg": 28.359350028157547,
+      "thetaCDeg": 33.710295753389346,
+      "fraction": 0.524999999999999,
+      "contactCb": [
+        0.13945375000000002,
+        0.3321088117963248
+      ],
+      "rollStartCb": [
+        0.08490342698812534,
+        0.38580029218887274
+      ],
+      "pot": {
+        "t": 1.7078848216345583,
+        "ball": 1,
+        "pocket": 5
+      },
+      "firstCushionT": 2.3074867108830595,
+      "scratch": false,
+      "nBallBall": 1,
+      "duration": 4.256195280565797,
+      "tEnd": 2.1874867108830593,
+      "readRunM": 0.9765619211418419,
+      "corridorM": 1.1116159228774114,
+      "predLineLenM": 1.1116159228774114,
+      "cueStart": [
+        0.13945375,
+        0.08210881179632468
+      ],
+      "tPot": 1.7078848216345583,
+      "minPairMm": 57.149999999999835,
+      "minPairAt": 0.20921892654347787,
+      "minPair": [
+        0,
+        1
+      ]
+    },
+    "determinismX2": "byte-identical record JSON"
+  },
+  "plan": {
+    "frames": 554,
+    "outputSec": 9.233333333333333,
+    "maxCutlessStepRatio": 1.069138353838381,
+    "shutter": 8,
+    "shutterDeg": 310,
+    "replay": {
+      "runs": 2,
+      "dissolveSpans": [
+        [
+          227,
+          251
+        ]
+      ],
+      "deliveredFrames": 530,
+      "deliveredSec": 8.833333333333334,
+      "firstReplayFrame": 227,
+      "recoveredFrames": 67,
+      "dissolveS": 0.4
+    }
+  },
+  "textLayer": {
+    "blocks": 2,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 2.353333333333333,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 2.353333333333333,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "33.7°",
+              "natural-roll peak · measured 33.71°"
+            ],
+            "availSec": 3.933333333333333,
+            "spanSec": 1.58,
+            "entrySec": 0.98,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.58,
+            "settledSec": 2.353333333333333,
+            "needScale": 0.43486238532110094,
+            "settledFrames": 141
+          },
+          {
+            "text": [
+              "aim line"
+            ],
+            "availSec": 3.933333333333333,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.1800000000000002,
+            "settledSec": 2.753333333333333,
+            "needScale": 0.32477064220183494,
+            "settledFrames": 165
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": {
+    "frames": 554,
+    "viewport": {
+      "width": 3840,
+      "height": 2160
+    },
+    "sha256_first": "7f50d67ba3e25721a21c1d89732b5769a9247339bbac1b66bcdb0ff4cd846a37",
+    "sha256_last": "d801dd3c89a54dd11666ef0bfbab6aa3ee7973b9ea4d535208e300ee85497db7"
+  },
+  "verifyLaw": "sameboot-x2+crossboot-envelope/v1-chunked",
+  "verify": {
+    "main": {
+      "law": "sameboot-x2+crossboot-envelope/v1-chunked",
+      "tierA": "lsb-speckle",
+      "tierB": "byte-identical",
+      "frames": 263,
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "chunks": 2,
+      "chunkFrames": 150,
+      "relaunches": 0,
+      "sameBoot": {
+        "differingFrames": 263,
+        "worstDelta": 1,
+        "worstFrac": 0.000025,
+        "worstComponentPx": 1
+      },
+      "kernel": "0.1.0+dedc61cd",
+      "renderer": "7e3b2b35014137dabd495ac2d14fe9be5cc1e29660e5132a1968b92b316a3e17",
+      "atUTC": "2026-08-05T17:56:04.981Z"
+    }
+  },
+  "titleCard": {
+    "value": "The 30° rule",
+    "claim": "natural-roll peak deflection (battery A2)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "4fbfd820a42507c8e57437fa16683d712673bf953d11aab1bbf1cd4bfc400124",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "d4c9dfe050314a6799a6c0f13f77af394fc2c52674604b4905207d587936e3a6"
+  }
+}
