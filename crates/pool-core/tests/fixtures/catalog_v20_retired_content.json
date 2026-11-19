@@ -1,0 +1,22 @@
+{
+  "rows": [
+    {
+      "axis": "table",
+      "sha256": "3858067f0980492889c8f1d698f03275b07f3163604e1e113be9c17f2d3fd6b3"
+    },
+    {
+      "axis": "cloth",
+      "sha256": "9dc7ec54c72473da9b364e4fd444448b154afe3bad3f9a3563824e00eb3dded5"
+    }
+  ],
+  "normalizer": {
+    "path": "crates/pool-core/tests/support/catalog_twin_norm.rs",
+    "sha256": "d45deb1030515f78509dfffe7f92da95abd21bed7a12ba507f096735db9e9095"
+  },
+  "provenance": {
+    "source_commit": "d89a47722909f8dace0aa1953baca2930b84bffd",
+    "function": "twin_content_sha256",
+    "note": "The rows were recorded from the Measured-tier table and cloth entries of the source commit, each hashed with twin_content_sha256 from the normalizer file.",
+    "normalizer_note": "Header-only re-pin (2026-10-17, #1123): the normalizer file gained the copyright header line that the public snapshot adds to every .rs file, so the snapshot ships it byte-identical and this pin holds in both trees. N is unchanged and the rows were not re-recorded. The sha recorded before the header: f63c5e9df3976a4e77329b8f6c69931ff4e2785225acc6800e9b1e6239759cd0."
+  }
+}

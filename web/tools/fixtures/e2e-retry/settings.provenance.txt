@@ -1,0 +1,6 @@
+settings-fail.log: verbatim lines (GitHub log timestamps stripped) of the SECOND pass of pull_request run 38067188187,
+attempt 3, job 114391334876 (e2e-settings on b20-batch-2 head 27db4e50, 2026-10-11 06:28:39-06:30:45Z, log lines
+448-458): its two 'E2E-SETTINGS FAIL:' rows among the G5 lines, the scoreboard, and the completion line
+'E2E-SETTINGS: FAILED'.
+settings-pass.log: the last lines of the green pass of main push run 38352665680, job 115148362591 (e2e-settings on
+30b62641, 2026-10-13 06:47:21-06:47:35Z, log lines 335-345), ending with the completion line 'E2E-SETTINGS: PASS'.

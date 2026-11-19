@@ -1,0 +1,286 @@
+{
+  "format": "openbilliards.anchors.banking_systems.v1",
+  "provenance": "Banking/kicking-systems literature hunt (2026-07). Quantitative anchors digitized from Dr. Dave (drdavepoolinfo.com / billiards.colostate.edu) technical proofs and Billiards Digest articles, Bob Jewett (Billiards Digest 2004), and Freddy 'the Beard' Bentivegna secondhand excerpts. Diamond-system numbers are AIMING-system anchors: they encode where a rolling/sliding ball actually goes on real tables, so they double as behavioral targets for the cushion model. All through-diamond numbers are geometric aim lines THROUGH the diamond (from ball or from opposite-rail sighting per source), not rail-contact points, unless the anchor says rail-groove. Our simulated table is a 9-ft WPA pool table; carom-heritage systems (Corner-5, Plus) are digitized in their Dr. Dave POOL-table form; anything measured on carom equipment would be REFERENCE-ONLY (none in this file).",
+  "units": {
+    "diamond": "1 diamond = 12.5 in = 0.3175 m spacing on a 9-ft table (length/8 = width/4); diamond NUMBERS in each anchor follow that source's numbering diagram",
+    "angle": "degrees",
+    "tip": "cue-tip offset unit used by Bentivegna; his own equivalence: 1 tip of english ~ 1/4 diamond of bank change ~ 1/4 ball hit fullness"
+  },
+  "confidence_scale": {
+    "high": "first-party careful measurement or published derivation by the source",
+    "medium": "published instructional claim by a credible source without raw data, or well-known system canon",
+    "low": "secondhand transcription (blog/forum) of a paywalled or out-of-print source"
+  },
+  "anchors": [
+    {
+      "id": "tp_b27_sliding_bank_reference_line",
+      "source": { "url": "https://drdavepoolinfo.com/technical_proofs/new/TP_B-27.pdf", "page": "1-4", "title": "TP B.27 - Sliding Bank System Comparisons", "date": "2023-08-10", "accessed": "2026-07-03" },
+      "system": "measured through-diamond sliding-bank reference line + the rail-groove twice-plus-tenth (2.2x) fit",
+      "kind": "quantitative_table",
+      "conditions": { "table": "9-ft Olhausen (Dr. Dave's video table), typical conditions", "spin": "sliding/stun at cushion, no sidespin", "speed_class": "fast (or ball close to cushion)" },
+      "table": {
+        "aim_through_diamond_on_banking_rail": [0.5, 1.0, 1.5, 2.0, 2.5, 3.0],
+        "cue_crosses_opposite_rail_diamond": [1.38, 2.72, 3.89, 5.07, 6.38, 7.74],
+        "geometry": { "diamond_in": 12.5, "diamond_to_rail_groove_d_diamonds": 0.34, "groove_to_groove_width_w_diamonds": 3.86 },
+        "candidate_fits": {
+          "one_more_than_twice_through_diamond": "y = 2x + 1",
+          "eckert_briesath_thirds_through_diamond": "y = (8/3)x",
+          "one_third_more_rail_groove": "y = 2a + 1/3 measured in rail grooves, a = (d + 3wx)/(3w - 3d)",
+          "optimal_twice_plus_tenth_rail_groove": "y_groove = (2+f)a with f = 1/5, i.e. 2.2x measured IN THE RAIL GROOVES across from the diamonds; through-diamond conversion opt(a) = (2+f)a + (1+f)(a/w)d, a_opt(x) = x / (1 - d(1+f)/w); groove targets for aim [0.5..3] are exactly [1.1, 2.2, 3.3, 4.4, 5.5, 6.6]"
+        }
+      },
+      "rule": "Dr. Dave's conclusion: the best fit to the measured line is 'twice plus 10% (or a tenth) of twice, measured in the rail grooves across from the diamonds' (the 2.2x sliding-bank fit). Through-diamond 2x+1 overshoots small angles; (8/3)x overshoots large angles.",
+      "tolerance": "fit residuals of the 2.2x rail-groove system vs the 6 measured points are within ~0.15 diamond; treat +-0.2 diamond as the pass window when replaying the line",
+      "confidence": "high",
+      "applicability": "pool 9-ft; sliding (stun) ball at the cushion - the regime where vertical spin effects vanish; this is the cleanest published pool bank line and the primary sliding-bank calibration target"
+    },
+    {
+      "id": "tp_b28_five_table_sliding_bank_comparison",
+      "source": { "url": "https://drdavepoolinfo.com/technical_proofs/new/TP_B-28.pdf", "page": "1-3", "title": "TP B.28 - Sliding-Bank-Shot Table Comparisons From Careful Measurements", "date": "2023-08-26", "accessed": "2026-07-03" },
+      "system": "through-diamond sliding-bank lines measured on five real tables (brand/condition spread)",
+      "kind": "quantitative_table",
+      "conditions": { "table": "see rows; all except the 9' Olhausen measured under slightly humid conditions with old worn-in cloth", "spin": "sliding/stun at cushion, no sidespin", "speed_class": "fast" },
+      "table": {
+        "aim_through_diamond_on_banking_rail": [0.5, 1.0, 1.5, 2.0, 2.5, 3.0],
+        "measured_opposite_rail_crossing": {
+          "olhausen_9ft": [1.38, 2.72, 3.89, 5.07, 6.38, 7.74],
+          "diamond_red_label_9ft": [1.40, 2.93, 4.52, 5.60, 6.92, 8.30],
+          "valley_bar_box_7ft": [1.51, 2.74, 4.12, 5.19, 6.52, 7.54],
+          "brunswick_gold_crown_9ft": [1.27, 2.88, 4.38, 5.38, 6.56, 7.96],
+          "diamond_bar_box_7ft": [1.60, 3.31, 4.94, 6.22, 7.55, 8.59]
+        },
+        "note": "larger crossing number = ball came off SHORTER (more toward the aiming corner)"
+      },
+      "rule": "Conclusions verbatim: twice-plus-tenth matches typical tables very well; 9' Olhausen and 7' Valley banked 'on system'; Gold Crown usually on-system but a little short when humid/used cloth, especially at medium bank angles; Diamond tables (9' Red Label and 7' bar box) banked very short, especially at larger bank angles; 'The 7' Diamond bar-box banked almost a diamond shorter than typical on system tables!'",
+      "tolerance": "source states measurements were 'careful' but gives no error bars; spread between on-system tables (Olhausen vs Valley) is <= 0.25 diamond per point - use +-0.25 diamond as the brand-agnostic window and the full table for brand-bias envelopes",
+      "confidence": "high",
+      "applicability": "pool; primary equipment-spread envelope for cushion-parameter bias (our default table should track the on-system rows; a 'Diamond-like' preset should track the short rows)"
+    },
+    {
+      "id": "tp_6_3_cor_lengthens_bank_rebound",
+      "source": { "url": "https://drdavepoolinfo.com/technical_proofs/TP_6-3.pdf", "page": "1", "title": "TP 6.3 - Increase in bank rebound angle due to the rail coefficient of restitution", "date": "2003-07-11", "accessed": "2026-07-03" },
+      "system": "friction-free rebound-angle model",
+      "kind": "model_formula",
+      "conditions": { "table": "any (idealized)", "spin": "none (friction neglected)", "speed_class": "any" },
+      "rule": "v_t' = v_t, v_n' = e*v_n with e < 1 => tan(theta_r) = tan(theta_a)/e > tan(theta_a): the rebound angle (from the rail normal) is always LARGER than the approach angle, i.e. restitution alone makes banks go long relative to the mirror; every real shortening mechanism (roll, friction, throwback) fights this",
+      "tolerance": "exact within its assumptions (no friction, no spin); direction-only anchor for the simulator: with cushion friction disabled and e_n < 1 the rebound must satisfy tan(theta_r) = tan(theta_a)/e_n to numerical precision",
+      "confidence": "high",
+      "applicability": "pool and carom (pure mechanics); use as a degenerate-mode unit anchor for the cushion solver"
+    },
+    {
+      "id": "tp_7_3_vertical_spin_after_rail",
+      "source": { "url": "https://drdavepoolinfo.com/technical_proofs/TP_7-3.pdf", "page": "1-2", "title": "TP 7.3 - Ball-rail interaction and the effects on vertical plane spin", "date": "2003-07-11", "accessed": "2026-07-03" },
+      "system": "impulse-momentum model of vertical (follow/draw) spin change at the cushion",
+      "kind": "model_formula",
+      "conditions": { "table": "typical pool rail: e = 0.7, mu = 0.17, contact height a = 0.08R above center", "spin": "vertical-plane spin only, straight into the rail", "speed_class": "v = 5 ft/s worked examples" },
+      "table": {
+        "formula": "omega' = 5(1+e)v/(2R^2) * (mu*R + a) - omega  (positive omega' = topspin toward the rail retained/reversed per sign convention in the proof)",
+        "worked_examples_rad_per_s": {
+          "rolling_in_omega_53.3": { "omega_out": 3.3, "reading": "natural roll is almost exactly KILLED by the rail: ball leaves near stun" },
+          "topspin_1_5x_roll_in_omega_80": { "omega_out": -23.3, "reading": "excess topspin survives: ball leaves with follow (0 < |omega'| < v'/R)" },
+          "stun_in_omega_0": { "omega_out": 18.1, "reading": "rail friction + above-center contact ADD follow to a stun ball" },
+          "draw_0_5x_in_omega_-26.7": { "omega_out": 6.3, "reading": "moderate draw is wiped to near zero" }
+        }
+      },
+      "rule": "the cushion is a strong vertical-spin attenuator biased toward small follow on exit; rolling-in => ~stun out, stun-in => mild roll out (matches the FAQ statement 'rolling topspin in produces stun out; stun in produces roll out' for steep kicks)",
+      "tolerance": "model values with stated constants; use as functional-shape anchor (sign and ordering of the four cases), not absolute rad/s",
+      "confidence": "high",
+      "applicability": "pool; anchors the vertical-spin channel of the cushion model (drives why fast banks that arrive sliding stay short and slow rolling banks bend long after rebound)"
+    },
+    {
+      "id": "drdave_kick_sidespin_diamond_offsets_xref",
+      "source": { "url": "https://drdavepoolinfo.com/faq/bank-kick/effects/", "page": "Sidespin section", "title": "Bank and Kick Physics Effects FAQ", "date": "living page", "accessed": "2026-07-03" },
+      "system": "sidespin kick offset rule (cross-reference)",
+      "kind": "quantitative_table",
+      "conditions": { "table": "typical 9-ft pool table", "spin": "1/3, 2/3, 3/3 of maximum sidespin, ball driven straight into the rail", "speed_class": "medium, rolling by contact" },
+      "table": { "english_fraction": [0.333, 0.667, 1.0], "cross_table_change_diamonds": [1.0, 2.0, 3.0], "xref": "PRIMARY DIGITIZATION LIVES IN tests/fixtures/anchors/kick.json (sidespin_kick_offsets) with kernel measurements and the lengthwise-geometry reinterpretation; kept here only so the banking catalog is self-indexing" },
+      "rule": "1/3, 2/3 and 3/3 of maximum spin result in approximately 1, 2 or 3 diamonds of cross-table change; effect is greatest heading straight into the rail",
+      "tolerance": "+-0.3 diamond per the SC-002 windows in kick.json",
+      "confidence": "medium",
+      "applicability": "pool; DO NOT duplicate as a second test target - assert against kick.json"
+    },
+    {
+      "id": "drdave_speed_effect_on_banks",
+      "source": { "url": "https://drdavepoolinfo.com/faq/bank-kick/effects/", "page": "Speed section", "title": "Bank and Kick Physics Effects FAQ", "date": "living page", "accessed": "2026-07-03" },
+      "system": "speed vs bank/kick length",
+      "kind": "ordinal_rule",
+      "conditions": { "table": "typical pool", "spin": "centerball; rolling develops with distance", "speed_class": "slow vs medium vs fast" },
+      "rule": "more speed SHORTENS the rebound, less speed LENGTHENS it; mechanisms: (a) fast shots arrive sliding (no roll to bend the path long after rebound) and the post-rebound curve is delayed, (b) 'rail throwback' at speed; HSV B.41 note: the throwback (shortening) and cushion-efficiency (lengthening) speed effects appear to roughly CANCEL for the immediate rebound angle of a sliding ball - the roll state is the dominant lever (see jewett_2004 anchor); banking consistency improves at higher speed",
+      "tolerance": "ordinal only; the quantitative version is the roll-vs-slide 14 deg spread (jewett anchor) plus the near speed-independence of sliding banks (0.9 deg)",
+      "confidence": "medium",
+      "applicability": "pool; encode as ordering constraint: rebound-length(slow rolling) > (medium rolling) > (fast sliding) for the same aim line"
+    },
+    {
+      "id": "drdave_vertical_spin_effect_on_kicks",
+      "source": { "url": "https://drdavepoolinfo.com/faq/bank-kick/effects/", "page": "Topspin/draw section", "title": "Bank and Kick Physics Effects FAQ", "date": "living page", "accessed": "2026-07-03" },
+      "system": "top/draw vs kick rebound length",
+      "kind": "ordinal_rule",
+      "conditions": { "table": "typical pool", "spin": "topspin vs stun vs backspin at the cushion", "speed_class": "any; effect grows at slower speed (more time for the post-rebound curve)" },
+      "rule": "topspin LENGTHENS the kick rebound (ball curves forward/long after the cushion), backspin SHORTENS it; a sliding (stun) ball rebounds without curving at the mirror angle minus a small rail-friction correction; steep-angle kicks: rolling in => stun out, stun in => roll out (TP 7.3); banks can be bent SHORT by spin only a small amount and only in limited conditions",
+      "tolerance": "ordinal; direction is unambiguous, magnitude is speed/cloth dependent",
+      "confidence": "medium",
+      "applicability": "pool; ordering constraint on rebound length: topspin > stun > draw at equal speed/aim; note the CONTRADICTION entry in docs (fast+slick can flip the topspin effect for path LENGTH even though angle effect direction is fixed)"
+    },
+    {
+      "id": "drdave_sidespin_running_vs_reverse",
+      "source": { "url": "https://drdavepoolinfo.com/faq/bank-kick/effects/", "page": "Sidespin section", "title": "Bank and Kick Physics Effects FAQ", "date": "living page", "accessed": "2026-07-03" },
+      "system": "running vs reverse english at the cushion",
+      "kind": "ordinal_rule",
+      "conditions": { "table": "typical pool", "spin": "running vs reverse sidespin", "speed_class": "any" },
+      "rule": "running english lengthens the rebound and ADDS post-rebound speed, reverse english shortens it and BLEEDS speed; angle effect greatest straight into the rail; speed-gain/loss difference peaks at about 20-40 deg from the rail perpendicular; below-natural sidespin gets topped up by the cushion (shortening), above-natural gets reduced (lengthening); at steep approach angles the sidespin direction can even reverse off the cushion",
+      "tolerance": "ordinal; quantitative running-vs-reverse tangential gain/loss is anchored by hsv_response_surface.json",
+      "confidence": "medium",
+      "applicability": "pool; complements the HSV tangential-channel anchors - do not re-measure, cross-assert direction only"
+    },
+    {
+      "id": "drdave_cut_induced_spin_on_banks",
+      "source": { "url": "https://drdavepoolinfo.com/faq/bank-kick/effects/", "page": "Cut/transferred-spin section", "title": "Bank and Kick Physics Effects FAQ", "date": "living page", "accessed": "2026-07-03" },
+      "system": "cut-induced and transferred spin on banked object balls",
+      "kind": "ordinal_rule",
+      "conditions": { "table": "typical pool", "spin": "OB spin acquired from the cut (collision-induced) or transferred from CB english", "speed_class": "any" },
+      "rule": "OUTSIDE cuts shorten banks, INSIDE cuts lengthen them (unless gearing outside english cancels the cut-induced spin); CB sidespin transfers a small opposite spin to the OB (left english on CB => right spin on OB => OB rebound shifts right); cushions also impart spin to the banked ball and can reverse its spin direction",
+      "tolerance": "ordinal; magnitude of transfer is small (throw-scale, a few percent of CB spin)",
+      "confidence": "medium",
+      "applicability": "pool; couples the ball-ball spin-transfer channel (throw.json anchors) into bank outcomes; direction-only assertions recommended"
+    },
+    {
+      "id": "corner5_system_tp_7_2",
+      "source": { "url": "https://drdavepoolinfo.com/technical_proofs/TP_7-2.pdf", "page": "1-3", "title": "TP 7.2 - Corner-5 three-rail diamond system formulas", "date": "2014-09-02", "accessed": "2026-07-03" },
+      "system": "Corner-5 three-rail kicking system (Dr. Dave pool-table form of the classic carom corner-five)",
+      "kind": "quantitative_table",
+      "conditions": { "table": "9-ft pool (diagrams); system heritage is carom - carom-numbered tables are REFERENCE-ONLY for us", "spin": "RUNNING english, rolling cue ball, aim THROUGH the diamonds", "speed_class": "medium (speed gauge shown mid-scale in the proof's diagrams)" },
+      "table": {
+        "traditional_formula": "T = D - F (third-rail number = origination-direction number - first-rail aim number)",
+        "alternative_formula": "T = D'/2 - F + 1 (origination numbers doubled so no fractions: corner D'=10 where traditional D=5, D'=14 <=> 7)",
+        "numbering": "corner = 5 (traditional); long-rail origination numbers descend 4.5, 4, 3.5, 3 ... by half per diamond away from the corner along the long rail; ascend 6, 7, 8 by one per diamond along the short rail; first/third-rail diamonds numbered 1..7 from the far corner",
+        "worked_examples": [ { "D": 4.5, "F": 2.0, "T": 2.5 }, { "D": 6.0, "F": 3.0, "T": 3.0 }, { "D": 5.0, "F": 2.0, "T": 3.0 } ]
+      },
+      "rule": "benchmark track: from corner (D=5) aim first rail at F=2 with running english, rolling => third rail T=3 and on to the opposite corner",
+      "tolerance": "system canon; Dr. Dave's adjustments article (corner5_adjustments anchor) quantifies when it drifts (~1/3 diamond aim shifts at D=3.5 or D=7)",
+      "confidence": "high",
+      "applicability": "pool 9-ft as digitized; the same formula on a carom table uses different benchmark tracks - mark any carom-sourced corner-5 tables REFERENCE-ONLY"
+    },
+    {
+      "id": "corner5_adjustments_bd_jan2011",
+      "source": { "url": "https://drdavepoolinfo.com/bd_articles/2011/jan11.pdf", "page": "1-5", "title": "VEPS GEMS Part XIII: Corner-5 System Adjustments (Billiards Digest, Jan 2011)", "date": "2011-01", "accessed": "2026-07-03" },
+      "system": "Corner-5 speed/english/origination sensitivity",
+      "kind": "ordinal_rule",
+      "conditions": { "table": "9-ft pool", "spin": "running english, rolling CB", "speed_class": "slow vs benchmark vs fast" },
+      "rule": "THIRD-rail target is robust: speed and english changes barely move it (1st and 2nd rail effects counteract). FOURTH-rail arrival is not: slower => short of 4th-rail target, faster => long (mechanism: surviving sidespin into the 3rd rail); LESS english => a little long off the 3rd rail, MORE english => even longer. Origination number below benchmark 5 => track arrives SHORT (compensate by reducing the first-rail aim number; ~1/3 diamond at D=3.5); origination above 5 => LONG (increase first-rail number; ~1/3 diamond at D=7)",
+      "tolerance": "the two quantified compensations are 'about a third of a diamond' at D=3.5 and D=7; between benchmarks interpolate to zero at D=5",
+      "confidence": "medium",
+      "applicability": "pool; behavioral anchor for 3-rail kick replays: assert 3rd-rail crossing invariance under speed/english sweeps and the sign of the 4th-rail drift"
+    },
+    {
+      "id": "plus_system_handout",
+      "source": { "url": "https://drdavepoolinfo.com/resource_files/Plus_System.pdf", "page": "1-3", "title": "Plus System handout (billiards.colostate.edu)", "date": "undated handout", "accessed": "2026-07-03" },
+      "system": "Plus (Plus-Two) two-rail kicking system off a short rail",
+      "kind": "quantitative_table",
+      "conditions": { "table": "9-ft pool", "spin": "rolling CB with RUNNING english", "speed_class": "medium benchmark (speed gauge mid-scale)" },
+      "table": {
+        "numbering": "short-rail origination numbers: 1 at the corner, then 3, 5, 7 at the diamonds down the long-rail side of the short rail (even numbers 2, 4, 6 fall between); target counted in diamonds 'plus N up the (second) long rail' from the same-side corner",
+        "core_rule": "aim the rolling CB through short-rail diamond N => after short rail + long rail the CB crosses the first long rail N diamonds up from the corner (the 'plus N' track)",
+        "benchmark": "aim through the 5th diamond => 'plus 5' diamonds up the rail into the far corner pocket",
+        "worked_examples": [ { "aim_through": 3.0, "plus_up_rail": 3.0 }, { "aim_through": 5.0, "plus_up_rail": 5.0 }, { "aim_through": 6.0, "plus_up_rail": 6.0, "note": "high-number adjustment: use LESS english or track lands short of target" }, { "aim_through": 2.0, "plus_up_rail": 2.0, "note": "low-number adjustment: use MORE english or track lands long of target" }, { "aim_through": 3.5, "plus_up_rail": 3.5, "note": "kick-to-any-point interpolation (working back)" } ]
+      },
+      "rule": "sensitivity (handout page 2): too much SPEED => long; too much ENGLISH => short. NOTE this english direction is OPPOSITE to the Corner-5 3-rail case - see the contradictions section of docs/research/banking-systems.md",
+      "tolerance": "system canon +- ~1/4 diamond on typical tables (the Diamond-brand correction below is stated as ~1/4 diamond, i.e. brand bias is of the same order as normal system slack)",
+      "confidence": "medium",
+      "applicability": "pool 9-ft as digitized; carom plus-system variants REFERENCE-ONLY"
+    },
+    {
+      "id": "two_to_one_rolling_system_bd_jan2024",
+      "source": { "url": "https://drdavepoolinfo.com/bd_articles/2024/jan24.pdf", "page": "1-4", "title": "Improved 2-to-1 System (Billiards Digest, Jan 2024)", "date": "2024-01", "accessed": "2026-07-03" },
+      "system": "through-diamond rolling-ball 2-to-1 one-rail kick/bank system",
+      "kind": "quantitative_table",
+      "conditions": { "table": "9-ft pool ('my table plays close to what should be expected on most tables under typical conditions')", "spin": "STRICT vertical-centerline hit - 'even a hair' of running spin misses long, of reverse misses short; rolling CB", "speed_class": "slow-medium rolling (speed gauge low)" },
+      "table": {
+        "tracks_to_corner": [ { "far_rail": 2.0, "near_rail": 1.0 }, { "far_rail": 3.0, "near_rail": 1.5 }, { "far_rail": 4.0, "near_rail": 2.0 }, { "far_rail": 5.0, "near_rail": 2.5 } ],
+        "reading": "roll the CB along any far-diamond-to-half-near-diamond 2:1 line (or anything in between) and it kicks to the corner; also usable for long kicks off a short rail and rolling banks off any rail"
+      },
+      "rule": "above the 5-to-2.5 line the rolling ball goes LONG of the corner (e.g. the 6-to-3 track): measure the arrival error 2e and correct the aiming-rail point up-table by half of it (e); between reference lines use a 2-to-1 pivot (butt moves twice the tip), NOT a parallel shift",
+      "tolerance": "tracks 2:1 through 5-to-2.5 are treated as exact on a typical table; beyond that the error is table-dependent (Diamond brand needs larger corrections)",
+      "confidence": "high",
+      "applicability": "pool; the mirror-system speed caveat applies: this is the ROLLING slow-medium line - the sliding fast line for the same geometry is tp_b27 (2.2x in the grooves), and the two must NOT be merged"
+    },
+    {
+      "id": "mcclain_4d_to_10d_large_angle_banks",
+      "source": { "url": "https://drdavepoolinfo.com/faq/bank-kick/sliding/", "page": "Ron McClain correction note (+ 'Large-Angle Banks', Billiards Digest, Dec 2023)", "title": "Systems for Aiming Sliding-Ball Bank Shots FAQ", "date": "living page", "accessed": "2026-07-03" },
+      "system": "4d-to-10d through-diamond sliding-bank system with McClain linear correction",
+      "kind": "quantitative_table",
+      "conditions": { "table": "typical pool", "spin": "sliding/stun, no english", "speed_class": "fast" },
+      "table": {
+        "numbering": "origination rail numbered 4, 8, 12... (4d at diamond d); target rail numbered 10, 20, 30... (10d)",
+        "mcclain_correction": "target = 0.4 * departure - 1 on the long rail before the corner; target = 0.4 * departure + 1 on the short rail after the corner",
+        "worked_examples": [ { "departure": 40, "target": 15 }, { "departure": 60, "target": 23 }, { "departure": 80, "target": 31 }, { "departure": 100, "target": 41 }, { "departure": 120, "target": 49 } ]
+      },
+      "rule": "the raw 4d-to-10d line (0.4 slope) needs a -1/+1 diamond-decile offset either side of the corner; McClain: also works 'with the lower and in between numbers'",
+      "tolerance": "instructional; consistent with tp_b27 slope (10/4 = 2.5 vs measured ~2.2-2.6 through-diamond over the mid range) - treat +-0.3 diamond",
+      "confidence": "medium",
+      "applicability": "pool; secondary check on the sliding-bank line at larger angles than TP B.27 covers"
+    },
+    {
+      "id": "diamond_brand_system_corrections",
+      "source": { "url": "https://drdavepoolinfo.com/faq/bank-kick/diamond/", "page": "whole page (Scott Rohleder note + main text)", "title": "Why do Diamond tables bank/kick short? FAQ", "date": "living page", "accessed": "2026-07-03" },
+      "system": "brand-bias corrections to the standard systems on Diamond tables",
+      "kind": "quantitative_table",
+      "conditions": { "table": "Diamond brand (Artemis cushions, 'very bouncy', nose often lower than normal and angled down slightly); worst on 9' Red Label and 7' bar box", "spin": "per underlying system", "speed_class": "per underlying system" },
+      "table": {
+        "two_to_one_and_corner5_correction": "shoot at the calculated rail number MINUS ~10% (aim 0.9 instead of 1; corner-5 target 3 => aim 2.7), aiming at the rail point, not through the diamond",
+        "plus_system_correction": "~1/4 diamond shift (e.g. on the 4 line, shift over a quarter diamond) 'for a wide range of entry angles' - keep normal running english",
+        "slow_roll_alternative": "aim relative to the RAIL GROOVE instead of the diamonds for slow-roll kicks",
+        "residual": "Blue Label rails play longer than Red Label but 'still bank shorter than other brands'"
+      },
+      "rule": "Diamond tables kick and bank MUCH shorter than other brands under similar conditions; consistent with the tp_b28 rows (7' Diamond bar box ~1 diamond short at aim 3)",
+      "tolerance": "corrections are player heuristics (~10% / ~0.25 diamond); use tp_b28 for the measured envelope",
+      "confidence": "medium",
+      "applicability": "pool; parameterize as a cushion preset bias (higher e_n normal channel + lower nose), not a system change"
+    },
+    {
+      "id": "jewett_2004_roll_vs_slide_bank_spread",
+      "source": { "url": "https://web.archive.org/web/2023id_/http://www.sfbilliards.com/articles/2004-08.pdf", "page": "whole article (+ 2004-09 'Short Banks'); digitized internally", "title": "Bob Jewett, Billiards Digest 2004-08 'Shortening Banks' - 24-case controlled experiment", "date": "2004-08", "accessed": "prior hunt (cushionhunt), re-cited 2026-07-03" },
+      "system": "roll-state vs bank-angle experiment",
+      "kind": "quantitative_table",
+      "conditions": { "table": "pool table, plus one snooker-rail (L-profile) comparison; waxed-ball variant isolates cloth friction", "spin": "rolling vs sliding arrival, no english", "speed_class": "soft vs hard within each roll state" },
+      "table": {
+        "rolling_vs_sliding_deg": 14.0,
+        "rolling_vs_sliding_waxed_deg": 15.0,
+        "sliding_speed_dependence_deg": 0.9,
+        "snooker_soft_vs_hard_deg": -3.5,
+        "reading": "rolling banks rebound ~14 deg LONGER than sliding banks (15 deg with waxed balls) - the dominant bank-length effect; sliding-bank angle is nearly speed-independent on pool rails (hard only 0.9 deg shorter); snooker L-profile INVERTS the speed effect (soft 3-4 deg shorter). Companion 2004-09 article: a fixed 70%-of-width aim point works for sliding cross-side banks."
+      },
+      "rule": "roll state, not speed per se, is the primary bank-length lever on pool cushions; speed matters mainly through how much roll survives to the rail",
+      "tolerance": "single-table experiment, 24 cases; treat +-2 deg on the 14-deg spread and +-1 deg on the speed-independence claim",
+      "confidence": "high",
+      "applicability": "pool (snooker row REFERENCE-ONLY); headline behavioral cross-check pairing with tp_b27/tp_b28: same aim line replayed rolling vs sliding must open ~14 deg"
+    },
+    {
+      "id": "beard_speed_english_bank_tables",
+      "source": { "url": "https://crazyaboutpool.wordpress.com/2012/02/21/banking-lesson-from-freddy-the-beard-bentivegna/", "page": "3 diagrams ('The Mysterious 2 to 1 Bank angles', bankingwiththebeard.com scans)", "title": "Freddy 'the Beard' Bentivegna banking lesson (secondhand transcription)", "date": "2012-02-21", "accessed": "2026-07-03" },
+      "system": "Bentivegna speed/english compensation tables for one-rail banks",
+      "kind": "quantitative_table",
+      "conditions": { "table": "pool (Bentivegna's Chicago bank-pool canon)", "spin": "CB on the vertical axis +-1/2 tip; adjustments are TIPS of OPPOSITE (bank-favoring) english on the CB", "speed_class": "easy/soft vs medium/firm vs hard" },
+      "table": {
+        "cross_side": [ { "cushion_point": 1.6, "opposite_diamond": 2.5, "soft_tips": 1, "medium_tips": 1, "hard_tips": 0 }, { "cushion_point": 2.6, "opposite_diamond": 3.0, "soft_tips": 2, "medium_tips": 2, "hard_tips": 0 }, { "cushion_point": 3.3, "opposite_diamond": 3.5, "soft_tips": 3, "medium_tips": 3, "hard_tips": 0 } ],
+        "long_cross_corner": [ { "cushion_point": 1.6, "opposite_diamond": 5.0, "soft_tips": 1, "medium_tips": 0, "hard_tips": 0 }, { "cushion_point": 2.6, "opposite_diamond": 6.0, "soft_tips": 2, "medium_tips": 1, "hard_tips": 0 }, { "cushion_point": 3.3, "opposite_diamond": 7.0, "soft_tips": 3, "medium_tips": 2, "hard_tips": 0 } ],
+        "straight_back": [ { "cushion_point": 3.3, "opposite_diamond": 2.5, "soft_tips": 0, "medium_tips": 1, "hard_tips": 0 }, { "cushion_point": 5.4, "opposite_diamond": 3.0, "soft_tips": 0, "medium_tips": 1, "hard_tips": 0 }, { "cushion_point": 6.8, "opposite_diamond": 3.5, "soft_tips": 0, "medium_tips": 1, "hard_tips": 0 } ],
+        "reading": "hard speed NEVER needs english ('no adjustment, hit full in face' = his dead-ball doctrine); softer speeds need 1-3 tips of opposite english, growing with distance from the corner; straight-backs invert (only medium needs a tip); tips_0 = full-in-face"
+      },
+      "rule": "encodes 'speed kills (shortens) banks': the soft-speed english compensates the lengthening that roll would otherwise cause; his equivalence for converting: 1 tip of english ~ 1/4 diamond ~ 1/4 ball hit (stated in the book per AZB readers)",
+      "tolerance": "tips are coarse (+-1/2 tip); table is a secondhand blog transcription of book diagrams - verify against the book before promoting to a hard gate",
+      "confidence": "low",
+      "applicability": "pool; qualitative-to-semiquantitative anchor: replaying his cross-side geometry, the simulator's required sidespin to hold the same pocket across speed classes should reproduce the 0-3 tip ordering"
+    },
+    {
+      "id": "beard_ordinal_banking_doctrine",
+      "source": { "url": "https://forums.azbilliards.com/threads/banking-secrets.315761/", "page": "AZB threads: banking-secrets.315761, hard-banks-curve-short-why.210628 (Beard posted), basic-kick-and-bank-shot-system.413638, what-do-you-think-of-banking-with-the-beard.531296", "title": "Banking with the Beard - observational rules via AZB forum excerpts/reviews", "date": "2009-2015 threads", "accessed": "2026-07-03" },
+      "system": "Bentivegna observational bank rules (qualitative)",
+      "kind": "ordinal_rule",
+      "conditions": { "table": "pool, bank-pool conditions", "spin": "various", "speed_class": "various" },
+      "rule": "(1) harder = shorter, softer = longer ('speed kills banks'); (2) banks wider than ~37 deg tend to OPEN UP (go long) as the cushion absorbs energy at soft speed; (3) to shorten: hit harder, use draw (arrive stun), or inside english; (4) multi-rail zig-zag banks compound SHORT: OB picks up sidespin off the first rail which shortens it off the second, worse with speed; (5) interchangeability doctrine: 1 tip english ~ 1/4 diamond ~ 1/4 ball-hit fullness - trade force, fullness and spin for the same pocket; (6) 'dead ball' (hard, full, no side) is the reference bank that systems are built on; (7) an AZB instructor's rule of thumb: 2:1 diamond ratio for soft banks, 2.5:1 for medium-speed banks",
+      "tolerance": "qualitative; item 7 is not Bentivegna and is low-trust; item 2's 37 deg is a forum recollection of his chart",
+      "confidence": "low",
+      "applicability": "pool; use as sign/ordering cross-checks only - the book ('Banking with the Beard', ISBN 9780976622819, not freely available) is the primary source and was NOT directly digitized"
+    }
+  ]
+}

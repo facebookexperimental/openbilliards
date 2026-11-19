@@ -1,0 +1,8237 @@
+{
+ "comment": [
+  "DO NOT REGENERATE (rules-corpus.json discipline; frozen at the",
+  "GH-382 review, build 17). Per-preset byte oracle for the",
+  "snooker-v2 conformance gate: every expect line harvested ONCE",
+  "from the pool-rules crate through the pool-cli judge leg at the",
+  "harvestedAt commit and reviewed case-by-case against its cited",
+  "clause (WPBSA Official Rules of the Games of Snooker and English",
+  "Billiards, Revised September 2024; the semantic source is",
+  "crates/pool-rules/tests/snooker_v2_scenarios.rs). Post-freeze",
+  "changes ONLY via the erratum protocol: a pinned-clause proof",
+  "against the cited text -- NEVER a re-run to fix a red gate; a byte",
+  "diff at any conformance leg is resolved by fixing the code to",
+  "reproduce THESE bytes. Coverage floor: both GH-382 foul codes",
+  "reproduce THESE bytes. Re-harvested ONCE at the review-r1 fix",
+  "commit (R12(f) replacement voiding, respot-aware R14(a)(i),",
+  "live-call touching gate) BEFORE any post-review freeze; the",
+  "count grew 34 -> 35 (judge-021) at r1, then 35 -> 36 at the",
+  "review-r2 fix (judge-022), then 36 -> 38 at the review-r3 fixes (judge-023 black-in-the-pair; judge-error-004 strict call shape; judge-017 re-scened opposite the frozen colour); 38 -> 39 at the review-r7 fix",
+  "(judge-024: the judge-derived live free-ball touching call); 39 -> 41 at the review-r8",
+  "fixes (judge-025 live-free-ball availability; judge-026 the",
+  "41 -> 42 at the review-r9 fix (judge-error-005 strict boolean).",
+  "42 -> 43 at the review-r10 fix (judge-027 deemed-contact pricing).",
+  "43 -> 44 at the review-r11 fixes (judge-028 compound R12(b)(ii);",
+  "judge-008 re-harvested compound; the 1-micron touching band).",
+  "44 -> 46 at the review-r12 fixes (judge-029 respot stand-down;",
+  "judge-error-006 the invalid-task-config contract).",
+  "46 -> 48 at the review-r16 fixes (judge-030 two-colours exception;",
+  "judge-031 the settled on-set examination).",
+  "48 -> 50 at the review-r17 fixes (judge-032 shallow squeeze;",
+  "judge-033 the intervening-event counter-case).",
+  "50 -> 51 at the review-r18 fix (judge-034 the newly awarded free",
+  "ball in the post-stroke availability).",
+  "51 -> 52 at the review-r19 fix (judge-035 the unknowable respot",
+  "geometry resolves toward the miss).",
+  "52 -> 53 at the review-r22 fix (judge-036 the in-hand unknowable",
+  "geometry resolves toward the miss).",
+  "53 -> 54 at the review-r25 fix (judge-037 the elevated",
+  "launch-time BallTable artifact never masks the push).",
+  "54 -> 55 at the review-r28 fix (judge-038 dual touch: R8(c)'s",
+  "grace is conditioned on ANY touching object ball).",
+  "55 -> 56 at the review-r31 fix (judge-039 the post-scratch",
+  "R12(b)(ii) examination runs the R17(a) D arm).",
+  "Input-side erratum at the 3b190c75 renumber (GH-371 landed ids",
+  "14-16 on main): the foul-and-a-miss wire id is 17, so the six",
+  "applyDecision inputs renumber 14 -> 17 mechanically; every expect",
+  "byte and sha is UNTOUCHED (the oracle never embeds the wire id).",
+  "Output-side erratum (open-source battery item F6, 2026-10-25, on",
+  "c8127162): judge-error-004's BadCall message drops its",
+  "review-round citation and now ends '(adapter contract)'. The case",
+  "cites no rulebook clause (the adapter call shape), so the change",
+  "is text only: its error code, its input and every other expect",
+  "byte and sha are UNTOUCHED. Its expect and expectSha256 were",
+  "edited by hand to these bytes and the crate reproduces them;",
+  "nothing was re-harvested.",
+  "declined-free-ball full-ball gate).",
+  "(push-stroke, free-ball-snooker) + the carried v1 codes reachable",
+  "here (wrong-first-ball, no-contact, scratch), decision 17 every",
+  "choice + every error path, the miss-frame-award terminal, the",
+  "R14(a)(i) points-needed exemption, the R14(d) full-ball gate both",
+  "ways, the Warning ladder, free-ball scoring R12(a)-(e) every arm",
+  "(red on / colour on / both potted / black-as-free-ball), the",
+  "R12(b)(ii) foul + its two-object-ball exception, every freeBall",
+  "nomination BadCall text, touching-ball deemed contact / push /",
+  "undeclared / declared-free-ball / post-play-away pot, both preset",
+  "initialState routes (full + the FR-005 alias row), and the HUD",
+  "projection of the v2 facts."
+ ],
+ "harvestedAt": "3161c0747052d9266c7617a70efab493e3ab946c",
+ "slice": "wpbsa-snooker-full",
+ "ruleset": "snooker-v2",
+ "cases": [
+  {
+   "id": "wpbsa-snooker-full/initialState-001",
+   "ruleset": "snooker-v2",
+   "kind": "initialState",
+   "comment": "Fresh frame under the wpbsa-snooker-full preset (all three GH-382 axes on; config-in-state, registry-api.md par.3).",
+   "breaker": 1,
+   "preset": "wpbsa-snooker-full",
+   "expect": "{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":0},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}",
+   "expectSha256": "a89f7c450768b9d7cf98a9cbbad9f4f8f0c3d9119511f5c31181b1253526083e"
+  },
+  {
+   "id": "wpbsa-snooker-full/initialState-002",
+   "ruleset": "snooker-v2",
+   "kind": "initialState",
+   "comment": "The FR-005 default alias row resolves the all-false (v1-parity) config point.",
+   "breaker": 1,
+   "preset": "wpbsa-snooker",
+   "expect": "{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":0},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":false,\"miss_rule\":false,\"touching_ball\":false},\"task_hash\":\"849b55481ae3e3d9626522e9d5494f88afff4689e9627343a3eff4575ed4b416\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}",
+   "expectSha256": "0c9dbb69cfc1b86e2a63dc50c82e08b9f3bcf01fe1c91b5407bcb4196a88b028"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-001",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "Wrong first ball with open full-ball sight: FOUL AND A MISS (Sec3 R14(a)/(c), strict-liability model), decision 14 to the non-offender, miss context + logical restore armed, free-ball right armed (Sec3 R12).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": -0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 16
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]}}}",
+   "expectSha256": "d25e8e4933e15bff8092308292aa329f60c0f3fef1af4facc502a427663b9c4e"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-002",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "R14(a)(i) points-needed exemption: deficit 90 > 35 remaining -- no miss call, the plain R13 play-again option stands.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 90
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": -0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 16
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":94},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "a12cfaf2b80c03ea327ef8110d5c4a7a2862707faf5a999890b2447952a4f805"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-003",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "A foul that DID first hit the ball on (scratch after contact) is never a miss (Sec2 R21): play_again + d_zone.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPBSA Sec3 R5, R10\"}],\"pocketed\":[],\"ballInHand\":\"d_zone\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPBSA Sec3 R5, R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "489c9a2b5ba4719a0e7e3fb2573188e37dd441b946524d5d2b803c95bbe8711b"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-004",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "Second failure from the replaced original position: count 2 (Sec3 R14(d)(i) -- called regardless of scores inside a full-ball sequence).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 4
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "wrong-first-ball",
+       "cite": "WPBSA Sec2 R11; Sec3 R10"
+      }
+     ],
+     "by": 1,
+     "penalty": 4
+    },
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": {
+     "count": 1,
+     "warned": false,
+     "fullBall": true
+    },
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": -0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 16
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":8},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":2,\"warned\":false,\"fullBall\":true},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]}}}",
+   "expectSha256": "c22e5755687677122914a5a6a6c107a3976a66507707620aab08d5bf5200119d"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-005",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "The warned further failure awards the frame (Sec3 R14(d)(ii)): terminal miss-frame-award to the non-offender.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 8
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "wrong-first-ball",
+       "cite": "WPBSA Sec2 R11; Sec3 R10"
+      }
+     ],
+     "by": 1,
+     "penalty": 4
+    },
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": {
+     "count": 2,
+     "warned": true,
+     "fullBall": true
+    },
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": -0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 16
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":2,\"reason\":\"miss-frame-award\",\"cite\":\"WPBSA Sec3 R14(d)(ii)\"},\"next\":{\"phase\":\"over\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":12},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"by\":1,\"penalty\":4},\"result\":{\"winner\":2,\"reason\":\"miss-frame-award\",\"cite\":\"WPBSA Sec3 R14(d)(ii)\"},\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "f9f94751c9c25521d71b6d6ea2cb40cae8152f85e53f4d7f35665acf08fb98f4"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-006",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "No central full-ball contact at the original position: the R14(d) ladder never arms -- a warned=false count-2 replay stays a decision.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": {
+     "count": 2,
+     "warned": false,
+     "fullBall": false
+    },
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.25,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":3,\"warned\":false,\"fullBall\":false},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21]}}}",
+   "expectSha256": "d198e89d20399af3cb7841bdd05a9087ab7fab50992a91ca7d23cbade6420087"
+  },
+  {
+   "id": "wpbsa-snooker-full/applyDecision-001",
+   "ruleset": "snooker-v2",
+   "kind": "applyDecision",
+   "comment": "Decision 14 choice 1 (Sec3 R14(b)): the non-offender plays from the position left; sequence ends (d)(iii); the free-ball right survives.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 4
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": {
+     "kind": "foul_and_a_miss",
+     "chooser": 2
+    },
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "wrong-first-ball",
+       "cite": "WPBSA Sec2 R11; Sec3 R10"
+      }
+     ],
+     "by": 1,
+     "penalty": 4
+    },
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": {
+     "count": 1,
+     "warned": false,
+     "fullBall": true
+    },
+    "missRestore": {
+     "phase": "reds",
+     "ballOn": "red",
+     "onTable": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+     ]
+    }
+   },
+   "decision": {
+    "decision": 17,
+    "choice": 1
+   },
+   "expect": "{\"phase\":\"reds\",\"shooter\":2,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":{\"by\":1,\"penalty\":4,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}]},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}",
+   "expectSha256": "9dea2d77413ef0c0384d79cab6ca5343d24ee86d2c3b96d7675a4a0ef464ad50"
+  },
+  {
+   "id": "wpbsa-snooker-full/applyDecision-002",
+   "ruleset": "snooker-v2",
+   "kind": "applyDecision",
+   "comment": "Decision 14 choice 2: the offender plays again from the position left; sequence ends; R12(f) voids the free ball.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 4
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": {
+     "kind": "foul_and_a_miss",
+     "chooser": 2
+    },
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "wrong-first-ball",
+       "cite": "WPBSA Sec2 R11; Sec3 R10"
+      }
+     ],
+     "by": 1,
+     "penalty": 4
+    },
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": {
+     "count": 1,
+     "warned": false,
+     "fullBall": true
+    },
+    "missRestore": {
+     "phase": "reds",
+     "ballOn": "red",
+     "onTable": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+     ]
+    }
+   },
+   "decision": {
+    "decision": 17,
+    "choice": 2
+   },
+   "expect": "{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":{\"by\":1,\"penalty\":4,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}]},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}",
+   "expectSha256": "2877ec07d0d9b5e0560996e2bef9f630d81a10234526ce036e71688950c402ab"
+  },
+  {
+   "id": "wpbsa-snooker-full/applyDecision-003",
+   "ruleset": "snooker-v2",
+   "kind": "applyDecision",
+   "comment": "Decision 14 choice 3: the offender plays from the ORIGINAL position -- logical restore (phase/ballOn/onTable), break zeroed, miss context kept, no Warning after the first failure, and R12(f): the replacement request voids the live free-ball right (review GH-382 r1).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 4
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": {
+     "kind": "foul_and_a_miss",
+     "chooser": 2
+    },
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "wrong-first-ball",
+       "cite": "WPBSA Sec2 R11; Sec3 R10"
+      }
+     ],
+     "by": 1,
+     "penalty": 4
+    },
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": {
+     "count": 1,
+     "warned": false,
+     "fullBall": true
+    },
+    "missRestore": {
+     "phase": "reds",
+     "ballOn": "red",
+     "onTable": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+     ]
+    }
+   },
+   "decision": {
+    "decision": 17,
+    "choice": 3
+   },
+   "expect": "{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":{\"by\":1,\"penalty\":4,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}]},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true},\"missRestore\":null}",
+   "expectSha256": "98ca135249fa0c45463c20771f0f1dfa88a4bd5bdfbb63e1b1728200095617d4"
+  },
+  {
+   "id": "wpbsa-snooker-full/applyDecision-004",
+   "ruleset": "snooker-v2",
+   "kind": "applyDecision",
+   "comment": "Choice 3 after the SECOND failure with full-ball available: the R14(d)(ii) Warning attaches.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 8
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": {
+     "kind": "foul_and_a_miss",
+     "chooser": 2
+    },
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "wrong-first-ball",
+       "cite": "WPBSA Sec2 R11; Sec3 R10"
+      }
+     ],
+     "by": 1,
+     "penalty": 4
+    },
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": {
+     "count": 2,
+     "warned": false,
+     "fullBall": true
+    },
+    "missRestore": {
+     "phase": "reds",
+     "ballOn": "red",
+     "onTable": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+     ]
+    }
+   },
+   "decision": {
+    "decision": 17,
+    "choice": 3
+   },
+   "expect": "{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":8},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":{\"by\":1,\"penalty\":4,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}]},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":{\"count\":2,\"warned\":true,\"fullBall\":true},\"missRestore\":null}",
+   "expectSha256": "0d908294adc16a2db5d8f8bdbeab3baf319087e235bd0416755938b302f44a44"
+  },
+  {
+   "id": "wpbsa-snooker-full/applyDecision-005",
+   "ruleset": "snooker-v2",
+   "kind": "applyDecision",
+   "comment": "Choice 3 at count 2 WITHOUT full-ball contact available: the R14(d) gate holds -- no Warning attaches on the way back.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 8
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": {
+     "kind": "foul_and_a_miss",
+     "chooser": 2
+    },
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "wrong-first-ball",
+       "cite": "WPBSA Sec2 R11; Sec3 R10"
+      }
+     ],
+     "by": 1,
+     "penalty": 4
+    },
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": {
+     "count": 2,
+     "warned": false,
+     "fullBall": false
+    },
+    "missRestore": {
+     "phase": "reds",
+     "ballOn": "red",
+     "onTable": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+     ]
+    }
+   },
+   "decision": {
+    "decision": 17,
+    "choice": 3
+   },
+   "expect": "{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":8},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":{\"by\":1,\"penalty\":4,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}]},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":{\"count\":2,\"warned\":false,\"fullBall\":false},\"missRestore\":null}",
+   "expectSha256": "d8203b9264b378d10dcdf6e83fa88db227a68d01bb6b88745c7133ed479e1d4e"
+  },
+  {
+   "id": "wpbsa-snooker-full/applyDecision-error-001",
+   "ruleset": "snooker-v2",
+   "kind": "applyDecision-error",
+   "comment": "Decision 14 choice out of range (1..3).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 4
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": {
+     "kind": "foul_and_a_miss",
+     "chooser": 2
+    },
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "wrong-first-ball",
+       "cite": "WPBSA Sec2 R11; Sec3 R10"
+      }
+     ],
+     "by": 1,
+     "penalty": 4
+    },
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": {
+     "count": 1,
+     "warned": false,
+     "fullBall": true
+    },
+    "missRestore": {
+     "phase": "reds",
+     "ballOn": "red",
+     "onTable": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+     ]
+    }
+   },
+   "decision": {
+    "decision": 17,
+    "choice": 4
+   },
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"snooker-v2: choice 4 out of range for 'foul_and_a_miss'\"}}",
+   "expectSha256": "e72eec649bde22c2940a7e2b5ad7e037358446ff00be84b563ed4ba437ed799f"
+  },
+  {
+   "id": "wpbsa-snooker-full/applyDecision-error-002",
+   "ruleset": "snooker-v2",
+   "kind": "applyDecision-error",
+   "comment": "Unknown decision id under snooker-v2 (11 is 14.1's).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 4
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": {
+     "kind": "foul_and_a_miss",
+     "chooser": 2
+    },
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "wrong-first-ball",
+       "cite": "WPBSA Sec2 R11; Sec3 R10"
+      }
+     ],
+     "by": 1,
+     "penalty": 4
+    },
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": {
+     "count": 1,
+     "warned": false,
+     "fullBall": true
+    },
+    "missRestore": {
+     "phase": "reds",
+     "ballOn": "red",
+     "onTable": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+     ]
+    }
+   },
+   "decision": {
+    "decision": 11,
+    "choice": 1
+   },
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"snooker-v2: unknown decision id 11\"}}",
+   "expectSha256": "9d495fc7223ca57db11db43419910c7ee109911eaafbe2dd71c69c6e0ed40986"
+  },
+  {
+   "id": "wpbsa-snooker-full/applyDecision-error-003",
+   "ruleset": "snooker-v2",
+   "kind": "applyDecision-error",
+   "comment": "Kind mismatch: play_again is not the pending option.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 4
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": {
+     "kind": "foul_and_a_miss",
+     "chooser": 2
+    },
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "wrong-first-ball",
+       "cite": "WPBSA Sec2 R11; Sec3 R10"
+      }
+     ],
+     "by": 1,
+     "penalty": 4
+    },
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": {
+     "count": 1,
+     "warned": false,
+     "fullBall": true
+    },
+    "missRestore": {
+     "phase": "reds",
+     "ballOn": "red",
+     "onTable": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+     ]
+    }
+   },
+   "decision": {
+    "decision": 7,
+    "choice": 1
+   },
+   "expect": "{\"error\":{\"code\":\"bad-decision\",\"message\":\"snooker-v2: decision 'play_again' does not match the pending option ('foul_and_a_miss')\"}}",
+   "expectSha256": "b9af6e23729514bd745b66fbf6053d8b05062df2a7386148ab77567f6c38472b"
+  },
+  {
+   "id": "wpbsa-snooker-full/hudState-001",
+   "ruleset": "snooker-v2",
+   "kind": "hudState",
+   "comment": "HUD projection carries the v2 facts: pending decision 14, penalty echo, freeBallEligible, the miss context.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 4
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": {
+     "kind": "foul_and_a_miss",
+     "chooser": 2
+    },
+    "foulContext": {
+     "fouls": [
+      {
+       "code": "wrong-first-ball",
+       "cite": "WPBSA Sec2 R11; Sec3 R10"
+      }
+     ],
+     "by": 1,
+     "penalty": 4
+    },
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": {
+     "count": 1,
+     "warned": false,
+     "fullBall": true
+    },
+    "missRestore": {
+     "phase": "reds",
+     "ballOn": "red",
+     "onTable": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+     ]
+    }
+   },
+   "expect": "{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"penalty\":4,\"respotQueue\":[],\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"redsRemaining\":15,\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"by\":1,\"penalty\":4,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}]},\"result\":null,\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true}}",
+   "expectSha256": "60e0443e7473599dcb34a4dbaa3cda93bba30415f8a3f5560ecc6a6dbdd2ef59"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-021",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "R14(a)(i) post-stroke examination counts the pending respots (review GH-382 r1): black potted on the missed stroke respots, deficit 35 vs 35 still attainable -- the exemption must NOT fire, FOUL AND A MISS stands.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 28
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 21
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 21,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"not-nominated\",\"cite\":\"WPBSA Sec3 R3(h), R10\"}],\"pocketed\":[21],\"ballInHand\":\"none\",\"respot\":[21],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":35},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[21],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"not-nominated\",\"cite\":\"WPBSA Sec3 R3(h), R10\"}],\"by\":1,\"penalty\":7},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21]}}}",
+   "expectSha256": "e1315cb460177573f1f76935660f0466ea9342bf49e52d24fc230fd938bb9320"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-022",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "R14(a)(i) prices the colour_after_red opportunity (review GH-382 r2): 30 ahead with all colours up (27) plus the pending black (7) = 34 attainable -- no exemption, FOUL AND A MISS stands.",
+   "state": {
+    "phase": "colour_after_red",
+    "shooter": 1,
+    "scores": {
+     "1": 30,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "nominated_colour",
+    "onTable": [
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": -0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 21
+   },
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"final_colours\",\"shooter\":1,\"scores\":{\"1\":30,\"2\":7},\"currentBreak\":0,\"ballOn\":16,\"onTable\":[16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"by\":1,\"penalty\":7},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true},\"missRestore\":{\"phase\":\"colour_after_red\",\"ballOn\":\"nominated_colour\",\"onTable\":[16,17,18,19,20,21]}}}",
+   "expectSha256": "3b269bae5520447f9676c63f84f0f0d5d1eea73297dadb6495d1a7cd3c73f567"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-034",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "The free ball the MISS ITSELF awards counts in the post-stroke availability (review GH-382 r18): 34 down over one red + colours, the settled snooker makes 43 attainable -- FOUL AND A MISS stands.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 34
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.3,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.25,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 18,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": [
+       [
+        0,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.05,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ]
+      ]
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":38},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21]}}}",
+   "expectSha256": "e2dd33b6a04056206df5620aa9a50b15ecf3b9284d52edaa375bd5315b1b5af6"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-035",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "Pending colour respots make the settled geometry crate-invisible (review GH-382 r19): the exemption arms only on CERTAIN arithmetic -- the potential free ball counts, FOUL AND A MISS stands.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 31
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.25,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 18,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 16
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 16,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"not-nominated\",\"cite\":\"WPBSA Sec3 R3(h), R10\"}],\"pocketed\":[16],\"ballInHand\":\"none\",\"respot\":[16],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":35},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[16],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"not-nominated\",\"cite\":\"WPBSA Sec3 R3(h), R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":false},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21]}}}",
+   "expectSha256": "108d849c76902c1b84d994538f72c54734539e51ecbe94fbb7af0cea1bd2fa5d"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-036",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "A scratch-miss leaves in-hand and the R17(a) D-arm is crate-invisible (review GH-382 r22): the exemption resolves toward the miss -- 38 vs 35 + the unknowable 8.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 34
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.3,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.25,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 18,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"scratch\",\"cite\":\"WPBSA Sec3 R5, R10\"}],\"pocketed\":[],\"ballInHand\":\"d_zone\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":38},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"scratch\",\"cite\":\"WPBSA Sec3 R5, R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21]}}}",
+   "expectSha256": "b0f13ec49375b186936a753288736a4e66c20c34c6ae1edd91ec9480e0be7f1b"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-037",
+   "kind": "judge",
+   "comment": "Elevated strike on the touching red: the kernel's launch-time BallTable{0} artifact at t=1e-9 precedes the contact at 2e-9 (review GH-382 r25; probed at 10-45 deg elevation) -- skipped inside PUSH_CONTACT_WINDOW, the stroke is still played INTO the ball: push-stroke (Sec2 R19; Sec3 R8(b), R11(b)(v)).",
+   "ruleset": "snooker-v2",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.052500001,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": -0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1e-09,
+      "kind": {
+       "BallTable": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 2e-09,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"push-stroke\",\"cite\":\"WPBSA Sec2 R19; Sec3 R8(b), R11(b)(v)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"push-stroke\",\"cite\":\"WPBSA Sec2 R19; Sec3 R8(b), R11(b)(v)\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "605e232cbb8e05030a11528715badb4264c225c307b43c25850eec6872a690bd"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-038",
+   "kind": "judge",
+   "comment": "Dual touch (review GH-382 r28): the cue touches BOTH the red on and the yellow not on; played INTO the yellow. R8(c)'s grace is conditioned on ANY touching object ball, so the stroke is wrong-first-ball AND the Sec2 R19(b) push (cited through R8(c)); the announced set stays the R8(a)/(e) on-set.",
+   "ruleset": "snooker-v2",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.052500001,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.052500001,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1e-09,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 16
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"push-stroke\",\"cite\":\"WPBSA Sec2 R19; Sec3 R8(c), R11(b)(v)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"push-stroke\",\"cite\":\"WPBSA Sec2 R19; Sec3 R8(c), R11(b)(v)\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]}}}",
+   "expectSha256": "17df880c2cbd6fd551297cfb7a57e8347ec2681f72e386e386d4a4ce02a06ae8"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-039",
+   "kind": "judge",
+   "comment": "R12(b)(ii) after a SCRATCH (review GH-382 r31): the incoming player is in hand, so the examination runs the Sec2 R17(a) arm over the legally occupiable D -- the nominated free ball parked flush in front of the only red covers it from every D sample: free-ball-snooker compounds with the scratch.",
+   "ruleset": "snooker-v2",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.3965,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.45,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 18,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.7,
+         "y": -0.7,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": -0.7,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.75,
+         "y": 0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.75,
+         "y": 0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 17
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.3,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": [
+       [
+        17,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.3965,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ],
+       [
+        1,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.45,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ]
+      ]
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 17,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPBSA Sec3 R5, R10\"},{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"pocketed\":[],\"ballInHand\":\"d_zone\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPBSA Sec3 R5, R10\"},{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "5b9868f25bb6b25c7d00cd0aeb63b0e83a9ff011d9b4e7789b08facb6ae47bca"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-007",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "Free ball potted with Red on: scores 1 as the ball on (R12(a)(ii)/(c)), respotted, colour_after_red armed ('a free ball nominated as a Red').",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 17
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 17,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 17,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[17],\"ballInHand\":\"none\",\"respot\":[17],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"colour_after_red\",\"shooter\":1,\"scores\":{\"1\":1,\"2\":0},\"currentBreak\":1,\"ballOn\":\"nominated_colour\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[17],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "879eb31e053754f6bed4be456192829b43790e4661db2d8abacfa154171e03f2"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-008",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "With a free ball nominated the cue must FIRST hit it -- a ball on first is the R11(b)(iv) foul and a miss (Sec2 R21(b)); the untouched F-blocked line also compounds the R12(b)(ii) snooker (review r11).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 17,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]}}}",
+   "expectSha256": "5268bdc006e972c490b3c12d54445fa85a141eef732cbc8927feeb6230ddf8f5"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-009",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "final_colours free ball potted alone: value of the ball on (yellow=2), F respots, ball on unchanged; the black potted AS a free ball never ends the frame (R12(c)).",
+   "state": {
+    "phase": "final_colours",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": 16,
+    "onTable": [
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 21
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 21,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 21,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[21],\"ballInHand\":\"none\",\"respot\":[21],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"final_colours\",\"shooter\":1,\"scores\":{\"1\":2,\"2\":0},\"currentBreak\":2,\"ballOn\":16,\"onTable\":[16,17,18,19,20,21],\"respotQueue\":[21],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "9311173a0cf7d8ac1ea6a15764ccae2743a6c8e8d7153966e7d345ef2e8ac8b9"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-010",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "final_colours both potted: only the ball on scores (R12(e) non-red arm); F respots, the ball on stays down and advances.",
+   "state": {
+    "phase": "final_colours",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": 16,
+    "onTable": [
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 21
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 21,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 16,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 21,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[21,16],\"ballInHand\":\"none\",\"respot\":[21],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"final_colours\",\"shooter\":1,\"scores\":{\"1\":2,\"2\":0},\"currentBreak\":2,\"ballOn\":17,\"onTable\":[17,18,19,20,21],\"respotQueue\":[21],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "0eaa29262040d99758ca3c95f8c0df0cb7a09283bbbcc4571f099157914a80d2"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-011",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "Red on, free ball AND a red potted: each scores (R12(e) red arm) -- 1 + 1.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.2,
+         "y": 0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 17
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 17,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 2,
+        "pocket": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 17,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[17,2],\"ballInHand\":\"none\",\"respot\":[17],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"colour_after_red\",\"shooter\":1,\"scores\":{\"1\":2,\"2\":0},\"currentBreak\":2,\"ballOn\":\"nominated_colour\",\"onTable\":[1,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[17],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "090da48fcdc98a42e50ca4c281d94b95caafd5ff6a35bed96148bd52099564d8"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-012",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "R12(b)(ii): non-scoring free-ball stroke leaving the cue snookered on all Reds BY the free ball (the Sec2 R17(b) effective snookering ball) -- foul free-ball-snooker, R11(a)(viii).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.15,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 18,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.7,
+         "y": -0.7,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": -0.7,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.75,
+         "y": 0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.75,
+         "y": 0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 17
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": [
+       [
+        0,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.05,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ],
+       [
+        17,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.3,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ]
+      ]
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 17,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "f8279772a10fd19df7ec654382d789c0b355b654a4d494d5cdd0f9206b9551c7"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-028",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "R12(b)(ii) applies after ANY non-scoring stroke (review GH-382 r11): the compound verdict keeps both the wrong-first foul and the free-ball snooker left behind.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.15,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 18,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.7,
+         "y": -0.7,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": -0.7,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.75,
+         "y": 0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.75,
+         "y": 0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": [
+       [
+        0,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.05,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ],
+       [
+        17,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.3,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ],
+       [
+        1,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.8,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ]
+      ]
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 17,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21]}}}",
+   "expectSha256": "1440c883dabc87ae59fdca74b3f7c27f4004321e6d0436f17dcfd478ab32a97a"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-013",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "R12(b)(ii) exception: only two object balls remain (Pink and Black) -- the left-behind snooker is legal.",
+   "state": {
+    "phase": "final_colours",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": 20,
+    "onTable": [
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.15,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 21
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": [
+       [
+        0,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.05,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ],
+       [
+        21,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.3,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ]
+      ]
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 21,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"final_colours\",\"shooter\":2,\"scores\":{\"1\":0,\"2\":0},\"currentBreak\":0,\"ballOn\":20,\"onTable\":[20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "e70a62af5bad815e03f67eadeb29ed1ff2b4d437a72845fd77978f734d31917b"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-023",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "R12(b)(ii) exception needs the BLACK among the two remaining balls (review GH-382 r3): blue+pink is NOT exempt -- free-ball-snooker fires.",
+   "state": {
+    "phase": "final_colours",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": 19,
+    "onTable": [
+     19,
+     20
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.15,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 20
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": [
+       [
+        0,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.05,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ],
+       [
+        20,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.3,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ]
+      ]
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 20,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"final_colours\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":5},\"currentBreak\":0,\"ballOn\":19,\"onTable\":[19,20],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"by\":1,\"penalty\":5},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "af5fd215c8f75b24f1672e76ba69ac77905ec959dd98894738ea7722c8aef13e"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-error-004",
+   "ruleset": "snooker-v2",
+   "kind": "judge-error",
+   "comment": "A freeBall call without the nominate kind is malformed (review GH-382 r3).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 17
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 17,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "ball": 17,
+    "freeBall": true
+   },
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"snooker-v2: a freeBall call MUST carry { kind: \\\"nominate\\\", ball } (adapter contract)\"}}",
+   "expectSha256": "7508eced1870e35e370514dc5f0fe7ec2351fb573d4a2d92725db65419d83a2b"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-error-005",
+   "ruleset": "snooker-v2",
+   "kind": "judge-error",
+   "comment": "A non-boolean freeBall value is malformed at the public boundary (review GH-382 r9) -- never silently false.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 17
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 17,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 17,
+    "freeBall": 1
+   },
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"snooker-v2: freeBall must be a boolean, got 1\"}}",
+   "expectSha256": "3cfee4a989cf0e6f4b3e02025fc866cbaeca2e9390927fe5fad8a76ec7465821"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-029",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "The R12(b)(ii) examination stands down when a colour left the table this stroke (review GH-382 r12): its respot XY is adapter-owned; the compound not-nominated foul stands alone.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.15,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": 0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.7,
+         "y": -0.7,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 18,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": -0.7,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.75,
+         "y": 0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.75,
+         "y": 0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 17
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 19,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": [
+       [
+        0,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.05,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ],
+       [
+        17,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.3,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ]
+      ]
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 17,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"not-nominated\",\"cite\":\"WPBSA Sec3 R3(h), R10\"}],\"pocketed\":[19],\"ballInHand\":\"none\",\"respot\":[19],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":5},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[19],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"not-nominated\",\"cite\":\"WPBSA Sec3 R3(h), R10\"}],\"by\":1,\"penalty\":5},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "2924f14c022688aa56e1f73a116f99af5b47d29afa75c333814b39f123003383"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-error-006",
+   "ruleset": "snooker-v2",
+   "kind": "judge-error",
+   "comment": "Config-in-state errors carry the invalid-task-config code (registry-api.md par.3; review GH-382 r12): a missing variant block.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": -0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 16
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"error\":{\"code\":\"invalid-task-config\",\"message\":\"snooker-v2 state: missing 'variant' block (config-in-state, registry-api.md \u00a73)\"}}",
+   "expectSha256": "ebc29a6eed9403149a5d36c861ef594c46fb157e790e94c691d6ef4b07fae3c4"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-030",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "The R12(b)(ii) exception needs two COLOURS (review GH-382 r16): a red+black pair does not qualify -- the snooker behind the nominated black fouls.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.15,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 21
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": [
+       [
+        0,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.05,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ],
+       [
+        21,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.3,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ]
+      ]
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 21,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "30b5853a26182597a10900896e41b134b85f4055b04a61ddf2a3d452a495ad95"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-031",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "The examination targets the SETTLED on-set (review GH-382 r16): the last red forced off hands the incoming player the yellow; leaving it snookered behind F compounds the foul.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.1,
+         "y": 0.15,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.3,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 18,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": -0.7,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": 0.2,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 17
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "BallOffTable": {
+        "ball": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": [
+       [
+        0,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.05,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ],
+       [
+        17,
+        {
+         "pos": {
+          "x": 0.0,
+          "y": 0.3,
+          "z": 0.02625
+         },
+         "motion": "Stationary"
+        }
+       ]
+      ]
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 17,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPBSA Sec3 R7, R10\"},{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"final_colours\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":16,\"onTable\":[16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"ball-off-table\",\"cite\":\"WPBSA Sec3 R7, R10\"},{\"code\":\"free-ball-snooker\",\"cite\":\"WPBSA Sec3 R12(b)(ii), R11(a)(viii)\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "b7d6fad0b450d60919ab1bf3adc0e448bc5376b3754144d822acf1f5f68eac91"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-error-001",
+   "ruleset": "snooker-v2",
+   "kind": "judge-error",
+   "comment": "freeBall nomination without a live right (Sec3 R12 -- after a foul only).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 17
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 17,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 17,
+    "freeBall": true
+   },
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"snooker-v2: freeBall nomination without a live free-ball right (WPBSA Sec3 R12 \u2014 after a foul only, voided by play-again/replacement per R12(f))\"}}",
+   "expectSha256": "bbbd5a3652d058723ab4ec4333a178d0e3055f0a5a5a308538b5debf097a131b"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-error-002",
+   "ruleset": "snooker-v2",
+   "kind": "judge-error",
+   "comment": "The ball on itself cannot be the free ball (Sec2 R13).",
+   "state": {
+    "phase": "final_colours",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": 16,
+    "onTable": [
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 17
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 17,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 16,
+    "freeBall": true
+   },
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"snooker-v2: 16 IS the ball on \u2014 a free ball must be a ball other than the ball on (WPBSA Sec2 R13)\"}}",
+   "expectSha256": "f8b1dc01d2faf49acfa3847b440e5eb202541fd7812f22060aa0b7956258c109"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-error-003",
+   "ruleset": "snooker-v2",
+   "kind": "judge-error",
+   "comment": "A nominated free ball must be a colour on the table.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 17
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 17,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 3,
+    "freeBall": true
+   },
+   "expect": "{\"error\":{\"code\":\"bad-call\",\"message\":\"snooker-v2: nominated free ball 3 is not a colour (16-21)\"}}",
+   "expectSha256": "472a51fccd608e87170f513e1197860733c998d81f74f9c191238559cc0003c6"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-014",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "Frozen to a red at address, played away cleanly hitting nothing: LEGAL (R8(c)(i) deemed contact), turn passes.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.052500001,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": -0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":2,\"scores\":{\"1\":0,\"2\":0},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "9131b32a93328b4245c18d3def0071386a3cd056e4b3a0a7069e6ebdb3969272"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-015",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "Played INTO the touching ball: it moved at the moment of striking -- push-stroke (Sec2 R19; Sec3 R8(b), R11(b)(v)); a foul but not a miss.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.052500001,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": -0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1e-09,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"push-stroke\",\"cite\":\"WPBSA Sec2 R19; Sec3 R8(b), R11(b)(v)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"push-stroke\",\"cite\":\"WPBSA Sec2 R19; Sec3 R8(b), R11(b)(v)\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "605e232cbb8e05030a11528715badb4264c225c307b43c25850eec6872a690bd"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-016",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "Frozen to a ball NOT on with no declaration: not a called touching ball -- playing away hitting nothing stays the no-contact foul (and a miss).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.052500001,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": 0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":false},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]}}}",
+   "expectSha256": "7bf72af057eabe1480065f25d378c77e1743a76b73b0a245103a2c690122a9e6"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-017",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "The same frozen colour DECLARED as the free ball (R8(c)(ii)): deemed contact, legal (the lone red sits opposite, so the rest is no R12(b)(ii) snooker by F).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.052500001,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 16,
+    "freeBall": true
+   },
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":2,\"scores\":{\"1\":0,\"2\":0},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "9131b32a93328b4245c18d3def0071386a3cd056e4b3a0a7069e6ebdb3969272"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-018",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "A pot after playing away from the touching ball judges normally: the red scores and colour_after_red arms.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.052500001,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 2,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.4,
+         "y": 0.4,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 2
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 2,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[2],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"colour_after_red\",\"shooter\":1,\"scores\":{\"1\":1,\"2\":0},\"currentBreak\":1,\"ballOn\":\"nominated_colour\",\"onTable\":[1,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "ca0db042f685f0f227e288b0d07afc829814cee2ae056827626e59697529eb6f"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-024",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "The LIVE free-ball call widens the called touching set without a nomination (review GH-382 r7): frozen to the snookering colour, playing into it is BOTH the R11(b)(iv) wrong-first foul and the R8(b) push stroke (one penalty, the highest -- R10(g)).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.052500001,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 18,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1e-09,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 16
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"push-stroke\",\"cite\":\"WPBSA Sec2 R19; Sec3 R8(b), R11(b)(v)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"push-stroke\",\"cite\":\"WPBSA Sec2 R19; Sec3 R8(b), R11(b)(v)\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21]}}}",
+   "expectSha256": "fb44cdd1bf9c4dc85b4aaeb8ef021e20f36d898ac211ee55b0fe85ac1dde50f0"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-025",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "A LIVE free ball adds a red-equivalent (+8) to the R14(a)(i) availability (review GH-382 r8): 36-0 over one red + colours stays attainable -- FOUL AND A MISS stands.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 36,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.25,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 18,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":36,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21]}}}",
+   "expectSha256": "174d6a79361c949b2b9d1cdb59865caa8424185c6f346d0693eb12840deb0c35"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-026",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "A DECLINED live free ball still could-have-been-on for the R14(d) full-ball gate (review GH-382 r8): reds blocked, an open colour arms the ladder (fullBall true).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": true,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.25,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": -0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 18,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.8,
+         "y": 0.3,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": 0.2,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"foul_and_a_miss\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":{\"count\":1,\"warned\":false,\"fullBall\":true},\"missRestore\":{\"phase\":\"reds\",\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21]}}}",
+   "expectSha256": "392b49b5817bf94dca8ea8b1a1d9f6c282f791b95f6d6d033ee5c3d5698d488b"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-027",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "Deemed contact stands as the logical first hit (review GH-382 r10): a later red brush + scratch in colour_after_red prices ordinarily (4 with yellow on), never the R11(d)(iii) seven.",
+   "state": {
+    "phase": "colour_after_red",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 1,
+    "ballOn": "nominated_colour",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.052500001,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.4,
+         "y": 0.4,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 16
+   },
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPBSA Sec3 R5, R10\"}],\"pocketed\":[],\"ballInHand\":\"d_zone\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"scratch\",\"cite\":\"WPBSA Sec3 R5, R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "489c9a2b5ba4719a0e7e3fb2573188e37dd441b946524d5d2b803c95bbe8711b"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-032",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "A shallow tangential squeeze into the touching ball contacts late but nothing intervenes -- the cue's first own event decides: push (review GH-382 r17).",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.052500001,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": -0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.000488,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"push-stroke\",\"cite\":\"WPBSA Sec2 R19; Sec3 R8(b), R11(b)(v)\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":4},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"push-stroke\",\"cite\":\"WPBSA Sec2 R19; Sec3 R8(b), R11(b)(v)\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "605e232cbb8e05030a11528715badb4264c225c307b43c25850eec6872a690bd"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-033",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "An intervening cue event breaks the played-into chain (review GH-382 r17): the swerve-back re-contact with the touching ball ON is ordinary legal play.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.052500001,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.5,
+         "y": -0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.4,
+      "kind": {
+       "Transition": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.9,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":2,\"scores\":{\"1\":0,\"2\":0},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "9131b32a93328b4245c18d3def0071386a3cd056e4b3a0a7069e6ebdb3969272"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-019",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "Plain red pot under the full config: v1 semantics carried (Sec3 R3(g)); the additive trackers stay empty.",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 1,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[1],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"colour_after_red\",\"shooter\":1,\"scores\":{\"1\":1,\"2\":0},\"currentBreak\":1,\"ballOn\":\"nominated_colour\",\"onTable\":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "624b69638c841c3a5bd09bdd6480974c87eb98a2d4e0e043be0074d94ce47a4e"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-020",
+   "ruleset": "snooker-v2",
+   "kind": "judge",
+   "comment": "colour_after_red nomination under the full config (Sec3 R3(h)); a freeBall flag is impossible there -- this is the plain nominate path.",
+   "state": {
+    "phase": "colour_after_red",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 0
+    },
+    "currentBreak": 1,
+    "ballOn": "nominated_colour",
+    "onTable": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.5,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.1,
+      "kind": {
+       "BallBall": {
+        "b1": 0,
+        "b2": 19
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 19,
+        "pocket": 1
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": {
+    "kind": "nominate",
+    "ball": 19
+   },
+   "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[19],\"ballInHand\":\"none\",\"respot\":[19],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":5,\"2\":0},\"currentBreak\":6,\"ballOn\":\"red\",\"onTable\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],\"respotQueue\":[19],\"pendingDecision\":null,\"foulContext\":null,\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":false,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "d9bb8205625a4b11da68ad10554a0f846368e5efd6b038a4596f69bfbca1bd13"
+  },
+  {
+   "id": "wpbsa-snooker-full/judge-040",
+   "kind": "judge",
+   "comment": "R14(a)(i) after a SCRATCH (review GH-382 r34): the exemption arithmetic runs the Sec2 R17(a) D-lattice examination like the free-ball-snooker scratch leg -- the table is OPEN from the D, so no phantom free-ball bonus inflates points-remaining: 38 deficit vs 35 attainable EXEMPTS the miss (only the R13 play_again option pends).",
+   "ruleset": "snooker-v2",
+   "state": {
+    "phase": "reds",
+    "shooter": 1,
+    "scores": {
+     "1": 0,
+     "2": 34
+    },
+    "currentBreak": 0,
+    "ballOn": "red",
+    "onTable": [
+     1,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "respotQueue": [],
+    "pendingDecision": null,
+    "foulContext": null,
+    "result": null,
+    "variant": {
+     "config": {
+      "free_ball": true,
+      "miss_rule": true,
+      "touching_ball": true
+     },
+     "task_hash": "4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4"
+    },
+    "freeBallEligible": false,
+    "miss": null,
+    "missRestore": null
+   },
+   "record": {
+    "initial": {
+     "balls": [
+      {
+       "id": 0,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.3,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 16,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.9,
+         "y": -0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 1,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": 0.8,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 17,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 18,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.6,
+         "y": -0.6,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 19,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 20,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": -0.7,
+         "y": 0.0,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      },
+      {
+       "id": 21,
+       "params": {
+        "r": 0.02625
+       },
+       "state": {
+        "pos": {
+         "x": 0.0,
+         "y": -0.9,
+         "z": 0.02625
+        },
+        "motion": "Stationary"
+       }
+      }
+     ],
+     "table": {
+      "width": 1.778,
+      "length": 3.569,
+      "pockets": []
+     }
+    },
+    "events": [
+     {
+      "t": 0.0,
+      "kind": {
+       "Strike": {
+        "ball": 0
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 0.2,
+      "kind": {
+       "BallPocket": {
+        "ball": 0,
+        "pocket": 3
+       }
+      },
+      "post": []
+     },
+     {
+      "t": 1.0,
+      "kind": "Rest",
+      "post": []
+     }
+    ]
+   },
+   "call": null,
+   "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"scratch\",\"cite\":\"WPBSA Sec3 R5, R10\"}],\"pocketed\":[],\"ballInHand\":\"d_zone\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":{\"kind\":\"play_again\",\"chooser\":2},\"terminal\":null,\"next\":{\"phase\":\"reds\",\"shooter\":1,\"scores\":{\"1\":0,\"2\":38},\"currentBreak\":0,\"ballOn\":\"red\",\"onTable\":[1,16,17,18,19,20,21],\"respotQueue\":[],\"pendingDecision\":{\"kind\":\"play_again\",\"chooser\":2},\"foulContext\":{\"fouls\":[{\"code\":\"no-contact\",\"cite\":\"WPBSA Sec2 R11; Sec3 R10\"},{\"code\":\"scratch\",\"cite\":\"WPBSA Sec3 R5, R10\"}],\"by\":1,\"penalty\":4},\"result\":null,\"variant\":{\"config\":{\"free_ball\":true,\"miss_rule\":true,\"touching_ball\":true},\"task_hash\":\"4c78588dbc6c10de41fe8e11781a43e880381a93d2cecafa7a05080bb7546ee4\"},\"freeBallEligible\":true,\"miss\":null,\"missRestore\":null}}",
+   "expectSha256": "5e8688428ea49d8eb6025b76a1434b59ac37299c54c4ebdd4dfc701d83e117e1"
+  }
+ ]
+}

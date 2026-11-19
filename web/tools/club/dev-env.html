@@ -1,0 +1,294 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: env</title>
+<style>
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }
+.lab { position: fixed; top: 6px; font: 12px/1.2 monospace; color: #fff; background: rgba(0,0,0,.55); padding: 2px 6px; }
+</style>
+<script type="importmap">
+{ "imports": { "three": "../../vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { TIERS } from '../../scene/club/tiers.js';
+import { createAdopt } from '../../scene/club/adopt.js';
+import { createEnv } from '../../scene/club/env.js';
+import { createMirror } from '../../scene/club/env/mirror.js';
+
+const q = new URLSearchParams(location.search);
+const num = (k, d) => { const v = Number(q.get(k)); return q.has(k) && Number.isFinite(v) ? v : d; };
+const tier = ['lite', 'base', 'high'].includes(q.get('tier')) ? q.get('tier') : 'base';
+const knobs = { ...TIERS[tier] };
+if (q.has('mirror')) knobs.floorMirror = q.get('mirror') === '1';
+if (q.has('live')) knobs.envLive = q.get('live') === '1';
+const CMP = q.get('cmp') === '1', GT_ONLY = q.get('gt') === '1';
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x020202);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.03, 60);
+const VIEWS = {
+  wide: [[-4.0, 1.6, 2.6], [0, 0.3, 0], 50], play: [[-2.3, 1.05, 1.35], [0.1, 0, 0], 40],
+  rail: [[-1.9, 0.55, 1.5], [0.2, 0.0, 0.6], 30], graze: [[0.05, 0.115, 0.75], [0.5, 0.045, 0.6], 26],
+  side: [[0.25, 0.22, 0.25], [0, 0.02, 0.66], 26], balls: [[-0.85, 0.2, 0.42], [0.05, 0.02, -0.02], 28],
+  floor: [[-3.7, 0.25, 2.3], [0.6, -0.79, -0.6], 46], top: [[-2.2, 1.9, 1.9], [0, 0, 0], 45],
+};
+let [pos, tgt, fov] = VIEWS[q.get('view')] ?? VIEWS.wide;
+if (q.has('cam')) { const c = q.get('cam').split(',').map(Number); if (c.length >= 6 && c.every(Number.isFinite)) { pos = c.slice(0, 3); tgt = c.slice(3, 6); fov = c[6] ?? fov; } }
+camera.position.set(...pos); camera.fov = fov; camera.lookAt(...tgt);
+
+// ---- the room: 9 x 6 x 3.24 m, floor at -0.79 --------------------------------------------------------------------------------
+const FLOOR_Y = -0.79, CEIL_Y = 2.45, HX = 4.5, HZ = 3.0, LAMP_Y = 1.02;
+const room = new THREE.Group(); scene.add(room);
+const std = (color, roughness = 0.9, extra = {}) => new THREE.MeshStandardMaterial({ color, roughness, ...extra });
+const glow = (r, g, b) => new THREE.MeshBasicMaterial({ color: new THREE.Color(r, g, b) });
+// a wall plane facing into the room: centre, size, rotation about y
+function wall(mat, w, h, x, y, z, ry, parent = room) {
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+  m.position.set(x, y, z); m.rotation.y = ry; parent.add(m); return m;
+}
+const H = CEIL_Y - FLOOR_Y, YC = (CEIL_Y + FLOOR_Y) / 2;
+const walls = {
+  px: { ry: -Math.PI / 2, at: (u, y, d = 0) => [HX - d, y, u], w: 2 * HZ, color: 0x2f4a3a },
+  nx: { ry: Math.PI / 2, at: (u, y, d = 0) => [-HX + d, y, u], w: 2 * HZ, color: 0x5a2a2e },
+  nz: { ry: 0, at: (u, y, d = 0) => [u, y, -HZ + d], w: 2 * HX, color: 0x4a3a2a },
+  pz: { ry: Math.PI, at: (u, y, d = 0) => [u, y, HZ - d], w: 2 * HX, color: 0x2a4450 },
+};
+for (const k of Object.keys(walls)) {
+  const W = walls[k];
+  // unlit walls: the room's content is then the same whatever the cube holds (no feedback through the walls' own env term)
+  wall(new THREE.MeshBasicMaterial({ color: new THREE.Color(W.color).multiplyScalar(0.55) }), W.w, H, ...W.at(0, YC), W.ry);
+  wall(new THREE.MeshBasicMaterial({ color: new THREE.Color(0x2a1a10).multiplyScalar(0.5) }), W.w, 1.1, ...W.at(0, FLOOR_Y + 0.55, 0.004), W.ry); // wainscot
+  wall(glow(0.9, 0.85, 0.7), W.w, 0.025, ...W.at(0, FLOOR_Y + 1.11, 0.006), W.ry);        // a chair rail line (alignment mark)
+}
+const patch = (k, mat, w, h, u, y) => wall(mat, w, h, ...walls[k].at(u, y, 0.008), walls[k].ry);
+// +x wall: three warm sconces and a picture
+for (const z of [-1.8, 0, 1.8]) patch('px', glow(9, 5.5, 2.4), 0.22, 0.34, z, 1.25);
+patch('px', glow(0.5, 0.9, 1.0), 0.9, 0.6, 0.9, 1.45);
+// -x wall: a tall cool window
+patch('nx', glow(1.6, 2.6, 4.2), 0.9, 1.7, 0.8, 1.0);
+// -z wall: a lit shelf with a row of bottles, and a sign
+patch('nz', glow(5.5, 4.2, 2.3), 3.2, 0.34, 0.8, 1.15);
+[[1.2, 0.2, 0.2], [0.2, 1.0, 0.3], [1.3, 0.8, 0.1], [0.2, 0.4, 1.4], [1.2, 0.2, 0.9], [1.0, 1.0, 1.0]]
+  .forEach((c, i) => patch('nz', glow(c[0] * 2.5, c[1] * 2.5, c[2] * 2.5), 0.12, 0.3, -0.55 + i * 0.55, 1.55));
+patch('nz', glow(4.0, 0.5, 2.5), 0.9, 0.24, -2.6, 1.7);
+// +z wall: two sconces and a door
+for (const x of [-2.2, 2.2]) patch('pz', glow(8, 5, 2.2), 0.22, 0.34, x, 1.25);
+patch('pz', new THREE.MeshBasicMaterial({ color: 0x050506 }), 0.95, 2.05, 0.3, FLOOR_Y + 1.03);
+// ceiling with two small spots
+const ceil = new THREE.Mesh(new THREE.PlaneGeometry(2 * HX, 2 * HZ), new THREE.MeshBasicMaterial({ color: 0x0b0b0c }));
+ceil.rotation.x = Math.PI / 2; ceil.position.y = CEIL_Y; room.add(ceil);
+for (const x of [-3, 3]) { const s = new THREE.Mesh(new THREE.CircleGeometry(0.12, 24), glow(6, 6, 5.5)); s.rotation.x = Math.PI / 2; s.position.set(x, CEIL_Y - 0.004, 0); room.add(s); }
+// the floor: planks drawn on a canvas
+function plankTexture() {
+  const c = document.createElement('canvas'); c.width = 1024; c.height = 512;
+  const g = c.getContext('2d'); let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let row = 0; row < 16; row++) {
+    let x = -rnd() * 300;
+    while (x < 1024) { const w = 180 + rnd() * 220, v = 0.75 + rnd() * 0.25; g.fillStyle = `rgb(${Math.round(84 * v)},${Math.round(52 * v)},${Math.round(30 * v)})`; g.fillRect(x, row * 32, w - 2, 30); x += w; }
+  }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(3, 3); t.anisotropy = 8; return t;
+}
+const floorMat = std(new THREE.Color(1, 1, 1).multiplyScalar(num('fcol', 1)), num('rough', 0.22), { map: plankTexture(), name: 'devFloor' });
+// built like the club room's floor: world-space vertices, the mesh itself at the origin
+const floorGeo = new THREE.PlaneGeometry(2 * HX, 2 * HZ); floorGeo.rotateX(-Math.PI / 2); floorGeo.translate(0, FLOOR_Y, 0);
+const floor = new THREE.Mesh(floorGeo, floorMat); floor.name = 'devFloor'; room.add(floor);
+
+// ---- the lamp: an emissive face in a dark hood -----------------------------------------------------------------------------------
+const lampFace = new THREE.Mesh(new THREE.PlaneGeometry(2.05, 0.66), glow(10, 9.4, 8.2));
+lampFace.rotation.x = Math.PI / 2; lampFace.position.y = LAMP_Y; scene.add(lampFace);
+const hood = new THREE.Mesh(new THREE.BoxGeometry(2.17, 0.14, 0.78), std(0x0c1a12, 0.5));
+hood.position.y = LAMP_Y + 0.072; scene.add(hood);
+scene.add(new THREE.HemisphereLight(0xfff0e0, 0x2a2018, 0.25));
+const key = new THREE.PointLight(0xfff4e4, num('key', CMP ? 0 : 2.2), 0, 2); // off in the comparison: the ground-truth mirrors carry no direct light key.position.set(0, 0.95, 0); scene.add(key);
+
+// ---- the table stand-in ------------------------------------------------------------------------------------------------------------
+const table = new THREE.Group(); scene.add(table);
+const clothMat = std(0x1c7446, 0.95); clothMat.userData.obClass = 'cloth';
+const bed = new THREE.Mesh(new THREE.PlaneGeometry(2.54, 1.27), clothMat); bed.rotation.x = -Math.PI / 2; table.add(bed);
+const railMat = new THREE.MeshPhysicalMaterial({ color: 0x5a2416, roughness: 0.45, clearcoat: 1, clearcoatRoughness: num('railrough', 0.08), name: 'devRail' });
+railMat.userData.obClass = 'railwood';
+const rails = [];
+for (const s of [-1, 1]) {
+  const a = new THREE.Mesh(new THREE.BoxGeometry(2.84, 0.065, 0.15), railMat); a.position.set(0, 0.0125, s * 0.71); table.add(a); rails.push(a);
+  const b = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.065, 1.27), railMat); b.position.set(s * 1.345, 0.0125, 0); table.add(b); rails.push(b);
+}
+const apronMat = std(0x3a2418, 0.5, { name: 'devApron' }); apronMat.userData.obClass = 'apron';
+const body = new THREE.Mesh(new THREE.BoxGeometry(2.84, 0.23, 1.57), apronMat); body.position.y = -0.135; table.add(body);
+if (q.get('nobody') === '1') body.visible = false; // an open table, like the app's from below: only the mirror's proxy closes it
+for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
+  const leg = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.54, 0.16), apronMat); leg.position.set(sx * 1.15, -0.52, sz * 0.55); table.add(leg);
+}
+// spheres: balls on the cloth (hidden in the capture, like the app's), a chrome and a lacquered sphere on the floor
+const balls = [];
+const ballGeo = new THREE.SphereGeometry(0.028575, 48, 32);
+[[0xf2efe6, -0.55, 0.12], [0xd8b21a, 0.1, -0.2], [0x1c3fa8, 0.32, 0.18], [0xb81c1c, 0.52, -0.05], [0x111111, -0.1, 0.3]].forEach(([c, x, z]) => {
+  const m = new THREE.Mesh(ballGeo, new THREE.MeshPhysicalMaterial({ color: c, roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.03 }));
+  m.position.set(x, 0.028575, z); scene.add(m); balls.push(m);
+});
+const chromeBall = new THREE.Mesh(ballGeo, new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1, roughness: 0.03 }));
+chromeBall.position.set(-0.3, 0.028575, -0.12); scene.add(chromeBall); balls.push(chromeBall);
+const bigGeo = new THREE.SphereGeometry(0.16, 64, 40);
+const chrome = new THREE.Mesh(bigGeo, new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1, roughness: 0.03 }));
+chrome.position.set(-2.0, FLOOR_Y + 0.16, 1.2); scene.add(chrome);
+const lacquer = new THREE.Mesh(bigGeo, new THREE.MeshPhysicalMaterial({ color: 0x8a1420, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.04 }));
+lacquer.position.set(2.3, FLOOR_Y + 0.16, -1.4); scene.add(lacquer);
+
+// a cue stand-in over the table, named as the app names its rod (left out of the app-style bake; cuemove=1 swings it)
+const cue = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.014, 1.45, 16), std(0xd9b77a, 0.35));
+cue.name = 'obCueStick'; cue.rotation.z = Math.PI / 2 - 0.08; cue.position.set(-1.3, 0.11, 0.12); scene.add(cue);
+const CUE_MOVE = q.get('cuemove') === '1';
+
+// ---- the app's capture, in miniature ---------------------------------------------------------------------------------------------
+const cubeRT = new THREE.WebGLCubeRenderTarget(512, { type: THREE.HalfFloatType });
+const cubeCam = new THREE.CubeCamera(0.02, 40, cubeRT);
+cubeCam.position.set(0, (FLOOR_Y + LAMP_Y) / 2, 0);
+scene.environment = cubeRT.texture;
+let bakes = 0, tail = 0;
+const bakeOnce = () => {
+  const hidden = [...balls, cue].filter((b) => b.visible); hidden.forEach((b) => { b.visible = false; });
+  try { cubeCam.update(renderer, scene); } finally { hidden.forEach((b) => { b.visible = true; }); }
+  bakes += 1;
+};
+const rebakeEnv = () => { bakeOnce(); tail = Math.max(tail, 2); }; // one bake now, two more on the next frames (the app's tail)
+bakeOnce();
+window.__dbg = { scene, renderer, cubeRT, cubeCam, camera };
+
+// ---- the rails through the app's own compile hook (mat=wood): the shape the club patch meets in the app ----------------------------
+if (q.get('mat') === 'wood') {
+  try {
+    const sh = await import('../../scene/shading.js');
+    const shared = sh.createShared({
+      lightPos: new THREE.Vector3(0, LAMP_Y, 0), lightHalf: new THREE.Vector2(1.025, 0.33),
+      roomMin: new THREE.Vector3(-HX, FLOOR_Y, -HZ), roomMax: new THREE.Vector3(HX, LAMP_Y, HZ),
+    });
+    sh.injectAnalytic(railMat, shared, -1, 'wood');
+    window.__devShared = shared;
+  } catch (e) { console.warn('[dev-env] the app shading module is unavailable; rails stay on the stock chunk:', e); }
+}
+
+// ---- a stand-in club object ----------------------------------------------------------------------------------------------------------
+const frameFns = [];
+const club = {
+  enabled: true, tier, knobs, time: { value: 0 },
+  ctx: { renderer, scene, camera, rebakeEnv, query: q, room: { lightRefs: { lampFace }, giRefs: { floor: { position: new THREE.Vector3(0, FLOOR_Y, 0) } } }, table: null,
+    game: { ballSet: { balls: balls.map((mesh) => ({ mesh })) } } },
+  assets: { state: () => ({ requested: 0, loaded: 0, fallback: 0 }), ready: () => Promise.resolve() },
+  room: { enabled: true, group: room, box: { min: new THREE.Vector3(-HX, FLOOR_Y, -HZ), max: new THREE.Vector3(HX, CEIL_Y, HZ) }, floor: { mesh: floor, material: floorMat } },
+  onFrame(fn) { frameFns.push(fn); }, offFrame(fn) { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); },
+};
+club.adopt = createAdopt(club);
+club.env = await createEnv(club);
+club.state = () => ({ tier, adopt: club.adopt.state(), env: club.env.state?.() ?? club.env, bakes });
+window.__club = club;
+if (club.env.enabled) {
+  if (q.has('proj')) club.env.uniforms.uClubEnvMix.value = q.get('proj') === '0' ? 0 : 1;
+  if (q.has('coat')) club.env.floorUniforms.uClubEnvCoat.value.x = num('coat', 1);
+  if (q.has('coatrough')) club.env.floorUniforms.uClubEnvCoat.value.y = num('coatrough', 0.2);
+  club.env.capture('install');
+}
+
+// ---- ground truth: true planar mirrors on the floor and on the rail tops ---------------------------------------------------------------
+const gtFloor = createMirror({ scale: 1, name: 'gtFloor' }), gtRail = createMirror({ scale: 1, name: 'gtRail' });
+function gtMaterial(mirror, base, f0) {
+  return new THREE.ShaderMaterial({
+    uniforms: { uMap: { value: mirror.texture }, uMatrix: { value: mirror.matrix }, uBase: { value: new THREE.Color(base) }, uF0: { value: f0 } },
+    vertexShader: 'varying vec3 vW; void main() { vec4 w = modelMatrix * vec4( position, 1.0 ); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }',
+    fragmentShader: `uniform sampler2D uMap; uniform mat4 uMatrix; uniform vec3 uBase; uniform float uF0; varying vec3 vW;
+      void main() {
+        vec4 p = uMatrix * vec4( vW, 1.0 );
+        vec3 mir = texture2D( uMap, p.xy / p.w ).rgb;
+        float c = clamp( normalize( cameraPosition - vW ).y, 0.0, 1.0 );
+        float f = uF0 + ( 1.0 - uF0 ) * pow( 1.0 - c, 5.0 );
+        gl_FragColor = vec4( uBase * 0.25 + mir * f, 1.0 );
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }`,
+  });
+}
+const gtFloorMat = gtMaterial(gtFloor, 0x3a2414, 0.04), gtRailMat = gtMaterial(gtRail, 0x1c0a06, 0.04);
+const railMats = [railMat, railMat, railMat, railMat, railMat, railMat];
+const railMatsGT = [railMat, railMat, gtRailMat, railMat, railMat, railMat]; // BoxGeometry face groups: +x -x +y -y +z -z
+function setGT(on) {
+  floor.material = on ? gtFloorMat : floorMat;
+  for (const r of rails) r.material = on ? railMatsGT : railMats;
+}
+function updateGT() {
+  setGT(false);
+  floor.visible = false; gtFloor.update(renderer, scene, camera, FLOOR_Y); floor.visible = true;
+  table.visible = false; gtRail.update(renderer, scene, camera, 0.045); table.visible = true;
+}
+
+// ---- render ------------------------------------------------------------------------------------------------------------------------------
+const label = (text, left) => { const d = document.createElement('div'); d.className = 'lab'; d.style.left = left; d.textContent = text; document.body.appendChild(d); };
+if (CMP) { label('uncorrected cube', '6px'); label('corrected (clubEnvDir)', 'calc(33.3% + 6px)'); label('planar mirror ground truth', 'calc(66.6% + 6px)'); }
+const W = innerWidth, Hh = innerHeight;
+camera.aspect = CMP ? (W / 3) / Hh : W / Hh; camera.updateProjectionMatrix();
+const mix = club.env.enabled ? club.env.uniforms.uClubEnvMix : { value: 1 };
+const mixWanted = mix.value;
+// showmirror=1: the service's own mirror picture, drawn over the frame (what the floor's varnish samples)
+const SHOW_MIRROR = q.get('showmirror') === '1' && club.env.enabled && club.env.mirror;
+const peekScene = new THREE.Scene(), peekCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+if (SHOW_MIRROR) {
+  peekScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
+    uniforms: { uMap: { value: club.env.mirror.texture } }, depthTest: false,
+    vertexShader: 'varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4( position.xy, 0.0, 1.0 ); }',
+    fragmentShader: 'uniform sampler2D uMap; varying vec2 vUv; void main() { gl_FragColor = vec4( texture2D( uMap, vUv ).rgb, 1.0 );\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}',
+  })));
+}
+function render() {
+  if (!CMP) {
+    if (GT_ONLY) { updateGT(); setGT(true); }
+    renderer.render(scene, camera);
+    if (GT_ONLY) setGT(false);
+    if (SHOW_MIRROR) renderer.render(peekScene, peekCam);
+    return;
+  }
+  const w3 = Math.floor(W / 3);
+  updateGT();
+  renderer.setScissorTest(true);
+  for (let i = 0; i < 3; i++) {
+    renderer.setViewport(i * w3, 0, w3, Hh); renderer.setScissor(i * w3, 0, w3 - 2, Hh);
+    mix.value = i === 0 ? 0 : 1;
+    setGT(i === 2);
+    renderer.render(scene, camera);
+  }
+  setGT(false); mix.value = mixWanted;
+  renderer.setScissorTest(false);
+}
+window.__dev = { THREE, renderer, scene, camera, club, cubeCam, cubeRT,
+  // the ambient cube as numbers: as delivered, then with the lamp's light face left in (the reference), then back
+  ambient() {
+    const e = club.env;
+    if (!e?.tool?.ambient) return { error: 'no ambient cube on this service' };
+    const pick = (a) => ({ enabled: a.enabled, reason: a.reason, serial: a.serial, values: a.values, lampFaceNames: a.lampFaceNames, passes: a.passes, error: a.error });
+    const without = pick(e.state().ambient), withLamp = pick(e.tool.ambient('withlamp'));
+    e.tool.ambient(true);
+    return { without, withLamp };
+  } };
+let frames = 0, quiet = 0;
+renderer.setAnimationLoop(() => {
+  frames += 1;
+  club.time.value = frames / 60;
+  if (CUE_MOVE && frames < 40) { cue.position.z = 0.12 + 0.2 * Math.sin(frames * 0.2); cue.updateMatrixWorld(); }
+  for (const fn of [...frameFns]) fn(frames / 60, 1 / 60);
+  render();
+  if (tail > 0) { tail -= 1; bakeOnce(); }
+  const captured = !club.env.enabled || (club.env.state().captures >= 1 && club.env.state().pending.length === 0);
+  const liveBusy = club.env.enabled && club.env.state().live.owed > 0;
+  quiet = captured && tail === 0 && !liveBusy && !(CUE_MOVE && frames < 40) ? quiet + 1 : 0;
+  if (quiet >= 4 || frames > 600) window.__ready = true;
+});
+</script>
+</body>
+</html>

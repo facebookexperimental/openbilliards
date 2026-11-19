@@ -1,0 +1,383 @@
+{
+  "schema": "openbilliards/ball-return-track/1",
+  "doc": {
+    "table_id": "diamond_proam_9ft",
+    "title": "Diamond Pro-Am 9 ft gully ball return — channel class, trunk-tray, HEAD-end (emblem-end) collector (GULLY g1, D621 lane export)",
+    "status": "PROPOSAL",
+    "revision": "g1",
+    "date": "2026-09-18",
+    "issue": "#650 / GH-621 (ob-release GULLY ROUND 2 order, 2026-09-18; owner Fleet Steward ruling 23:36Z 09-17 option 2b)",
+    "sources": [
+      "GULLY-R1.md (diamond lane, sha256 bd5a1b5f…64c3) §2-3 design (opening = the MODEL 560 x 98 slot; tray flush with the sill; seat line 35 mm inside the wall; first-nine-visible stop; capacity 15) — its §1 FOOT verdict is WITHDRAWN: GULLY-END-PHOTO.md (ballreturn lane, sha256 25fa5c9f…3537) reads Diamond's own install timelapse 24/25 + manning-body-ballreturn-16: the collector is under the DIAMOND emblem = the HEAD end (−x), where the model already put it",
+      "MFR topology: Diamond spec text as reproduced by an authorized dealer (https://valley-billiards.com/product/diamond-pro-am-pool-table/; its 'tail end' word is NOT the end evidence) + docs/geometry/diamond-proam-9ft-table-definition.json BR-01 (audit row D23; corrigendum row g1: end = HEAD/emblem at PHOTO tier)",
+      "MODEL: web/scene/table.js on diamond-variants-2026-09 (#644) — render.cabinet openings/recess/wall/lean, legSection + legStanceIn (EN-05), pocketCup (pool_trap01/03), bedAboveFloor 0.76812; main's return shaft bottom -0.2035 (returnshaft-<pt>) as the pocket exit",
+      "kernel cups: TABLE_SPECS.diamond_proam_9ft via table-in-node.mjs (corners +-1295.1/+-660.1 r 48.3, middles 0/+-690.6 r 50.8)",
+      "PHOTO-open: channel route / width / slope and the collector depth (no ruler in any frame: timelapse 640 x 360, manning 1280 x 720; BR-02 TO-BE-MEASURED, O3 open, O5 patents backlog)"
+    ],
+    "notes": "The runtime flag (render.pocketSystem 'return-track' + render.returnTrack 'diamond_proam_9ft-gully' on diamond_proam_9ft; the measured twin pool_pro_9ft_measured follows by law) is the ball-return lane's companion after #644 — this file is inert data until it lands. Visible open-air travel: the fall and the first ~100 mm of every entry lie below the apron band outside the cabinet (the corner cups sit over the leg columns; no channel mesh is modelled) — a low outside camera sees the ball for ~0.15 s; a dark boot-spout stub is the furniture fix (F-tier). The 8 ft / 7 ft Pro-Am exports are revisions of this file with their own reads."
+  },
+  "units": {
+    "length": "mm",
+    "angle": "deg"
+  },
+  "datum_frame": {
+    "id": "TCS-TBL-01",
+    "axes": {
+      "+X": "head rail toward foot rail",
+      "+Y": "up from the playing surface",
+      "+Z": "left to right viewed from head rail"
+    },
+    "runtime_mapping": "three.js (x, y, z) = (X, Y, Z) x 0.001; kernel (kx, ky, kz) = (Z, X, Y) x 0.001",
+    "pocket_order": "kernel order: 0 lb, 1 lc, 2 lt, 3 rb, 4 rc, 5 rt (l/r = sign of Z, b/c/t = -X / 0 / +X)"
+  },
+  "ball": {
+    "reference_diameter_mm": 57.15,
+    "provenance": {
+      "tag": "MFR",
+      "source": "WPA Equipment Specifications §16, 2 1/4 in pool ball (crates/pool-core default r 0.028575)"
+    }
+  },
+  "support": {
+    "kind": "channel",
+    "width_mm": 70.0,
+    "provenance": {
+      "tag": "DERIVED",
+      "source": "channel floor width = ball 57.15 + 2 x 6.4 mm clearance (the real rubber-lined channel width is PHOTO-open: BR-02 / O3; MFR text: 'Rubber Lined to protect the balls from end to end'); support line = the floor centreline, h = r, rho = r, k = 5/7"
+    }
+  },
+  "rolling_resistance": {
+    "class": "default",
+    "u_r": 0.01,
+    "provenance": {
+      "tag": "DERIVED",
+      "source": "PROXY: the kernel default class (params.rs ClothPreset::default, u_r 0.010) stands in for the unmeasured rubber-channel class (schema: an OPEN research item); every non-tray edge drains with tan >= 0.021 > 1.4 x 0.010"
+    }
+  },
+  "arrival": {
+    "restitution": 0,
+    "provenance": {
+      "tag": "DESIGN",
+      "source": "research.md R5 / the brief's 'inelastic arrival' and the owner's 「一个接一个堆」: arriving balls share a common velocity with the group they touch, the tray wall is infinite mass. A modelling decision, NOT a measurement."
+    }
+  },
+  "runways": [
+    {
+      "id": "c0-run",
+      "role": "entry",
+      "points_mm": [
+        [
+          -1282.0,
+          -262.0,
+          -704.0
+        ],
+        [
+          -1060.0,
+          -267.5,
+          -715.0
+        ],
+        [
+          -1000.0,
+          -315.0,
+          -560.0
+        ]
+      ],
+      "next": "l-trunk",
+      "notes": "pocket 0 (lb, head-left): drops beside the head-left leg, runs +x under the left side rail at z -715 to x -1060, turns inboard through the left cabinet wall onto l-trunk's vertex at x -1000",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "DERIVED route around the served model's leg column (collector at the HEAD end, −x) (D621 leg centres +-1203.7 x +-568.7, half 100.1 at y -262) and outside the cabinet side wall (inner face 609.5 at y -262): entry station 45.8 mm from the kernel cup centre (< r 48.3, V5), floor -262 (ball top -204.85 below the pocket exit -203.5), along z 715 under the side rail to x 1060, then inboard THROUGH the cabinet side wall (assembly declaration: cabinet-side-* PASSABLE for the entry segment, solid_simplification) onto the trunk at z 560; the real channel's route/width/slope have NO OEM dimension (BR-02 TO-BE-MEASURED, O3) — PHOTO-open until the 04-under-table frames are read; slopes >= 1.2 deg (tan >= 0.021 > 1.4 u_r = 0.014)"
+      }
+    },
+    {
+      "id": "s1-run",
+      "role": "entry",
+      "points_mm": [
+        [
+          0.0,
+          -262.0,
+          -700.0
+        ],
+        [
+          0.0,
+          -293.0,
+          -560.0
+        ]
+      ],
+      "next": "l-trunk",
+      "notes": "pocket 1 (lc): a short chute inboard through the left cabinet wall onto l-trunk at x 0 (floor -293)",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "DERIVED: entry 9.4 mm from the kernel middle cup centre (0, +-690.6) (V5), floor -262; a 140 mm chute inboard through the cabinet side wall (PASSABLE entry segment) onto the trunk at z 560 where its floor is -293; the real channel PHOTO-open (BR-02 / O3)"
+      }
+    },
+    {
+      "id": "c2-run",
+      "role": "entry",
+      "points_mm": [
+        [
+          1282.0,
+          -262.0,
+          -704.0
+        ],
+        [
+          1060.0,
+          -267.5,
+          -715.0
+        ],
+        [
+          1000.0,
+          -271.0,
+          -560.0
+        ]
+      ],
+      "next": "l-trunk",
+      "notes": "pocket 2 (lt, foot-left): drops beside the foot-left leg, runs -x under the left side rail to x 1060, turns inboard through the left cabinet wall onto l-trunk's first vertex (x 1000)",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "DERIVED route around the served model's leg column (collector at the HEAD end, −x) (D621 leg centres +-1203.7 x +-568.7, half 100.1 at y -262) and outside the cabinet side wall (inner face 609.5 at y -262): entry station 45.8 mm from the kernel cup centre (< r 48.3, V5), floor -262 (ball top -204.85 below the pocket exit -203.5), along z 715 under the side rail to x 1060, then inboard THROUGH the cabinet side wall (assembly declaration: cabinet-side-* PASSABLE for the entry segment, solid_simplification) onto the trunk at z 560; the real channel's route/width/slope have NO OEM dimension (BR-02 TO-BE-MEASURED, O3) — PHOTO-open until the 04-under-table frames are read; slopes >= 1.2 deg (tan >= 0.021 > 1.4 u_r = 0.014)"
+      }
+    },
+    {
+      "id": "c3-run",
+      "role": "entry",
+      "points_mm": [
+        [
+          -1282.0,
+          -262.0,
+          704.0
+        ],
+        [
+          -1060.0,
+          -267.5,
+          715.0
+        ],
+        [
+          -1000.0,
+          -315.0,
+          560.0
+        ]
+      ],
+      "next": "r-trunk",
+      "notes": "mirror of c0-run in z (pocket 3, rb)",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "DERIVED route around the served model's leg column (collector at the HEAD end, −x) (D621 leg centres +-1203.7 x +-568.7, half 100.1 at y -262) and outside the cabinet side wall (inner face 609.5 at y -262): entry station 45.8 mm from the kernel cup centre (< r 48.3, V5), floor -262 (ball top -204.85 below the pocket exit -203.5), along z 715 under the side rail to x 1060, then inboard THROUGH the cabinet side wall (assembly declaration: cabinet-side-* PASSABLE for the entry segment, solid_simplification) onto the trunk at z 560; the real channel's route/width/slope have NO OEM dimension (BR-02 TO-BE-MEASURED, O3) — PHOTO-open until the 04-under-table frames are read; slopes >= 1.2 deg (tan >= 0.021 > 1.4 u_r = 0.014)"
+      }
+    },
+    {
+      "id": "s4-run",
+      "role": "entry",
+      "points_mm": [
+        [
+          0.0,
+          -262.0,
+          700.0
+        ],
+        [
+          0.0,
+          -293.0,
+          560.0
+        ]
+      ],
+      "next": "r-trunk",
+      "notes": "mirror of s1-run in z (pocket 4, rc)",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "DERIVED: entry 9.4 mm from the kernel middle cup centre (0, +-690.6) (V5), floor -262; a 140 mm chute inboard through the cabinet side wall (PASSABLE entry segment) onto the trunk at z 560 where its floor is -293; the real channel PHOTO-open (BR-02 / O3)"
+      }
+    },
+    {
+      "id": "c5-run",
+      "role": "entry",
+      "points_mm": [
+        [
+          1282.0,
+          -262.0,
+          704.0
+        ],
+        [
+          1060.0,
+          -267.5,
+          715.0
+        ],
+        [
+          1000.0,
+          -271.0,
+          560.0
+        ]
+      ],
+      "next": "r-trunk",
+      "notes": "mirror of c2-run in z (pocket 5, rt)",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "DERIVED route around the served model's leg column (collector at the HEAD end, −x) (D621 leg centres +-1203.7 x +-568.7, half 100.1 at y -262) and outside the cabinet side wall (inner face 609.5 at y -262): entry station 45.8 mm from the kernel cup centre (< r 48.3, V5), floor -262 (ball top -204.85 below the pocket exit -203.5), along z 715 under the side rail to x 1060, then inboard THROUGH the cabinet side wall (assembly declaration: cabinet-side-* PASSABLE for the entry segment, solid_simplification) onto the trunk at z 560; the real channel's route/width/slope have NO OEM dimension (BR-02 TO-BE-MEASURED, O3) — PHOTO-open until the 04-under-table frames are read; slopes >= 1.2 deg (tan >= 0.021 > 1.4 u_r = 0.014)"
+      }
+    },
+    {
+      "id": "l-trunk",
+      "role": "trunk",
+      "points_mm": [
+        [
+          1000.0,
+          -271.0,
+          -560.0
+        ],
+        [
+          -1000.0,
+          -315.0,
+          -560.0
+        ],
+        [
+          -1059.7,
+          -339.0,
+          430.0
+        ]
+      ],
+      "next": "tray",
+      "notes": "left trunk inside the cabinet at z -560 running toward the HEAD; its last edge crosses the interior to the tray's first vertex (inboard of the head legs)",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "DERIVED from the MFR topology (channels through the body to the end collector; manning-16 shows a central trunk running to the collector end): one trunk per side INSIDE the cabinet at z +-560 (ball edge 588.6 < side wall inner 605.5 at y -315), floor -271 (x +1000) -> -315 (x -1000) over 2000 mm (tan 0.022), then to the tray's first vertex (-1059.7, -339, 430) — the left trunk crosses the interior (tan 0.024), the right one turns inboard (tan 0.165); the cross edge's ball stays 20.9 mm inboard of the head legs; channel widths / slopes / junction order PHOTO-open (no ruler in any frame)"
+      }
+    },
+    {
+      "id": "r-trunk",
+      "role": "trunk",
+      "points_mm": [
+        [
+          1000.0,
+          -271.0,
+          560.0
+        ],
+        [
+          -1000.0,
+          -315.0,
+          560.0
+        ],
+        [
+          -1059.7,
+          -339.0,
+          430.0
+        ]
+      ],
+      "next": "tray",
+      "notes": "right trunk inside the cabinet at z +560; turns inboard to the tray's first vertex",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "DERIVED from the MFR topology (channels through the body to the end collector; manning-16 shows a central trunk running to the collector end): one trunk per side INSIDE the cabinet at z +-560 (ball edge 588.6 < side wall inner 605.5 at y -315), floor -271 (x +1000) -> -315 (x -1000) over 2000 mm (tan 0.022), then to the tray's first vertex (-1059.7, -339, 430) — the left trunk crosses the interior (tan 0.024), the right one turns inboard (tan 0.165); the cross edge's ball stays 20.9 mm inboard of the head legs; channel widths / slopes / junction order PHOTO-open (no ruler in any frame)"
+      }
+    },
+    {
+      "id": "tray",
+      "role": "tray",
+      "points_mm": [
+        [
+          -1059.7,
+          -339.0,
+          430.0
+        ],
+        [
+          -1207.7,
+          -339.0,
+          430.0
+        ],
+        [
+          -1207.7,
+          -339.0,
+          -280.0
+        ]
+      ],
+      "next": null,
+      "support": {
+        "kind": "channel",
+        "width_mm": 70.0,
+        "provenance": {
+          "tag": "DERIVED",
+          "source": "the collector floor, same width class as the channels; PHOTO-open"
+        }
+      },
+      "notes": "level collector at the HEAD end: fed at (-1059.7, 430), along the head wall's inner face at x -1207.7 from z 430 to the wall stop at z -280 (the aperture's -z edge); seats 1-9 framed by the 560 x 98 opening, 10-12 behind the apron, 13-15 around the bend",
+      "provenance": {
+        "tag": "DERIVED",
+        "source": "DERIVED single-row collector (schema 1.1 approximation of the real box, which is deeper than one ball — F6): level floor -339 = FLUSH WITH THE SILL of the MODEL opening 560 x 98 at bed -339..-241 (the D621 cabinet through-hole at the HEAD end, −x — PHOTO-closed END: install timelapse 24/25 show it under the emblem, manning-16 shows six balls in it), seat line 35.0 mm inside the head end wall's inner face (−1242.7 at y -339), wall stop at z -280 = the aperture's -z edge so the FIRST nine potted balls are the ones framed; the row runs +z to 430 (ball edge 458.6 < the head leg's inner face 474.3) and bends 90 deg inboard for seats 13-15 (hidden by the apron); length 858.0 mm (>= 857.25, ballreturn GULLY-R1-REPLY A), capacity floor(858/57.15) = 15 (V6 identity); a 2-D bin is the full-scope fix"
+      }
+    }
+  ],
+  "hooks": [],
+  "pockets": [
+    {
+      "index": 0,
+      "entry_runway": "c0-run",
+      "exit_below_y_mm": -141.8,
+      "notes": "corner lb (-1295.1, -660.1) r 48.3",
+      "provenance": {
+        "tag": "MODEL",
+        "source": "exit_below_y_mm = the D621 build's lowest solid of this pocket assembly: the trap cup floor (pocketcupfloor-<pt>; MODEL pool_trap01/03 bottom -146.2; at the corners raised to 1 mm above the leg top = -141.8, table.js diamondPocket) — the ball's top at the entry (-204.85) sits 58.7 / 63.1 mm below it; main's pre-D621 boot (returnshaft-<pt>, bottom -203.5) is NOT built on the D621 tables this file lands on, and the entry clears it too (1.35 mm) should the file ever be served there"
+      }
+    },
+    {
+      "index": 1,
+      "entry_runway": "s1-run",
+      "exit_below_y_mm": -146.2,
+      "notes": "middle lc (0, -690.6) r 50.8",
+      "provenance": {
+        "tag": "MODEL",
+        "source": "exit_below_y_mm = the D621 build's lowest solid of this pocket assembly: the trap cup floor (pocketcupfloor-<pt>; MODEL pool_trap01/03 bottom -146.2; at the corners raised to 1 mm above the leg top = -141.8, table.js diamondPocket) — the ball's top at the entry (-204.85) sits 58.7 / 63.1 mm below it; main's pre-D621 boot (returnshaft-<pt>, bottom -203.5) is NOT built on the D621 tables this file lands on, and the entry clears it too (1.35 mm) should the file ever be served there"
+      }
+    },
+    {
+      "index": 2,
+      "entry_runway": "c2-run",
+      "exit_below_y_mm": -141.8,
+      "notes": "corner lt (1295.1, -660.1) r 48.3",
+      "provenance": {
+        "tag": "MODEL",
+        "source": "exit_below_y_mm = the D621 build's lowest solid of this pocket assembly: the trap cup floor (pocketcupfloor-<pt>; MODEL pool_trap01/03 bottom -146.2; at the corners raised to 1 mm above the leg top = -141.8, table.js diamondPocket) — the ball's top at the entry (-204.85) sits 58.7 / 63.1 mm below it; main's pre-D621 boot (returnshaft-<pt>, bottom -203.5) is NOT built on the D621 tables this file lands on, and the entry clears it too (1.35 mm) should the file ever be served there"
+      }
+    },
+    {
+      "index": 3,
+      "entry_runway": "c3-run",
+      "exit_below_y_mm": -141.8,
+      "notes": "corner rb (-1295.1, 660.1) r 48.3",
+      "provenance": {
+        "tag": "MODEL",
+        "source": "exit_below_y_mm = the D621 build's lowest solid of this pocket assembly: the trap cup floor (pocketcupfloor-<pt>; MODEL pool_trap01/03 bottom -146.2; at the corners raised to 1 mm above the leg top = -141.8, table.js diamondPocket) — the ball's top at the entry (-204.85) sits 58.7 / 63.1 mm below it; main's pre-D621 boot (returnshaft-<pt>, bottom -203.5) is NOT built on the D621 tables this file lands on, and the entry clears it too (1.35 mm) should the file ever be served there"
+      }
+    },
+    {
+      "index": 4,
+      "entry_runway": "s4-run",
+      "exit_below_y_mm": -146.2,
+      "notes": "middle rc (0, 690.6) r 50.8",
+      "provenance": {
+        "tag": "MODEL",
+        "source": "exit_below_y_mm = the D621 build's lowest solid of this pocket assembly: the trap cup floor (pocketcupfloor-<pt>; MODEL pool_trap01/03 bottom -146.2; at the corners raised to 1 mm above the leg top = -141.8, table.js diamondPocket) — the ball's top at the entry (-204.85) sits 58.7 / 63.1 mm below it; main's pre-D621 boot (returnshaft-<pt>, bottom -203.5) is NOT built on the D621 tables this file lands on, and the entry clears it too (1.35 mm) should the file ever be served there"
+      }
+    },
+    {
+      "index": 5,
+      "entry_runway": "c5-run",
+      "exit_below_y_mm": -141.8,
+      "notes": "corner rt (1295.1, 660.1) r 48.3",
+      "provenance": {
+        "tag": "MODEL",
+        "source": "exit_below_y_mm = the D621 build's lowest solid of this pocket assembly: the trap cup floor (pocketcupfloor-<pt>; MODEL pool_trap01/03 bottom -146.2; at the corners raised to 1 mm above the leg top = -141.8, table.js diamondPocket) — the ball's top at the entry (-204.85) sits 58.7 / 63.1 mm below it; main's pre-D621 boot (returnshaft-<pt>, bottom -203.5) is NOT built on the D621 tables this file lands on, and the entry clears it too (1.35 mm) should the file ever be served there"
+      }
+    }
+  ],
+  "unserved_pockets": [],
+  "tray": {
+    "runway": "tray",
+    "end": "wall",
+    "capacity_balls": 15,
+    "length_mm": 858.0,
+    "provenance": {
+      "tag": "DERIVED",
+      "source": "DERIVED single-row collector (schema 1.1 approximation of the real box, which is deeper than one ball — F6): level floor -339 = FLUSH WITH THE SILL of the MODEL opening 560 x 98 at bed -339..-241 (the D621 cabinet through-hole at the HEAD end, −x — PHOTO-closed END: install timelapse 24/25 show it under the emblem, manning-16 shows six balls in it), seat line 35.0 mm inside the head end wall's inner face (−1242.7 at y -339), wall stop at z -280 = the aperture's -z edge so the FIRST nine potted balls are the ones framed; the row runs +z to 430 (ball edge 458.6 < the head leg's inner face 474.3) and bends 90 deg inboard for seats 13-15 (hidden by the apron); length 858.0 mm (>= 857.25, ballreturn GULLY-R1-REPLY A), capacity floor(858/57.15) = 15 (V6 identity); a 2-D bin is the full-scope fix"
+    }
+  },
+  "checks": {
+    "drain_monotonic": true
+  }
+}

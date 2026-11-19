@@ -1,0 +1,59 @@
+{
+  "format": "openbilliards.oracle.waivers.v1",
+  "_schema": {
+    "fixture": "fixture name or '*' (all fixtures)",
+    "check": "one of: pocketed_park_z (skip z comparison for Pocketed balls), time (waive the strict |dt| gate for listed events), final_pos (skip the final-position gate for one ball), event_pos (skip the post-state position gate for one event)",
+    "event": "single event index the waiver applies to (checks 'time'/'event_pos'), else null",
+    "events": "list of event indices the waiver applies to (alternative to 'event'), else null",
+    "ball": "ball id the waiver applies to (check 'final_pos'), else null",
+    "bound": "for 'time' waivers: the |dt| ceiling [s] still ENFORCED on waived events (a waiver relaxes the strict gate, it never removes the check entirely), else null",
+    "reason": "documented model difference justifying the waiver (SC-003)"
+  },
+  "waivers": [
+    {
+      "fixture": "*",
+      "check": "pocketed_park_z",
+      "event": null,
+      "events": null,
+      "ball": null,
+      "bound": null,
+      "reason": "Pocket park depth is a bookkeeping convention, not physics: pooltool CanonicalBallPocket parks pocketed balls at z = -pocket.depth (0.08 m for side pockets), pool-core resolve/pocket.rs parks at z = -0.1. x/y agree exactly (both use the pocket center), so z is excluded from position comparisons for Pocketed balls."
+    },
+    {
+      "fixture": "straight_pot",
+      "check": "time",
+      "event": null,
+      "events": [4],
+      "ball": null,
+      "bound": 2e-4,
+      "reason": "pooltool make_kiss positional re-seating drift post first ball-ball contact (event #1): pooltool re-seats each impacting pair to a ~1e-6 m separation (EPS_SPACE) before resolving, while pool-core resolves at the exact quartic contact point and never moves positions. The O(1 um) position difference perturbs post-impact speeds at O(1e-6) relative, and cloth-friction roll durations divide by u_r*g ~ 0.098, amplifying it to O(1e-5..1e-4) s of event-time drift. Measured |dt| = 1.4e-5 s. Final positions meet SC-003's 0.1 mm."
+    },
+    {
+      "fixture": "cut_30_side",
+      "check": "time",
+      "event": null,
+      "events": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      "ball": null,
+      "bound": 2e-4,
+      "reason": "pooltool make_kiss positional re-seating drift post first ball-ball contact (event #1) - same mechanism as straight_pot. Every event from the first post-impact transition on drifts; measured max |dt| = 1.04e-4 s (event #15). All events up to and including the BallBall itself agree within 1 us. Final positions meet SC-003's 0.1 mm."
+    },
+    {
+      "fixture": "draw_shot",
+      "check": "time",
+      "event": null,
+      "events": [6, 7, 8],
+      "ball": null,
+      "bound": 2e-4,
+      "reason": "pooltool make_kiss positional re-seating drift post first ball-ball contact (event #1) - same mechanism as straight_pot. Events #2-#5 stay within 1 us; measured max |dt| = 5.5e-6 s. Final positions meet SC-003's 0.1 mm."
+    },
+    {
+      "fixture": "three_ball_chain",
+      "check": "time",
+      "event": null,
+      "events": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      "ball": null,
+      "bound": 2e-4,
+      "reason": "pooltool make_kiss positional re-seating drift post first ball-ball contact (event #1, amplified through the #2/#3 impact chain) - same mechanism as straight_pot. Measured max |dt| = 7.9e-5 s. Final positions meet SC-003's 0.1 mm."
+    }
+  ]
+}

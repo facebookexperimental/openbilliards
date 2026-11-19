@@ -1,0 +1,186 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: pocket</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<base href="../../">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from './vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { TIERS, pickTier } from './scene/club/tiers.js';
+import { createAdopt } from './scene/club/adopt.js';
+import { createAssets } from './scene/club/assets.js';
+
+const q = new URLSearchParams(location.search);
+const t0 = performance.now();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+RectAreaLightUniformsLib.init();
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x050505);
+const pairMode = q.get('pair');
+const camera = new THREE.PerspectiveCamera(40, (pairMode ? innerWidth / 2 : innerWidth) / innerHeight, 0.02, 60);
+const VIEWS = {
+  corner: [[0.85, 0.28, 0.25], [1.27, 0.0, 0.635], 28],        // V4
+  side: [[0.25, 0.22, 0.25], [0.0, 0.02, 0.66], 26],           // V5
+  top: [[1.2947, 0.5, 0.6597], [1.2948, 0.0, 0.6598], 26],     // straight down over a corner pocket
+  sidetop: [[0.0, 0.5, 0.69], [0.0001, 0.0, 0.6901], 26],      // straight down over a side pocket
+  in: [[1.02, 0.17, 0.4], [1.3, -0.02, 0.665], 30],            // low, into the corner pocket from the bed
+  sidein: [[0.0, 0.17, 0.3], [0.0, -0.02, 0.69], 30],          // low, into the side pocket from the bed
+  across: [[1.62, 0.42, 0.98], [1.26, -0.01, 0.63], 24],       // from outside the table, over the corner casting
+  stand: [[-0.75, 0.78, 1.5], [-0.05, 0.0, 0.67], 26],         // standing beside the table, down on a side pocket (the pose of V1's near pockets)
+  standc: [[-2.0, 0.8, 1.3], [-1.28, 0.0, 0.65], 22],          // the same on a corner pocket
+  play: [[-2.3, 1.05, 1.35], [0.1, 0.0, 0.0], 40],             // V1
+  cue: [[-1.35, 0.32, 0.22], [0.2, 0.0, 0.0], 32],             // V2
+};
+const viewName = q.get('view') ?? 'corner';
+let [pos, tgt, fov] = VIEWS[viewName] ?? VIEWS.corner;
+if (q.get('cam')) { const c = q.get('cam').split(',').map(Number); pos = c.slice(0, 3); tgt = c.slice(3, 6); fov = c[6] ?? 30; }
+camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+
+const note = {};
+// ---- the app's room (lamp, lights) and table, read-only ----
+const shadingMod = await import('./scene/shading.js');
+const roomMod = await import('./scene/room.js');
+const tableMod = await import('./scene/table.js');
+const shared = shadingMod.createShared({ lightPos: roomMod.LIGHT_POS, roomMin: roomMod.ROOM.min, roomMax: roomMod.ROOM.max });
+const room = roomMod.buildRoom({ envBinding: false });
+scene.add(room.group);
+// the tournament look's light values (web/scene/look.js TOURNAMENT), written the way applyLook writes them
+const lr = room.lightRefs;
+if (lr) {
+  try {
+    lr.hemi.intensity = 1.25; lr.hemi.color.setHex(0x3a3a3e); lr.hemi.groundColor.setHex(0x2a2a2c);
+    lr.fill.intensity = 2.2; lr.fill.color.setHex(0xd9dcdf);
+    for (const rl of lr.rectLights ?? []) { rl.color.setHex(0xf6f7f9); rl.intensity = 7.8; }
+    lr.lampFace?.material?.color?.setRGB(19.4 * 1.015, 19.4 / 0.9301, 19.4 / 0.7605 * 0.985);
+  } catch (e) { note.look = String(e?.message ?? e); }
+}
+const tableId = q.get('table') ?? 'pool_pro_9ft';
+try { const prep = tableMod.buildTable.prepare?.(tableId); if (prep?.then) await prep; } catch (e) { note.prepare = String(e?.message ?? e); }
+const table = tableMod.buildTable({ shared, tableId });
+if (table.ready?.then) await table.ready;
+scene.add(table.group);
+note.table = table.group.userData?.tableId ?? null;
+
+// ---- two balls for scale (plain spheres; the app's analytic ball shadow reads the shared sphere list) ----
+const R = 0.028575;
+const BALLS = [[1.1, 0.47, 0x1c6b2a], [0.12, 0.52, 0xd9a400]];
+const balls = BALLS.map(([x, z, c], i) => {
+  const b = new THREE.Mesh(new THREE.SphereGeometry(R, 48, 32), new THREE.MeshStandardMaterial({ color: c, roughness: 0.12 }));
+  b.position.set(x, R, z); scene.add(b);
+  shared.uSpheres.value[i].set(x, R, z, R);
+  return b;
+});
+shared.uSphereCount.value = balls.length;
+if (q.get('balls') === '0') { for (const b of balls) b.visible = false; shared.uSphereCount.value = 0; }
+// an environment the way the app makes one: a cube capture of the room from above the table
+if (q.get('env') !== '0') {
+  const cubeRT = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+  const cubeCam = new THREE.CubeCamera(0.05, 30, cubeRT);
+  cubeCam.position.set(0, 0.45, 0);
+  for (const b of balls) b.visible = false;
+  cubeCam.update(renderer, scene);
+  if (q.get('balls') !== '0') for (const b of balls) b.visible = true;
+  scene.environment = cubeRT.texture;
+}
+// the lamp's own meshes hang at 1 m: a plan view from under them needs nothing hidden, one from above does
+if (pos[1] > 0.95) for (const o of [lr?.hood, lr?.lampFace, ...(lr?.rods ?? [])]) if (o) o.visible = false;
+
+// ---- the stand-in club object (what index.js hands a service) ----
+const frameFns = [];
+const tier = pickTier({ renderer, query: q });
+const club = {
+  enabled: true, tier, knobs: TIERS[tier], time: { value: 0 },
+  ctx: { renderer, scene, camera, table, room, gi: { uniforms: shared }, query: q },
+  onFrame(fn) { frameFns.push(fn); }, offFrame(fn) { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); },
+  room: { enabled: false },
+};
+club.adopt = createAdopt(club);
+club.assets = createAssets(club);
+const off = (reason) => ({ enabled: false, reason, state: () => ({ enabled: false, reason }) });
+const text = (e) => String(e?.message ?? e);
+// the occlusion service first, then cloth, wood and pocket, as in the app (mat/index.js order)
+let occ = off('occ=off');
+if (q.get('occ') !== 'off') {
+  try { const m = await import('./scene/club/occlusion.js'); occ = await m.createOcclusion(club); } catch (e) { occ = off(text(e)); }
+}
+club.occ = occ;
+const parts = { cloth: off('cloth=off'), wood: off('wood=off'), pocket: off('pocket=off') };
+if (q.get('cloth') !== 'off') { try { const m = await import('./scene/club/mat/cloth.js'); parts.cloth = await m.applyCloth(club); } catch (e) { parts.cloth = off(text(e)); } }
+if (q.get('wood') !== 'off') { try { const m = await import('./scene/club/mat/wood.js'); parts.wood = await m.applyWood(club); } catch (e) { parts.wood = off(text(e)); } }
+if (q.get('pocket') !== 'off') { try { const m = await import('./scene/club/mat/pocket.js'); parts.pocket = await m.applyPocket(club); } catch (e) { parts.pocket = off(text(e)); note.pocketError = text(e); console.error('[dev-pocket] the pocket part failed:', e); } }
+club.mat = { enabled: true, parts };
+const pocket = parts.pocket;
+if (pocket.enabled && q.get('tune') && pocket.tune) {
+  for (const row of q.get('tune').split(',')) {
+    const [k, v] = row.split(':');
+    if (k in pocket.tune && Number.isFinite(Number(v))) pocket.tune[k] = Number(v);
+  }
+  pocket.set?.();
+}
+window.__club = club; window.__pocket = pocket; window.__occ = occ;
+window.__dev = { THREE, renderer, scene, camera, shared, table, room, note, parts };
+
+let settledAssets = false;
+club.assets.ready().then(() => { settledAssets = true; for (const p of Object.values(parts)) { try { p.rebuild?.('assets'); } catch { /* a part without rebuild */ } } });
+let frames = 0, settled = 0, last = performance.now(), baked = !occ.enabled;
+if (occ.enabled) Promise.all([occ.table.ready, occ.floor?.ready]).then(() => { baked = true; });
+// ?grid=corner,top:off,in,... : every named view in its own cell of one frame (two columns); `:off` draws that cell with the
+// part switched off, `:no<group>` with one group off
+const gridCells = (q.get('grid') ?? '').split(',').filter(Boolean);
+function drawGrid() {
+  const cols = gridCells.length > 1 ? 2 : 1, rows = Math.ceil(gridCells.length / cols);
+  const cw = Math.floor(innerWidth / cols), ch = Math.floor(innerHeight / rows);
+  renderer.setScissorTest(true);
+  gridCells.forEach((cell, i) => {
+    const [name, mode] = cell.split(':');
+    const [p, t, f] = VIEWS[name] ?? VIEWS.corner;
+    camera.position.set(...p); camera.fov = f; camera.aspect = cw / ch; camera.updateProjectionMatrix(); camera.lookAt(...t);
+    const group = !mode ? null : (mode === 'off' ? 'on' : mode.replace(/^no/, ''));
+    if (pocket.enabled && typeof pocket.set === 'function') { pocket.set({ on: 1 }); if (group) pocket.set({ [group]: 0 }); }
+    const x = (i % cols) * cw, y = innerHeight - (Math.floor(i / cols) + 1) * ch;
+    renderer.setViewport(x, y, cw, ch); renderer.setScissor(x, y, cw, ch); renderer.render(scene, camera);
+    if (group && pocket.enabled && typeof pocket.set === 'function') pocket.set({ [group]: 1 });
+  });
+  renderer.setScissorTest(false);
+}
+function draw() {
+  if (gridCells.length) { drawGrid(); return; }
+  if (!pairMode || !pocket.enabled || typeof pocket.set !== 'function') { renderer.render(scene, camera); return; }
+  const w = Math.floor(innerWidth / 2), h = innerHeight;
+  const which = pairMode === '1' || pairMode === 'on' ? 'on' : pairMode;
+  renderer.setScissorTest(true);
+  pocket.set({ [which]: 0 });
+  renderer.setViewport(0, 0, w, h); renderer.setScissor(0, 0, w, h); renderer.render(scene, camera);
+  pocket.set({ [which]: 1 });
+  renderer.setViewport(w, 0, w, h); renderer.setScissor(w, 0, w, h); renderer.render(scene, camera);
+  renderer.setScissorTest(false);
+}
+renderer.setAnimationLoop(() => {
+  const now = performance.now();
+  const dt = Math.min(0.1, (now - last) / 1000); last = now;
+  frames += 1;
+  club.time.value += dt;
+  for (const fn of [...frameFns]) fn(club.time.value, baked ? 0.1 : dt);
+  const st = occ.enabled ? occ.state() : null;
+  const baking = !!st && st.baking;
+  // under software GL a scene frame costs far more than a bake slice: draw the scene rarely while the maps bake
+  if (!baking || frames % 12 === 0) draw();
+  const occDone = !occ.enabled || (baked && !baking && (st.fade >= 1 || st.errors.length));
+  if (occDone && settledAssets && ++settled === 3) { note.readyMs = Math.round(performance.now() - t0); note.adopt = club.adopt.state(); window.__ready = true; }
+});
+</script>
+</body>
+</html>

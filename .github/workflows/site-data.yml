@@ -1,0 +1,112 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+# Scenario-gallery data drift gate (site wave, GH — validated-physics
+# gallery). physics-data.json and the tile markup in site/docs/physics.html
+# + site/index.html are GENERATED from the committed gates records at
+# site/assets/physics/ by scripts/site-physics-data.mjs; this lane asserts
+# committed == regenerated (and, via the script, that every committed mp4
+# still byte-matches its gates sha pin). It is the one lightweight check
+# that runs for gallery changes — ci.yml paths-ignores site/** on purpose
+# (#170 load hygiene), and pages.yml is inert deploy scaffolding while
+# Pages stays disabled (issue #261 freeze). The same lane runs the public
+# snapshot's site-hold arm: the snapshot ships this set from
+# the manifest's HOLD_REV and regenerates its outputs, so a gallery change
+# and a sync-pipeline change must both meet it. It reads HOLD_REV's blobs,
+# hence fetch-depth 0; in the public snapshot it is a named SKIP.
+# The snapshot's CI-workflow arm rides along: it pins the public
+# ci.yml's job and step set and every workflow file's public fate, so a
+# workflow edit meets it too (also a named SKIP in the public snapshot).
+name: site-data
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/assets/physics/**"
+      - "site/docs/physics.html"
+      - "site/index.html"
+      - "scripts/site-physics-data.mjs"
+      - "scripts/opensource/sync-public-snapshot/**"
+      - "tools/test-snapshot-battery.py"
+      - "tools/test-snapshot-ship-set.py"
+      - "tools/test-snapshot-site-hold.mjs"
+      - "tools/test-snapshot-ci-patch.mjs"
+      - "tools/test-snapshot-public-files.py"
+      - "tools/test-snapshot-export-pins.py"
+      - "web/tools/fixtures/equipment-mixed-cache-census.json"
+      # the snooker slice and its test (the export-pins arm checks the slice's census against the test's assertions)
+      - "scripts/fixtures/rules-corpus-variants/wpbsa-snooker-full.json"
+      - "crates/pool-rules/tests/snooker_v2_slice.rs"
+      # the sources the census cites (the export-pins arm re-checks its spans against them)
+      - "web/app/**"
+      - "web/scene/**"
+      - "sdk/ts/src/**"
+      - "tools/fixtures/snapshot-ci-public.json"
+      - "web/app.html"
+      - ".github/workflows/**"
+      # the files that read the export's copyright header as their tree marker (the export-pins arm checks that only
+      # their export carries it on line 1)
+      - "web/tools/gen-sw-precache.mjs"
+      - "sdk/ts/test/share.test.ts"
+      - "sdk/ts/tools/sync-web.mjs"
+  pull_request:
+    paths:
+      - "site/assets/physics/**"
+      - "site/docs/physics.html"
+      - "site/index.html"
+      - "scripts/site-physics-data.mjs"
+      - "scripts/opensource/sync-public-snapshot/**"
+      - "tools/test-snapshot-battery.py"
+      - "tools/test-snapshot-ship-set.py"
+      - "tools/test-snapshot-site-hold.mjs"
+      - "tools/test-snapshot-ci-patch.mjs"
+      - "tools/test-snapshot-public-files.py"
+      - "tools/test-snapshot-export-pins.py"
+      - "web/tools/fixtures/equipment-mixed-cache-census.json"
+      # the snooker slice and its test (the export-pins arm checks the slice's census against the test's assertions)
+      - "scripts/fixtures/rules-corpus-variants/wpbsa-snooker-full.json"
+      - "crates/pool-rules/tests/snooker_v2_slice.rs"
+      # the sources the census cites (the export-pins arm re-checks its spans against them)
+      - "web/app/**"
+      - "web/scene/**"
+      - "sdk/ts/src/**"
+      - "tools/fixtures/snapshot-ci-public.json"
+      - "web/app.html"
+      - ".github/workflows/**"
+      # the files that read the export's copyright header as their tree marker (the export-pins arm checks that only
+      # their export carries it on line 1)
+      - "web/tools/gen-sw-precache.mjs"
+      - "sdk/ts/test/share.test.ts"
+      - "sdk/ts/tools/sync-web.mjs"
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: scenario-gallery data drift check
+        run: node scripts/site-physics-data.mjs --check
+      # the snapshot battery's account-identity gate for non-text files and its per-line content-marker gate, and
+      # the ship-set guards (the fail-closed repository root, the never-ship rewrite harness); both print a named
+      # SKIP in the public snapshot, which excludes the pipeline they test
+      - name: "public snapshot battery: non-text account-identity gate, content markers"
+        run: python3 tools/test-snapshot-battery.py --selftest
+      - name: "public snapshot ship set: fail-closed root, never-ship harness"
+        run: python3 tools/test-snapshot-ship-set.py --selftest
+      - name: "public snapshot site-hold arm"
+        run: node tools/test-snapshot-site-hold.mjs --selftest
+      - name: "public snapshot CI-workflow arm"
+        run: node tools/test-snapshot-ci-patch.mjs --selftest
+      # the reviewed public NOTICE, README and LICENSE (the third-party attribution lives in the NOTICE, and the
+      # LICENSE keeps the derived files under Apache-2.0); a named SKIP in the public snapshot
+      - name: "public snapshot reviewed NOTICE, README and LICENSE"
+        run: python3 tools/test-snapshot-public-files.py --selftest
+      # the pins the export must keep true in shipped files: the census spans move with the copyright header, a stale
+      # snooker-slice pin refuses a real sync, and the files that read the export's header as their tree marker carry
+      # it on line 1 only in their export; a named SKIP in the public snapshot
+      - name: "public snapshot export pins (census spans, slice pins)"
+        run: python3 tools/test-snapshot-export-pins.py --selftest

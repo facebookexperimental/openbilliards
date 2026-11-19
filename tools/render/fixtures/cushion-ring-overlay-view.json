@@ -1,0 +1,7 @@
+{
+  "what": "Recorded pocket-plan plot calibration from ORDER-CN8-RING-A1 item D: requested viewport +/-120 mm, 1 mm grid, 10 mm labels. DERIVED(order), visualization only; no table geometry is specified by this fixture.",
+  "recorded_on": "2026-09-11T20:52:28.857Z while preparing the first ring-plan-overlay run on cn8-ring-2026-09",
+  "halfSpanMm": 120,
+  "gridMm": 1,
+  "labelMm": 10
+}

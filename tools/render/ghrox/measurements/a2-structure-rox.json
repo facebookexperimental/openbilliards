@@ -1,0 +1,44 @@
+{
+  "schema": "openbilliards/rox-a2-structure-measurements/1",
+  "source_tag": "MODEL",
+  "source": {
+    "document": "rasson-evidence/ox-a1-2026-09-02/a2-letters-2026-09-03/a2_spandrel.json",
+    "sha256": "9e872843b8f4dbc13efee8111cf0864d69e0e0b57978cd1f7dfe7d9f2a8d7e9a",
+    "log_sha256": "017a1a40ab78269b05ecea053c373f7cb9bfcff35e8198c23de976e62d6fc99f",
+    "method": "Original A2 scalar slab measurements and spandrel circle/face/height summaries; station coordinate chains omitted."
+  },
+  "slab": {
+    "long_x600": {
+      "edge_abs": 636.105,
+      "edge_beyond_nose": 47.977,
+      "z_lo": 762.614,
+      "thickness": 23.214
+    },
+    "short_y300": {
+      "edge_abs": 1222.475,
+      "edge_beyond_nose": 48.404,
+      "z_lo": 762.614,
+      "thickness": 23.214
+    }
+  },
+  "spandrel": {
+    "y_faces": [
+      525.17,
+      555.17
+    ],
+    "circle": {
+      "cx": 0.0,
+      "cz": -618.14,
+      "R": 1113.05,
+      "rms": 0.998,
+      "max": 2.626,
+      "crown": 494.91,
+      "floor_x": 925.62
+    },
+    "top_z": {
+      "median": 618.1,
+      "min": 617.58,
+      "max": 619.29
+    }
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "floor.color": {
+    "file": "floor-color.jpg",
+    "lite": "floor-color-1024.jpg",
+    "bytes": 730131,
+    "sha256": "256a81ef011538a3fea89d33586ed94d8e7f12f4aeec11c13b3d4745c2850f1b"
+  },
+  "floor.normal": {
+    "file": "floor-normal.jpg",
+    "lite": "floor-normal-1024.jpg",
+    "bytes": 762233,
+    "sha256": "9dbdd1c2b0d75f49e053c76f9fd238905bf8af67807fa20b44bd4a2c9f3eb54c"
+  },
+  "floor.rough": {
+    "file": "floor-rough.jpg",
+    "bytes": 145652,
+    "sha256": "4cac647e2655516384e1640abb35a1e39db9bb6c09f124aa528655fbce4671c3"
+  },
+  "wood_dark.color": {
+    "file": "wood-dark-color.jpg",
+    "lite": "wood-dark-color-1024.jpg",
+    "bytes": 653527,
+    "sha256": "1a7b9cc751d97e729921a37964323d7ce4ead18fe217a084941f979abf0d9661"
+  },
+  "wood_dark.normal": {
+    "file": "wood-dark-normal.jpg",
+    "bytes": 125257,
+    "sha256": "e813a62f74dfb00232b8edb021af72550e250104a2386960f9af2a56b63e76c9"
+  },
+  "wood_dark.rough": {
+    "file": "wood-dark-rough.jpg",
+    "bytes": 125258,
+    "sha256": "a108c528eb8db3e82e5aa3d357100205dbd5ea8c417baf2666b6c47fcf3b9ae5"
+  },
+  "wall.normal": {
+    "file": "wall-normal.jpg",
+    "bytes": 253998,
+    "sha256": "48f1b4e44df712c584c792809a56fada216ea95682223407fd0d2dc461161e14"
+  },
+  "wall.rough": {
+    "file": "wall-rough.jpg",
+    "bytes": 31460,
+    "sha256": "cf3c1c53c412ef0646574a34c72a39a252d55711c6b228f640a4fbc8f314f0d5"
+  },
+  "leather.color": {
+    "file": "leather-color.jpg",
+    "bytes": 260207,
+    "sha256": "f1b5144564a15cc84fd9af497dba9ee5dc406c3c7daa65f93d19dbb3961b9097"
+  },
+  "leather.normal": {
+    "file": "leather-normal.jpg",
+    "bytes": 280837,
+    "sha256": "37183887d5e734149dde9fa5265b109fc2f659aa81cd377c60879f95fa3dfb7d"
+  },
+  "leather.rough": {
+    "file": "leather-rough.jpg",
+    "bytes": 75572,
+    "sha256": "011d08cd70597cae8d88a49dc095e974df20f252940f9d78b341dd2acde790a4"
+  },
+  "veneer.color": {
+    "file": "veneer-color.jpg",
+    "lite": "veneer-color-1024.jpg",
+    "bytes": 809333,
+    "sha256": "03c825fc1e6c40ee1e16216e4819c693c417292a8fc61ae2a34a83277cbaee12"
+  },
+  "veneer.normal": {
+    "file": "veneer-normal.jpg",
+    "bytes": 122608,
+    "sha256": "bbd355f766adfccfbd411506fb3cf23087b8782b91b1baba060a4393751eea8d"
+  },
+  "felt.normal": {
+    "file": "felt-normal.jpg",
+    "bytes": 385068,
+    "sha256": "765cc3634a7c92321d6bbca89394de9b423581e5817ece7708b59b5f542dabdb"
+  },
+  "metal.normal": {
+    "file": "metal-normal.jpg",
+    "bytes": 180266,
+    "sha256": "e138bdcf0d7561d58b238cf2fb7cf4f14dc88edd77e898dbe58325a27e3870a5"
+  },
+  "metal.rough": {
+    "file": "metal-rough.jpg",
+    "bytes": 171122,
+    "sha256": "96ce2c8f3221cd5fed7b742ff2e43eefb56a2daba8248f8d992fbea8ec4a87dd"
+  },
+  "hdri.room": {
+    "file": "hdri-room.png",
+    "bytes": 1095061,
+    "sha256": "7b3f697b31b506d2f32a1e0dbb7cab9da0ccc8717e8194f09063b50eaca36a94"
+  },
+  "room.light": {
+    "file": "room-light.png",
+    "bytes": 901496,
+    "sha256": "35919e0802072ecebd8cd3cf399977982afa78f4dcbefe7f29796503b0741998"
+  },
+  "room.light.lite": {
+    "file": "room-light-lite.png",
+    "bytes": 296255,
+    "sha256": "455d60c2ef91ccfa0575fada797ffa933179e9b526f203dc852528e3d15e374d"
+  },
+  "arena.light": {
+    "file": "arena-light.png",
+    "bytes": 899107,
+    "sha256": "5be536c6433b2ba0a6142c180353ca9d5108b2299165001bbdbf7d5667c3f399"
+  },
+  "arena.carpet.color": {
+    "file": "arena-carpet-color.jpg",
+    "high": {
+      "file": "high/arena-carpet-color.jpg",
+      "bytes": 3060396,
+      "sha256": "267f75a18b0e7ef76f981dc007d39388f57fa707f1bccd712366f1b38a30e70c"
+    },
+    "bytes": 163324,
+    "sha256": "768e0e7542ddfb70f10782521b2fdf9c79c1831f5d32271a5b6354c608e06a48"
+  },
+  "arena.carpet.normal": {
+    "file": "arena-carpet-normal.jpg",
+    "high": {
+      "file": "high/arena-carpet-normal.jpg",
+      "bytes": 9642640,
+      "sha256": "d9d61c2652d3730cc1a0588845e151b13072cbf88b4bc15934fd80828036e8a7"
+    },
+    "bytes": 197043,
+    "sha256": "a1a99b0d4efd992ee6ff4ab5482bd0a35ef8f825e32cd428017a636db6adfc54"
+  },
+  "arena.carpet.rough": {
+    "file": "arena-carpet-rough.jpg",
+    "high": {
+      "file": "high/arena-carpet-rough.jpg",
+      "bytes": 1282683,
+      "sha256": "676d947bb0fd2588e1bac80709ff7083c193f4d136b22922cd5f4e6fb71e492b"
+    },
+    "bytes": 103002,
+    "sha256": "47616715973f6f28dcb13444c9921a4449d08aaf54d211fd54d6eb22406c3538"
+  },
+  "arena.seat.color": {
+    "file": "arena-seat-color.jpg",
+    "high": {
+      "file": "high/arena-seat-color.jpg",
+      "bytes": 838791,
+      "sha256": "63568150ad261af0026578f62b14bcba16e016cc6d138bbb3716ff46045f8dbd"
+    },
+    "bytes": 25470,
+    "sha256": "0dd98131795d738a5fa3a273a843645e08c1856ef6a03e9083dcc14c95266d06"
+  },
+  "arena.seat.normal": {
+    "file": "arena-seat-normal.jpg",
+    "high": {
+      "file": "high/arena-seat-normal.jpg",
+      "bytes": 894285,
+      "sha256": "c1730974cf6e4cbcd1ea47388e17a21e85c482e99d9179caee544725026e703e"
+    },
+    "bytes": 48202,
+    "sha256": "647bfab2dda8d132c1f698d18e41523d71258c36d771593b505e5f466c364880"
+  },
+  "arena.seat.rough": {
+    "file": "arena-seat-rough.jpg",
+    "high": {
+      "file": "high/arena-seat-rough.jpg",
+      "bytes": 690840,
+      "sha256": "e947cb72e7b18626ea9c1a670083d935a7ebee7feceb945f60cf6f15f52a7ed8"
+    },
+    "bytes": 72663,
+    "sha256": "d2f21ad72c3aedbae155ddd9210bad15761c57b872fd2cdf9a34abfdda7b17af"
+  },
+  "arena.drape.normal": {
+    "file": "arena-drape-normal.jpg",
+    "high": {
+      "file": "high/arena-drape-normal.jpg",
+      "bytes": 678246,
+      "sha256": "4561a89f732880f6fa27efb17a088bb7eead3e1d6772c1c32125238e7b17c30e"
+    },
+    "bytes": 109363,
+    "sha256": "ab5bac8b2a670fc260d1480f6444037f259630108ee659779a3208d6d62a9b2d"
+  },
+  "arena.drape.rough": {
+    "file": "arena-drape-rough.jpg",
+    "high": {
+      "file": "high/arena-drape-rough.jpg",
+      "bytes": 861410,
+      "sha256": "04ac5b8b44b05ade09bef8a4a02fe6ca3cb8dada295f4f5da49030bab1a291b3"
+    },
+    "bytes": 176907,
+    "sha256": "86e71827dad40a2ea85740da0e9b1d882aeb80956e8788ec97988f8b8ee954fa"
+  },
+  "arena.light.lite": {
+    "file": "arena-light-lite.png",
+    "bytes": 281216,
+    "sha256": "d1b889ff7a4af46e30024b16e50d3e9ac8982a5cc50a8d184e58306ab373404c"
+  },
+  "arena.env": {
+    "file": "arena-env.png",
+    "bytes": 309370,
+    "sha256": "32f290b30805f3d04ae2f977b5d98c43db1549ce1b0e271e321d0348629c971e"
+  },
+  "arena.env.lite": {
+    "file": "arena-env-lite.png",
+    "bytes": 80554,
+    "sha256": "3c57b420af18c02d3601f78e26a37c31743423175ff895292221c5664cc51937"
+  }
+}

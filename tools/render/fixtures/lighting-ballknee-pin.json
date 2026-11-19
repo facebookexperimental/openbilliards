@@ -1,0 +1,267 @@
+{
+ "schema": "lighting-ballknee-pin/1",
+ "sha": "05e77d9b43ce74a156f9efa3bc0ba001dcc5c421",
+ "pinned_at": "2026-11-07T02:05:56Z",
+ "boots": 3,
+ "rule": "GH-996 card 45 C2 (b): the cue ball's PRE-knee crown (?ballKneeDebug=diffuse, b = 1, cueball_level; max over the crown band of the per-pixel max channel on the scene-linear HDR) per (table, fixture, look); value = the max of the boots, pm = max(3 x spread, 0.01 x value), both rounded up to 1e-4. Written by tools/render/lighting-ballknee-pin.py.",
+ "runs": [
+  "after-bs025-k1-",
+  "after-bs025-k2-",
+  "after-bs025-k3-"
+ ],
+ "cells": {
+  "wpbsa_snooker_12ft@canopy_panel": {
+   "set": "kneecanopy",
+   "default": {
+    "value": 7.3549,
+    "spread": 0.0,
+    "pm": 0.0736,
+    "reads": [
+     7.354857,
+     7.354857,
+     7.354857
+    ]
+   },
+   "sp": {
+    "value": 7.292,
+    "spread": 0.0,
+    "pm": 0.073,
+    "reads": [
+     7.291998,
+     7.291998,
+     7.291998
+    ]
+   }
+  },
+  "wpa_spec_9ft@perimeter_ring": {
+   "set": "kneering",
+   "default": {
+    "value": 4.779,
+    "spread": 0.0,
+    "pm": 0.0478,
+    "reads": [
+     4.77894,
+     4.77894,
+     4.77894
+    ]
+   },
+   "sp": {
+    "value": 4.9152,
+    "spread": 0.0,
+    "pm": 0.0492,
+    "reads": [
+     4.915155,
+     4.915155,
+     4.915155
+    ]
+   }
+  },
+  "umb_carom_284@perimeter_ring": {
+   "set": "kneering",
+   "default": {
+    "value": 5.2837,
+    "spread": 0.0,
+    "pm": 0.0529,
+    "reads": [
+     5.283698,
+     5.283698,
+     5.283698
+    ]
+   },
+   "sp": {
+    "value": 5.4227,
+    "spread": 0.0,
+    "pm": 0.0543,
+    "reads": [
+     5.422623,
+     5.422623,
+     5.422623
+    ]
+   }
+  },
+  "wpbsa_snooker_12ft@perimeter_ring": {
+   "set": "kneering",
+   "default": {
+    "value": 10.0979,
+    "spread": 0.0,
+    "pm": 0.101,
+    "reads": [
+     10.097806,
+     10.097806,
+     10.097806
+    ]
+   },
+   "sp": {
+    "value": 10.3635,
+    "spread": 0.0,
+    "pm": 0.1037,
+    "reads": [
+     10.363487,
+     10.363487,
+     10.363487
+    ]
+   }
+  },
+  "wpa_spec_9ft@pendant_bar": {
+   "set": "kneependant",
+   "default": {
+    "value": 7.4284,
+    "spread": 0.0,
+    "pm": 0.0743,
+    "reads": [
+     7.428342,
+     7.428342,
+     7.428342
+    ]
+   },
+   "sp": {
+    "value": 7.6309,
+    "spread": 0.0,
+    "pm": 0.0764,
+    "reads": [
+     7.630847,
+     7.630847,
+     7.630847
+    ]
+   }
+  },
+  "umb_carom_284@pendant_bar": {
+   "set": "kneependant",
+   "default": {
+    "value": 9.1442,
+    "spread": 0.0,
+    "pm": 0.0915,
+    "reads": [
+     9.144157,
+     9.144157,
+     9.144157
+    ]
+   },
+   "sp": {
+    "value": 9.3764,
+    "spread": 0.0,
+    "pm": 0.0938,
+    "reads": [
+     9.37631,
+     9.37631,
+     9.37631
+    ]
+   }
+  },
+  "wpbsa_snooker_12ft@pendant_bar": {
+   "set": "kneependant",
+   "default": {
+    "value": 21.6008,
+    "spread": 0.0,
+    "pm": 0.2161,
+    "reads": [
+     21.60075,
+     21.60075,
+     21.60075
+    ]
+   },
+   "sp": {
+    "value": 22.1647,
+    "spread": 0.0,
+    "pm": 0.2217,
+    "reads": [
+     22.164692,
+     22.164692,
+     22.164692
+    ]
+   }
+  },
+  "wpbsa_snooker_12ft@snooker_luminaire": {
+   "set": "kneesnookerlum",
+   "default": {
+    "value": 8.6936,
+    "spread": 0.0,
+    "pm": 0.087,
+    "reads": [
+     8.693526,
+     8.693526,
+     8.693526
+    ]
+   },
+   "sp": {
+    "value": 8.9303,
+    "spread": 0.0,
+    "pm": 0.0894,
+    "reads": [
+     8.930299,
+     8.930299,
+     8.930299
+    ]
+   }
+  },
+  "umb_carom_284@carom_luminaire": {
+   "set": "kneecaromlum",
+   "default": {
+    "value": 2.4077,
+    "spread": 0.0,
+    "pm": 0.0241,
+    "reads": [
+     2.407644,
+     2.407644,
+     2.407644
+    ]
+   },
+   "sp": {
+    "value": 2.4818,
+    "spread": 0.0,
+    "pm": 0.0249,
+    "reads": [
+     2.481782,
+     2.481782,
+     2.481782
+    ]
+   }
+  },
+  "predator_apex_9ft@auto": {
+   "set": "kneeauto",
+   "default": {
+    "value": 3.0621,
+    "spread": 0.0,
+    "pm": 0.0307,
+    "reads": [
+     3.062023,
+     3.062023,
+     3.062023
+    ]
+   },
+   "sp": {
+    "value": 3.1527,
+    "spread": 0.0,
+    "pm": 0.0316,
+    "reads": [
+     3.152637,
+     3.152637,
+     3.152637
+    ]
+   }
+  },
+  "chinese8_pro_9ft@auto": {
+   "set": "kneeauto",
+   "default": {
+    "value": 3.3762,
+    "spread": 0.0,
+    "pm": 0.0338,
+    "reads": [
+     3.376103,
+     3.376103,
+     3.376103
+    ]
+   },
+   "sp": {
+    "value": 3.4748,
+    "spread": 0.0,
+    "pm": 0.0348,
+    "reads": [
+     3.474723,
+     3.474723,
+     3.474723
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,4 @@
+711/phone OK: locked face (0 answers, 1 primary, reason line) -> Continue kept the shared position, illegal_break pending at the table, 3 hud answers hit-testable, hash wiped
+713/844x390 heyball/de OK: illegal_break answered by tap 1; tap 2 at +90 ms swallowed (equipment/balls kept); a deliberate tap at +1.1 s navigated to Play
+713/667x375 snooker/fr OK: foul_and_a_miss answered by tap 1; tap 2 at +90 ms swallowed (equipment/balls kept); a deliberate tap at +1.1 s navigated to Play
+E2E-SHELL PASS

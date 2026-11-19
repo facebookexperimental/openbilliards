@@ -1,0 +1,1018 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spielanleitung — openbilliards</title>
+  <meta name="description" content="So spielt sich openbilliards: Steuerung, Effet und Ziellinien, die Regeln von 9-Ball, 8-Ball, Snooker, Dreiband-Karambolage und One Pocket wie implementiert, der Spielkatalog, Ausrüstung und Kalibrierungs-Badges, geteilte Replays, Videoexport — in sieben Sprachen.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Spielanleitung — openbilliards">
+  <meta property="og:description" content="So spielt sich openbilliards: Steuerung, Effet und Ziellinien, die Regeln von 9-Ball, 8-Ball, Snooker, Dreiband-Karambolage und One Pocket wie implementiert, der Spielkatalog, Ausrüstung und Kalibrierungs-Badges, geteilte Replays, Videoexport — in sieben Sprachen.">
+  <meta property="og:image" content="../../assets/img/hero-poster.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b100c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23efe9d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../assets/guide.css">
+  <script src="../../assets/site.js" defer></script>
+  <script src="../../assets/motion.js" defer></script>
+</head>
+<body>
+  <a class="bb-skip" href="#main">Zum Inhalt springen</a>
+
+  <header>
+    <nav class="bb-nav" aria-label="Hauptnavigation">
+      <a class="bb-wordmark" href="../../index.html">Openbilliards</a>
+      <button class="bb-nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menü</button>
+      <ul class="bb-nav-links" id="nav-links">
+        <li><a href="index.html">Anleitung</a></li>
+        <li><a href="../../docs/index.html">API-Doku</a></li>
+        <li><a href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a></li>
+        <li><a class="bb-pill bb-pill--fill" href="../../web/app.html">Jetzt spielen</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="bb-section gd-hero" aria-labelledby="gd-h">
+      <p class="bb-edge-tab bb-label">Openbilliards — gameplay guide</p>
+
+      <p class="bb-label bb-marker bb-reveal">Anleitung — fünf Disziplinen</p>
+      <h1 id="gd-h" class="bb-display bb-reveal bb-d1" style="margin: 24px 0 32px; max-width: 9em;">
+        Der Tisch,<br>erklärt.
+      </h1>
+      <p class="bb-body bb-reveal bb-d2" style="max-width: 36em;">
+        Jede Steuerung, jede Regel, jede Linie, die das Spiel zeichnet —
+        dokumentiert exakt so, wie sich der ausgelieferte Build verhält.
+        Jede Zahl zitiert die Quelldatei, die sie definiert.
+      </p>
+
+      <nav class="gd-lang bb-reveal bb-d3" aria-label="Sprache der Anleitung" style="margin-top: 48px;">
+        <a data-lang="en" href="../en/index.html" lang="en">English</a>
+        <a data-lang="zh-CN" href="../zh-CN/index.html" lang="zh-CN">中文</a>
+        <a data-lang="es" href="../es/index.html" lang="es">Español</a>
+        <a data-lang="ja" href="../ja/index.html" lang="ja">日本語</a>
+        <a data-lang="de" href="index.html">Deutsch</a>
+        <a data-lang="fr" href="../fr/index.html" lang="fr">Français</a>
+        <a data-lang="ko" href="../ko/index.html" lang="ko">한국어</a>
+      </nav>
+
+      <nav aria-label="Inhalt" class="bb-reveal bb-d4">
+        <ul class="gd-toc">
+          <li><a href="#first-shot"><span class="n">01</span>Der erste Stoß</a></li>
+          <li><a href="#controls"><span class="n">02</span>Steuerung</a></li>
+          <li><a href="#spin"><span class="n">03</span>Effet &amp; Ziellinien</a></li>
+          <li><a href="#games"><span class="n">04</span>Spiel wählen</a></li>
+          <li><a href="#rules"><span class="n">05</span>9-Ball-Regeln</a></li>
+          <li><a href="#rules-8ball"><span class="n">06</span>8-Ball-Regeln</a></li>
+          <li><a href="#rules-snooker"><span class="n">07</span>Snooker-Regeln</a></li>
+          <li><a href="#rules-carom"><span class="n">08</span>Karambolage-Regeln</a></li>
+          <li><a href="#rules-onepocket"><span class="n">09</span>One-Pocket-Regeln</a></li>
+          <li><a href="#equipment"><span class="n">10</span>Ausrüstung &amp; Badges</a></li>
+          <li><a href="#replays"><span class="n">11</span>Replays &amp; Teilen</a></li>
+          <li><a href="#export"><span class="n">12</span>Videoexport</a></li>
+          <li><a href="#recording"><span class="n">13</span>Aufnahme &amp; Zeitlupe</a></li>
+          <li><a href="#language"><span class="n">14</span>Sprachen</a></li>
+          <li><a href="#faq"><span class="n">15</span>FAQ</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="first-shot" aria-labelledby="first-shot-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">01 — Der erste Stoß</p>
+        <div class="gd-content">
+          <h2 id="first-shot-h" class="bb-heading bb-reveal" style="max-width: 12em;">Stoßen, schauen,<br>wiederholen.</h2>
+          <ol class="gd-steps bb-reveal bb-d1" style="margin-top: 48px;">
+            <li><strong>Zielen.</strong> Zieh mit der linken Maustaste irgendwo über den
+              Tisch: das Queue schwenkt zum Zeiger, und eine durchgezogene weiße
+              Linie zeigt den Weg der Weißen bis zum ersten Kontakt. Klicks
+              innerhalb von 2,5 Kugelradien um die Weiße werden ignoriert — zu
+              nahes Zugreifen verstellt dein Ziel nie
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.</li>
+            <li><strong>Kraft setzen.</strong> Roll beim Zielen das Mausrad, oder drücke
+              <kbd>↑</kbd>/<kbd>↓</kbd>. Die Kraft reicht von 0,5 bis 12&nbsp;m/s
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a> —
+              die Obergrenze entspricht gemessenen Profi-Breaks (~27&nbsp;mph).</li>
+            <li><strong>Feinjustieren.</strong> Halte <kbd>Shift</kbd> und zieh: Feinzielen
+              mit 0,1× der Zeigerbewegung; die Pfeiltasten verstellen ±0,05°
+              (<kbd>Shift</kbd>&nbsp;0,5°).</li>
+            <li><strong>Stoßen.</strong> Das Statusbanner springt auf WIEDERGABE — der
+              Kernel hat den ganzen Stoß bereits gelöst. Sobald die Kugeln ruhen,
+              wechselt der Zug: Spieler 1 und 2 wechseln sich an einem Gerät ab
+              <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.</li>
+            <li><strong>HUD lesen.</strong> „P1 spielt die 1“ nennt, wer dran ist und
+              welche Kugel legal ist — immer die niedrigste Nummer auf dem Tisch.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="controls" aria-labelledby="controls-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">02 — Steuerung</p>
+        <div class="gd-content">
+          <h2 id="controls-h" class="bb-heading bb-reveal" style="max-width: 12em;">Eine Maus,<br>vier Verben.</h2>
+
+          <div class="gd-scroll bb-reveal bb-d1" style="margin-top: 48px;">
+            <table class="gd-table">
+              <caption>Maus</caption>
+              <thead><tr><th scope="col">Eingabe</th><th scope="col">Wirkung</th></tr></thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Links ziehen auf dem Tisch</th>
+                  <td>Zielen — das Queue richtet sich direkt auf den Zeiger. Bei
+                    Ball in Hand verschiebt ein Zug, der innerhalb von
+                    3&nbsp;Kugelradien an der Weißen beginnt, stattdessen die
+                    Kugel; überall sonst wird weiter gezielt
+                    <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><kbd>Shift</kbd> + links ziehen</th>
+                  <td>Feinzielen mit 0,1× der Winkelbewegung, solange du zielst;
+                    außerhalb eines Zielzustands dreht es die Kamera.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Rechts ziehen</th>
+                  <td>Die Kamera um den Tisch drehen
+                    <a class="bb-cite" href="../../web/app/orbit.js">web/app/orbit.js</a>.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Mausrad</th>
+                  <td>Kraft beim Zielen, sonst Zoom. <kbd>Shift</kbd>&nbsp;+ Rad zoomt
+                    immer.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 48px;">
+            <table class="gd-table">
+              <caption>Tastatur</caption>
+              <thead><tr><th scope="col">Taste</th><th scope="col">Wirkung</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><kbd>←</kbd> <kbd>→</kbd></th>
+                  <td>Ziel ±0,05° — mit <kbd>Shift</kbd> ±0,5°
+                    <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a></td></tr>
+                <tr><th scope="row"><kbd>↑</kbd> <kbd>↓</kbd></th>
+                  <td>Kraft ±0,1&nbsp;m/s — mit <kbd>Shift</kbd> ±0,5&nbsp;m/s</td></tr>
+                <tr><th scope="row"><kbd>V</kbd></th>
+                  <td>Zielansicht umschalten (siehe unten)</td></tr>
+                <tr><th scope="row"><kbd>Esc</kbd></th>
+                  <td>Einstellungen schließen — oberste Ebene zuerst
+                    <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 24px;">
+            Die Pfeiltasten funktionieren weiter, während ein einfacher Button
+            wie Stoßen oder Aufbauen den Fokus hält; bei Auswahlfeldern und
+            Texteingaben treten sie zurück.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Zielansicht</h3>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            Drück <kbd>V</kbd> für eine tiefe Kamera hinter der Kugel —
+            0,78&nbsp;m zurück, 0,34&nbsp;m hoch
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a> —,
+            die der Weißen entlang der Ziellinie folgt. Das Zielen wird
+            bildschirmbezogen: nach rechts ziehen lenkt nach rechts, und ein
+            Druck lässt das Ziel nie springen. Zieh mit rechts vertikal, um
+            Kraft aufzubauen; das Queue zieht sichtbar zurück, während du nach
+            unten ziehst. <kbd>V</kbd> stellt die gespeicherte Kamera wieder her.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="spin" aria-labelledby="spin-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">03 — Effet &amp; Ziellinien</p>
+        <div class="gd-content">
+          <h2 id="spin-h" class="bb-heading bb-reveal" style="max-width: 13em;">Effet ist ein Punkt<br>auf der Kugel.</h2>
+
+          <div class="gd-side" style="margin-top: 48px;">
+            <div>
+              <p class="bb-body bb-reveal bb-d1">
+                Das Effet-Pad unten links ist die Stirnseite der Weißen. Zieh den
+                Punkt: <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">a</code>
+                ist seitlich — positiv heißt Effet nach rechts — und
+                <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">b</code>
+                ist die Höhe — über der Mitte Nachläufer, darunter Rückzieher
+                <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>.
+                Die Offsets sind in Kugelradien gemessen, und der Validator
+                erzwingt a²&nbsp;+&nbsp;b²&nbsp;≤&nbsp;0,25: Der Treffpunkt kommt
+                nie über den gestrichelten Ring auf halbem Radius hinaus — die
+                Kiks-Grenze. Unzulässige Werte lassen sich schlicht nicht
+                einstellen; ein Kiks-Ereignis gibt es im Spiel nicht.
+              </p>
+              <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+                Der Bogenregler hebt das Queue-Ende von 0° auf 80°
+                <a class="bb-cite" href="../../web/app/aimwidgets.js">web/app/aimwidgets.js</a>.
+                Über 45° blinkt der MASSÉ-Hinweis: die Weiße läuft im Bogen. Die
+                Vorschau rechnet mit demselben Kernel wie der Stoß — die Kurve,
+                die du siehst, ist die Kurve, die du bekommst.
+              </p>
+            </div>
+            <figure class="gd-tip bb-reveal bb-d2" aria-hidden="false">
+              <svg viewBox="0 0 220 220" role="img" aria-label="Stirnseite der Weißen: Treffpunkt (a, b) mit dem gestrichelten Kiks-Ring auf halbem Radius">
+                <line class="st-axis" x1="110" y1="10" x2="110" y2="210"></line>
+                <line class="st-axis" x1="10" y1="110" x2="210" y2="110"></line>
+                <circle class="st-ball" cx="110" cy="110" r="96"></circle>
+                <circle class="st-ring" cx="110" cy="110" r="48"></circle>
+                <circle class="st-dot" cx="134" cy="80" r="6"></circle>
+                <text x="182" y="100">+a</text>
+                <text x="118" y="30">+b</text>
+              </svg>
+              <figcaption>Treffpunkt (a, b) — der gestrichelte Ring ist die Kiks-Grenze bei 0,5&nbsp;R</figcaption>
+            </figure>
+          </div>
+
+          <h3 class="bb-heading-s bb-reveal">Drei Linien lesen</h3>
+          <ul class="gd-legend bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><span class="ln" aria-hidden="true"></span>
+              <span><strong>Durchgezogen weiß</strong> — der Anlauf der Weißen bis zum ersten Kontakt.</span></li>
+            <li><span class="ln ln--object" aria-hidden="true"></span>
+              <span><strong>Bernstein</strong> — die Richtung der Objektkugel nach dem Kontakt, ein Stummel von etwa einem halben Diamond.</span></li>
+            <li><span class="ln ln--cue" aria-hidden="true"></span>
+              <span><strong>Grün gestrichelt</strong> — der Weg der Weißen <em>nach</em> dem Kontakt: Rückzieher, Nachläufer oder Tangente.</span></li>
+          </ul>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 24px;">
+            Durchgezogen heißt vor dem Kontakt, gestrichelt danach. Diese
+            Unterscheidung ist die ganze Bildsprache
+            <a class="bb-cite" href="../../web/app/preview.js">web/app/preview.js</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Stufen der Zielhilfe</h3>
+          <ul class="bb-list bb-body-s bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><strong>Aus</strong> — gar keine Linien.</li>
+            <li><strong>Standard (Lauflinie + Geisterkugel)</strong> — die Voreinstellung:
+              Anlauflinie, Geisterkugel am Kontaktpunkt, Richtungsstummel der
+              Objektkugel.</li>
+            <li><strong>Training (Lauflinien aller Kugeln)</strong> — Standard plus die
+              gedimmten, voll vorhergesagten Lauflinien sämtlicher Kugeln.</li>
+          </ul>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            Die grüne gestrichelte Linie hat ihren eigenen Schalter —
+            „Spielball-Pfad nach Kontakt“, standardmäßig an
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>.
+            All das simuliert bei jeder Zieländerung den echten Physik-Kernel
+            neu, in etwa 0,2&nbsp;ms pro Stoß
+            <a class="bb-cite" href="../../web/app/preview.js">web/app/preview.js</a> —
+            die Linien sind exakte Physik, keine geometrische Näherung.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="games" aria-labelledby="games-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">04 — Spiel wählen</p>
+        <div class="gd-content">
+          <h2 id="games-h" class="bb-heading bb-reveal" style="max-width: 13em;">Fünf spielbar,<br>jede mit Quelle.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Ganz oben in den Einstellungen sitzt die Spielauswahl mit fünf
+            spielbaren Einträgen: <strong>9-Ball</strong> (der Standard),
+            <strong>8-Ball</strong>, <strong>Snooker</strong>,
+            <strong>Dreiband-Karambolage</strong> und
+            <strong>One&nbsp;Pocket</strong>. Die Wahl bleibt gespeichert, und
+            ein Wechsel fragt erst nach — „Ein Spielwechsel baut den Tisch neu
+            auf. Fortfahren?“ — denn ein neues Spiel heißt ein neues Rack
+            (und bei Snooker und Karambolage einen anderen Tisch)
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>.
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            Darunter klappt der „Spielkatalog“ die volle Übersicht auf: fünf
+            Disziplinen, jede mit einer Herkunftszeile, die den Verband und
+            die Regelwerk-Ausgabe nennt, aus der sie übertragen ist — ein
+            Eintrag ohne echte Quelle wird von der Validierung glatt
+            abgelehnt
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/games/catalog.ts">sdk/ts/src/games/catalog.ts</a>.
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>Der Spielkatalog</caption>
+              <thead><tr><th scope="col">Spiel</th><th scope="col">Regelwerk</th><th scope="col">Badge</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">9-Ball</th>
+                  <td>WPA Rules of Play (gültig seit 15.09.2025), Abschnitt&nbsp;5</td>
+                  <td>spielbar</td></tr>
+                <tr><th scope="row">8-Ball</th>
+                  <td>WPA Rules of Play (gültig seit 15.09.2025), Abschnitt&nbsp;4</td>
+                  <td>spielbar</td></tr>
+                <tr><th scope="row">Snooker</th>
+                  <td>WPBSA Official Rules of the Games of Snooker and English
+                    Billiards (Revision September 2024)</td>
+                  <td>spielbar</td></tr>
+                <tr><th scope="row">Dreiband-Karambolage</th>
+                  <td>UMB World Rules of Carom Billiard (1. Januar 1989;
+                    World-Cup-Ergänzung 15.12.2025)</td>
+                  <td>spielbar</td></tr>
+                <tr><th scope="row">One Pocket</th>
+                  <td>WPA Rules of Play (gültig seit 15.09.2025), Abschnitt&nbsp;12</td>
+                  <td>spielbar</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            Alle fünf Disziplinen sind spielbar. Die Wahl einer Disziplin
+            wechselt auch Tisch und Kugeln auf ihre belegte Paarung — Snooker
+            spielt auf dem WPBSA-12-Fuß-Tisch mit 52,5-mm-Kugeln, Karambolage
+            auf dem taschenlosen UMB-2,84-m-Tisch mit 61,5-mm-Kugeln, One
+            Pocket auf deinem Pooltisch — und jedes Spiel merkt sich seine
+            eigene Ausrüstungswahl; ein Disziplinwechsel lässt nie Zustand
+            hinüberlecken
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="rules" aria-labelledby="rules-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">05 — 9-Ball-Regeln, wie implementiert</p>
+        <div class="gd-content">
+          <h2 id="rules-h" class="bb-heading bb-reveal" style="max-width: 13em;">Die Niedrigste zuerst.<br>Die 9 gewinnt.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Ein Stoß ist legal, wenn der erste Kontakt der Weißen die niedrigste
+            Kugel auf dem Tisch trifft <em>und</em> danach mindestens eine Kugel
+            versenkt wird oder eine Bande erreicht
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/nineball.ts">sdk/ts/src/rules/nineball.ts</a>.
+            Alles andere ist ein Foul — und Fouls können sich stapeln:
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d2" style="margin-top: 24px;">
+            <li><strong>Keine Kugel getroffen</strong> — gar kein Kontakt.</li>
+            <li><strong>Falsche Kugel zuerst getroffen</strong> — der erste Kontakt war nicht die niedrigste Kugel.</li>
+            <li><strong>Keine Bande nach dem Kontakt</strong> — nichts versenkt und keine Kugel an der Bande.</li>
+            <li><strong>Weiße versenkt</strong> — die Weiße fiel in eine Tasche oder verließ den Tisch.</li>
+          </ul>
+          <p class="bb-body bb-reveal" style="margin-top: 32px;">
+            Jedes Foul gibt dem Gegner <strong>Ball in Hand, überall auf dem
+            Tisch</strong> — eine Kopffeld-Beschränkung gibt es nicht. Die Weiße
+            erscheint auf dem Kopfpunkt; zieh sie, wohin du willst (die
+            Platzierung wird auf Überlappungen geprüft), dann stoße
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            Versenkst du die 9 mit einem legalen Stoß, gewinnst du —
+            Kombinationen zählen. Fällt die 9 bei einem Foul oder verlässt sie
+            den Tisch, wird sie auf dem Fußpunkt wieder eingesetzt, ersatzweise
+            entlang der Längslinie; ist alles blockiert, bleibt sie in v1 unten.
+            Ein legaler Stoß ohne versenkte Kugel gibt den Zug ab. Ein Sieg
+            zeigt sein Banner und baut nach 2,6&nbsp;s mit neuem Seed
+            automatisch neu auf
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            Nicht in v1: der Push-out nach dem Break, die WPA-Regel „vier Kugeln
+            an die Bande“ beim trockenen Break und die Niederlage nach drei
+            Fouls in Folge. Der Break wird wie jeder andere Stoß bewertet, und
+            Objektkugeln, die den Tisch verlassen, bleiben draußen — nur die 9
+            wird wieder eingesetzt.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-8ball" aria-labelledby="rules-8ball-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">06 — 8-Ball-Regeln, wie implementiert</p>
+        <div class="gd-content">
+          <h2 id="rules-8ball-h" class="bb-heading bb-reveal" style="max-width: 13em;">Alles ansagen.<br>Die 8 entscheidet.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            8-Ball ist aus den WPA Rules of Play (gültig seit 15.09.2025),
+            Abschnitt&nbsp;4 übertragen, und jedes Urteil zitiert seine
+            Regelnummer. Wo das Regelwerk „offensichtliche“ Stöße dem
+            Schiedsrichter überlässt, gilt hier die strengste Lesart: jeder
+            Stoß wird ausdrücklich angesagt, nichts wird unterstellt
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/eightball.ts">sdk/ts/src/rules/eightball.ts</a>.
+            Fünfzehn Kugeln bilden das Dreieck — die 8 in der Mitte, eine
+            Volle und eine Halbe auf den hinteren Ecken (WPA 4.2).
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Offener Tisch &amp; Gruppen</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Der Break ist der einzige Stoß ohne Ansage, und er lässt den Tisch
+            <strong>offen</strong>: der HUD-Chip zeigt OFFENER TISCH, und der
+            erste Kontakt darf jede Kugel außer der 8 sein — es sei denn, eine
+            Gruppe ist bereits vollständig versenkt (WPA 4.4). Die
+            Gruppen entscheidet die erste legal versenkte <em>angesagte</em>
+            Kugel — versenkst du eine angesagte Volle, spielst du die Vollen
+            (1–7), dein Gegner die Halben (9–15). Ab dann tragen die Chips
+            die Gruppe jedes Spielers und wechseln auf „auf die 8“, sobald
+            eine Gruppe abgeräumt ist.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Sag deinen Stoß an</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Jeder Stoß nach dem Break trägt eine ausdrückliche Ansage von
+            Kugel + Tasche (WPA 4.6 über die strengste Lesart von 1.7). Das
+            HUD mahnt „Ansage nötig: eine Tasche antippen“: tippe einen der
+            sechs Taschenmarker an, und die Anzeige bestätigt „Kugel N →
+            Tasche“; bis dahin verweigert Stoßen mit „erst Kugel und Tasche
+            ansagen (oder Safety erklären)“
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.
+            Der Safety-Knopf neben dem Effet-Pad ist diese Alternative
+            (WPA 1.7): erkläre sie, und nach deinem Stoß wechselt der Zug —
+            eine bei der Safety versenkte Kugel bleibt unten. Fällt die
+            angesagte Kugel in die angesagte Tasche, bleibst du am Tisch;
+            alles andere gibt den Zug ab, wobei nicht angesagte Kugeln
+            versenkt bleiben.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Fouls, Ball in Hand, Entscheidungen</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Die Foul-Liste deckt sich mit 9-Ball — Weiße versenkt, keine Kugel
+            getroffen, falsche Kugel zuerst (hier: nicht deine Gruppe), keine
+            Bande nach dem Kontakt — plus eine vom Tisch geschlagene Kugel.
+            Ein Standard-Foul gibt dem Gegner <strong>Ball in Hand, überall
+            auf dem Tisch</strong> (WPA 4.9); ein Break-Foul beschränkt die
+            Platzierung auf <strong>hinter die Kopflinie</strong>
+            (WPA 4.3(g),(h)). Das Foul-Banner nennt jedes Mal die Regel —
+            „FOUL — Weiße versenkt (WPA 3.1 via 4.9)“
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.
+            Eine Drei-Foul-Niederlage gibt es im 8-Ball nicht (WPA 3.13
+            schließt sich selbst aus), und nur die 8 wird je wieder
+            eingesetzt (WPA 4.7).
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            Manche Breaks enden nicht mit einem Urteil, sondern mit einer
+            Regelwerk-Option: ein Prompt nennt, wer entscheidet, das Stoßen
+            bleibt bis zur Wahl gesperrt, und die Wahl wandert ins Replay:
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><strong>Trockener Break</strong> (WPA 4.3(d)) — weniger als vier
+              Kugeln an der Bande und nichts versenkt: der Gegner übernimmt
+              den Tisch, baut neu auf und breakt selbst, oder lässt den
+              Breaker erneut breaken.</li>
+            <li><strong>8 beim legalen Break</strong> (WPA 4.3(e)) — der Breaker
+              setzt die 8 auf und spielt weiter, oder breakt neu.</li>
+            <li><strong>8 beim Foul-Break</strong> (WPA 4.3(f)) — der Gegner setzt
+              die 8 auf und nimmt Ball in Hand hinter der Kopflinie, oder
+              lässt neu breaken.</li>
+            <li><strong>Break-Foul</strong> (WPA 4.3(g),(h)) — der Gegner übernimmt
+              den Tisch oder nimmt Ball in Hand hinter der Kopflinie.</li>
+            <li><strong>Patt</strong> (WPA 4.11) — beide Spieler bestätigen: neu
+              aufbauen, der ursprüngliche Breaker breakt.</li>
+          </ul>
+
+          <h3 class="bb-heading-s bb-reveal">Gewinnen — und die vier Arten zu verlieren</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Räum deine Gruppe ab, sag eine Tasche für die 8 an und versenke
+            sie genau dort: das gewinnt das Rack (WPA Abschnitt&nbsp;4; 4.6).
+            Sofort verloren ist das Rack, wenn die 8 mit einem Foul im selben
+            Stoß fällt (4.8(a)), vor dem Abräumen der eigenen Gruppe (4.8(b)),
+            in eine nicht angesagte Tasche — eine bei der Safety versenkte 8
+            zählt (4.8(c)) — oder vom Tisch geschlagen wird (4.8(d))
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/eightball.ts">sdk/ts/src/rules/eightball.ts</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-snooker" aria-labelledby="rules-snooker-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">07 — Snooker-Regeln, wie implementiert</p>
+        <div class="gd-content">
+          <h2 id="rules-snooker-h" class="bb-heading bb-reveal" style="max-width: 13em;">Eine Rote, eine Farbe.<br>Das Break wächst.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Snooker ist aus den WPBSA Official Rules (Revision September 2024)
+            übertragen, und jedes Urteil zitiert seinen Abschnitt.
+            Zweiundzwanzig Kugeln auf dem 12-Fuß-Tisch: fünfzehn Rote im
+            Dreieck hinter der Pinken, die sechs Farben auf ihren Spots, der
+            Spielball frei im D
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Ball on: Rot, dann eine angesagte Farbe</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Solange Rote liegen, ist immer eine Rote „ball on“ (1 Punkt).
+            Versenke eine, und eine Farbe ist dran — <strong>tippe die Farbe
+            an, die du ansagst</strong> (die Ziel-UI hebt die wählbaren Farben
+            hervor und bestätigt die Wahl; ohne Ansage verweigert der Stoß)
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.
+            Eine versenkte Farbe zählt ihren Wert — Gelb&nbsp;2, Grün&nbsp;3,
+            Braun&nbsp;4, Blau&nbsp;5, Pink&nbsp;6, Schwarz&nbsp;7 — und kehrt
+            auf ihren Spot zurück, solange Rote liegen; danach ist wieder Rot
+            dran, im Wechsel, bis die Roten aufgebraucht sind. Das HUD führt
+            beide Punktestände, das laufende Break und einen
+            „Ball-on“-Chip, der immer benennt, was legal ist
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Aufsetzen &amp; die letzten Farben</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Eine Farbe kommt auf ihren eigenen Spot zurück; ist er besetzt,
+            nimmt sie den höchstwertigen freien Spot, und sind alle sechs
+            besetzt, den nächstgelegenen Punkt auf der Mittellinie Richtung
+            Kopfbande, ohne eine andere Kugel zu berühren (WPBSA Sec3 R7). Die
+            Aufsetz-Warteschlange erscheint im HUD, die Platzierung ist
+            animiert. Fällt die Farbe zur letzten Roten, beginnen die
+            <strong>letzten Farben</strong>: Gelb bis Schwarz in aufsteigender
+            Reihenfolge, ohne Aufsetzen (Sec3 R3(h)(ii)). Der Frame endet,
+            wenn Schwarz bei ungleichem Stand fällt; bei Gleichstand wird
+            Schwarz wieder aufgesetzt — ein Los entscheidet, wer zuerst
+            spielt, und der nächste Punkt oder das nächste Foul beendet alles
+            (Sec3 R4)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Fouls: der Wert der Kugel, mindestens vier</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Ein Foul schreibt dem Gegner den Wert des Ball on <em>oder</em>
+            der höchstwertigen beteiligten Kugel gut, mindestens 4, höchstens
+            7 (Sec3 R11): Berühre die Blaue, während Rot dran ist, und es sind
+            5 für den Gegner — das Banner nennt jedes Mal die Regel. Fouls
+            sind: falsche erste Kugel, kein Kontakt, Spielball versenkt, eine
+            Kugel vom Tisch getrieben, fehlende Ansage, Sprung über eine
+            dazwischenliegende Kugel. Nach jedem Foul darf der Ankommende dich
+            außerdem <strong>noch einmal spielen lassen</strong> (Sec3 R13) —
+            ein Dialog zeichnet die Wahl ins Replay auf. Ein Scratch gibt den
+            Spielball <strong>in Hand innerhalb des D</strong> (Sec3 R8(a)):
+            die Platzierung wird aufs D begrenzt
+            <a class="bb-cite" href="../../web/app/game.js">web/app/game.js</a>.
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            Klauseln, die Schiedsrichter-Ermessen verlangen, bleiben bewusst
+            außen vor — mit Quellen dokumentiert statt erfunden:
+            Foul and a Miss (Sec3 R14), Free Ball (Sec2 R13), Touching Ball
+            (Sec3 R9), Push Stroke (Sec3 R18)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="rules-carom" aria-labelledby="rules-carom-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">08 — Dreiband-Karambolage, wie implementiert</p>
+        <div class="gd-content">
+          <h2 id="rules-carom-h" class="bb-heading bb-reveal" style="max-width: 13em;">Drei Banden,<br>dann die zweite Kugel.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Drei Kugeln, keine Taschen: die UMB World Rules (1. Januar 1989)
+            auf dem beheizten 2,84-m-Tisch. In der Standard-Einstellung mit
+            zwei Spielbällen behält jeder Spieler die ganze Partie
+            <strong>seinen eigenen Spielball</strong> — der Anstoßende den
+            rein weißen, die Gegenseite den gelben (Art.&nbsp;22.1/23.2,
+            Weltmeisterschafts-Praxis; den Ball des Gegners zu spielen ist
+            das zitierte Foul „falscher Ball“, Art.&nbsp;41.11, und die
+            klassische Variante mit geteiltem Weiß bleibt in den
+            Einstellungen einen Klick entfernt). Ein Punkt verlangt, dass dein
+            Spielball beide Objektkugeln berührt und dabei <strong>mindestens
+            drei Bandenkontakte vor der ersten Berührung der zweiten</strong>
+            sammelt (Art.&nbsp;83) — dieselbe Bande zweimal zählt doppelt, und
+            die Reihenfolge wird direkt aus dem Ereignisstrom des Kernels
+            gelesen
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/carom3c.ts">sdk/ts/src/rules/carom3c.ts</a>.
+            Punktest du, spielst du weiter; ein Karambolage mit weniger als
+            drei Banden wird mit den Worten des Regelwerks angesagt — „keine
+            Bande“ / „eine Bande“ / „zwei Banden“ (UMB Art.&nbsp;83), ein
+            Foul, das die Aufnahme wechselt — während ein sauberes Verfehlen
+            das reguläre Verfehlen bleibt (Art.&nbsp;24.5). Das HUD zählt die
+            Banden live während des Stoßes, neben Punkten, Aufnahmen und dem
+            Distanzziel
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Anstoß, Aufsetzen, die Distanz</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Der Startdialog fragt, von welchem Anstoßpunkt du spielst — links
+            oder rechts vom unteren Punkt (Art.&nbsp;23.2) — und der
+            Eröffnungsstoß muss <strong>zuerst die Rote</strong> berühren
+            (Art.&nbsp;23.3); alles andere ist das zitierte Anstoß-Foul. Eine
+            vom Tisch gesprungene Kugel wird auf ihren Punkt aufgesetzt — Rot
+            oben, der Spielball des ANKOMMENDEN Spielers unten, der andere in
+            die Mitte, mit der Tauschregel bei besetztem Punkt — und nur die
+            betroffenen Kugeln bewegen sich (Art.&nbsp;27.3(b), 28.1(b)). Wer
+            zuerst die Distanz erreicht (Standard 15, in den Einstellungen
+            wählbar), gewinnt — oder, mit dem Preset gleicher Aufnahmen
+            (Art.&nbsp;29.3/29.4), erhält die zurückliegende Seite eine
+            Ausgleichsaufnahme aus der aufgesetzten Startposition, und ein
+            Gleichstand beendet die Partie unentschieden; der
+            Ergebnisbildschirm zeigt Punkte und Aufnahmen beider Spieler
+            (Art.&nbsp;29.1/29.2)
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            Auf dem taschenlosen Tisch zeichnet das Spiel keine
+            Taschenmarkierungen, und die Ziellinie rastet nie auf eine Tasche
+            ein. Fouls der physischen Welt (berührte Kugeln, Durchstoß, Füße
+            vom Boden; Art.&nbsp;41.4–41.7, 41.9–41.10) bleiben mit Quellen
+            als außerhalb des Umfangs dokumentiert; das direkte Spiel in eine
+            Bande, an der dein Spielball press liegt, wird gewertet
+            (Art.&nbsp;27.2 via 41.8), das Foul „falscher Ball“ gilt in der
+            Zwei-Ball-Einstellung (Art.&nbsp;41.11), und der Modus gleicher
+            Aufnahmen ist ein Preset in den Einstellungen
+            (Art.&nbsp;29.3/29.4)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/carom3c.ts">sdk/ts/src/rules/carom3c.ts</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-onepocket" aria-labelledby="rules-onepocket-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">09 — One Pocket, wie implementiert</p>
+        <div class="gd-content">
+          <h2 id="rules-onepocket-h" class="bb-heading bb-reveal" style="max-width: 13em;">Jedem seine Tasche.<br>Acht Kugeln gewinnen.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            One Pocket ist aus den WPA Rules of Play (gültig seit 15.09.2025),
+            Abschnitt&nbsp;12 übertragen: fünfzehn Kugeln, aber jeder Spieler
+            punktet nur in <strong>seiner eigenen Fußecken-Tasche</strong>.
+            Vor dem Break weist ein Dialog die Taschen zu — der Standard folgt
+            12.3, die Tasche gegenüber der Seite, von der du anstößt — und
+            Badges im HUD markieren, wem welche gehört. Jede Kugel in deiner
+            Tasche zählt; wer zuerst acht hat, gewinnt
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/onepocket.ts">sdk/ts/src/rules/onepocket.ts</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Jede Tasche bedeutet etwas</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Kugeln in der Tasche deines <em>Gegners</em> zählen für den Gegner
+            — selbst wenn du im selben Stoß foulst (12.5). Kugeln in den vier
+            neutralen Taschen oder vom Tisch getriebene kommen zurück: sie
+            reihen sich als „aufzusetzen“-Chips und kehren am Ende deiner
+            Aufnahme auf den Fußpunkt zurück (12.6, sofort aufgesetzt, wenn
+            der Tisch sonst leer ist). Die Zählstände je Tasche stehen im HUD
+            neben den Schuldkugel-Chips
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">Fouls, Schuldkugeln, drei Strikes</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Nach den meisten Fouls bleibt der Spielball <strong>liegen, wo er
+            liegt</strong> (12.8) — nur ein Scratch oder der Spielball vom
+            Tisch gibt dem Gegner Ball in Hand hinter der Kopflinie (3.1). Ein
+            Foul kostet außerdem eine Kugel von deinem Stand, die zurück auf
+            den Tisch kommt; foulst du bei null, <em>schuldest</em> du eine
+            (12.4) — das HUD zeigt die Schuld, und deine nächste gepunktete
+            Kugel begleicht sie sofort. Drei Fouls in Folge verlieren das Rack
+            auf der Stelle (12.9 via 3.13); jeder legale Stoß setzt den Zähler
+            zurück. Ein Patt baut neu auf, Stände und Schulden werden
+            übernommen, und ein Lag entscheidet, wer anstößt (12.10)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/onepocket.ts">sdk/ts/src/rules/onepocket.ts</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="equipment" aria-labelledby="equipment-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">10 — Ausrüstung &amp; Kalibrierungs-Badges</p>
+        <div class="gd-content">
+          <h2 id="equipment-h" class="bb-heading bb-reveal" style="max-width: 13em;">Fünf Achsen,<br>ehrliche Physik.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Die Einstellungen bieten fünf Ausrüstungsachsen; jede Änderung baut
+            den Tisch nach einer Rückfrage neu auf
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>.
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>Der Katalog — Voreinstellung zuerst</caption>
+              <thead><tr><th scope="col">Achse</th><th scope="col">Optionen</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Tisch</th>
+                  <td>WPA-Spezifikation 9&nbsp;Fuß (nominal) ·
+                    Pool-Turniertisch 9&nbsp;Fuß, ältere Gen. (4,56-Zoll-Taschen) ·
+                    Pool-Turniertisch 9&nbsp;Fuß (4,5-Zoll-Taschen) · Pool-Turniertisch 9&nbsp;Fuß, Metallrand (4,25-Zoll-Taschen) ·
+                    Chinesischer 8-Ball-Turniertisch 9&nbsp;Fuß · WPBSA 12-Fuß-Snooker ·
+                    UMB-Karambol 2,84&nbsp;m (ohne Taschen) — gefiltert auf die
+                    belegte Tischklasse des aktiven Spiels</td></tr>
+                <tr><th scope="row">Tuch</th>
+                  <td>Kammgarn-Turniertuch (neu) · Kammgarn-Turniertuch (schnell) ·
+                    abgenutztes, langsames Tuch · Snooker-Tuch (Wolle, genoppt) ·
+                    Karambolage-Kammgarn (beheizter Schiefer)</td></tr>
+                <tr><th scope="row">Kugelsatz</th>
+                  <td>Pool (57,15&nbsp;mm) · Pool, abgenutzt ·
+                    Snooker (52,5&nbsp;mm) · Karambol (61,5&nbsp;mm)</td></tr>
+                <tr><th scope="row">Queue</th>
+                  <td>Standard-Ahornqueue · Low-Deflection-Schaft ·
+                    Pro-LD-Schaft, 14,1 Zoll Pivot (Lederpomeranze) ·
+                    Pro-LD-Schaft, 11,8 Zoll Pivot (Lederpomeranze) ·
+                    Pro-LD-Schaft, 10,1 Zoll Pivot (Lederpomeranze) ·
+                    Break-Queue (Phenol-Tip) ·
+                    Standard-Ahornqueue mit Dime-Wölbung</td></tr>
+                <tr><th scope="row">Bandenmodell (Erweitert)</th>
+                  <td>Stronge nachgiebig (realistisch) · Han 2005
+                    (Kernel-Standard) · Mathavan 2010 (HSV-Gesamtfit) ·
+                    Mathavan 2010 Grip-Modus (Bande v5)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="bb-heading-s bb-reveal">Was die Badges bedeuten</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            Jeder Katalogeintrag trägt eines von drei Badges — es sagt, wie die
+            Physikparameter des Eintrags begründet sind:
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d2" style="margin-top: 24px;">
+            <li><span class="gd-badge">kalibriert</span>&nbsp; — Parameter an
+              Messdaten gefittet; im Spiel als Akzent-Chip gezeichnet.</li>
+            <li><span class="gd-badge">Literatur</span>&nbsp; — Werte aus
+              Veröffentlichungen und Herstellerangaben.</li>
+            <li><span class="gd-badge">geschätzt</span>&nbsp; — eine dokumentierte
+              beste Schätzung, Messung ausstehend.</li>
+          </ul>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            Neu in Katalog v3: Die Tisch-Achse trägt jetzt vermessene
+            Taschengeometrie — der Eintrag Pool-Turniertisch 9&nbsp;Fuß spielt seine auditierten
+            4,5-Zoll-Ecktaschen und 141°/102°-Facings, messbar enger als
+            der generische WPA-Tisch.
+            <span class="bb-cite">das Tischmaß-Audit (intern)</span>
+          </p>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            Zwei stille Verhaltensweisen: Die Wahl eines Tisches aktiviert
+            unauffällig das von der Marke empfohlene Bandenmodell, und während
+            eines geteilten Replays sind die Ausrüstungswähler gesperrt — du
+            schaust auf der Ausstattung des Absenders zu.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="replays" aria-labelledby="replays-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">11 — Replays &amp; Teilen</p>
+        <div class="gd-content">
+          <h2 id="replays-h" class="bb-heading bb-reveal" style="max-width: 14em;">Der Link trägt Stöße,<br>keine Frames.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            „Replay teilen“ packt die ganze Partie in die URL hinter
+            <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">#r=</code> —
+            den Rack-Seed, die fünf Zahlen jedes Stoßes (v0, φ, θ, a, b)
+            unverändert, jede Ball-in-Hand-Platzierung, die komplette
+            fünfachsige Ausrüstung und die Kernel-Version — komprimiert,
+            kodiert und in die Zwischenablage kopiert
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/share.ts">sdk/ts/src/share.ts</a>.
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            Es reisen keine Frames. Der Browser des Betrachters simuliert jeden
+            Stoß auf demselben kanonischen wasm-Kernel neu, und die
+            entstehenden Aufzeichnungen stimmen Byte für Byte mit denen des
+            Absenders überein — das ist die Determinismus-Garantie
+            <a class="bb-cite" href="../../web/app/share.js">web/app/share.js</a>.
+            Weicht die Kernel-Version ab, bietet eine Warnung „Trotzdem
+            ansehen“ oder „Verwerfen“ an.
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            Die Transportleiste zeigt Stoß i/N mit Zurück, Weiter,
+            Wiedergabe/Pause und einem 0,25×-Zeitlupen-Schalter; zwischen den
+            Stößen liegen 700&nbsp;ms Ruhe
+            <a class="bb-cite" href="../../web/app/share.js">web/app/share.js</a>.
+            Solange ein Replay läuft, sind Stoßeingabe, Platzierung der Weißen
+            und Ausrüstungswechsel gesperrt. Der Link merkt sich auch, zu
+            <em>welchem Spiel</em> er gehört — ein 8-Ball-Replay läuft mit
+            seinen Gruppen, Ansagen und Break-Entscheidungen ab, während
+            Links von vor der Spiel-Achse (v1–v3) weiterhin dekodieren und
+            als 9-Ball abspielen, ohne je nachzufragen
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/share.ts">sdk/ts/src/share.ts</a>.
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal" style="margin-top: 32px;">
+            <li><strong>Von hier weiterspielen</strong> — übernimmt die Endposition ins
+              Livespiel. Die Fortsetzung ist sofort selbst teilbar, und du
+              spielst bis zum Neuladen auf der Ausrüstung des Absenders weiter.</li>
+            <li><strong>Replay beenden</strong> — stellt deine eigene Ausrüstung wieder
+              her und baut neu auf.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="export" aria-labelledby="export-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">12 — Videoexport-Stufen</p>
+        <div class="gd-content">
+          <h2 id="export-h" class="bb-heading bb-reveal" style="max-width: 12em;">Fünf Stufen,<br>ein Stoß.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            „Video exportieren…“ rendert deinen <em>letzten</em> Stoß neu — gibt
+            es keinen, bittet es dich, erst einen zu spielen. Echtzeit nimmt
+            live auf, während das Replay läuft, und funktioniert in jedem
+            Browser; jede andere Stufe ist ein deterministisches
+            Offline-Rendering, braucht WebCodecs und wird im Browser als mp4
+            (H.264/AAC) kodiert, mit webm (VP9) als Ausweichlösung
+            <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>.
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>Export-Stufen</caption>
+              <thead><tr><th scope="col">Stufe</th><th scope="col">Auflösung</th><th scope="col">Charakter</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Echtzeit</th><td>Canvas</td>
+                  <td>Live-Mitschnitt in Realzeit; webm; jeder Browser</td></tr>
+                <tr><th scope="row">Standard</th><td>720p / 1080p</td>
+                  <td>Film-Grading; keine Bewegungsunschärfe, keine Tiefenschärfe</td></tr>
+                <tr><th scope="row">Hoch</th><td>bis 1080p</td>
+                  <td>1,5× Supersampling, Bewegungsunschärfe mit 8 Subframes und
+                    310°-Verschluss, Tiefenschärfe</td></tr>
+                <tr><th scope="row">Ultra 4K</th><td>1440p / 2160p</td>
+                  <td>Bewegungsunschärfe mit 8 Subframes, Tiefenschärfe</td></tr>
+                <tr><th scope="row">Kino 4K</th><td>2160p</td>
+                  <td>16-Subframe-Verschluss; am langsamsten, beste Qualität</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            Die Bitraten betragen 8 / 12 / 24 / 40&nbsp;Mbit/s bei 720 / 1080 /
+            1440 / 2160p
+            <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>.
+            Geschwindigkeit: 1×, 0,5× und 0,25× auf den Offline-Stufen; Ton ist
+            eine Checkbox. Clips enden bei 60&nbsp;s (plus 0,5&nbsp;s Auslauf)
+            mit 60&nbsp;fps. Beim Öffnen rendert der Dialog zehn Probeframes,
+            um Restzeit- und Dateigrößen-Schätzung zu schärfen; Auflösungen
+            über 1080p verlangen die eigene UHD-Encoder-Prüfung. Ein laufender
+            Export stoppt nur über seinen Abbrechen-Button — Escape und Klicks
+            auf den Hintergrund werden bewusst ignoriert. Dateien heißen
+            openbilliards-&lt;Stufe&gt;-&lt;Zeitstempel&gt;.mp4 oder .webm.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="recording" aria-labelledby="recording-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">13 — Aufnahme &amp; Zeitlupe</p>
+        <div class="gd-content">
+          <h2 id="recording-h" class="bb-heading bb-reveal" style="max-width: 14em;">Aufnahme drücken,<br>alles behalten.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            „Aufnahme“ schreibt den Live-Canvas mit 60&nbsp;fps plus die
+            Master-Tonmischung in ein webm — VP9 mit VP8-Ausweichlösung, mit
+            8&nbsp;Mbit/s
+            <a class="bb-cite" href="../../web/app/record.js">web/app/record.js</a>.
+            Sie ist zustandsunabhängig: Zielen, Menüs, Stöße — was immer auf dem
+            Bildschirm ist. Ein pulsierender roter Punkt markiert die laufende
+            Aufnahme; Stopp lädt openbilliards-&lt;Zeitstempel&gt;.webm
+            herunter. Geschrieben wird in Ein-Sekunden-Stücken, sodass selbst
+            ein abrupt sterbender Tab das Material behält. Ohne
+            Browser-Unterstützung erscheint der Button gar nicht erst.
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            Zeitlupe wohnt an drei Orten: die HUD-Checkbox „Zeitlupe“ spielt
+            jede Wiedergabe mit 0,25× ab
+            <a class="bb-cite" href="../../web/app/game.js">web/app/game.js</a>,
+            die Replay-Leiste trägt denselben 0,25×-Schalter (es ist derselbe),
+            und der Exportdialog rendert 0,5× und 0,25× offline.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="language" aria-labelledby="language-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">14 — Spracheinstellungen</p>
+        <div class="gd-content">
+          <h2 id="language-h" class="bb-heading bb-reveal" style="max-width: 13em;">Sieben Sprachen,<br>live gewechselt.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            Das Spiel erscheint in English, 中文, español, 日本語, Deutsch,
+            français und 한국어. Die Sprache wird der Reihe nach aufgelöst: die
+            ausdrückliche Wahl in den Einstellungen (gespeichert), dann die
+            beste Übereinstimmung mit der Browsersprache — zh-TW landet auf
+            中文, es-MX auf español —, dann Englisch
+            <a class="bb-cite" href="../../web/app/i18n.js">web/app/i18n.js</a>.
+            Der Wechsel greift sofort, ohne Neuladen.
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            Jede Sprache trägt exakt dieselben Schlüssel — die e2e-Suite
+            erzwingt es, und Fehlendes fällt auf Englisch zurück. Die
+            Beschriftungen der Sprachauswahl bleiben absichtlich in ihrer
+            eigenen Sprache. Diese Anleitung funktioniert genauso: Die
+            Pillenreihe oben wechselt zwischen ihren sieben Übersetzungen, und
+            deine Wahl bleibt gespeichert.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="faq" aria-labelledby="faq-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">15 — FAQ</p>
+        <div class="gd-content">
+          <h2 id="faq-h" class="bb-heading bb-reveal" style="max-width: 13em;">Überraschungen,<br>erklärt.</h2>
+
+          <dl class="gd-faq bb-reveal bb-d1" style="margin-top: 48px;">
+            <dt>Ich habe den Tisch gewechselt, und das Bandenmodell änderte sich von selbst.</dt>
+            <dd>Absicht: Jeder Tisch aktiviert das von seiner Marke empfohlene
+              Bandenmodell, ohne eigene Rückfrage. Unter Erweitert kannst du
+              danach jedes andere Modell wählen.</dd>
+
+            <dt>Das Mausrad ändert meine Kraft nicht.</dt>
+            <dd>Das Rad setzt Kraft nur beim Zielen. Außerhalb eines
+              Zielzustands zoomt es — und Shift&nbsp;+ Rad zoomt immer.</dd>
+
+            <dt>Die Hilfezeile sagt, Shift-Ziehen dreht die Kamera — stattdessen zielt es fein.</dt>
+            <dd>Beim Zielen beansprucht Shift&nbsp;+ Linksziehen den Zug für das
+              0,1×-Feinzielen. Die Kamera dreht es nur, wenn du dich nicht in
+              einem Zielzustand befindest.</dd>
+
+            <dt>Ich habe aus einem geteilten Replay weitergespielt — auf wessen Tisch spiele ich?</dt>
+            <dd>Auf dem des Absenders. „Von hier weiterspielen“ behält dessen
+              komplette Ausrüstung bis zum Neuladen; „Replay beenden“ stellt
+              deine wieder her und baut neu auf.</dd>
+
+            <dt>Ich habe gewonnen, und der Tisch baute sofort neu auf. Kann ich diesen Rack noch einmal spielen?</dt>
+            <dd>Der automatische Aufbau nach dem Sieg (2,6&nbsp;s) zählt den
+              Rack-Seed weiter, der nächste Rack ist also neu. Der Siegrack lebt
+              im Replay weiter — und in jedem Link, den du geteilt hast.</dd>
+
+            <dt>Der Effet-Punkt stoppt am gestrichelten Ring.</dt>
+            <dd>Der Ring ist die Kiks-Grenze: Treffpunkte jenseits des halben
+              Kugelradius (a²&nbsp;+&nbsp;b²&nbsp;&gt;&nbsp;0,25) scheitern an
+              der Validierung und lassen sich nicht einstellen. Ein
+              Kiks-Ereignis gibt es nicht — die Grenze ist die Regel.</dd>
+
+            <dt>Verliert Replay meine Ball-in-Hand-Platzierung?</dt>
+            <dd>Nein. Läuft ein Replay, während du Ball in Hand hältst, bleibt
+              deine zurechtgelegte Platzierung danach erhalten.</dd>
+
+            <dt>Warum endet die Kraft bei 12&nbsp;m/s?</dt>
+            <dd>Eine bewusste reale Obergrenze, angelehnt an verlässlich
+              gemessene Profi-Breaks (~27&nbsp;mph)
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.
+              Der Kernel selbst validiert hart bis 15&nbsp;m/s.</dd>
+
+            <dt>„Standard“-Export heißt Film-Grading, aber mein Clip hat keine Bewegungsunschärfe.</dt>
+            <dd>Richtig — Standard rendert einen einzigen Subframe.
+              Bewegungsunschärfe und Tiefenschärfe beginnen bei der Stufe Hoch
+              <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>.</dd>
+
+            <dt>Wo sind der Push-out und die Drei-Foul-Regel?</dt>
+            <dd>Nicht in v1. Der Break wird wie jeder andere Stoß bewertet,
+              trockene Breaks werden nicht bestraft, und Objektkugeln, die den
+              Tisch verlassen, bleiben draußen — nur die 9 wird wieder
+              eingesetzt
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/nineball.ts">sdk/ts/src/rules/nineball.ts</a>.</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bb-footer">
+    <p class="bb-display bb-footer-statement bb-reveal">Die Niedrigste zuerst.<br>Immer.</p>
+
+    <div class="bb-footer-grid">
+      <nav aria-label="Website">
+        <p class="bb-label">Seiten</p>
+        <ul>
+          <li><a class="bb-link" href="../../index.html">Startseite</a></li>
+          <li><a class="bb-link" href="index.html">Spielanleitung</a></li>
+          <li><a class="bb-link" href="../../docs/index.html">API-Doku</a></li>
+          <li><a class="bb-link" href="../../web/app.html">Spielen</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Projekt">
+        <p class="bb-label">Projekt</p>
+        <ul>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards">GitHub</a></li>
+          <li><span class="bb-cite">Designsystem</span></li>
+          <li><a class="bb-link" href="https://github.com/facebookexperimental/openbilliards/blob/main/README.md">Readme</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="bb-label">Kolophon</p>
+        <p class="bb-body-s bb-muted" style="max-width: 34ch;">Gesetzt in Space&nbsp;Grotesk und JetBrains&nbsp;Mono, lokal
+          eingebettet. Keine Tracker, keine CDNs, keine Anfragen über diese
+          Origin hinaus.</p>
+      </div>
+    </div>
+
+    <p class="bb-footer-credits">
+      <span>&copy; 2026 Meta Platforms, Inc. &#183; MIT &#183; <a href="../../web/vendor/NOTICE-pooltool.txt" style="white-space: nowrap;">enthält Apache-2.0-Code</a> &#183; <a href="https://opensource.fb.com/legal/terms" style="white-space: nowrap;">Terms of Use</a> &#183; <a href="https://opensource.fb.com/legal/privacy" style="white-space: nowrap;">Privacy Policy</a></span>
+      <span>Gerendert von der eigenen Engine</span>
+    </p>
+  </footer>
+</body>
+</html>

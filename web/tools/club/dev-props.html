@@ -1,0 +1,241 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: props</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<script type="importmap">
+{ "imports": { "three": "../../vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from '../../vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { TIERS, TIER_IDS } from '../../scene/club/tiers.js';
+import { createAssets } from '../../scene/club/assets.js';
+import { buildProps } from '../../scene/club/room/props.js';
+
+const q = new URLSearchParams(location.search);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = Number(q.get('exposure')) || 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x020202);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.05, 60);
+
+const VIEWS = {
+  wide: [[-4.0, 1.6, 2.6], [0, 0.3, 0], 50], play: [[-2.3, 1.05, 1.35], [0.1, 0, 0], 40],
+  bar: [[0.9, 0.75, 0.9], [5.2, 0.35, -2.3], 42], far: [[0.9, 0.7, -0.8], [3.9, 0.25, 1.5], 46],
+  back: [[2.4, 1.3, -1.8], [-4, 0.3, 2.6], 58], top: [[0.001, 15.5, 0], [0, 0, 0], 42],
+  chair: [[0.4, 0.55, -1.7], [1.5, -0.25, -3.7], 40], ball: [[-0.32, 0.11, 0.26], [0.1, 0.03, 0], 30],
+  V1: [[-2.3, 1.05, 1.35], [0.1, 0, 0], 40], V2: [[-1.35, 0.32, 0.22], [0.2, 0, 0], 32], V3: [[-2.15, 0.62, 0], [0.6, 0, 0], 38],
+  V4: [[0.85, 0.28, 0.25], [1.27, 0, 0.635], 28], V5: [[0.25, 0.22, 0.25], [0, 0.02, 0.66], 26], V6: [[0.05, 0.115, 0.75], [0.5, 0.045, 0.6], 26],
+  V7: [[-0.85, 0.2, 0.42], [0.05, 0.02, -0.02], 28], V9: [[-4.0, 1.6, 2.6], [0, 0.3, 0], 50],
+  V10: [[-4.2, 0.95, 2.8], [0, 0.25, 0], 50], V11: [[0, 2.3, 0.03], [0, 0, 0], 66],
+};
+const viewName = q.get('view') ?? 'wide';
+let [pos, tgt, fov] = VIEWS[viewName] ?? VIEWS.wide;
+const camArg = (q.get('cam') ?? '').split(',').map(Number);
+if (camArg.length === 7 && camArg.every(Number.isFinite)) { pos = camArg.slice(0, 3); tgt = camArg.slice(3, 6); fov = camArg[6]; }
+camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+
+// ---- the stand-in club object (tier, knobs, the real asset loader)
+const tier = TIER_IDS.includes(q.get('clubtier')) ? q.get('clubtier') : 'base';
+const club = { enabled: true, tier, knobs: TIERS[tier], time: { value: 0 }, ctx: { query: q } };   // ctx.query: the props' tool switches (clubprops=...)
+club.assets = createAssets(club);
+
+const REAL = q.get('shell') === 'real';
+// ---- the room's light (the real room/light.js when it exists and light=off is not asked)
+let roomLight = null;
+if (!REAL && q.get('light') !== 'off') {
+  try { roomLight = (await import('../../scene/club/room/light.js')).roomLight ?? null; } catch (e) { console.warn('[dev-props] no room/light.js:', e?.message ?? e); }
+}
+const ROOMS = { dev: [11, 8, 3.3], app: [9, 6, 3.24], big: [13, 9, 3.5] };
+const [RW, RD, RH] = ROOMS[q.get('room')] ?? ROOMS.dev;
+const FLOOR_Y = -0.79;
+const box = { min: new THREE.Vector3(-RW / 2, FLOOR_Y, -RD / 2), max: new THREE.Vector3(RW / 2, FLOOR_Y + RH, RD / 2) };
+if (roomLight) { roomLight.reset?.(); roomLight.init?.({ club }); roomLight.setBox?.(box.min, box.max); }
+const lit = (p) => {
+  if (roomLight) return roomLight.material(p);
+  const m = new THREE.MeshStandardMaterial({ color: p.color, roughness: p.roughness ?? 0.8, metalness: p.metalness ?? 0 }); m.name = p.name; return m;
+};
+
+// ---- stand-ins for the app's three lights (the tournament look's values) and its lamp
+RectAreaLightUniformsLib.init();
+scene.add(new THREE.HemisphereLight(0x3a3a3e, 0x2a2a2c, 1.25));
+const fill = new THREE.PointLight(0xd9dcdf, 2.2, 0, 2); fill.position.set(3.2, 1.9, -2.3); scene.add(fill);
+const lamp = new THREE.RectAreaLight(0xf6f7f9, 7.8, 2.05, 0.66); lamp.position.set(0, 1.02, 0); lamp.lookAt(0, 0, 0); scene.add(lamp);
+const lampFace = new THREE.Mesh(new THREE.PlaneGeometry(2.05, 0.66), new THREE.MeshBasicMaterial({ color: new THREE.Color(10, 9, 7.1) }));
+lampFace.rotation.x = Math.PI / 2; lampFace.position.set(0, 1.02, 0); scene.add(lampFace);
+const hood = new THREE.Mesh(new THREE.BoxGeometry(2.19, 0.1, 0.8), new THREE.MeshBasicMaterial({ color: 0x050505 }));
+hood.position.set(0, 1.075, 0); scene.add(hood);
+
+// ---- the stand-in table and a few glossy balls (what the room looks like in a ball)
+const tableG = new THREE.Group(); scene.add(tableG);
+const std = (color, roughness, metalness = 0) => new THREE.MeshStandardMaterial({ color, roughness, metalness });
+const dull = (color, roughness) => { const m = std(color, roughness); m.envMapIntensity = 0.1; return m; };
+const addBox = (sx, sy, sz, x, y, z, mat) => { const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), mat); m.position.set(x, y, z); tableG.add(m); return m; };
+const railMat = dull(0x1a1a1c, 0.3);
+addBox(2.9, 0.3, 1.63, 0, -0.16, 0, dull(0x161616, 0.5));
+addBox(2.54, 0.01, 1.27, 0, -0.005, 0, std(0x2a78c0, 0.92));
+for (const s of [-1, 1]) { addBox(2.9, 0.04, 0.18, 0, 0.015, s * 0.725, railMat); addBox(0.18, 0.04, 1.27, s * 1.36, 0.015, 0, railMat); }
+for (const sx of [-1, 1]) for (const sz of [-1, 1]) addBox(0.16, 0.5, 0.16, sx * 1.2, -0.54, sz * 0.6, dull(0x1c1c1e, 0.4));
+// balls=app: the shot tool's layout in the app (world x = its y, world z = its x), so V2 / V7 / V6 frame the same balls
+const balls = q.get('balls') === 'app'
+  ? [[0xf2f0e6, -0.55, 0.10], [0xf0c21c, 0.05, -0.05], [0x2444b0, 0.42, 0.28], [0xc8241e, 0.70, -0.38], [0x55308a, -0.15, 0.45], [0xea6c14, -0.35, -0.25],
+    [0x12703e, 1.05, 0.52], [0x701824, 1.12, -0.50], [0x0b0b0b, 0.95, 0.02], [0xf0c21c, 0.62, -0.15]]
+  : [[0xf2f0e6, -0.45, 0.12], [0xf0c21c, 0.1, 0.0], [0x2444b0, 0.3, -0.22], [0xc8241e, 0.55, 0.2], [0x0b0b0b, 0.75, -0.05], [0xea6c14, -0.1, -0.3]];
+const ballSet = [];
+for (const [col, x, z] of balls) { const b = new THREE.Mesh(new THREE.SphereGeometry(0.028575, 48, 32), std(col, 0.06)); b.position.set(x, 0.028575, z); tableG.add(b); ballSet.push({ id: ballSet.length, mesh: b, pocketed: false }); }
+
+let props = null, room = null;
+const frameFns = [];
+let capture = () => {};
+if (!REAL) {
+// ---- the stand-in shell: floor, ceiling, four walls with a dark dado
+const shell = new THREE.Group(); shell.name = 'standin.shell'; scene.add(shell);
+const plane = (w, h, mat, x, y, z, rx, ry) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat); m.position.set(x, y, z); m.rotation.set(rx, ry, 0, 'YXZ'); shell.add(m); return m; };
+const floorMat = lit({ color: 0x4a3020, roughness: 0.42, envMapIntensity: 0.3, tableShadow: true, name: 'standin.floor' });
+const wallMat = lit({ color: 0x4a6a5c, roughness: 0.9, name: 'standin.wall' });
+const dadoMat = lit({ color: 0x5c3a26, roughness: 0.55, name: 'standin.dado' });
+const ceilMat = lit({ color: 0x3a332c, roughness: 0.95, name: 'standin.ceiling' });
+plane(RW, RD, floorMat, 0, FLOOR_Y, 0, -Math.PI / 2, 0);
+const ceiling = plane(RW, RD, ceilMat, 0, FLOOR_Y + RH, 0, Math.PI / 2, 0);
+const DADO = 1.05;
+for (const [w, x, z, ry] of [[RD, RW / 2, 0, -Math.PI / 2], [RD, -RW / 2, 0, Math.PI / 2], [RW, 0, -RD / 2, 0], [RW, 0, RD / 2, Math.PI]]) {
+  plane(w, DADO, dadoMat, x, FLOOR_Y + DADO / 2, z, 0, ry);
+  plane(w, RH - DADO, wallMat, x, FLOOR_Y + DADO + (RH - DADO) / 2, z, 0, ry);
+}
+if (viewName === 'top') ceiling.visible = false;
+
+// ---- stand-ins for the shell's wall lamps: a small glowing globe every few metres on three walls, with an emitter each
+if (roomLight && q.get('sconces') !== 'off') {
+  const globe = new THREE.MeshBasicMaterial({ color: new THREE.Color(5, 3.6, 2) });
+  const spots = [];
+  for (const x of [-3.7, -1.2, 3.2]) spots.push([x, -RD / 2 + 0.12], [x, RD / 2 - 0.12]);
+  for (const z of [-1.3, 1.3]) spots.push([-RW / 2 + 0.12, z]);
+  spots.forEach(([x, z], i) => {
+    const g = new THREE.Mesh(new THREE.SphereGeometry(0.06, 12, 8), globe); g.position.set(x, FLOOR_Y + 2.15, z); shell.add(g);
+    roomLight.addEmitter({ id: `standin.sconce.${i}`, type: 'point', position: g.position, color: new THREE.Color(1, 0.78, 0.5), intensity: 1.6, radius: 4.5, size: [0.08, 0] });
+  });
+}
+
+// ---- the props
+const tableBounds = { minX: -3.05, maxX: 3.05, minZ: -2.42, maxZ: 2.42 }; // the table's outer rectangle plus 1.6 m of playing room
+props = await buildProps(club, { box, floorY: FLOOR_Y, tableBounds, roomLight });
+scene.add(props.group);
+if (roomLight) roomLight.commit?.();
+
+} else {
+  // ---- the room role's real room around the stand-in table (room.js calls room/props.js itself)
+  const { createRoom } = await import('../../scene/club/room.js');
+  club.ctx = { scene, renderer, camera, query: q, table: { group: tableG }, rebakeEnv: () => capture() };
+  club.onFrame = (fn) => { frameFns.push(fn); };
+  club.offFrame = (fn) => { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); };
+  room = await createRoom(club);
+  roomLight = room?.light ?? null;
+  props = room?.enabled ? { counts: () => { try { return room.state().props; } catch (e) { return { error: String(e?.message ?? e) }; } }, group: room.group } : { counts: () => ({ enabled: false, reason: room?.reason }) };
+  if (viewName === 'top') room?.group?.traverse?.((o) => { if (/ceil|beam|cornice/i.test(o.name)) o.visible = false; });
+}
+
+// ---- frames: two plain frames, an environment capture from the table centre (what the app's cube does), then the real frames
+const cubeRT = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+const cubeCam = new THREE.CubeCamera(0.05, 40, cubeRT);
+cubeCam.position.set(0, 0.45, 0);
+scene.add(cubeCam);
+capture = () => {
+  cubeCam.update(renderer, scene);
+  scene.environment = cubeRT.texture;
+  roomLight?.setEnvMap?.(cubeRT.texture);
+};
+await Promise.race([club.assets.ready(), new Promise((r) => setTimeout(r, 8000))]);
+
+// ---- post=1: the app's composer and the club post chain (the same construction as dev-post.html and the app)
+let composer = null, post = null;
+if (q.get('post') === '1') {
+  // loaded only when asked (the post chain is another role's work in progress: a broken tree there must not stop this page)
+  const { createPostFX } = await import('../../scene/postfx.js');
+  const { createPost } = await import('../../scene/club/post.js');
+  composer = createPostFX(renderer, scene, camera, innerWidth, innerHeight, { samples: 4 });
+  const fall = composer.passes.find((p) => p.uniforms?.strength); if (fall) fall.uniforms.strength.value = 0.62; // the tournament look's values
+  composer.__obCine.bloom.strength = 0.03;
+  const pclub = {
+    enabled: true, tier, knobs: TIERS[tier], time: club.time,
+    ctx: { renderer, scene, camera, composer, game: { ballSet: { balls: ballSet } }, query: q },
+    onFrame(fn) { frameFns.push(fn); return () => { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); }; },
+  };
+  post = await createPost(pclub);
+  post.show?.();
+}
+// A/B switches for pictures: emit=<k> scales every emissive level of the props (emit=3.9 is the round-1 level of the shelf
+// panels), glass=<k> the light that comes through the bottles (0 = unlit paint)
+{
+  const ke = Number(q.get('emit')), kg = q.has('glass') ? Number(q.get('glass')) : NaN;
+  scene.traverse((o) => {
+    if (o.name === 'club.props.emissive' && ke > 0) o.material.color.setScalar(ke);
+    if (o.name === 'club.props.glass' && Number.isFinite(kg)) o.material.emissive.setScalar(kg);
+  });
+}
+// aim=<what>[:n]: square on to something hung, from the props' own record of where it hangs
+if (q.get('aim')) {
+  const [what, n = '0'] = q.get('aim').split(':');
+  const pc = props.counts();   // shell=real hands the room's record of the props: the counts are one level down
+  const list = (pc?.hung ?? pc?.counts?.hung ?? []).filter((h) => h.what === what);
+  const it = list[Number(n) % Math.max(1, list.length)];
+  if (it) {
+    const fovA = Number(q.get('fov')) || 30, fill = Number(q.get('fill')) || 0.72;
+    const span = Math.max(it.h, (it.w * innerHeight) / innerWidth);
+    const dist = Math.min(Number(q.get('dist')) || Infinity, span / fill / (2 * Math.tan((fovA * Math.PI) / 360)));
+    camera.position.set(it.p[0] + it.n[0] * dist, it.p[1], it.p[2] + it.n[2] * dist);
+    camera.fov = fovA; camera.updateProjectionMatrix(); camera.lookAt(it.p[0], it.p[1], it.p[2]);
+  } else console.warn(`[dev-props] aim: nothing called ${what} hangs in this room`);
+  window.__aim = { what, found: list.length, it: it ?? null };
+}
+// view=atlas: the painted texture itself (the pixels the 2D canvas holds: an sRGB texture on an untoned basic material)
+let atlasScene = null, atlasCam = null;
+if (viewName === 'atlas') {
+  let tex = null;
+  scene.traverse((o) => { if (!tex && o.isMesh && o.material?.map?.name === 'club.props.atlas') tex = o.material.map; });
+  if (tex) {
+    const aw = tex.image.width, ah = tex.image.height, tile = q.get('tile') ?? 'all';
+    atlasScene = new THREE.Scene(); atlasScene.background = new THREE.Color(0x202020);
+    atlasCam = new THREE.OrthographicCamera(0, innerWidth, innerHeight, 0, -1, 1);
+    const quad = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: tex, toneMapped: false }));
+    if (tile === 'all') { const k = Math.min(innerWidth / aw, innerHeight / ah); quad.scale.set(aw * k, ah * k, 1); quad.position.set((aw * k) / 2, innerHeight - (ah * k) / 2, 0); }
+    else { // 1:1, four tiles that cover the texture with overlaps
+      const t = Number(tile) || 0, ox = t % 2 ? Math.max(0, aw - innerWidth) : 0, oy = t >= 2 ? Math.max(0, ah - innerHeight) : 0;
+      quad.scale.set(aw, ah, 1); quad.position.set(aw / 2 - ox, innerHeight - ah / 2 + oy, 0);
+    }
+    atlasScene.add(quad);
+    window.__atlas = { size: [aw, ah], tile };
+  }
+}
+window.__dev = { THREE, renderer, scene, camera, club, props, room, roomLight, capture, composer, post };
+let frames = 0;
+renderer.setAnimationLoop(() => {
+  for (const fn of [...frameFns]) fn(frames / 60, 1 / 60);
+  if (atlasScene) { const tm = renderer.toneMapping; renderer.toneMapping = THREE.NoToneMapping; renderer.render(atlasScene, atlasCam); renderer.toneMapping = tm; }
+  else if (composer) composer.render(); else renderer.render(scene, camera);
+  frames += 1;
+  if (!atlasScene && (frames === 2 || frames === 4)) capture(); // the second capture holds the first one's reflections
+  if (frames === 5) post?.dof?.snap?.();        // a still: take the settled lens (the `still` tiers would ease in over a second)
+  if (frames === 7) {
+    window.__propsInfo = {
+      view: viewName, tier, shell: REAL ? 'real' : 'standin', room: REAL ? null : [RW, RD, RH], light: roomLight ? roomLight.state?.() ?? true : null,
+      counts: props.counts(),
+      frame: { calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, programs: renderer.info.programs?.length ?? null,
+        textures: renderer.info.memory.textures, geometries: renderer.info.memory.geometries },
+      assets: club.assets.state(),
+      post: post?.enabled ? post.counts() : (post ? { enabled: false, reason: post.reason } : null),
+    };
+    window.__ready = true;
+  }
+});
+</script>
+</body>
+</html>

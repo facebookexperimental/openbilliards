@@ -1,0 +1,138 @@
+{
+  "ball_params_default": {
+    "e_b": 0.95,
+    "e_c": 0.85,
+    "e_t": 0.5,
+    "f_c": 0.2,
+    "m": 0.170097,
+    "r": 0.028575,
+    "u_r": 0.01,
+    "u_s": 0.2,
+    "u_sp": 0.0127
+  },
+  "cloth_presets": {
+    "simonis_760_fast": {
+      "u_r": 0.008,
+      "u_s": 0.2,
+      "u_sp_scale": 0.4444444444444444
+    },
+    "simonis_860_tournament": {
+      "u_r": 0.01,
+      "u_s": 0.2,
+      "u_sp_scale": 0.4444444444444444
+    },
+    "snooker_napped": {
+      "u_r": 0.0128,
+      "u_s": 0.212,
+      "u_sp_scale": 0.8970438328236493
+    },
+    "worn_slow": {
+      "u_r": 0.016,
+      "u_s": 0.25,
+      "u_sp_scale": 0.4444444444444444
+    }
+  },
+  "cushion_response_ee0_hsv_fitted": 0.8,
+  "cushion_response_grip_fitted": {
+    "e0": 0.85,
+    "e_max": 0.98,
+    "e_min": 0.5,
+    "ee0": 0.65,
+    "k_v": 0.18,
+    "v_ref": 1.0
+  },
+  "sim_options_default": {
+    "bb_friction": {
+      "a": 0.009951,
+      "b": 0.108,
+      "c": 1.088
+    },
+    "cushion_friction": {
+      "k": 0.0,
+      "mu_max": 1.0,
+      "mu_min": 0.0,
+      "v_ref": 1.0
+    },
+    "cushion_model": "Han2005",
+    "max_events": 8192,
+    "t_max": 120.0
+  },
+  "sim_options_grip_fitted": {
+    "bb_friction": {
+      "a": 0.009951,
+      "b": 0.108,
+      "c": 1.088
+    },
+    "bb_hop_min_height": 0.00001,
+    "bt_min_bounce_height": 0.00001,
+    "cushion_friction": {
+      "k": -0.4,
+      "mu_max": 0.28,
+      "mu_min": 0.16,
+      "v_ref": 1.0
+    },
+    "cushion_model": {
+      "Mathavan2010": {
+        "delta_p_scale": 0.1,
+        "max_steps": 1000,
+        "tangential_compliance": {
+          "e_x": 0.9,
+          "freq_ratio": 1.2,
+          "grip_capture": 0.6,
+          "grip_ratio": 2.5
+        }
+      }
+    },
+    "max_events": 8192,
+    "t_max": 120.0
+  },
+  "sim_options_mathavan_fitted": {
+    "bb_friction": {
+      "a": 0.009951,
+      "b": 0.108,
+      "c": 1.088
+    },
+    "bb_hop_min_height": 0.00001,
+    "bt_min_bounce_height": 0.00001,
+    "cushion_friction": {
+      "k": -0.4,
+      "mu_max": 0.28,
+      "mu_min": 0.16,
+      "v_ref": 1.0
+    },
+    "cushion_model": {
+      "Mathavan2010": {
+        "delta_p_scale": 0.1,
+        "max_steps": 1000,
+        "tangential_compliance": {
+          "e_x": 0.9,
+          "freq_ratio": 0.8
+        }
+      }
+    },
+    "max_events": 8192,
+    "t_max": 120.0
+  },
+  "sim_options_realistic": {
+    "bb_friction": {
+      "a": 0.009951,
+      "b": 0.108,
+      "c": 1.088
+    },
+    "bb_hop_min_height": 0.00001,
+    "bt_min_bounce_height": 0.00001,
+    "cushion_friction": {
+      "k": -0.4,
+      "mu_max": 0.4,
+      "mu_min": 0.2,
+      "v_ref": 1.0
+    },
+    "cushion_model": {
+      "StrongeCompliant": {
+        "omega_ratio": 1.8
+      }
+    },
+    "max_events": 8192,
+    "t_max": 120.0
+  }
+}

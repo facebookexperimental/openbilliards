@@ -1,0 +1,31 @@
+{
+  "schema": "d621-gully-receipt/1",
+  "tool": "tools/render/d621/plan/gully_receipt_621.py --write",
+  "validator_tree": "/private/tmp/d3-main-web-6e329ea7",
+  "validator_tree_head": "",
+  "node": "v26.3.1",
+  "rule": "every delegated JSON under web/scene/ballreturn/ is listed with the sha256 of the exact bytes the module's validator accepted; --check refuses a missing row or a byte that moved; the census inherits that refusal",
+  "files": [
+    {
+      "path": "web/scene/ballreturn/assemblies/diamond_proam_9ft.json",
+      "sha256": "80781f4501a92dc7b886b8aa67cce4172d4e4783fcdfdd77e9f303b8b914acfb",
+      "validator": "assembly.js validateAssembly (V18)",
+      "ok": true,
+      "ok_line": "OK validateAssembly 78 meshes"
+    },
+    {
+      "path": "web/scene/ballreturn/hardware/diamond_proam_9ft-gully.json",
+      "sha256": "b0fe414d8f1349fad8a261ed009df7a226e831495650825d8f896a7cb473c08b",
+      "validator": "hardware.js validateHardware (V17)",
+      "ok": true,
+      "ok_line": "OK validateHardware 36 meshes"
+    },
+    {
+      "path": "web/scene/ballreturn/tracks/diamond_proam_9ft-gully.json",
+      "sha256": "aa342ec3edcd8c937bb25ab814a78116c48cd80b019990bec07dd68440266652",
+      "validator": "test-ballreturn.mjs --track (V0\u2013V12 + the drain rule against the kernel cups)",
+      "ok": true,
+      "ok_line": "OK <worktree>/web/scene/ballreturn/tracks/diamond_proam_9ft-gully.json: validated against diamond_proam_9ft (6 kernel cups); topology trunk-tray; 9 runways, 6 served pockets, tray capacity 15"
+    }
+  ]
+}

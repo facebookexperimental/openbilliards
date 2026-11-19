@@ -1,0 +1,287 @@
+{
+  "scenario": "corner-5-three-rail",
+  "title": "Corner-5 three-rail kick system — the 5→3→2 benchmark track (battery C2)",
+  "kernel": "0.1.0+208e1dc4",
+  "anchor": {
+    "D": 5,
+    "F": 3,
+    "T_pred": 2,
+    "v": 2.5,
+    "english_mult": 1,
+    "srf_launch": 0.625,
+    "contact_sequence": [
+      "lin_L",
+      "lin_T",
+      "lin_R",
+      "pocket"
+    ],
+    "ball0_pocketed": true,
+    "n_ball_ball": 0,
+    "n_ball0_cushions": 0,
+    "record_sha256": "5940e1794f77733d3613850c0ba8336d5118df26ae994ab630ab3171f6111354",
+    "third_contact_pos": [
+      0.606425,
+      0.657778
+    ],
+    "censored": false,
+    "S_thru": 2.23725,
+    "E_thru": 0.23725,
+    "T_contact": 1.92826,
+    "E_contact": -0.07174,
+    "kind3": "lin_R",
+    "settled_read_2": "roll_transition",
+    "off_rail2_angle_deg": 40.6398,
+    "n4_groove": -0.02217,
+    "settled_read_3": "roll_transition",
+    "rail1": {
+      "v_pre": 2.46446,
+      "rho_pre": 0.99227,
+      "srf_pre": 0.60106,
+      "tan_in": 1.160793,
+      "tan_out": 1.976917,
+      "settled_speed": 1.841373,
+      "settled_read": "roll_transition"
+    },
+    "rail2": {
+      "v_pre": 1.800675,
+      "rho_pre": 0.98807,
+      "srf_pre": 1.03433
+    },
+    "rail3": {
+      "v_pre": 1.264815,
+      "rho_pre": 0.98257,
+      "srf_pre": 0.94653
+    }
+  },
+  "badge": {
+    "line1": "predicted dia 2.00 · measured dia 1.93",
+    "line2": "CORNER-5 THREE-RAIL KICK · T = D − F (TP 7.2) · BATTERY C2 (EXP_C2_CORNER5) · D 5 F 3 · RUNNING ENGLISH 50% · 2.5 M/S"
+  },
+  "segments": [
+    {
+      "id": "main",
+      "batterySha": "5940e1794f77733d3613850c0ba8336d5118df26ae994ab630ab3171f6111354",
+      "videoSha": "27e24db608ef24059ab91e51aa4892a8ca204367b0b33f8f89b3b14c9d6b7dbd",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "cbStart": [
+          0.5364153866050239,
+          -1.1404773076155579
+        ],
+        "tLaunch": 0.3037880961453243,
+        "launch": {
+          "pos": [
+            -0.019009727775136077,
+            -0.49704614198789376
+          ],
+          "vel": [
+            -1.631709089513505,
+            1.8940764100740464
+          ],
+          "avel": [
+            -66.28438880399112,
+            -57.10268029793542,
+            54.680664916885284
+          ],
+          "srf": 0.6249999999999999
+        },
+        "approachTravelM": 0.8500004250500044,
+        "swerveMaxLateralDevMm": 0.18987856638031397,
+        "strikePost": {
+          "vel": [
+            -2.0249523888510654,
+            2.3419761133261034
+          ],
+          "avel": [
+            -27.098063060154097,
+            -22.698192166915238,
+            57.99195516486932
+          ]
+        },
+        "events": {
+          "t_rail1": 0.6663674151671916,
+          "rail1_pos": [
+            -0.606425,
+            0.18482136563876536,
+            0.028575
+          ],
+          "t_rail2": 1.3156397139019231,
+          "rail2_pos": [
+            -0.016896785203891138,
+            1.2414249999999998,
+            0.028575
+          ],
+          "t_rail3": 1.9493818540505448,
+          "rail3_pos": [
+            0.606425,
+            0.6577775545055341,
+            0.028575
+          ],
+          "t_pocket": 4.527495754577867,
+          "pocket_id": 0,
+          "settled1": {
+            "pos": [
+              -0.3581417937005877,
+              0.5668117820350866,
+              0.028575
+            ],
+            "vel": [
+              0.8311520567584927,
+              1.6431190190828266,
+              0
+            ],
+            "how": "roll_transition",
+            "t": 0.9004798071614032
+          },
+          "settled2": {
+            "pos": [
+              0.20968265947459694,
+              0.998305192609916,
+              0.028575
+            ],
+            "vel": [
+              0.9900375679668046,
+              -0.8497584457657753,
+              0
+            ],
+            "how": "roll_transition",
+            "t": 1.5424209075576236
+          },
+          "settled3": {
+            "pos": [
+              0.5223591087343885,
+              0.5486611350824521,
+              0.028575
+            ],
+            "vel": [
+              -0.5254643964637714,
+              -0.8451338461147917,
+              0
+            ],
+            "how": "roll_transition",
+            "t": 2.0783263289432696
+          }
+        },
+        "observables": {
+          "T_pred": 2,
+          "S_thru": 2.2372510166053363,
+          "E_thru": 0.23725101660533632,
+          "T_contact": 1.9282596708487114,
+          "E_contact": -0.07174032915128858,
+          "y_thru": 0.5596728022278057,
+          "y4_groove": -1.2770386870689094,
+          "n4_groove": -0.022169093130423374,
+          "off_rail2_angle_deg": 40.63979906914799
+        },
+        "duration": 4.527495754577867,
+        "tEnd": 4.977495754577867,
+        "minPairMm": "n/a (single-ball record — no pairs)",
+        "minPairAt": null,
+        "minPair": null
+      },
+      "plan": {
+        "frames": 633,
+        "outputSec": 10.55,
+        "maxCutlessStepRatio": 1.0753208887313201,
+        "shutter": 8,
+        "shutterDeg": 310
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 2,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 0.30000000000000004,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1.0329113924050632,
+        "wanted": 1.0329113924050632,
+        "dropSec": 0.8713235294117647,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.30000000000000004,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "5 − 3 = 2",
+              "corner-5: aim through diamond 5, running english"
+            ],
+            "availSec": 1.6166666666666667,
+            "spanSec": 1.3599999999999999,
+            "entrySec": 0.98,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.3166666666666667,
+            "settledSec": 0.30000000000000004,
+            "needScale": 1.0329113924050632,
+            "settledFrames": 18
+          },
+          {
+            "text": [
+              "1.93",
+              "arrives on the T scale · predicted 2.00"
+            ],
+            "availSec": 6.283333333333333,
+            "spanSec": 1.3399999999999999,
+            "entrySec": 0.96,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.2973039215686273,
+            "settledSec": 4.986029411764706,
+            "needScale": 0.22395543175487462,
+            "settledFrames": 299
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "main",
+      "frames": 633,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "d01055af5a2ed0c3c391e34d2acb5018f7597e964f5b5ce7c760f9f11c2ef8de",
+      "sha256_last": "671a4ec9ac2b3878961fde56618ed9da112b3c48971efe78fba91d031d6cf31c"
+    }
+  ],
+  "titleCard": {
+    "value": "Corner-5 three-rail kick system",
+    "claim": "the 5-3-2 benchmark track (battery C2)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "d0d0dea54a543c242e7630c43d23fb30faaadce92bded9fa1f6289704faaa6e7",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "8d2acedc9e38bf335958c76459d80aa382a6ef703581c1650cec20ca54923d64"
+  }
+}

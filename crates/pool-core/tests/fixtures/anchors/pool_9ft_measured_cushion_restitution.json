@@ -1,0 +1,391 @@
+{
+ "format": "openbilliards.anchors.v1",
+ "anchor": "pool_9ft_measured_cushion_restitution",
+ "provenance": "RECORD-TIER anchor (019 doctrine: deviations are reported, never gated). Single-session first-hand measurement, 2026-07-11, owner's Diamond Pro-Am 9-ft (catalog geometry diamond_proam_9ft, independently confirmed by the diamond-sight homography at 0.33-0.38 mm RMS), one uncharacterized cue, one striped training ball standing in for the cue ball; iPhone slow-motion VFR originals on the exact per-frame pts clock (pipeline v3 definitive; v1/v2 bake-clock numbers retracted). Full session, method, uncertainty and adjudication record: docs/verification/pool-9ft-measured-calibration.md (audit trail: GitHub issue #5). Anti-overfit doctrine (constitution P-IV): this data legitimizes ONLY the opt-in Measured-tier catalog entries (owner_proam_9ft_2026_07 / owner_proam_cloth_2026_07) and these record-tier anchors; it is NEVER grounds to change global kernel defaults. THE LAYERING IS THE RESULT: cushion restitution separates by ARRIVAL SPIN STATE - pure-roll arrivals rebound at 0.645-0.670 (spin-cushion coupling, consistent with the TP B.6 rolling-arrival anchor ~0.7) while low-spin (still-sliding) arrivals measure e = 0.84-0.94 at 1.4-2.9 m/s, bracketing the kernel constant e_c = 0.85. The v1/v2 'cushion is dead / default 0.2 too high' conclusion is RETRACTED (bake-clock artifact + arrival-spin confounding). KNOWN GAPS: no pure-roll arrivals above ~1 m/s; the tier3 e(v) slope is spin-confounded (do not fit an e(v) curve from it).",
+ "title": "Cushion restitution - the LAYERED picture (owner's table, v3 definitive, exact pts clock)",
+ "reading_guide": "There is no single 'e' for this cushion: measured restitution separates by ARRIVAL SPIN STATE and speed. Pure-roll arrivals lose ~35% of speed (spin-cushion coupling eats the rolling component); low-spin (still-sliding) arrivals rebound at 0.84-0.94, bracketing the kernel default e_c = 0.85. This layering is the result - collapsing it to one number reproduces the retracted v1 error.",
+ "sources": [
+  "/tmp/ob-calib/results-B-v3.json (straight-in e(v) ladder, IMG_4282, 15 shots)",
+  "/tmp/ob-calib/results-c0-slide-v3.json (bonus near-normal rolling arrivals, IMG_4275, 4 shots)",
+  "/tmp/ob-calib/results-A-v3.json + results-A50-v3.json (oblique-incidence e_n proxies by cell)",
+  "/tmp/ob-calib/results-C-v3.json (follow/draw spin-cushion coupling at ~34 deg)"
+ ],
+ "metadata": {
+  "table": "Diamond Pro-Am 9-ft, owner-confirmed, owner's venue",
+  "session_date": "2026-07-11",
+  "pipeline_version": "v3 (originals era, exact pts clock)",
+  "e_definitions": "B-set e_normal = normal-velocity ratio at near-normal incidence (0.3-2.3 deg); c0-slide e_speed = v_out/v_in scalar ratio at near-normal incidence; A-set e_normal = vn_out/vn_in velocity-component proxy at oblique incidence (spin unmeasured); C-set e_normal = vn_out/vn_in at ~34 deg with slate-labeled follow/draw arrival spin"
+ },
+ "layers": [
+  {
+   "layer": "pure-roll arrival, near-normal incidence, 0.48-0.85 m/s (B tier1)",
+   "arrival_spin_state": "pure roll, measured: arrival roll ratio 1.02-1.03 (stripe-area FFT)",
+   "v_in_range_mps": [
+    0.48,
+    0.845
+   ],
+   "e_mean": 0.645,
+   "e_sd": 0.032,
+   "n": 5,
+   "e_v_slope_per_mps": {
+    "value": 0.059,
+    "u": 0.121,
+    "note": "no measurable slope over the 0.48-0.85 m/s span"
+   },
+   "per_shot": [
+    {
+     "shot": "s01",
+     "tier": "tier1",
+     "v_in_mps": 0.845,
+     "e_normal": 0.661,
+     "e_u": 0.023,
+     "arrival_roll_ratio": 1.02,
+     "arrival_spin": "pure-roll"
+    },
+    {
+     "shot": "s02",
+     "tier": "tier1",
+     "v_in_mps": 0.732,
+     "e_normal": 0.673,
+     "e_u": 0.04,
+     "arrival_roll_ratio": 1.02,
+     "arrival_spin": "pure-roll"
+    },
+    {
+     "shot": "s03",
+     "tier": "tier1",
+     "v_in_mps": 0.657,
+     "e_normal": 0.593,
+     "e_u": 0.027,
+     "arrival_roll_ratio": 1.02,
+     "arrival_spin": "pure-roll"
+    },
+    {
+     "shot": "s04",
+     "tier": "tier1",
+     "v_in_mps": 0.548,
+     "e_normal": 0.659,
+     "e_u": 0.032,
+     "arrival_roll_ratio": 1.03,
+     "arrival_spin": "pure-roll"
+    },
+    {
+     "shot": "s05",
+     "tier": "tier1",
+     "v_in_mps": 0.48,
+     "e_normal": 0.637,
+     "e_u": 0.041,
+     "arrival_roll_ratio": 1.03,
+     "arrival_spin": "pure-roll"
+    }
+   ],
+   "source": "results-B-v3.json aggregates.tier1_pure_roll"
+  },
+  {
+   "layer": "pure-roll arrival, near-normal incidence, 0.73-0.98 m/s (c0-slide bonus)",
+   "arrival_spin_state": "pure roll (slide->roll transition at t* = 0.43-0.47 s, contact 1.46-1.86 s after departure); two-phase return fits confirm the cushion returns the ball essentially rolling",
+   "v_in_range_mps": [
+    0.73,
+    0.98
+   ],
+   "e_speed_mean": 0.67,
+   "e_speed_sd": 0.018,
+   "n": 4,
+   "per_shot": {
+    "s01": {
+     "v_in_mps": 0.794,
+     "e_speed": 0.647
+    },
+    "s02": {
+     "v_in_mps": 0.981,
+     "e_speed": 0.666
+    },
+    "s03": {
+     "v_in_mps": 0.73,
+     "e_speed": 0.682
+    },
+    "s04": {
+     "v_in_mps": 0.788,
+     "e_speed": 0.686
+    }
+   },
+   "note": "timeline-free ratio; consistent with B tier1 0.645 +- 0.032 - two independent pipelines",
+   "source": "results-c0-slide-v3.json physics.aggregates.e_speed_*"
+  },
+  {
+   "layer": "low-spin (sliding / partial-slide) arrivals, 1.4-2.9 m/s: e band 0.84-0.94",
+   "arrival_spin_state": "still sliding at contact, roll ratio 0.60-0.94 where measured (2 of 10 unmeasured); per-shot annotations below",
+   "band": [
+    0.84,
+    0.94
+   ],
+   "band_scope": "holds for the six shots with v_in 1.42-2.88 m/s (s06 s07 s08 s09 s11 s14); the three fastest tier3 shots (3.09-3.23 m/s) drop to e 0.70-0.79 - see slope entry",
+   "tier2_mixed_spin": {
+    "n": 5,
+    "v_in_range_mps": [
+     1.42,
+     1.693
+    ],
+    "e_mean": 0.867,
+    "e_sd": 0.058
+   },
+   "tier3_sliding": {
+    "n": 5,
+    "v_in_range_mps": [
+     2.524,
+     3.228
+    ],
+    "e_mean": 0.784,
+    "e_sd": 0.057
+   },
+   "per_shot": [
+    {
+     "shot": "s06",
+     "tier": "tier2",
+     "v_in_mps": 1.448,
+     "e_normal": 0.847,
+     "e_u": 0.036,
+     "arrival_roll_ratio": 0.94,
+     "arrival_spin": "pure-roll"
+    },
+    {
+     "shot": "s07",
+     "tier": "tier2",
+     "v_in_mps": 1.653,
+     "e_normal": 0.94,
+     "e_u": 0.046,
+     "arrival_roll_ratio": 0.6,
+     "arrival_spin": "sliding"
+    },
+    {
+     "shot": "s08",
+     "tier": "tier2",
+     "v_in_mps": 1.693,
+     "e_normal": 0.887,
+     "e_u": 0.047,
+     "arrival_roll_ratio": 0.88,
+     "arrival_spin": "partial-slide"
+    },
+    {
+     "shot": "s09",
+     "tier": "tier2",
+     "v_in_mps": 1.479,
+     "e_normal": 0.881,
+     "e_u": 0.058,
+     "arrival_roll_ratio": 0.86,
+     "arrival_spin": "partial-slide"
+    },
+    {
+     "shot": "s10",
+     "tier": "tier2",
+     "v_in_mps": 1.42,
+     "e_normal": 0.782,
+     "e_u": 0.065,
+     "arrival_roll_ratio": null,
+     "arrival_spin": "unmeasured"
+    },
+    {
+     "shot": "s11",
+     "tier": "tier3",
+     "v_in_mps": 2.878,
+     "e_normal": 0.839,
+     "e_u": 0.011,
+     "arrival_roll_ratio": null,
+     "arrival_spin": "unmeasured"
+    },
+    {
+     "shot": "s12",
+     "tier": "tier3",
+     "v_in_mps": 3.089,
+     "e_normal": 0.786,
+     "e_u": 0.017,
+     "arrival_roll_ratio": 0.32,
+     "arrival_spin": "sliding"
+    },
+    {
+     "shot": "s13",
+     "tier": "tier3",
+     "v_in_mps": 3.228,
+     "e_normal": 0.703,
+     "e_u": 0.019,
+     "arrival_roll_ratio": 0.34,
+     "arrival_spin": "sliding"
+    },
+    {
+     "shot": "s14",
+     "tier": "tier3",
+     "v_in_mps": 2.524,
+     "e_normal": 0.837,
+     "e_u": 0.036,
+     "arrival_roll_ratio": 0.7,
+     "arrival_spin": "sliding"
+    },
+    {
+     "shot": "s15",
+     "tier": "tier3",
+     "v_in_mps": 3.157,
+     "e_normal": 0.756,
+     "e_u": 0.041,
+     "arrival_roll_ratio": 0.43,
+     "arrival_spin": "sliding"
+    }
+   ],
+   "tier3_e_v_slope_per_mps": {
+    "value": -0.169,
+    "u": 0.064,
+    "valid_range_mps": [
+     2.52,
+     3.23
+    ],
+    "note": "first hint of a high-speed knee (~2.9-3.0 m/s sink-in) but arrival spin 0.32-0.70 is a confound; NOT attributable to pure e(v); n=5, unproven"
+   },
+   "source": "results-B-v3.json aggregates + per_shot"
+  },
+  {
+   "layer": "oblique incidence e_n proxies by cell (A matrix; arrival spin UNMEASURED, english cells protocol-labeled)",
+   "arrival_spin_state": "unmeasured for all cells; 'run'/'rev' = ~0.4R tip-offset protocol labels; e_n is a velocity-component proxy (vn_out/vn_in), not a spin-decomposed restitution",
+   "cells": {
+    "30-slow": {
+     "none": {
+      "e_n_mean": 0.529,
+      "e_n_sd": 0.02,
+      "v_in_mean_mps": 0.795,
+      "n": 4
+     },
+     "run": {
+      "e_n_mean": 0.573,
+      "e_n_sd": 0.015,
+      "v_in_mean_mps": 0.85,
+      "n": 4
+     },
+     "rev": {
+      "e_n_mean": 0.498,
+      "e_n_sd": 0.024,
+      "v_in_mean_mps": 0.878,
+      "n": 4
+     }
+    },
+    "30-fast": {
+     "none": {
+      "e_n_mean": 0.7,
+      "e_n_sd": 0.052,
+      "v_in_mean_mps": 3.699,
+      "n": 4
+     },
+     "run": {
+      "e_n_mean": 0.704,
+      "e_n_sd": 0.035,
+      "v_in_mean_mps": 2.799,
+      "n": 4
+     },
+     "rev": {
+      "e_n_mean": 0.642,
+      "e_n_sd": 0.047,
+      "v_in_mean_mps": 2.989,
+      "n": 4
+     }
+    },
+    "50-slow": {
+     "none": {
+      "e_n_mean": 0.562,
+      "e_n_sd": 0.038,
+      "v_in_mean_mps": 0.834,
+      "n": 4
+     },
+     "run": {
+      "e_n_mean": 0.611,
+      "e_n_sd": 0.029,
+      "v_in_mean_mps": 0.893,
+      "n": 4
+     },
+     "rev": {
+      "e_n_mean": 0.479,
+      "e_n_sd": 0.015,
+      "v_in_mean_mps": 0.962,
+      "n": 4
+     }
+    },
+    "50-fast": {
+     "none": {
+      "e_n_mean": 0.71,
+      "e_n_sd": 0.034,
+      "v_in_mean_mps": 3.411,
+      "n": 4
+     },
+     "run": {
+      "e_n_mean": 0.626,
+      "e_n_sd": 0.077,
+      "v_in_mean_mps": 3.168,
+      "n": 4
+     },
+     "rev": {
+      "e_n_mean": 0.62,
+      "e_n_sd": 0.024,
+      "v_in_mean_mps": 2.492,
+      "n": 4
+     }
+    }
+   },
+   "speed_trend": "e_n proxy rises with speed at both angles (30 deg none: 0.529 slow -> 0.700 fast; 50 deg none: 0.562 -> 0.710)",
+   "source": "results-A-v3.json / results-A50-v3.json per_cell.*.e_normal"
+  },
+  {
+   "layer": "C-set follow vs draw at first contact (left cushion, ~34 deg incidence): spin-cushion coupling",
+   "arrival_spin_state": "follow = topspin arrival, draw = backspin arrival; spin SIGN from slate labels (stripe period gives |omega| only); pre-contact |omega| readable on mid-speed shots, washed out above ~2.5 m/s",
+   "follow": {
+    "e_n_mean": 0.575,
+    "e_n_sd": 0.057,
+    "n": 6,
+    "vn_in_range_mps": [
+     1.25,
+     2.448
+    ],
+    "speed_ratio_mean": 0.592,
+    "rebound_angle_shift_deg": {
+     "mean": 2.43,
+     "sd": 3.52
+    }
+   },
+   "draw": {
+    "e_n_mean": 0.482,
+    "e_n_sd": 0.04,
+    "n": 4,
+    "vn_in_range_mps": [
+     1.866,
+     3.192
+    ],
+    "speed_ratio_mean": 0.435,
+    "rebound_angle_shift_deg": {
+     "mean": -10.57,
+     "sd": 2.31
+    }
+   },
+   "supplementary_right_cushion_22deg_drawfast": {
+    "e_n_mean": 0.546,
+    "e_n_sd": 0.059,
+    "n": 2,
+    "vn_in_range_mps": [
+     1.178,
+     1.695
+    ]
+   },
+   "post_contact_overspin": {
+    "spin_over_roll_mean": 1.126,
+    "sd": 0.105,
+    "n": 11,
+    "systematic": "+-20% band-geometry/harmonic systematic on ABSOLUTE spin ratios; the >1 overspin signature is robust, its magnitude is not precise"
+   },
+   "source": "results-C-v3.json aggregates"
+  }
+ ],
+ "kernel_context": {
+  "e_c_retraction": "pool-core default e_c = 0.85 constant (params.rs): v3 places low-spin arrivals at 0.84-0.94 (1.4-2.9 m/s) -- the 0.85 default is IN BAND, and v1's 'default is ~0.2 too high' conclusion is RETRACTED. Rolling arrivals rebound at 0.65 +- 0.03, close to the TP B.6 rolling-arrival anchor ~0.7 that params.rs already cites; whether the engine reproduces 0.65 for rolling arrivals is a cushion-model (spin-coupling) question, to be checked by simulating this exact protocol, not by lowering e_c.",
+  "v1_claim_retracted": "v1/v2 'cushion is dead, e 0.60-0.69 across all speeds / kernel default e_c = 0.85 is ~0.2 too high' is RETRACTED: it was a composite of the bake-clock artifact and arrival-spin confounding (results-B-v3.json timebase.x2p5_adjudication.e_distortion)"
+ },
+ "gaps": [
+  "e(v) with pure-roll arrival above 0.85 m/s: every shot faster than tier1 arrived still sliding (0.73 m run-up too short); the clean e(v) ladder spans only 0.48-0.85 m/s. Extending it needs follow strikes or a longer run-up.",
+  "no pure-roll cushion arrivals above ~1 m/s anywhere in the session: the clean rolling e(v) ladder spans only 0.48-0.98 m/s (B tier1 + c0-slide combined)",
+  "cushion restitution above ~1 m/s exists only with sliding/partial-slide arrivals (B tier2/3) or unmeasured spin (A fast cells)",
+  "A-set and C-set absolute spin decomposition unavailable (A: omega unmeasured; C: |omega| only, +-20% systematic, sign from slate)"
+ ]
+}

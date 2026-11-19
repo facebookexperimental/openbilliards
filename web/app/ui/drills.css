@@ -1,0 +1,477 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* drills.css — issue #66 practice-mode skin. LEAF stylesheet, injected by
+   web/app/drills.js as a <link> carrying ?v=<DRILLS_CSS_V> — bump the
+   constant IN drills.js on EVERY edit here (the ownership ledger CSS addendum).
+   Colors/sizes consume --ob-* tokens ONLY (tokens.css owns definitions; CI
+   grep-gates hardcoded colors). Scoped to the .ob-drills panel family, the
+   #ob-drills toolbar pill, the #ob-drill-chips HUD strip, and the
+   drill-complete hold's #banner.ob-drills-banner band (#81 finding 2 —
+   the class is set/cleared exclusively by drills.js). Labels WRAP,
+   never ellipsize (the e2e-ui --audit law; de/fr are the stress locales). */
+
+/* ---- toolbar pill: the #ob-help register (34px round icon pill, one
+   toolbar family). The fixed offset is the stale-app.html fallback ONLY —
+   `#ob-toolbar > * { position: static !important; }` neutralizes it once
+   containered. Below the help pill's slot (gear 10 / help 54). ---- */
+/* GH-668 B-K16: the pill is the kit toolbar part (drills.js stamps
+   .ob-btn.ob-btn--icon.ob-btn--glass.ob-toolbar-pill; kit.css owns the
+   material, rungs, face law, coarse 44 and reduced motion) — this sheet
+   keeps the stale-app.html fallback slot only. */
+#ob-drills {
+  position: fixed;
+  top: 98px;
+  right: 10px;
+}
+/* toolbar slot: app.html pins flex `order: 1..5` on the five sibling pills —
+   without an explicit order this pill defaults to 0 and renders LEFTMOST,
+   inverting visual vs DOM/tab order (review finding 1). Slot 6 = after the
+   help pill, matching dataset.tbOrder = '6'. Leaf-sheet rule — app.html
+   stays untouched. */
+#ob-toolbar > #ob-drills { order: 6; }
+
+/* ---- picker panel (kit .ob-panel glass register; centered like .ob-help,
+   above the z:40 chrome) ---- */
+.ob-drills {
+  position: fixed;
+  inset: 0;
+  margin: auto; /* centered via margins — motion.js owns transform */
+  z-index: var(--ob-z-dialog); /* GH-668 B-K23: the dialog rung, not a literal */
+  width: min(720px, calc(100vw - 2 * var(--ob-sp-4)));
+  height: fit-content;
+  max-height: calc(100vh - 2 * var(--ob-sp-4));
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+.ob-drills__head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ob-sp-3);
+  padding: var(--ob-sp-4) var(--ob-sp-5);
+  border-bottom: 1px dashed var(--ob-line-0);
+}
+.ob-drills__head h2 { margin: 0; } /* voice = the kit .ob-title role (drills.js stamps it; B-K13) */
+/* #ob-drills-close (GH-245 close unification): the bespoke 28px circle
+   block is RETIRED — the button carries the kit's
+   `.ob-btn .ob-btn--ghost .ob-btn--icon` (drills.js): 34px/44pt geometry,
+   ghost voice, kit rungs + focus ring. The span law stays as the stale-kit
+   belt (#49), same call as help.css. */
+.ob-drills #ob-drills-close span { display: inline-flex; align-items: center; }
+
+.ob-drills__body {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--ob-sp-3) var(--ob-sp-5) var(--ob-sp-5);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--ob-sp-2);
+}
+
+/* drill cards: the settings prov-row register, as buttons */
+.ob-drills__card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--ob-sp-1);
+  padding: var(--ob-sp-3);
+  border-radius: var(--ob-r-m);
+  border: 1px solid var(--ob-line-1);
+  background: var(--ob-bg-1);
+  color: var(--ob-text-0);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--ob-t-fast) var(--ob-ease),
+              border-color var(--ob-t-fast) var(--ob-ease);
+}
+/* GH-668 B-K15: hover rides the fine-pointer guard — a coarse pointer
+   never paints a sticky hover after the tap */
+@media (hover: hover) and (pointer: fine) {
+  .ob-drills__card:hover { background: var(--ob-bg-2); border-color: var(--ob-line-2); }
+}
+.ob-drills__card:active { background: var(--ob-bg-3); }
+.ob-drills__card:focus-visible { outline: none; box-shadow: var(--ob-focus); }
+.ob-drills__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ob-sp-2);
+  flex-wrap: wrap; /* labels wrap, never ellipsize */
+}
+.ob-drills__name {
+  font-size: var(--ob-fs-0);
+  font-weight: var(--ob-fw-semi);
+  line-height: var(--ob-lh-tight);
+}
+.ob-drills__fam { flex: 0 0 auto; }
+.ob-drills__desc {
+  font-size: var(--ob-fs--1);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-1);
+  white-space: normal;
+}
+.ob-drills__best {
+  /* the status line pins to the card foot, so siblings stretched to one
+     grid-row height keep it on one line (uiaudit F19: "Not played yet" sat
+     28 px apart in two cards of the same row) */
+  margin-top: auto;
+  font-size: var(--ob-fs--1);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-2);
+}
+
+/* tier section headings (issue GH-119): the picker groups cards by difficulty
+   (Intermediate / Advanced / Expert — Expert is the challenge category). A
+   heading spans the whole grid row; labels WRAP, never ellipsize (--audit).
+   Voice = the kit .ob-caps role (drills.js stamps it; GH-668 B-K13: size,
+   weight, --ob-track-caps, uppercase + the CJK arm live in kit.css). */
+.ob-drills__tier {
+  grid-column: 1 / -1;
+  margin: var(--ob-sp-3) 0 0;
+  white-space: normal;
+}
+.ob-drills__tier:first-child { margin-top: 0; }
+
+/* ---- HUD chip strip (hud.js chip anatomy — drills-owned node beside
+   #rack; hidden unless a drill is active) ----
+   issue GH-144 (owner build3): the strip is TWO segments — the accent name
+   pill + ONE merged status badge (drills.js joins the counter segments
+   with ' · ') — a minimal footprint everywhere. DESKTOP (this register):
+   the strip stays in the #hud right-panel flow after #rack — the panel IS
+   the edge treatment (right-edge overlay chrome) — and the merged badge
+   WRAPS INTERNALLY (max-width + white-space normal: wrap, never
+   ellipsize) so the 236px panel grows by 1-2 dense lines instead of the
+   old ~5 wrapped chip rows (#81 finding 3, the ja 1280x800 overflow).
+   PHONE geometry is §3.11's (touch.css owns band geometry): the strip
+   joins the band-T center status span, pointer-inert, single row,
+   box-cropped at the slot edge — never over the felt. */
+#ob-drill-chips { display: none; }
+#ob-drill-chips.on {
+  /* sp-1, not the panel's sp-2 rhythm (#81 finding 3): the strip runs
+     DENSE so the drills-owned rows never push the HUD panel past the
+     viewport bottom. */
+  margin-top: var(--ob-sp-1);
+  display: flex;
+  flex-wrap: wrap; /* the two segments may stack in the 236px panel */
+  gap: var(--ob-sp-1);
+  align-items: center;
+}
+/* #81 finding 3 (dense register, same law family as the margin above): the
+   NAME badge — the one kit badge left on the strip (B-K21: one line, never
+   wraps; kit.css owns its voice) — keeps the tight line-height + sp-1
+   inline padding so the drills rows never push the HUD panel past the
+   viewport bottom. */
+#ob-drill-chips .ob-badge {
+  line-height: var(--ob-lh-tight);
+  padding-inline: var(--ob-sp-1);
+}
+/* GH-668 S5 slice 4 (B-PR05 / B-K21 / B-K13): the counters are a READOUT,
+   not a badge — div.ob-drills__readout in the kit body role (.ob-body: 14 /
+   430 / --ob-text-1) with .ob-nums (issue #86 numeric-readout width law:
+   tabular digits keep every equal-digit-count tick width-stable). No caps,
+   no pill, no radius. Layout only lives here: the readout is width-capped
+   to the panel and WRAPS between segments (never ellipsizes, never clips —
+   --audit law + e2e-drills arm 2 / 6c probes) into ≤ 2 dense lines; the
+   build-4 QA atoms law is kept — each .seg is nowrap, joins are bare
+   ' · ' text inside the .segs inline wrapper, so a counter value never
+   orphans from its label (ja broke between スコア and 0/15). */
+#ob-drill-chips .ob-drills__readout {
+  min-width: 0;
+  max-width: 100%;
+  line-height: var(--ob-lh-tight);
+  white-space: normal;
+}
+#ob-drill-chips .ob-drills__readout .seg { white-space: nowrap; }
+/* ==== icon dock (issue GH-120) ================================================
+   The drill ACTION buttons (picker opener / Reset / STOP) as compact SVG
+   icon pills, docked OUT of the aim/shoot zone (the owner's on-device
+   mis-tap finding). Drills-owned fixed chrome outside the §3.11 bands (the
+   .ob-drills-banner precedent). Desktop register: bottom-right horizontal
+   row in the #ob-drills 34px round-pill voice (#help hint bar is LEFT-
+   anchored; the bottom-right corner is free floor at every desktop
+   register). The CONTAINER is pointer-inert so gaps between buttons never
+   eat canvas clicks; each button re-enables its own events. The HUD rung
+   (--ob-z-hud, 7): above the passive #banner transient (z 6), TIED with
+   desktop #hud-hint (hud.js) — the dock still paints over it by DOM order
+   (drills.js appends the dock after hud.js's boot-time hint; the 27%-top
+   hint never reaches this bottom row anyway) — BELOW #hud-decision
+   (--ob-z-shell): a pending decision panel outranks drill chrome — and far
+   below the chrome and dialog rungs.
+   GH-668 S5 slice 4 (B-PR08 / B-K16): each button IS the kit toolbar part
+   (.ob-btn.ob-btn--icon.ob-btn--glass.ob-toolbar-pill, stamped by
+   drills.js) — kit.css owns the 34 / 44 circle, the glass material, the
+   fine-guarded hover / active ladder, the focus ring, the span face law
+   and reduced motion. This sheet keeps the CONTAINER geometry and the
+   per-button pointer re-enable only. */
+#ob-drill-dock { display: none; }
+#ob-drill-dock.on {
+  position: fixed;
+  right: var(--ob-sp-3);
+  bottom: var(--ob-sp-3);
+  z-index: var(--ob-z-hud);
+  display: flex;
+  flex-direction: row;
+  gap: var(--ob-sp-2);
+  pointer-events: none;
+}
+#ob-drill-dock > button { pointer-events: auto; }
+/* the destructive STOP rests one register quieter — full danger voice
+   lives in the confirm dialog (kit .ob-confirm--danger). Two-id selector:
+   a VOICE override on the kit part (disclosed: one line, ink only — the
+   material, rungs and ring stay the kit's). */
+#ob-drill-dock > #ob-drill-stop { color: var(--ob-text-1); }
+
+/* ==== PHONE SHEET (the 024 help.css register, verbatim discipline): DOUBLY
+   gated — .ob-touch root class (set only by touch.js installTouch) AND
+   (pointer: coarse) — fine-pointer computed styles stay byte-identical. ==== */
+@media (pointer: coarse) {
+  .ob-touch .ob-drills {
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+    border: 0;
+  }
+  .ob-touch .ob-drills .ob-drills__head {
+    padding: calc(env(safe-area-inset-top, 0px) + var(--ob-sp-3))
+      calc(env(safe-area-inset-right, 0px) + var(--ob-sp-4))
+      var(--ob-sp-3)
+      calc(env(safe-area-inset-left, 0px) + var(--ob-sp-4));
+  }
+  .ob-touch .ob-drills .ob-drills__body {
+    touch-action: pan-y;
+    /* #81 finding 1: the sheet gives this grid a DEFINITE 100dvh-derived
+       height, and stretch-sized auto rows collapsed every card to its
+       44px floor — description + best line clipped. max-content rows
+       size each card to its full content (~110px); the body scrolls. */
+    grid-auto-rows: max-content;
+    padding: var(--ob-sp-2)
+      calc(env(safe-area-inset-right, 0px) + var(--ob-sp-4))
+      calc(env(safe-area-inset-bottom, 0px) + var(--ob-sp-4))
+      calc(env(safe-area-inset-left, 0px) + var(--ob-sp-4));
+  }
+  /* 44pt touch-target floors (014 tap-target law) — the close button's 44
+     circle is the kit .ob-btn--icon coarse rung (GH-668 B-K23) */
+  .ob-touch .ob-drills .ob-drills__card { min-height: 44px; }
+  /* the toolbar pill joins the gear's coarse-pointer register (the 024
+     help.css T025 finding, same double gate; covers the fixed-offset
+     fallback placement too) */
+  /* (the pill's coarse 44 circle + fs-3 fallback glyph are the kit's since
+     GH-668 B-K16) */
+  /* (the dock buttons' coarse 44 circle + fs-3 fallback glyph are the kit
+     toolbar part's since GH-668 B-PR08 / B-K16; tablets keep the desktop
+     bottom-right anchor) */
+}
+
+/* ==== icon dock — PHONE register (issue GH-120; §3.11-aware geometry) =========
+   On phones the bottom edge is over-subscribed: the band-X reason-hint lane
+   (top 288..334 while the rail is up — GH-144 re-keyed the s2 bump on this
+   rail) crosses ANY 44pt bottom row on ≤430px-tall landscape once the
+   audit's safe-area insets land (measured pre-GH-144: dock top 313..319 vs
+   hint bottom 334 at 844x390/667x375 + safe-b 21). The RIGHT COLUMN below
+   the call-pill slot is instead height-INDEPENDENT free space: the pill's
+   forced copy bottoms at band-t+46 in all 7 locales (measured ≤54px), the
+   band-X banner lane starts at a fixed y (=176 while the rail is up — the
+   §3.11 GH-144 dock-keyed bump reserves exactly this rail's depth), and the
+   spin button sits below it — so a vertical 2×44pt rail at top
+   band-s+sp-2 (y 68..160) clears every §3.11 member at 667x375 / 844x390
+   / 926x428 × en/de/ja with margin. The OPENER hides here: on phones the
+   sanctioned picker opener is the band-T toolbar pill (#ob-drills), whose
+   44pt corner slot --ob-corner-l already reserves (recorded decision — a
+   third dock button cannot fit the free window). GH-144 relocated the drill
+   chip strip to the band-T center span, so the old strip max-width
+   retreat off this column is gone with it (§3.11 owns band geometry).
+   Same double gate + phone width cap as the touch.css band rules; band
+   tokens carry fallbacks for a stale-touch.css pairing. */
+@media (pointer: coarse) and (max-width: 1023.98px) {
+  /* GH-150 single-column amendment: the column top moved sp-2 → sp-1
+     (64px — the call pill's worst forced copy bottoms at 54px, 10px
+     clear) so the co-present record dock (record.js stacks it DIRECTLY
+     below this rail in the same x column, one 44px slot per visible
+     member + sp-1 gaps) bottoms at 204px, 2px above the AIM spin button
+     (top 206px) at the tightest audited register (667x375 + safe-area).
+     touch.css §3.11's GH-144 band-X bump mirrors the same inset. */
+  html.ob-touch #ob-drill-dock.on {
+    top: calc(var(--ob-band-s, 60px) + var(--ob-sp-1));
+    right: calc(var(--ob-safe-r, env(safe-area-inset-right, 0px)) + var(--ob-sp-2));
+    bottom: auto;
+    left: auto;
+    flex-direction: column;
+    gap: var(--ob-sp-1);
+  }
+  html.ob-touch #ob-drill-dock #ob-drill-open { display: none; }
+  /* GH-370 (review r5 P2): the voluntary-BIH drill button (✋, rotation15)
+     would be a THIRD 44pt row on this rail — the audited free window holds
+     exactly two (a 3-row rail bottoms ~212px, past the AIM spin button's
+     top 206px at 667x375 + safe-area; the comment above records the
+     measurement). Keep the audited 2x44 geometry: while the ✋ is present,
+     RESET yields its slot — its function stays reachable on phone through
+     the picker card (a same-id tap IS the confirmed restart path, the
+     GH-120 dockHold law), whereas the ✋ has no alternative surface. The
+     desktop pill row keeps all four buttons. */
+  html.ob-touch #ob-drill-dock.on:has(#ob-drill-bih) #ob-drill-reset {
+    display: none;
+  }
+
+  /* GH-668 S5 slice 4 B-PR03: the strip docks to band T's RENDERED right
+     edge. §3.11 anchors #hud at safe-l + --ob-corner-l (a FOUR-pill
+     reservation) and #ob-drills is the FIFTH toolbar pill — it painted
+     over the strip's first ~48 px (844x390: pill x 279..323, strip left
+     275). drills.js measures #ob-toolbar.right + sp-2 − #hud.left
+     (uiaudit, the F37 strip gap: never the band-T seam, which is #hud's
+     own left edge, already sp-2 past the toolbar) and writes it INLINE
+     as --drills-slot-l
+     (component-local, the --fs-* precedent); this is the strip's OWN
+     inset inside the slot it already owns — band GEOMETRY (anchor, caps,
+     crop) stays touch.css's. Absent property (fine pointer, stale
+     drills.js) = 0 = today's geometry. The caps subtract the right
+     column; the inset shrinks the slot from the LEFT, so the single-row
+     crop law holds. The mode-chip drop + the balanced two-line hint
+     under a live drill are §3.11 HUD-family rules (slice 3): the audit
+     reads a display:none indicator that is not .ob-band-drop as a
+     defect, so they are NOT drawn here. */
+  html.ob-touch #hud #ob-drill-chips.on {
+    margin-inline-start: var(--drills-slot-l, 0px);
+  }
+}
+
+/* ==== drill-end notice (GH-668 S5 slice 4 B-PR05 / R11; was the #81
+   finding-2 #banner.ob-drills-banner park) ====================================
+   The end message is div#ob-drill-end, the kit NOTICE register (kit.css
+   .ob-prompt--notice owns: bottom 84 px fine / 88 px + safe-area coarse,
+   max-width min(480px, 56vw) coarse, the --ob-info-line top edge, the solid
+   rung, balanced wrapping, pointer-events none) — so the old coarse
+   landscape park (bottom 88 px, 120 px side clears) is the kit's own
+   placement now and no rule restates it. drills.js toggles
+   .ob-drills-banner on the notice for exactly the hold window: touch.css
+   §3.11 `html.ob-touch:has(.ob-drills-banner) #hud-hint` yields the reason
+   hint band to it (the seam stays single-owned there — never re-anchor the
+   notice here to dodge the hint). The verdict is TWO lines at 60ch: the
+   kit title role (name · score) and the body role (the sentence-case
+   verdict) — no caps literal, no tone class. The 60ch measure (G8 /
+   B-K01) sits on the LINES, so the kit's frame bounds (480 px / 56vw /
+   viewport − 32) stay the kit's. */
+#ob-drill-end > * { max-width: 60ch; }
+/* the hall opening hides the table-side chrome (the dock hides with it):
+   the notice follows — visibility, because drills.js flips the inline
+   display for the enter / exit flip (motion.js reads it). The DVR is the
+   same law (GH-668 S5 slice 4 round 9, review r1 P2-2): playback.css's
+   live-bed list (`html.ob-pb-live #banner, #hud, …`) stands the table-side
+   chrome down while the player is open, but the notice is a BODY-level
+   node the list never named — an archived session opened while the final
+   drill shot settles (openPlayer() awaits the settle; complete() mounts the
+   notice at it) left the verdict painted over the DVR for the rest of its
+   hold. Restated here, on the notice's own rule, under the same
+   `html.ob-pb-live` flag (visibility, not display: the hold's own timer
+   and motion flip keep working underneath; after the close the notice is
+   simply visible again if still inside its hold). */
+body.ob-shell-open #ob-drill-end,
+html.ob-pb-live #ob-drill-end { visibility: hidden; }
+
+/* ==== band-T readout register (phone) ========================================
+   touch.css §3.11 pins the strip's badges whole (nowrap, cap lifted) and
+   lets the STRIP BOX crop at the slot edge — its rule addresses
+   `#ob-drill-chips .ob-badge`; the readout is no longer a badge (B-PR05),
+   so the single-row law is restated for it HERE under the same double gate
+   (GH-668 slice-3 follow-up: fold this line into the §3.11 strip rule and
+   delete it here). */
+@media (pointer: coarse) and (max-width: 1023.98px) {
+  /* GH-668 S5 slice 4 round 10 (review r2 P2-1, the whole-chip rule): the
+     strip may WRAP on every coarse register — the readout STACKS under the
+     name badge when the two cannot share the strip's cap (es lineup-l-e2m
+     at 844×390 SA: badge 243.6 + readout 227.8 px in the 458 px cap ran
+     15 px past the clip under the single-row crop; at 667 the shrunken
+     readout cut its counters mid-glyph). touch.css §3.11 pins nowrap on
+     the plain selector; the `:has(#ob-drill-stop)` form here outranks it
+     by SPECIFICITY on every live register (measured round 11: computed
+     flex-wrap = wrap under either sheet order).
+     Round 11 (R10 checker P1, v21): the CAP below is NOT order-proof —
+     touch.css §3.11 carries the same `:has(#ob-drill-stop)` form for its
+     viewport cap, so the two tie and the cascade ORDER decides; both
+     sheets are link-injected by dynamic imports (main.js: drills.js, then
+     touch.js) and on the shipped phone boot touch.css lands LATER, so its
+     cap won (572 px at 844 SA, 395 px at 667 SA — the strip ran past #hud's
+     clip and the counters were cut on a native boot while the arm's own
+     boot ordered the sheets the other way). The in-force carrier is now
+     the INLINE declaration drills.js slotDerive() writes on the same coarse
+     band (max-width = this room, flex-wrap wrap — an inline outranks every
+     author rule whatever the order); the rules here are the declarative
+     RESTATEMENT of that law, never deleted (restated-not-deleted law). */
+  html.ob-touch #hud #ob-drill-chips.on,
+  html.ob-touch:has(#ob-drill-stop) #hud #ob-drill-chips.on {
+    flex-wrap: wrap;
+    /* the strip's cap is the ROOM (#hud's content width minus the strip's
+       own slot inset) on EVERY coarse register — the ≤ 700 px block below
+       first stated it for the small phone; at 844 SA the touch.css
+       viewport-derived cap (~558 px) never bound the 473 px strip, so the
+       wrap had nothing to wrap against and the strip box ran 15 px past
+       #hud's clip (es lineup-l-e2m, P-L GREEN run 1). Both selector forms
+       of the touch.css cap restated (the live one is (1,3,2)); the
+       ORDER-PROOF copy is the slotDerive inline (round 11). */
+    max-width: calc(100% - var(--drills-slot-l, 0px));
+  }
+  html.ob-touch #hud #ob-drill-chips .ob-drills__readout {
+    /* round 10 (review r2 P2-1): the readout's ROW is decided by its
+       content-based minimum (min-width auto — here the whole nowrap line,
+       under 700 px the widest atom), basis 0 so the line-break test uses
+       exactly that width: it shares the strip when the badge + that width
+       fit (and grows into the rest), else it wraps WHOLE onto the strip's
+       second row — never a shrunken box, never a crop (`0 0 auto` let the
+       strip box crop it; `0 1 auto` + `min-width: 0` under 700 px let it
+       shrink below its own atoms). e2e-practice P-L judges the three
+       longest catalog names at 667 / 844 SA; e2e-drills'
+       DRILLS_BAND_WALKER keeps the one-line readout law above 700 px (a
+       stacked readout is still one line). */
+    flex: 1 1 0;
+    min-width: auto;
+    white-space: nowrap;
+    max-width: none;
+  }
+}
+/* TIGHT-PHONE FIT (GH-668 S5 slice 4 verifier round 1, P1-c): at the small
+   phone (667×375 + the notch insets — the e2e-ui audit's tightest preset)
+   the single-row readout ran 32 px past the strip's live cap and the strip
+   box cropped it MID-GLYPH ("Score (") — the one register where the band-T
+   row cannot hold the badge and the whole readout. Under ~700 px the readout
+   takes its TWO-ROW form (the PLAN §4 .ob-readout panel form): it wraps
+   BETWEEN its nowrap .seg atoms into ≤ 2 dense lines inside the capped
+   strip — never a cut, never an ellipsis. Round 10 (review r2 P2-1): the
+   width it yields is bounded by its WIDEST ATOM (min-width auto, basis 0 —
+   the band-T rule above), so beside a long name badge it stacks under the
+   name instead of shrinking below a counter (the round-9 `0 1 auto` +
+   `min-width: 0` form cut "Score 0/15" at 50 px). Same double gate as the
+   row above (+ the width), later in the sheet at equal specificity, so it
+   wins only where it applies; DRILLS_BAND_WALKER (e2e-drills.mjs) judges
+   every glyph rect against the strip's clip rect on every register and
+   allows 2 line boxes only here. */
+@media (pointer: coarse) and (max-width: 700px) {
+  /* the STRIP's cap: touch.css §3.11 pins the strip flex 0 0 auto in the
+     #hud row under a viewport-derived max-width (the live cap: 100vw − safe
+     − gauge − sp-2 − 116 = 395 px at 667) that does not know the strip's
+     own slot inset (--drills-slot-l, arm 28) nor #hud's rendered box — so
+     at 667 the strip's box (311 px of content from x 331) ran past #hud's
+     clip edge (612) whatever the readout did inside it, and a flex-shrink
+     strip collapsed to 11 px under the row's other members (lab). The cap
+     here is the ROOM: #hud's content width minus the strip's own inset —
+     the strip keeps 0 0 auto (never a shrink casualty), the readout below
+     yields inside it. Both selector forms of the touch.css cap restated
+     (the live one carries :has(#ob-drill-stop) at (1,3,2)), later in the
+     cascade, so this cap wins on every live register under 700 px. */
+  html.ob-touch #hud #ob-drill-chips.on,
+  html.ob-touch:has(#ob-drill-stop) #hud #ob-drill-chips.on {
+    max-width: calc(100% - var(--drills-slot-l, 0px)); /* restated: the band-T block above carries it for every coarse register (round 10); the order-proof copy is the drills.js slotDerive inline (round 11) */
+  }
+  html.ob-touch #hud #ob-drill-chips .ob-drills__readout {
+    flex: 1 1 0; /* round 10: restated from the band-T rule (widest-atom row) */
+    min-width: auto;
+    white-space: normal;
+    max-width: 100%;
+  }
+}
+
+/* (reduced motion for the pill: kit.css .ob-btn since GH-668 B-K16) */

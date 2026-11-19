@@ -1,0 +1,56 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* ui/swupdate.css — the service-worker update notice (issue #1047).
+   swupdate.js builds div#ob-update as a kit .ob-prompt (title + an actions
+   row of kit pills) and links this sheet with its ?v=. The kit owns the box,
+   the type roles and the pills; this sheet owns the one-row layout,
+   placement and the ground.
+   LAYOUT: title and pills on ONE row (wrapping when the viewport is narrow —
+   labels never ellipsize), so the notice stays one control row tall.
+   PLACEMENT: fine pointers — top centre (the routed-prompt geometry: sp-3 +
+   safe-area, centred by inset-inline + auto margins on the kit's
+   fit-content box; the toolbar sits top-left, the HUD panel top-right),
+   and below the hall's routed decision prompt while one is up (its
+   published bottom edge, --ob-shell-decision-bottom: a rule-required
+   choice is never covered). `position: fixed` is restated here so a stale
+   or missing kit.css never drops the notice into the flow under the
+   canvas.
+   Coarse pointers — the notice WAITS for the hall: at the table it is
+   hidden and takes no hits (nothing may cover the playfield or the fire /
+   power controls; a reload mid-game interrupts play anyway), and with the
+   hall open it sits at the kit NOTICE register's bottom (88 px +
+   safe-area, above the 66 px coarse rail band).
+   LAYER: the toolbar's (chrome) — above the hall and the HUD, below the
+   replay player and every modal or dialog, which it never covers.
+   GROUND: the solid rung (B-K14 — text-dense micro-chrome over a lit scene
+   must not depend on what is under it). */
+#ob-update {
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--ob-sp-4);
+  row-gap: var(--ob-sp-2);
+  top: calc(var(--ob-sp-3) + env(safe-area-inset-top, 0px));
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  z-index: var(--ob-z-chrome);
+  background-color: var(--ob-glass-solid);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+#ob-update > .ob-prompt__actions { margin-top: 0; }
+html.ob-shell-decision-up:not(.ob-touch) body.ob-shell-open #ob-update {
+  top: calc(var(--ob-shell-decision-bottom, 0px) + var(--ob-sp-2));
+}
+@media (pointer: coarse) {
+  html.ob-touch #ob-update {
+    top: auto;
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  }
+  html.ob-touch body:not(.ob-shell-open) #ob-update {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}

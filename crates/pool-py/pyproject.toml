@@ -1,0 +1,43 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+[build-system]
+requires = ["maturin>=1.14,<2"]  # PEP 639 license expression + license-files (verified with 1.14.1)
+build-backend = "maturin"
+
+[project]
+# Distribution name is the decided public name (feature 017, research R9);
+# the importable module stays `pool_py`.
+name = "openbilliards"
+description = "Python SDK for the openbilliards deterministic billiards kernel (pool-core)"
+readme = "README.md"
+# MIT for the OpenBilliards code; the wheel links pool-core, part of which is
+# pooltool code under Apache-2.0 (THIRD_PARTY_NOTICES.md), so the Apache text
+# and the pooltool NOTICE ride in the wheel's .dist-info/licenses/.
+license = "MIT AND Apache-2.0"
+license-files = ["LICENSE-Apache-2.0.txt", "NOTICE-pooltool.txt"]
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.21"]
+classifiers = [
+    # PyPI-side interlock (feature 017, contracts/export-surface.md §2):
+    # PyPI rejects any upload carrying a "Private ::" classifier, so a
+    # committed wheel can never be published by accident. Every committed
+    # tree keeps this line; the flip dry-run strips it on scratch copies
+    # ONLY (scripts/opensource/flip-pypi.mjs).
+    "Private :: Do Not Upload",
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Games/Entertainment :: Simulation",
+]
+dynamic = ["version"]
+
+[project.urls]
+repository = "https://github.com/facebookexperimental/openbilliards"
+
+[tool.maturin]
+# The importable module is `pool_py`; the wheel/distribution is
+# `openbilliards`. The abi3-py39 wheel floor (one wheel per platform,
+# CPython >= 3.9) comes from the crate's pyo3 `abi3-py39` feature.
+module-name = "pool_py"
+# cargo test/clippy build WITHOUT extension-module (so the host link works);
+# only the maturin-built artifact enables it.
+features = ["pyo3/extension-module"]

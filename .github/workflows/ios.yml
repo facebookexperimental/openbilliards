@@ -1,0 +1,353 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+# CI gates for the native iOS shell (feature 016, FR-015;
+# contracts/test-pyramid.md 6). The standing web CI (ci.yml, pages.yml) is
+# byte-untouched (SC-004).
+#
+# Two jobs:
+#   shellcore  — runs on ANY macOS runner (no Xcode/Simulator dependency):
+#                ShellCore swift test (L1 logic core, Foundation-only),
+#                bundle manifest generate+verify (SC-002 tool arm), the
+#                replay-link URL type lint (GH-1023), and the web-side
+#                haptics probes (SC-004 inertness / SC-005 seam).
+#   simulator  — the Xcode arm (xcodegen + xcodebuild L1-in-Xcode/L2/L3/L4).
+#                GATE STATUS: ENABLED (T038, 2026-07-10) — the repository
+#                variable IOS_SIMULATOR_CI is set to 'enabled' and hosted
+#                GitHub macOS runners are available to this repository
+#                (verified by run history on this workflow).
+#                EXECUTION STATUS (T038 closure, 2026-07-11): TOTAL GREEN —
+#                run 29152807121 @ b5e31ca: xcodegen + build-for-testing +
+#                L1 AppTests (6/6 incl. scheme-served wasm bytes) + L2
+#                ComponentTree + L3 ALL FIVE scenarios (fullrack incl. the
+#                called-8 terminal, gestures, determinism SC-003 byte gate,
+#                lifecycle SC-006 verified suspension, haptics SC-005
+#                counter reconciliation) ALL PASS on the pinned-UDID hosted
+#                simulator. The four wave-3 L3 threads + follow-on reds
+#                were closed by the 016 L3 fix rounds on main (e42857b ->
+#                7c4fd5f -> 8dd7683 -> 42ca3dd -> b25af4e -> f2f7e68 ->
+#                a081f8b -> b5e31ca); per-thread evidence in the
+#                wave-3 execution ledger of the iOS acceptance records.
+#                L4 acceptance stays recorded-blocked (loud warning, never
+#                a silent pass) until the OB_JUDGE_CMD repository variable
+#                provides a judging agent — the documented total-green exit
+#                condition on a judge-less runner. T038 is ticked.
+#
+# T038 recorded deviation (2026-07-10): node-version bumped 20 -> 22 in
+# both jobs — the repo's CDP harness (web/tools/cdp.mjs) uses the global
+# WebSocket API, which Node 20 does not ship (first CI run failed with
+# ReferenceError at the --inert probe); 22 matches the standing web CI
+# (ci.yml). workflow_dispatch added so the gate can be re-verified without
+# a shell-path push (this file is not in its own paths filter).
+name: ios
+
+on:
+  push:
+    branches: [main]
+    paths:
+      # Shell tree + the exact web files the haptics gates depend on:
+      # sound.js is the deriveCues single source (haptics-bridge.md 1 —
+      # both SC-005 arms derive expectations from it; the standing web CI
+      # runs NO haptics gate, so without this entry a cue-derivation
+      # change would land ungated). cdp/touch-cdp are the probe harness
+      # the shellcore job executes; the workflow file gates itself.
+      - "ios/**"
+      - "tools/notice-inventory.mjs"
+      - "web/app/haptics.js"
+      - "web/app/main.js"
+      - "web/app/sound.js"
+      - "web/tools/e2e-haptics.mjs"
+      - "web/tools/cdp.mjs"
+      - "web/tools/touch-cdp.mjs"
+      # GH-294 review r1 P2: the shellcore job installs the browser this
+      # pin names — a pin bump must run the hosted-mac haptics gates.
+      - "web/tools/chrome-shell.pin"
+      - ".github/workflows/ios.yml"
+  pull_request:
+    paths:
+      - "ios/**"
+      - "tools/notice-inventory.mjs"
+      - "web/app/haptics.js"
+      - "web/app/main.js"
+      - "web/app/sound.js"
+      - "web/tools/e2e-haptics.mjs"
+      - "web/tools/cdp.mjs"
+      - "web/tools/touch-cdp.mjs"
+      - "web/tools/chrome-shell.pin"
+      - ".github/workflows/ios.yml"
+  workflow_dispatch:
+
+jobs:
+  shellcore:
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # L1 logic core (contracts/test-pyramid.md 0/1): Foundation-only
+      # SwiftPM package, no iOS SDK required.
+      - name: ShellCore unit suite (swift test)
+        working-directory: ios/ShellCore
+        run: swift test
+      # SC-002 tool arm (contracts/game-bundle.md 3): sync web/ into the
+      # app resource tree, then independently re-hash BOTH sides against
+      # the manifest.
+      - name: Bundle manifest generate + verify
+        run: |
+          node ios/tools/bundle-manifest.mjs generate
+          node ios/tools/bundle-manifest.mjs verify
+      # GH-1023: the app-owned replay link scheme is registered (CFBundleURLTypes)
+      # and is the very scheme ShellCore ReplayLink accepts — share.js mints
+      # openbilliards://replay#r=… inside the shell, so a lost registration would
+      # copy links that open nothing again.
+      - name: Replay link URL type lint (GH-1023)
+        run: |
+          plutil -lint ios/App/Info.plist
+          plutil -convert json -o /tmp/url-types.json ios/App/Info.plist
+          node -e '
+            const fs = require("node:fs");
+            const info = JSON.parse(fs.readFileSync("/tmp/url-types.json", "utf8"));
+            const src = fs.readFileSync("ios/ShellCore/Sources/ShellCore/ReplayLink.swift", "utf8");
+            const scheme = /public static let scheme = "([a-z]+)"/.exec(src)?.[1];
+            const types = Array.isArray(info.CFBundleURLTypes) ? info.CFBundleURLTypes : [];
+            const schemes = types.flatMap((t) => t.CFBundleURLSchemes ?? []);
+            if (!scheme || !schemes.includes(scheme)) {
+              console.error("URL type lint FAIL: CFBundleURLSchemes", schemes, "lacks ReplayLink.scheme", scheme);
+              process.exit(1);
+            }
+            console.log("URL type lint OK:", scheme, "registered");
+          '
+      # Web-side haptics gates (contracts/haptics-bridge.md 6; SC-004
+      # inertness, SC-005 at the seam). GH-294: the CDP harness resolves the
+      # PINNED chrome-headless-shell (web/tools/chrome-shell.pin) from the
+      # puppeteer cache and no longer falls back to a stock Chrome app —
+      # install it here (hosted image, fresh every run). CHROME_BIN still
+      # overrides if an image ever needs it.
+      - name: Install pinned chrome-headless-shell (GH-294)
+        run: >
+          npx --yes @puppeteer/browsers install
+          "chrome-headless-shell@$(cat web/tools/chrome-shell.pin)"
+          --path "$HOME/.cache/puppeteer"
+      - name: Haptics inertness probe (--inert)
+        run: node web/tools/e2e-haptics.mjs --inert
+      - name: Haptics seam gate (--seam)
+        run: node web/tools/e2e-haptics.mjs --seam
+      - name: Upload failure screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shellcore-failure-artifacts
+          path: web/e2e-*.png
+          if-no-files-found: ignore
+
+  simulator:
+    # Env-gated Xcode arm (FR-015; test-pyramid.md 6): flip the repository
+    # variable IOS_SIMULATOR_CI to 'enabled' to execute (T038). Gate status
+    # is recorded in the workflow header comment above.
+    if: vars.IOS_SIMULATOR_CI == 'enabled'
+    runs-on: macos-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # GH-294 review r3 P1: L3's e2e-ios.mjs webReferenceRecord drives
+      # launchChrome (web/tools/cdp.mjs), which resolves ONLY the pinned
+      # shell — this job runs on its own fresh macOS VM, so it installs the
+      # pin exactly like shellcore does.
+      - name: Install pinned chrome-headless-shell (GH-294)
+        run: >
+          npx --yes @puppeteer/browsers install
+          "chrome-headless-shell@$(cat web/tools/chrome-shell.pin)"
+          --path "$HOME/.cache/puppeteer"
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      # T038 recorded deviation (2026-07-10): the macos-15 image's default
+      # Xcode exposed ZERO iOS Simulator destinations (run 29131330559
+      # failed with "Unable to find a device matching iPhone 16"). Select
+      # the newest installed Xcode, pull the iOS platform if the image
+      # ships none, and guarantee the pinned 'iPhone 16' device exists
+      # (quickstart par.4/par.6 and ios/tools default to that name).
+      # 016 L3 round 1 (run 29143460510): runner images can carry MULTIPLE
+      # 'iPhone 16' devices (one per installed iOS runtime) — name-based
+      # -destination selection and e2e-ios.mjs pickSimulator() then resolve
+      # DIFFERENT devices (xcodebuild installed the app on the 26.2 device,
+      # the L3 driver watched the 26.5 one: "app container unavailable" for
+      # all five scenarios). Resolve ONE UDID here (newest-runtime iPhone
+      # 16, created when absent) and pin EVERY later step to it via
+      # OB_IOS_UDID (e2e-ios.mjs honors it natively).
+      - name: Select Xcode + ensure iPhone 16 simulator
+        run: |
+          sudo xcode-select -s "$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)"
+          xcodebuild -version
+          if ! xcrun simctl list runtimes | grep -q "^iOS"; then
+            sudo xcodebuild -downloadPlatform iOS
+          fi
+          xcrun simctl list runtimes
+          UDID="$(node -e '
+            const { execSync } = require("node:child_process");
+            const list = JSON.parse(execSync(
+              "xcrun simctl list -j devices available", { encoding: "utf8" }));
+            const runtimes = Object.keys(list.devices)
+              .filter((k) => /SimRuntime\.iOS/.test(k))
+              .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+            let pick = null;
+            for (const rt of runtimes)
+              for (const d of list.devices[rt])
+                if (d.name === "iPhone 16" && d.isAvailable) pick = d.udid;
+            if (pick) process.stdout.write(pick);
+          ')"
+          if [ -z "$UDID" ]; then
+            RUNTIME_ID="$(xcrun simctl list runtimes | sed -n 's/.*iOS.*- \(com.apple.CoreSimulator.SimRuntime.iOS[^ ]*\)$/\1/p' | tail -1)"
+            UDID="$(xcrun simctl create "iPhone 16" com.apple.CoreSimulator.SimDeviceType.iPhone-16 "$RUNTIME_ID")"
+          fi
+          echo "pinned simulator: $UDID"
+          echo "OB_IOS_UDID=$UDID" >> "$GITHUB_ENV"
+          xcrun simctl list devices available | grep "iPhone" | head -5
+      # The gitignored owner overlay does not exist on CI; xcodegen's
+      # missingConfigFiles validation is disabled but xcodebuild still
+      # errors on the dangling baseConfiguration reference. An EMPTY file
+      # is correct for the unsigned simulator build (distribution.md 1).
+      - name: Provide empty Signing.xcconfig (unsigned simulator build)
+        run: touch ios/Signing.xcconfig
+      - name: Generate project
+        run: xcodegen generate --spec ios/project.yml
+      # Build once; the pre-build script phase re-runs bundle-manifest
+      # generate+verify (SC-002 build arm). Unsigned: simulator only.
+      # T038 recorded deviation (2026-07-10): xcodebuild steps run from
+      # ios/ (the scheme's container-relative test plan references failed
+      # to read when invoked from the repo root — run 29131593812) and pin
+      # -derivedDataPath DerivedData so L3's e2e-ios.mjs finds the
+      # .xctestrun at its documented ios/DerivedData default.
+      - name: Build (iPhone Simulator)
+        working-directory: ios
+        run: |
+          xcodebuild build-for-testing \
+            -project OpenBilliards.xcodeproj \
+            -scheme OpenBilliards \
+            -destination "platform=iOS Simulator,id=$OB_IOS_UDID" \
+            -derivedDataPath DerivedData \
+            CODE_SIGNING_ALLOWED=NO
+      # L1 in-Xcode arm (AppTests: bundle integrity / served-bytes checks).
+      - name: L1 AppTests
+        working-directory: ios
+        run: |
+          xcodebuild test-without-building \
+            -project OpenBilliards.xcodeproj \
+            -scheme OpenBilliards \
+            -destination "platform=iOS Simulator,id=$OB_IOS_UDID" \
+            -derivedDataPath DerivedData \
+            -only-testing AppTests
+      # L2 component tree (XCUITest, ComponentTree plan).
+      - name: L2 ComponentTree
+        working-directory: ios
+        run: |
+          xcodebuild test-without-building \
+            -project OpenBilliards.xcodeproj \
+            -scheme OpenBilliards \
+            -destination "platform=iOS Simulator,id=$OB_IOS_UDID" \
+            -derivedDataPath DerivedData \
+            -only-testing AppUITests/ComponentTree
+      # L3 simulator e2e on the 014 scenario tables (SC-001/003/005/006
+      # execution arms). All five scenarios run even after a failure
+      # (maximum signal per CI iteration); the seam mirror for a failing
+      # scenario is dumped inline for log-only triage.
+      - name: L3 scenarios (e2e-ios.mjs)
+        run: |
+          status=0
+          export OB_CHECKPOINT_SHOT_DIR=/tmp/e2e-ios-shots
+          mkdir -p "$OB_CHECKPOINT_SHOT_DIR"
+          for s in fullrack gestures determinism lifecycle haptics; do
+            if ! node ios/tools/e2e-ios.mjs --scenario "$s"; then
+              status=1
+              echo "::group::seam mirror for failed scenario $s"
+              # capped per file: the full bytes ride the ios-l3-evidence
+              # artifact; an uncapped record-1.json (70 KB single line)
+              # breaks gh-run-view log retrieval for everything after it
+              for f in /tmp/e2e-ios-$s/*.json; do
+                if [ -f "$f" ]; then
+                  echo "--- $f"
+                  head -c 4096 "$f" || true
+                  echo
+                fi
+              done
+              echo "::endgroup::"
+            fi
+          done
+          exit $status
+      # L4 screenshot acceptance with archived verdicts (FR-014). The
+      # judging agent is environment-pluggable: set the repository
+      # variable OB_JUDGE_CMD to enable verdicts. Without one,
+      # acceptance.mjs exits 3 (recorded-blocked, never a silent pass);
+      # the workflow surfaces that as a loud warning annotation instead
+      # of a permanent red — otherwise the simulator job could NEVER go
+      # total green (the T038 exit condition) on a judge-less runner
+      # while L1-L3 remain the executable gates.
+      - name: L4 acceptance (acceptance.mjs)
+        env:
+          OB_JUDGE_CMD: ${{ vars.OB_JUDGE_CMD }}
+        run: |
+          set +e
+          node ios/tools/acceptance.mjs --out "$RUNNER_TEMP/ios-acceptance"
+          code=$?
+          set -e
+          if [ "$code" -eq 3 ]; then
+            echo "::warning title=L4 acceptance recorded-blocked::acceptance.mjs exited 3 (no judging agent; set repository variable OB_JUDGE_CMD to judge screenshots against ios/tools/acceptance/expectations — FR-014). Recorded-blocked, not a silent pass."
+            exit 0
+          fi
+          exit "$code"
+      # Root-cause probe when L3/L4 fail: boot the app DIRECTLY via
+      # simctl (no XCUITest in the loop), read the LIVE container's seam
+      # files (status.json carries __obErrors/href/readyState), and
+      # screenshot both the scripted and the unstamped boot.
+      - name: L3 postmortem (direct simctl boot probe)
+        if: failure()
+        run: |
+          UDID="${OB_IOS_UDID:-$(xcrun simctl list devices available | sed -n 's/.*iPhone 16 (\([0-9A-F-]*\)).*/\1/p' | head -1)}"
+          echo "udid: $UDID"
+          xcrun simctl bootstatus "$UDID" -b || true
+          APP=ios/DerivedData/Build/Products/Debug-iphonesimulator/OpenBilliards.app
+          xcrun simctl install "$UDID" "$APP" || true
+          mkdir -p /tmp/postmortem
+          for mode in scripted unstamped; do
+            xcrun simctl terminate "$UDID" org.openbilliards.app 2>/dev/null || true
+            if [ "$mode" = scripted ]; then
+              xcrun simctl launch "$UDID" org.openbilliards.app \
+                -OBStatusSeam YES -OBBootQuery 'obtool&norec' || true
+            else
+              xcrun simctl launch "$UDID" org.openbilliards.app \
+                -OBStatusSeam YES || true
+            fi
+            sleep 45
+            CONT=$(xcrun simctl get_app_container "$UDID" org.openbilliards.app data)
+            echo "== $mode boot, container: $CONT"
+            ls -la "$CONT/Documents/e2e" 2>/dev/null \
+              || echo "NO Documents/e2e — StatusSeam never started"
+            for f in "$CONT"/Documents/e2e/*.json; do
+              [ -f "$f" ] && echo "--- $mode $f" && cat "$f" && echo
+            done
+            cp -R "$CONT/Documents/e2e" "/tmp/postmortem/e2e-$mode" 2>/dev/null || true
+            xcrun simctl io "$UDID" screenshot "/tmp/postmortem/$mode-boot.png" || true
+          done
+      - name: Upload L3 failure evidence (seam mirrors + xcresults)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-l3-evidence
+          path: |
+            /tmp/e2e-ios-*
+            /tmp/postmortem
+            ios/DerivedData/Logs/Test/*.xcresult
+          if-no-files-found: ignore
+        # (/tmp/e2e-ios-shots is matched by the /tmp/e2e-ios-* glob —
+        # checkpoint screenshots ride the same artifact.)
+      - name: Upload acceptance + perf artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-acceptance-artifacts
+          path: |
+            ${{ runner.temp }}/ios-acceptance/
+          if-no-files-found: ignore

@@ -1,0 +1,6 @@
+{
+  "revision": "a31f6516",
+  "path": "crates/pool-core/src/table.rs",
+  "sha256": "f4f1849a35ed1971c7c88db2acdfb3eed461718ef19ea9cca630cfc143da2a26",
+  "note": "GH-1080 re-scope (r17): T a31f6516's table.rs (the chinese8 corner F2 + middle Cn8Arc1 stamp commit) MINUS the rasson_ox_9ft addition (blank line + doc comment + constructor) - a labelled re-scoped base, not a committed revision's file; the proof is live == this fixture + exactly one occurrence of the addition. Until r16: main 9018b450's file minus the addition, sha256 7b2d7e11f844e4a22cdac2052fd28397c0684db7e6b6ba37ab3bee7666a4c20f."
+}

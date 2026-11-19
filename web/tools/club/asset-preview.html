@@ -1,0 +1,202 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club asset preview</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<script type="importmap">
+{ "imports": { "three": "../../vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { createAssets } from '../../scene/club/assets.js';
+
+const q = new URLSearchParams(location.search);
+const view = q.get('view') ?? 'room';
+const tier = q.get('tier') === 'lite' ? 'lite' : 'base';
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x030303);
+const assets = createAssets({ tier });
+const preview = { tier, view, hdri: null, errors: [] };
+window.__preview = preview;
+
+// ---- hdri.room: decode the RGBE PNG from its bytes (no canvas: alpha is the exponent), as asset-hdr-to-rgbe-png.mjs pins it.
+async function decodeRgbePng(buf) {
+  const u8 = new Uint8Array(buf);
+  const dv = new DataView(buf);
+  let off = 8; let width = 0; let height = 0; const idat = [];
+  while (off < u8.length) {
+    const len = dv.getUint32(off);
+    const type = String.fromCharCode(u8[off + 4], u8[off + 5], u8[off + 6], u8[off + 7]);
+    if (type === 'IHDR') { width = dv.getUint32(off + 8); height = dv.getUint32(off + 12); if (u8[off + 16] !== 8 || u8[off + 17] !== 6 || u8[off + 20] !== 0) throw new Error('not 8-bit RGBA, non-interlaced'); }
+    else if (type === 'IDAT') idat.push(u8.subarray(off + 8, off + 8 + len));
+    else if (type === 'IEND') break;
+    off += 12 + len;
+  }
+  const raw = new Uint8Array(await new Response(new Blob(idat).stream().pipeThrough(new DecompressionStream('deflate'))).arrayBuffer());
+  const stride = width * 4;
+  if (raw.length !== (stride + 1) * height) throw new Error('unexpected inflated size');
+  const out = new Float32Array(width * height * 4);
+  let max = 0; let sum = 0;
+  for (let y = 0; y < height; y += 1) {
+    const row = y * (stride + 1);
+    if (raw[row] !== 1) throw new Error(`row ${y}: filter type ${raw[row]} (expected 1)`);
+    const dst = (height - 1 - y) * stride; // row 0 of the file is the zenith; a data texture's v = 0 is its first row
+    for (let x = 0; x < stride; x += 1) {
+      if (x >= 4) raw[row + 1 + x] = (raw[row + 1 + x] + raw[row + 1 + x - 4]) & 255;
+      if ((x & 3) === 3) {
+        const e = raw[row + 1 + x];
+        const s = e ? 2 ** (e - 128) / 255 : 0;
+        const r = raw[row + x - 2] * s; const g = raw[row + x - 1] * s; const b = raw[row + x] * s;
+        out[dst + x - 3] = Math.min(r, 64); out[dst + x - 2] = Math.min(g, 64); out[dst + x - 1] = Math.min(b, 64); out[dst + x] = 1;
+        const l = 0.2126 * r + 0.7152 * g + 0.0722 * b; sum += l; if (l > max) max = l;
+      }
+    }
+  }
+  return { width, height, data: out, meanLuminance: sum / (width * height), maxLuminance: max };
+}
+
+async function loadEnvironment() {
+  const buf = await assets.bytes('hdri.room');
+  if (!buf) { preview.hdri = { loaded: false }; return; }
+  const img = await decodeRgbePng(buf);
+  const half = new Uint16Array(img.data.length);
+  for (let i = 0; i < half.length; i += 1) half[i] = THREE.DataUtils.toHalfFloat(img.data[i]);
+  const tex = new THREE.DataTexture(half, img.width, img.height, THREE.RGBAFormat, THREE.HalfFloatType);
+  tex.mapping = THREE.EquirectangularReflectionMapping;
+  tex.colorSpace = THREE.LinearSRGBColorSpace;
+  tex.minFilter = tex.magFilter = THREE.LinearFilter;
+  tex.needsUpdate = true;
+  preview.hdri = { loaded: true, width: img.width, height: img.height, bytes: buf.byteLength, meanLuminance: +img.meanLuminance.toFixed(4), maxLuminance: +img.maxLuminance.toFixed(1) };
+  if (view === 'hdri') { scene.background = tex; return; }
+  if (q.get('env') === '0') return;
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromEquirectangular(tex).texture;
+  scene.environmentIntensity = 0.6;
+  scene.background = tex; scene.backgroundBlurriness = 0.35; scene.backgroundIntensity = 0.25;
+  pmrem.dispose();
+}
+
+// ---- materials from the shared ids (always with the loader's neutral fallback)
+// The fallback is a CanvasTexture on purpose: the loader swaps the decoded image into the SAME texture object, and three uploads
+// a DataTexture from image.data only, so a DataTexture stand-in (the loader's own default) goes black when the file arrives.
+function standIn(id) {
+  const c = document.createElement('canvas'); c.width = c.height = 2;
+  const g = c.getContext('2d'); g.fillStyle = id.endsWith('.normal') ? 'rgb(128,128,255)' : 'rgb(128,128,128)'; g.fillRect(0, 0, 2, 2);
+  return new THREE.CanvasTexture(c);
+}
+const made = [];
+const T = (id, srgb, repeat) => {
+  const t = assets.texture(id, { srgb, repeat, anisotropy: 8, fallback: q.get('fallback') === 'default' ? null : standIn(id) });
+  made.push(t);
+  return t;
+};
+// Second trap of the same swap: once the stand-in has been drawn, its GPU storage is immutable at the stand-in's size, and the
+// re-upload of a larger image into it fails silently (the stand-in stays on screen). Releasing the GPU texture after the load
+// makes three allocate storage for the real image. ?fix=0 shows the loader's behaviour without this.
+function releaseAfterLoad() {
+  if (q.get('fix') === '0') return;
+  for (const t of made) { if (t.image && !t.image.data) t.isDataTexture = false; t.dispose(); t.needsUpdate = true; }
+}
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.05, 60);
+
+function buildRoom() {
+  const W = 6; const D = 4.4;
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), new THREE.MeshStandardMaterial({
+    name: 'previewFloor', color: 0x9a8f88, map: T('floor.color', true, [W / 1.7, D / 1.7]), normalMap: T('floor.normal', false, [W / 1.7, D / 1.7]),
+    roughnessMap: T('floor.rough', false, [W / 1.7, D / 1.7]), roughness: 0.75, metalness: 0,
+  }));
+  floor.rotation.x = -Math.PI / 2; scene.add(floor);
+  const wains = new THREE.Mesh(new THREE.PlaneGeometry(W, 1.0), new THREE.MeshPhysicalMaterial({
+    name: 'previewWainscot', color: 0x8a7f7a, map: T('wood_dark.color', true, [W / 2, 0.5]), normalMap: T('wood_dark.normal', false, [W / 2, 0.5]),
+    roughnessMap: T('wood_dark.rough', false, [W / 2, 0.5]), roughness: 0.8, clearcoat: 0.4, clearcoatRoughness: 0.25,
+  }));
+  wains.position.set(0, 0.5, -D / 2); scene.add(wains);
+  const wall = new THREE.Mesh(new THREE.PlaneGeometry(W, 1.8), new THREE.MeshStandardMaterial({
+    name: 'previewWall', color: 0x2f4a3c, normalMap: T('wall.normal', false, [W / 3, 0.6]), roughnessMap: T('wall.rough', false, [W / 3, 0.6]), roughness: 1.0,
+    normalScale: new THREE.Vector2(1.5, 1.5),
+  }));
+  wall.position.set(0, 1.9, -D / 2); scene.add(wall);
+  // a table-like slab: cloth with the weave normal, a veneer rail with lacquer
+  const feltScale = Number(q.get('felt') ?? 2); // ?felt= normal scale on the cloth
+  const cloth = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.06, 0.9), new THREE.MeshPhysicalMaterial({
+    name: 'previewCloth', color: 0x0f3c66, normalMap: T('felt.normal', false, [1.6 / 0.266, 0.9 / 0.266]), roughness: 0.9, normalScale: new THREE.Vector2(feltScale, feltScale),
+    sheen: 1, sheenRoughness: 0.5, sheenColor: new THREE.Color(0x6fa0d0),
+  }));
+  cloth.position.set(-0.9, 0.8, -0.4); scene.add(cloth);
+  const railMat = new THREE.MeshPhysicalMaterial({
+    name: 'previewRail', map: T('veneer.color', true, [1.7, 0.14]), normalMap: T('veneer.normal', false, [1.7, 0.14]), roughness: 0.45, clearcoat: 1, clearcoatRoughness: 0.06,
+  });
+  const rail = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.05, 0.14), railMat);
+  rail.position.set(-0.9, 0.845, 0.12); scene.add(rail);
+  const butt = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.014, 0.7, 32), railMat);
+  butt.rotation.z = Math.PI / 2; butt.rotation.y = 0.35; butt.position.set(-1.1, 0.846, -0.3); scene.add(butt);
+  const leatherMat = new THREE.MeshStandardMaterial({
+    name: 'previewLeather', color: 0x9a8f8a, map: T('leather.color', true, [2, 2]), normalMap: T('leather.normal', false, [2, 2]), roughnessMap: T('leather.rough', false, [2, 2]), roughness: 0.9,
+  });
+  const seat = new THREE.Mesh(new THREE.SphereGeometry(0.28, 48, 32), leatherMat);
+  seat.scale.set(1, 0.55, 1); seat.position.set(0.9, 0.55, 0.1); scene.add(seat);
+  const stool = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.42, 24), new THREE.MeshStandardMaterial({
+    name: 'previewMetal', color: 0xb8a070, metalness: 1, roughness: 0.9, normalMap: T('metal.normal', false, [1, 3]), roughnessMap: T('metal.rough', false, [1, 3]),
+  }));
+  stool.position.set(0.9, 0.21, 0.1); scene.add(stool);
+  const ball = new THREE.Mesh(new THREE.SphereGeometry(0.16, 48, 32), stool.material);
+  ball.position.set(1.7, 0.16, 0.5); scene.add(ball);
+  // the lamp over the slab, a sconce on the wall
+  const lamp = new THREE.SpotLight(0xfff0d8, 60, 8, 1.0, 0.7, 1.6);
+  lamp.position.set(-0.6, 2.3, 0.2); lamp.target.position.set(-0.6, 0, 0); scene.add(lamp, lamp.target);
+  const sconce = new THREE.PointLight(0xffc890, 6, 6, 1.8);
+  sconce.position.set(1.6, 1.9, -1.9); scene.add(sconce);
+  scene.add(new THREE.HemisphereLight(0x8a7a6a, 0x1a1410, 0.25));
+  const VIEWS = {
+    room: [[2.9, 1.55, 3.4], [-0.2, 0.7, -0.6], 46],
+    floor: [[2.4, 0.42, 2.6], [-0.6, 0.0, -0.4], 40],
+    objects: [[0.75, 1.15, 1.25], [0.15, 0.6, -0.1], 40],
+    hdri: [[0, 1.2, 0.01], [0, 1.2, -1], 90],
+    cloth: [[-0.45, 1.0, 0.55], [-0.85, 0.84, 0.0], 32],
+    rail: [[-0.2, 0.93, 0.34], [-0.9, 0.86, 0.1], 30],
+    macro: [[-0.62, 0.875, -0.02], [-0.78, 0.83, -0.2], 30],
+    wall: [[0.9, 1.5, 0.6], [1.3, 1.45, -2.2], 40],
+  };
+  if (view === 'macro') { const graze = new THREE.PointLight(0xfff0d8, 0.5, 2, 2); graze.position.set(-1.25, 0.86, -0.45); scene.add(graze); lamp.intensity = 6; }
+  const [pos, tgt, fov] = VIEWS[view] ?? VIEWS.room;
+  camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+}
+
+function buildFlat() {
+  // every map as an unlit, 2 x 2 tiled swatch: what the browser decoded, with seams exposed
+  const ids = [['floor.color', 1], ['floor.normal', 0], ['floor.rough', 0], ['wood_dark.color', 1], ['wood_dark.normal', 0], ['wood_dark.rough', 0],
+    ['wall.normal', 0], ['wall.rough', 0], ['leather.color', 1], ['leather.normal', 0], ['leather.rough', 0], ['veneer.color', 1],
+    ['veneer.normal', 0], ['felt.normal', 0], ['metal.normal', 0], ['metal.rough', 0]];
+  const cols = 6; const rows = Math.ceil(ids.length / cols);
+  ids.forEach(([id, srgb], n) => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(0.96, 0.96), new THREE.MeshBasicMaterial({ name: `flat:${id}`, map: T(id, Boolean(srgb), [2, 2]), toneMapped: false }));
+    m.position.set((n % cols) - (cols - 1) / 2, (rows - 1) / 2 - Math.floor(n / cols), 0); scene.add(m);
+  });
+  const a = innerWidth / innerHeight; const h = Math.max(rows, cols / a) / 2 + 0.05;
+  const cam = new THREE.OrthographicCamera(-h * a, h * a, h, -h, 0.1, 10);
+  cam.position.set(0, 0, 5);
+  return cam;
+}
+
+let active = camera;
+if (view === 'flat') active = buildFlat(); else buildRoom();
+const envDone = (view === 'flat' ? Promise.resolve() : loadEnvironment()).catch((e) => { preview.errors.push(`hdri: ${e?.message ?? e}`); console.error('[asset-preview] hdri', e); });
+Promise.all([assets.ready(), envDone]).then(() => { releaseAfterLoad(); preview.assets = assets.state(); preview.fix = q.get('fix') !== '0'; preview.settled = true; });
+let frames = 0;
+renderer.setAnimationLoop(() => {
+  renderer.render(scene, active);
+  if (preview.settled && ++frames === 4) window.__ready = true;
+});
+</script>
+</body>
+</html>

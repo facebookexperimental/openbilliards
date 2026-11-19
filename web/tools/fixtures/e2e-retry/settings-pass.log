@@ -1,0 +1,11 @@
+G5 desktop D1 OK: 5 rows on the kit grid (286px 320px), labels 14px none
+G5 desktop D2 OK: 4 toggles, track at the control column start, word 'On' flips + re-labels in de
+G5 desktop D3 OK: #ob-about-help 186x40 pad 16, #ob-about-bugreport 243x40 pad 16
+G5 desktop D4 OK: nav 'Assists' 12px uppercase / ja 'エイム補助' 13px none; title 'About' 16px
+G5 phone P4 OK: bar hidden under the open hall (FR-017)
+G5 phone P1 OK: bar 844x61 under the body, rows share.button 122x44 pad 17.6 / hud.rerack 90x44 pad 17.6
+G5 phone P2 OK: range 321..365 vs body 61..329 (scroll 328/268, fade true/1), rows 422.484px 373.516px
+G5 phone P3 OK: title 'Display' 1x1 clip inset(50%); about 189x44 / 246x44
+[e2e-settings] PASS G5: settings on the kit parts (rows / toggles / About actions / voices / phone bar) — arm ran with no fixture collapse
+[e2e-settings] SCOREBOARD: 196 passed, 0 failed, 0 skipped
+E2E-SETTINGS: PASS

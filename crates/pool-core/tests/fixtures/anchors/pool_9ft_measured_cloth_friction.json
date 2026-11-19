@@ -1,0 +1,110 @@
+{
+ "format": "openbilliards.anchors.v1",
+ "anchor": "pool_9ft_measured_cloth_friction",
+ "provenance": "RECORD-TIER anchor (019 doctrine: deviations are reported, never gated). Single-session first-hand measurement, 2026-07-11, owner's Diamond Pro-Am 9-ft (catalog geometry diamond_proam_9ft, independently confirmed by the diamond-sight homography at 0.33-0.38 mm RMS), one uncharacterized cue, one striped training ball standing in for the cue ball; iPhone slow-motion VFR originals on the exact per-frame pts clock (pipeline v3 definitive; v1/v2 bake-clock numbers retracted). Full session, method, uncertainty and adjudication record: docs/verification/pool-9ft-measured-calibration.md (audit trail: GitHub issue #5). Anti-overfit doctrine (constitution P-IV): this data legitimizes ONLY the opt-in Measured-tier catalog entries (owner_proam_9ft_2026_07 / owner_proam_cloth_2026_07) and these record-tier anchors; it is NEVER grounds to change global kernel defaults. Cloth quantities: mu_slide from two-phase position-domain fits (n=4, bootstrap sds 0.0013-0.0050), mu_roll is SPEED-DEPENDENT (0.0086 @ 0.3-0.55 m/s vs 0.01195 @ 0.8-1.1 m/s - reporting a single u_r would hide real structure), spin decay alpha from stripe-phase PLL spin-downs (scale-free, exact clock). KNOWN GAP: below ~3-5 rad/s the windowed-slope estimator cannot exclude a softer spin-decay tail.",
+ "title": "Cloth friction - owner's table, v3 definitive (exact per-frame pts clock)",
+ "sources": [
+  "/tmp/ob-calib/results-c0-slide-v3.json (mu_slide, mu_roll; IMG_4275, 4 shots)",
+  "/tmp/ob-calib/results-c0-spin-v3.json (spin decay alpha, u_sp_scale; IMG_4271-4274, 4 spin-downs)"
+ ],
+ "metadata": {
+  "table": "Diamond Pro-Am 9-ft, owner-confirmed, owner's venue",
+  "session_date": "2026-07-11",
+  "pipeline_version": "v3 (originals era, exact pts clock)",
+  "ball": "striped training ball standing in for cue ball (c0-slide: blue-striped cream training ball ~10-ball; c0-spin: hand-twist spin-in-place releases, no cue)"
+ },
+ "mu_slide": {
+  "value": 0.247,
+  "sd": 0.0066,
+  "n": 4,
+  "per_shot": {
+   "s01": 0.2533,
+   "s02": 0.252,
+   "s03": 0.2425,
+   "s04": 0.2402
+  },
+  "method": "position-domain piecewise-constant-deceleration fit s(t): phase-1 slide (a1 = mu_slide*g) -> phase-2 roll, continuous s and v at t*; g = 9.81 m/s^2; whole-ball geometric-center tracking (stripe-rotation-immune); bootstrap (residual resampling, 300x) per-shot sds",
+  "per_shot_bootstrap_sd_range": [
+   0.0013,
+   0.005
+  ],
+  "scale_systematic": "~+-0.3% (diamond-sight homography, fit RMS 0.44 mm)",
+  "regime_note": "launch v0 1.96-2.25 m/s with heavy backspin (draw, omega0 -64..-59 rad/s inferred from v*/v0 = 0.470 +- 0.012); Coulomb slide deceleration is spin-independent; single a1 per leg - no mu_slide vs slip-speed resolution (slip speed spans ~2-4.5 m/s in phase 1)"
+ },
+ "mu_roll": [
+  {
+   "value": 0.0086,
+   "sd": 0.0004,
+   "n": 4,
+   "speed_range_mps": [
+    0.3,
+    0.55
+   ],
+   "per_shot": {
+    "s01": 0.0084,
+    "s02": 0.009,
+    "s03": 0.0081,
+    "s04": 0.0089
+   },
+   "method": "single-phase constant-deceleration roll fit on post-cushion return legs (natural spans only; cue-disturbed tails trimmed per v3 frame audit); cross-check: s04 full-settle distance identity gives 0.0089 vs fit 0.0089"
+  },
+  {
+   "value": 0.01195,
+   "sd": 0.0001,
+   "n": 4,
+   "speed_range_mps": [
+    0.8,
+    1.1
+   ],
+   "per_shot": {
+    "s01": 0.012,
+    "s02": 0.0119,
+    "s03": 0.0121,
+    "s04": 0.0118
+   },
+   "method": "phase-2 (post slide->roll transition) of the two-phase outbound fit; same tracking and bootstrap as mu_slide"
+  }
+ ],
+ "mu_roll_speed_dependence": "rolling resistance rises with speed: 0.0086 @ ~0.45 m/s -> 0.0120 @ ~0.95 m/s (confirmed on exact clocks; v1 saw the same trend). Reporting a single u_r would hide real structure.",
+ "spin_decay": {
+  "alpha_rad_s2": {
+   "value": 9.06,
+   "sd": 0.46,
+   "n": 4,
+   "per_shot": {
+    "4271": 9.52,
+    "4272": 8.71,
+    "4273": 8.63,
+    "4274": 9.4
+   },
+   "fit_rms_rad_s": {
+    "4271": 0.25,
+    "4272": 0.32,
+    "4273": 0.29,
+    "4274": 0.16
+   },
+   "method": "hand-twist spin-in-place releases (no cue), 4 spin-downs; per-frame blue-stripe-mask principal-axis orientation, PLL-unwrapped BACKWARD from rest (branch-unambiguous); omega(t) = local slope over ~1-revolution windows on a 20 ms grid; exact pts clock; rotation quantities are scale-free (no homography needed)",
+   "regime": "constant-alpha Coulomb-like decay holds down to ~5 rad/s; no distinct low-omega regime (alpha(omega<15) = 8.8 +- 0.7 vs alpha(omega>25) = 9.1 +- 0.3 rad/s^2); below ~3-5 rad/s an apparent soft landing is not separable from windowed-slope smoothing",
+   "release_omega_rad_s": {
+    "4271": 81.0,
+    "4272": 60.93,
+    "4273": 58.68,
+    "4274": 56.42
+   }
+  },
+  "u_sp_equiv": {
+   "value": 0.01056,
+   "sd": 0.00054,
+   "formula": "u_sp = 2*R*alpha/(5*g), R=28.575 mm, g=9.81",
+   "source_inconsistency_note": "results-c0-spin-v3.json states u_sp sd 0.00054 in u_sp_equiv but '+/- 0.00052' in kernel_comparison prose; structured field adopted"
+  },
+  "u_sp_scale_equiv": {
+   "value": 0.37,
+   "sd": 0.018,
+   "sd_source": "kernel_comparison field of results-c0-spin-v3.json ('0.370 +/- 0.018')",
+   "kernel_default": 0.4444
+  },
+  "kernel_comparison": "measured alpha 9.1 +/- 0.5 rad/s2 vs kernel default 10.90 (u_sp_scale 0.4444, params.rs): owner's cloth spins ~17% longer than the shipped default and ~2.4x longer than the 22 rad/s2 literature anchor for other cloths. Equivalent u_sp_scale for THIS cloth: 0.370 +/- 0.018 (u_sp = 0.01056 +/- 0.00052)."
+ },
+ "literature_context": "mu_slide 0.247 sits at the top of the 0.178-0.245 range quoted for other cloths; mu_roll 0.009-0.012 normal (pooltool default u_r=0.01). Catalog entry with provenance \u2014 not a global-defaults change."
+}

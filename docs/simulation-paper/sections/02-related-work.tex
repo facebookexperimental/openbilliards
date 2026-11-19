@@ -1,0 +1,277 @@
+% ===========================================================================
+% Section 2 — Related work
+% Organization: five threads —
+% (i) 1835-1995 foundations; (ii) single-model validation era; (iii) event-
+% driven simulators and computational players; (iv) learning-era consumers;
+% (v) the reproducibility gap. Every corpus entry cited by the section
+% skeleton lands in exactly one thread (bridging entries noted in place).
+% ===========================================================================
+\section{Related work}
+\label{sec:related}
+
+The literature behind this paper spans nearly two centuries, and it
+organizes naturally into five threads: the analytic foundations of billiard
+mechanics; the single-model validation era whose best practice we
+generalize; the event-driven simulators and computational players whose
+formulation we inherit; the learning-era systems that consume billiards
+physics as ground truth; and the verification, validation, and
+reproducibility standards that this domain has so far left unapplied.
+
+\subsection{Foundations, 1835--1995}
+
+The analytic mechanics of billiards begins with Coriolis's 1835 treatise
+\citep{coriolis1835}, which derived, among other results, the parabolic
+path of a sliding cue ball after impact, the aiming construction for the
+mass\'e shot, and the invariance of the friction direction during impact.
+The treatise remained difficult to obtain for most of its history;
+Nadler's annotated English translation \citep{nadler2005coriolis} restored
+it to working accessibility. These results are not merely ancestral here:
+experiments \expid{D1}--\expid{D3} re-derive the parabola, the mass\'e
+construction, and the swerve behavior event-exactly and measure where each
+idealization degrades (Section~\ref{sec:results}; Fig.~\ref{fig:F10}).
+
+Controlled measurement arrived more than a century later, one rule at a
+time. \citet{bayes1963collision} measured the speed loss in billiard-ball
+collisions; \citet{wallace1988billiard} analyzed billiard-ball collisions
+in two dimensions, and \citet{onoda1989comment} corrected their treatment
+of post-collision rolling. These short papers established the genre this
+study generalizes --- and they also exhibit its archetypal limitation:
+each supplies a validation point without a validity domain.
+\citet{marlow1995physics} closed the era with the first book-length
+synthesis to attempt parameterized realism across the whole game; several
+of its catalog constants were later superseded by measured curves, a
+history reflected in the anchor-tier discipline of
+Section~\ref{sec:methodology}, which ranks published measured curves above
+catalog constants.
+
+\subsection{Single-model validation era}
+
+Between the late 1990s and the mid-2010s, individual sub-models of
+cue-sports mechanics acquired rigorous derivations and, in the best cases,
+instrumented validation. Shepard's monographs
+\citep{shepard1997amateur,shepard2001squirt} bridged playing lore to
+rigid-body mechanics, including a squirt formalization that precedes the
+endmass theory of \citet{cross2008squirt}; Alciatore's technical-proof
+corpus \citep{alciatore2008coriolis,alciatore_tp_catalog} maintains the
+modern statements of the empirical laws together with measured curves and
+is the largest single anchor source for the battery of
+Section~\ref{sec:methodology}. \citet{cohen2002threecushion} formalized
+the corner-5 diamond system, but geometrically, without dynamics.
+\citet{han2005dynamics} introduced the parameterized impulse model of
+cushion impact for carom billiards that our kernel ships, in corrected
+form, as \code{han2005_default} (Section~\ref{sec:simulator});
+\citet{domenech2008nonsmooth} developed non-smooth two-stage models of
+ball collisions; and \citet{cross2008squirt} derived the endmass theory of
+cue--ball deflection that anchors the closed form of experiment \expid{B1}
+(Fig.~\ref{fig:F6}). Analytic treatments of single-shot mechanics continue
+to appear \citep{kim2022motions,kim2024collision}.
+
+The strongest validation practice of this era is that of Mathavan,
+Jackson, and Parkin: high-speed imaging to measure billiards dynamics
+\citep{mathavan2009highspeed}, a cushion-impact theory validated against
+that footage \citep{mathavan2010cushion}, and numerical simulation of
+frictional ball--ball collisions on cloth \citep{mathavan2014numerical}.
+Instrumented measurement, quantified comparison error, published parameter
+sets --- this is the discipline our methodology adopts per anchor. It
+remained, however, validation of single sub-models against the authors'
+own footage; to our knowledge, no whole-engine, multi-source battery ---
+much less a systematic domains-of-validity study --- followed from it.
+Experiment \expid{C4} overlays our rebound-coupling predictions directly
+on the measured curves of \citet[Figs.~7--10]{mathavan2010cushion}
+(Fig.~\ref{fig:F9}), and Section~\ref{sec:simulator} records where our
+pool-specification cushion geometry deliberately departs from their
+snooker rail profile --- a domain separation, not a disagreement.
+
+A parallel thread in multibody impact mechanics feeds the break resolver
+of contribution C3. Continuous contact-force models with hysteresis
+damping originate with Lankarani and Nikravesh
+\citep{lankarani1990contact,lankarani1994continuous}, and Stronge's
+energetic coefficient of restitution \citep{stronge2018impact} supplies
+the consistency condition our resolver enforces. Applied to pool,
+\citet{corral2020poolballs} modeled pool-ball interaction with these
+tools, and \citet{gismerosmoreno2022multiple} extended the approach to
+multiple simultaneous impacts --- the closest prior art to C3. The
+difference is architectural: they integrate the entire scene under a
+smooth penalty formulation, whereas we confine compliant integration to
+the frozen-cluster episode inside an otherwise closed-form event stream
+(Section~\ref{sec:simulator}). \citet{cross2023oblique} treats small
+frozen clusters analytically, delimiting what conservation laws alone can
+determine --- precisely the degeneracy that makes a compliant resolver
+necessary at break scale.
+
+\subsection{Event-driven simulators and computational players}
+
+\citet{leckie2006event} formulated pool physics as event-driven
+simulation: closed-form ball states between events, with event times
+obtained as real roots of polynomials of degree at most four. Our kernel
+descends from this formulation. Leckie and Greenspan also flagged its
+central numerical hazard --- the fragility of polynomial root finding near
+grazing configurations; we address it with the quartic solver of
+\citet{orellana2020algorithm1010}, incorporating both published
+corrections \citep{demichele2022remark,demichele2024remark}, together with
+the first-crossing branch selection discussed in Section~\ref{sec:oracle}
+(contribution C5).
+
+That formulation was built to serve computational players, and a
+productive lineage followed: the PickPocket search-based player
+\citep{smith2007pickpocket}, the Deep Green pool-playing robot
+\citep{greenspan2008toward}, and the computational-pool tournaments with
+their winning entries \citep{archibald2009analysis,%
+archibald2010computational,archibald2016distributed};
+robotics-assistive systems continue the line \citep{park2022carom}.
+Throughout this lineage the physics substrate is instrumental --- a
+planning model --- and was never independently validated against physical
+measurement; reported evaluation concerns the agent's tournament
+performance rather than the simulator's comparison error.
+
+The closest contemporary system is pooltool \citep{kiefl2024pooltool}, an
+open-source event-driven billiards simulator distributed as a Python
+package. Our relationship to pooltool is cooperative: it serves as the
+cross-simulator oracle of our battery, and where the two model registries
+coincide we quantify agreement event-by-event (Section~\ref{sec:oracle}).
+Where the simulators deliberately differ --- break-cluster resolution,
+cushion geometry, and the velocity-dependent cushion restitution
+$e_c(v)$ --- each departure is stated with its evidence
+(Sections~\ref{sec:simulator} and~\ref{sec:oracle}). The two codebases
+also share a reference-implementation lineage, and the case study of
+Section~\ref{sec:oracle} shows the battery detecting a slip-impulse
+convention inherited through exactly that shared ancestry (the slip-law
+defect) --- an argument for independent
+cross-validation even between closely related simulators.
+
+Table~\ref{tab:engines} condenses this landscape along the axes this
+paper contributes to: simulation paradigm, published validation posture,
+determinism guarantees, treatment of the break's frozen-cluster
+degeneracy, cushion modeling, and reproducibility artifacts. Every cell
+describing another system transcribes that system's published paper or
+code as cited; where the cited sources make no statement on an axis, the
+cell records that rather than a guess. Commercial simulators are
+omitted as a class --- closed systems with unpublished physics and no
+research API \citep{kiefl2024pooltool} --- and per-shot runtime
+comparisons are
+deferred to the measured setting of
+Section~\ref{sec:simulator-performance}.
+
+% Sourcing (factual-cells contract): pooltool column — kiefl2024pooltool
+% (JOSS paper: event-based numba-JIT implementation; no validation study
+% claimed; FastFiz characterization) + the matched-registry facts already
+% stated in this section and Section 6. FastFiz column —
+% kiefl2024pooltool (unpackaged/unmaintained, tournament-built) +
+% archibald2009analysis/archibald2010computational (tournament substrate;
+% agent-level evaluation) + leckie2006event (lineage). Gismeros column —
+% gismerosmoreno2022multiple (MATLAB smooth multibody; high-speed-video
+% comparison; four-ball scenes). "not claimed"/"not stated" = the cited
+% sources make no statement.
+\begin{table}[htbp]
+  % size switch INSIDE the float: an outer {\footnotesize ...} group does
+  % not survive into the float body (measured 12pt cells + a float too
+  % large for the page by ~459pt); footnotesize + single-spaced rows
+  % (elsarticle review-mode \baselinestretch reset, cls line 252 idiom) +
+  % tabcolsep 4pt keep the matrix on one page in [review,12pt] mode.
+  % Table typography: body widened to the
+  % 7.0 in (504 pt) artwork width via a centered \makebox overhang
+  % (matching the \figstub convention); caption set at the class default
+  % size (the \footnotesize switch now follows \caption) with an explicit
+  % gap before \toprule; HLN glossed in the caption.
+  \centering\def\baselinestretch{1}
+  \setlength{\tabcolsep}{4pt}
+  \caption{Capability comparison across the open simulators discussed in
+  this section. Cells for other systems transcribe their published
+  papers and code \citep{kiefl2024pooltool,archibald2009analysis,%
+  archibald2010computational,gismerosmoreno2022multiple,leckie2006event};
+  ``not claimed'' and ``not stated'' mean the cited sources make no
+  statement on that axis. HLN = Hertz--Lankarani--Nikravesh.}
+  \label{tab:engines}
+  \vspace{4pt}
+  % ragged-right cells: justified text in ~0.18\linewidth columns produced
+  % 7-13pt overfull hboxes (the tab:models/longtable width lessons)
+  \noindent\makebox[\textwidth][c]{%
+  \begin{minipage}{504pt}
+  \footnotesize
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.14\linewidth}>{\raggedright\arraybackslash}p{0.215\linewidth}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.165\linewidth}>{\raggedright\arraybackslash}p{0.215\linewidth}@{}}
+    \toprule
+    & This work & pooltool & FastFiz & Gismeros Moreno et al. \\
+    \midrule
+    Paradigm &
+      event-driven analytic; canonical WebAssembly kernel &
+      event-driven analytic; JIT-compiled Python &
+      event-driven analytic; Leckie--Greenspan (2006) lineage &
+      smooth continuous-contact multibody, MATLAB \\
+    \addlinespace
+    Published validation &
+      registered multi-source battery with domains of validity
+      (Sections~\ref{sec:methodology}--\ref{sec:oracle}) &
+      none claimed in the software paper; documented examples reproduce
+      known rules &
+      none published; evaluation targets agent play &
+      qualitative high-speed-video comparison; single-formulation
+      study \\
+    \addlinespace
+    Bit-exact determinism &
+      hash-identified canonical binary
+      (Section~\ref{sec:simulator-determinism}) &
+      not claimed &
+      not claimed &
+      not claimed \\
+    \addlinespace
+    Frozen-cluster break &
+      bounded compliant HLN episode
+      (Section~\ref{sec:simulator-break}) &
+      documented 10\% momentum-reduction workaround &
+      not stated &
+      simultaneous impacts by construction; four-ball scenes reported \\
+    \addlinespace
+    Cushion model &
+      corrected Han impulse at the WPA nose height; fitted $e_c(v)$
+      presets &
+      Han 2005 impulse family; constant restitution &
+      not stated &
+      continuous-contact force model; constant restitution \\
+    \addlinespace
+    Reproducibility artifact &
+      open-source kernel (MIT; pooltool-derived parts Apache-2.0);
+      bundle with expected output hashes and identity checker, not yet
+      published
+      (Section~\ref{sec:reproducibility}) &
+      open-source package and documentation &
+      unmaintained source archive &
+      none stated \\
+    \bottomrule
+  \end{tabular}
+  \end{minipage}}
+\end{table}
+
+\subsection{Learning-era consumers}
+
+Billiards has meanwhile become a standard vehicle for machine-learning
+research on physical reasoning. \citet{fragkiadaki2016learning} trained
+visual predictive models to play simulated billiards; DeepPHY
+\citep{xu2025deepphy} benchmarks agentic vision--language models on
+physical-reasoning tasks that include billiards; and CueTip
+\citep{memery2025cuetip} builds an interactive, physics-aware pool
+assistant on a simulator backend. The common pattern across all three is
+that the simulator is trusted as ground truth: whatever model error it
+carries transfers, unquantified, into trained policies and benchmark
+conclusions. Contributions C1 and C2 make that transferred error
+measurable for the cue-sports domain, and the reinforcement-learning
+program this motivates is deferred to Section~\ref{sec:future}.
+
+\subsection{The reproducibility gap}
+
+The standards needed to close the remaining gap exist; they have simply
+not been applied in this domain. ASME V\&V~20 \citep{asme2009vv20}
+defines the vocabulary --- validation variables and points, comparison
+error $E = S - D$, validation uncertainty $u_{\mathrm{val}}$ --- that
+Section~\ref{sec:methodology} adopts while keeping verification and
+validation strictly distinct; the FAIR principles \citep{wilkinson2016fair}
+and their research-software extension FAIR4RS \citep{chuehong2022fair4rs}
+define the artifact posture. To our knowledge, however, no prior
+cue-sports simulator reports bit-exact expected outputs, a
+cross-platform determinism audit, or a machine-readable deviation ledger.
+The substrate that makes bit-exactness practical is WebAssembly, whose
+execution semantics are deterministic up to an enumerated set of escapes
+\citep{wasm2015nondeterminism}, each excluded by the kernel by
+construction (Section~\ref{sec:reproducibility}). This paper accordingly imports the
+V\&V~20/FAIR toolkit into cue-sports simulation and adds the artifact
+class the toolkit lacks: the hash-identified canonical binary as the
+physics definition of record (Section~\ref{sec:reproducibility}).

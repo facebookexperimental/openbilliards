@@ -1,0 +1,307 @@
+{
+  "what": "The historical cn8/joy middle-jaw overrun (issue #666): exactly 176 additional rule-2 rows, 22 per long rail; whole failure-set differential, not an allowlist. Coordinates are explicit segment intersections recorded from the arm first run.",
+  "recorded_on": "2026-10-16T02:59:58Z on a working branch at d57575fa (GH-1080 M-c, DT-09 41.92 -> 43.5 mm), by the original method: the first node tools/render/check-cushion-profile.mjs --perturb=midjaw-overrun invocation with the recording unavailable (exit 1: recording unavailable); its stdout crossing lines and stderr perturbed rows are this file. The 2026-09-11 recording (cn8-ring-2026-09 after ca4e662e2) held DT-09 41.92. No fixture is generated or updated by the checker.",
+  "provenance": {
+    "model": "CN8_MID.DT09 = LP-01 / 2 = 43.5 mm, GH-1080 M-c (owner card 41; MODEL(Star) 41.92 before), docs/geometry/cn8-middle-furniture-definition.md",
+    "kernel_derived": "makeGeom(chinese8_pro_9ft): CW = kernel.cushionWidth; L, W and middle.c1/r1/a1/utm. No scene edits.",
+    "renderer_read": "RECORDED original renderer arguments. Live allowance is now derived from railPolysFor(G) arc spacing and exported CN8_MID.DT09; segments is observed by calling exported cn8ArcPts with its default. Exported cn8MidJawEnd reproduces every long-rail vertex within the existing positional epsilon; no source scrape.",
+    "measurements": "All rows and crossing coordinates below are RECORDED from that first arm invocation, in kernel-plan metres; uAbsMm is DERIVED from abs(y - L/2)."
+  },
+  "order_window": {
+    "provenance": "DERIVED(order §6-B): the requested crossing window in millimetres; the tighter assertion is derived live from the circle and arc-segment sagitta.",
+    "centerMm": 37.84,
+    "halfWidthMm": 0.05
+  },
+  "inputs": {
+    "allowance": 0.008,
+    "segments": 24,
+    "CW": 0.0481059462722608,
+    "L": 2.54,
+    "W": 1.26,
+    "DT09": 0.0435
+  },
+  "crossings": [
+    {
+      "id": "chinese8_pro_9ft",
+      "rail": 0,
+      "edges": [
+        24,
+        27
+      ],
+      "point": [
+        -0.0481059462722608,
+        1.2321285780550608
+      ],
+      "uAbsMm": 37.8714219449392
+    },
+    {
+      "id": "chinese8_pro_9ft",
+      "rail": 1,
+      "edges": [
+        2,
+        27
+      ],
+      "point": [
+        -0.0481059462722608,
+        1.3078714219449392
+      ],
+      "uAbsMm": 37.8714219449392
+    },
+    {
+      "id": "chinese8_pro_9ft",
+      "rail": 2,
+      "edges": [
+        2,
+        27
+      ],
+      "point": [
+        1.3081059462722608,
+        1.2321285780550608
+      ],
+      "uAbsMm": 37.8714219449392
+    },
+    {
+      "id": "chinese8_pro_9ft",
+      "rail": 3,
+      "edges": [
+        24,
+        27
+      ],
+      "point": [
+        1.3081059462722608,
+        1.3078714219449392
+      ],
+      "uAbsMm": 37.8714219449392
+    },
+    {
+      "id": "joy_q8_9ft",
+      "rail": 0,
+      "edges": [
+        24,
+        27
+      ],
+      "point": [
+        -0.0481059462722608,
+        1.2321285780550608
+      ],
+      "uAbsMm": 37.8714219449392
+    },
+    {
+      "id": "joy_q8_9ft",
+      "rail": 1,
+      "edges": [
+        2,
+        27
+      ],
+      "point": [
+        -0.0481059462722608,
+        1.3078714219449392
+      ],
+      "uAbsMm": 37.8714219449392
+    },
+    {
+      "id": "joy_q8_9ft",
+      "rail": 2,
+      "edges": [
+        2,
+        27
+      ],
+      "point": [
+        1.3081059462722608,
+        1.2321285780550608
+      ],
+      "uAbsMm": 37.8714219449392
+    },
+    {
+      "id": "joy_q8_9ft",
+      "rail": 3,
+      "edges": [
+        24,
+        27
+      ],
+      "point": [
+        1.3081059462722608,
+        1.3078714219449392
+      ],
+      "uAbsMm": 37.8714219449392
+    }
+  ],
+  "rows": [
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0000 (o=11.0mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0140 (o=8.0mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0265 (o=6.0mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0352 (o=0.3mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0354 (o=0.2mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0355 (o=0.1mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0357 (o=0.1mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0359 (o=0.0mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0361 (o=0.0mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0363 (o=0.0mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0367 (o=0.0mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0370 (o=0.1mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0374 (o=0.3mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0376 (o=0.5mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0379 (o=0.8mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0381 (o=1.1mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0390 (o=3.0mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0390 (o=22.0mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0395 (o=25.0mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0420 (o=28.0mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0420 (o=43.0mm) edges 24/27",
+    "chinese8_pro_9ft rail0: ring self-intersection at z=0.0420 (o=45.0mm) edges 24/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0000 (o=11.0mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0140 (o=8.0mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0265 (o=6.0mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0352 (o=0.3mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0354 (o=0.2mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0355 (o=0.1mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0357 (o=0.1mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0359 (o=0.0mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0361 (o=0.0mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0363 (o=0.0mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0367 (o=0.0mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0370 (o=0.1mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0374 (o=0.3mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0376 (o=0.5mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0379 (o=0.8mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0381 (o=1.1mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0390 (o=3.0mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0390 (o=22.0mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0395 (o=25.0mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0420 (o=28.0mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0420 (o=43.0mm) edges 2/27",
+    "chinese8_pro_9ft rail1: ring self-intersection at z=0.0420 (o=45.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0000 (o=11.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0140 (o=8.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0265 (o=6.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0352 (o=0.3mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0354 (o=0.2mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0355 (o=0.1mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0357 (o=0.1mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0359 (o=0.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0361 (o=0.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0363 (o=0.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0367 (o=0.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0370 (o=0.1mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0374 (o=0.3mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0376 (o=0.5mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0379 (o=0.8mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0381 (o=1.1mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0390 (o=3.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0390 (o=22.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0395 (o=25.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0420 (o=28.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0420 (o=43.0mm) edges 2/27",
+    "chinese8_pro_9ft rail2: ring self-intersection at z=0.0420 (o=45.0mm) edges 2/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0000 (o=11.0mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0140 (o=8.0mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0265 (o=6.0mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0352 (o=0.3mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0354 (o=0.2mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0355 (o=0.1mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0357 (o=0.1mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0359 (o=0.0mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0361 (o=0.0mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0363 (o=0.0mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0367 (o=0.0mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0370 (o=0.1mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0374 (o=0.3mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0376 (o=0.5mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0379 (o=0.8mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0381 (o=1.1mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0390 (o=3.0mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0390 (o=22.0mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0395 (o=25.0mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0420 (o=28.0mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0420 (o=43.0mm) edges 24/27",
+    "chinese8_pro_9ft rail3: ring self-intersection at z=0.0420 (o=45.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0000 (o=11.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0140 (o=8.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0265 (o=6.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0352 (o=0.3mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0354 (o=0.2mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0355 (o=0.1mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0357 (o=0.1mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0359 (o=0.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0361 (o=0.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0363 (o=0.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0367 (o=0.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0370 (o=0.1mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0374 (o=0.3mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0376 (o=0.5mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0379 (o=0.8mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0381 (o=1.1mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0390 (o=3.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0390 (o=22.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0395 (o=25.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0420 (o=28.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0420 (o=43.0mm) edges 24/27",
+    "joy_q8_9ft rail0: ring self-intersection at z=0.0420 (o=45.0mm) edges 24/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0000 (o=11.0mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0140 (o=8.0mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0265 (o=6.0mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0352 (o=0.3mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0354 (o=0.2mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0355 (o=0.1mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0357 (o=0.1mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0359 (o=0.0mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0361 (o=0.0mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0363 (o=0.0mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0367 (o=0.0mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0370 (o=0.1mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0374 (o=0.3mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0376 (o=0.5mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0379 (o=0.8mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0381 (o=1.1mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0390 (o=3.0mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0390 (o=22.0mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0395 (o=25.0mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0420 (o=28.0mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0420 (o=43.0mm) edges 2/27",
+    "joy_q8_9ft rail1: ring self-intersection at z=0.0420 (o=45.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0000 (o=11.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0140 (o=8.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0265 (o=6.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0352 (o=0.3mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0354 (o=0.2mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0355 (o=0.1mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0357 (o=0.1mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0359 (o=0.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0361 (o=0.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0363 (o=0.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0367 (o=0.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0370 (o=0.1mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0374 (o=0.3mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0376 (o=0.5mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0379 (o=0.8mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0381 (o=1.1mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0390 (o=3.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0390 (o=22.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0395 (o=25.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0420 (o=28.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0420 (o=43.0mm) edges 2/27",
+    "joy_q8_9ft rail2: ring self-intersection at z=0.0420 (o=45.0mm) edges 2/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0000 (o=11.0mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0140 (o=8.0mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0265 (o=6.0mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0352 (o=0.3mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0354 (o=0.2mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0355 (o=0.1mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0357 (o=0.1mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0359 (o=0.0mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0361 (o=0.0mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0363 (o=0.0mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0367 (o=0.0mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0370 (o=0.1mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0374 (o=0.3mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0376 (o=0.5mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0379 (o=0.8mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0381 (o=1.1mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0390 (o=3.0mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0390 (o=22.0mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0395 (o=25.0mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0420 (o=28.0mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0420 (o=43.0mm) edges 24/27",
+    "joy_q8_9ft rail3: ring self-intersection at z=0.0420 (o=45.0mm) edges 24/27"
+  ]
+}

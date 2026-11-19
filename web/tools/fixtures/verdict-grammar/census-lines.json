@@ -1,0 +1,1483 @@
+{
+ "_about": "#1194: lines for the verdict grammar, each with the class the grammar is meant to give it (pass / fail / none): the census's verbatim pass / fail examples from every run-gate suite (home paths scrubbed) and prose from its pitfalls. A 'none' row carries its why: verdict-shaped prose, or a census form the grammar deliberately does not read.",
+ "rows": [
+  {
+   "suite": "e2e-10ball.mjs",
+   "want": "pass",
+   "line": "E2E-10BALL PASS (S1–S24: selector/rack 6.2, break 6.3(b) both ways, push out 6.4 both branches, call gate 6.5, wrongful pot 6.6 both branches, win 6.7, spotted"
+  },
+  {
+   "suite": "e2e-10ball.mjs",
+   "want": "fail",
+   "line": "E2E-10BALL FAIL: S25 GH-464: the stance button stays actionable DURING the shot flight — it must follow the aiming-state gate"
+  },
+  {
+   "suite": "e2e-10ball.mjs",
+   "want": "fail",
+   "line": "E2E-10BALL FAILED"
+  },
+  {
+   "suite": "e2e-8ball.mjs",
+   "want": "pass",
+   "line": "E2E-8BALL PASS (33 scenario blocks, T1–T17 + T19 + enforcement arms + 4.4 open-claim UI + rejection-hint UX + #37 aim-line default call + unfulfilled-call"
+  },
+  {
+   "suite": "e2e-8ball.mjs",
+   "want": "fail",
+   "line": "E2E-8BALL FAIL: hook wire: [flow] pocketCalled never printed"
+  },
+  {
+   "suite": "e2e-8ball.mjs",
+   "want": "fail",
+   "line": "E2E-8BALL FAIL: Error: app never became ready"
+  },
+  {
+   "suite": "e2e-aimhud.mjs",
+   "want": "pass",
+   "line": "[e2e-aimhud] PASS K1: Enter on Shoot fires the shot (PLAYBACK; Shoot disabled, focus fell)"
+  },
+  {
+   "suite": "e2e-aimhud.mjs",
+   "want": "pass",
+   "line": "E2E-AIMHUD: all arms PASS"
+  },
+  {
+   "suite": "e2e-aimhud.mjs",
+   "want": "fail",
+   "line": "E2E-AIMHUD FAIL: C11: the pocket picker RE-opens as its flex column — gaps kept between the target row, the pocket rows and Close"
+  },
+  {
+   "suite": "e2e-aimhud.mjs",
+   "want": "fail",
+   "line": "E2E-AIMHUD FAIL: Error: chrome debugger endpoint never came up"
+  },
+  {
+   "suite": "e2e-aimhud.mjs",
+   "want": "fail",
+   "line": "E2E-AIMHUD: FAIL"
+  },
+  {
+   "suite": "e2e-aimwarn.mjs",
+   "want": "pass",
+   "line": "[e2e-aimwarn] PASS A: aim at the 9 (lowest is 1) → chip"
+  },
+  {
+   "suite": "e2e-aimwarn.mjs",
+   "want": "pass",
+   "line": "E2E-AIMWARN: all arms PASS"
+  },
+  {
+   "suite": "e2e-aimwarn.mjs",
+   "want": "fail",
+   "line": "E2E-AIMWARN FAIL: app never became ready"
+  },
+  {
+   "suite": "e2e-aimwarn.mjs",
+   "want": "fail",
+   "line": "E2E-AIMWARN: FAIL"
+  },
+  {
+   "suite": "e2e-archive.mjs",
+   "want": "pass",
+   "line": "ok: 0: scripted boot without opt-in is DISARMED"
+  },
+  {
+   "suite": "e2e-archive.mjs",
+   "want": "pass",
+   "line": "E2E-ARCHIVE PASS"
+  },
+  {
+   "suite": "e2e-archive.mjs",
+   "want": "fail",
+   "line": "E2E-ARCHIVE FAIL: 0: scripted boot without opt-in is DISARMED"
+  },
+  {
+   "suite": "e2e-archive.mjs",
+   "want": "fail",
+   "line": "E2E-ARCHIVE FAIL"
+  },
+  {
+   "suite": "e2e-atelier.mjs",
+   "want": "pass",
+   "line": "B2 OK: strip-absent degrade — plain kit buttons, every station reachable"
+  },
+  {
+   "suite": "e2e-atelier.mjs",
+   "want": "none",
+   "line": "S5-K 1440x900 done: 18/18 poses green (en/de/ja)",
+   "why": "'done:' is atelier's leg completion, not a verdict word"
+  },
+  {
+   "suite": "e2e-atelier.mjs",
+   "want": "pass",
+   "line": "S5-F ok assets/cues/break_phenolic.png: rest area 0.821 (w 0.86 h 0.96) min area 0.821 @f0, law >= 0.6"
+  },
+  {
+   "suite": "e2e-atelier.mjs",
+   "want": "none",
+   "line": "S5-F LEDGERED assets/stations/lighting/carom_luminaire.webp: rest height 0.375 (w 0.74 h 0.38) min height 0.155 @f3, law >= 0.45 — bar luminaire END-ON",
+   "why": "LEDGERED is an asset-census mark, not a verdict word"
+  },
+  {
+   "suite": "e2e-atelier.mjs",
+   "want": "pass",
+   "line": "E2E-ATELIER: PASS"
+  },
+  {
+   "suite": "e2e-atelier.mjs",
+   "want": "fail",
+   "line": "E2E-ATELIER FAIL: S5-W 667x375/en/lighting/arrival: FOCUS perimeter (ring 3) leaves the rail clip"
+  },
+  {
+   "suite": "e2e-atelier.mjs",
+   "want": "fail",
+   "line": "E2E-ATELIER FAIL: S5-Q2: the leg module threw: Error: chrome debugger endpoint never came up"
+  },
+  {
+   "suite": "e2e-atelier.mjs",
+   "want": "fail",
+   "line": "E2E-ATELIER: 1 failure(s) in this arm — OK line withheld (B OK)"
+  },
+  {
+   "suite": "e2e-atelier.mjs",
+   "want": "fail",
+   "line": "S5-B/G 926x428: 1 failure(s) so far — done line withheld"
+  },
+  {
+   "suite": "e2e-atelier.mjs",
+   "want": "fail",
+   "line": "E2E-ATELIER: FAILED"
+  },
+  {
+   "suite": "e2e-bugreport.mjs",
+   "want": "pass",
+   "line": "[e2e-bugreport] PASS failNextJudge TEST SEAM armed"
+  },
+  {
+   "suite": "e2e-bugreport.mjs",
+   "want": "pass",
+   "line": "E2E-BUGREPORT: PASS"
+  },
+  {
+   "suite": "e2e-bugreport.mjs",
+   "want": "fail",
+   "line": "E2E-BUGREPORT FAIL: schema v2 is the CLOSED field list (no extra top-level keys) — app,balls,bundle_version,errors,generated_at,judgments,kernel_version"
+  },
+  {
+   "suite": "e2e-bugreport.mjs",
+   "want": "fail",
+   "line": "E2E-BUGREPORT: FAILED"
+  },
+  {
+   "suite": "e2e-carom.mjs",
+   "want": "pass",
+   "line": "S1-height OK (GH-730): floor on the derived pin, stack reads the cited 800, feet land on the drawn plane"
+  },
+  {
+   "suite": "e2e-carom.mjs",
+   "want": "none",
+   "line": "S1-corner (GH-387): 5840/5840 corner probes watertight",
+   "why": "no verdict word"
+  },
+  {
+   "suite": "e2e-carom.mjs",
+   "want": "pass",
+   "line": "E2E-CAROM PASS (12 S-blocks: activation + Art 23.1(c) break spots + C2/C3/C4/C5 + innings + C8 race + zero-pocket invariants + GH-371 Art 27.2 frozen-cushion"
+  },
+  {
+   "suite": "e2e-carom.mjs",
+   "want": "fail",
+   "line": "E2E-CAROM FAIL: S1-corner (GH-387): the per-corner split differs from the one-call sweep: {\"one\":[5840,0,0],\"split\":[5836,0,0]}"
+  },
+  {
+   "suite": "e2e-combined.mjs",
+   "want": "none",
+   "line": "record 0: byte-match OK (48214 bytes)",
+   "why": "the label holds ': ' (prose shape)"
+  },
+  {
+   "suite": "e2e-combined.mjs",
+   "want": "pass",
+   "line": "E2E-COMBINED PASS"
+  },
+  {
+   "suite": "e2e-combined.mjs",
+   "want": "fail",
+   "line": "E2E-COMBINED FAIL: never caught the replay in PLAYBACK for the screenshot"
+  },
+  {
+   "suite": "e2e-cuepost.mjs",
+   "want": "pass",
+   "line": "  ok: rejected: missing t_contact"
+  },
+  {
+   "suite": "e2e-cuepost.mjs",
+   "want": "pass",
+   "line": "E2E-CUEPOST PASS"
+  },
+  {
+   "suite": "e2e-cuepost.mjs",
+   "want": "fail",
+   "line": "E2E-CUEPOST FAIL: cli: probe --cuepost exited 1"
+  },
+  {
+   "suite": "e2e-cuepost.mjs",
+   "want": "fail",
+   "line": "E2E-CUEPOST: 1 failure(s)"
+  },
+  {
+   "suite": "e2e-cuestrike.mjs",
+   "want": "pass",
+   "line": "  ok: rejected: tip offset |(a,b)| >= 1"
+  },
+  {
+   "suite": "e2e-cuestrike.mjs",
+   "want": "pass",
+   "line": "E2E-CUESTRIKE PASS"
+  },
+  {
+   "suite": "e2e-cuestrike.mjs",
+   "want": "fail",
+   "line": "E2E-CUESTRIKE FAIL: disarmed frame differs from never-armed baseline"
+  },
+  {
+   "suite": "e2e-cuestrike.mjs",
+   "want": "fail",
+   "line": "E2E-CUESTRIKE: 1 failure(s)"
+  },
+  {
+   "suite": "e2e-dragshadow.mjs",
+   "want": "pass",
+   "line": "[e2e-dragshadow] PASS 5b (next grab works): grab probe live"
+  },
+  {
+   "suite": "e2e-dragshadow.mjs",
+   "want": "pass",
+   "line": "E2E-DRAGSHADOW: ALL PASS"
+  },
+  {
+   "suite": "e2e-dragshadow.mjs",
+   "want": "fail",
+   "line": "E2E-DRAGSHADOW FAIL: 1: settle stroke never settled"
+  },
+  {
+   "suite": "e2e-dragshadow.mjs",
+   "want": "fail",
+   "line": "E2E-DRAGSHADOW: FAIL"
+  },
+  {
+   "suite": "e2e-drill-session.mjs",
+   "want": "pass",
+   "line": "E2E-DRILLSESSION PASS (20 arms)"
+  },
+  {
+   "suite": "e2e-drill-session.mjs",
+   "want": "pass",
+   "line": "D-a OK: D1 D2 on a desktop real-user boot (real clicks)"
+  },
+  {
+   "suite": "e2e-drill-session.mjs",
+   "want": "pass",
+   "line": "D1 OK"
+  },
+  {
+   "suite": "e2e-drill-session.mjs",
+   "want": "pass",
+   "line": "M[bu-f2@nine_ball→stop] ok"
+  },
+  {
+   "suite": "e2e-drill-session.mjs",
+   "want": "pass",
+   "line": "M[drill exit seat] ok: ghost9 P2 → Play → P1"
+  },
+  {
+   "suite": "e2e-drill-session.mjs",
+   "want": "fail",
+   "line": "E2E-DRILLSESSION FAIL: D1: HUD title \"9-Ball\" (want \"9-ball\")"
+  },
+  {
+   "suite": "e2e-drill-session.mjs",
+   "want": "fail",
+   "line": "E2E-DRILLSESSION: 1 failure(s) in this arm — OK line withheld (D-a OK)"
+  },
+  {
+   "suite": "e2e-drill-session.mjs",
+   "want": "fail",
+   "line": "E2E-DRILLSESSION: D-a red (1)"
+  },
+  {
+   "suite": "e2e-drill-session.mjs",
+   "want": "fail",
+   "line": "E2E-DRILLSESSION FAIL"
+  },
+  {
+   "suite": "e2e-drills.mjs",
+   "want": "pass",
+   "line": "[e2e-drills] arm 8 GH-436 ok (no foulFallback degrade across the drill re-lay)"
+  },
+  {
+   "suite": "e2e-drills.mjs",
+   "want": "pass",
+   "line": "E2E-DRILLS PASS (nightly: all arms but 25, 19e, 19f)"
+  },
+  {
+   "suite": "e2e-drills.mjs",
+   "want": "fail",
+   "line": "E2E-DRILLS FAIL: NIGHTLY_UNWIRED lists arm 26, but no arm consults it — the list drifted from the arms it skips"
+  },
+  {
+   "suite": "e2e-drills.mjs",
+   "want": "fail",
+   "line": "[e2e-drills] arm 28 GH-668 B-PR03 RED (5 failure(s))"
+  },
+  {
+   "suite": "e2e-drills.mjs",
+   "want": "fail",
+   "line": "E2E-DRILLS FAIL: TypeError: Cannot read properties of null (reading 'close')"
+  },
+  {
+   "suite": "e2e-equipment.mjs",
+   "want": "pass",
+   "line": "E2E-EQUIPMENT: PASS"
+  },
+  {
+   "suite": "e2e-equipment.mjs",
+   "want": "none",
+   "line": "ballset pool_black_cap: spec-table color probes + geometry OK",
+   "why": "the label holds ': ' (prose shape)"
+  },
+  {
+   "suite": "e2e-equipment.mjs",
+   "want": "fail",
+   "line": "E2E-EQUIPMENT FAIL: gh229: '' did not restore the ivory ink family (efe9d8/76afee)"
+  },
+  {
+   "suite": "e2e-equipment.mjs",
+   "want": "fail",
+   "line": "E2E-EQUIPMENT: FAIL"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "[Z2 S2p v0 2.5 (control)] OK — delivered 175 = the plan; pre-LAND-16 175"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L6a PASS: ok | pin endT 3.963942325313526 vs max(durs[1], completions[1]) 3.963942325313526"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "E2E-EXPORT-Z2 PASS (the export plan covers the last pocket drop: runExport, the drill builder (live AND non-live records), the estimate seam and realtime read"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "fail",
+   "line": "E2E-EXPORT-Z2 FAIL: Z2 S2p v0 2.5 (control): the shot archive is unavailable (__archive disabled) — the record cannot be read for the cue-tail seam"
+  },
+  {
+   "suite": "e2e-haptics.mjs",
+   "want": "pass",
+   "line": "[e2e-haptics] PASS desktop: zero console errors"
+  },
+  {
+   "suite": "e2e-haptics.mjs",
+   "want": "pass",
+   "line": "[e2e-haptics] ALL PASS (--inert)"
+  },
+  {
+   "suite": "e2e-haptics.mjs",
+   "want": "none",
+   "line": "usage: node web/tools/e2e-haptics.mjs --inert | --seam [--port N] [--viewport WxH]",
+   "why": "no verdict word (a usage refusal; the exit code carries it)"
+  },
+  {
+   "suite": "e2e-harness-hygiene.mjs",
+   "want": "pass",
+   "line": "[hygiene] PASS pacing: teeth-proof chrome confirmed gone"
+  },
+  {
+   "suite": "e2e-harness-hygiene.mjs",
+   "want": "pass",
+   "line": "[hygiene] HARNESS-HYGIENE PASS (budget 900 s, OB_E2E_HYGIENE_BUDGET_MS)"
+  },
+  {
+   "suite": "e2e-harness-hygiene.mjs",
+   "want": "fail",
+   "line": "[hygiene] FAIL band (f): an in-band port still REFUSES foreign use while the holder lives no throw"
+  },
+  {
+   "suite": "e2e-harness-hygiene.mjs",
+   "want": "fail",
+   "line": "[hygiene] HARNESS-HYGIENE FAIL (2 failing checks; budget 900 s, OB_E2E_HYGIENE_BUDGET_MS)"
+  },
+  {
+   "suite": "e2e-harness-hygiene.mjs",
+   "want": "fail",
+   "line": "[hygiene] SLOW: budget 420.0 s, wall 484.9 s, 456 checks (0 FAIL); slowest legs: 8j 77.9 s, session boots 59.7 s, preflight (a2) 54.5 s, preflight (h) 42.1 s, p"
+  },
+  {
+   "suite": "e2e-harness-hygiene.mjs",
+   "want": "fail",
+   "line": "[hygiene] FAIL global watchdog (420 s) — harness hung"
+  },
+  {
+   "suite": "e2e-heyball.mjs",
+   "want": "pass",
+   "line": "E2E-HEYBALL PASS (H0 picker boot/joy-table/II.4 rack + H1 illegal-break no-BIH option + H2 break-foul kitchen BIH/II.8 chip lifecycle + H3 open-table"
+  },
+  {
+   "suite": "e2e-heyball.mjs",
+   "want": "fail",
+   "line": "E2E-HEYBALL FAIL: H0: rules registry not live"
+  },
+  {
+   "suite": "e2e-heyball.mjs",
+   "want": "fail",
+   "line": "E2E-HEYBALL FAIL: Error: page eval failed: ReferenceError: heyballOffered is not defined"
+  },
+  {
+   "suite": "e2e-i18n.mjs",
+   "want": "pass",
+   "line": "E2E-I18N: PASS"
+  },
+  {
+   "suite": "e2e-i18n.mjs",
+   "want": "none",
+   "line": "[e2e-i18n] en: HUD/settings/export OK",
+   "why": "the label holds ': ' (prose shape)"
+  },
+  {
+   "suite": "e2e-i18n.mjs",
+   "want": "pass",
+   "line": "[e2e-i18n] help overlay live-switch de: OK"
+  },
+  {
+   "suite": "e2e-i18n.mjs",
+   "want": "pass",
+   "line": "[e2e-i18n] zh-CN foul banner OK: 犯规 — 首先击打了错误的球"
+  },
+  {
+   "suite": "e2e-i18n.mjs",
+   "want": "none",
+   "line": "[e2e-i18n] audit en: 1244 keys, 0 missing, 0 extra",
+   "why": "no verdict word"
+  },
+  {
+   "suite": "e2e-i18n.mjs",
+   "want": "fail",
+   "line": "E2E-I18N FAIL: stale-switch leg: 1 gated row(s) still rendered after the switch"
+  },
+  {
+   "suite": "e2e-i18n.mjs",
+   "want": "fail",
+   "line": "E2E-I18N: FAILED"
+  },
+  {
+   "suite": "e2e-i18n.mjs",
+   "want": "none",
+   "line": "lint failed — not booting the app",
+   "why": "no verdict word (lower-case failed)"
+  },
+  {
+   "suite": "e2e-inkreadback.mjs",
+   "want": "pass",
+   "line": "E2E-INKREADBACK PASS"
+  },
+  {
+   "suite": "e2e-inkreadback.mjs",
+   "want": "pass",
+   "line": "R2 OK: the settled pose was re-sampled, then the ink froze"
+  },
+  {
+   "suite": "e2e-lighting-matrix.mjs",
+   "want": "pass",
+   "line": "MATRIX OK neutral|pool_pro_9ft|auto|1 centre 0.38977 ref 0.38977"
+  },
+  {
+   "suite": "e2e-lighting-matrix.mjs",
+   "want": "pass",
+   "line": "ENV OK E1 one more bake moved the faces at most 0.00 %"
+  },
+  {
+   "suite": "e2e-lighting-matrix.mjs",
+   "want": "pass",
+   "line": "MATRIX PASS 240/240 in range, 0 out, 0 refused (rows: /tmp/ob-lighting-matrix-36436/rows.jsonl)"
+  },
+  {
+   "suite": "e2e-lighting-matrix.mjs",
+   "want": "pass",
+   "line": "ENV PASS 0 out, 0 refused"
+  },
+  {
+   "suite": "e2e-lighting-matrix.mjs",
+   "want": "fail",
+   "line": "MATRIX OUT factory|pool_pro_9ft|pendant_bar|1 N1 centre 0.3732 = 0.919x reference 0.40619 (> 5 %)"
+  },
+  {
+   "suite": "e2e-lighting-matrix.mjs",
+   "want": "fail",
+   "line": "MATRIX FAIL 0/2 in range, 2 out, 0 refused (rows: /tmp/ob-lighting-matrix-1131/rows.jsonl)"
+  },
+  {
+   "suite": "e2e-onepocket.mjs",
+   "want": "pass",
+   "line": "E2E-ONEPOCKET PASS (17 scenario blocks: O1–O9 + owed ledger + cite parity + hook wire + GH-371 3.11 kitchen law + 1.6 spot request + GH-447 rack-visible"
+  },
+  {
+   "suite": "e2e-play.mjs",
+   "want": "pass",
+   "line": "P2 OK: host class present, stub retired, FR-004 summary, __play surface"
+  },
+  {
+   "suite": "e2e-play.mjs",
+   "want": "pass",
+   "line": "E2E-PLAY PASS"
+  },
+  {
+   "suite": "e2e-play.mjs",
+   "want": "fail",
+   "line": "E2E-PLAY FAIL: P-HOLD(b): the CONTROL hold on the h2 must fire the S1 quick-play (shell closes; the fork setting stays): {\"open\":false,\"c2b\":\"yellow\"}"
+  },
+  {
+   "suite": "e2e-play.mjs",
+   "want": "fail",
+   "line": "P-HOLD RED (2 failure line(s) above)"
+  },
+  {
+   "suite": "e2e-play.mjs",
+   "want": "fail",
+   "line": "P-STALE-KIT-STATES: 1 failure line(s) above (the arm printed its own verdict line)"
+  },
+  {
+   "suite": "e2e-play.mjs",
+   "want": "fail",
+   "line": "E2E-PLAY: FAIL"
+  },
+  {
+   "suite": "e2e-playground.mjs",
+   "want": "pass",
+   "line": "[e2e-playground] PASS 0: virgin profile boots into play mode, zero boot writes, no chips"
+  },
+  {
+   "suite": "e2e-playground.mjs",
+   "want": "pass",
+   "line": "E2E-PLAYGROUND: ALL PASS"
+  },
+  {
+   "suite": "e2e-playground.mjs",
+   "want": "fail",
+   "line": "E2E-PLAYGROUND FAIL: 7i: a GAME switch under the sandbox empties the undo slot (chip disabled, undo refuses, nothing moves) — {\"placed\":true,\"armed\":{\"id\":8,\"fr"
+  },
+  {
+   "suite": "e2e-playground.mjs",
+   "want": "fail",
+   "line": "E2E-PLAYGROUND: FAIL"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "pass",
+   "line": "P-A OK: arrival shape — pose, section, cards, host class, sheet, identity"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "pass",
+   "line": "E2E-PRACTICE PASS (38 arms)"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "fail",
+   "line": "E2E-PRACTICE FAIL: P-D4: accept must show the \"Drill stopped\" toast within 500 ms: {\"open\":false,\"mode\":\"playground\",\"st\":null,\"dialogs\":0,\"hint\":{\"display\":\"no"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "fail",
+   "line": "E2E-PRACTICE: 1 failure(s) in this arm — OK line withheld (P-D4 OK)"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "fail",
+   "line": "E2E-PRACTICE: P-D4 red (1)"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "fail",
+   "line": "E2E-PRACTICE FAIL"
+  },
+  {
+   "suite": "e2e-record.mjs",
+   "want": "pass",
+   "line": "[phase-d] OK: zero record chrome, __record.supported true"
+  },
+  {
+   "suite": "e2e-record.mjs",
+   "want": "pass",
+   "line": "E2E-RECORD PASS"
+  },
+  {
+   "suite": "e2e-record.mjs",
+   "want": "fail",
+   "line": "E2E-RECORD FAIL: webm blob 0 bytes, want > 100 KB"
+  },
+  {
+   "suite": "e2e-replays.mjs",
+   "want": "pass",
+   "line": "0 OK: mount protocol — host class, takeover, hold re-keyed, rail body-level before #ob-shell, fetch-after-go"
+  },
+  {
+   "suite": "e2e-replays.mjs",
+   "want": "pass",
+   "line": "E2E-REPLAYS: PASS"
+  },
+  {
+   "suite": "e2e-replays.mjs",
+   "want": "fail",
+   "line": "E2E-REPLAYS FAIL: F1i-session: openSession() and close() were 1571 ms apart in the document — the close did not land inside the pending window"
+  },
+  {
+   "suite": "e2e-replays.mjs",
+   "want": "fail",
+   "line": "E2E-REPLAYS: 1 failure(s) in this arm — OK line withheld (F1i OK)"
+  },
+  {
+   "suite": "e2e-replays.mjs",
+   "want": "fail",
+   "line": "E2E-REPLAYS: failure(s) in arm 1 — OK line withheld"
+  },
+  {
+   "suite": "e2e-replays.mjs",
+   "want": "fail",
+   "line": "E2E-REPLAYS: FAIL (1 failure(s))"
+  },
+  {
+   "suite": "e2e-rollslip.mjs",
+   "want": "pass",
+   "line": "e2e-rollslip: PASS"
+  },
+  {
+   "suite": "e2e-rollslip.mjs",
+   "want": "fail",
+   "line": "FAIL: Error: app never became ready"
+  },
+  {
+   "suite": "e2e-rollslip.mjs",
+   "want": "fail",
+   "line": "e2e-rollslip: FAIL"
+  },
+  {
+   "suite": "e2e-rules.mjs",
+   "want": "pass",
+   "line": "GH-716 OK: 9-ball winner-breaks held over racks 1→2→3 (P2, P2)"
+  },
+  {
+   "suite": "e2e-rules.mjs",
+   "want": "pass",
+   "line": "E2E-RULES PASS"
+  },
+  {
+   "suite": "e2e-rules.mjs",
+   "want": "fail",
+   "line": "E2E-RULES FAIL: GH-716: rack-2 winner must be P2: undefined"
+  },
+  {
+   "suite": "e2e-settings-persist.mjs",
+   "want": "pass",
+   "line": "X1 OK: #1034 desktop — a cue picked after a cross-game Continue (HUD and atelier) is saved for snooker; 9-ball keeps its Standard maple cue across the reload"
+  },
+  {
+   "suite": "e2e-settings-persist.mjs",
+   "want": "pass",
+   "line": "E2E-SETTINGS-PERSIST PASS"
+  },
+  {
+   "suite": "e2e-settings-persist.mjs",
+   "want": "fail",
+   "line": "E2E-SETTINGS FAIL: X1 snooker shot: the shot never started"
+  },
+  {
+   "suite": "e2e-settings-persist.mjs",
+   "want": "fail",
+   "line": "E2E-SETTINGS-PERSIST FAIL"
+  },
+  {
+   "suite": "e2e-settings.mjs",
+   "want": "pass",
+   "line": "[e2e-settings] PASS modal shell built on navmodal, closed at boot"
+  },
+  {
+   "suite": "e2e-settings.mjs",
+   "want": "pass",
+   "line": "G5 desktop D1 OK: 5 rows on the kit grid (286px 320px), labels 14px none"
+  },
+  {
+   "suite": "e2e-settings.mjs",
+   "want": "pass",
+   "line": "E2E-SETTINGS: PASS"
+  },
+  {
+   "suite": "e2e-settings.mjs",
+   "want": "fail",
+   "line": "E2E-SETTINGS FAIL: G5 desktop D2: de flip did not re-label the state word ('On', want 'On')"
+  },
+  {
+   "suite": "e2e-settings.mjs",
+   "want": "fail",
+   "line": "E2E-SETTINGS: FAILED"
+  },
+  {
+   "suite": "e2e-settings.mjs",
+   "want": "fail",
+   "line": "[e2e-settings] WATCHDOG: invocation exceeded 600000 ms — hard exit"
+  },
+  {
+   "suite": "e2e-shell.mjs",
+   "want": "pass",
+   "line": "A OK: obshell posed boot deterministic, registry walk + __shell conformance green"
+  },
+  {
+   "suite": "e2e-shell.mjs",
+   "want": "pass",
+   "line": "E2E-SHELL PASS"
+  },
+  {
+   "suite": "e2e-shell.mjs",
+   "want": "fail",
+   "line": "E2E-SHELL FAIL: SW exits SW-j (superseded while up): UNJUDGEABLE — the scripted switch to snooker did not commit (null)"
+  },
+  {
+   "suite": "e2e-shell.mjs",
+   "want": "fail",
+   "line": "E2E-SHELL FAIL"
+  },
+  {
+   "suite": "e2e-snooker.mjs",
+   "want": "pass",
+   "line": "S1-gi OK (GH-337 + GH-386): snooker_12ft × snooker_luminaire venue-default bake on (uGiOn 1, class bounds + 15x8 probes, 2.984×0.20 emitter footprint), zero foo"
+  },
+  {
+   "suite": "e2e-snooker.mjs",
+   "want": "none",
+   "line": "S1-body (GH-518): Star body inventory + height stack OK (bedAboveFloor pin = the entry's own; R3-SNK-BODY-1 MFR 850)",
+   "why": "the label holds '): ' (prose shape)"
+  },
+  {
+   "suite": "e2e-snooker.mjs",
+   "want": "pass",
+   "line": "E2E-SNOOKER PASS (23 scenario blocks + S2p corner pots (2.5 / 4.5 / 1.2 + scratch + the airborne 5° 2 m/s cue-only capture, LAND-18 X3) + S2m middle pots (0.9 /"
+  },
+  {
+   "suite": "e2e-snooker.mjs",
+   "want": "fail",
+   "line": "E2E-SNOOKER FAIL: Error: app never became ready"
+  },
+  {
+   "suite": "e2e-snooker.mjs",
+   "want": "none",
+   "line": "E2E-SNOOKER UNJUDGEABLE: 2 row(s) refused by name without a by-design precondition or without a green mirror (exit 2) — not a pass, not a fail",
+   "why": "UNJUDGEABLE: a refusal, \"not a pass, not a fail\""
+  },
+  {
+   "suite": "e2e-snooker.mjs",
+   "want": "fail",
+   "line": "S8b: 1 failure(s) in the block — no OK line"
+  },
+  {
+   "suite": "e2e-straightpool.mjs",
+   "want": "pass",
+   "line": "E2E-STRAIGHTPOOL PASS (20 scenario blocks: 7.3(b) violation loop + the GH-371 kitchen re-break address, 7.5/7.7 scoring + the #90 visible call indicator, 7.9 fo"
+  },
+  {
+   "suite": "e2e-switch.mjs",
+   "want": "pass",
+   "line": "  - hall-nine_ball: green"
+  },
+  {
+   "suite": "e2e-switch.mjs",
+   "want": "pass",
+   "line": "E2E-SWITCH PASS (44 arms)"
+  },
+  {
+   "suite": "e2e-switch.mjs",
+   "want": "fail",
+   "line": "E2E-SWITCH FAIL: driver: Error: timeout waiting for Play place by keyboard (last false)"
+  },
+  {
+   "suite": "e2e-switch.mjs",
+   "want": "fail",
+   "line": "E2E-SWITCH FAIL (1 failure(s))"
+  },
+  {
+   "suite": "e2e-switchperf.mjs",
+   "want": "pass",
+   "line": "[e2e-switchperf] PASS G1 live GI lightmap textures stay bounded across 7 bake-class switches (max 4, per switch 0 4 4 4 4 4 4)"
+  },
+  {
+   "suite": "e2e-switchperf.mjs",
+   "want": "pass",
+   "line": "E2E-SWITCHPERF: ALL PASS"
+  },
+  {
+   "suite": "e2e-switchperf.mjs",
+   "want": "fail",
+   "line": "E2E-SWITCHPERF FAIL: C1 switch: a Chinese-8 switch while the transport is still held is refused at a fresh bound (per build, never latched) — switch {\"v\":false,"
+  },
+  {
+   "suite": "e2e-switchperf.mjs",
+   "want": "fail",
+   "line": "E2E-SWITCHPERF: FAIL"
+  },
+  {
+   "suite": "e2e-tablecache.mjs",
+   "want": "pass",
+   "line": "[e2e-tablecache] PASS C3 desktop the budget is the register's (bytes 268435456) (bytes 268435456)"
+  },
+  {
+   "suite": "e2e-tablecache.mjs",
+   "want": "pass",
+   "line": "E2E-TABLECACHE: ALL PASS"
+  },
+  {
+   "suite": "e2e-tablecache.mjs",
+   "want": "fail",
+   "line": "E2E-TABLECACHE: FAIL"
+  },
+  {
+   "suite": "e2e-tables.mjs",
+   "want": "pass",
+   "line": "table wpa_generic_9ft: OK"
+  },
+  {
+   "suite": "e2e-tables.mjs",
+   "want": "pass",
+   "line": "E2E-TABLES PASS"
+  },
+  {
+   "suite": "e2e-tables.mjs",
+   "want": "fail",
+   "line": "E2E-TABLES FAIL: Error: ENOTEMPTY: directory not empty, rmdir '/tmp/obw-e2e-profile-18755/Default'"
+  },
+  {
+   "suite": "e2e-touch-disciplines.mjs",
+   "want": "pass",
+   "line": "[e2e-touch-disciplines] PASS app ready on phone-emulated boot"
+  },
+  {
+   "suite": "e2e-touch-disciplines.mjs",
+   "want": "pass",
+   "line": "[e2e-touch-disciplines] ALL PASS"
+  },
+  {
+   "suite": "e2e-touch-disciplines.mjs",
+   "want": "fail",
+   "line": "E2E-TOUCH-DISCIPLINES FAIL: D1 completed without harness exception — Promise was collected"
+  },
+  {
+   "suite": "e2e-touch-disciplines.mjs",
+   "want": "fail",
+   "line": "[e2e-touch-disciplines] FAIL (1 failing assertions)"
+  },
+  {
+   "suite": "e2e-touch.mjs",
+   "want": "pass",
+   "line": "[e2e-touch] PASS touch.css PIN: touch.js requests the version the sheet declares"
+  },
+  {
+   "suite": "e2e-touch.mjs",
+   "want": "pass",
+   "line": "[e2e-touch] ALL PASS (desktop-inert)"
+  },
+  {
+   "suite": "e2e-touch.mjs",
+   "want": "fail",
+   "line": "E2E-TOUCH FAIL: S13 cloth change raises the kit re-rack confirm on the sheet — {\"found\":false,\"visible\":false}"
+  },
+  {
+   "suite": "e2e-touch.mjs",
+   "want": "fail",
+   "line": "[e2e-touch] FAIL (2 failing assertions)"
+  },
+  {
+   "suite": "e2e-touch.mjs",
+   "want": "fail",
+   "line": "[e2e-touch] WATCHDOG: suite exceeded 420000 ms — hard exit"
+  },
+  {
+   "suite": "e2e-ui.mjs",
+   "want": "pass",
+   "line": "[e2e-ui] PASS select: upgrade hides native + builds combobox sibling"
+  },
+  {
+   "suite": "e2e-ui.mjs",
+   "want": "pass",
+   "line": "  OK   [static] A9 static: selected-state rules that set box-shadow / outline carry a :focus-visible companion"
+  },
+  {
+   "suite": "e2e-ui.mjs",
+   "want": "pass",
+   "line": "E2E-UI PASS"
+  },
+  {
+   "suite": "e2e-ui.mjs",
+   "want": "pass",
+   "line": "E2E-UI AUDIT: PASS"
+  },
+  {
+   "suite": "e2e-ui.mjs",
+   "want": "fail",
+   "line": "  FAIL [main] volume range rail >= 24px on fine pointer (nullpx) — WCAG 2.5.8 fine-pointer floor (build-4 QA)"
+  },
+  {
+   "suite": "e2e-ui.mjs",
+   "want": "fail",
+   "line": "E2E-UI FAIL: 10 visible native-styled control(s) — see FAIL lines above"
+  },
+  {
+   "suite": "e2e-ui.mjs",
+   "want": "fail",
+   "line": "E2E-UI FAIL: registers B-K15: primary hover = dim-3 (a 20-point step up from the dim rest, never down) — [\"oklch(0.74 0.11 252 / 0.16)\",{\"bg\":\"oklab(0.74 -0.033"
+  },
+  {
+   "suite": "e2e-ui.mjs",
+   "want": "fail",
+   "line": "E2E-UI AUDIT: FAIL"
+  },
+  {
+   "suite": "e2e-userboot-firstframe.mjs",
+   "want": "pass",
+   "line": "E2E-USERBOOT-FIRSTFRAME PASS"
+  },
+  {
+   "suite": "e2e-userboot-firstframe.mjs",
+   "want": "pass",
+   "line": "BOOT-FADE-CLEANUP: 58 OK / 0 RED (10 source schedules; native firstframe assertions unchanged)"
+  },
+  {
+   "suite": "e2e-userboot-firstframe.mjs",
+   "want": "fail",
+   "line": "E2E-USERBOOT FAIL: BOOT-FIRSTFRAME desktop 1440x900: exit leg — the overlay was removed BEFORE its own opacity transition ended: last rAF sample opacity 0.15039"
+  },
+  {
+   "suite": "e2e-userboot-firstframe.mjs",
+   "want": "fail",
+   "line": "E2E-USERBOOT-FIRSTFRAME FAIL"
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "pass",
+   "line": "camera register OK (desktop): orbit bit-identical, overhead derived (r 5.060, fov 22.00, coverage 0.823), reload persists, scripted pin holds"
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "pass",
+   "line": "[phone-fast3g] hold law OK: kernel→scene→ready→out; out at 59213ms (ready=true), removed at 59459ms (shell=true); 9 transitions, 0 exposure frames"
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "none",
+   "line": "[dict-hold] fallback → locale swap OK 237 ms after the release: '网络较慢 — 仍在加载'",
+   "why": "the word after OK is a number, not ':', a qualifier or ' — '"
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "pass",
+   "line": "SWSTOP-STAGING: 109 OK / 0 RED (15 native lifecycle schedules; two stops, original budgets and cache predicates)"
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "none",
+   "line": "terminal BOOT FAILED honest: #err over the failure card, skeleton suppressed",
+   "why": "a passing arm whose NAME holds FAILED: never a failure (the known case)"
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "pass",
+   "line": "E2E-USERBOOT PASS"
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "fail",
+   "line": "E2E-USERBOOT FAIL: [yield-wpbsa_snooker_12ft] Y-PREWARM-TASK: 1 long task(s) hold more than one prewarm job ([[1601,86]]): the jobs did not end their tasks"
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "fail",
+   "line": "E2E-USERBOOT FAIL: BOOT-FIRSTFRAME desktop 1440x900: exit leg — the overlay was removed BEFORE its own opacity transition ended: last rAF sample opacity 1 at +1"
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "fail",
+   "line": "E2E-USERBOOT FAIL: language switch re-skinned the venue (GH-368): felt 104,169,219 → 100,165,216, fractions {\"lum\":80.13929642499852,\"green\":0.0000625,\"gray\":0."
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "fail",
+   "line": "E2E-USERBOOT FAIL"
+  },
+  {
+   "suite": "e2e-variants.mjs",
+   "want": "pass",
+   "line": "[e2e-variants] PASS V1: variant list on the play card (no native select), default row current, both presets carry citation badges (FR-006 / 034 FR-008)"
+  },
+  {
+   "suite": "e2e-variants.mjs",
+   "want": "pass",
+   "line": "E2E-VARIANTS: PASS"
+  },
+  {
+   "suite": "e2e-variants.mjs",
+   "want": "fail",
+   "line": "E2E-VARIANTS FAIL: exception: Error: app (or the variant surfaces) never became ready"
+  },
+  {
+   "suite": "e2e-variants.mjs",
+   "want": "fail",
+   "line": "E2E-VARIANTS: FAILED"
+  },
+  {
+   "suite": "e2e.mjs",
+   "want": "pass",
+   "line": "determinism guard OK: scenario byte-identical across boots with/without recorder, hermetic profiles, default equipment (7276 bytes)"
+  },
+  {
+   "suite": "e2e.mjs",
+   "want": "none",
+   "line": "corner-watertight (GH-387, pool): 5836/5836 corner probes watertight",
+   "why": "no verdict word"
+  },
+  {
+   "suite": "e2e.mjs",
+   "want": "pass",
+   "line": "E2E PASS"
+  },
+  {
+   "suite": "e2e.mjs",
+   "want": "fail",
+   "line": "E2E FAIL: RAF-delta p95 35.30 ms > 34 ms guard"
+  },
+  {
+   "suite": "e2e.mjs",
+   "want": "fail",
+   "line": "E2E FAIL: Error: served-tree preflight: nothing answers http://127.0.0.1:21860/app.html within 15000 ms — the static server never bound :21860. A `python3 -m ht"
+  },
+  {
+   "suite": "test-sinkdress.mjs",
+   "want": "pass",
+   "line": "PASS  spec: corner query returns a dressing spec"
+  },
+  {
+   "suite": "test-sinkdress.mjs",
+   "want": "pass",
+   "line": "ALL PASS"
+  },
+  {
+   "suite": "test-sinkdress.mjs",
+   "want": "fail",
+   "line": "FAIL  interrupt: layout() teardown drops the sock env flag — {\"netEnvOn\":true,\"giBallOn\":0,\"envIsScene\":false}"
+  },
+  {
+   "suite": "test-sinkdress.mjs",
+   "want": "fail",
+   "line": "3 FAILURES"
+  },
+  {
+   "suite": "test-sinkrest.mjs",
+   "want": "pass",
+   "line": "PASS  spec: predator publishes the sinkRestFor closure export"
+  },
+  {
+   "suite": "test-sinkrest.mjs",
+   "want": "fail",
+   "line": "FAIL  side: light — RENDERED: the ring's radiance ratio with/without the transport is under the spec-derived bound 1 − a·(1 − F0) (linear tone mapping, unclampe"
+  },
+  {
+   "suite": "test-sinkrest.mjs",
+   "want": "fail",
+   "line": "1 FAILURES"
+  },
+  {
+   "suite": "e2e-play.mjs",
+   "want": "none",
+   "line": "P-STALE-DICT 1024 ja: stale ja served ×2; boot ok (details hidden true label \"\" i18n null)",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-atelier.mjs",
+   "want": "none",
+   "line": "S5-F done: 54 faces judged on the served bytes, 2 on FACE_OK, 0 FAIL",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-record.mjs",
+   "want": "none",
+   "line": "[gate] break: cue tip a=0 → lateral 0.000000 m (shooter-right axis) — OK",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-harness-hygiene.mjs",
+   "want": "none",
+   "line": "[hygiene] LEG   15.4 s  4e (7 checks, 1 FAIL, from +135.3 s)",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "none",
+   "line": "DVR864 SUMMARY SETUP=PASS L0=PASS L1=PASS L2=PASS",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "none",
+   "line": "DVR864 END legs 19 invalid 3 fail 0 pass 16",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "none",
+   "line": "DVR864 C-beat INVALID: compare deferred: no baseline supplied (OB_DVR864_CONTROL_BASELINE unset)",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-replays.mjs",
+   "want": "none",
+   "line": "X3 cycles: [{\"i\":1,\"ok\":true,\"t\":12}]",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-switch.mjs",
+   "want": "none",
+   "line": "  ! KNOWN-RED #1058 winkeep-nine_ball-table-keep: env face 3 ch 0 0.1002 vs fresh 0.4310",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-play.mjs",
+   "want": "none",
+   "line": "P2p-fold RED-PROVE: leaf off → rest clip y 233.0 cuts 2 [3]; end top-edge cuts 0",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-drills.mjs",
+   "want": "none",
+   "line": "[e2e-drills] arm 25 not run: red on main, tracked by #605",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-snooker.mjs",
+   "want": "none",
+   "line": "E2E-SNOOKER UNJUDGEABLE: S2p-scratch red: UNJUDGEABLE (by design: motion 5) mirror run: PASS, path pivot",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-replays.mjs",
+   "want": "none",
+   "line": "0b UNJUDGEABLE (instrument): the request census never saw the document",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-harness-hygiene.mjs",
+   "want": "none",
+   "line": "[pacing-storm] SKIPPED-STORM live teeth proof precondition (REAL box): storm axes busy",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-harness-hygiene.mjs",
+   "want": "none",
+   "line": "[hygiene] SKIP pacing (d) live teeth proof — SKIPPED-STORM: storm axes busy",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "none",
+   "line": "[stale-dict] card: failed='module' title='Could not start' err='[app] BOOT FAILED: failed to load http://127.0.0.1:23190/app/main.js",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "none",
+   "line": "P-L [es lineup-l-e2m 844x390]: RED — badge 243.6 px, row 18.0 px",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "none",
+   "line": "[swquota-desktop] quota override ok; page-side 64 KB put",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-tablecache.mjs",
+   "want": "none",
+   "line": "[e2e-tablecache] desktop pool HIT: meshes 148 geo 7ec7fc18 | new geometries 0",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-shell.mjs",
+   "want": "none",
+   "line": "E2E-RETRY-SUMMARY {\"suite\":\"SHELL\",\"cls\":\"JUDGED-FAIL\",\"verdict\":\"GREEN\"}",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-harness-hygiene.mjs",
+   "want": "none",
+   "line": "ZOMBIE-SETUP-FAILED setpgid into group 4",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-touch-disciplines.mjs",
+   "want": "none",
+   "line": "[e2e-touch-disciplines] failure screenshot: /tmp/e2e-touch-disciplines-9535/s1.png",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-switchperf.mjs",
+   "want": "none",
+   "line": "[e2e-switchperf] PLANTED RED on the GH-1170 boots: ?obArm=cn8-timeout-latch",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-play.mjs",
+   "want": "none",
+   "line": "  ok: false,",
+   "why": "prose or a property dump: the first verdict word is not at the verdict position"
+  },
+  {
+   "suite": "e2e-userboot.mjs",
+   "want": "pass",
+   "line": "scripted pin OK: green 0.19"
+  },
+  {
+   "suite": "e2e-replays.mjs",
+   "want": "fail",
+   "line": "E2E-REPLAYS: FAIL (3 failure(s))"
+  },
+  {
+   "suite": "e2e-ui.mjs",
+   "want": "pass",
+   "line": "[e2e-ui] PASS look-switch: green→sp regrades live without a dialog"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "pass",
+   "line": "[e2e-share] STRAIGHT_POOL MULTI-RE-RACK ARM: PASS (2 re-derived re-racks + accept + called stroke, byte-identical)"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "pass",
+   "line": "[e2e-share] CP ROUND-TRIP ARM: PASS (author DVR plan → &cp= link → replay → content-matched DVR session adopts the plan byte-equal; records byte-match; planless link byte-shaped like today's)"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "pass",
+   "line": "[e2e-share] CP MALFORMED ARM: PASS (garbage/truncated/future-version ignored with a warn; replay played to done)"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "pass",
+   "line": "[e2e-share] CP UNKNOWN-ID ARM: PASS (cam 6 kept in the model, broadcast at apply)"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "pass",
+   "line": "[e2e-share] STRAIGHT_POOL 14-AT-14 PARTIAL RE-RACK ARM: PASS (partial re-rack crossed, decoded-wire re-run byte-identical: poses + 2 records (25556 bytes) + fold + re-encoded link)"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "pass",
+   "line": "[e2e-share] PHONE DONE-REGISTER ARM: PASS (667x375 x en/de/ja: labels whole, gauge clear, band-S held, 44pt floors, Continue hit-testable)"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 SETUP PASS: ok | activateSnooker true rows [[0.94,null],[0.935,null],[2.5,null]] flush true sid_w 1 current 1 sessions [1] emptyPlan true beats [null,null,null]"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L0 PASS: ok | durs [2.5766689854668794,2.749541361494376,1.8104935650783585] tails [0.6000000000000001,0.6000000000000001,0.6000000000000001] completions [3.368295598567012,3.963942325313526,1.8104935650783585] leads [1.9833333333333334,2.0833333333333335,2.0166666666666666] kept reset boundaries [1,2]"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L1 PASS: ok | cum [1.9833333333333334,7.434962265233679,13.415571257213873] k0 span 3.3682955985670118 E_k 3.368295598567012; k1 span 3.9639423253135284 E_k 3.963942325313526; total 15.826064822292231 vs 15.826064822292231"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L2 PASS: ok | k0 [5.351628798430644, 5.3516291233730495] steps 24 x 3.368295790039716 vs E_k 3.368295598567012 (durs+tails 3.1766689854668795); k1 [11.398904285407191, 11.398904641879264] steps 24 x 3.9639423766455852 vs E_k 3.963942325313526 (durs+tails 3.349541361494376)"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L3 PASS: ok | k0 T 5.341628931900345 seg 0 dur 2.5766689854668794 durs[k] 2.5766689854668794; k1 T 11.388904590547206 seg 1 dur 2.749541361494376 durs[k] 2.749541361494376"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L4a PASS: ok | montageRate 1 records 3 slowmo 1 speed 1; k0 tail 0.25 E_k 3.368295598567012 ex.frames 337 res.segments 337; k1 tail 0.25 E_k 3.963942325313526 ex.frames 378 res.segments 378; k2 tail 0.5 E_k 2.4104935650783585 ex.frames 296 res.segments 296"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L4b PASS: ok | k0 ex.frames 337 playF 203 (identity 203) f(lo) 203 f(hi) 203; k1 ex.frames 378 playF 238 (identity 238) f(lo) 238 f(hi) 238"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L2b PASS: ok | plan true c2 {\"seg\":2,\"t\":0,\"cam\":2,\"transitionIn\":1,\"dur\":0} beats [null,2.1666666666666665,null] twoClock(boot) true; lo0 7.434962265233679 pred false ({\"seg\":1,\"beat\":false}) hi0 12.482237923880538 pred true ({\"seg\":1,\"beat\":true}); bracket [11.398904407569018, 11.39890470841009] steps 24 cum[1] + E_1 11.398904590547206 cum[1] + durs[1] 10.184503626728056 |hi - target| 1.1786288389714628e-7"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L2c PASS: ok | pose t0 3.963942325313526 t1 4.2639423253135265 dolly t0 4.2639423253135265 t1 6.130608991980193 durs[1] 2.749541361494376 E_1 3.963942325313526"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L4-beat PASS: ok | montageRate 1 records 3 slowmo 1 speed 1 opts.beats[1].beatSec 2.1666666666666665; k0 tail 0.25 E_k 3.368295598567012 ex.frames 337 res.segments[0] 337 bracket [5.351628798430644, 5.3516291233730495] steps 24 x 3.368295790039716 playF 203 f(lo) 203 f(hi) 203; k1 tail 2.1666666666666665 E_k 3.963942325313526 ex.frames 493 res.segments[1] 493 bracket [13.565571080055992, 13.565571565671464] steps 24 x 3.963942633771118 playF 238 f(lo) 238 f(hi) 238; k2 tail 0.5 E_k 2.4104935650783585 ex.frames 296 res.segments[2] 296"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L5 PASS: ok | tS 2.74 c {\"seg\":1,\"t\":274,\"cam\":0,\"transitionIn\":2,\"dur\":100} tA 2.74 h 0.5 E_1 3.963942325313526 kept reset boundaries [1,2] / [1,2]; j1 L5b T 10.336303747205449 x 0.16134148197176934 a 0.8056457525639891 b 0 w 0.8056457525639891; j2 L5b T 10.488103867682844 x 0.3131416024491642 a 0.2730957660352984 b 0 w 0.2730957660352984; j3 L5b T 10.639903988160237 x 0.46494172292655733 a 0.003094775755722477 b 0 w 0.003094775755722477; j4 L5a T 10.791704108637632 x 0.6167418434039522 a 0 b 0 w 0; j5 L5a T 10.943504229115025 x 0.7685419638813453 a 0.006181440447943795 b 0.006181440447943795 w 0; j6 L5a T 11.095304349592418 x 0.9203420843587384 a 0.30507386129399566 b 0.30507386129399566 w 0; j7 L5a T 11.247104470069813 x 1.0721422048361333 a 0.8321243399791526 b 0.8321243399791526 w 0; j8 L5a T 11.398904590547206 x 1.2239423253135264 a 1 b 1 w 0; red 0 of 8"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L6 PASS: ok | at L0: beats[1] null tails[1] 0.6000000000000001; setTrim(0, 12.482237923880538) -> true; records 2 opts.beats null trims [{\"startT\":0,\"endT\":null},{\"startT\":0,\"endT\":3.963942325313526}] durs[1] 2.749541361494376 completions[1] 3.963942325313526 E_1 3.963942325313526"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L6b PASS: ok | res.segments[1] 393 vs ex6.frames 393 (E_1 3.963942325313526, TAIL_SEC 0.5); L4a as written on this row: ex(pin) 393 vs 393 EQUAL"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 CTRL-SPLIT PASS: ok | close -> state AIM activateSnooker true rows [[2.5,null],[2.5,null],[2.5,null]] flush true sid_w 1 sid_c 2 sessions[0..2] [2,1] emptyPlan true beats [null,null,null]"
+  },
+  {
+   "suite": "e2e-export-z2.mjs",
+   "want": "pass",
+   "line": "DVR864 L0-control PASS: ok | durs [1.8104935650783585,1.8104935650783585,1.8104935650783585] tails [0.6000000000000001,0.6000000000000001,0.6000000000000001] completions [1.8104935650783585,1.8104935650783585,1.8104935650783585] kept reset boundaries [1,2]"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "none",
+   "line": "P-L native 667x375 FORCED touch.css last [es lineup-l-e2m]: RED — badge 243.6 px, readout 149.4 px × 2 lines, beside the name, strip 331..726 × 33.6 px, toolbar gap 8 | sheets drills.css?v=20 < touch.css?v=040; computed flex-wrap wrap, max-width 395px",
+   "why": "a P-L cell's measurement line: its failure is the 'E2E-PRACTICE FAIL: P-L …' line printed with it ('LABEL: RED — …' is not 'LABEL: PASS|FAIL (qualifier)')"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "none",
+   "line": "P-L transient-inset 667x375 [en lineup-lat-e2m] UNPOSED (inset 56 px): RED — badge 0 px, readout 216.2 px × 1 line, STACKED under the name, strip 331..547.2 × 16.8 px, toolbar gap 8 | sheets drills.css?v=20 < touch.css?v=040; computed flex-wrap wrap, max-width 395px",
+   "why": "a P-L cell's measurement line: its failure is the 'E2E-PRACTICE FAIL: P-L …' line printed with it ('LABEL: RED — …' is not 'LABEL: PASS|FAIL (qualifier)')"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "none",
+   "line": "P-L [es lineup-l-e2m 667x375]: RED — badge 243.6 px, readout 149.4 px × 2 lines, beside the name, strip 331..726 × 33.6 px, toolbar gap 8 | sheets drills.css?v=20 < touch.css?v=040; computed flex-wrap wrap, max-width 395px",
+   "why": "a P-L cell's measurement line: its failure is the 'E2E-PRACTICE FAIL: P-L …' line printed with it ('LABEL: RED — …' is not 'LABEL: PASS|FAIL (qualifier)')"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "none",
+   "line": "P-L native 667x375 FORCED touch.css last [en lineup-lat-e2m]: RED — badge 228.2 px, readout 164.8 px × 2 lines, beside the name, strip 331..726 × 33.6 px, toolbar gap 8 | sheets drills.css?v=20 < touch.css?v=040; computed flex-wrap wrap, max-width 395px",
+   "why": "a P-L cell's measurement line: its failure is the 'E2E-PRACTICE FAIL: P-L …' line printed with it ('LABEL: RED — …' is not 'LABEL: PASS|FAIL (qualifier)')"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "none",
+   "line": "P-L native 667x375 FORCED touch.css last [fr lineup-lat-e2m]: RED — badge 246.7 px, readout 146.3 px × 2 lines, beside the name, strip 331..726 × 33.6 px, toolbar gap 8 | sheets drills.css?v=20 < touch.css?v=040; computed flex-wrap wrap, max-width 395px",
+   "why": "a P-L cell's measurement line: its failure is the 'E2E-PRACTICE FAIL: P-L …' line printed with it ('LABEL: RED — …' is not 'LABEL: PASS|FAIL (qualifier)')"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "none",
+   "line": "P-L [en lineup-lat-e2m 667x375]: RED — badge 228.2 px, readout 164.8 px × 2 lines, beside the name, strip 331..726 × 33.6 px, toolbar gap 8 | sheets drills.css?v=20 < touch.css?v=040; computed flex-wrap wrap, max-width 395px",
+   "why": "a P-L cell's measurement line: its failure is the 'E2E-PRACTICE FAIL: P-L …' line printed with it ('LABEL: RED — …' is not 'LABEL: PASS|FAIL (qualifier)')"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "none",
+   "line": "P-L native 667x375 [es lineup-l-e2m]: RED — badge 243.6 px, readout 149.4 px × 2 lines, beside the name, strip 331..726 × 33.6 px, toolbar gap 8 | sheets drills.css?v=20 < touch.css?v=040; computed flex-wrap wrap, max-width 395px",
+   "why": "a P-L cell's measurement line: its failure is the 'E2E-PRACTICE FAIL: P-L …' line printed with it ('LABEL: RED — …' is not 'LABEL: PASS|FAIL (qualifier)')"
+  },
+  {
+   "suite": "e2e.mjs",
+   "want": "none",
+   "line": "[pacing-storm] RAF-delta p95 guard: red measurement (RAF-delta p95 37.90 ms > 34 ms guard) inside a CALM bracket — one confirming re-measure (the one-retry convention); a genuine collapse reds again",
+   "why": "prose: 'red' describes a measurement that is re-measured; a confirmed failure is the 'E2E FAIL: …' line"
+  },
+  {
+   "suite": "e2e.mjs",
+   "want": "none",
+   "line": "[pacing-storm] RAF-delta p95 guard: red CONFIRMED under calm storm axes. Differential-first before blaming the tree (the #404/#407 protocol): if pristine main reds this leg in the same window, it is a machine verdict (GH-425), not a tree verdict.",
+   "why": "prose: the failure is the 'E2E FAIL: RAF-delta p95 … guard' line printed right after it"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "none",
+   "line": "P-L [fr lineup-lat-e2m 667x375]: RED — badge 246.7 px, readout 146.3 px × 2 lines, beside the name, strip 331..726 × 33.6 px, toolbar gap 8 | sheets drills.css?v=20 < touch.css?v=040; computed flex-wrap wrap, max-width 395px",
+   "why": "a P-L cell's measurement line: its failure is the 'E2E-PRACTICE FAIL: P-L …' line printed with it ('LABEL: RED — …' is not 'LABEL: PASS|FAIL (qualifier)')"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "none",
+   "line": "P-L native 667x375 [en lineup-lat-e2m]: RED — badge 228.2 px, readout 164.8 px × 2 lines, beside the name, strip 331..726 × 33.6 px, toolbar gap 8 | sheets drills.css?v=20 < touch.css?v=040; computed flex-wrap wrap, max-width 395px",
+   "why": "a P-L cell's measurement line: its failure is the 'E2E-PRACTICE FAIL: P-L …' line printed with it ('LABEL: RED — …' is not 'LABEL: PASS|FAIL (qualifier)')"
+  },
+  {
+   "suite": "e2e-practice.mjs",
+   "want": "none",
+   "line": "P-L native 667x375 [fr lineup-lat-e2m]: RED — badge 246.7 px, readout 146.3 px × 2 lines, beside the name, strip 331..726 × 33.6 px, toolbar gap 8 | sheets drills.css?v=20 < touch.css?v=040; computed flex-wrap wrap, max-width 395px",
+   "why": "a P-L cell's measurement line: its failure is the 'E2E-PRACTICE FAIL: P-L …' line printed with it ('LABEL: RED — …' is not 'LABEL: PASS|FAIL (qualifier)')"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "pass",
+   "line": "[e2e-share] 8-BALL ROUND-TRIP ARM: PASS"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "pass",
+   "line": "[e2e-share] GH-492 BOOT-RACE ARM: PASS"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "pass",
+   "line": "E2E-SHARE PASS"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "pass",
+   "line": "G-KERNEL CORPUS PASS"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "fail",
+   "line": "E2E-SHARE FAIL: cp arm (c): decoded plan not held by the replay: null"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "fail",
+   "line": "E2E-SHARE FAIL: 492 arm: replay adjudicated breakSpot 'right', want left (the recorded LEFT break-spot placement was skipped)"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "none",
+   "line": "8-ball record 0: byte-match OK (67036 bytes)",
+   "why": "the label holds ': ' (prose shape): a byte-match sub-check, not 'LABEL: PASS (qualifier)'"
+  },
+  {
+   "suite": "e2e-share.mjs",
+   "want": "none",
+   "line": "v1-default-two-shots#1: event-byte identity OK (2752 bytes)",
+   "why": "the label holds ': ' (prose shape): a corpus sub-check"
+  },
+  {
+   "suite": "e2e-replays.mjs",
+   "want": "none",
+   "line": "[r3ramp-selftest] 3: PASS — main shape (23 → 252 → 513 → 629 → 696 → 751 → 764) → ramp 5 — ramp 5 first 13 reach 17 bandFrom 13 scene []",
+   "why": "'LABEL: PASS — text' is not 'LABEL: PASS (qualifier)'; a node-only selftest mode (--selftest-r3ramp) that exits before the suite and never writes a run-gate log"
+  }
+ ]
+}

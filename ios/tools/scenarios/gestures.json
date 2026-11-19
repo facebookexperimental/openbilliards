@@ -1,0 +1,353 @@
+{
+  "v": 1,
+  "name": "gestures",
+  "notes": [
+    "016 T023 (lane V). Gesture classification laws transcribed 1:1 from the",
+    "014 drivers: web/tools/e2e-touch.mjs rows 2-11 + 14 (S2 tap neutrality,",
+    "S3 relative aim drag, S4 fine parity, S5 second-finger law, S6",
+    "two-finger camera, S7 gauge+spin, S8 explicit-fire-only, S9 pocket",
+    "nomination, S10 BIH ghost, S11 interruption, S14 rotate prompt) and",
+    "web/tools/e2e-touch-disciplines.mjs row 2 (carom break-spot). The 014",
+    "files are NOT edited; constants (G0 = 1.2*PI/W, FINE_MIN = 0.1, SLOP =",
+    "10, NUDGE = 0.05 deg, GHOST_OFFSET_PX = 56, CAROM_START xOff 0.1825 /",
+    "y -0.71) are byte-copied from their headers.",
+    "TRANSPORT FIDELITY (GestureDriver header law): rows needing a held",
+    "finger across evals, an asymmetric second-finger stream, touchCancel,",
+    "or a centroid-translation two-finger drag are marked transport:",
+    "unavailable — counted in driver-report.json, never silently skipped;",
+    "those laws stay pinned by the 014 web drivers, which remain the",
+    "authoritative gesture-law gate (test-pyramid.md par.3 shares TABLES,",
+    "not transport). Magnitude bands widened where XCUITest velocity",
+    "realization is coarser than CDP dispatch (noted per row).",
+    "Rows 13 (chrome reachability) and disciplines row 4 (locale prompt",
+    "sweep) pin DOM/i18n laws with no shell-specific transport surface and",
+    "stay web-driver-owned; the rotate-prompt PORTRAIT arm rides L2",
+    "(ComponentTree: XCUIDevice orientation flips, FR-006/FR-012)."
+  ],
+  "source": "web/tools/e2e-touch.mjs sc2-sc11+sc14, web/tools/e2e-touch-disciplines.mjs sc2 (at 016 freeze)",
+  "viewport": { "width": 844, "height": 390 },
+  "boot": { "query": "obtool&seed=1", "ephemeralStore": true, "statusSeam": true },
+  "phases": [
+    {
+      "name": "tap-neutrality",
+      "setup": [ "window.__e2e = {}; true" ],
+      "steps": [
+        { "kind": "waitEval", "js": "document.documentElement.classList.contains('ob-touch') && window.__touch?.installed === true", "tries": 100 },
+        { "kind": "eval", "js": "window.__e2e.p0 = window.__aim?.getPhi?.() ?? null; true" },
+        { "kind": "tap", "from": { "x": 0.55, "y": 0.4 }, "ms": 40 },
+        { "kind": "sleep", "ms": 250 },
+        { "kind": "assertEval", "name": "S2 tap on empty table: phi bit-unchanged",
+          "js": "(window.__aim?.getPhi?.() ?? null) === window.__e2e.p0 && window.__e2e.p0 !== null" },
+        { "kind": "assertEval", "name": "S2 classifier returns to S0",
+          "js": "window.__touch?.state?.() === 'S0'" },
+        { "kind": "assertEval", "name": "S2 no tracked pointers after tap",
+          "js": "window.__touch?.pointers?.() === 0" }
+      ]
+    },
+    {
+      "name": "relative-aim-drag",
+      "steps": [
+        { "kind": "eval", "js": "window.__e2e.p0 = window.__aim.getPhi(); true" },
+        { "kind": "drag", "from": { "x": 0.3, "y": 0.5 }, "to": { "x": 0.601, "y": 0.5 }, "ms": 80 },
+        { "kind": "sleep", "ms": 200 },
+        { "kind": "assertEval", "name": "S3 rightward fast drag: phi decreases, magnitude in the -dx*G0*m(v) band (band floor 0.5 vs 014's 0.55: XCUITest velocity realization is coarser than CDP dispatch)",
+          "js": "(() => { const g0 = 1.2 * Math.PI / innerWidth; const d = window.__aim.getPhi() - window.__e2e.p0; const exp = -(0.301 * innerWidth) * g0; return d < 0 && Math.abs(d) >= Math.abs(exp) * 0.5 && Math.abs(d) <= Math.abs(exp) * 1.1; })()" },
+        { "kind": "eval", "js": "window.__e2e.p0 = window.__aim.getPhi(); true" },
+        { "kind": "drag", "from": { "x": 0.62, "y": 0.5 }, "to": { "x": 0.383, "y": 0.5 }, "ms": 224 },
+        { "kind": "sleep", "ms": 200 },
+        { "kind": "assertEval", "name": "S3 leftward drag: phi increases (direction law)",
+          "js": "window.__aim.getPhi() - window.__e2e.p0 > 0" },
+        { "kind": "assertEval", "name": "S3 classifier back to S0 after drags",
+          "js": "window.__touch?.state?.() === 'S0'" },
+        { "kind": "drag", "transport": "unavailable",
+          "note": "S3 no-snap-at-gesture-start sub-law: needs phi evals between touchStart and the first sub-slop moves while the finger is down; XCUICoordinate drags are one-shot (recorded; law pinned by e2e-touch.mjs S3)" }
+      ]
+    },
+    {
+      "name": "fine-parity",
+      "steps": [
+        { "kind": "eval", "js": "window.__e2e.p0 = window.__aim.getPhi(); true" },
+        { "kind": "drag", "from": { "x": 0.45, "y": 0.55 }, "to": { "x": 0.5211, "y": 0.55 }, "ms": 1320 },
+        { "kind": "sleep", "ms": 200 },
+        { "kind": "assertEval", "name": "S4 slow drag (45 px/s < V_LO) damps toward m = FINE_MIN (band 0.3-2.5x of dx*G0*0.1: coarse XCUITest pacing; full m=1 would sit at 10x, so the band still proves the damping law)",
+          "js": "(() => { const g0 = 1.2 * Math.PI / innerWidth; const d = window.__aim.getPhi() - window.__e2e.p0; const exp = -(0.0711 * innerWidth) * g0 * 0.1; return d < 0 && Math.abs(d) >= Math.abs(exp) * 0.3 && Math.abs(d) <= Math.abs(exp) * 2.5; })()" },
+        { "kind": "eval", "transport": "unavailable",
+          "note": "S4 mid-drag fineFactor() read: needs an eval while the finger is down (recorded; exact fineFactor == 0.1 pinned by e2e-touch.mjs S4)" },
+        { "kind": "assertEval", "name": "S4 nudge(+1)/nudge(-1) = exactly +/-0.05 deg (ArrowLeft/Right arithmetic, bit-exact page-side)",
+          "js": "(() => { if (!window.__touch?.nudge || !window.__aim?.getPhi) return false; const s = 1 * 0.05 * Math.PI / 180; const p0 = window.__aim.getPhi(); window.__touch.nudge(1); const p1 = window.__aim.getPhi(); window.__touch.nudge(-1); const p2 = window.__aim.getPhi(); return p1 === p0 + s && p2 === p1 - s; })()" }
+      ]
+    },
+    {
+      "name": "second-finger-law",
+      "steps": [
+        { "kind": "drag", "transport": "unavailable",
+          "note": "S5 second finger lands mid-S2 and moves alone with zero phi contribution: needs an asymmetric two-finger stream (recorded; pinned by e2e-touch.mjs S5)" },
+        { "kind": "drag", "transport": "unavailable",
+          "note": "S5 one-up-one-down S5 drain: surviving finger writes zero aim/camera until all-up (recorded; pinned by e2e-touch.mjs S5)" },
+        { "kind": "assertEval", "name": "S5 classifier idle at S0 (drain laws ride the web driver)",
+          "js": "window.__touch?.state?.() === 'S0'" }
+      ]
+    },
+    {
+      "name": "two-finger-camera",
+      "steps": [
+        { "kind": "eval", "js": "window.__aim?.getAimView?.() === true ? (window.__aim.setAimView(false), true) : true" },
+        { "kind": "sleep", "ms": 400 },
+        { "kind": "twoFinger", "transport": "unavailable",
+          "note": "S6 centroid drag at constant span: |dtheta| = dx*ORBIT_GAIN with phi/radius kept — public XCUITest cannot synthesize a centroid-TRANSLATION two-finger drag (GestureDriver header law; pinned by e2e-touch.mjs S6)" },
+        { "kind": "eval", "js": "window.__e2e.o0 = window.__tp.orbit(); !!window.__e2e.o0" },
+        { "kind": "twoFinger", "spanFrom": 0.359, "spanTo": 0.4487, "ms": 256 },
+        { "kind": "sleep", "ms": 300 },
+        { "kind": "assertEval", "name": "S6 pinch: zoom-in direction + phi-kept law (band 0.25-0.95: run-15 measured ratio 0.4334 for the requested 0.8 — XCUIElement.pinch realizes ~2.3x the requested span scale on CI, so the shell arm pins direction/phi/clamp only; the exact radius = span-ratio MAGNITUDE law stays pinned by e2e-touch.mjs S6 per the transport-fidelity note; floor 0.25 sits just under the orbit clamp ratio 0.7/2.7, unreachable by any overshoot)",
+          "js": "(() => { const o0 = window.__e2e.o0; const o1 = window.__tp.orbit(); if (!o0 || !o1) return false; const ratio = o1.radius / o0.radius; return ratio >= 0.25 && ratio <= 0.95 && Math.abs(o1.phi - o0.phi) < 0.06; })()",
+          "diag": "(() => { const o0 = window.__e2e.o0; const o1 = window.__tp.orbit(); return { r0: o0 && o0.radius, r1: o1 && o1.radius, ratio: o0 && o1 ? o1.radius / o0.radius : null, dphi: o0 && o1 ? o1.phi - o0.phi : null }; })()" },
+        { "kind": "eval", "js": "window.__aim.setAimView(true); true" },
+        { "kind": "waitEval", "js": "(() => { const p = JSON.stringify(window.__tp.camPose()); const ok = p === window.__e2e.lastPose; window.__e2e.lastPose = p; return ok; })()", "tries": 30 },
+        { "kind": "eval", "js": "window.__e2e.p0 = window.__aim.getPhi(); window.__e2e.a0 = window.__tp.orbit(); true" },
+        { "kind": "twoFinger", "spanFrom": 0.3, "spanTo": 0.36, "ms": 192 },
+        { "kind": "sleep", "ms": 300 },
+        { "kind": "assertEval", "name": "S6 aim view: two-finger gesture DISENGAGES it (issue #56 breakout)",
+          "js": "window.__aim.getAimView() === false" },
+        { "kind": "assertEval", "name": "S6 breakout: phi bit-unchanged (S4 never steers the aim)",
+          "js": "window.__aim.getPhi() === window.__e2e.p0" },
+        { "kind": "assertEval", "name": "S6 breakout continues from the CURRENT pose (radius gesture-band 0.2-1.0, target no-jump; exact magnitudes stay pinned by e2e-touch.mjs S6 per the transport-fidelity note)",
+          "js": "(() => { const a0 = window.__e2e.a0; const a1 = window.__tp.orbit(); if (!a0 || !a1 || !a0.target || !a1.target) return false; const ratio = a1.radius / a0.radius; const tj = Math.hypot(a1.target[0] - a0.target[0], a1.target[2] - a0.target[2]); return ratio >= 0.2 && ratio <= 1.0 && tj < 0.05; })()",
+          "diag": "(() => { const a0 = window.__e2e.a0; const a1 = window.__tp.orbit(); return { r0: a0 && a0.radius, r1: a1 && a1.radius, t0: a0 && a0.target, t1: a1 && a1.target }; })()" },
+        { "kind": "eval", "js": "window.__test.setCamera('default'); true" },
+        { "kind": "sleep", "ms": 400 }
+      ]
+    },
+    {
+      "name": "gauge-and-spin",
+      "steps": [
+        { "kind": "gaugeTo", "power": 12 },
+        { "kind": "assertEval", "name": "S7 gauge reaches the range top (12)",
+          "js": "Number(document.getElementById('power').value) === 12" },
+        { "kind": "gaugeTo", "power": 0.5 },
+        { "kind": "assertEval", "name": "S7 gauge reaches the range floor (0.5)",
+          "js": "Number(document.getElementById('power').value) === 0.5" },
+        { "kind": "gaugeTo", "power": 4.2 },
+        { "kind": "assertEval", "name": "S7 gauge writes at 0.1 resolution and the HUD readout agrees",
+          "js": "(() => { const v = Number(document.getElementById('power').value); const r = document.getElementById('power-val')?.textContent ?? ''; return v === 4.2 && parseFloat(r) === v; })()" },
+        { "kind": "spinTo", "a": 0.33, "b": 0.33 },
+        { "kind": "assertEval", "name": "S7 spin clamp + direction laws: |r| <= 0.56 (readTip +0.06 decode), |r| >= 0.38, top-right => a>0.1 and b>0.1",
+          "js": "(() => { const t = window.__tp.readTip(); if (!t || !(t.n > 0)) return false; const mag = Math.hypot(t.a, t.b); return mag <= 0.56 && mag >= 0.38 && t.a > 0.1 && t.b > 0.1; })()" },
+        { "kind": "assertEval", "name": "S7 elevation slider spans 0-80 step 1",
+          "js": "(() => { const vis = (el) => el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden'; const e = [...document.querySelectorAll('input[type=range]')].find((x) => vis(x) && !x.closest('#hud') && x.id !== 'ob-set-volume'); return !!e && Number(e.min) === 0 && Number(e.max) === 80 && Number(e.step) === 1; })()" },
+        { "kind": "dragEl", "el": "window.__tp.findPopupRange()", "from": { "x": 0.03, "y": 0.5 }, "to": { "x": 0.99, "y": 0.5 }, "ms": 192 },
+        { "kind": "sleep", "ms": 200 },
+        { "kind": "assertEval", "name": "S7 elevation reaches 80 through the #elev chain",
+          "js": "Number(document.getElementById('elev').value) === 80" },
+        { "kind": "dragEl", "el": "window.__tp.findPopupRange()", "from": { "x": 0.99, "y": 0.5 }, "to": { "x": 0.03, "y": 0.5 }, "ms": 192 },
+        { "kind": "sleep", "ms": 200 },
+        { "kind": "assertEval", "name": "S7 elevation returns to the geometric floor (#elev min; issue #47 made min the LIVE ceil(rail floor) — nonzero whenever the cue butt reaches over a rail, i.e. everywhere on this table — and the #85 AUTO baseline tracks it exactly, so the bottom slam lands AT min, never literal 0; the pre-#47 `=== 0` pin held this lane red from the v11 wave, run 29953043470; mirrors e2e-touch.mjs S7 as amended in d1e34376)",
+          "js": "Number(document.getElementById('elev').value) === Number(document.getElementById('elev').min)",
+          "diag": "(() => { const e = document.getElementById('elev'); return { value: e.value, min: e.min, rawFloor: window.__aim?.minElevation?.() ?? null }; })()" },
+        { "kind": "closePopup" },
+        { "kind": "assertEval", "name": "S7 machine still aiming (no interaction fired; GH-370 class 1: the fresh rack parks in the opening BALL_IN_HAND kitchen grant, so both aiming states satisfy the neutrality law — mirrors e2e-touch.mjs S7 as re-baselined in c02516dd, which this transcription missed because the L3 suite runs only on hosted CI)",
+          "js": "['AIM','BALL_IN_HAND'].includes(window.__test?.state?.() ?? '')",
+          "diag": "(() => ({ state: window.__test?.state?.() ?? null }))()" }
+      ]
+    },
+    {
+      "name": "explicit-fire-only",
+      "setup": [
+        "(async () => { for (let i = 0; i < 20; i++) { if (window.__rules?.game?.() !== 'eight_ball' || !window.__rules?.matchState?.()) { if ((await window.__rules?.setGame?.('eight_ball')) !== true) { await new Promise((r) => setTimeout(r, 200)); continue; } } __test.rerack(1); if (window.__rules?.setMatchState?.({ shooter: 1, breaker: 1 }) === true) return true; await new Promise((r) => setTimeout(r, 200)); } throw new Error('GH-566: could not (re)establish the scripted match (game=' + (window.__rules?.game?.() ?? '?') + ', fold=' + String(!!window.__rules?.matchState?.()) + ') \u2014 a mid-scenario page reload (WebContent recycle, the #514 class) or a rules-chain failure; each attempt re-selects eight_ball, re-stages the scene and re-injects the state, so this throw means 4 s of failed recovery, not one lost race'); })()",
+        "__test.setTip(0, 0)"
+      ],
+      "steps": [
+        { "kind": "assertEval", "name": "S8 baseline machine state aiming (GH-370: the fresh rack grants the opening BALL_IN_HAND)",
+          "js": "['AIM','BALL_IN_HAND'].includes(__test.state())",
+          "diag": "(() => ({ state: __test.state() }))()" },
+        { "kind": "eval", "js": "window.__e2e.shots0 = ((window.__share?.log?.() ?? {}).shots ?? 0); true" },
+        { "kind": "dragEl", "el": "window.__tp.findGauge()", "from": { "x": 0.5, "y": 0.96 }, "to": { "x": 0.5, "y": 0.04 }, "ms": 192,
+          "note": "GH-446: web sc8 pins this law with ONE full-rail drag (g.y+g.h-8 -> g.y+8, 12x16 ms) and never demands an exact #power landing — the old closed-loop {gaugeTo: 6} transcription was STRONGER than the law (step 4 asserts state+shots only) and raced the GH-370 opening-BIH async settle on hosted pacing (run 31281482541: value pinned 6.2, then findGauge went {found:false} mid-retry while #power persisted, final state BALL_IN_HAND). Exact-convergence gauge law coverage stays with gauge-and-spin S7 and explicit-fire-only#13." },
+        { "kind": "sleep", "ms": 300 },
+        { "kind": "assertEval", "name": "S8 gauge release fires nothing (machine stays aiming)",
+          "js": "['AIM','BALL_IN_HAND'].includes(__test.state()) && ((window.__share?.log?.() ?? {}).shots ?? 0) === window.__e2e.shots0" },
+        { "kind": "drag", "from": { "x": 0.3, "y": 0.5 }, "to": { "x": 0.55, "y": 0.5 }, "ms": 192 },
+        { "kind": "sleep", "ms": 250 },
+        { "kind": "assertEval", "name": "S8 aim-drag end fires nothing",
+          "js": "['AIM','BALL_IN_HAND'].includes(__test.state()) && ((window.__share?.log?.() ?? {}).shots ?? 0) === window.__e2e.shots0" },
+        { "kind": "spinTo", "a": 0.1, "b": 0 },
+        { "kind": "closePopup" },
+        { "kind": "assertEval", "name": "S8 popup close fires nothing",
+          "js": "['AIM','BALL_IN_HAND'].includes(__test.state()) && ((window.__share?.log?.() ?? {}).shots ?? 0) === window.__e2e.shots0" },
+        { "kind": "eval", "js": "__test.setTip(0, 0); true" },
+        { "kind": "aimTo", "phi": 1.5707963267948966 },
+        { "kind": "gaugeTo", "power": 8.5 },
+        { "kind": "fire" },
+        { "kind": "eval", "js": "window.__rules?.matchState?.()?.pendingDecision != null ? (window.__rules.decide(1), true) : true" },
+        { "kind": "sleep", "ms": 400 }
+      ]
+    },
+    {
+      "name": "pocket-nomination",
+      "setup": [
+        "(async () => { for (let i = 0; i < 20; i++) { if (window.__rules?.game?.() !== 'eight_ball' || !window.__rules?.matchState?.()) { if ((await window.__rules?.setGame?.('eight_ball')) !== true) { await new Promise((r) => setTimeout(r, 200)); continue; } } __test.layout([{ id: 0, x: 0, y: -0.4 }, { id: 2, x: 0.45, y: 0.9 }, { id: 8, x: 0.5, y: -0.8 }, { id: 9, x: -0.5, y: -1.0 }, { id: 12, x: 0.55, y: -1.0 }]); if (window.__rules?.setMatchState?.({ phase: 'open', shooter: 1, breaker: 1 }) === true) return true; await new Promise((r) => setTimeout(r, 200)); } throw new Error('GH-566: could not (re)establish the scripted match (game=' + (window.__rules?.game?.() ?? '?') + ', fold=' + String(!!window.__rules?.matchState?.()) + ') \u2014 a mid-scenario page reload (WebContent recycle, the #514 class) or a rules-chain failure; each attempt re-selects eight_ball, re-stages the scene and re-injects the state, so this throw means 4 s of failed recovery, not one lost race'); })()"
+      ],
+      "steps": [
+        { "kind": "waitEval", "js": "window.__aim.nominationRequired() === true", "tries": 20 },
+        { "kind": "waitEval", "js": "window.__aim.pocketMarks().some((m) => m.visible)", "tries": 20 },
+        { "kind": "tapPocket", "pocket": 5 },
+        { "kind": "assertEval", "name": "S9 in-zone tap registers the nomination (call().pocket === 5)",
+          "js": "window.__aim.call()?.pocket === 5" },
+        { "kind": "eval", "js": "window.__aim.clearCall(); true" },
+        { "kind": "sleep", "ms": 200 },
+        { "kind": "tapEl", "el": "(() => { const pockets = window.__rules?.pockets?.() ?? []; const zones = []; pockets.forEach((p, i) => { const c = window.__tp.projectK(p.x, p.y, 0.049); if (!c) return; const sx = window.__tp.projectK(p.x + p.r * 1.05, p.y, 0.049); const sy = window.__tp.projectK(p.x, p.y + p.r * 1.05, 0.049); const rPx = Math.max(sx ? Math.hypot(sx.x - c.x, sx.y - c.y) : 0, sy ? Math.hypot(sy.x - c.x, sy.y - c.y) : 0); if (rPx > 0 && rPx < 20) zones.push({ i, rPx, x: c.x, y: c.y }); }); zones.sort((a, b) => a.rPx - b.rPx); const hudR = (() => { const m = document.querySelector('#hud-match'); if (!m || !m.getClientRects().length) return null; const r = m.getBoundingClientRect(); return { x0: r.x - 8, y0: r.y - 8, x1: r.right + 8, y1: r.bottom + 8 }; })(); const inHud = (p) => !!hudR && p.x >= hudR.x0 && p.x <= hudR.x1 && p.y >= hudR.y0 && p.y <= hudR.y1; const onCanvas = (x, y) => { const el = document.elementFromPoint(x, y); return !!el && el.tagName === 'CANVAS' && el.parentElement === document.body; }; for (const z of zones) { const off = (z.rPx + 21) / 2; const pts = [[off, 0], [-off, 0], [0, off], [0, -off]].map(([dx, dy]) => ({ x: z.x + dx, y: z.y + dy })).filter((p) => p.x >= 8 && p.y >= 8 && p.x <= innerWidth - 8 && p.y <= innerHeight - 8 && !inHud(p)).sort((a, b) => Math.min(b.x, b.y, innerWidth - b.x, innerHeight - b.y) - Math.min(a.x, a.y, innerWidth - a.x, innerHeight - a.y)); const pick = pts.find((p) => onCanvas(p.x, p.y)); if (pick) { window.__e2e.zone = z; window.__e2e.zoneTap = pick; return { found: true, cx: pick.x, cy: pick.y }; } } return { found: false }; })()" },
+        { "kind": "assertEval", "name": "S9 tap outside the projected disc but inside the 22 pt floor registers (enlarged-zone law; the tap point is elementFromPoint-verified onto the renderer canvas — run 29146277678: the centered vertical offset landed on the tappable #hud-call strip, which OPENED the pocket picker and its backdrop ate the nomination)",
+          "js": "window.__aim.call()?.pocket === window.__e2e.zone.i",
+          "diag": "(() => { const z = window.__e2e.zone; const p = window.__e2e.zoneTap; const el = p ? document.elementFromPoint(p.x, p.y) : null; return { zone: z, tap: p, call: window.__aim.call(), elAt: el ? (el.id || String(el.className) || el.tagName) : 'none' }; })()" },
+        { "kind": "eval", "js": "window.__aim.clearCall(); true" },
+        { "kind": "closePopup",
+          "note": "016 L3 round 2b (run 29149930969): the S9 zone tap's touch path nominates through the kernel zones, the strip re-renders to its wider set state, and the tap's TRAILING synthesized click can then land on the grown #hud-call — opening the picker whose backdrop breaks the opener step below. Dismiss any incidental sheet (no-op when none); the zone finder also excludes the #hud-match footprint now (two belts)" },
+        { "kind": "sleep", "ms": 300 },
+        { "kind": "waitEval", "js": "(() => { const r = window.__tp.el('#hud-call'); return r.found && r.visible; })()", "tries": 20 },
+        { "kind": "tapElUntil", "minPt": 44, "tries": 3,
+          "el": "(() => { const el = document.querySelector('#hud-call'); if (!el || !el.getClientRects().length) return { found: false }; const r = el.getBoundingClientRect(); const hit = (x, y) => { const e = document.elementFromPoint(x, y); return !!e && (e === el || el.contains(e)); }; const cands = []; [0.5, 0.35, 0.65, 0.2, 0.8].forEach((fx) => [0.5, 0.6, 0.4].forEach((fy) => cands.push({ x: r.x + r.width * fx, y: r.y + r.height * fy }))); const pick = cands.find((p) => hit(p.x, p.y)); if (!pick) return { found: false }; window.__e2e.hudCallTap = pick; return { found: true, cx: pick.x, cy: pick.y, w: r.width, h: r.height }; })()",
+          "until": "(() => { const r = window.__tp.el('#ob-pocket-picker'); return r.found && r.visible; })()",
+          "diag": "(() => { const p = window.__e2e.hudCallTap; const el = p ? document.elementFromPoint(p.x, p.y) : null; return { tap: p, elAt: el ? (el.id || String(el.className) || el.tagName) : 'none', nominationRequired: window.__aim?.nominationRequired?.() ?? null, ind: window.__tp.el('#hud-call'), modalDisplay: (() => { const m = document.querySelector('#ob-pocket-modal'); return m ? getComputedStyle(m).display : 'absent'; })() }; })()" },
+        { "kind": "tapElUntil", "minPt": 44, "tries": 3,
+          "el": "(() => { const el = document.querySelector(\"#ob-pocket-picker [data-pocket='4']\"); if (!el || !el.getClientRects().length) return { found: false }; const r = el.getBoundingClientRect(); return { found: true, cx: r.x + r.width / 2, cy: r.y + r.height / 2, w: r.width, h: r.height }; })()",
+          "until": "window.__aim.call()?.pocket === 4",
+          "diag": "(() => ({ call: window.__aim.call(), picker: window.__tp.el('#ob-pocket-picker') }))()" },
+        { "kind": "sleep", "ms": 400 },
+        { "kind": "assertEval", "name": "S9 picker sheet drives nominatePocket (call().pocket === 4)",
+          "js": "window.__aim.call()?.pocket === 4" },
+        { "kind": "assertEval", "name": "S9 picker closes after the pocket pick",
+          "js": "(() => { const r = window.__tp.el('#ob-pocket-picker'); return r.visible !== true; })()" },
+        { "kind": "assertEval", "name": "S9 classifier back to S0",
+          "js": "window.__touch?.state?.() === 'S0'" }
+      ]
+    },
+    {
+      "name": "bih-ghost",
+      "setup": [
+        "(async () => { for (let i = 0; i < 20; i++) { if (window.__rules?.game?.() !== 'eight_ball' || !window.__rules?.matchState?.()) { if ((await window.__rules?.setGame?.('eight_ball')) !== true) { await new Promise((r) => setTimeout(r, 200)); continue; } } __test.layout([{ id: 0, x: 0, y: -0.4 }, { id: 3, x: 0.45, y: 0.9 }, { id: 8, x: 0.5, y: -0.8 }, { id: 9, x: -0.5, y: -1.0 }, { id: 12, x: 0.55, y: -1.0 }]); if (window.__rules?.setMatchState?.({ phase: 'grouped', groups: { 1: 'solids', 2: 'stripes' }, shooter: 1, breaker: 1 }) === true) return true; await new Promise((r) => setTimeout(r, 200)); } throw new Error('GH-566: could not (re)establish the scripted match (game=' + (window.__rules?.game?.() ?? '?') + ', fold=' + String(!!window.__rules?.matchState?.()) + ') \u2014 a mid-scenario page reload (WebContent recycle, the #514 class) or a rules-chain failure; each attempt re-selects eight_ball, re-stages the scene and re-injects the state, so this throw means 4 s of failed recovery, not one lost race'); })()",
+        "window.__rules?.call?.(3, 0)"
+      ],
+      "steps": [
+        { "kind": "assertEval", "name": "S10 scene shot accepted (no-contact foul recipe)",
+          "js": "(() => { const err = __test.shoot({ v0: 0.35, phi: -Math.PI / 2, theta: 0, a: 0, b: 0 }); return err == null; })()" },
+        { "kind": "waitState", "state": "BALL_IN_HAND", "tries": 220 },
+        { "kind": "bihDragTo", "kx": -0.3, "ky": -0.2 },
+        { "kind": "assertEval", "name": "S10 classifier back to S0 after the placement",
+          "js": "window.__touch?.state?.() === 'S0'" },
+        { "kind": "drag", "transport": "unavailable",
+          "note": "S10 invalid-target one-hop (finger over ball 8) keeps the last valid spot + --ob-danger ghost tint: needs a held finger across evals (recorded; pinned by e2e-touch.mjs S10 / disciplines D1)" },
+        { "kind": "drag", "transport": "unavailable",
+          "note": "S10 touchCancel mid-drag keeps the last valid position with no stuck state: XCUITest exposes no touch-cancel (recorded; pinned by e2e-touch.mjs S10)" },
+        { "kind": "bihDragTo", "kx": -0.1, "ky": -0.5,
+          "note": "016 L3 round 2 (run 29148551834): the web pilot's (0.2, -0.5) projects to y 398.5 px — the +56 px finger offset lands off-window and XCUITest clamps the drag (0.1188 m short x4); this fresh target keeps the finger on-screen, the exact bottom-band placement stays with e2e-touch.mjs S10 (recorded transport split)" },
+        { "kind": "assertEval", "name": "S10 next gesture places at a fresh target; machine still BALL_IN_HAND",
+          "js": "__test.state() === 'BALL_IN_HAND'" }
+      ]
+    },
+    {
+      "name": "interruption",
+      "setup": [
+        "(async () => { for (let i = 0; i < 20; i++) { if (window.__rules?.game?.() !== 'eight_ball' || !window.__rules?.matchState?.()) { if ((await window.__rules?.setGame?.('eight_ball')) !== true) { await new Promise((r) => setTimeout(r, 200)); continue; } } __test.layout([{ id: 0, x: 0, y: 0 }, { id: 3, x: 0.45, y: 0.9 }, { id: 8, x: 0.5, y: -0.8 }, { id: 9, x: -0.5, y: -1.0 }, { id: 12, x: 0.55, y: -1.0 }]); if (window.__rules?.setMatchState?.({ phase: 'grouped', groups: { 1: 'solids', 2: 'stripes' }, shooter: 1, breaker: 1 }) === true) return true; await new Promise((r) => setTimeout(r, 200)); } throw new Error('GH-566: could not (re)establish the scripted match (game=' + (window.__rules?.game?.() ?? '?') + ', fold=' + String(!!window.__rules?.matchState?.()) + ') \u2014 a mid-scenario page reload (WebContent recycle, the #514 class) or a rules-chain failure; each attempt re-selects eight_ball, re-stages the scene and re-injects the state, so this throw means 4 s of failed recovery, not one lost race'); })()"
+      ],
+      "steps": [
+        { "kind": "eval", "js": "window.__e2e.shots0 = ((window.__share?.log?.() ?? {}).shots ?? 0); true" },
+        { "kind": "drag", "transport": "unavailable",
+          "note": "S11(a) touchCancel mid-aim-drag -> S0, fires nothing: no touch-cancel in public XCUITest (recorded; pinned by e2e-touch.mjs S11)" },
+        { "kind": "drag", "transport": "unavailable",
+          "note": "S11(b) visibilitychange/blur hard reset MID-DRAG with the still-down finger writing nothing: needs a held finger across evals (recorded; pinned by e2e-touch.mjs S11 — the shell-side lifecycle analogue rides the lifecycle scenario's background/resume arm)" },
+        { "kind": "drag", "transport": "unavailable",
+          "note": "S11(c) mid-gauge-drag cancel leaves no stuck latch: no touch-cancel (recorded; pinned by e2e-touch.mjs S11)" },
+        { "kind": "eval", "js": "window.__e2e.p0 = window.__aim.getPhi(); true" },
+        { "kind": "drag", "from": { "x": 0.3, "y": 0.5 }, "to": { "x": 0.52, "y": 0.5 }, "ms": 160 },
+        { "kind": "sleep", "ms": 200 },
+        { "kind": "assertEval", "name": "S11(d) classifier healthy: next gesture works (phi moved)",
+          "js": "window.__aim.getPhi() !== window.__e2e.p0" },
+        { "kind": "assertEval", "name": "S11 back to S0",
+          "js": "window.__touch?.state?.() === 'S0'" },
+        { "kind": "assertEval", "name": "S11 whole phase fired nothing",
+          "js": "__test.state() === 'AIM' && ((window.__share?.log?.() ?? {}).shots ?? 0) === window.__e2e.shots0" }
+      ]
+    },
+    {
+      "name": "rotate-prompt-landscape",
+      "steps": [
+        { "kind": "assertEval", "name": "S14 shell arm: the 014 portrait rotate prompt never renders in the landscape-locked shell (pure CSS orientation:portrait, shell-app.md par.4; the orientation-FLIP arm rides L2 ComponentTree)",
+          "js": "(() => { const el = document.getElementById('ob-rotate'); if (!el) return true; return !(el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden'); })()" }
+      ]
+    },
+    {
+      "name": "carom-break-spot",
+      "steps": [
+        { "kind": "assertEval", "name": "D2 carom entry accepted by setGame (async seam: compare AFTER the await — the shell executor resolves the WHOLE eval result, so `setGame(...) === true` compared a pending promise and was always false; the web driver awaits the bare call under CDP, which masked this in the transcription — run 29150982871)",
+          "js": "(async () => (await window.__rules.setGame('carom_3cushion')) === true)()" },
+        { "kind": "sleep", "ms": 500 },
+        { "kind": "assertEval", "name": "D2 carom activates (seeded rack; async seam, compared after the await)",
+          "js": "(async () => (await window.__rules.caromActivate(5)) === true)()" },
+        { "kind": "sleep", "ms": 700 },
+        { "kind": "assertEval", "name": "D2 break address routes to BALL_IN_HAND",
+          "js": "__test.state() === 'BALL_IN_HAND'" },
+        { "kind": "assertEval", "name": "D2 break_spot pending (UMB Art 23.2)",
+          "js": "window.__rules.matchState()?.pendingDecision?.kind === 'break_spot'" },
+        { "kind": "waitEval", "js": "(() => { const d = document.getElementById('hud-decision'); return !!d && d.style.display === 'block' && d.querySelectorAll('.hd-btns button').length === 2; })()", "tries": 40 },
+        { "kind": "assertEval", "name": "D2 break-spot options >= 44 pt",
+          "js": "(() => { const d = document.getElementById('hud-decision'); const bs = [...d.querySelectorAll('.hd-btns button')]; return bs.length === 2 && bs.every((b) => { const r = b.getBoundingClientRect(); return Math.min(r.width, r.height) >= 43.5; }); })()" },
+        { "kind": "tapEl", "el": "(() => { const b = document.querySelectorAll('#hud-decision .hd-btns button')[1]; if (!b) return { found: false }; const r = b.getBoundingClientRect(); return { found: true, cx: r.x + r.width / 2, cy: r.y + r.height / 2, w: r.width, h: r.height }; })()", "minPt": 44 },
+        { "kind": "waitEval", "js": "window.__rules.matchState()?.pendingDecision === null", "tries": 40 },
+        { "kind": "assertEval", "name": "D2 the chosen spot is recorded ('right')",
+          "js": "window.__rules.matchState()?.breakSpot === 'right'" },
+        { "kind": "assertEval", "name": "D2 placement lands on the RIGHT start spot (UMB Art 23.2, 1e-6)",
+          "js": "(() => { const b = window.__test.balls().find((x) => x.id === 0); return Math.abs(b.pos[2] - 0.1825) <= 1e-6 && Math.abs(b.pos[0] - (-0.71)) <= 1e-6; })()" },
+        { "kind": "eval", "js": "window.__test.setCamera('default'); true",
+          "note": "016 L3 round 2d (run 29151867325): the session camera left by the S5 orbit / S6 pinch phases projects the carom cue to y 512 on the 390 pt page (and the drag target off-window left) — XCUITest cannot grab off-screen points (CDP can, masking this on web). The default preset refits the boot framing to the carom table (probe: cue (371, 211), finger endpoint (313, 236) — both on-screen)" },
+        { "kind": "sleep", "ms": 400 },
+        { "kind": "bihDragTo", "kx": -0.35, "ky": -0.71, "expectKx": -0.1825, "expectKy": -0.71 },
+        { "kind": "assertEval", "name": "D2 touch drag snaps to the LEFT start spot (Art 23.2 clamp, 1e-6)",
+          "js": "(() => { const b = window.__test.balls().find((x) => x.id === 0); return Math.abs(b.pos[2] - (-0.1825)) <= 1e-6 && Math.abs(b.pos[0] - (-0.71)) <= 1e-6; })()" },
+        { "kind": "assertEval", "name": "D2 classifier back to S0",
+          "js": "window.__touch?.state?.() === 'S0'" },
+        { "kind": "drag", "transport": "unavailable",
+          "note": "D1 snooker D placement (in-D keep, radial boundary clamp, occupied-spot rejection tint): needs multi-leg held-finger drags + touchCancel probing (recorded; pinned by e2e-touch-disciplines.mjs D1)" }
+      ]
+    },
+    {
+      "name": "zoom-pin",
+      "notes": [
+        "issue #145: page zoom pinned at every layer in the shell — the",
+        "app.html meta caps (maximum-scale=1/user-scalable=no, honored by",
+        "WKWebView), the native scroll-view clamp (applyZoomLockdown,",
+        "re-asserted per navigation), and the obViewport detection->reset",
+        "wire. This phase drives the ONE synthesizable pinch transport",
+        "(XCUIElement.pinch, fixed webview-center centroid per the",
+        "GestureDriver header law) and asserts the page never zooms; the",
+        "web-side guard laws (GestureEvent preventDefault, watchdog seam",
+        "unit, meta content) stay pinned by e2e-touch.mjs S24."
+      ],
+      "steps": [
+        { "kind": "waitEval", "js": "window.__touch?.installed === true && window.__viewport?.installed === true", "tries": 100 },
+        { "kind": "assertEval", "name": "Z1 baseline: visualViewport.scale is 1 post-boot (the didFinish clamp re-assert survived the navigation re-derive)",
+          "js": "!window.visualViewport || Math.abs(window.visualViewport.scale - 1) < 0.005",
+          "diag": "(() => ({ scale: window.visualViewport ? window.visualViewport.scale : null, reports: window.__viewport?.reports?.() ?? null }))()" },
+        { "kind": "twoFinger", "spanFrom": 0.3, "spanTo": 0.45, "ms": 256,
+          "note": "pinch-OUT (scale 1.5) at the webview center: the page-zoom-in gesture; the classifier legally consumes it as S4 camera zoom — the LAW is that PAGE zoom never engages" },
+        { "kind": "sleep", "ms": 500 },
+        { "kind": "assertEval", "name": "Z2 canvas pinch-out never engages page zoom (visualViewport.scale stays 1)",
+          "js": "!window.visualViewport || Math.abs(window.visualViewport.scale - 1) < 0.005",
+          "diag": "(() => ({ scale: window.visualViewport ? window.visualViewport.scale : null, reports: window.__viewport?.reports?.() ?? null, hinted: (document.getElementById('banner')?.textContent ?? '') !== '' }))()" },
+        { "kind": "twoFinger", "transport": "unavailable",
+          "note": "Z3 chrome-ORIGIN pinch (starting on the settings gear, outside the canvas touch-action scope): XCUIElement.pinch has a fixed webview-center centroid — no chrome-anchored pinch transport (recorded; pinned by e2e-touch.mjs S24's synthesizePinchGesture chrome arm)" },
+        { "kind": "assertEval", "name": "Z4 obViewport recovery bridge is page-visible in the shell (release-legal handler, not the DEBUG seam)",
+          "js": "typeof window.webkit?.messageHandlers?.obViewport?.postMessage === 'function'" },
+        { "kind": "eval", "js": "window.webkit.messageHandlers.obViewport.postMessage({ v: 1, scale: 2 }); true",
+          "note": "Z5 drive the detection->reset wire end to end: a (spoofed) zoom report must trigger the native setZoomScale(1) + re-clamp — already at 1, so the observable law is 'still 1, nothing broke'" },
+        { "kind": "sleep", "ms": 400 },
+        { "kind": "assertEval", "name": "Z5 shell zoom reset ran without disturbing the page (scale still 1, classifier idle)",
+          "js": "(!window.visualViewport || Math.abs(window.visualViewport.scale - 1) < 0.005) && window.__touch?.state?.() === 'S0'",
+          "diag": "(() => ({ scale: window.visualViewport ? window.visualViewport.scale : null, touchState: window.__touch?.state?.() ?? null }))()" },
+        { "kind": "eval", "js": "window.__test.setCamera('default'); true",
+          "note": "restore the boot framing consumed by the Z2 camera pinch (carom-break-spot precedent)" }
+      ]
+    }
+  ],
+  "asserts": [
+    { "kind": "zeroNonAppRequests", "note": "SC-001 arm when run under e2e-ios --airplane" }
+  ]
+}

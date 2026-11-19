@@ -1,0 +1,22 @@
+{
+ "what": "ORDER LIGHT-L24-B: a COMMITTED near-threshold HDR-ONLY leak pair for the offcheck judgement arm (OB_SEAL_ARM=hdrleak)",
+ "source": "output/lighting/before/default/predator_apex_9ft/conv/full34 (main 163d7f25 export, converged sub-run, land7 round, runId mtq1c0se-81054)",
+ "crop_ldr": [
+  320,
+  100,
+  640,
+  300
+ ],
+ "tolerance_cell": "default/predator_apex_9ft/full34",
+ "hdr_tolerance": 0.002649068832397461,
+ "leak_over_delta": 0.0027815222740173342,
+ "leak_under_delta": 0.0025166153907775876,
+ "region": "top half of the crop (rows 0..99 of 200 LDR / 0..49 of 100 HDR)",
+ "ldr": "identical to the main crop by construction (an HDR-only leak: sub-LSB in the LDR readback)",
+ "expected": {
+  "leak-over vs main": "FAIL on the HDR criterion (exit 4)",
+  "leak-under vs main": "PASS (inside the tolerance)",
+  "leak-over vs main with --arm-weaken hdr": "PASS - the weakened judgement goes green: the HDR criterion is what catches it",
+  "leak-over vs main with --arm-weaken png": "still FAIL - the PNG criterion is not what catches an HDR-only leak"
+ }
+}

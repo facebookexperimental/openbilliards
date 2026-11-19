@@ -1,0 +1,11 @@
+G5 desktop D1 OK: 5 rows on the kit grid (286px 320px), labels 14px none
+E2E-SETTINGS FAIL: G5 desktop D2: de flip did not re-label the state word ('On', want 'On')
+G5 desktop D3 OK: #ob-about-help 186x40 pad 16, #ob-about-bugreport 243x40 pad 16
+E2E-SETTINGS FAIL: G5 desktop D4: ja: nav 'Assists' text-transform uppercase in en; ja: nav 'Assists' 12px (caps role: 13); ja: nav 'Display' text-transform uppercase in en; ja: nav 'Display' 12px (caps role: 13); ja: nav 'Language' text-transform uppercase in en; ja: nav 'Language' 12px (caps role: 13); ja: nav 'About' text-transform uppercase in en; ja: nav 'About' 12px (caps role: 13)
+G5 phone P4 OK: bar hidden under the open hall (FR-017)
+G5 phone P1 OK: bar 844x61 under the body, rows share.button 122x44 pad 17.6 / hud.rerack 90x44 pad 17.6
+G5 phone P2 OK: range 321..365 vs body 61..329 (scroll 328/268, fade true/1), rows 422.484px 373.516px
+G5 phone P3 OK: title 'Display' 1x1 clip inset(50%); about 189x44 / 246x44
+[e2e-settings] PASS G5: settings on the kit parts (rows / toggles / About actions / voices / phone bar) — arm ran with no fixture collapse
+[e2e-settings] SCOREBOARD: 159 passed, 2 failed, 0 skipped
+E2E-SETTINGS: FAILED

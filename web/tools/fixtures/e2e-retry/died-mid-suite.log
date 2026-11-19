@@ -1,0 +1,7 @@
+E2E-REPLAYS FAIL: 5b: exit must restore the entry gameplay pose: {"exitPose":{"target":[0,0.05,0]}}
+E2E-REPLAYS FAIL: 6a: the DVR head must rest inside the strip: {"head":-1}
+file:///web/tools/e2e-replays.mjs:2210
+    throw new Error('CDP session closed');
+          ^
+Error: CDP session closed
+    at run (file:///web/tools/e2e-replays.mjs:2210:11)

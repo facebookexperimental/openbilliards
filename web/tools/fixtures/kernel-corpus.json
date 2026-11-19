@@ -1,0 +1,371 @@
+{
+ "_readme": [
+  "Gate G-KERNEL old-side capture (feature 012 T003, SC-003/FR-009).",
+  "Event-stream byte pins of every legacy-links.json scenario + the",
+  "committed pool-wasm break fixture, re-simulated on the pre-012",
+  "canonical wasm (0.1.0+5bd2803) at commit ce8f9db7b2f8657dee05aa392ac3f10996b56294.",
+  "events_sha256 = sha256 over JSON.stringify(record.events) — the",
+  "ECMAScript-normalized event-stream serialization (version-free, so",
+  "it must stay BYTE-IDENTICAL across the additive-only 012 kernel",
+  "rebuild). The pre-012 wasm binary + glue are archived at",
+  "web/tools/fixtures/pre012-wasm/ so e2e-share.mjs --corpus can",
+  "re-simulate the old side directly. DO NOT regenerate — this file is",
+  "the oracle for the 012 determinism cascade.",
+  "",
+  "FEATURE-018 DEFAULT FLIP REPIN (flip-cascade.md §3, 2026-07-11):",
+  "ONLY the pool-wasm-break-fixture entry moved — the kernel default",
+  "cluster model flipped to CompliantChain (commit 3856cb9), so the",
+  "fixture’s default event stream legitimately changed (114 → 195",
+  "events; honest diff, NOT additive). The 13 legacy-links pins are",
+  "version-pinned to their own kernels and DID NOT move. Four of them",
+  "(the sessions’ break shots: v1-default-two-shots#0,",
+  "v2-grip-worn-foul-bih#0, v2-mathavan-default-cloth#0,",
+  "v3-full-equipment-foul-bih#0) also",
+  "diverge under the flipped default — e2e-share.mjs --corpus admits a",
+  "divergence ONLY when the EXPLICIT SequentialImpulse scenario on the",
+  "new wasm reproduces the pinned stream byte-identically, proving the",
+  "delta is attributable exactly to the flipped cluster default and the",
+  "legacy resolver is untouched (research R12). The break-fixture entry",
+  "keeps pre_flip_events_sha256 so the arm also proves the archived",
+  "pre-012 wasm still reproduces the old stream. The (old, new) kernel",
+  "pair is NOT in KERNEL_COMPAT_LINEAGE: byte identity cannot be proven",
+  "for break records, so cross-version opens show the standard warning +",
+  "view-anyway (generalization-audit row 12 posture).",
+  "",
+  "ISSUE-87 SLIP-LAW REPIN (2026-07-22, refs #77 #83 #87): ONLY the",
+  "pool-wasm-break-fixture entry moved again — the ball-ball slip-branch",
+  "friction impulse was corrected to the (1+e_b)/2 Coulomb cap (#77,",
+  "default BallBallSlipLaw::CoulombCap) and the Stronge terminal",
+  "stick→slip root selection was made continuous in incidence (#83,",
+  "default StrongeSlipSelect::FirstCrossing), so the fixture’s default",
+  "event stream legitimately changed (195 → 189 events; honest diff).",
+  "The pre-#77 default stream is RETAINED as pre_77_events_sha256 /",
+  "pre_77_n_events (018-flip discipline): the NEW kernel reproduces it",
+  "byte-identically with the explicit legacy pin",
+  "ball_ball_slip_law: PostImpactNormalDelta (Han2005 cushion — #83 is",
+  "not in play for this fixture; StrongeCompliant scenarios additionally",
+  "pin slip_select: LegacyBracket). The 13 legacy-links pins are",
+  "version-pinned to their own kernels and DID NOT move. The four",
+  "sessions’ break shots (v1-default-two-shots#0, v2-grip-worn-foul-bih#0,",
+  "v2-mathavan-default-cloth#0, v3-full-equipment-foul-bih#0) diverge",
+  "additionally under the corrected slip law — e2e-share.mjs --corpus",
+  "admits each divergence ONLY when the EXPLICIT legacy-options scenario",
+  "(SequentialImpulse + Planar + PostImpactNormalDelta + LegacyBracket",
+  "where StrongeCompliant) on the new wasm reproduces the pinned stream",
+  "byte-identically (proven 5/5 at the repin; the slip-only pins",
+  "PostImpactNormalDelta/LegacyBracket also reproduce the pre-fix",
+  "0.1.0+b40cc77 DEFAULT streams byte-identically — the delta is",
+  "attributable exactly to #77/#83). The (old, new) kernel pair stays out",
+  "of KERNEL_COMPAT_LINEAGE (ballball-slip-cap-compat.md (internal)).",
+  "#789 LEGACY ENTRY v7-retired-table-id-b6b5dc3f: event-stream pins of its scenarios computed on the build-18 canonical wasm 0.1.0+b6b5dc3f (own-kernel: capture_kernel_version routes each pin to the archived web/tools/fixtures/b6b5dc3f-wasm) (gen-legacy-corpus.mjs --kernel-corpus pin formula), inserted before the break fixture",
+  "SOLVER-SWAP LINEAGE BREAK (SWAP-LB-1, 2026-10-20; ledger SWP-144): the QRT-F root service replaced the 1010 one and the ",
+  "old root code was deleted, so the explicit-legacy byte reproduction cannot hold across this one change. Each covered entry ",
+  "(closed list: pool-wasm-break-fixture, v1-default-two-shots#0, v2-grip-worn-foul-bih#0, v2-mathavan-default-cloth#0, v3-full-equipment-foul-bih#0, v3-full-equipment-foul-bih#2) carries a swap_lb1 record; e2e-share.mjs --corpus then proves, per entry: (a) the ",
+  "archived old wasm reproduces the pinned old stream byte-identically; (b) the committed dist's default and explicit-legacy ",
+  "streams equal the record's new_default_events_sha256 / new_legacy_events_sha256; (c) the explicit-legacy stream is ",
+  "structurally identical to the old one (event count, kinds with ball ids, post-state ball ids in order, motion labels); ",
+  "(d) every numeric difference is within the record's measured per-family bound (t/pos/vel/avel, abs and ulps); (e) the ",
+  "record cites the evidence. The break fixture keeps its version-pinned triple (pre_flip_events_sha256 old, events_sha256 ",
+  "repinned to the 0.1.0+ea12a4f1 default stream; restamped 0.1.0+90958db6 at the F12 fold-in, stream unchanged). No lineage pair: solver-swap-compat.md (internal).",
+  "K-FIX FOLD-IN (PROVISION SWAP-LB-1 v3, accepted; ledger SWP-144): the batch ships under one stamp, 0.1.0+57ed5536. The closed list stays v1's six entries. Re-measured on the canonical dist: v1-default-two-shots#0 (new explicit-legacy stream and bounds), the break fixture (bounds and new explicit-legacy stream; its version-pinned triple restamped, default stream unchanged) and v2-grip-worn-foul-bih#0 (both streams and bounds); v2-mathavan-default-cloth#0, v3-full-equipment-foul-bih#0 and #2 carry over except the stamp. Every record cites v3's evidence. v1-realistic-foul-bih#2 and v7-retired-table-id-b6b5dc3f#0 are byte-identical again and carry no record."
+ ],
+ "captured_commit": "ce8f9db7b2f8657dee05aa392ac3f10996b56294",
+ "captured_at": "2026-07-09T05:15:09.330Z",
+ "kernel_version": "0.1.0+5bd2803",
+ "scenarios": [
+  {
+   "name": "v1-realistic-foul-bih#0",
+   "scenario_sha256": "be63b511702c3b4cac54ed0e52f0cb05b8ffafe3525724b72c422249bcf05d24",
+   "events_sha256": "931b16af835ae7017b3d2d68af12f24ea5a67dfd0a39136bcb573995c2e75869",
+   "n_events": 7
+  },
+  {
+   "name": "v1-realistic-foul-bih#1",
+   "scenario_sha256": "90b7d63a6412ef27ca15d44e27bc552aa27ae180d775e4fdfb43734a01d3a3ff",
+   "events_sha256": "62405d90bd00456119d66cb1f630092463dcbf0b43860fa5f9fa48ed72624ccf",
+   "n_events": 4
+  },
+  {
+   "name": "v1-realistic-foul-bih#2",
+   "scenario_sha256": "6ecccf38766b5a62def613b8b36a83ed558cec4f7fe43ad34b3ff54c33704082",
+   "events_sha256": "c2e2972610c1486729a22f383fb2caf539fb589e83b4de88828c24d226fc475a",
+   "n_events": 9
+  },
+  {
+   "name": "v1-default-two-shots#0",
+   "scenario_sha256": "219abafeef1f637bf48618e3c0352f3061e5e00fad172d2a311fd04c6611f6e9",
+   "events_sha256": "817b0fc8bad0b6fc1e92cedd6308189e05a5d67c33c0f58d5729e4d3003a08f7",
+   "n_events": 73,
+   "swap_lb1": {
+    "provision": "SWAP-LB-1",
+    "new_kernel_version": "0.1.0+snapshot",
+    "new_default_events_sha256": "49c58c1bdcee2e65c824e0fe0cd64a94250a014629b227795e8a150b51e6385f",
+    "new_legacy_events_sha256": "640a97168fc2768d8a62edd8092fb42f9537b99e932874e535101538ba997314",
+    "bounds": {
+     "t": {
+      "abs": 2.361666417982633e-12,
+      "ulps": 2659
+     },
+     "pos": {
+      "abs": 6.72711886195998e-13,
+      "ulps": 24237
+     },
+     "vel": {
+      "abs": 3.914923940584458e-13,
+      "ulps": 30528
+     },
+     "avel": {
+      "abs": 1.1220357976071682e-11,
+      "ulps": 19905
+     }
+    },
+    "first_difference": "events[1].t, 7 ulp",
+    "evidence": [
+     "K: the full-log K re-run on the fixed kernel (perf K-RERUN-REGISTRATION-v2, amendment 1), the roots half on the GUARD1 tree (QRT-F SEAL v4 2c69529b, rootcmp re-run) and the K re-run on the (i′) candidate, including the P6 kept-t0 class (perf MANIFEST-am2)",
+     "L: D2 V152-34 with the approved V152-36 rev3 flip rule (decision 7ec2e2d7) and its clarifications 1-2",
+     "G4: the D2 V152-33 verdicts under the same flip rule",
+     "J: of record on the fixed kernel (perf ADDENDUM-5)",
+     "ledger SWP-144 (kernel-corpus.json), SWP-145 (legacy-links.json)",
+     "SEAL byte-identity: crates/pool-core/src 3d6acec74ef68869e2eb58cc904f4ec709c5a3ac, crates/kroots c10d4d255b1f56360291ca8f3b37d298df2b5277 (identical between the verdict tree and the shipped tree, 0.1.0+57ed5536)"
+    ]
+   }
+  },
+  {
+   "name": "v1-default-two-shots#1",
+   "scenario_sha256": "5786e985a17ff3de019fece56db6d1ef13a6a7c81e7b66e6e507f1ec426aecde",
+   "events_sha256": "f51cd8030c5387525c65338f44be6af9ff2ea78cf47fbb480078cc6710555d98",
+   "n_events": 10
+  },
+  {
+   "name": "v2-grip-worn-foul-bih#0",
+   "scenario_sha256": "d026eb626a900f33a8057fd1d0c736f9de2c8af61a44cc1af67ca07c83930b3c",
+   "events_sha256": "5975ff1b9dc6ee614ed4dd13b4705cad0dcce1658c50ed53af120f58f4698327",
+   "n_events": 36,
+   "swap_lb1": {
+    "provision": "SWAP-LB-1",
+    "new_kernel_version": "0.1.0+snapshot",
+    "new_default_events_sha256": "e0773f43eb38329bd8c9522653097614f77c0aeaeef5492af14a1ee253bb9a75",
+    "new_legacy_events_sha256": "4a8911d86aff8f41a9742cb9ec6e114ae596fd2002fb027ab1a2cdad95d0c6a0",
+    "bounds": {
+     "t": {
+      "abs": 0.00028354381634754233,
+      "ulps": 638483912823
+     },
+     "pos": {
+      "abs": 0.000017399783871385743,
+      "ulps": 156723320319
+     },
+     "vel": {
+      "abs": 0.00007062710203520339,
+      "ulps": 9251128621143
+     },
+     "avel": {
+      "abs": 0.011145846626348543,
+      "ulps": 19059070975494
+     }
+    },
+    "first_difference": "events[1].t, 12 ulp",
+    "evidence": [
+     "K: the full-log K re-run on the fixed kernel (perf K-RERUN-REGISTRATION-v2, amendment 1), the roots half on the GUARD1 tree (QRT-F SEAL v4 2c69529b, rootcmp re-run) and the K re-run on the (i′) candidate, including the P6 kept-t0 class (perf MANIFEST-am2)",
+     "L: D2 V152-34 with the approved V152-36 rev3 flip rule (decision 7ec2e2d7) and its clarifications 1-2",
+     "G4: the D2 V152-33 verdicts under the same flip rule",
+     "J: of record on the fixed kernel (perf ADDENDUM-5)",
+     "ledger SWP-144 (kernel-corpus.json), SWP-145 (legacy-links.json)",
+     "SEAL byte-identity: crates/pool-core/src 3d6acec74ef68869e2eb58cc904f4ec709c5a3ac, crates/kroots c10d4d255b1f56360291ca8f3b37d298df2b5277 (identical between the verdict tree and the shipped tree, 0.1.0+57ed5536)"
+    ]
+   }
+  },
+  {
+   "name": "v2-grip-worn-foul-bih#1",
+   "scenario_sha256": "edbdf04f22754f499fe0cfd61d74b06dc410c2029be0d0fda6ff271f5f0165de",
+   "events_sha256": "e4338ac647f4ffdb35446c5514a21abe8ec64c8e2d98fb954200f4d2944694a5",
+   "n_events": 4
+  },
+  {
+   "name": "v2-grip-worn-foul-bih#2",
+   "scenario_sha256": "067643dbc7646befb277373f5e15c2ede83374b6adb6432db70547c86b1e92d5",
+   "events_sha256": "39fc5f8b4e79093ed9e0c1ec6aebec5e607a1802c838deb00c631e8a2f448e16",
+   "n_events": 6
+  },
+  {
+   "name": "v2-mathavan-default-cloth#0",
+   "scenario_sha256": "cda519800f51ec2c6b8ff5cdeeeda9e999a112928621b63028cec3e47e734613",
+   "events_sha256": "53454a4e031b6a89e5f7ab45c5d1aa6d3b5b22919aacabf83f0c53347256efbe",
+   "n_events": 74,
+   "swap_lb1": {
+    "provision": "SWAP-LB-1",
+    "new_kernel_version": "0.1.0+snapshot",
+    "new_default_events_sha256": "5238c798b3c6fee639f1f2463b32ed2e63ecfa18ecd20fd8bb99393207231ae3",
+    "new_legacy_events_sha256": "2be382d39e0bce5dcd9b89f113bf47e980cf42406ae0ab29f249867a710d9727",
+    "bounds": {
+     "t": {
+      "abs": 0.02175940945275734,
+      "ulps": 24498917075810
+     },
+     "pos": {
+      "abs": 0.00930804458032966,
+      "ulps": 670715297656330
+     },
+     "vel": {
+      "abs": 0.0060259530920325766,
+      "ulps": 2228881501686784
+     },
+     "avel": {
+      "abs": 0.2746921767854795,
+      "ulps": 2045227653315488
+     }
+    },
+    "first_difference": "events[1].t, 10 ulp",
+    "evidence": [
+     "K: the full-log K re-run on the fixed kernel (perf K-RERUN-REGISTRATION-v2, amendment 1), the roots half on the GUARD1 tree (QRT-F SEAL v4 2c69529b, rootcmp re-run) and the K re-run on the (i′) candidate, including the P6 kept-t0 class (perf MANIFEST-am2)",
+     "L: D2 V152-34 with the approved V152-36 rev3 flip rule (decision 7ec2e2d7) and its clarifications 1-2",
+     "G4: the D2 V152-33 verdicts under the same flip rule",
+     "J: of record on the fixed kernel (perf ADDENDUM-5)",
+     "ledger SWP-144 (kernel-corpus.json), SWP-145 (legacy-links.json)",
+     "SEAL byte-identity: crates/pool-core/src 3d6acec74ef68869e2eb58cc904f4ec709c5a3ac, crates/kroots c10d4d255b1f56360291ca8f3b37d298df2b5277 (identical between the verdict tree and the shipped tree, 0.1.0+57ed5536)"
+    ]
+   }
+  },
+  {
+   "name": "v2-mathavan-default-cloth#1",
+   "scenario_sha256": "90562ee02e5a38efec6da5dad4b431e957d81eaed04718aa6d1b03b562d71def",
+   "events_sha256": "4f481a8ff181e1b1a8a453e474d6d02a59de8362b04892f5eab86ace21faf5a2",
+   "n_events": 6
+  },
+  {
+   "name": "v3-full-equipment-foul-bih#0",
+   "scenario_sha256": "aae41102873264e86f35f6f8cd7259abbabad9bb7cf9804e3e86ae5cfd0f2aa1",
+   "events_sha256": "a3c9ed31800ae2fca0cd0795f881dea1d9abf4f574a2dacbcd1afdfc3f8ebc26",
+   "n_events": 64,
+   "swap_lb1": {
+    "provision": "SWAP-LB-1",
+    "new_kernel_version": "0.1.0+snapshot",
+    "new_default_events_sha256": "82bd36670d342eeffc33e8244a18c4a8e5b686efbfff1b9ccb111e67ab458d42",
+    "new_legacy_events_sha256": "337ba2339dbda9db7b49b2a6d2a64ae19cccedb704e6f2091b2dc8acc717ecb1",
+    "bounds": {
+     "t": {
+      "abs": 5.2596567101659275e-9,
+      "ulps": 5921847
+     },
+     "pos": {
+      "abs": 1.93500290096571e-9,
+      "ulps": 278863307
+     },
+     "vel": {
+      "abs": 8.627430714280848e-10,
+      "ulps": 54785242
+     },
+     "avel": {
+      "abs": 7.53618429882863e-8,
+      "ulps": 1312875696
+     }
+    },
+    "first_difference": "events[1].t, 14 ulp",
+    "evidence": [
+     "K: the full-log K re-run on the fixed kernel (perf K-RERUN-REGISTRATION-v2, amendment 1), the roots half on the GUARD1 tree (QRT-F SEAL v4 2c69529b, rootcmp re-run) and the K re-run on the (i′) candidate, including the P6 kept-t0 class (perf MANIFEST-am2)",
+     "L: D2 V152-34 with the approved V152-36 rev3 flip rule (decision 7ec2e2d7) and its clarifications 1-2",
+     "G4: the D2 V152-33 verdicts under the same flip rule",
+     "J: of record on the fixed kernel (perf ADDENDUM-5)",
+     "ledger SWP-144 (kernel-corpus.json), SWP-145 (legacy-links.json)",
+     "SEAL byte-identity: crates/pool-core/src 3d6acec74ef68869e2eb58cc904f4ec709c5a3ac, crates/kroots c10d4d255b1f56360291ca8f3b37d298df2b5277 (identical between the verdict tree and the shipped tree, 0.1.0+57ed5536)"
+    ]
+   }
+  },
+  {
+   "name": "v3-full-equipment-foul-bih#1",
+   "scenario_sha256": "8f1f5c80985418b5f1fbfeeef3b81fa1a6e3518c88250dde4d82bfc214bcd8ef",
+   "events_sha256": "b10e34bef21b18eec4ac1f8a4afa135a8aeb00c0c61ac9d4e4c790aa7401e246",
+   "n_events": 4
+  },
+  {
+   "name": "v3-full-equipment-foul-bih#2",
+   "scenario_sha256": "594926aa3dae1b66240acb7924c663ead6553b45e998fec42ce0436571569d31",
+   "events_sha256": "7c8d32ed3696f51927059edf4f11ee86b5a7b84da4ccf41ccbdcb7e1e72c2bba",
+   "n_events": 32,
+   "swap_lb1": {
+    "provision": "SWAP-LB-1",
+    "new_kernel_version": "0.1.0+snapshot",
+    "new_default_events_sha256": "e40de4d882f5649c33eb396e655d618e1c0ad71741f9e6ba51f4423d0a71b646",
+    "new_legacy_events_sha256": "e40de4d882f5649c33eb396e655d618e1c0ad71741f9e6ba51f4423d0a71b646",
+    "bounds": {
+     "t": {
+      "abs": 1.900701818158268e-13,
+      "ulps": 214
+     },
+     "pos": {
+      "abs": 7.72715225139109e-14,
+      "ulps": 696
+     },
+     "vel": {
+      "abs": 1.6903145549918008e-14,
+      "ulps": 3860
+     },
+     "avel": {
+      "abs": 5.417888360170764e-13,
+      "ulps": 4448
+     }
+    },
+    "first_difference": "events[1].t, 4 ulp",
+    "evidence": [
+     "K: the full-log K re-run on the fixed kernel (perf K-RERUN-REGISTRATION-v2, amendment 1), the roots half on the GUARD1 tree (QRT-F SEAL v4 2c69529b, rootcmp re-run) and the K re-run on the (i′) candidate, including the P6 kept-t0 class (perf MANIFEST-am2)",
+     "L: D2 V152-34 with the approved V152-36 rev3 flip rule (decision 7ec2e2d7) and its clarifications 1-2",
+     "G4: the D2 V152-33 verdicts under the same flip rule",
+     "J: of record on the fixed kernel (perf ADDENDUM-5)",
+     "ledger SWP-144 (kernel-corpus.json), SWP-145 (legacy-links.json)",
+     "SEAL byte-identity: crates/pool-core/src 3d6acec74ef68869e2eb58cc904f4ec709c5a3ac, crates/kroots c10d4d255b1f56360291ca8f3b37d298df2b5277 (identical between the verdict tree and the shipped tree, 0.1.0+57ed5536)"
+    ]
+   }
+  },
+  {
+   "name": "v7-retired-table-id-b6b5dc3f#0",
+   "scenario_sha256": "1e65e271ba74f40d15b33eac122573a592138174e81e77694674c3cfb8f05492",
+   "events_sha256": "231e62ffe8ec741edf326f5f6a6e091eeff168d5e98f2093f09207ff92eea2fe",
+   "n_events": 10,
+   "capture_kernel_version": "0.1.0+b6b5dc3f"
+  },
+  {
+   "name": "pool-wasm-break-fixture",
+   "scenario_sha256": "86b26946dbdcc5f551c985ff72f81e5602d2e7e3b44f05da2fdfebb42f479987",
+   "events_sha256": "42129238bdfad8527a84ad7c3135c369956ce9bcf58deac6b5f151b25a6dcdf4",
+   "n_events": 189,
+   "pinned_kernel_version": "0.1.0+snapshot",
+   "pre_flip_events_sha256": "cd3ddc4c71be75820ada1623dca4589dc7d20d3fe85b230584679ea55f347555",
+   "pre_flip_n_events": 114,
+   "pre_77_events_sha256": "6da2f3faf595a1aa7440650e77e5d37675c02fbebd8e11ec9e2e8c704102264f",
+   "pre_77_n_events": 195,
+   "swap_lb1": {
+    "provision": "SWAP-LB-1",
+    "new_kernel_version": "0.1.0+snapshot",
+    "new_default_events_sha256": "42129238bdfad8527a84ad7c3135c369956ce9bcf58deac6b5f151b25a6dcdf4",
+    "new_legacy_events_sha256": "909c7c13c7729b1be6e65cca6132552c562a51391c70b6aa21ae4718c82bd831",
+    "bounds": {
+     "t": {
+      "abs": 1.8466117523985304e-11,
+      "ulps": 20791
+     },
+     "pos": {
+      "abs": 8.091027847711985e-12,
+      "ulps": 145755
+     },
+     "vel": {
+      "abs": 4.346301096802563e-12,
+      "ulps": 100603
+     },
+     "avel": {
+      "abs": 7.314859828966291e-11,
+      "ulps": 190216
+     }
+    },
+    "first_difference": "events[1].t, 2 ulp",
+    "evidence": [
+     "K: the full-log K re-run on the fixed kernel (perf K-RERUN-REGISTRATION-v2, amendment 1), the roots half on the GUARD1 tree (QRT-F SEAL v4 2c69529b, rootcmp re-run) and the K re-run on the (i′) candidate, including the P6 kept-t0 class (perf MANIFEST-am2)",
+     "L: D2 V152-34 with the approved V152-36 rev3 flip rule (decision 7ec2e2d7) and its clarifications 1-2",
+     "G4: the D2 V152-33 verdicts under the same flip rule",
+     "J: of record on the fixed kernel (perf ADDENDUM-5)",
+     "ledger SWP-144 (kernel-corpus.json), SWP-145 (legacy-links.json)",
+     "SEAL byte-identity: crates/pool-core/src 3d6acec74ef68869e2eb58cc904f4ec709c5a3ac, crates/kroots c10d4d255b1f56360291ca8f3b37d298df2b5277 (identical between the verdict tree and the shipped tree, 0.1.0+57ed5536)"
+    ]
+   }
+  }
+ ]
+}

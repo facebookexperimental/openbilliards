@@ -1,0 +1,604 @@
+% references.bib — verified corpus for the OpenBilliards simulator paper.
+%
+% Provenance: corpus fixed by two structured research sweeps of
+% 2026-07-21; entry-level bibliographic details re-verified against
+% primary sources (publisher pages, arXiv abstracts, drdavepoolinfo.com)
+% on 2026-07-22. DOIs are included only where verified against the
+% publisher/registry page; entries whose DOI was not re-verified carry
+% volume/page data only. Online resources carry access dates.
+%
+% ---------------------------------------------------------------------------
+% 1835-1995 foundations
+% ---------------------------------------------------------------------------
+
+@book{coriolis1835,
+  author    = {Coriolis, Gaspard-Gustave},
+  title     = {Th{\'e}orie math{\'e}matique des effets du jeu de billard},
+  publisher = {Carilian-Goeury},
+  address   = {Paris},
+  year      = {1835}
+}
+
+@book{nadler2005coriolis,
+  author    = {Nadler, David},
+  title     = {Mathematical Theory of Spin, Friction, and Collision in the Game of Billiards},
+  note      = {English translation of Coriolis (1835), with annotations},
+  publisher = {David Nadler},
+  year      = {2005}
+}
+
+@article{bayes1963collision,
+  author  = {Bayes, John H. and Scott, Wilfred T.},
+  title   = {Billiard-Ball Collision Experiment},
+  journal = {American Journal of Physics},
+  volume  = {31},
+  number  = {3},
+  pages   = {197--200},
+  year    = {1963}
+}
+
+@article{wallace1988billiard,
+  author  = {Wallace, Richard E. and Schroeder, Michael C.},
+  title   = {Analysis of Billiard Ball Collisions in Two Dimensions},
+  journal = {American Journal of Physics},
+  volume  = {56},
+  number  = {9},
+  pages   = {815--819},
+  year    = {1988}
+}
+
+@article{onoda1989comment,
+  author  = {Onoda, George Y.},
+  title   = {Comment on ``{A}nalysis of Billiard Ball Collisions in Two Dimensions''},
+  journal = {American Journal of Physics},
+  volume  = {57},
+  number  = {5},
+  pages   = {476--478},
+  year    = {1989}
+}
+
+@book{marlow1995physics,
+  author    = {Marlow, Wayland C.},
+  title     = {The Physics of Pocket Billiards},
+  publisher = {Marlow Advanced Systems Technologies (MAST)},
+  address   = {Palm Beach Gardens, FL},
+  year      = {1995}
+}
+
+% ---------------------------------------------------------------------------
+% Single-model validation era (1997-2014)
+% ---------------------------------------------------------------------------
+
+@misc{shepard1997amateur,
+  author       = {Shepard, Ron},
+  title        = {Amateur Physics for the Amateur Pool Player},
+  howpublished = {Self-published manuscript, 3rd edition; archived at \url{https://drdavepoolinfo.com/physics/}},
+  year         = {1997},
+  note         = {Accessed 2026-07-21}
+}
+
+@misc{shepard2001squirt,
+  author       = {Shepard, Ron},
+  title        = {Everything You Always Wanted to Know About Cue Ball Squirt, But Were Afraid to Ask},
+  howpublished = {Self-published manuscript; archived at \url{https://drdavepoolinfo.com/physics/}},
+  year         = {2001},
+  note         = {Accessed 2026-07-21}
+}
+
+@article{cohen2002threecushion,
+  author  = {Cohen, Graeme L.},
+  title   = {Three Cushion Billiards: Notes on the Diamond System},
+  journal = {Sports Engineering},
+  volume  = {5},
+  number  = {1},
+  pages   = {43--51},
+  year    = {2002},
+  doi     = {10.1046/j.1460-2687.2002.00095.x}
+}
+
+@article{han2005dynamics,
+  author  = {Han, Inhwan},
+  title   = {Dynamics in Carom and Three Cushion Billiards},
+  journal = {Journal of Mechanical Science and Technology},
+  volume  = {19},
+  number  = {4},
+  pages   = {976--984},
+  year    = {2005}
+}
+
+@article{cross2008squirt,
+  author  = {Cross, Rod},
+  title   = {Cue and Ball Deflection (or ``Squirt'') in Billiards},
+  journal = {American Journal of Physics},
+  volume  = {76},
+  number  = {3},
+  pages   = {205--212},
+  year    = {2008}
+}
+
+@article{domenech2008nonsmooth,
+  author  = {Dom{\'e}nech, Antonio},
+  title   = {Non-Smooth Modelling of Billiard- and Superbilliard-Ball Collisions},
+  journal = {International Journal of Mechanical Sciences},
+  volume  = {50},
+  number  = {4},
+  pages   = {752--763},
+  year    = {2008},
+  doi     = {10.1016/j.ijmecsci.2007.11.006}
+}
+
+@article{mathavan2009highspeed,
+  author  = {Mathavan, Senthan and Jackson, Michael R. and Parkin, Robert M.},
+  title   = {Application of High-Speed Imaging to Determine the Dynamics of Billiards},
+  journal = {American Journal of Physics},
+  volume  = {77},
+  number  = {9},
+  pages   = {788--794},
+  year    = {2009}
+}
+
+@article{mathavan2010cushion,
+  author  = {Mathavan, Senthan and Jackson, Michael R. and Parkin, Robert M.},
+  title   = {A Theoretical Analysis of Billiard Ball Dynamics Under Cushion Impacts},
+  journal = {Proceedings of the Institution of Mechanical Engineers, Part C: Journal of Mechanical Engineering Science},
+  volume  = {224},
+  number  = {9},
+  pages   = {1863--1873},
+  year    = {2010},
+  doi     = {10.1243/09544062JMES1964}
+}
+
+@article{mathavan2014numerical,
+  author  = {Mathavan, Senthan and Jackson, Michael R. and Parkin, Robert M.},
+  title   = {Numerical Simulations of the Frictional Collisions of Solid Balls on a Rough Surface},
+  journal = {Sports Engineering},
+  volume  = {17},
+  number  = {4},
+  pages   = {227--237},
+  year    = {2014}
+}
+
+% ---------------------------------------------------------------------------
+% Event-driven simulators & robotic/AI players
+% ---------------------------------------------------------------------------
+
+@inproceedings{leckie2006event,
+  author    = {Leckie, Will and Greenspan, Michael},
+  title     = {An Event-Based Pool Physics Simulator},
+  booktitle = {Advances in Computer Games (ACG 2005)},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {4250},
+  pages     = {247--262},
+  publisher = {Springer},
+  year      = {2006}
+}
+
+@article{smith2007pickpocket,
+  author  = {Smith, Michael},
+  title   = {{PickPocket}: A Computer Billiards Shark},
+  journal = {Artificial Intelligence},
+  volume  = {171},
+  number  = {16--17},
+  pages   = {1069--1091},
+  year    = {2007}
+}
+
+@article{greenspan2008toward,
+  author  = {Greenspan, Michael and Lam, Joseph and Godard, Marc and Zaidi, Imran and Jordan, Sam and Leckie, Will and Anderson, Ken and Dupuis, Donna},
+  title   = {Toward a Competitive Pool-Playing Robot},
+  journal = {Computer},
+  volume  = {41},
+  number  = {1},
+  pages   = {46--53},
+  year    = {2008}
+}
+
+@inproceedings{archibald2009analysis,
+  author    = {Archibald, Christopher and Altman, Alon and Shoham, Yoav},
+  title     = {Analysis of a Winning Computational Billiards Player},
+  booktitle = {Proceedings of the 21st International Joint Conference on Artificial Intelligence (IJCAI 2009)},
+  address   = {Pasadena, CA},
+  year      = {2009}
+}
+
+@article{archibald2010computational,
+  author  = {Archibald, Christopher and Altman, Alon and Greenspan, Michael and Shoham, Yoav},
+  title   = {Computational Pool: A New Challenge for Game Theory Pragmatics},
+  journal = {AI Magazine},
+  volume  = {31},
+  number  = {4},
+  pages   = {33--41},
+  year    = {2010}
+}
+
+@article{archibald2016distributed,
+  author  = {Archibald, Christopher and Altman, Alon and Shoham, Yoav},
+  title   = {A Distributed Agent for Computational Pool},
+  journal = {IEEE Transactions on Computational Intelligence and AI in Games},
+  volume  = {8},
+  number  = {2},
+  pages   = {190--202},
+  year    = {2016}
+}
+
+@article{kiefl2024pooltool,
+  author  = {Kiefl, Evan},
+  title   = {Pooltool: A {P}ython Package for Realistic Billiards Simulation},
+  journal = {Journal of Open Source Software},
+  volume  = {9},
+  number  = {101},
+  pages   = {7301},
+  year    = {2024},
+  doi     = {10.21105/joss.07301}
+}
+
+@article{park2022carom,
+  author  = {Park, Jung-kil and Park, Jaebyung},
+  title   = {Intelligent Carom Billiards Assistive System for Automatic Solution Path Generation and Actual Path Prediction with Principal Component Analysis-Based Ball Motion Detection},
+  journal = {International Journal of Advanced Robotic Systems},
+  volume  = {19},
+  number  = {4},
+  year    = {2022},
+  doi     = {10.1177/17298806221118865}
+}
+
+% ---------------------------------------------------------------------------
+% Contact mechanics & multibody impact
+% ---------------------------------------------------------------------------
+
+@article{lankarani1990contact,
+  author  = {Lankarani, Hamid M. and Nikravesh, Parviz E.},
+  title   = {A Contact Force Model with Hysteresis Damping for Impact Analysis of Multibody Systems},
+  journal = {Journal of Mechanical Design},
+  volume  = {112},
+  number  = {3},
+  pages   = {369--376},
+  year    = {1990}
+}
+
+@article{lankarani1994continuous,
+  author  = {Lankarani, Hamid M. and Nikravesh, Parviz E.},
+  title   = {Continuous Contact Force Models for Impact Analysis in Multibody Systems},
+  journal = {Nonlinear Dynamics},
+  volume  = {5},
+  pages   = {193--207},
+  year    = {1994}
+}
+
+@incollection{corral2020poolballs,
+  author    = {Corral, Eduardo and Gismeros Moreno, Ra{\'u}l and G{\'o}mez Garc{\'i}a, Mar{\'i}a Jes{\'u}s and Meneses, Jes{\'u}s and Castej{\'o}n, Cristina},
+  title     = {Dynamic Modeling and Analysis of Pool Balls Interaction},
+  booktitle = {Multibody Dynamics 2019: Proceedings of the ECCOMAS Thematic Conference on Multibody Dynamics},
+  series    = {Computational Methods in Applied Sciences},
+  volume    = {53},
+  publisher = {Springer},
+  year      = {2020}
+}
+
+@article{gismerosmoreno2022multiple,
+  author  = {Gismeros Moreno, Ra{\'u}l and Corral, Eduardo and Meneses, Jes{\'u}s and G{\'o}mez Garc{\'i}a, Mar{\'i}a Jes{\'u}s and Castej{\'o}n, Cristina},
+  title   = {Modelling Multiple-Simultaneous Impact Problems with a Nonlinear Smooth Approach: Pool/Billiard Application},
+  journal = {Nonlinear Dynamics},
+  volume  = {107},
+  pages   = {1859--1886},
+  year    = {2022},
+  doi     = {10.1007/s11071-021-07117-4}
+}
+
+@book{stronge2018impact,
+  author    = {Stronge, William James},
+  title     = {Impact Mechanics},
+  edition   = {2nd},
+  publisher = {Cambridge University Press},
+  year      = {2018}
+}
+
+@article{cross2023oblique,
+  author  = {Cross, Rod},
+  title   = {Oblique Angle Collisions Between Three or More Billiard Balls},
+  journal = {American Journal of Physics},
+  volume  = {91},
+  number  = {11},
+  pages   = {879--884},
+  year    = {2023},
+  doi     = {10.1119/5.0119656}
+}
+
+@misc{kim2022motions,
+  author       = {Kim, Hyeong-Chan},
+  title        = {Motions of a Billiard Ball After a Cue Stroke},
+  howpublished = {arXiv:2104.11232 [nlin.CD]},
+  year         = {2022},
+  doi          = {10.3938/NPSM.72.208},
+  note         = {Published in New Physics: Sae Mulli 72, 208 (2022)}
+}
+
+@misc{kim2024collision,
+  author       = {Kim, Hyeong-Chan},
+  title        = {Collision of Two Spinning Billiard Balls and the Role of Table},
+  howpublished = {arXiv:2402.13258 [physics.pop-ph]},
+  year         = {2024}
+}
+
+% ---------------------------------------------------------------------------
+% Learning-era consumers of billiards physics
+% ---------------------------------------------------------------------------
+
+@inproceedings{fragkiadaki2016learning,
+  author    = {Fragkiadaki, Katerina and Agrawal, Pulkit and Levine, Sergey and Malik, Jitendra},
+  title     = {Learning Visual Predictive Models of Physics for Playing Billiards},
+  booktitle = {Proceedings of the 4th International Conference on Learning Representations (ICLR 2016)},
+  year      = {2016},
+  note      = {arXiv:1511.07404}
+}
+
+@misc{memery2025cuetip,
+  author       = {Memery, Sean and Denamganai, Kevin and Zhang, Jiaxin and Tu, Zehai and Guo, Yiwen and Subr, Kartic},
+  title        = {{CueTip}: An Interactive and Explainable Physics-Aware Pool Assistant},
+  howpublished = {arXiv:2501.18291 [cs.AI]},
+  year         = {2025},
+  note         = {Presented at ACM SIGGRAPH 2025; venue details to be pinned at camera-ready}
+}
+
+@misc{xu2025deepphy,
+  author       = {Xu, Xinrun and Bu, Pi and Wang, Ye and Karlsson, B{\"o}rje F. and Wang, Ziming and Song, Tengtao and Zhu, Qi and Song, Jun and Ding, Zhiming and Zheng, Bo},
+  title        = {{DeepPHY}: Benchmarking Agentic {VLMs} on Physical Reasoning},
+  howpublished = {arXiv:2508.05405 [cs.AI]},
+  year         = {2025}
+}
+
+% ---------------------------------------------------------------------------
+% Numerics: quartic event detection
+% ---------------------------------------------------------------------------
+
+@article{orellana2020algorithm1010,
+  author  = {Orellana, Alberto Giacomo and De Michele, Cristiano},
+  title   = {Algorithm 1010: Boosting Efficiency in Solving Quartic Equations with No Compromise in Accuracy},
+  journal = {ACM Transactions on Mathematical Software},
+  volume  = {46},
+  number  = {2},
+  pages   = {20:1--20:28},
+  year    = {2020},
+  doi     = {10.1145/3386241}
+}
+
+@article{demichele2022remark,
+  author  = {De Michele, Cristiano},
+  title   = {Remark on Algorithm 1010: Boosting Efficiency in Solving Quartic Equations with No Compromise in Accuracy},
+  journal = {ACM Transactions on Mathematical Software},
+  volume  = {48},
+  number  = {4},
+  pages   = {46:1--46:3},
+  year    = {2022},
+  doi     = {10.1145/3564270}
+}
+
+@article{demichele2024remark,
+  author  = {De Michele, Cristiano},
+  title   = {Remark on Algorithm 1010: Boosting Efficiency in Solving Quartic Equations with No Compromise in Accuracy},
+  journal = {ACM Transactions on Mathematical Software},
+  volume  = {50},
+  number  = {3},
+  pages   = {1--3},
+  year    = {2024},
+  doi     = {10.1145/3674833}
+}
+
+% ---------------------------------------------------------------------------
+% V&V, reproducibility, determinism standards
+% ---------------------------------------------------------------------------
+
+@techreport{asme2009vv20,
+  author      = {{ASME}},
+  title       = {Standard for Verification and Validation in Computational Fluid Dynamics and Heat Transfer: {ASME} V\&V 20-2009 (Reaffirmed 2016)},
+  institution = {American Society of Mechanical Engineers},
+  address     = {New York, NY},
+  year        = {2009}
+}
+
+@article{wilkinson2016fair,
+  author  = {Wilkinson, Mark D. and Dumontier, Michel and Aalbersberg, IJsbrand Jan and Appleton, Gabrielle and others},
+  title   = {The {FAIR} Guiding Principles for Scientific Data Management and Stewardship},
+  journal = {Scientific Data},
+  volume  = {3},
+  pages   = {160018},
+  year    = {2016},
+  doi     = {10.1038/sdata.2016.18}
+}
+
+@techreport{chuehong2022fair4rs,
+  author      = {Chue Hong, Neil P. and Katz, Daniel S. and Barker, Michelle and others},
+  title       = {{FAIR} Principles for Research Software ({FAIR4RS} Principles)},
+  institution = {Research Data Alliance},
+  year        = {2022},
+  doi         = {10.15497/RDA00068}
+}
+
+@misc{wasm2015nondeterminism,
+  author       = {{WebAssembly Community Group}},
+  title        = {Nondeterminism in {WebAssembly} (design/Nondeterminism.md)},
+  howpublished = {\url{https://github.com/WebAssembly/design/blob/main/Nondeterminism.md}},
+  year         = {2015},
+  note         = {Living design document; accessed 2026-07-22}
+}
+
+% ---------------------------------------------------------------------------
+% Alciatore corpus (online resources; posted reuse policy verified 2026-07-21;
+% cite drdavepoolinfo.com URLs, not the colostate mirror)
+% ---------------------------------------------------------------------------
+
+@misc{alciatore2008coriolis,
+  author       = {Alciatore, David G.},
+  title        = {Pool and Billiards Physics Principles by {C}oriolis and Others},
+  howpublished = {Self-hosted manuscript, \url{https://drdavepoolinfo.com/physics/}},
+  year         = {2008},
+  note         = {Accessed 2026-07-21}
+}
+
+@misc{alciatore_tp_catalog,
+  author       = {Alciatore, David G.},
+  title        = {Technical Proofs ({TP}) Catalog},
+  howpublished = {\url{https://drdavepoolinfo.com/technical_proofs/}},
+  year         = {n.d.},
+  note         = {Individual proofs cited by TP number; accessed 2026-07-21. Per-proof revision dates to be pinned at camera-ready}
+}
+
+@misc{alciatore_tp_a14,
+  author       = {Alciatore, David G.},
+  title        = {{TP} {A}-14: Ball Turn (Throw) Due to Ball Friction},
+  howpublished = {\url{https://drdavepoolinfo.com/technical_proofs/TP_A-14.pdf}},
+  year         = {n.d.},
+  note         = {Cut-induced-throw master curves; accessed 2026-07-21. Descriptive subtitle paraphrased; verbatim title to be pinned at camera-ready}
+}
+
+@misc{alciatore_tp_a26,
+  author       = {Alciatore, David G.},
+  title        = {{TP} {A}-26: Gearing Outside English},
+  howpublished = {\url{https://drdavepoolinfo.com/technical_proofs/TP_A-26.pdf}},
+  year         = {n.d.},
+  note         = {Zero-throw gearing english; accessed 2026-07-21. Descriptive subtitle paraphrased; verbatim title to be pinned at camera-ready}
+}
+
+@misc{alciatore_tp_a31,
+  author       = {Alciatore, David G.},
+  title        = {{TP} {A}-31: Cue Ball Deflection (Squirt) and Cue Stick Endmass},
+  howpublished = {\url{https://drdavepoolinfo.com/technical_proofs/TP_A-31.pdf}},
+  year         = {n.d.},
+  note         = {Endmass squirt closed form; accessed 2026-07-21. Descriptive subtitle paraphrased; verbatim title to be pinned at camera-ready}
+}
+
+@misc{alciatore_tp_b25,
+  author       = {Alciatore, David G.},
+  title        = {{TP} {B}-25: Spin-Induced Throw ({SIT}) Effects},
+  howpublished = {\url{https://drdavepoolinfo.com/technical_proofs/TP_B-25.pdf}},
+  year         = {n.d.},
+  note         = {SIT maxima vs english fraction and speed; accessed 2026-07-21. Descriptive subtitle paraphrased; verbatim title to be pinned at camera-ready}
+}
+
+@misc{alciatore_tp_b28,
+  author       = {Alciatore, David G.},
+  title        = {{TP} {B}-28: Sliding-Ball Bank-Shot Aiming Tables},
+  howpublished = {\url{https://drdavepoolinfo.com/technical_proofs/TP_B-28.pdf}},
+  year         = {n.d.},
+  note         = {Five measured through-diamond bank tables; accessed 2026-07-21. Descriptive subtitle paraphrased; verbatim title to be pinned at camera-ready}
+}
+
+@misc{alciatore_hsv_catalog,
+  author       = {Alciatore, David G.},
+  title        = {High-Speed Video ({HSV}) Catalog},
+  howpublished = {\url{https://drdavepoolinfo.com/high-speed-videos/}},
+  year         = {n.d.},
+  note         = {Individual clips cited by HSV number; accessed 2026-07-21}
+}
+
+@misc{alciatore_faq,
+  author       = {Alciatore, David G.},
+  title        = {Frequently Asked Questions ({FAQ}) Pages: Bank/Kick Systems, Jump Shots, Throw Effects},
+  howpublished = {\url{https://drdavepoolinfo.com/faq/}},
+  year         = {n.d.},
+  note         = {Accessed 2026-07-21}
+}
+
+@misc{bouleau2006coriolis,
+  author       = {Bouleau, Nicolas},
+  title        = {Gaspard {Coriolis} et le jeu de billard comme auxiliaire scientifique},
+  year         = {2006},
+  howpublished = {\url{http://cermics.enpc.fr/~bouleaun/papiers/c51.pdf}},
+  note         = {Essay quoting Coriolis' final-direction robustness passage
+                  verbatim; accessed 2026-07-30}
+}
+
+% ---------------------------------------------------------------------------
+% Video-artifact presentation methods (Supplementary Section S6): time-remap
+% authority chain. Entry-level metadata verified against primary sources
+% 2026-07-26.
+% ---------------------------------------------------------------------------
+
+@article{flash1985coordination,
+  author  = {Flash, Tamar and Hogan, Neville},
+  title   = {The coordination of arm movements: an experimentally confirmed mathematical model},
+  journal = {Journal of Neuroscience},
+  volume  = {5},
+  number  = {7},
+  pages   = {1688--1703},
+  year    = {1985},
+  doi     = {10.1523/JNEUROSCI.05-07-01688.1985}
+}
+
+@article{debruyn1988velocity,
+  author  = {De Bruyn, B. and Orban, G. A.},
+  title   = {Human velocity and direction discrimination measured with random dot patterns},
+  journal = {Vision Research},
+  volume  = {28},
+  number  = {12},
+  pages   = {1323--1335},
+  year    = {1988},
+  doi     = {10.1016/0042-6989(88)90064-8}
+}
+
+@article{stocker2006noise,
+  author  = {Stocker, Alan A. and Simoncelli, Eero P.},
+  title   = {Noise characteristics and prior expectations in human visual speed perception},
+  journal = {Nature Neuroscience},
+  volume  = {9},
+  number  = {4},
+  pages   = {578--585},
+  year    = {2006},
+  doi     = {10.1038/nn1669}
+}
+
+@article{nover2005logarithmic,
+  author  = {Nover, Harris and Anderson, Charles H. and DeAngelis, Gregory C.},
+  title   = {A Logarithmic, Scale-Invariant Representation of Speed in Macaque Middle Temporal Area Accounts for Speed Discrimination Performance},
+  journal = {Journal of Neuroscience},
+  volume  = {25},
+  number  = {43},
+  pages   = {10049--10060},
+  year    = {2005},
+  doi     = {10.1523/JNEUROSCI.1661-05.2005}
+}
+
+@article{brown1960weber,
+  author  = {Brown, Robert H.},
+  title   = {Weber Ratio for Visual Discrimination of Velocity},
+  journal = {Science},
+  volume  = {131},
+  number  = {3416},
+  pages   = {1809--1810},
+  year    = {1960},
+  doi     = {10.1126/science.131.3416.1809}
+}
+
+@misc{webaudio_spec,
+  author       = {{W3C Web Audio Working Group} and Adenot, Paul and Choi, Hongchan},
+  title        = {Web Audio {API}},
+  year         = {2021},
+  howpublished = {World Wide Web Consortium (W3C) Recommendation, 17 June 2021, \url{https://www.w3.org/TR/webaudio-1.0/}},
+  note         = {This version https://www.w3.org/TR/2021/REC-webaudio-20210617/. The exponentialRampToValueAtTime() formula, the RangeError-on-zero-value rule, and the exponential-ramp perceptual rationale are unchanged in the successor Web Audio API 1.1 First Public Working Draft (5 Nov 2024, https://www.w3.org/TR/webaudio-1.1/). Accessed 2026-07-26}
+}
+
+@inproceedings{jin2017elasticplay,
+  author    = {Jin, Haojian and Song, Yale and Yatani, Koji},
+  title     = {ElasticPlay: Interactive Video Summarization with Dynamic Time Budgets},
+  booktitle = {Proceedings of the 25th ACM International Conference on Multimedia (MM '17)},
+  pages     = {1164--1172},
+  publisher = {ACM},
+  year      = {2017},
+  doi       = {10.1145/3123266.3123393}
+}
+
+@misc{gopro2017variable,
+  author       = {Matias, Joven Michael and Sievert, Otto Kenneth and Bodinet, Joshua Edward},
+  title        = {Variable playback speed template for video editing application},
+  howpublished = {U.S. Patent 9,679,605 B2, GoPro, Inc.},
+  year         = {2017},
+  note         = {Filed 2015; issued 13 June 2017. \url{https://patents.google.com/patent/US9679605B2/en}. Accessed 2026-07-26}
+}
+
+@misc{adobe2012changing,
+  author       = {Kuspa, David and Davey, Matthew and Warner, Steven and Young, Paul E.},
+  title        = {Changing video playback rate},
+  howpublished = {U.S. Patent 8,170,396 B2, Adobe Systems Inc.},
+  year         = {2012},
+  note         = {Application US 2008/0253735 A1, filed 2007. \url{https://patents.google.com/patent/US20080253735A1/en}. Accessed 2026-07-26}
+}

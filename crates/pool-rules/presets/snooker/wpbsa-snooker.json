@@ -1,0 +1,32 @@
+{
+  "schema": "rules-preset-v1",
+  "preset": "wpbsa-snooker",
+  "family": "snooker",
+  "display_key": "settings.variant.wpbsa-snooker",
+  "source": {
+    "title": "WPBSA Official Rules of the Games of Snooker and English Billiards",
+    "publisher": "World Professional Billiards and Snooker Association",
+    "edition": "Revised September 2024 (the 011/012 pinned edition)",
+    "url": "https://wpbsa.com/rules/",
+    "tier": "primary"
+  },
+  "judged": {},
+  "adapter": {},
+  "not_modeled": [
+    {
+      "axis": "miss_rule",
+      "cite": "WPBSA Sec3 R14",
+      "reason": "the family DEFAULT preset aliases the frozen snooker-v1 path (FR-005): Foul and a Miss stays the documented v1 exclusion here; the wpbsa-snooker-full preset judges it"
+    },
+    {
+      "axis": "free_ball",
+      "cite": "WPBSA Sec2 R13; Sec3 R12",
+      "reason": "v1 documented exclusion on the default alias path; judged by wpbsa-snooker-full"
+    },
+    {
+      "axis": "touching_ball",
+      "cite": "WPBSA Sec3 R8",
+      "reason": "v1 documented exclusion on the default alias path; judged by wpbsa-snooker-full"
+    }
+  ]
+}

@@ -1,0 +1,2798 @@
+{
+"cov:band/ball_circular_cushion_time/1042|1|8000000000000000|3fe84b01a04fe110": {
+"ok": true,
+"ratio": 0.024216891750959764
+},
+"cov:band/ball_circular_cushion_time/1050|1|8000000000000000|3fe85217bc95bbf8": {
+"ok": true,
+"ratio": 0.03446830816784418
+},
+"cov:band/ball_circular_cushion_time/1090|1|8000000000000000|3fae1bb40cee8b0e": {
+"ok": true,
+"ratio": 0.021450145042618936
+},
+"cov:band/ball_circular_cushion_time/1092|1|8000000000000000|3fae1be66cb261c1": {
+"ok": true,
+"ratio": 0.08992871707192863
+},
+"cov:band/ball_circular_cushion_time/1098|1|8000000000000000|3fae1bfcfd899ca4": {
+"ok": true,
+"ratio": 0.0814017435979129
+},
+"cov:band/ball_circular_cushion_time/1146|1|8000000000000000|400172a0b526707d": {
+"ok": true,
+"ratio": 0.10783762550992798
+},
+"cov:band/ball_circular_cushion_time/1146|1|bf5288011e3e31c6|400177619c36ef93": {
+"ok": true,
+"ratio": 0.09116816028201527
+},
+"cov:band/ball_circular_cushion_time/120|1|8000000000000000|3f965e6018a06db5": {
+"ok": true,
+"ratio": 0.05560989367951072
+},
+"cov:band/ball_circular_cushion_time/134|1|8000000000000000|3fd2a1b425b4a0d7": {
+"ok": true,
+"ratio": 0.07196104349415736
+},
+"cov:band/ball_circular_cushion_time/140|1|8000000000000000|3fd2b5853432969a": {
+"ok": true,
+"ratio": 0.045154709707658086
+},
+"cov:band/ball_circular_cushion_time/146|1|8000000000000000|3fd2b6194483b0ea": {
+"ok": true,
+"ratio": 0.1128642927548411
+},
+"cov:band/ball_circular_cushion_time/177|1|8000000000000000|3fbd588d43e31fc2": {
+"ok": true,
+"ratio": 0.06445945571286225
+},
+"cov:band/ball_circular_cushion_time/264|1|8000000000000000|3f974574b936d1f3": {
+"ok": true,
+"ratio": 0.05406634743059359
+},
+"cov:band/ball_circular_cushion_time/312|1|8000000000000000|3fb0a412df092168": {
+"ok": true,
+"ratio": 0.08232652553564734
+},
+"cov:band/ball_circular_cushion_time/316|1|8000000000000000|3fb0c12bf0c0525d": {
+"ok": true,
+"ratio": 0.019647476519289827
+},
+"cov:band/ball_circular_cushion_time/320|1|8000000000000000|3fb0c41617d17abf": {
+"ok": true,
+"ratio": 0.022687239200148215
+},
+"cov:band/ball_circular_cushion_time/324|1|8000000000000000|3fb0c460b839d1ea": {
+"ok": true,
+"ratio": 0.026476138496306395
+},
+"cov:band/ball_circular_cushion_time/336|1|8000000000000000|3f85b3a44632aaad": {
+"ok": true,
+"ratio": 0.049463536756163926
+},
+"cov:band/ball_circular_cushion_time/34|1|8000000000000000|3fa8c65f94f47754": {
+"ok": true,
+"ratio": 0.08304345979302705
+},
+"cov:band/ball_circular_cushion_time/362|1|8000000000000000|3fcd2acea730f0fe": {
+"ok": true,
+"ratio": 0.06047275019648991
+},
+"cov:band/ball_circular_cushion_time/394|1|8000000000000000|3f86cff43b3b7f20": {
+"ok": true,
+"ratio": 0.006500531054004217
+},
+"cov:band/ball_circular_cushion_time/448|1|8000000000000000|3fce2991438bdb21": {
+"ok": true,
+"ratio": 0.0599631247642382
+},
+"cov:band/ball_circular_cushion_time/456|1|8000000000000000|3fce2a994bafecb6": {
+"ok": true,
+"ratio": 0.0679414161775079
+},
+"cov:band/ball_circular_cushion_time/524|1|8000000000000000|3f775a2a5e42e682": {
+"ok": true,
+"ratio": 0.005932342965926496
+},
+"cov:band/ball_circular_cushion_time/562|1|8000000000000000|3fa64f78a088b9c3": {
+"ok": true,
+"ratio": 0.08870769071811431
+},
+"cov:band/ball_circular_cushion_time/598|1|8000000000000000|3fb4bceb56d7fffb": {
+"ok": true,
+"ratio": 0.04935875741655315
+},
+"cov:band/ball_circular_cushion_time/610|1|8000000000000000|3fb4c3b8ae45b5e1": {
+"ok": true,
+"ratio": 0.03537512767121127
+},
+"cov:band/ball_circular_cushion_time/620|1|8000000000000000|3fd41acfde4a3fde": {
+"ok": true,
+"ratio": 0.0689720441956741
+},
+"cov:band/ball_circular_cushion_time/686|1|8000000000000000|3fa08c8b48332f1f": {
+"ok": true,
+"ratio": 0.04157591855617934
+},
+"cov:band/ball_circular_cushion_time/692|1|8000000000000000|3fa0965deae53059": {
+"ok": true,
+"ratio": 0.06907129992008117
+},
+"cov:band/ball_circular_cushion_time/768|1|8000000000000000|3fc10d963a53501f": {
+"ok": true,
+"ratio": 0.044168326895604716
+},
+"cov:band/ball_circular_cushion_time/790|1|8000000000000000|3fbd42f2ae7a1f79": {
+"ok": true,
+"ratio": 0.04205260267376539
+},
+"cov:band/ball_circular_cushion_time/828|1|8000000000000000|401b41c36cf522be": {
+"ok": true,
+"ratio": 0.003030243740160648
+},
+"cov:band/ball_circular_cushion_time/844|1|8000000000000000|3fb4d5b1ca03b56a": {
+"ok": true,
+"ratio": 0.00935924954551672
+},
+"cov:band/ball_circular_cushion_time/850|1|8000000000000000|3fb4d72fff695f04": {
+"ok": true,
+"ratio": 0.031224856637653533
+},
+"cov:band/ball_circular_cushion_time/906|1|8000000000000000|3fa393b015fcdd26": {
+"ok": true,
+"ratio": 0.09047520221578761
+},
+"cov:band/ball_circular_cushion_time/974|1|8000000000000000|3fb2cf1f40e0f35f": {
+"ok": true,
+"ratio": 0.08715527076914377
+},
+"cov:band/ball_circular_cushion_time/976|1|8000000000000000|3fb2d39c06f4c143": {
+"ok": true,
+"ratio": 0.05031265265958585
+},
+"cov:band/ball_circular_cushion_time/992|1|8000000000000000|3fabcb6b07560704": {
+"ok": true,
+"ratio": 0.08614424881782612
+},
+"cov:band/ball_circular_cushion_time_airborne/1018|1|8000000000000000|3fdd395d4c4e34d4": {
+"ok": true,
+"ratio": 0.004834404377650405
+},
+"cov:band/ball_circular_cushion_time_airborne/1020|1|8000000000000000|3fdd3de3eded9dfd": {
+"ok": true,
+"ratio": 0.03719105635514209
+},
+"cov:band/ball_circular_cushion_time_airborne/1022|1|8000000000000000|3fdd3f52e19d1de2": {
+"ok": true,
+"ratio": 0.01999393614979922
+},
+"cov:band/ball_circular_cushion_time_airborne/1028|1|8000000000000000|3fdd3ff74e6cf825": {
+"ok": true,
+"ratio": 0.04404397904286386
+},
+"cov:band/ball_circular_cushion_time_airborne/1030|1|8000000000000000|3fdd3ffafa741e48": {
+"ok": true,
+"ratio": 0.02176008425726198
+},
+"cov:band/ball_circular_cushion_time_airborne/1060|1|8000000000000000|3fbd9141ebd26a99": {
+"ok": true,
+"ratio": 0.0662508753622776
+},
+"cov:band/ball_circular_cushion_time_airborne/1062|1|8000000000000000|3fbd97b48fe97d0b": {
+"ok": true,
+"ratio": 0.05983057603099224
+},
+"cov:band/ball_circular_cushion_time_airborne/1064|1|8000000000000000|3fbd99b9b8f92253": {
+"ok": true,
+"ratio": 0.01925260212304215
+},
+"cov:band/ball_circular_cushion_time_airborne/1066|1|8000000000000000|3fbd9a5cc7875414": {
+"ok": true,
+"ratio": 0.018591020803768486
+},
+"cov:band/ball_circular_cushion_time_airborne/1068|1|8000000000000000|3fbd9a904b495f94": {
+"ok": true,
+"ratio": 0.015068560343828976
+},
+"cov:band/ball_circular_cushion_time_airborne/1072|1|8000000000000000|3fbd9aa5ba9dcb79": {
+"ok": true,
+"ratio": 0.017991641577517037
+},
+"cov:band/ball_circular_cushion_time_airborne/1088|1|8000000000000000|3f81ef6bbdd339d9": {
+"ok": true,
+"ratio": 0.00013854849884006358
+},
+"cov:band/ball_circular_cushion_time_airborne/1090|1|8000000000000000|3f81f29f26971b40": {
+"ok": true,
+"ratio": 0.014743487186306912
+},
+"cov:band/ball_circular_cushion_time_airborne/1092|1|8000000000000000|3f81f3a240f2c7e6": {
+"ok": true,
+"ratio": 0.004939272296230192
+},
+"cov:band/ball_circular_cushion_time_airborne/1094|1|8000000000000000|3f81f3f430042812": {
+"ok": true,
+"ratio": 0.006814798092993124
+},
+"cov:band/ball_circular_cushion_time_airborne/1096|1|8000000000000000|3f81f40e18e0ffad": {
+"ok": true,
+"ratio": 0.004610159111781774
+},
+"cov:band/ball_circular_cushion_time_airborne/1098|1|8000000000000000|3f81f4164a526567": {
+"ok": true,
+"ratio": 0.0015071291227027575
+},
+"cov:band/ball_circular_cushion_time_airborne/10|1|8000000000000000|3f8eb50bf23b23c9": {
+"ok": true,
+"ratio": 0.005010431014958623
+},
+"cov:band/ball_circular_cushion_time_airborne/1154|1|8000000000000000|3f867e04b7f6cc91": {
+"ok": true,
+"ratio": 0.012427848048023703
+},
+"cov:band/ball_circular_cushion_time_airborne/1156|1|8000000000000000|3f8680f67f8d6941": {
+"ok": true,
+"ratio": 0.004244594679893251
+},
+"cov:band/ball_circular_cushion_time_airborne/1158|1|8000000000000000|3f8681e4c74ac131": {
+"ok": true,
+"ratio": 0.01292123489886386
+},
+"cov:band/ball_circular_cushion_time_airborne/1160|1|8000000000000000|3f8682301eeae280": {
+"ok": true,
+"ratio": 0.007158071968027473
+},
+"cov:band/ball_circular_cushion_time_airborne/1162|1|8000000000000000|3f868247f1ff3c24": {
+"ok": true,
+"ratio": 0.003167890800018873
+},
+"cov:band/ball_circular_cushion_time_airborne/1164|1|8000000000000000|3f86824f7a9e1527": {
+"ok": true,
+"ratio": 0.012980207257375165
+},
+"cov:band/ball_circular_cushion_time_airborne/1176|1|8000000000000000|3f8e887f58bdf5f7": {
+"ok": true,
+"ratio": 0.008684240866666765
+},
+"cov:band/ball_circular_cushion_time_airborne/1178|1|8000000000000000|3f8e8e1806907245": {
+"ok": true,
+"ratio": 0.0034774357744006145
+},
+"cov:band/ball_circular_cushion_time_airborne/1180|1|8000000000000000|3f8e8fdd1ddab424": {
+"ok": true,
+"ratio": 0.00047524145320844283
+},
+"cov:band/ball_circular_cushion_time_airborne/1182|1|8000000000000000|3f8e906c668d9297": {
+"ok": true,
+"ratio": 0.0042812079130377465
+},
+"cov:band/ball_circular_cushion_time_airborne/1184|1|8000000000000000|3f8e9099b6338732": {
+"ok": true,
+"ratio": 0.002059230751437566
+},
+"cov:band/ball_circular_cushion_time_airborne/1186|1|8000000000000000|3f8e90a80a18e1a5": {
+"ok": true,
+"ratio": 0.007200572643246278
+},
+"cov:band/ball_circular_cushion_time_airborne/1198|1|8000000000000000|3f9e274895ea073b": {
+"ok": true,
+"ratio": 0.005070197645552211
+},
+"cov:band/ball_circular_cushion_time_airborne/1200|1|8000000000000000|3f9e288f3c42e54e": {
+"ok": true,
+"ratio": 0.007931769964316843
+},
+"cov:band/ball_circular_cushion_time_airborne/1202|1|8000000000000000|3f9e28f675c5d85f": {
+"ok": true,
+"ratio": 0.011797473308533818
+},
+"cov:band/ball_circular_cushion_time_airborne/1204|1|8000000000000000|3f9e29171871520e": {
+"ok": true,
+"ratio": 0.009168860955045113
+},
+"cov:band/ball_circular_cushion_time_airborne/1206|1|8000000000000000|3f9e29216a3e5ddf": {
+"ok": true,
+"ratio": 0.023810973795124885
+},
+"cov:band/ball_circular_cushion_time_airborne/1208|1|8000000000000000|3f9e2924addc2462": {
+"ok": true,
+"ratio": 0.011867903679266729
+},
+"cov:band/ball_circular_cushion_time_airborne/1238|1|8000000000000000|3fc0025149bb50bd": {
+"ok": true,
+"ratio": 0.015060049034389183
+},
+"cov:band/ball_circular_cushion_time_airborne/1242|1|8000000000000000|3fc00442dfd0bf1c": {
+"ok": true,
+"ratio": 0.0522953658111722
+},
+"cov:band/ball_circular_cushion_time_airborne/1246|1|8000000000000000|3fc00474ddaf6871": {
+"ok": true,
+"ratio": 0.037815878017187124
+},
+"cov:band/ball_circular_cushion_time_airborne/1248|1|8000000000000000|3fc00478aa7541ec": {
+"ok": true,
+"ratio": 0.09017229943243125
+},
+"cov:band/ball_circular_cushion_time_airborne/1250|1|8000000000000000|3fc00479de1d89aa": {
+"ok": true,
+"ratio": 0.06463299117396043
+},
+"cov:band/ball_circular_cushion_time_airborne/1264|1|8000000000000000|3f8d837e409d44e0": {
+"ok": true,
+"ratio": 0.002326867372304235
+},
+"cov:band/ball_circular_cushion_time_airborne/1266|1|8000000000000000|3f8d88bf4c01c9c3": {
+"ok": true,
+"ratio": 0.004808668276137856
+},
+"cov:band/ball_circular_cushion_time_airborne/1268|1|8000000000000000|3f8d8a6897564d66": {
+"ok": true,
+"ratio": 0.017748708064295533
+},
+"cov:band/ball_circular_cushion_time_airborne/1270|1|8000000000000000|3f8d8aef138a58a2": {
+"ok": true,
+"ratio": 0.0010690862092314231
+},
+"cov:band/ball_circular_cushion_time_airborne/1272|1|8000000000000000|3f8d8b199aa8101f": {
+"ok": true,
+"ratio": 0.00029613934323885043
+},
+"cov:band/ball_circular_cushion_time_airborne/1274|1|8000000000000000|3f8d8b270d4fe806": {
+"ok": true,
+"ratio": 0.00038600040932018257
+},
+"cov:band/ball_circular_cushion_time_airborne/1284|1|8000000000000000|3f85837a4a95bbe6": {
+"ok": true,
+"ratio": 0.01838763010938049
+},
+"cov:band/ball_circular_cushion_time_airborne/1286|1|8000000000000000|3f85870558508204": {
+"ok": true,
+"ratio": 0.004050943858398525
+},
+"cov:band/ball_circular_cushion_time_airborne/1288|1|8000000000000000|3f858824047d4f0f": {
+"ok": true,
+"ratio": 0.005279620307153103
+},
+"cov:band/ball_circular_cushion_time_airborne/1290|1|8000000000000000|3f85887ea7b2a0f0": {
+"ok": true,
+"ratio": 0.004379587184336153
+},
+"cov:band/ball_circular_cushion_time_airborne/1292|1|8000000000000000|3f85889b50c580b1": {
+"ok": true,
+"ratio": 0.019868235542337815
+},
+"cov:band/ball_circular_cushion_time_airborne/1294|1|8000000000000000|3f8588a460d9e2f3": {
+"ok": true,
+"ratio": 0.008650863035433217
+},
+"cov:band/ball_circular_cushion_time_airborne/1296|1|8000000000000000|3f8588a73e985406": {
+"ok": true,
+"ratio": 0.002079276752204058
+},
+"cov:band/ball_circular_cushion_time_airborne/12|1|8000000000000000|3f8eb95320299329": {
+"ok": true,
+"ratio": 0.010950336729228044
+},
+"cov:band/ball_circular_cushion_time_airborne/1374|1|8000000000000000|3fb8cfd82b1dc998": {
+"ok": true,
+"ratio": 0.009735898148713144
+},
+"cov:band/ball_circular_cushion_time_airborne/1376|1|8000000000000000|3fb8d11fadf5e3c3": {
+"ok": true,
+"ratio": 0.012078505494586805
+},
+"cov:band/ball_circular_cushion_time_airborne/1378|1|8000000000000000|3fb8d1872eb348fb": {
+"ok": true,
+"ratio": 0.003592313626017986
+},
+"cov:band/ball_circular_cushion_time_airborne/1380|1|8000000000000000|3fb8d1a7e80b35ab": {
+"ok": true,
+"ratio": 0.0040864461029547225
+},
+"cov:band/ball_circular_cushion_time_airborne/1382|1|8000000000000000|3fb8d1b241029aa5": {
+"ok": true,
+"ratio": 0.007411937856797666
+},
+"cov:band/ball_circular_cushion_time_airborne/1384|1|8000000000000000|3fb8d1b586a2a0c3": {
+"ok": true,
+"ratio": 0.0037695665866752646
+},
+"cov:band/ball_circular_cushion_time_airborne/1394|1|8000000000000000|3f9b98385c1bb2d5": {
+"ok": true,
+"ratio": 0.00444696253295964
+},
+"cov:band/ball_circular_cushion_time_airborne/1396|1|8000000000000000|3f9b9b6f61e3cf0b": {
+"ok": true,
+"ratio": 0.007344143565769539
+},
+"cov:band/ball_circular_cushion_time_airborne/1398|1|8000000000000000|3f9b9c732e490e5d": {
+"ok": true,
+"ratio": 0.00039988255760541573
+},
+"cov:band/ball_circular_cushion_time_airborne/1400|1|8000000000000000|3f9b9cc54a33317a": {
+"ok": true,
+"ratio": 0.011255702935460698
+},
+"cov:band/ball_circular_cushion_time_airborne/1402|1|8000000000000000|3f9b9cdf401aff52": {
+"ok": true,
+"ratio": 0.00753789427364839
+},
+"cov:band/ball_circular_cushion_time_airborne/1404|1|8000000000000000|3f9b9ce7759c5d67": {
+"ok": true,
+"ratio": 0.0013316476613970806
+},
+"cov:band/ball_circular_cushion_time_airborne/1406|1|8000000000000000|3f9b9cea0e35beef": {
+"ok": true,
+"ratio": 0.034633353663382334
+},
+"cov:band/ball_circular_cushion_time_airborne/1414|1|8000000000000000|3fcc796f6311ae94": {
+"ok": true,
+"ratio": 0.04093085902772406
+},
+"cov:band/ball_circular_cushion_time_airborne/1416|1|8000000000000000|3fcc7be288b111e7": {
+"ok": true,
+"ratio": 0.006234044474043199
+},
+"cov:band/ball_circular_cushion_time_airborne/1424|1|8000000000000000|3fcc7d0102865b0f": {
+"ok": true,
+"ratio": 0.03502470778655662
+},
+"cov:band/ball_circular_cushion_time_airborne/1426|1|8000000000000000|3fcc7d02fca5b113": {
+"ok": true,
+"ratio": 0.003926305914589387
+},
+"cov:band/ball_circular_cushion_time_airborne/1482|1|8000000000000000|3f84eb5b96871273": {
+"ok": true,
+"ratio": 0.0005991744606806245
+},
+"cov:band/ball_circular_cushion_time_airborne/1484|1|8000000000000000|3f84eddd7987f4d9": {
+"ok": true,
+"ratio": 0.004039301215230062
+},
+"cov:band/ball_circular_cushion_time_airborne/1486|1|8000000000000000|3f84eea84b140b05": {
+"ok": true,
+"ratio": 0.009586721621117055
+},
+"cov:band/ball_circular_cushion_time_airborne/1488|1|8000000000000000|3f84eee869ea9214": {
+"ok": true,
+"ratio": 0.007784094761842988
+},
+"cov:band/ball_circular_cushion_time_airborne/1490|1|8000000000000000|3f84eefcb0520399": {
+"ok": true,
+"ratio": 0.0124440543647921
+},
+"cov:band/ball_circular_cushion_time_airborne/1492|1|8000000000000000|3f84ef03199dee6c": {
+"ok": true,
+"ratio": 0.0021839421015375127
+},
+"cov:band/ball_circular_cushion_time_airborne/1494|1|8000000000000000|3f84ef05209fe6f8": {
+"ok": true,
+"ratio": 0.0022757195515401662
+},
+"cov:band/ball_circular_cushion_time_airborne/14|1|8000000000000000|3f8ebaad64b9318a": {
+"ok": true,
+"ratio": 0.0012671648101144932
+},
+"cov:band/ball_circular_cushion_time_airborne/1570|1|8000000000000000|3fac267b4b12baf3": {
+"ok": true,
+"ratio": 0.012100908545282401
+},
+"cov:band/ball_circular_cushion_time_airborne/1572|1|8000000000000000|3fac29d9103f9009": {
+"ok": true,
+"ratio": 0.03314316539007827
+},
+"cov:band/ball_circular_cushion_time_airborne/1574|1|8000000000000000|3fac2ae90ab4a538": {
+"ok": true,
+"ratio": 0.023677711075430086
+},
+"cov:band/ball_circular_cushion_time_airborne/1576|1|8000000000000000|3fac2b3efec3bdf2": {
+"ok": true,
+"ratio": 0.02035833954004486
+},
+"cov:band/ball_circular_cushion_time_airborne/1578|1|8000000000000000|3fac2b5a2bad2465": {
+"ok": true,
+"ratio": 0.027309031246784805
+},
+"cov:band/ball_circular_cushion_time_airborne/1580|1|8000000000000000|3fac2b62c37aadbd": {
+"ok": true,
+"ratio": 0.027527024795141096
+},
+"cov:band/ball_circular_cushion_time_airborne/1582|1|8000000000000000|3fac2b657b18a6f8": {
+"ok": true,
+"ratio": 0.002051123914122672
+},
+"cov:band/ball_circular_cushion_time_airborne/1590|1|8000000000000000|3fb02b9fafa3e0f3": {
+"ok": true,
+"ratio": 0.006566950370800955
+},
+"cov:band/ball_circular_cushion_time_airborne/1592|1|8000000000000000|3fb02f629cd08ab1": {
+"ok": true,
+"ratio": 0.004514167522682335
+},
+"cov:band/ball_circular_cushion_time_airborne/1594|1|8000000000000000|3fb0308fb0377b48": {
+"ok": true,
+"ratio": 0.017918127434221835
+},
+"cov:band/ball_circular_cushion_time_airborne/1596|1|8000000000000000|3fb030ee8dc54586": {
+"ok": true,
+"ratio": 0.018194262400567863
+},
+"cov:band/ball_circular_cushion_time_airborne/1598|1|8000000000000000|3fb0310c84bf5f3c": {
+"ok": true,
+"ratio": 0.04209868336435321
+},
+"cov:band/ball_circular_cushion_time_airborne/1600|1|8000000000000000|3fb03115fda54da8": {
+"ok": true,
+"ratio": 0.0031106844335289656
+},
+"cov:band/ball_circular_cushion_time_airborne/1602|1|8000000000000000|3fb03118fc5a1fff": {
+"ok": true,
+"ratio": 0.005798296484697839
+},
+"cov:band/ball_circular_cushion_time_airborne/1604|1|8000000000000000|3fb03119eeb41d69": {
+"ok": true,
+"ratio": 0.02309084569012364
+},
+"cov:band/ball_circular_cushion_time_airborne/160|1|8000000000000000|3fa9ce0b8ae80509": {
+"ok": true,
+"ratio": 0.04427604841196558
+},
+"cov:band/ball_circular_cushion_time_airborne/1616|1|8000000000000000|3f97881f7fc6a1eb": {
+"ok": true,
+"ratio": 0.0014208360848505855
+},
+"cov:band/ball_circular_cushion_time_airborne/1618|1|8000000000000000|3f978a635933e1c2": {
+"ok": true,
+"ratio": 0.009771132596056904
+},
+"cov:band/ball_circular_cushion_time_airborne/1620|1|8000000000000000|3f978b1ab9902993": {
+"ok": true,
+"ratio": 0.0008796350294293108
+},
+"cov:band/ball_circular_cushion_time_airborne/1622|1|8000000000000000|3f978b54b6f887c2": {
+"ok": true,
+"ratio": 0.002123093778889049
+},
+"cov:band/ball_circular_cushion_time_airborne/1624|1|8000000000000000|3f978b670d968d14": {
+"ok": true,
+"ratio": 0.005750525349504601
+},
+"cov:band/ball_circular_cushion_time_airborne/1626|1|8000000000000000|3f978b6cd9e51f27": {
+"ok": true,
+"ratio": 0.0030448788455216106
+},
+"cov:band/ball_circular_cushion_time_airborne/162|1|8000000000000000|3fa9d1c3df7a362f": {
+"ok": true,
+"ratio": 0.002055732232362634
+},
+"cov:band/ball_circular_cushion_time_airborne/1640|1|8000000000000000|3f9eaefbf9b067c7": {
+"ok": true,
+"ratio": 0.0012832076778313268
+},
+"cov:band/ball_circular_cushion_time_airborne/1642|1|8000000000000000|3f9eb0a8e335bb36": {
+"ok": true,
+"ratio": 0.0008534651653687842
+},
+"cov:band/ball_circular_cushion_time_airborne/1644|1|8000000000000000|3f9eb13084ddcb67": {
+"ok": true,
+"ratio": 0.0019391793466150308
+},
+"cov:band/ball_circular_cushion_time_airborne/1646|1|8000000000000000|3f9eb15b68ba4b8d": {
+"ok": true,
+"ratio": 0.0035515236589525982
+},
+"cov:band/ball_circular_cushion_time_airborne/1648|1|8000000000000000|3f9eb168f92119c9": {
+"ok": true,
+"ratio": 0.012091046591999915
+},
+"cov:band/ball_circular_cushion_time_airborne/164|1|8000000000000000|3fa9d2ed1b6bac2d": {
+"ok": true,
+"ratio": 0.016568412231698325
+},
+"cov:band/ball_circular_cushion_time_airborne/1654|1|8000000000000000|3feaadf4e442b50a": {
+"ok": true,
+"ratio": 0.008094588357801436
+},
+"cov:band/ball_circular_cushion_time_airborne/1656|1|8000000000000000|3feab1fd610a0164": {
+"ok": true,
+"ratio": 0.024681852421470328
+},
+"cov:band/ball_circular_cushion_time_airborne/1658|1|8000000000000000|3feab337e734e546": {
+"ok": true,
+"ratio": 0.01090704543048062
+},
+"cov:band/ball_circular_cushion_time_airborne/1660|1|8000000000000000|3feab39a2a0b9ef9": {
+"ok": true,
+"ratio": 0.015509909188713115
+},
+"cov:band/ball_circular_cushion_time_airborne/1664|1|8000000000000000|3feab3c2e4a9384e": {
+"ok": true,
+"ratio": 0.0014769073585537533
+},
+"cov:band/ball_circular_cushion_time_airborne/1666|1|8000000000000000|3feab3c5fbcea94e": {
+"ok": true,
+"ratio": 0.0004789799721571742
+},
+"cov:band/ball_circular_cushion_time_airborne/1668|1|8000000000000000|3feab3c6f6211687": {
+"ok": true,
+"ratio": 0.025371089483299275
+},
+"cov:band/ball_circular_cushion_time_airborne/166|1|8000000000000000|3fa9d34ab570f4b8": {
+"ok": true,
+"ratio": 0.0026079706549664277
+},
+"cov:band/ball_circular_cushion_time_airborne/1670|1|8000000000000000|3feab3c745796e16": {
+"ok": true,
+"ratio": 0.004403931505140909
+},
+"cov:band/ball_circular_cushion_time_airborne/1678|1|8000000000000000|3fb8a6e06e79b478": {
+"ok": true,
+"ratio": 0.014158794310742845
+},
+"cov:band/ball_circular_cushion_time_airborne/1680|1|8000000000000000|3fb8ab90438cd8e5": {
+"ok": true,
+"ratio": 0.00014288067931726473
+},
+"cov:band/ball_circular_cushion_time_airborne/1682|1|8000000000000000|3fb8ad0d0039e7b2": {
+"ok": true,
+"ratio": 0.05191679811968664
+},
+"cov:band/ball_circular_cushion_time_airborne/1684|1|8000000000000000|3fb8ad8588132209": {
+"ok": true,
+"ratio": 0.07104291599009521
+},
+"cov:band/ball_circular_cushion_time_airborne/1686|1|8000000000000000|3fb8adaba8e45c9c": {
+"ok": true,
+"ratio": 0.0679306586086613
+},
+"cov:band/ball_circular_cushion_time_airborne/1688|1|8000000000000000|3fb8adb7b7db8472": {
+"ok": true,
+"ratio": 0.029634969659142075
+},
+"cov:band/ball_circular_cushion_time_airborne/168|1|8000000000000000|3fa9d36844dbb500": {
+"ok": true,
+"ratio": 0.0011637080640990278
+},
+"cov:band/ball_circular_cushion_time_airborne/1690|1|8000000000000000|3fb8adbb8800a769": {
+"ok": true,
+"ratio": 0.07949909409755579
+},
+"cov:band/ball_circular_cushion_time_airborne/1692|1|8000000000000000|3fb8adbcbc98e650": {
+"ok": true,
+"ratio": 0.026811087248473992
+},
+"cov:band/ball_circular_cushion_time_airborne/16|1|8000000000000000|3f8ebb1ae312c6e1": {
+"ok": true,
+"ratio": 0.00041396849987614115
+},
+"cov:band/ball_circular_cushion_time_airborne/1704|1|8000000000000000|3f9bd984c713e5fb": {
+"ok": true,
+"ratio": 0.006987745093118615
+},
+"cov:band/ball_circular_cushion_time_airborne/1706|1|8000000000000000|3f9be00bb5506e6c": {
+"ok": true,
+"ratio": 0.0005456352628761071
+},
+"cov:band/ball_circular_cushion_time_airborne/1708|1|8000000000000000|3f9be21c20e24b6f": {
+"ok": true,
+"ratio": 0.0015349293432442112
+},
+"cov:band/ball_circular_cushion_time_airborne/170|1|8000000000000000|3fa9d3719ce28ebd": {
+"ok": true,
+"ratio": 0.0397050517400401
+},
+"cov:band/ball_circular_cushion_time_airborne/1710|1|8000000000000000|3f9be2c33b6ab935": {
+"ok": true,
+"ratio": 9.128284480034608e-05
+},
+"cov:band/ball_circular_cushion_time_airborne/1712|1|8000000000000000|3f9be2f8132bd654": {
+"ok": true,
+"ratio": 0.004001601014675189
+},
+"cov:band/ball_circular_cushion_time_airborne/1714|1|8000000000000000|3f9be308c934298d": {
+"ok": true,
+"ratio": 0.002083342377659271
+},
+"cov:band/ball_circular_cushion_time_airborne/1724|1|8000000000000000|3fd9ba1b8e1dd59b": {
+"ok": true,
+"ratio": 0.03777541725889117
+},
+"cov:band/ball_circular_cushion_time_airborne/1726|1|8000000000000000|3fd9ba6c05a2f42c": {
+"ok": true,
+"ratio": 0.005271542337106173
+},
+"cov:band/ball_circular_cushion_time_airborne/172|1|8000000000000000|3fa9d374913fd9f4": {
+"ok": true,
+"ratio": 0.060090999760342545
+},
+"cov:band/ball_circular_cushion_time_airborne/1736|1|8000000000000000|3fd9ba90d2c8dd9f": {
+"ok": true,
+"ratio": 0.025337012483397002
+},
+"cov:band/ball_circular_cushion_time_airborne/174|1|8000000000000000|3fa9d37580691fc2": {
+"ok": true,
+"ratio": 0.029768308317176275
+},
+"cov:band/ball_circular_cushion_time_airborne/1790|1|8000000000000000|3f972164460343ae": {
+"ok": true,
+"ratio": 0.009253021752391665
+},
+"cov:band/ball_circular_cushion_time_airborne/1792|1|8000000000000000|3f97253be25b1763": {
+"ok": true,
+"ratio": 0.02760925164836979
+},
+"cov:band/ball_circular_cushion_time_airborne/1794|1|8000000000000000|3f97267247aa694c": {
+"ok": true,
+"ratio": 0.008046216168903404
+},
+"cov:band/ball_circular_cushion_time_airborne/1796|1|8000000000000000|3f9726d45ee90330": {
+"ok": true,
+"ratio": 0.0030071277416833194
+},
+"cov:band/ball_circular_cushion_time_airborne/1798|1|8000000000000000|3f9726f3621db802": {
+"ok": true,
+"ratio": 0.0026005461796080754
+},
+"cov:band/ball_circular_cushion_time_airborne/1800|1|8000000000000000|3f9726fd308f8d5c": {
+"ok": true,
+"ratio": 0.003488954340972333
+},
+"cov:band/ball_circular_cushion_time_airborne/1802|1|8000000000000000|3f9727004a8ad98f": {
+"ok": true,
+"ratio": 0.0034977166595839874
+},
+"cov:band/ball_circular_cushion_time_airborne/1812|1|8000000000000000|3f91c46c042540f6": {
+"ok": true,
+"ratio": 0.024603811023041947
+},
+"cov:band/ball_circular_cushion_time_airborne/1814|1|8000000000000000|3f91c69124afa81b": {
+"ok": true,
+"ratio": 0.024204671816704878
+},
+"cov:band/ball_circular_cushion_time_airborne/1816|1|8000000000000000|3f91c73e8c76bdf7": {
+"ok": true,
+"ratio": 0.001578530162264292
+},
+"cov:band/ball_circular_cushion_time_airborne/1818|1|8000000000000000|3f91c7755c22f11f": {
+"ok": true,
+"ratio": 0.040334703300287704
+},
+"cov:band/ball_circular_cushion_time_airborne/1820|1|8000000000000000|3f91c786b0b5c994": {
+"ok": true,
+"ratio": 0.0024392280307961706
+},
+"cov:band/ball_circular_cushion_time_airborne/1822|1|8000000000000000|3f91c78c2b9b4e31": {
+"ok": true,
+"ratio": 0.0008690213272486995
+},
+"cov:band/ball_circular_cushion_time_airborne/1824|1|8000000000000000|3f91c78de722948d": {
+"ok": true,
+"ratio": 0.01641347817641537
+},
+"cov:band/ball_circular_cushion_time_airborne/18|1|8000000000000000|3f8ebb3d82df3b73": {
+"ok": true,
+"ratio": 0.012281970864248691
+},
+"cov:band/ball_circular_cushion_time_airborne/1920|1|8000000000000000|3fd3c185627cb1c3": {
+"ok": true,
+"ratio": 0.0013695535456504594
+},
+"cov:band/ball_circular_cushion_time_airborne/1922|1|8000000000000000|3fd3c32c23f03d7b": {
+"ok": true,
+"ratio": 0.054333373581954635
+},
+"cov:band/ball_circular_cushion_time_airborne/1926|1|8000000000000000|3fd3c3dc300f133a": {
+"ok": true,
+"ratio": 0.05543821869173264
+},
+"cov:band/ball_circular_cushion_time_airborne/1928|1|8000000000000000|3fd3c3e99099ed43": {
+"ok": true,
+"ratio": 0.041063011355840943
+},
+"cov:band/ball_circular_cushion_time_airborne/1930|1|8000000000000000|3fd3c3edcb8ab6f1": {
+"ok": true,
+"ratio": 0.002801470836077643
+},
+"cov:band/ball_circular_cushion_time_airborne/1932|1|8000000000000000|3fd3c3ef21fd1236": {
+"ok": true,
+"ratio": 0.009767997604163338
+},
+"cov:band/ball_circular_cushion_time_airborne/1934|1|8000000000000000|3fd3c3ef8e292b7f": {
+"ok": true,
+"ratio": 0.031173196970314423
+},
+"cov:band/ball_circular_cushion_time_airborne/1948|1|8000000000000000|3fab1b4519746d1b": {
+"ok": true,
+"ratio": 0.0026919282648351786
+},
+"cov:band/ball_circular_cushion_time_airborne/1950|1|8000000000000000|3fab1c57104efc7e": {
+"ok": true,
+"ratio": 0.006101934767747449
+},
+"cov:band/ball_circular_cushion_time_airborne/1952|1|8000000000000000|3fab1cadb16945ce": {
+"ok": true,
+"ratio": 0.0032524414932815905
+},
+"cov:band/ball_circular_cushion_time_airborne/1954|1|8000000000000000|3fab1cc9164581ae": {
+"ok": true,
+"ratio": 0.011981960350871707
+},
+"cov:band/ball_circular_cushion_time_airborne/1956|1|8000000000000000|3fab1cd1bfd02233": {
+"ok": true,
+"ratio": 0.001998479571313018
+},
+"cov:band/ball_circular_cushion_time_airborne/1986|1|8000000000000000|3fc7f5230a7a57de": {
+"ok": true,
+"ratio": 0.049389227172273016
+},
+"cov:band/ball_circular_cushion_time_airborne/1988|1|8000000000000000|3fc7f866eb01f73c": {
+"ok": true,
+"ratio": 0.08027932384994578
+},
+"cov:band/ball_circular_cushion_time_airborne/1990|1|8000000000000000|3fc7f96f175b602d": {
+"ok": true,
+"ratio": 0.05943336376093746
+},
+"cov:band/ball_circular_cushion_time_airborne/1992|1|8000000000000000|3fc7f9c29d4f8d25": {
+"ok": true,
+"ratio": 0.0020403400751320133
+},
+"cov:band/ball_circular_cushion_time_airborne/1994|1|8000000000000000|3fc7f9dd06780392": {
+"ok": true,
+"ratio": 0.05286093811250288
+},
+"cov:band/ball_circular_cushion_time_airborne/1996|1|8000000000000000|3fc7f9e5607e370d": {
+"ok": true,
+"ratio": 0.00924615967759293
+},
+"cov:band/ball_circular_cushion_time_airborne/1998|1|8000000000000000|3fc7f9e80486ceb3": {
+"ok": true,
+"ratio": 0.06474283881968354
+},
+"cov:band/ball_circular_cushion_time_airborne/2010|1|8000000000000000|3f94fe4e09574999": {
+"ok": true,
+"ratio": 0.004920902737193055
+},
+"cov:band/ball_circular_cushion_time_airborne/2012|1|8000000000000000|3f950170a1b71daf": {
+"ok": true,
+"ratio": 0.03415791815838832
+},
+"cov:band/ball_circular_cushion_time_airborne/2014|1|8000000000000000|3f95026e121712c9": {
+"ok": true,
+"ratio": 0.006363286864635387
+},
+"cov:band/ball_circular_cushion_time_airborne/2016|1|8000000000000000|3f9502be2dbf1b8e": {
+"ok": true,
+"ratio": 0.01027620648238714
+},
+"cov:band/ball_circular_cushion_time_airborne/2018|1|8000000000000000|3f9502d781e7595e": {
+"ok": true,
+"ratio": 0.003981003151039812
+},
+"cov:band/ball_circular_cushion_time_airborne/2020|1|8000000000000000|3f9502df8444200f": {
+"ok": true,
+"ratio": 0.011216981912164688
+},
+"cov:band/ball_circular_cushion_time_airborne/2022|1|8000000000000000|3f9502e20cb28c3e": {
+"ok": true,
+"ratio": 0.0057138773475301175
+},
+"cov:band/ball_circular_cushion_time_airborne/2034|1|8000000000000000|3f92845f3e88c461": {
+"ok": true,
+"ratio": 0.0053979890057578505
+},
+"cov:band/ball_circular_cushion_time_airborne/2036|1|8000000000000000|3f92877242f22c8e": {
+"ok": true,
+"ratio": 0.009196897818667765
+},
+"cov:band/ball_circular_cushion_time_airborne/2038|1|8000000000000000|3f92886b1b27691e": {
+"ok": true,
+"ratio": 0.00200163312291645
+},
+"cov:band/ball_circular_cushion_time_airborne/2040|1|8000000000000000|3f9288b9cb5a39f6": {
+"ok": true,
+"ratio": 0.013460590576302946
+},
+"cov:band/ball_circular_cushion_time_airborne/2042|1|8000000000000000|3f9288d2ad812b5d": {
+"ok": true,
+"ratio": 0.007094208027074766
+},
+"cov:band/ball_circular_cushion_time_airborne/2044|1|8000000000000000|3f9288da8bedfcae": {
+"ok": true,
+"ratio": 0.004826763330516175
+},
+"cov:band/ball_circular_cushion_time_airborne/2058|1|8000000000000000|3f8b4e468af50b99": {
+"ok": true,
+"ratio": 0.009241979028124372
+},
+"cov:band/ball_circular_cushion_time_airborne/2060|1|8000000000000000|3f8b50aefb3fe62a": {
+"ok": true,
+"ratio": 0.008920679425822592
+},
+"cov:band/ball_circular_cushion_time_airborne/2062|1|8000000000000000|3f8b5171ed1794e5": {
+"ok": true,
+"ratio": 0.013220990909210641
+},
+"cov:band/ball_circular_cushion_time_airborne/2064|1|8000000000000000|3f8b51af92d8c58c": {
+"ok": true,
+"ratio": 0.0005592734140205062
+},
+"cov:band/ball_circular_cushion_time_airborne/2066|1|8000000000000000|3f8b51c311aeec80": {
+"ok": true,
+"ratio": 0.00828174608475404
+},
+"cov:band/ball_circular_cushion_time_airborne/2076|1|8000000000000000|3feeb20ddaeb7d6c": {
+"ok": true,
+"ratio": 0.02710862117567223
+},
+"cov:band/ball_circular_cushion_time_airborne/2084|1|8000000000000000|3feeb29393119eff": {
+"ok": true,
+"ratio": 0.012345238308879855
+},
+"cov:band/ball_circular_cushion_time_airborne/2086|1|8000000000000000|3feeb2947d7e5f18": {
+"ok": true,
+"ratio": 0.03512442575793822
+},
+"cov:band/ball_circular_cushion_time_airborne/20|1|8000000000000000|3f8ebb4875d54e4e": {
+"ok": true,
+"ratio": 0.009281974093300225
+},
+"cov:band/ball_circular_cushion_time_airborne/2104|1|8000000000000000|3f70b93a626711e7": {
+"ok": true,
+"ratio": 0.005253275254466083
+},
+"cov:band/ball_circular_cushion_time_airborne/2106|1|8000000000000000|3f70b9d77e3639de": {
+"ok": true,
+"ratio": 0.008917892785770846
+},
+"cov:band/ball_circular_cushion_time_airborne/2108|1|8000000000000000|3f70ba092d5b7c54": {
+"ok": true,
+"ratio": 0.012829926190948573
+},
+"cov:band/ball_circular_cushion_time_airborne/210|1|8000000000000000|3f957a332198af08": {
+"ok": true,
+"ratio": 0.006881326014028766
+},
+"cov:band/ball_circular_cushion_time_airborne/2110|1|8000000000000000|3f70ba18e3e22c73": {
+"ok": true,
+"ratio": 0.0001931845802071232
+},
+"cov:band/ball_circular_cushion_time_airborne/2118|1|8000000000000000|3fbb54ba4bbc5a41": {
+"ok": true,
+"ratio": 0.0193846226182579
+},
+"cov:band/ball_circular_cushion_time_airborne/2120|1|8000000000000000|3fbb56e3612e5e1b": {
+"ok": true,
+"ratio": 0.07538407859380765
+},
+"cov:band/ball_circular_cushion_time_airborne/2122|1|8000000000000000|3fbb5792a0841b15": {
+"ok": true,
+"ratio": 0.007285017172855494
+},
+"cov:band/ball_circular_cushion_time_airborne/2124|1|8000000000000000|3fbb57ca1465b411": {
+"ok": true,
+"ratio": 0.078863037816035
+},
+"cov:band/ball_circular_cushion_time_airborne/2126|1|8000000000000000|3fbb57db9e6ba4e8": {
+"ok": true,
+"ratio": 0.08152318545951383
+},
+"cov:band/ball_circular_cushion_time_airborne/212|1|8000000000000000|3f957b660c27e53a": {
+"ok": true,
+"ratio": 0.000564215507504051
+},
+"cov:band/ball_circular_cushion_time_airborne/2130|1|8000000000000000|3fbb57e2eb6cb5bc": {
+"ok": true,
+"ratio": 0.06894426772760671
+},
+"cov:band/ball_circular_cushion_time_airborne/2146|1|8000000000000000|3f7055748358e41e": {
+"ok": true,
+"ratio": 0.006552975503548953
+},
+"cov:band/ball_circular_cushion_time_airborne/2148|1|8000000000000000|3f705768f27243c9": {
+"ok": true,
+"ratio": 0.0074127295796847775
+},
+"cov:band/ball_circular_cushion_time_airborne/214|1|8000000000000000|3f957bc71a296663": {
+"ok": true,
+"ratio": 0.0010157742869513152
+},
+"cov:band/ball_circular_cushion_time_airborne/2150|1|8000000000000000|3f705807365ba4c4": {
+"ok": true,
+"ratio": 0.003583505387873002
+},
+"cov:band/ball_circular_cushion_time_airborne/2152|1|8000000000000000|3f70583942fac47d": {
+"ok": true,
+"ratio": 0.00542323879780321
+},
+"cov:band/ball_circular_cushion_time_airborne/2154|1|8000000000000000|3f705849171c7308": {
+"ok": true,
+"ratio": 0.007876651448816555
+},
+"cov:band/ball_circular_cushion_time_airborne/2166|1|8000000000000000|3fa968cd0632ca84": {
+"ok": true,
+"ratio": 0.010496984363492176
+},
+"cov:band/ball_circular_cushion_time_airborne/216|1|8000000000000000|3f957be5cb25a784": {
+"ok": true,
+"ratio": 0.008218425556552523
+},
+"cov:band/ball_circular_cushion_time_airborne/218|1|8000000000000000|3f957bef7fda39be": {
+"ok": true,
+"ratio": 0.0037245610605460286
+},
+"cov:band/ball_circular_cushion_time_airborne/234|1|8000000000000000|3f757036c52f5e9b": {
+"ok": true,
+"ratio": 0.002327294827333194
+},
+"cov:band/ball_circular_cushion_time_airborne/236|1|8000000000000000|3f7570bc04785f86": {
+"ok": true,
+"ratio": 0.005624899436265593
+},
+"cov:band/ball_circular_cushion_time_airborne/238|1|8000000000000000|3f7570e6279cb128": {
+"ok": true,
+"ratio": 0.002730608618559161
+},
+"cov:band/ball_circular_cushion_time_airborne/240|1|8000000000000000|3f7570f37ab5b062": {
+"ok": true,
+"ratio": 0.008766707748984267
+},
+"cov:band/ball_circular_cushion_time_airborne/276|1|8000000000000000|3fbbbbbdc7f1d261": {
+"ok": true,
+"ratio": 0.010399935732555016
+},
+"cov:band/ball_circular_cushion_time_airborne/280|1|8000000000000000|3fbbbbe8b3bb4e73": {
+"ok": true,
+"ratio": 0.04460550896886793
+},
+"cov:band/ball_circular_cushion_time_airborne/284|1|8000000000000000|3fbbbbecfe11658e": {
+"ok": true,
+"ratio": 0.062496624211047486
+},
+"cov:band/ball_circular_cushion_time_airborne/296|1|8000000000000000|3f95ee5f93aa5c15": {
+"ok": true,
+"ratio": 0.010440949971538821
+},
+"cov:band/ball_circular_cushion_time_airborne/298|1|8000000000000000|3f95f118d007f1fd": {
+"ok": true,
+"ratio": 0.0011812053063504522
+},
+"cov:band/ball_circular_cushion_time_airborne/300|1|8000000000000000|3f95f1f54d2b6b98": {
+"ok": true,
+"ratio": 0.011055485059882787
+},
+"cov:band/ball_circular_cushion_time_airborne/302|1|8000000000000000|3f95f23b06c3d2e7": {
+"ok": true,
+"ratio": 0.0070575456747068105
+},
+"cov:band/ball_circular_cushion_time_airborne/304|1|8000000000000000|3f95f2511367f01f": {
+"ok": true,
+"ratio": 0.00662750400454574
+},
+"cov:band/ball_circular_cushion_time_airborne/306|1|8000000000000000|3f95f2580c32e3f7": {
+"ok": true,
+"ratio": 0.004467505745405434
+},
+"cov:band/ball_circular_cushion_time_airborne/32|1|8000000000000000|3f9786ea0f3cc16d": {
+"ok": true,
+"ratio": 0.009716892209768528
+},
+"cov:band/ball_circular_cushion_time_airborne/342|1|8000000000000000|3f7b406de931ac03": {
+"ok": true,
+"ratio": 0.006867729400293723
+},
+"cov:band/ball_circular_cushion_time_airborne/344|1|8000000000000000|3f7b4321114cb46c": {
+"ok": true,
+"ratio": 0.007101680284749777
+},
+"cov:band/ball_circular_cushion_time_airborne/346|1|8000000000000000|3f7b43fba2fbc820": {
+"ok": true,
+"ratio": 0.00011483601297743046
+},
+"cov:band/ball_circular_cushion_time_airborne/348|1|8000000000000000|3f7b4440c1567d57": {
+"ok": true,
+"ratio": 0.005337482257146708
+},
+"cov:band/ball_circular_cushion_time_airborne/34|1|8000000000000000|3f97893189a8ddd7": {
+"ok": true,
+"ratio": 0.018415716318403066
+},
+"cov:band/ball_circular_cushion_time_airborne/350|1|8000000000000000|3f7b44569ccd38ec": {
+"ok": true,
+"ratio": 0.012269654046095816
+},
+"cov:band/ball_circular_cushion_time_airborne/36|1|8000000000000000|3f9789e9fa7caa74": {
+"ok": true,
+"ratio": 0.0002913550782878735
+},
+"cov:band/ball_circular_cushion_time_airborne/384|1|8000000000000000|3fa2f49a908376e2": {
+"ok": true,
+"ratio": 0.02365004503763079
+},
+"cov:band/ball_circular_cushion_time_airborne/386|1|8000000000000000|3fa2f64e59020a3e": {
+"ok": true,
+"ratio": 0.005905003215283032
+},
+"cov:band/ball_circular_cushion_time_airborne/388|1|8000000000000000|3fa2f6d81a1dc0dd": {
+"ok": true,
+"ratio": 0.002461709642222376
+},
+"cov:band/ball_circular_cushion_time_airborne/38|1|8000000000000000|3f978a244be80333": {
+"ok": true,
+"ratio": 0.0052685543561512786
+},
+"cov:band/ball_circular_cushion_time_airborne/390|1|8000000000000000|3fa2f703a893e716": {
+"ok": true,
+"ratio": 0.0066032577831824394
+},
+"cov:band/ball_circular_cushion_time_airborne/392|1|8000000000000000|3fa2f7116e80df19": {
+"ok": true,
+"ratio": 0.013932500380898421
+},
+"cov:band/ball_circular_cushion_time_airborne/394|1|8000000000000000|3fa2f715c96f5585": {
+"ok": true,
+"ratio": 0.008286243470996305
+},
+"cov:band/ball_circular_cushion_time_airborne/40|1|8000000000000000|3f978a36bcd5c2da": {
+"ok": true,
+"ratio": 0.005834416436200335
+},
+"cov:band/ball_circular_cushion_time_airborne/428|1|8000000000000000|3f981fdeb3148f3e": {
+"ok": true,
+"ratio": 0.0006715438257044252
+},
+"cov:band/ball_circular_cushion_time_airborne/42|1|8000000000000000|3f978a3c9190cef4": {
+"ok": true,
+"ratio": 0.009518092351843302
+},
+"cov:band/ball_circular_cushion_time_airborne/430|1|8000000000000000|3f9822e538abd503": {
+"ok": true,
+"ratio": 0.007532310907896717
+},
+"cov:band/ball_circular_cushion_time_airborne/432|1|8000000000000000|3f9823da2a2d2385": {
+"ok": true,
+"ratio": 0.008772566498503252
+},
+"cov:band/ball_circular_cushion_time_airborne/434|1|8000000000000000|3f9824279fe34d72": {
+"ok": true,
+"ratio": 0.007615579552105338
+},
+"cov:band/ball_circular_cushion_time_airborne/436|1|8000000000000000|3f9824401eaa3b0e": {
+"ok": true,
+"ratio": 0.006055889115834041
+},
+"cov:band/ball_circular_cushion_time_airborne/438|1|8000000000000000|3f982447ddb4192a": {
+"ok": true,
+"ratio": 0.010407740391567851
+},
+"cov:band/ball_circular_cushion_time_airborne/492|1|8000000000000000|3f89c88683c35e90": {
+"ok": true,
+"ratio": 0.019231373227784145
+},
+"cov:band/ball_circular_cushion_time_airborne/494|1|8000000000000000|3f89cd14e2c59a0b": {
+"ok": true,
+"ratio": 0.009404373307945432
+},
+"cov:band/ball_circular_cushion_time_airborne/496|1|8000000000000000|3f89ce85a202ef00": {
+"ok": true,
+"ratio": 0.0008329447178065355
+},
+"cov:band/ball_circular_cushion_time_airborne/498|1|8000000000000000|3f89cefa3b538710": {
+"ok": true,
+"ratio": 0.014066156709302597
+},
+"cov:band/ball_circular_cushion_time_airborne/500|1|8000000000000000|3f89cf1f1a428c4d": {
+"ok": true,
+"ratio": 0.0015722304199907646
+},
+"cov:band/ball_circular_cushion_time_airborne/502|1|8000000000000000|3f89cf2ac31e630b": {
+"ok": true,
+"ratio": 0.0060074297986118606
+},
+"cov:band/ball_circular_cushion_time_airborne/504|1|8000000000000000|3f89cf2e72ef70fc": {
+"ok": true,
+"ratio": 0.004253781652585809
+},
+"cov:band/ball_circular_cushion_time_airborne/520|1|8000000000000000|3f5eb62b569ddc08": {
+"ok": true,
+"ratio": 0.004758436537756392
+},
+"cov:band/ball_circular_cushion_time_airborne/522|1|8000000000000000|3f5eb8baa152e52b": {
+"ok": true,
+"ratio": 0.0012148926740689111
+},
+"cov:band/ball_circular_cushion_time_airborne/524|1|8000000000000000|3f5eb989dcfe0d92": {
+"ok": true,
+"ratio": 0.0035558909483207404
+},
+"cov:band/ball_circular_cushion_time_airborne/526|1|8000000000000000|3f5eb9cb668f8e59": {
+"ok": true,
+"ratio": 0.00833216277803387
+},
+"cov:band/ball_circular_cushion_time_airborne/624|1|8000000000000000|3f934b731e6a93d9": {
+"ok": true,
+"ratio": 0.011058559182211002
+},
+"cov:band/ball_circular_cushion_time_airborne/626|1|8000000000000000|3f934f3bc4ad4d47": {
+"ok": true,
+"ratio": 0.008204767695587959
+},
+"cov:band/ball_circular_cushion_time_airborne/628|1|8000000000000000|3f93506d759108d2": {
+"ok": true,
+"ratio": 0.010479776075844858
+},
+"cov:band/ball_circular_cushion_time_airborne/630|1|8000000000000000|3f9350ce109ede65": {
+"ok": true,
+"ratio": 0.028089078425816354
+},
+"cov:band/ball_circular_cushion_time_airborne/632|1|8000000000000000|3f9350ec9bb0348d": {
+"ok": true,
+"ratio": 0.010907793239402748
+},
+"cov:band/ball_circular_cushion_time_airborne/634|1|8000000000000000|3f9350f64430e90e": {
+"ok": true,
+"ratio": 0.01586924354746282
+},
+"cov:band/ball_circular_cushion_time_airborne/636|1|8000000000000000|3f9350f9522cd200": {
+"ok": true,
+"ratio": 0.025384305332300013
+},
+"cov:band/ball_circular_cushion_time_airborne/696|1|8000000000000000|3f7c2d568fd52584": {
+"ok": true,
+"ratio": 0.002635032284531157
+},
+"cov:band/ball_circular_cushion_time_airborne/698|1|8000000000000000|3f7c2e16bb1939bb": {
+"ok": true,
+"ratio": 0.0004836540816997913
+},
+"cov:band/ball_circular_cushion_time_airborne/700|1|8000000000000000|3f7c2e53804a374d": {
+"ok": true,
+"ratio": 0.0032497720803641326
+},
+"cov:band/ball_circular_cushion_time_airborne/702|1|8000000000000000|3f7c2e66b78e7918": {
+"ok": true,
+"ratio": 0.0028049703038569304
+},
+"cov:band/ball_circular_cushion_time_airborne/712|1|8000000000000000|3f80917d36179d4d": {
+"ok": true,
+"ratio": 0.0007628810903049085
+},
+"cov:band/ball_circular_cushion_time_airborne/714|1|8000000000000000|3f8094ea63def90b": {
+"ok": true,
+"ratio": 0.006074791766236566
+},
+"cov:band/ball_circular_cushion_time_airborne/716|1|8000000000000000|3f8095ffac90536b": {
+"ok": true,
+"ratio": 0.004955708005075716
+},
+"cov:band/ball_circular_cushion_time_airborne/718|1|8000000000000000|3f8096575938ccdc": {
+"ok": true,
+"ratio": 0.012175064760319754
+},
+"cov:band/ball_circular_cushion_time_airborne/720|1|8000000000000000|3f80967312982d18": {
+"ok": true,
+"ratio": 0.006941567802662421
+},
+"cov:band/ball_circular_cushion_time_airborne/722|1|8000000000000000|3f80967bd71e5617": {
+"ok": true,
+"ratio": 0.008702009164510707
+},
+"cov:band/ball_circular_cushion_time_airborne/724|1|8000000000000000|3f80967e9c827e92": {
+"ok": true,
+"ratio": 0.004370756458485272
+},
+"cov:band/ball_circular_cushion_time_airborne/76|1|8000000000000000|3fb1ac4472a9161f": {
+"ok": true,
+"ratio": 0.008108415188013869
+},
+"cov:band/ball_circular_cushion_time_airborne/78|1|8000000000000000|3fb1ad56047e5512": {
+"ok": true,
+"ratio": 0.007632088929404927
+},
+"cov:band/ball_circular_cushion_time_airborne/80|1|8000000000000000|3fb1adac81aaec84": {
+"ok": true,
+"ratio": 0.010816378083345415
+},
+"cov:band/ball_circular_cushion_time_airborne/824|1|8000000000000000|3f98ad9f48663f10": {
+"ok": true,
+"ratio": 0.0011486320415067927
+},
+"cov:band/ball_circular_cushion_time_airborne/826|1|8000000000000000|3f98b0b3aa1c0398": {
+"ok": true,
+"ratio": 0.0018582765769955525
+},
+"cov:band/ball_circular_cushion_time_airborne/828|1|8000000000000000|3f98b1acf1d57452": {
+"ok": true,
+"ratio": 0.006994760358807033
+},
+"cov:band/ball_circular_cushion_time_airborne/82|1|8000000000000000|3fb1adc7dacb6ae0": {
+"ok": true,
+"ratio": 0.008470665337633156
+},
+"cov:band/ball_circular_cushion_time_airborne/830|1|8000000000000000|3f98b1fbc568ec0d": {
+"ok": true,
+"ratio": 0.0045019446157005686
+},
+"cov:band/ball_circular_cushion_time_airborne/832|1|8000000000000000|3f98b214b2b299bc": {
+"ok": true,
+"ratio": 0.003452114892587396
+},
+"cov:band/ball_circular_cushion_time_airborne/834|1|8000000000000000|3f98b21c94a66d5c": {
+"ok": true,
+"ratio": 0.006372854385364918
+},
+"cov:band/ball_circular_cushion_time_airborne/84|1|8000000000000000|3fb1add080bb3b60": {
+"ok": true,
+"ratio": 0.005488273939736733
+},
+"cov:band/ball_circular_cushion_time_airborne/86|1|8000000000000000|3fb1add33cff6685": {
+"ok": true,
+"ratio": 0.002397074576160013
+},
+"cov:band/ball_circular_cushion_time_airborne/890|1|8000000000000000|3fb1e09fd1aa286a": {
+"ok": true,
+"ratio": 0.0001337107433643849
+},
+"cov:band/ball_circular_cushion_time_airborne/892|1|8000000000000000|3fb1e20bfb1d0844": {
+"ok": true,
+"ratio": 0.0032610840367383537
+},
+"cov:band/ball_circular_cushion_time_airborne/894|1|8000000000000000|3fb1e27f1b384d7a": {
+"ok": true,
+"ratio": 0.003752014273330117
+},
+"cov:band/ball_circular_cushion_time_airborne/896|1|8000000000000000|3fb1e2a38245c40e": {
+"ok": true,
+"ratio": 0.0002427065899638464
+},
+"cov:band/ball_circular_cushion_time_airborne/898|1|8000000000000000|3fb1e2af0523a61c": {
+"ok": true,
+"ratio": 0.008144111294585848
+},
+"cov:band/ball_circular_cushion_time_airborne/900|1|8000000000000000|3fb1e2b2a8f85cdc": {
+"ok": true,
+"ratio": 0.014535913694574503
+},
+"cov:band/ball_circular_cushion_time_airborne/932|1|8000000000000000|3f7e1d0ae651f3b7": {
+"ok": true,
+"ratio": 0.002611757711983622
+},
+"cov:band/ball_circular_cushion_time_airborne/934|1|8000000000000000|3f7e23c8f36b9e9d": {
+"ok": true,
+"ratio": 0.015782392423246097
+},
+"cov:band/ball_circular_cushion_time_airborne/936|1|8000000000000000|3f7e25ea8ce2f93c": {
+"ok": true,
+"ratio": 0.0028586818650770574
+},
+"cov:band/ball_circular_cushion_time_airborne/938|1|8000000000000000|3f7e26970fbb6ee2": {
+"ok": true,
+"ratio": 0.0036932329348870444
+},
+"cov:band/ball_circular_cushion_time_airborne/940|1|8000000000000000|3f7e26cd9cac0fcb": {
+"ok": true,
+"ratio": 0.0035923136448347773
+},
+"cov:band/ball_circular_cushion_time_airborne/942|1|8000000000000000|3f7e26dedcb466b8": {
+"ok": true,
+"ratio": 0.003514181268713134
+},
+"cov:band/ball_circular_cushion_time_airborne/944|1|8000000000000000|3f7e26e451086bb4": {
+"ok": true,
+"ratio": 0.013866212878277209
+},
+"cov:band/ball_linear_cushion_time/10407|0|8000000000000000|3fb0aa1b11cafdd0": {
+"ok": true,
+"ratio": 0.05299053051418737
+},
+"cov:band/ball_linear_cushion_time/1086|0|8000000000000000|3ff0a646e75baf22": {
+"ok": true,
+"ratio": 0.0007182290380998039
+},
+"cov:band/ball_linear_cushion_time/1088|0|8000000000000000|3ff0a7a371e95ff8": {
+"ok": true,
+"ratio": 0.007145837059040457
+},
+"cov:band/ball_linear_cushion_time/1090|0|8000000000000000|3ff0a811b122cdbe": {
+"ok": true,
+"ratio": 0.004673362924425154
+},
+"cov:band/ball_linear_cushion_time/1092|0|8000000000000000|3ff0a8348ed4e365": {
+"ok": true,
+"ratio": 0.007294908435218524
+},
+"cov:band/ball_linear_cushion_time/1094|0|8000000000000000|3ff0a83f957563e1": {
+"ok": true,
+"ratio": 0.003478498491538735
+},
+"cov:band/ball_linear_cushion_time/10979|0|8000000000000000|3f8befa53908701d": {
+"ok": true,
+"ratio": 0.005490940049286754
+},
+"cov:band/ball_linear_cushion_time/1123|0|8000000000000000|3faa37366d709522": {
+"ok": true,
+"ratio": 0.011368724606860128
+},
+"cov:band/ball_linear_cushion_time/11397|0|8000000000000000|3fb3abddbaf076de": {
+"ok": true,
+"ratio": 0.006510186373894888
+},
+"cov:band/ball_linear_cushion_time/12497|0|8000000000000000|3fcc362315b7dd72": {
+"ok": true,
+"ratio": 0.007576493747269083
+},
+"cov:band/ball_linear_cushion_time/12519|0|8000000000000000|3fbc6c87d9a1b527": {
+"ok": true,
+"ratio": 0.004123696092920301
+},
+"cov:band/ball_linear_cushion_time/12783|0|8000000000000000|3fb6f644e26adfe0": {
+"ok": true,
+"ratio": 0.010949984382991298
+},
+"cov:band/ball_linear_cushion_time/13553|0|8000000000000000|3fa66c1d096fbc1b": {
+"ok": true,
+"ratio": 0.011577577761643285
+},
+"cov:band/ball_linear_cushion_time/14147|0|8000000000000000|3fb1bc2edc3cee5a": {
+"ok": true,
+"ratio": 0.013941458567180088
+},
+"cov:band/ball_linear_cushion_time/14477|0|8000000000000000|3fd1131c18828279": {
+"ok": true,
+"ratio": 0.016415733495478826
+},
+"cov:band/ball_linear_cushion_time/15269|0|8000000000000000|3fa71f3f286889f0": {
+"ok": true,
+"ratio": 0.002042956667498479
+},
+"cov:band/ball_linear_cushion_time/16039|0|8000000000000000|3fa1a272e10ed9dc": {
+"ok": true,
+"ratio": 0.0296873714364048
+},
+"cov:band/ball_linear_cushion_time/16171|0|8000000000000000|3fbdd70a10089278": {
+"ok": true,
+"ratio": 0.009840351225210063
+},
+"cov:band/ball_linear_cushion_time/16699|0|8000000000000000|3fc6d3713706290a": {
+"ok": true,
+"ratio": 0.010209480901998035
+},
+"cov:band/ball_linear_cushion_time/16721|0|8000000000000000|3fc95429f62687bf": {
+"ok": true,
+"ratio": 0.012484397954036212
+},
+"cov:band/ball_linear_cushion_time/17300|0|8000000000000000|3fd813eb6cd23c02": {
+"ok": true,
+"ratio": 0.005870390048760354
+},
+"cov:band/ball_linear_cushion_time/17302|0|8000000000000000|3fd81767206f6862": {
+"ok": true,
+"ratio": 0.008517657174223307
+},
+"cov:band/ball_linear_cushion_time/17304|0|8000000000000000|3fd81881355a7f7c": {
+"ok": true,
+"ratio": 0.0033492007596108587
+},
+"cov:band/ball_linear_cushion_time/17306|0|8000000000000000|3fd818da6bab4fb9": {
+"ok": true,
+"ratio": 0.004999694389926778
+},
+"cov:band/ball_linear_cushion_time/17308|0|8000000000000000|3fd818f6a204d1a2": {
+"ok": true,
+"ratio": 0.012185768486989539
+},
+"cov:band/ball_linear_cushion_time/17310|0|8000000000000000|3fd818ff8df243f8": {
+"ok": true,
+"ratio": 0.00503668362980891
+},
+"cov:band/ball_linear_cushion_time/17312|0|8000000000000000|3fd81902603a4dc0": {
+"ok": true,
+"ratio": 0.005264471476291055
+},
+"cov:band/ball_linear_cushion_time/18063|0|8000000000000000|3fc3f9f40fcf8c84": {
+"ok": true,
+"ratio": 0.0019220015773834464
+},
+"cov:band/ball_linear_cushion_time/19493|0|8000000000000000|3fa0831ebde2980d": {
+"ok": true,
+"ratio": 0.008457065228975633
+},
+"cov:band/ball_linear_cushion_time/19581|0|8000000000000000|3fcca8fc8133da48": {
+"ok": true,
+"ratio": 0.00835912776248788
+},
+"cov:band/ball_linear_cushion_time/19713|0|8000000000000000|3fa3916713951986": {
+"ok": true,
+"ratio": 0.006484518138054821
+},
+"cov:band/ball_linear_cushion_time/20756|0|8000000000000000|3ff0c40bf35a09a7": {
+"ok": true,
+"ratio": 0.0004311859876619556
+},
+"cov:band/ball_linear_cushion_time/20758|0|8000000000000000|3ff0c49011bada9b": {
+"ok": true,
+"ratio": 0.001743057944182847
+},
+"cov:band/ball_linear_cushion_time/20760|0|8000000000000000|3ff0c4b9dad1874b": {
+"ok": true,
+"ratio": 0.012880796173986188
+},
+"cov:band/ball_linear_cushion_time/20762|0|8000000000000000|3ff0c4c711b228ed": {
+"ok": true,
+"ratio": 0.010355753667248502
+},
+"cov:band/ball_linear_cushion_time/20764|0|8000000000000000|3ff0c4cb3f7522ab": {
+"ok": true,
+"ratio": 0.004611459285808705
+},
+"cov:band/ball_linear_cushion_time/20945|0|8000000000000000|3fc9ab05a16f520d": {
+"ok": true,
+"ratio": 0.006487143556587819
+},
+"cov:band/ball_linear_cushion_time/21451|0|8000000000000000|3fcedfb329d33868": {
+"ok": true,
+"ratio": 0.005779658609453874
+},
+"cov:band/ball_linear_cushion_time/21737|0|8000000000000000|3fcb2932067653a6": {
+"ok": true,
+"ratio": 0.007176525678863254
+},
+"cov:band/ball_linear_cushion_time/22859|0|8000000000000000|3fd71015e2603125": {
+"ok": true,
+"ratio": 0.0003510384673948073
+},
+"cov:band/ball_linear_cushion_time/23042|0|8000000000000000|3fe7fee5365d01ac": {
+"ok": true,
+"ratio": 0.005115390990716396
+},
+"cov:band/ball_linear_cushion_time/23044|0|8000000000000000|3fe80167777be1c5": {
+"ok": true,
+"ratio": 0.001860488975455307
+},
+"cov:band/ball_linear_cushion_time/23046|0|8000000000000000|3fe8023271220e29": {
+"ok": true,
+"ratio": 0.003595564802538862
+},
+"cov:band/ball_linear_cushion_time/23048|0|8000000000000000|3fe802729db2850d": {
+"ok": true,
+"ratio": 0.006833476397092435
+},
+"cov:band/ball_linear_cushion_time/23050|0|8000000000000000|3fe80286e88f917f": {
+"ok": true,
+"ratio": 0.006464151060798867
+},
+"cov:band/ball_linear_cushion_time/23052|0|8000000000000000|3fe8028d53479e1d": {
+"ok": true,
+"ratio": 0.008457971976052338
+},
+"cov:band/ball_linear_cushion_time/2399|0|8000000000000000|3fc66e1cea31f364": {
+"ok": true,
+"ratio": 0.0007437538665156794
+},
+"cov:band/ball_linear_cushion_time/25455|0|8000000000000000|3fc4638c48a36241": {
+"ok": true,
+"ratio": 0.00512080859091461
+},
+"cov:band/ball_linear_cushion_time/25543|0|8000000000000000|3fe1dacf9074f8a8": {
+"ok": true,
+"ratio": 0.001190633454512135
+},
+"cov:band/ball_linear_cushion_time/25587|0|8000000000000000|3fc3d2494723cdf6": {
+"ok": true,
+"ratio": 0.01762415341832687
+},
+"cov:band/ball_linear_cushion_time/26005|0|8000000000000000|3fb7660b3efecd3a": {
+"ok": true,
+"ratio": 0.01778475720298802
+},
+"cov:band/ball_linear_cushion_time/26093|0|8000000000000000|3fc3f50cc5774bfc": {
+"ok": true,
+"ratio": 0.003432159565655657
+},
+"cov:band/ball_linear_cushion_time/26511|0|8000000000000000|3fbb539792221a71": {
+"ok": true,
+"ratio": 0.005941139230556763
+},
+"cov:band/ball_linear_cushion_time/26995|0|8000000000000000|3fd29675b9a2ba3b": {
+"ok": true,
+"ratio": 0.013284157574890211
+},
+"cov:band/ball_linear_cushion_time/27970|0|8000000000000000|3ff1a1b9676d14ba": {
+"ok": true,
+"ratio": 0.006450472881804338
+},
+"cov:band/ball_linear_cushion_time/27972|0|8000000000000000|3ff1a355892e9381": {
+"ok": true,
+"ratio": 0.008575792009334938
+},
+"cov:band/ball_linear_cushion_time/27974|0|8000000000000000|3ff1a3d7e33ad610": {
+"ok": true,
+"ratio": 0.0006055390575271772
+},
+"cov:band/ball_linear_cushion_time/27976|0|8000000000000000|3ff1a4011c62ae6d": {
+"ok": true,
+"ratio": 0.001941634044002208
+},
+"cov:band/ball_linear_cushion_time/27978|0|8000000000000000|3ff1a40e25a7a371": {
+"ok": true,
+"ratio": 0.00191681315662199
+},
+"cov:band/ball_linear_cushion_time/27980|0|8000000000000000|3ff1a41244fd4161": {
+"ok": true,
+"ratio": 0.0019840774282497155
+},
+"cov:band/ball_linear_cushion_time/2802|0|8000000000000000|3fde26b44a547c43": {
+"ok": true,
+"ratio": 0.0020929632616486205
+},
+"cov:band/ball_linear_cushion_time/2806|0|8000000000000000|3fde2eb779d0e5b8": {
+"ok": true,
+"ratio": 0.005552817957460902
+},
+"cov:band/ball_linear_cushion_time/2808|0|8000000000000000|3fde2f535879eba7": {
+"ok": true,
+"ratio": 0.0068911624394364605
+},
+"cov:band/ball_linear_cushion_time/2810|0|8000000000000000|3fde2f84a3160f57": {
+"ok": true,
+"ratio": 0.004714365859533071
+},
+"cov:band/ball_linear_cushion_time/2812|0|8000000000000000|3fde2f9439735891": {
+"ok": true,
+"ratio": 0.003448145369208832
+},
+"cov:band/ball_linear_cushion_time/2814|0|8000000000000000|3fde2f99277e70af": {
+"ok": true,
+"ratio": 0.0056509428199868275
+},
+"cov:band/ball_linear_cushion_time/28359|0|8000000000000000|3f9aa33f7d226ca8": {
+"ok": true,
+"ratio": 0.009463843950804235
+},
+"cov:band/ball_linear_cushion_time/2934|0|8000000000000000|3fe9c46c9593bca9": {
+"ok": true,
+"ratio": 0.003430627535368591
+},
+"cov:band/ball_linear_cushion_time/2936|0|8000000000000000|3fe9c84b2d58eec6": {
+"ok": true,
+"ratio": 0.00020188705060049185
+},
+"cov:band/ball_linear_cushion_time/2938|0|8000000000000000|3fe9c9848be95e11": {
+"ok": true,
+"ratio": 0.0026038855778650373
+},
+"cov:band/ball_linear_cushion_time/2940|0|8000000000000000|3fe9c9e7a77dad06": {
+"ok": true,
+"ratio": 0.00922083289334608
+},
+"cov:band/ball_linear_cushion_time/2942|0|8000000000000000|3fe9ca06fefe4860": {
+"ok": true,
+"ratio": 0.005499588006667761
+},
+"cov:band/ball_linear_cushion_time/2944|0|8000000000000000|3fe9ca10e84220cb": {
+"ok": true,
+"ratio": 0.001472835402702889
+},
+"cov:band/ball_linear_cushion_time/29775|0|8000000000000000|3fed5c3676840cef": {
+"ok": true,
+"ratio": 0.006197207090308263
+},
+"cov:band/ball_linear_cushion_time/29777|0|8000000000000000|3fed5ffb21423a7e": {
+"ok": true,
+"ratio": 0.0026660445017912355
+},
+"cov:band/ball_linear_cushion_time/29779|0|8000000000000000|3fed612c40e7d75f": {
+"ok": true,
+"ratio": 0.007290749292491079
+},
+"cov:band/ball_linear_cushion_time/29781|0|8000000000000000|3fed618cbfc02e84": {
+"ok": true,
+"ratio": 0.007822300865382657
+},
+"cov:band/ball_linear_cushion_time/29783|0|8000000000000000|3fed61ab43a6c4d4": {
+"ok": true,
+"ratio": 0.0030047520183949968
+},
+"cov:band/ball_linear_cushion_time/29785|0|8000000000000000|3fed61b4e9fd4e01": {
+"ok": true,
+"ratio": 0.0021485569524886793
+},
+"cov:band/ball_linear_cushion_time/30170|0|8000000000000000|3fe7c1a6641a8319": {
+"ok": true,
+"ratio": 0.01196921781315432
+},
+"cov:band/ball_linear_cushion_time/30172|0|8000000000000000|3fe7c6065b4783e0": {
+"ok": true,
+"ratio": 0.005155863736581583
+},
+"cov:band/ball_linear_cushion_time/30174|0|8000000000000000|3fe7c768a53602f6": {
+"ok": true,
+"ratio": 0.005594013974203651
+},
+"cov:band/ball_linear_cushion_time/30176|0|8000000000000000|3fe7c7d8b19b6491": {
+"ok": true,
+"ratio": 0.0027862276482948293
+},
+"cov:band/ball_linear_cushion_time/30178|0|8000000000000000|3fe7c7fc20b9a1d9": {
+"ok": true,
+"ratio": 0.002725561271699231
+},
+"cov:band/ball_linear_cushion_time/30180|0|8000000000000000|3fe7c807555679f6": {
+"ok": true,
+"ratio": 0.00982690556978602
+},
+"cov:band/ball_linear_cushion_time/30182|0|8000000000000000|3fe7c80ae07a2460": {
+"ok": true,
+"ratio": 0.0019810763141975838
+},
+"cov:band/ball_linear_cushion_time/3045|0|8000000000000000|3feeae4edf420003": {
+"ok": true,
+"ratio": 0.009502515136453444
+},
+"cov:band/ball_linear_cushion_time/3047|0|8000000000000000|3feeb137ae3f1b53": {
+"ok": true,
+"ratio": 0.008696456980493166
+},
+"cov:band/ball_linear_cushion_time/3049|0|8000000000000000|3feeb223437893b3": {
+"ok": true,
+"ratio": 0.0006089658676353861
+},
+"cov:band/ball_linear_cushion_time/3051|0|8000000000000000|3feeb26dc44bed93": {
+"ok": true,
+"ratio": 3.3936184426934324e-05
+},
+"cov:band/ball_linear_cushion_time/3053|0|8000000000000000|3feeb28553c9849c": {
+"ok": true,
+"ratio": 0.009047346636079064
+},
+"cov:band/ball_linear_cushion_time/3055|0|8000000000000000|3feeb28cc714d17b": {
+"ok": true,
+"ratio": 0.008254281756095097
+},
+"cov:band/ball_linear_cushion_time/3059|0|8000000000000000|3fb4c8c62321eb9c": {
+"ok": true,
+"ratio": 0.00311883123021333
+},
+"cov:band/ball_linear_cushion_time/30735|0|8000000000000000|3fd8ded4d0ba8bde": {
+"ok": true,
+"ratio": 0.0020953011750224054
+},
+"cov:band/ball_linear_cushion_time/31879|0|8000000000000000|3fcfda535b9828ed": {
+"ok": true,
+"ratio": 0.008303384884238485
+},
+"cov:band/ball_linear_cushion_time/3389|0|8000000000000000|3fd851baae07c180": {
+"ok": true,
+"ratio": 0.000460227065603734
+},
+"cov:band/ball_linear_cushion_time/3477|0|8000000000000000|3fe5a0f36eb99499": {
+"ok": true,
+"ratio": 0.0010347255142531585
+},
+"cov:band/ball_linear_cushion_time/35091|0|8000000000000000|3fce13cf72c245b2": {
+"ok": true,
+"ratio": 0.004759105258609981
+},
+"cov:band/ball_linear_cushion_time/35223|0|8000000000000000|3f943fe50e15ae2c": {
+"ok": true,
+"ratio": 0.0025690518507716547
+},
+"cov:band/ball_linear_cushion_time/35795|0|8000000000000000|3fb15a2bafbc1490": {
+"ok": true,
+"ratio": 0.0028920996844627386
+},
+"cov:band/ball_linear_cushion_time/3587|0|8000000000000000|3fd84dfb259fd991": {
+"ok": true,
+"ratio": 0.002042625421844527
+},
+"cov:band/ball_linear_cushion_time/37005|0|8000000000000000|3fb36cf48133c16b": {
+"ok": true,
+"ratio": 0.00876352644972379
+},
+"cov:band/ball_linear_cushion_time/38376|0|8000000000000000|3fec7a42dded63f0": {
+"ok": true,
+"ratio": 0.0009480839073245716
+},
+"cov:band/ball_linear_cushion_time/38378|0|8000000000000000|3fec7d2a3f7c3665": {
+"ok": true,
+"ratio": 0.002291399692327299
+},
+"cov:band/ball_linear_cushion_time/38380|0|8000000000000000|3fec7e155fc80b1b": {
+"ok": true,
+"ratio": 0.0028128638569325853
+},
+"cov:band/ball_linear_cushion_time/38382|0|8000000000000000|3fec7e5fbb7f0227": {
+"ok": true,
+"ratio": 0.001750359485730894
+},
+"cov:band/ball_linear_cushion_time/38384|0|8000000000000000|3fec7e773f3b39ad": {
+"ok": true,
+"ratio": 0.0049242044227390935
+},
+"cov:band/ball_linear_cushion_time/38386|0|8000000000000000|3fec7e7eaee288b8": {
+"ok": true,
+"ratio": 0.002398918891909794
+},
+"cov:band/ball_linear_cushion_time/4027|0|8000000000000000|3fc44bfab8eecc47": {
+"ok": true,
+"ratio": 0.006540245344453707
+},
+"cov:band/ball_linear_cushion_time/41097|0|8000000000000000|3faedb7888834d94": {
+"ok": true,
+"ratio": 0.014827692825645118
+},
+"cov:band/ball_linear_cushion_time/41845|0|8000000000000000|3fb6baa6b2020e73": {
+"ok": true,
+"ratio": 0.020904314129198725
+},
+"cov:band/ball_linear_cushion_time/42021|0|8000000000000000|3fa39c021fe48dea": {
+"ok": true,
+"ratio": 0.015345530985857041
+},
+"cov:band/ball_linear_cushion_time/42571|0|8000000000000000|3fe041be35944ca0": {
+"ok": true,
+"ratio": 0.006099460145383399
+},
+"cov:band/ball_linear_cushion_time/42681|0|8000000000000000|3fd37a4a39ce76d0": {
+"ok": true,
+"ratio": 0.006532742309426606
+},
+"cov:band/ball_linear_cushion_time/43341|0|8000000000000000|3fd6c2a0a73802bd": {
+"ok": true,
+"ratio": 0.008726746065972351
+},
+"cov:band/ball_linear_cushion_time/44089|0|8000000000000000|3f95d3d98b995924": {
+"ok": true,
+"ratio": 0.00695332869331547
+},
+"cov:band/ball_linear_cushion_time/46113|0|8000000000000000|3fd5bbbd9328cee1": {
+"ok": true,
+"ratio": 0.013742535743644266
+},
+"cov:band/ball_linear_cushion_time/46297|0|8000000000000000|3fed89e009b6de74": {
+"ok": true,
+"ratio": 0.009735211008312164
+},
+"cov:band/ball_linear_cushion_time/46299|0|8000000000000000|3fed8d43c99d1ff3": {
+"ok": true,
+"ratio": 0.0006492547700218432
+},
+"cov:band/ball_linear_cushion_time/46301|0|8000000000000000|3fed8e564e4c57a8": {
+"ok": true,
+"ratio": 0.0026464598504941607
+},
+"cov:band/ball_linear_cushion_time/46303|0|8000000000000000|3fed8ead209a344d": {
+"ok": true,
+"ratio": 0.013538368920222078
+},
+"cov:band/ball_linear_cushion_time/46305|0|8000000000000000|3fed8ec8957627bb": {
+"ok": true,
+"ratio": 0.00436544535524398
+},
+"cov:band/ball_linear_cushion_time/46307|0|8000000000000000|3fed8ed1443b7249": {
+"ok": true,
+"ratio": 0.0021830965053441756
+},
+"cov:band/ball_linear_cushion_time/46421|0|8000000000000000|3fdba0e587cfc4a3": {
+"ok": true,
+"ratio": 0.008563451289997701
+},
+"cov:band/ball_linear_cushion_time/47081|0|8000000000000000|3faec41d8a1fb0fa": {
+"ok": true,
+"ratio": 0.012706959708018651
+},
+"cov:band/ball_linear_cushion_time/47345|0|8000000000000000|3fe4a1c6a3239d3d": {
+"ok": true,
+"ratio": 0.004940331285149405
+},
+"cov:band/ball_linear_cushion_time/4775|0|8000000000000000|3fccfea68a1f7e0b": {
+"ok": true,
+"ratio": 0.016730634930958443
+},
+"cov:band/ball_linear_cushion_time/49303|0|8000000000000000|3fa61fc7754c8483": {
+"ok": true,
+"ratio": 0.020902304721717432
+},
+"cov:band/ball_linear_cushion_time/50689|0|8000000000000000|3fd1056768151a52": {
+"ok": true,
+"ratio": 0.01272784493497048
+},
+"cov:band/ball_linear_cushion_time/50959|0|8000000000000000|3fe6e4fb326c616b": {
+"ok": true,
+"ratio": 0.003357542471062477
+},
+"cov:band/ball_linear_cushion_time/50961|0|8000000000000000|3fe6e9cc964cf2f4": {
+"ok": true,
+"ratio": 0.01158190036990453
+},
+"cov:band/ball_linear_cushion_time/50963|0|8000000000000000|3fe6eb52c8e639fa": {
+"ok": true,
+"ratio": 0.0013231914129043362
+},
+"cov:band/ball_linear_cushion_time/50965|0|8000000000000000|3fe6ebce31510509": {
+"ok": true,
+"ratio": 0.003902227616046309
+},
+"cov:band/ball_linear_cushion_time/50969|0|8000000000000000|3fe6ec018f8ec9d3": {
+"ok": true,
+"ratio": 0.00018404420429407682
+},
+"cov:band/ball_linear_cushion_time/51811|0|8000000000000000|3fb96f69f2dcce1e": {
+"ok": true,
+"ratio": 0.0045435007285328875
+},
+"cov:band/ball_linear_cushion_time/52141|0|8000000000000000|3f93469165c9f80b": {
+"ok": true,
+"ratio": 0.027600809737547718
+},
+"cov:band/ball_linear_cushion_time/53923|0|8000000000000000|3fb18328b81267b6": {
+"ok": true,
+"ratio": 0.010305862700118225
+},
+"cov:band/ball_linear_cushion_time/5442|0|8000000000000000|3fe29e7e3537c4fc": {
+"ok": true,
+"ratio": 3.64820263957422e-05
+},
+"cov:band/ball_linear_cushion_time/5444|0|8000000000000000|3fe2a1d34c7feb97": {
+"ok": true,
+"ratio": 0.008604891600517762
+},
+"cov:band/ball_linear_cushion_time/5446|0|8000000000000000|3fe2a2e12f994743": {
+"ok": true,
+"ratio": 0.002067011191080537
+},
+"cov:band/ball_linear_cushion_time/5448|0|8000000000000000|3fe2a3368b181028": {
+"ok": true,
+"ratio": 0.005814566371740539
+},
+"cov:band/ball_linear_cushion_time/5450|0|8000000000000000|3fe2a35189723f35": {
+"ok": true,
+"ratio": 0.009524735011087176
+},
+"cov:band/ball_linear_cushion_time/5452|0|8000000000000000|3fe2a35a12b26f7a": {
+"ok": true,
+"ratio": 0.003960915815937167
+},
+"cov:band/ball_linear_cushion_time/5454|0|8000000000000000|3fe2a35cc5cc7c06": {
+"ok": true,
+"ratio": 0.0021255733446257172
+},
+"cov:band/ball_linear_cushion_time/54649|0|8000000000000000|3fabc40920467e33": {
+"ok": true,
+"ratio": 0.008840382156996143
+},
+"cov:band/ball_linear_cushion_time/55331|0|8000000000000000|3fa0bf1728785fac": {
+"ok": true,
+"ratio": 0.014391520657243377
+},
+"cov:band/ball_linear_cushion_time/55441|0|8000000000000000|3fa6eac0fd58e849": {
+"ok": true,
+"ratio": 0.023029985441024015
+},
+"cov:band/ball_linear_cushion_time/56079|0|8000000000000000|3fd94f45ba291144": {
+"ok": true,
+"ratio": 0.0006126207966008214
+},
+"cov:band/ball_linear_cushion_time/56189|0|8000000000000000|3fabcf57bc896247": {
+"ok": true,
+"ratio": 0.009056676835357559
+},
+"cov:band/ball_linear_cushion_time/58088|0|8000000000000000|3fef90213ab9b05f": {
+"ok": true,
+"ratio": 0.0012250277519522202
+},
+"cov:band/ball_linear_cushion_time/58090|0|8000000000000000|3fef93ff194a21b9": {
+"ok": true,
+"ratio": 0.006040286056755316
+},
+"cov:band/ball_linear_cushion_time/58092|0|8000000000000000|3fef95381e83812e": {
+"ok": true,
+"ratio": 0.013741361807567123
+},
+"cov:band/ball_linear_cushion_time/58094|0|8000000000000000|3fef959b1ac36cbb": {
+"ok": true,
+"ratio": 0.0036263851782812485
+},
+"cov:band/ball_linear_cushion_time/58096|0|8000000000000000|3fef95ba680c446d": {
+"ok": true,
+"ratio": 0.002723288999497611
+},
+"cov:band/ball_linear_cushion_time/58098|0|8000000000000000|3fef95c44e0199de": {
+"ok": true,
+"ratio": 0.009451953696176641
+},
+"cov:band/ball_linear_cushion_time/59577|0|8000000000000000|3fc217f0da12a6ec": {
+"ok": true,
+"ratio": 0.0043596377325709175
+},
+"cov:band/ball_linear_cushion_time/60640|0|8000000000000000|3fe4a06c950ccd65": {
+"ok": true,
+"ratio": 0.004290416566025824
+},
+"cov:band/ball_linear_cushion_time/60642|0|8000000000000000|3fe4a23eb29d8b1b": {
+"ok": true,
+"ratio": 0.001016966213165928
+},
+"cov:band/ball_linear_cushion_time/60644|0|8000000000000000|3fe4a2d22ada9309": {
+"ok": true,
+"ratio": 0.004761566646440932
+},
+"cov:band/ball_linear_cushion_time/60646|0|8000000000000000|3fe4a300cefb257c": {
+"ok": true,
+"ratio": 0.002232390828250056
+},
+"cov:band/ball_linear_cushion_time/60648|0|8000000000000000|3fe4a30f8ef67983": {
+"ok": true,
+"ratio": 0.0038230517969801837
+},
+"cov:band/ball_linear_cushion_time/60650|0|8000000000000000|3fe4a31439096c94": {
+"ok": true,
+"ratio": 0.004739149412349593
+},
+"cov:band/ball_linear_cushion_time/60677|0|8000000000000000|3fe043d6ea03905d": {
+"ok": true,
+"ratio": 0.00017377651682680298
+},
+"cov:band/ball_linear_cushion_time/62678|0|8000000000000000|3fdc44483e23cc1a": {
+"ok": true,
+"ratio": 0.00448799166792205
+},
+"cov:band/ball_linear_cushion_time/63566|0|8000000000000000|3ff0c0ac6d0cb607": {
+"ok": true,
+"ratio": 0.00944959232282631
+},
+"cov:band/ball_linear_cushion_time/63568|0|8000000000000000|3ff0c25023798460": {
+"ok": true,
+"ratio": 0.0071173003569304375
+},
+"cov:band/ball_linear_cushion_time/63570|0|8000000000000000|3ff0c2d4e58dfd03": {
+"ok": true,
+"ratio": 0.0015427703059099072
+},
+"cov:band/ball_linear_cushion_time/63572|0|8000000000000000|3ff0c2fee1c0a2b1": {
+"ok": true,
+"ratio": 0.0066005908118227045
+},
+"cov:band/ball_linear_cushion_time/63574|0|8000000000000000|3ff0c30c28b53aca": {
+"ok": true,
+"ratio": 0.006752944488920825
+},
+"cov:band/ball_linear_cushion_time/63576|0|8000000000000000|3ff0c3105b90713f": {
+"ok": true,
+"ratio": 0.0022144193149433037
+},
+"cov:band/ball_linear_cushion_time/63779|0|8000000000000000|3fb71ec931a0a739": {
+"ok": true,
+"ratio": 0.01720892741814451
+},
+"cov:band/ball_linear_cushion_time/64219|0|8000000000000000|3f9f52eb088521bd": {
+"ok": true,
+"ratio": 0.0029788815185910395
+},
+"cov:band/ball_linear_cushion_time/6469|0|8000000000000000|3fb916456cfc1e2e": {
+"ok": true,
+"ratio": 0.007968891724749273
+},
+"cov:band/ball_linear_cushion_time/65062|0|8000000000000000|3fe252f05fa0311d": {
+"ok": true,
+"ratio": 0.007890323925960297
+},
+"cov:band/ball_linear_cushion_time/65066|0|8000000000000000|3fe2565f7c9108e4": {
+"ok": true,
+"ratio": 0.00411816428186826
+},
+"cov:band/ball_linear_cushion_time/65068|0|8000000000000000|3fe256a24bbc76ff": {
+"ok": true,
+"ratio": 7.528574588530738e-05
+},
+"cov:band/ball_linear_cushion_time/65070|0|8000000000000000|3fe256b76c5ecd31": {
+"ok": true,
+"ratio": 0.006389667738650726
+},
+"cov:band/ball_linear_cushion_time/65072|0|8000000000000000|3fe256be1abfe586": {
+"ok": true,
+"ratio": 0.001541231778458881
+},
+"cov:band/ball_linear_cushion_time/65174|0|8000000000000000|3fec26f8b44facef": {
+"ok": true,
+"ratio": 0.00040570708401510997
+},
+"cov:band/ball_linear_cushion_time/65176|0|8000000000000000|3fec27e1974cef9d": {
+"ok": true,
+"ratio": 0.0005936121992788682
+},
+"cov:band/ball_linear_cushion_time/65178|0|8000000000000000|3fec282b3d5a6d44": {
+"ok": true,
+"ratio": 0.002185057005788193
+},
+"cov:band/ball_linear_cushion_time/65180|0|8000000000000000|3fec2842879ef479": {
+"ok": true,
+"ratio": 0.0008467026093712442
+},
+"cov:band/ball_linear_cushion_time/65182|0|8000000000000000|3fec2849e51000ef": {
+"ok": true,
+"ratio": 0.006954603562715186
+},
+"cov:band/ball_linear_cushion_time/65385|0|8000000000000000|3fbea2ab38cc23f8": {
+"ok": true,
+"ratio": 0.004506839694864209
+},
+"cov:band/ball_linear_cushion_time/67189|0|8000000000000000|3fc8940e553115d3": {
+"ok": true,
+"ratio": 0.005717851673564505
+},
+"cov:band/ball_linear_cushion_time/67233|0|8000000000000000|3fc73e18a2522cb9": {
+"ok": true,
+"ratio": 0.011520213587558939
+},
+"cov:band/ball_linear_cushion_time/67519|0|8000000000000000|3fd6c3ebf75fff5a": {
+"ok": true,
+"ratio": 0.007169188037331676
+},
+"cov:band/ball_linear_cushion_time/67871|0|8000000000000000|3fd854f336d685c5": {
+"ok": true,
+"ratio": 0.011916756345662395
+},
+"cov:band/ball_linear_cushion_time/68289|0|8000000000000000|3fc1cf276e19739e": {
+"ok": true,
+"ratio": 0.01233239349726895
+},
+"cov:band/ball_linear_cushion_time/69873|0|8000000000000000|3fae083a0909e3dd": {
+"ok": true,
+"ratio": 0.009830401470551892
+},
+"cov:band/ball_linear_cushion_time/70168|0|8000000000000000|3fe0b4b3cd8d316a": {
+"ok": true,
+"ratio": 0.013070626574029964
+},
+"cov:band/ball_linear_cushion_time/70170|0|8000000000000000|3fe0b6127e8ffba0": {
+"ok": true,
+"ratio": 0.010483551252145512
+},
+"cov:band/ball_linear_cushion_time/70172|0|8000000000000000|3fe0b681671ebdb6": {
+"ok": true,
+"ratio": 0.0053699856184811386
+},
+"cov:band/ball_linear_cushion_time/70174|0|8000000000000000|3fe0b6a479e32c8f": {
+"ok": true,
+"ratio": 0.011526500194961356
+},
+"cov:band/ball_linear_cushion_time/70176|0|8000000000000000|3fe0b6af913f17fe": {
+"ok": true,
+"ratio": 0.005578823618653369
+},
+"cov:band/ball_linear_cushion_time/70178|0|8000000000000000|3fe0b6b31321703f": {
+"ok": true,
+"ratio": 0.0033512567136182807
+},
+"cov:band/ball_linear_cushion_time/71501|0|8000000000000000|3fa218339b1d573c": {
+"ok": true,
+"ratio": 0.06066406434651599
+},
+"cov:band/ball_linear_cushion_time/71523|0|8000000000000000|3fc501577e062ca4": {
+"ok": true,
+"ratio": 0.014319080484836023
+},
+"cov:band/ball_linear_cushion_time/71831|0|8000000000000000|3fb478ee2e6b8e3e": {
+"ok": true,
+"ratio": 0.009026575230229228
+},
+"cov:band/ball_linear_cushion_time/73415|0|8000000000000000|3fa39d4fcaca75f3": {
+"ok": true,
+"ratio": 0.012916940667488356
+},
+"cov:band/ball_linear_cushion_time/7349|0|8000000000000000|3fc8cae1f21d7d50": {
+"ok": true,
+"ratio": 0.00798403502283762
+},
+"cov:band/ball_linear_cushion_time/75026|0|8000000000000000|3ff0fa92c3b67da6": {
+"ok": true,
+"ratio": 0.0051181233019880965
+},
+"cov:band/ball_linear_cushion_time/75028|0|8000000000000000|3ff0fe59aa18b51a": {
+"ok": true,
+"ratio": 0.008205519872241848
+},
+"cov:band/ball_linear_cushion_time/75030|0|8000000000000000|3ff0ff8b60044225": {
+"ok": true,
+"ratio": 0.010291846070640895
+},
+"cov:band/ball_linear_cushion_time/75032|0|8000000000000000|3ff0ffec0b54be79": {
+"ok": true,
+"ratio": 0.0011227327529335879
+},
+"cov:band/ball_linear_cushion_time/75034|0|8000000000000000|3ff1000a9cff2706": {
+"ok": true,
+"ratio": 0.015796879520332076
+},
+"cov:band/ball_linear_cushion_time/75036|0|8000000000000000|3ff1001447ac7c5e": {
+"ok": true,
+"ratio": 0.002394532756154427
+},
+"cov:band/ball_linear_cushion_time/75659|0|8000000000000000|3fc18cdbfee503b1": {
+"ok": true,
+"ratio": 0.0033986496464692793
+},
+"cov:band/ball_linear_cushion_time/76099|0|8000000000000000|3fc3e5a13c89d415": {
+"ok": true,
+"ratio": 0.009009238055583449
+},
+"cov:band/ball_linear_cushion_time/77573|0|8000000000000000|3fd7b888f519c91e": {
+"ok": true,
+"ratio": 0.019682761051264926
+},
+"cov:band/ball_linear_cushion_time/7840|0|8000000000000000|3ffaa7fb53eb50e7": {
+"ok": true,
+"ratio": 0.004652170103161696
+},
+"cov:band/ball_linear_cushion_time/7842|0|8000000000000000|3ffaaab036566cde": {
+"ok": true,
+"ratio": 0.001994104613347376
+},
+"cov:band/ball_linear_cushion_time/7844|0|8000000000000000|3ffaab8b619ccefa": {
+"ok": true,
+"ratio": 0.0012553500891548575
+},
+"cov:band/ball_linear_cushion_time/7846|0|8000000000000000|3ffaabd0b1d25c2d": {
+"ok": true,
+"ratio": 0.004155123657600748
+},
+"cov:band/ball_linear_cushion_time/7848|0|8000000000000000|3ffaabe69d2dc12e": {
+"ok": true,
+"ratio": 0.003223284936984318
+},
+"cov:band/ball_linear_cushion_time/7850|0|8000000000000000|3ffaabed8baeaa7a": {
+"ok": true,
+"ratio": 0.0023163492148778548
+},
+"cov:band/ball_linear_cushion_time/79179|0|8000000000000000|3f96519b2515491d": {
+"ok": true,
+"ratio": 0.029738786689556537
+},
+"cov:band/ball_linear_cushion_time/79201|0|8000000000000000|3fb226596de39701": {
+"ok": true,
+"ratio": 0.014731188544008454
+},
+"cov:band/ball_linear_cushion_time/79597|0|8000000000000000|3fac6d28ff670517": {
+"ok": true,
+"ratio": 0.0001250351589166555
+},
+"cov:band/ball_linear_cushion_time/79641|0|8000000000000000|3fd21e757fa3972d": {
+"ok": true,
+"ratio": 0.001510301764160488
+},
+"cov:band/ball_linear_cushion_time/8141|0|8000000000000000|3fc513fcf85cc842": {
+"ok": true,
+"ratio": 0.0033890838296342916
+},
+"cov:band/ball_linear_cushion_time/82171|0|8000000000000000|3fa7624bd963835d": {
+"ok": true,
+"ratio": 0.0042258521414803305
+},
+"cov:band/ball_linear_cushion_time/82941|0|8000000000000000|3fa94f852971972b": {
+"ok": true,
+"ratio": 0.006846258302602488
+},
+"cov:band/ball_linear_cushion_time/83256|0|8000000000000000|3fe291844a801ac2": {
+"ok": true,
+"ratio": 0.004076538953961223
+},
+"cov:band/ball_linear_cushion_time/83258|0|8000000000000000|3fe295be552a21d4": {
+"ok": true,
+"ratio": 0.011332663160751249
+},
+"cov:band/ball_linear_cushion_time/83260|0|8000000000000000|3fe29714881eb144": {
+"ok": true,
+"ratio": 0.005516878325114573
+},
+"cov:band/ball_linear_cushion_time/83262|0|8000000000000000|3fe29780bf4e695e": {
+"ok": true,
+"ratio": 0.02724269522469438
+},
+"cov:band/ball_linear_cushion_time/83264|0|8000000000000000|3fe297a2f7e6e3f6": {
+"ok": true,
+"ratio": 0.0169913265315401
+},
+"cov:band/ball_linear_cushion_time/83266|0|8000000000000000|3fe297adca363fe3": {
+"ok": true,
+"ratio": 0.0222428176948077
+},
+"cov:band/ball_linear_cushion_time/83268|0|8000000000000000|3fe297b13644f842": {
+"ok": true,
+"ratio": 0.0017700525953469797
+},
+"cov:band/ball_linear_cushion_time/8370|0|8000000000000000|3fd6abb36dc057b7": {
+"ok": true,
+"ratio": 0.03058198415588855
+},
+"cov:band/ball_linear_cushion_time/8372|0|8000000000000000|3fd6ad387174566a": {
+"ok": true,
+"ratio": 0.008045065456653285
+},
+"cov:band/ball_linear_cushion_time/8374|0|8000000000000000|3fd6adb37c2ab8c5": {
+"ok": true,
+"ratio": 0.013126655477519553
+},
+"cov:band/ball_linear_cushion_time/8376|0|8000000000000000|3fd6adda65870a61": {
+"ok": true,
+"ratio": 0.04094011910494403
+},
+"cov:band/ball_linear_cushion_time/8378|0|8000000000000000|3fd6ade6b3aa633a": {
+"ok": true,
+"ratio": 0.006232092484048981
+},
+"cov:band/ball_linear_cushion_time/8380|0|8000000000000000|3fd6adea977a7425": {
+"ok": true,
+"ratio": 0.030874277023999024
+},
+"cov:band/ball_linear_cushion_time/83909|0|8000000000000000|3fc9d289ee116837": {
+"ok": true,
+"ratio": 0.008394921529449423
+},
+"cov:band/ball_linear_cushion_time/84283|0|8000000000000000|3fbb3c8017bfcd1d": {
+"ok": true,
+"ratio": 0.010021084242228728
+},
+"cov:band/ball_linear_cushion_time/85119|0|8000000000000000|3fd3ce0dc421de24": {
+"ok": true,
+"ratio": 0.017805528198526387
+},
+"cov:band/ball_linear_cushion_time/85823|0|8000000000000000|3fc8fb205f8f3b20": {
+"ok": true,
+"ratio": 0.002231785258276028
+},
+"cov:band/ball_linear_cushion_time/87495|0|8000000000000000|3fc8c307bcb69b3c": {
+"ok": true,
+"ratio": 0.0014067610575815375
+},
+"cov:band/ball_linear_cushion_time/88485|0|8000000000000000|3f8aee4348627a13": {
+"ok": true,
+"ratio": 0.044263202827301625
+},
+"cov:band/ball_linear_cushion_time/88507|0|8000000000000000|3fd047669afa3fca": {
+"ok": true,
+"ratio": 0.0018023208042873867
+},
+"cov:band/ball_linear_cushion_time/88837|0|8000000000000000|3fc927d0c9d0f153": {
+"ok": true,
+"ratio": 0.004899193067182351
+},
+"cov:band/ball_linear_cushion_time/969|0|8000000000000000|3faeffd48a61c8e5": {
+"ok": true,
+"ratio": 0.03861163759282031
+},
+"cov:band/ball_linear_cushion_time_airborne/1058|2|0000000000000000|3fc290de35a61387": {
+"ok": true,
+"ratio": 0.10533580934833162
+},
+"cov:band/ball_linear_cushion_time_airborne/1062|2|0000000000000000|3fc2948b30cb6b18": {
+"ok": true,
+"ratio": 0.04101667742208615
+},
+"cov:band/ball_linear_cushion_time_airborne/1064|2|0000000000000000|3fc294ece040ef87": {
+"ok": true,
+"ratio": 0.01329931463662186
+},
+"cov:band/ball_linear_cushion_time_airborne/1068|2|0000000000000000|3fc29516a0a5af3f": {
+"ok": true,
+"ratio": 0.10250607664863827
+},
+"cov:band/ball_linear_cushion_time_airborne/1072|2|0000000000000000|3fc2951ad678d2e8": {
+"ok": true,
+"ratio": 0.024039638125062542
+},
+"cov:band/ball_linear_cushion_time_airborne/1126|2|0000000000000000|3fc9f1b34b3f97ee": {
+"ok": true,
+"ratio": 0.07021891365317806
+},
+"cov:band/ball_linear_cushion_time_airborne/1134|2|0000000000000000|3fc9f5e0307b89af": {
+"ok": true,
+"ratio": 0.00791721240953229
+},
+"cov:band/ball_linear_cushion_time_airborne/1136|2|0000000000000000|3fc9f5e7b9a6270f": {
+"ok": true,
+"ratio": 0.11188359206541416
+},
+"cov:band/ball_linear_cushion_time_airborne/1142|2|0000000000000000|3fc9f5eb19592dee": {
+"ok": true,
+"ratio": 0.021555780221610425
+},
+"cov:band/ball_linear_cushion_time_airborne/1255|2|0000000000000000|3fbbee41f8d0c78b": {
+"ok": true,
+"ratio": 0.04478756682555158
+},
+"cov:band/ball_linear_cushion_time_airborne/1332|2|0000000000000000|3fc9336d0e25a9d6": {
+"ok": true,
+"ratio": 0.015687161601869448
+},
+"cov:band/ball_linear_cushion_time_airborne/1336|2|0000000000000000|3fc93373bdda2062": {
+"ok": true,
+"ratio": 0.03239410986737073
+},
+"cov:band/ball_linear_cushion_time_airborne/1651|2|0000000000000000|3fd293caa97dfdbe": {
+"ok": true,
+"ratio": 0.08588272840532953
+},
+"cov:band/ball_linear_cushion_time_airborne/2026|2|0000000000000000|3fd013959f41424c": {
+"ok": true,
+"ratio": 0.06715739729090768
+},
+"cov:band/ball_linear_cushion_time_airborne/2030|2|0000000000000000|3fd01bd0ac22aac8": {
+"ok": true,
+"ratio": 0.06547700180217468
+},
+"cov:band/ball_linear_cushion_time_airborne/2042|2|0000000000000000|3fd01ca71c1e91f3": {
+"ok": true,
+"ratio": 0.04210658300837799
+},
+"cov:band/ball_linear_cushion_time_airborne/2044|2|0000000000000000|3fd01ca7415586e4": {
+"ok": true,
+"ratio": 0.0032642757298224343
+},
+"cov:band/ball_linear_cushion_time_airborne/2500|2|0000000000000000|3fcd04b356160d3c": {
+"ok": true,
+"ratio": 0.10293042181269198
+},
+"cov:band/ball_linear_cushion_time_airborne/3022|2|0000000000000000|3fdf28fe2fcaf66d": {
+"ok": true,
+"ratio": 0.08346514517292784
+},
+"cov:band/ball_linear_cushion_time_airborne/3024|2|0000000000000000|3fdf298127397934": {
+"ok": true,
+"ratio": 0.07517116851023244
+},
+"cov:band/ball_linear_cushion_time_airborne/3028|2|0000000000000000|3fdf29b78206b526": {
+"ok": true,
+"ratio": 0.07025723210325235
+},
+"cov:band/ball_linear_cushion_time_airborne/3032|2|0000000000000000|3fdf29bcf0208c17": {
+"ok": true,
+"ratio": 0.0734550583406761
+},
+"cov:band/ball_linear_cushion_time_airborne/3128|2|0000000000000000|3fd2f21546187167": {
+"ok": true,
+"ratio": 0.024428843976918753
+},
+"cov:band/ball_linear_cushion_time_airborne/334|2|0000000000000000|3fc6d0b838e788e0": {
+"ok": true,
+"ratio": 0.021298291724415355
+},
+"cov:band/ball_linear_cushion_time_airborne/336|2|0000000000000000|3fc6d56535aefa3e": {
+"ok": true,
+"ratio": 0.040492335013293
+},
+"cov:band/ball_linear_cushion_time_airborne/338|2|0000000000000000|3fc6d6d2aca92954": {
+"ok": true,
+"ratio": 0.03029763944411886
+},
+"cov:band/ball_linear_cushion_time_airborne/342|2|0000000000000000|3fc6d768f05342c5": {
+"ok": true,
+"ratio": 0.046093641311046936
+},
+"cov:band/ball_linear_cushion_time_airborne/344|2|0000000000000000|3fc6d7744f7982ca": {
+"ok": true,
+"ratio": 0.03200219505832949
+},
+"cov:band/ball_linear_cushion_time_airborne/348|2|0000000000000000|3fc6d7790a7de785": {
+"ok": true,
+"ratio": 0.05155962916084032
+},
+"cov:band/ball_linear_cushion_time_airborne/350|2|0000000000000000|3fc6d77965ec6670": {
+"ok": true,
+"ratio": 0.03472400306047148
+},
+"cov:band/ball_linear_cushion_time_airborne/3536|2|0000000000000000|3fe7a8133d8b4cea": {
+"ok": true,
+"ratio": 0.0541535751924483
+},
+"cov:band/ball_linear_cushion_time_airborne/3566|2|0000000000000000|3fe65572cf2e78ef": {
+"ok": true,
+"ratio": 0.02513927446250989
+},
+"cov:band/ball_linear_cushion_time_airborne/3572|2|0000000000000000|3fe65d7dad0d8ad7": {
+"ok": true,
+"ratio": 0.013486441744520433
+},
+"cov:band/ball_linear_cushion_time_airborne/3574|2|0000000000000000|3fe65dabf94e612a": {
+"ok": true,
+"ratio": 0.0041978482294791584
+},
+"cov:band/ball_linear_cushion_time_airborne/3580|2|0000000000000000|3fe65dc0b65e7839": {
+"ok": true,
+"ratio": 0.058660431658022406
+},
+"cov:band/ball_linear_cushion_time_airborne/3592|2|0000000000000000|3fe03c4366274957": {
+"ok": true,
+"ratio": 0.07328752729935381
+},
+"cov:band/ball_linear_cushion_time_airborne/3596|2|0000000000000000|3fe03d3d7586eeee": {
+"ok": true,
+"ratio": 0.08600594410931128
+},
+"cov:band/ball_linear_cushion_time_airborne/3988|2|0000000000000000|3fca4dc291e13cf9": {
+"ok": true,
+"ratio": 0.10476006059359293
+},
+"cov:band/ball_linear_cushion_time_airborne/3992|2|0000000000000000|3fca575b936a2526": {
+"ok": true,
+"ratio": 0.12089793752678789
+},
+"cov:band/ball_linear_cushion_time_airborne/4002|2|0000000000000000|3fca586b5cb6aa1e": {
+"ok": true,
+"ratio": 0.10520996334003258
+},
+"cov:band/ball_linear_cushion_time_airborne/4410|2|0000000000000000|3fc4f56f83b5abd2": {
+"ok": true,
+"ratio": 0.007444586994537255
+},
+"cov:band/ball_linear_cushion_time_airborne/4416|2|0000000000000000|3fc4f589528017e8": {
+"ok": true,
+"ratio": 0.09026802628984552
+},
+"cov:band/ball_linear_cushion_time_airborne/4418|2|0000000000000000|3fc4f589e5fb325c": {
+"ok": true,
+"ratio": 0.0031888946386091923
+},
+"cov:band/ball_linear_cushion_time_airborne/4420|2|0000000000000000|3fc4f58a1491feeb": {
+"ok": true,
+"ratio": 0.08057963948043066
+},
+"cov:band/ball_linear_cushion_time_airborne/4620|2|0000000000000000|3fc7caa4e6c9f89b": {
+"ok": true,
+"ratio": 0.030365430202134426
+},
+"cov:band/ball_linear_cushion_time_airborne/492|2|0000000000000000|3fd40e0d1b49f604": {
+"ok": true,
+"ratio": 0.05197275968567748
+},
+"cov:band/ball_linear_cushion_time_airborne/496|2|0000000000000000|3fd40e53c8c50f40": {
+"ok": true,
+"ratio": 0.03802890387881309
+},
+"cov:band/ball_linear_cushion_time_airborne/500|2|0000000000000000|3fd40e5ad5c3c32a": {
+"ok": true,
+"ratio": 0.012623853833649912
+},
+"cov:band/ball_linear_cushion_time_airborne/502|2|0000000000000000|3fd40e5b5ed2a384": {
+"ok": true,
+"ratio": 0.08025412216236234
+},
+"cov:band/ball_linear_cushion_time_airborne/504|2|0000000000000000|3fd40e5b8a47f648": {
+"ok": true,
+"ratio": 0.024781085482876438
+},
+"cov:band/ball_linear_cushion_time_airborne/536|2|0000000000000000|3fbc3d239856146e": {
+"ok": true,
+"ratio": 0.028034678236670486
+},
+"cov:band/ball_linear_cushion_time_airborne/538|2|0000000000000000|3fbc3d936203fdb0": {
+"ok": true,
+"ratio": 0.07793997530304436
+},
+"cov:band/ball_linear_cushion_time_airborne/5391|2|0000000000000000|3fcfa69fadeb4eff": {
+"ok": true,
+"ratio": 0.041701106670733894
+},
+"cov:band/ball_linear_cushion_time_airborne/5394|2|0000000000000000|3fcfa6c29a70a747": {
+"ok": true,
+"ratio": 0.035765734994167346
+},
+"cov:band/ball_linear_cushion_time_airborne/5408|2|0000000000000000|3fcfa69fadeb89a2": {
+"ok": true,
+"ratio": 0.028504881050929333
+},
+"cov:band/ball_linear_cushion_time_airborne/5422|2|0000000000000000|3fe09489159d87c0": {
+"ok": true,
+"ratio": 0.0516721579017031
+},
+"cov:band/ball_linear_cushion_time_airborne/546|2|0000000000000000|3fbc3dc6d5bfe350": {
+"ok": true,
+"ratio": 0.09858024121397763
+},
+"cov:band/ball_linear_cushion_time_airborne/548|2|0000000000000000|3fbc3dc730e16c94": {
+"ok": true,
+"ratio": 0.06401226149669835
+},
+"cov:band/ball_linear_cushion_time_airborne/5598|2|0000000000000000|3fdf598497590a8e": {
+"ok": true,
+"ratio": 0.06907681529606899
+},
+"cov:band/ball_linear_cushion_time_airborne/5600|2|0000000000000000|3fdf59a26fdc9667": {
+"ok": true,
+"ratio": 0.04408096844469667
+},
+"cov:band/ball_linear_cushion_time_airborne/5604|2|0000000000000000|3fdf59aee08f72ef": {
+"ok": true,
+"ratio": 0.0035724138094028125
+},
+"cov:band/ball_linear_cushion_time_airborne/6032|2|0000000000000000|3fe09775ea415e7e": {
+"ok": true,
+"ratio": 0.01318798585261076
+},
+"cov:band/ball_linear_cushion_time_airborne/6034|2|0000000000000000|3fe0998bdda18712": {
+"ok": true,
+"ratio": 0.02340669473703874
+},
+"cov:band/ball_linear_cushion_time_airborne/6038|2|0000000000000000|3fe09a64eb987ab1": {
+"ok": true,
+"ratio": 0.03424506623246001
+},
+"cov:band/ball_linear_cushion_time_airborne/6046|2|0000000000000000|3fe09a7c9b89978d": {
+"ok": true,
+"ratio": 0.03827032977811513
+},
+"cov:band/ball_linear_cushion_time_airborne/6426|2|0000000000000000|3fd8d48de877c510": {
+"ok": true,
+"ratio": 0.030744189324391918
+},
+"cov:band/ball_linear_cushion_time_airborne/6428|2|0000000000000000|3fd8df6f20d82188": {
+"ok": true,
+"ratio": 0.04109435133263377
+},
+"cov:band/ball_linear_cushion_time_airborne/6438|2|0000000000000000|3fd8e50239820eb4": {
+"ok": true,
+"ratio": 0.02098400926849095
+},
+"cov:band/ball_linear_cushion_time_airborne/6440|2|0000000000000000|3fd8e5056a9ca88d": {
+"ok": true,
+"ratio": 0.01430907479044731
+},
+"cov:band/ball_linear_cushion_time_airborne/6480|2|0000000000000000|3fd3ae4256ce1c83": {
+"ok": true,
+"ratio": 0.07785597757539227
+},
+"cov:band/ball_linear_cushion_time_airborne/6484|2|0000000000000000|3fd3ae4aa2c1e652": {
+"ok": true,
+"ratio": 0.0358998185514892
+},
+"cov:band/ball_linear_cushion_time_airborne/6520|2|0000000000000000|3fc7a8798e6551ff": {
+"ok": true,
+"ratio": 0.10853174346348693
+},
+"cov:band/ball_linear_cushion_time_airborne/6532|2|0000000000000000|3fc7a8b85992774c": {
+"ok": true,
+"ratio": 0.028476399461711696
+},
+"cov:band/ball_linear_cushion_time_airborne/6563|2|0000000000000000|3fb4c4585600165a": {
+"ok": true,
+"ratio": 0.0061728021477673815
+},
+"cov:band/ball_linear_cushion_time_airborne/6571|2|0000000000000000|3fb4c6caccc3be9f": {
+"ok": true,
+"ratio": 0.08071752676807074
+},
+"cov:band/ball_linear_cushion_time_airborne/6618|2|0000000000000000|3fcc28c07f607859": {
+"ok": true,
+"ratio": 0.07911386416812116
+},
+"cov:band/ball_linear_cushion_time_airborne/6620|2|0000000000000000|3fcc28c0bf827a1b": {
+"ok": true,
+"ratio": 0.006743221984386892
+},
+"cov:band/ball_linear_cushion_time_airborne/708|2|0000000000000000|3fc1fee1180c1ff2": {
+"ok": true,
+"ratio": 0.010148592548127626
+},
+"cov:band/ball_linear_cushion_time_airborne/716|2|0000000000000000|3fc207fc994713d8": {
+"ok": true,
+"ratio": 0.04380206463759623
+},
+"cov:band/ball_linear_cushion_time_airborne/7313|2|0000000000000000|3fc03a3aa91d7ee2": {
+"ok": true,
+"ratio": 0.02690656255745622
+},
+"cov:band/ball_linear_cushion_time_airborne/7319|2|0000000000000000|3fc03b1aa22c6734": {
+"ok": true,
+"ratio": 0.03125825509584447
+},
+"cov:band/ball_linear_cushion_time_airborne/7422|2|0000000000000000|3fe8ac1158071ac9": {
+"ok": true,
+"ratio": 0.08387641818370535
+},
+"cov:band/ball_linear_cushion_time_airborne/7432|2|0000000000000000|3fe8ac7149a12c7b": {
+"ok": true,
+"ratio": 0.042367540575337856
+},
+"cov:band/ball_linear_cushion_time_airborne/7703|2|0000000000000000|3fbfe79d0f11a176": {
+"ok": true,
+"ratio": 0.030370048607331415
+},
+"cov:band/ball_linear_cushion_time_airborne/7709|2|0000000000000000|3fc00614e73ac30c": {
+"ok": true,
+"ratio": 0.02063434355177757
+},
+"cov:band/ball_linear_cushion_time_airborne/7715|2|0000000000000000|3fc006c315989ac9": {
+"ok": true,
+"ratio": 0.030784351236856446
+},
+"cov:band/ball_linear_cushion_time_airborne/798|2|0000000000000000|3fea2bb3751a4f0d": {
+"ok": true,
+"ratio": 0.06118512362714635
+},
+"cov:band/ball_linear_cushion_time_airborne/8252|2|0000000000000000|3fcc24640d823882": {
+"ok": true,
+"ratio": 0.090125755071865
+},
+"cov:band/ball_linear_cushion_time_airborne/8256|2|0000000000000000|3fcc3c28c58b4fd2": {
+"ok": true,
+"ratio": 0.08405300944239684
+},
+"cov:band/ball_linear_cushion_time_airborne/8260|2|0000000000000000|3fcc3e7bbfcf402e": {
+"ok": true,
+"ratio": 0.020938173041545556
+},
+"cov:band/ball_linear_cushion_time_airborne/8264|2|0000000000000000|3fcc3eb71b7c1e0c": {
+"ok": true,
+"ratio": 0.09077344155479863
+},
+"cov:band/ball_linear_cushion_time_airborne/8266|2|0000000000000000|3fcc3ebb9dab35d8": {
+"ok": true,
+"ratio": 0.0937321271358328
+},
+"cov:band/ball_linear_cushion_time_airborne/8268|2|0000000000000000|3fcc3ebd0aafd8f8": {
+"ok": true,
+"ratio": 0.014939780424816133
+},
+"cov:band/ball_linear_cushion_time_airborne/8500|2|0000000000000000|3fd9acb13e46cc3f": {
+"ok": true,
+"ratio": 0.006337112543438414
+},
+"cov:band/ball_linear_cushion_time_airborne/8508|2|0000000000000000|3fd9ad250d46d372": {
+"ok": true,
+"ratio": 0.0006350568213347742
+},
+"cov:band/ball_linear_cushion_time_airborne/8935|2|0000000000000000|3f9c7b49f8ba56c8": {
+"ok": true,
+"ratio": 0.027075248137319846
+},
+"cov:band/ball_linear_cushion_time_airborne/8951|2|0000000000000000|3f9ccf96eda46839": {
+"ok": true,
+"ratio": 0.07610581128369005
+},
+"cov:band/ball_linear_cushion_time_airborne/9070|2|0000000000000000|3fdb15f627a3d0e3": {
+"ok": true,
+"ratio": 0.053635641071521224
+},
+"cov:band/ball_linear_cushion_time_airborne/9072|2|0000000000000000|3fdb16ef91fe6d45": {
+"ok": true,
+"ratio": 0.07985180432902911
+},
+"cov:band/ball_linear_cushion_time_airborne/9082|2|0000000000000000|3fdb1762d4355ce4": {
+"ok": true,
+"ratio": 0.051747071253366944
+},
+"f3b:band/ball_circular_cushion_time/1034/shift-1E-12|1|8000000000000000|3fe85227f23694be": {
+"ok": true,
+"ratio": 0.01838102359129192
+},
+"f3b:band/ball_circular_cushion_time/2090/shift-1E-12|1|8000000000000000|3fd5c280c5b2a480": {
+"ok": true,
+"ratio": 0.08328023697912125
+},
+"f3b:band/ball_circular_cushion_time/3366/shift-1E-12|1|8000000000000000|3fa59f775bc56d7a": {
+"ok": true,
+"ratio": 0.05749058291999747
+},
+"f3b:band/ball_circular_cushion_time/5456/shift-1E-12|1|8000000000000000|3fdfd5b66c95a7f7": {
+"ok": true,
+"ratio": 0.012051673725458685
+},
+"f3b:band/ball_linear_cushion_time/2794/shift-1E-12|0|8000000000000000|3fde2f978e2eebed": {
+"ok": true,
+"ratio": 0.010461589211394338
+},
+"f3b:band/ball_linear_cushion_time/60633/shift-1E-12|0|8000000000000000|3fe4a31490d915b7": {
+"ok": true,
+"ratio": 0.00035757489890201846
+},
+"k2:k2/validator/arc-angle-span-end|1|8000000000000000|3fdfdc26196d29fc": {
+"ok": true,
+"ratio": 0.005161062370297611
+},
+"k2:k2/validator/linear-span-end|0|8000000000000000|3fdf800000000020": {
+"ok": true,
+"ratio": 0.00041136147643216337
+}
+}

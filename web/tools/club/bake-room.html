@@ -1,0 +1,475 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club: room light bake</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<script type="importmap">
+{ "imports": { "three": "../../vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from '../../vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { pickTier, TIERS } from '../../scene/club/tiers.js';
+import { createAssets } from '../../scene/club/assets.js';
+import { createAdopt } from '../../scene/club/adopt.js';
+import { createRoom } from '../../scene/club/room.js';
+import { lightmapTexture, volumeTexture, LM_VERSION } from '../../scene/club/room/lightmap.js';
+import * as CORE from './bake-room-core.mjs';
+import * as ENV from './bake-room-env.mjs';
+import { collectScene, slotsForRows, ambientOfRows, tableStandIn, ARENA_FLOOR_Y } from './bake-room-scene.mjs';
+import { CANDIDATE_SETS, applyCandidate, lampOnFloor, FLOOR_PROBES } from './bake-room-cands.mjs';
+
+const q = new URLSearchParams(location.search);
+const ARENA = q.get('venue') === 'arena';
+if (!q.get('clubtier')) q.set('clubtier', 'base');
+// (`envonly=1`, the arena: no bake; the hall is built with its SHIPPED light file and only its cube is captured)
+const ENV_ONLY = ARENA && q.get('envonly') === '1';
+if (!ENV_ONLY) q.set('clublm', '0'); // the room is built with its analytic light: the bake must not depend on an earlier bake
+const num = (k, d) => { const v = Number(q.get(k)); return q.get(k) !== null && Number.isFinite(v) ? v : d; };
+const CANDS = CANDIDATE_SETS[q.get('cands')] ?? null;
+if (q.get('cands') && !CANDS) throw new Error(`no candidate set named ${q.get('cands')}`);
+const SIZE = CANDS ? ([128, 256, 512].includes(num('candsize', 256)) ? num('candsize', 256) : 256) : ([256, 512, 1024, 2048].includes(num('size', 1024)) ? num('size', 1024) : 1024);
+const WORKERS = Math.min(8, Math.max(2, Math.round(num('workers', 4))));
+const P = {
+  gather: Math.round(num('gather', 32)), patch: Math.round(num('patch', 48)), bounces: Math.round(num('bounces', 3)),
+  // (`gain`: the club room doubles every bounce albedo; the arena under the albedo law, CONTRACT 15.2, bounces what it reflects: 1)
+  gain: num('gain', ARENA ? 1 : 2), amb: num('amb', 1), ao: num('ao', 3.5), full: num('full', 16), maxEdge: ARENA ? 0.6 : 0.3, // (the hall is five times the club room's floor: coarser patches)
+  volPhases: Math.min(16, Math.max(1, Math.round(num('volphases', 4)))),
+  // the arena only: `floortable=0` bakes the carpet without the table (the occlusion service then owns all of the table's
+  // shadow, as in the club room); default: the carpet sees the table (its legs, its body, the bounce under it)
+  ...(ARENA ? { floorTable: q.get('floortable') !== '0' } : {}),
+  // the arena only: `volcell=0.8,0.4` another cell size of the light volume (metres across the floor, metres in height;
+  // default: bake-room-scene.mjs ARENA_VOLUME_CELL, ARENA_VOLUME_CELL_Y)
+  ...(ARENA && q.get('volcell') ? { volCell: q.get('volcell').split(',').map(Number) } : {}),
+};
+const WANT_VOLUME = q.get('vol') !== '0';
+// a failure ends the job at once (the page reports ready; window.__bake stays undefined and the error is in the console)
+window.addEventListener('error', (e) => { window.__bakeFailed = String(e?.message ?? e); window.__ready = true; });
+window.addEventListener('unhandledrejection', (e) => { window.__bakeFailed = String(e?.reason?.message ?? e?.reason ?? e); console.error('bake failed:', window.__bakeFailed); window.__ready = true; });
+const t0 = performance.now();
+const laps = {};
+const lap = (name) => { laps[name] = Math.round(performance.now() - t0); };
+const say = (msg) => { document.title = msg; window.__bakeStatus = msg; };
+
+// ---- renderer and camera (only for the picture at the end) -------------------------------------------------------------------
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: !!CANDS });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85;
+document.body.appendChild(renderer.domElement);
+RectAreaLightUniformsLib.init();
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.05, 60);
+const VIEWS = {
+  V1: [[-2.3, 1.05, 1.35], [0.1, 0, 0], 40], V3: [[-2.15, 0.62, 0], [0.6, 0, 0], 38], V9: [[-4.0, 1.6, 2.6], [0, 0.3, 0], 50], V10: [[-4.2, 0.95, 2.8], [0, 0.25, 0], 50],
+  far: [[-1.6, 0.9, -0.9], [2.2, -0.5, -4.6], 46], bar: [[0.6, 0.7, 2.2], [4.6, -0.4, -0.6], 46], chairs: [[-1.4, 0.5, 0.2], [-5.5, -0.5, -1.2], 44],
+  up: [[-3.2, 0.2, 2.2], [1.5, 2.45, -1.5], 60], back: [[3.6, 1.2, -2.6], [-1, 0.2, 1.0], 50], corner: [[1.5, 0.3, -2.0], [5.5, -0.6, -6.0], 40],
+  // the arena's two own review poses (arena/layout.js VIEWS)
+  TV: [[-4.3, 2.4, 0], [0.3, 0, 0], 34], BACK: [[3.9, 1.3, 1.9], [-1.0, 0.4, -0.3], 46],
+};
+let [pos, tgt, fov] = VIEWS[q.get('view')] ?? VIEWS.V9;
+if (q.get('cam')) { const c = q.get('cam').split(',').map(Number); pos = c.slice(0, 3); tgt = c.slice(3, 6); fov = c[6] || 40; }
+camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+
+// ---- stand-ins for the app (as web/tools/club/dev-room.html): its room box and floor, its lamp and three lights, the table --
+// The main table is bake-room-scene.mjs tableStandIn(): the app table's bounding box to the last bit (the props plan and the
+// bake's signature follow from it); the lamp is the app's canopy rectangle (2.05 x 0.66 m at y = 1.02) at the tournament
+// grade's radiance.
+const FLOOR_Y = ARENA ? ARENA_FLOOR_Y : -0.79, CEIL_Y = 2.45; // (the arena's carpet stands at the table's soles: bake-room-scene.mjs)
+const LAMP = { w: 2.05, d: 0.66, y: 1.02, color: 0xf6f7f9, intensity: 7.8 };
+const appGroup = new THREE.Group();
+const appFloor = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), new THREE.MeshStandardMaterial({ color: 0x3a2a20, roughness: 0.55 }));
+appFloor.rotation.x = -Math.PI / 2; appFloor.position.y = FLOOR_Y; appGroup.add(appFloor);
+const appWalls = new THREE.Mesh(new THREE.BoxGeometry(9, CEIL_Y - FLOOR_Y + 0.02, 6), new THREE.MeshStandardMaterial({ color: 0x8a8070, roughness: 0.95, side: THREE.BackSide }));
+appWalls.position.set(0, (CEIL_Y + FLOOR_Y) / 2 - 0.01, 0); appGroup.add(appWalls);
+const lampFace = new THREE.Mesh(new THREE.PlaneGeometry(LAMP.w, LAMP.d), new THREE.MeshBasicMaterial({ color: new THREE.Color(19.7, 20.9, 25.1), side: THREE.DoubleSide }));
+lampFace.rotation.x = Math.PI / 2; lampFace.position.set(0, LAMP.y, 0); appGroup.add(lampFace);
+const hood = new THREE.Mesh(new THREE.BoxGeometry(LAMP.w + 0.14, 0.10, LAMP.d + 0.14), new THREE.MeshStandardMaterial({ color: 0x142014, roughness: 0.45, metalness: 0.25 }));
+hood.position.set(0, LAMP.y + 0.055, 0); appGroup.add(hood);
+const rods = [-0.75, 0.75].map((x) => { const r = new THREE.Mesh(new THREE.CylinderGeometry(0.007, 0.007, CEIL_Y - (LAMP.y + 0.14), 10), new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 0.4, metalness: 0.7 })); r.position.set(x, (CEIL_Y + LAMP.y + 0.14) / 2, 0); appGroup.add(r); return r; });
+const rectLight = new THREE.RectAreaLight(LAMP.color, LAMP.intensity, LAMP.w, LAMP.d);
+rectLight.position.set(0, LAMP.y, 0); rectLight.lookAt(0, 0, 0); appGroup.add(rectLight);
+const hemi = new THREE.HemisphereLight(0x3a3a3e, 0x2a2a2c, 1.25); appGroup.add(hemi);
+const fill = new THREE.PointLight(0xd9dcdf, 2.2, 0, 2); fill.position.set(3.2, 1.9, -2.3); appGroup.add(fill);
+scene.add(appGroup);
+const appRoom = { group: appGroup, giRefs: { floor: appFloor, hemi }, envRefs: [],
+  lightRefs: { group: appGroup, rectLights: [rectLight], hemi, fill, lampFace, hood, rods, walls: appWalls, floor: appFloor } };
+
+// (round A5, the arena only: the app table's real section under the rails; the club room's stand-in is unchanged)
+const standIn = ARENA ? tableStandIn({ venue: 'arena' }) : tableStandIn();
+const tableGroup = standIn.group, clothMesh = standIn.cloth, darkMat = standIn.materials.dark;
+scene.add(tableGroup);
+
+const cubeRT = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+const cubeCam = new THREE.CubeCamera(0.02, 40, cubeRT);
+cubeCam.position.set(0, (FLOOR_Y + LAMP.y) / 2, 0);
+const rebakeEnv = () => { try { cubeCam.update(renderer, scene); } catch (e) { console.warn('cube capture failed', e); } };
+rebakeEnv();
+scene.environment = cubeRT.texture;
+for (const m of [darkMat, hood.material]) { m.envMap = cubeRT.texture; m.envMapIntensity = 0.05; }
+
+const frameFns = [];
+const tier = pickTier({ renderer, query: q });
+const club = {
+  enabled: true, tier, knobs: TIERS[tier], time: { value: 0 }, ...(ARENA ? { venue: 'arena' } : {}),
+  ctx: { renderer, scene, camera, room: appRoom, table: { group: tableGroup }, rebakeEnv, query: q },
+  assets: null, adopt: null, env: { enabled: false }, occ: { enabled: false }, post: { enabled: false },
+  onFrame(fn) { if (!frameFns.includes(fn)) frameFns.push(fn); }, offFrame(fn) { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); },
+};
+club.assets = createAssets(club);
+club.adopt = createAdopt(club);
+window.__club = club;
+
+say('building the room');
+// (the arena's room is loaded only when it is asked for: the club bake's module graph stays what it was)
+const room = ARENA ? await (await import('../../scene/club/arena/room.js')).createRoom(club) : await createRoom(club);
+club.room = room;
+if (!room.enabled) throw new Error(`createRoom returned a stub: ${room.reason}`);
+scene.updateMatrixWorld(true);
+lap('room');
+
+// ---- (round A7, CONTRACT 19.1) the hall's static cube: six 90-degree views from the probe into a float target (linear,
+// no tone mapping), four times the face's size, then bake-room-env.mjs: faces in the GL convention, the roughness chain,
+// the RGBE strip. `light`: { sig, soft, bytes } of the light map the hall is lit by at this moment. The cube holds the
+// HALL (carpet, boards, stands, drape, backdrop, roof steel, screens, the lamps that are not run-time emitters); what
+// it leaves out is listed in the record's `hidden`.
+//   `envsize=128|96|64` (lite: 64), `envprobe=x,h,z` (h over the floor; default 0,1.2,0), `envtype=half`
+async function hallCube(light) {
+  const n = tier === 'lite' ? 64 : ([64, 96, 128].includes(num('envsize', 128)) ? num('envsize', 128) : 128), N = n * 4;
+  const probe = (q.get('envprobe') ?? '0,1.2,0').split(',').map(Number);
+  const P0 = new THREE.Vector3(probe[0], FLOOR_Y + probe[1], probe[2]);
+  say('the hall\'s cube');
+  const tc = performance.now();
+  // WHAT IS NOT IN THE CUBE (the env service's ask, the table role 19:35Z: a cube taken in the middle of the hall cannot
+  // place what stands in the middle of it, and a reader must not get a light twice): the haze (it follows the camera),
+  // the table's stand-in, the whole luminaire over it (housing, lit face, strips, hangers; the page's own lamp pieces),
+  // and every lit face of a RUN-TIME emitter (a room-light material takes that emitter's highlight from the room light
+  // itself: its lens in the cube would count it twice): the lens mesh's triangles within `near` of a registered
+  // emitter are left out of its index for the capture. The bells, the profiles, the screens, the boards stay.
+  const hiddenNames = new Set(), wasVisible = new Map();
+  const hide = (o, label) => { if (!o) return; if (!wasVisible.has(o)) wasVisible.set(o, o.visible); if (o.visible) { o.visible = false; hiddenNames.add(label ?? (o.name || o.type)); } };
+  const hideAll = () => {
+    scene.traverse((o) => { if (/haze/i.test(o.name ?? '')) hide(o); });
+    hide(tableGroup, 'the table stand-in');
+    for (const o of [lampFace, hood, ...rods]) hide(o, 'the page lamp');
+    const rigRoot = scene.getObjectByName('arenaRig');
+    for (const o of rigRoot?.children ?? []) if (o.name !== 'arenaRig.fixed' && !/haze/i.test(o.name ?? '')) hide(o, `arenaRig: ${o.name || 'the luminaire'}`);
+  };
+  const lens = scene.getObjectByName('arenaRig.lens'), near = 0.6;
+  let lensIndex = null, lensDropped = 0;
+  if (lens?.geometry?.index && lens.geometry.attributes.position) {
+    const em = (room.light.emitters ?? []).filter((e) => e?.position).map((e) => [e.position.x, e.position.y, e.position.z]);
+    const g = lens.geometry, idx = g.index.array, pos = g.attributes.position, v = new THREE.Vector3(), keepTri = [];
+    lens.updateMatrixWorld(true);
+    const P = new Float32Array(pos.count * 3);
+    for (let i = 0; i < pos.count; i++) { v.fromBufferAttribute(pos, i).applyMatrix4(lens.matrixWorld); P[3 * i] = v.x; P[3 * i + 1] = v.y; P[3 * i + 2] = v.z; }
+    for (let t = 0; t < idx.length; t += 3) {
+      const cx = (P[3 * idx[t]] + P[3 * idx[t + 1]] + P[3 * idx[t + 2]]) / 3, cy = (P[3 * idx[t] + 1] + P[3 * idx[t + 1] + 1] + P[3 * idx[t + 2] + 1]) / 3, cz = (P[3 * idx[t] + 2] + P[3 * idx[t + 1] + 2] + P[3 * idx[t + 2] + 2]) / 3;
+      let drop = false;
+      for (const e of em) { const dx = cx - e[0], dy = cy - e[1], dz = cz - e[2]; if (dx * dx + dy * dy + dz * dz < near * near) { drop = true; break; } }
+      if (drop) lensDropped++; else keepTri.push(idx[t], idx[t + 1], idx[t + 2]);
+    }
+    if (lensDropped > 0) { lensIndex = g.index; g.setIndex(new THREE.BufferAttribute(new Uint32Array(keepTri), 1)); hiddenNames.add(`arenaRig.lens: ${lensDropped} triangles at ${em.length} run-time emitters`); }
+  }
+  const half = q.get('envtype') === 'half';
+  const rt = new THREE.WebGLRenderTarget(N, N, { type: half ? THREE.HalfFloatType : THREE.FloatType, depthBuffer: true, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, generateMipmaps: false });
+  const cam = new THREE.PerspectiveCamera(90, 1, 0.05, 80);
+  cam.position.copy(P0);
+  const keep = { tm: renderer.toneMapping, pos: camera.position.clone(), quat: camera.quaternion.clone() };
+  renderer.toneMapping = THREE.NoToneMapping;
+  const views = [];
+  let fail = null;
+  for (let f = 0; f < 6; f++) {
+    const c = ENV.faceCamera(f);
+    cam.up.set(...c.up); cam.lookAt(P0.x + c.fwd[0], P0.y + c.fwd[1], P0.z + c.fwd[2]); cam.updateMatrixWorld(true);
+    // (parts that follow the app's camera, the hall's cut rule among them, see the probe looking the same way)
+    camera.position.copy(P0); camera.quaternion.copy(cam.quaternion); camera.updateMatrixWorld(true);
+    for (const fn of [...frameFns]) fn(0, 1 / 60);
+    hideAll();                                          // (after the frame functions: the rig's own rule shows its parts again)
+    renderer.setRenderTarget(rt); renderer.clear(); renderer.render(scene, cam);
+    const buf = new Float32Array(N * N * 4);
+    try {
+      if (half) { const h = new Uint16Array(N * N * 4); renderer.readRenderTargetPixels(rt, 0, 0, N, N, h); for (let i = 0; i < h.length; i++) buf[i] = THREE.DataUtils.fromHalfFloat(h[i]); }
+      else renderer.readRenderTargetPixels(rt, 0, 0, N, N, buf);
+    } catch (e) { fail = String(e?.message ?? e); }
+    renderer.setRenderTarget(null);
+    views.push({ data: buf, ...c });
+  }
+  renderer.toneMapping = keep.tm; camera.position.copy(keep.pos); camera.quaternion.copy(keep.quat); camera.updateMatrixWorld(true);
+  for (const [o, vis] of wasVisible) o.visible = vis;
+  if (lensIndex) lens.geometry.setIndex(lensIndex);
+  const hidden = [...hiddenNames];
+  rt.dispose();
+  for (const fn of [...frameFns]) fn(0, 1 / 60);
+  if (fail) throw new Error(`the cube's read-back failed: ${fail}`);
+  const faces = ENV.facesFromViews(views, N, n);
+  // per face: mean and peak radiance (Rec.709 luminance), and how many texels hold nothing
+  const stats = ENV.ENV_FACES.map((name, f) => {
+    let sum = 0, peak = 0, zero = 0;
+    for (let i = 0; i < n * n; i++) { const o = 3 * (f * n * n + i), y = 0.2126 * faces[o] + 0.7152 * faces[o + 1] + 0.0722 * faces[o + 2]; sum += y; if (y > peak) peak = y; if (!(y > 0)) zero++; }
+    return { face: name, mean: +(sum / (n * n)).toFixed(5), peak: +peak.toFixed(3), zero };
+  });
+  if (stats.every((f) => !(f.mean > 0))) throw new Error('the cube is empty (no float render target on this host? try envtype=half)');
+  const levels = ENV.envChain(faces, n), pk = ENV.envPack(levels);
+  const gzE = new Uint8Array(await new Response(new Blob([pk.rgba]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer());
+  const s = room.lightmap.signature(), bx = room.box, r3e = (v) => Math.round(v * 1000) / 1000;
+  return {
+    record: {
+      v: ENV.ENV_VERSION, enc: 'rgbe', n, levels: pk.levels, probe,
+      box: { min: [r3e(bx.min.x), r3e(bx.min.y - FLOOR_Y), r3e(bx.min.z)], max: [r3e(bx.max.x), r3e(bx.max.y - FLOOR_Y), r3e(bx.max.z)] },
+      unit: ENV.ENV_UNIT, sig: s.sig, soft: s.soft, parts: s.parts ?? null, light: light ?? null, tier, hidden,
+    },
+    width: pk.width, height: pk.height, gz: CORE.toBase64(gzE), gzBytes: gzE.length, stats, hidden, type: half ? 'half' : 'float',
+    seconds: +((performance.now() - tc) / 1000).toFixed(1),
+  };
+}
+
+// ---- one bake of the room as it stands (the whole computation; `house` = the constant room ambient, or null for the tool's) --
+async function bakeOnce(house = null) {
+// ---- the scene for the bake (web/tools/club/bake-room-scene.mjs): blockers, emitters, the main lamp, the texels --------------
+const col = collectScene(room, { table: { group: tableGroup, cloth: clothMesh }, hood, lamp: { color: LAMP.color, intensity: LAMP.intensity }, params: house ? { ...P, house } : P, size: SIZE });
+const { scene: sceneData, tex, chartKind, atlas, opts, grid } = col;
+const E = sceneData.emitters, lamp = sceneData.lamp;
+lap('scene');
+
+// rows to produce (a band needs its neighbours: the filters reach 3 texels, the fill 6)
+let rows = [0, SIZE];
+if (q.get('rows')) { const [a, b] = q.get('rows').split('-').map(Number); if (Number.isFinite(a) && Number.isFinite(b) && b > a) rows = [Math.max(0, a), Math.min(SIZE, b)]; }
+const want = slotsForRows(tex, rows);
+
+say('patches');
+const bvh = CORE.buildBVH(sceneData.tris, sceneData.flags);
+const patchLight = CORE.solvePatches(sceneData, bvh, { rays: P.patch, bounces: P.bounces });
+lap('patches');
+
+// ---- workers: ranges of 4096 texel slots and ranges of 48 grid points of the light volume, handed to whoever is free;
+// results land by slot. The volume is computed by the job that holds row 0 (a bake split into row bands makes it once).
+say('texels');
+const shaded = new Float32Array(tex.count * CORE.TEXEL_STRIDE);
+// slots outside the band stay invalid (they are not part of this job's output)
+const CHUNK = 4096, VCHUNK = 48;
+const ranges = [];
+for (let i = 0; i < want.length;) { let j = i; while (j + 1 < want.length && want[j + 1] === want[j] + 1 && j + 1 - i < CHUNK) j += 1; ranges.push(['run', want[i], want[j] + 1]); i = j + 1; }
+const texelRanges = ranges.length;
+const doVolume = WANT_VOLUME && rows[0] === 0;
+const gridPoints = grid.dims[0] * grid.dims[1] * grid.dims[2];
+const volShaded = doVolume ? new Float32Array(gridPoints * CORE.VOLUME_STRIDE) : null;
+if (doVolume) for (let i = 0; i < gridPoints; i += VCHUNK) ranges.push(['volume', i, Math.min(gridPoints, i + VCHUNK)]);
+let nextRange = 0, doneRanges = 0;
+await new Promise((resolve, reject) => {
+  if (!ranges.length) { resolve(); return; }
+  const texMsg = { pos: tex.pos, nor: tex.nor, chart: tex.chart, x: tex.x, y: tex.y };
+  for (let w = 0; w < WORKERS; w++) {
+    const worker = new Worker(new URL('./bake-room-worker.mjs', import.meta.url), { type: 'module' });
+    const feed = () => { if (nextRange < ranges.length) { const [type, from, to] = ranges[nextRange++]; worker.postMessage({ type, from, to }); } else worker.terminate(); };
+    worker.onerror = (e) => reject(new Error(`worker: ${e.message ?? e}`));
+    worker.onmessage = (ev) => {
+      if (ev.data.type === 'done') {
+        if (ev.data.volume) volShaded.set(ev.data.out, ev.data.from * CORE.VOLUME_STRIDE); else shaded.set(ev.data.out, ev.data.from * CORE.TEXEL_STRIDE);
+        doneRanges += 1;
+        say(`texels and volume ${Math.round((100 * doneRanges) / ranges.length)} %`);
+        if (doneRanges === ranges.length) { resolve(); return; }
+      }
+      feed();
+    };
+    worker.postMessage({ type: 'scene', scene: sceneData, patchLight, tex: texMsg, grid, opts });
+  }
+});
+lap('texels');
+
+say('finish');
+const fin = CORE.finish(tex, shaded, SIZE, { fullScale: P.full });
+// the mean indirect light, for the surfaces that stay analytic (props, brass): sums over this job's own rows
+const mi = ambientOfRows(tex, shaded, chartKind, rows);
+const meanAmbient = { sky: mi.sky, ground: mi.ground, side: mi.side };
+// the light volume: fill, encode. Its box is recorded with heights above the floor (the room re-seats per table class).
+const finVol = doVolume ? CORE.finishVolume(volShaded, grid, { fullScale: P.full }) : null;
+const r3 = (v) => Math.round(v * 1000) / 1000;
+const volumeMeta = doVolume ? { dims: grid.dims.slice(), min: [grid.min[0], r3(grid.min[1] - FLOOR_Y), grid.min[2]], max: [grid.max[0], r3(grid.max[1] - FLOOR_Y), grid.max[2]], bias: grid.bias, phases: P.volPhases } : null;
+lap('finish');
+
+const sig = room.lightmap.signature();
+const meta = {
+  v: LM_VERSION, core: CORE.CORE_VERSION, sig: sig.sig, soft: sig.soft, ...(ARENA && sig.parts ? { parts: sig.parts } : {}), ...(ARENA ? { floorTable: col.info.floorTable === true } : {}), fullScale: P.full, size: [SIZE, SIZE],
+  ambient: meanAmbient,
+  // (`house`: the constant room ambient this bake used, after `amb`: sky = up-facing, ground = down-facing, side = added on vertical surfaces)
+  params: { gather: P.gather, patch: P.patch, bounces: P.bounces, gain: P.gain, amb: P.amb, ao: P.ao, maxEdge: P.maxEdge, house: opts.ambient },
+  lamp: { rect: [lamp.cx, lamp.cz, lamp.hx, lamp.hz, lamp.y].map((v) => Math.round(v * 1000) / 1000), radiance: lamp.L.map((v) => Math.round(v * 1000) / 1000), pool: lamp.pool },
+  volume: volumeMeta,
+  scene: { triangles: sceneData.tris.length / 9, emitters: E.length / CORE.EM_STRIDE, texels: tex.count, tier, ...(ARENA ? { venue: 'arena' } : {}), content: col.content },
+};
+return { col, sceneData, tex, atlas, grid, E, lamp, rows, want, patchLight, shaded, texelRanges, ranges, fin, mi, finVol, volumeMeta, meta, opts, chartKind, doVolume };
+}
+
+// ---- `envonly=1` (the arena): the hall under its shipped light file; the cube and nothing else ---------------------------------
+if (ENV_ONLY) {
+  await Promise.race([room.lightmap.ready, new Promise((r) => setTimeout(r, 60000))]);
+  for (let i = 0; i < 200 && room.lightmap.state().on !== true; i++) await new Promise((r) => setTimeout(r, 100));
+  const ls = room.lightmap.state();
+  if (ls.on !== true) throw new Error(`envonly: the hall's light map is not on (${ls.reason ?? ls.file?.status})`);
+  if ((ls.stale ?? []).length) console.warn('envonly: the light map is stale:', ls.stale.join('; '));
+  for (let i = 0; i < 3; i++) rebakeEnv();
+  lap('lightmap');
+  const env = await hallCube({ sig: ls.file?.sig ?? null, soft: ls.file?.soft ?? null, bytes: ls.file?.bytes ?? null });
+  lap('cube');
+  window.__bake = { envOnly: true, env, stale: ls.stale ?? [], run: { laps, userAgent: navigator.userAgent } };
+  camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt); camera.updateMatrixWorld(true);
+  for (let i = 0; i < 3; i++) { for (const fn of [...frameFns]) fn(0, 1 / 60); renderer.render(scene, camera); }
+  say('done');
+  window.__ready = true;
+} else if (CANDS) {
+  const W = innerWidth, H = innerHeight;
+  const sheet = document.createElement('canvas');
+  sheet.width = W; sheet.height = H;
+  sheet.style.cssText = 'position:absolute;left:0;top:0;';
+  document.body.appendChild(sheet);
+  const g2 = sheet.getContext('2d');
+  // a cell per candidate: V10 on top at the frame's aspect, under it a straight-down picture of the floor around the played
+  // table and the numbers (floor irradiance of the room | of the main lamp at three points, mean luma of the V10 tile)
+  const cols = CANDS.length > 4 ? 3 : 2, rowsN = Math.ceil(CANDS.length / cols);
+  const tw = Math.floor(W / cols), cellH = Math.floor(H / rowsN), th = Math.round(tw * H / W);
+  const bh = Math.max(0, cellH - th), bw = Math.round(bh * W / H);
+  g2.fillStyle = '#000'; g2.fillRect(0, 0, W, H);
+  // the floor around the played table from high in the south (above the ceiling and behind the south wall: both sides are
+  // dropped for a camera behind them). Not straight down: the page's cube has no box projection, straight down the whole
+  // floor mirrors the lamp's face
+  const TOP = [[-0.6, 4.6, 5.4], [0, -0.79, 0.2], 46];
+  const shot = ([p, t, f], aspect) => {
+    camera.position.set(...p); camera.fov = f; camera.aspect = aspect; camera.up.set(0, 1, 0);
+    if (Math.abs(p[0] - t[0]) + Math.abs(p[2] - t[2]) < 1e-6) camera.up.set(0, 0, -1);
+    camera.updateProjectionMatrix(); camera.lookAt(...t); camera.updateMatrixWorld(true);
+    for (const fn of [...frameFns]) fn(0, 1 / 60);
+    renderer.render(scene, camera);
+  };
+  const tileLuma = (x, y, w, h) => { const d = g2.getImageData(x, y, w, h).data; let sum = 0; for (let i = 0; i < d.length; i += 4) sum += 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2]; return +(sum / (d.length / 4)).toFixed(1); };
+  const out = [];
+  for (let k = 0; k < CANDS.length; k++) {
+    const c = CANDS[k];
+    say(`candidate ${k + 1} of ${CANDS.length}: ${c.name}`);
+    const tc = performance.now();
+    const house = applyCandidate(room, c);
+    const b = await bakeOnce(house);
+    const texture = lightmapTexture(b.fin.rgba, SIZE, SIZE);
+    const vol = b.finVol ? { data: b.finVol.rgba, dims: b.volumeMeta.dims, min: b.volumeMeta.min, max: b.volumeMeta.max, texture: volumeTexture(b.finVol.rgba, b.volumeMeta.dims) } : null;
+    const on = room.lightmap.preview(texture, b.meta, vol);
+    for (let i = 0; i < 3; i++) rebakeEnv();
+    const x = (k % cols) * tw, y = Math.floor(k / cols) * cellH;
+    for (let i = 0; i < 2; i++) shot(VIEWS.V10, W / H);
+    g2.drawImage(renderer.domElement, 0, 0, W, H, x, y, tw, th);
+    const luma = tileLuma(x, y, tw, th);
+    // the floor: the room's baked light at named points against the main lamp's own unoccluded light there (linear)
+    const r3n = (a) => (a ? a.map((v) => +v.toFixed(3)) : null);
+    const st = room.state();
+    const probes = {};
+    for (const [name, [px, pz]] of Object.entries(FLOOR_PROBES)) {
+      probes[name] = { room: r3n(room.lightmap.floorIrradiance(px, pz)), lamp: +lampOnFloor(st.lampRect, st.floorY, px, pz, LAMP, room.light.state().pool).toFixed(3) };
+    }
+    if (bh > 40) {
+      for (let i = 0; i < 2; i++) shot(TOP, W / H);
+      g2.drawImage(renderer.domElement, 0, 0, W, H, x, y + th, bw, bh);
+      g2.font = '11px sans-serif'; g2.fillStyle = '#ddd';
+      const line = (n, text) => g2.fillText(text, x + bw + 6, y + th + 14 + 14 * n);
+      const pr = (id) => `${(probes[id].room?.[0] ?? 0).toFixed(2)} | ${probes[id].lamp.toFixed(2)}`;
+      line(0, `V10 mean luma ${luma}`);
+      line(1, 'floor E (red): room | lamp');
+      line(2, `S 1 m  ${pr('south1m')}`);
+      line(3, `S 2 m  ${pr('south2m')}`);
+      line(4, `W 1 m  ${pr('west1m')}`);
+      line(5, `W 2.5 m  ${pr('west2p5m')}`);
+      line(6, `far NW  ${pr('farCorner')}`);
+    }
+    g2.font = '12px sans-serif'; g2.fillStyle = 'rgba(0,0,0,0.75)'; g2.fillRect(x + 3, y + 3, g2.measureText(c.name).width + 10, 18); g2.fillStyle = '#fff'; g2.fillText(c.name, x + 8, y + 16);
+    out.push({ name: c.name, spec: c, mapOn: on, sig: b.meta.sig, meanLumaV10: luma, ambient: b.meta.ambient, probes,
+      wall: { northBetweenWindows: r3n(room.light.irradianceAt([0, 0.9, -5.9], [0, 0, 1])), ceilingOverTable: r3n(room.light.irradianceAt([0, 2.3, 0], [0, -1, 0])), ceilingOpenBay: r3n(room.light.irradianceAt([-4, 2.3, -3.5], [0, -1, 0])), eastByDoor: r3n(room.light.irradianceAt([5.4, 0.9, 1.6], [-1, 0, 0])) },
+      floorAlbedo: r3n(room.floor.albedo), seconds: +((performance.now() - tc) / 1000).toFixed(1) });
+  }
+  renderer.domElement.style.visibility = 'hidden';
+  window.__cands = { set: q.get('cands'), size: SIZE, params: P, candidates: out, laps, seconds: +((performance.now() - t0) / 1000).toFixed(1) };
+  say('done');
+  window.__ready = true;
+} else {
+const { col, sceneData, tex, atlas, grid, E, lamp, rows, want, patchLight, shaded, texelRanges, ranges, fin, mi, finVol, volumeMeta, meta, opts, chartKind, doVolume } = await bakeOnce();
+
+// transport: this job's rows, gzip, base64
+const band = fin.rgba.subarray(rows[0] * SIZE * 4, rows[1] * SIZE * 4);
+const gzip = async (bytes) => new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer());
+const gz = await gzip(band);
+const volGz = finVol ? await gzip(finVol.rgba) : null;
+lap('packed');
+const mem = performance.memory ? { usedJSHeapMB: Math.round(performance.memory.usedJSHeapSize / 1048576), totalJSHeapMB: Math.round(performance.memory.totalJSHeapSize / 1048576) } : null;
+const sceneBytes = sceneData.tris.byteLength + sceneData.albedo.byteLength + sceneData.flags.byteLength + patchLight.byteLength + tex.pos.byteLength + tex.nor.byteLength + tex.chart.byteLength + tex.x.byteLength + tex.y.byteLength;
+window.__bake = {
+  meta, size: SIZE, rows, gz: CORE.toBase64(gz), gzBytes: gz.length, ambientSums: mi.sums,
+  // the light volume (only in the job that holds row 0): gzip of nx * ny * nz * 6 RGBA8 texels
+  volume: finVol ? { gz: CORE.toBase64(volGz), gzBytes: volGz.length, bytes: finVol.rgba.length, stats: finVol.stats } : null,
+  stats: { ...fin.stats, ranges: texelRanges, volumeRanges: ranges.length - texelRanges, texelsShaded: want.length, ...col.info, atlasScale: atlas.scale, charts: atlas.charts.length },
+  run: {
+    laps, workers: WORKERS, userAgent: navigator.userAgent, hardwareConcurrency: navigator.hardwareConcurrency,
+    memory: { page: mem, perWorkerTypedArraysMB: Math.round((sceneBytes * 2.2) / 1048576), mainTypedArraysMB: Math.round((sceneBytes + shaded.byteLength + fin.rgba.byteLength + fin.lit.byteLength * 3) / 1048576) },
+  },
+};
+if (q.get('dump') === '1') {
+  // the whole input of the computation, for a re-run elsewhere (bake-room.mjs --verify)
+  const pack = async (arr) => CORE.toBase64(new Uint8Array(await new Response(new Blob([new Uint8Array(arr.buffer, arr.byteOffset, arr.byteLength)]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer()));
+  window.__bakeScene = {
+    size: SIZE, rows, opts, params: P, lamp, chartKind: Array.from(chartKind), chartIgnore: Array.from(sceneData.chartIgnore),
+    tris: await pack(sceneData.tris), flags: await pack(sceneData.flags), albedo: await pack(sceneData.albedo), emitters: await pack(E),
+    tex: { count: tex.count, pos: await pack(tex.pos), nor: await pack(tex.nor), chart: await pack(tex.chart), x: await pack(tex.x), y: await pack(tex.y) },
+    grid: doVolume ? grid : null,
+  };
+}
+
+// ---- show it: the room that was just built, lit by the map that was just made --------------------------------------------------
+const texture = lightmapTexture(fin.rgba, SIZE, SIZE);
+const volPreview = finVol ? { data: finVol.rgba, dims: volumeMeta.dims, min: volumeMeta.min, max: volumeMeta.max, texture: volumeTexture(finVol.rgba, volumeMeta.dims) } : null;
+if (q.get('show') !== '0') room.lightmap.preview(texture, meta, volPreview);
+for (let i = 0; i < 3; i++) rebakeEnv();
+// (`env=1`, the arena: the hall's cube from this very bake, in the same job)
+if (ARENA && q.get('env') === '1' && q.get('show') !== '0') { window.__bake.env = await hallCube({ sig: meta.sig, soft: meta.soft, bytes: null }); lap('cube'); }
+let rawScene = null, rawCam = null;
+if (q.get('view') === 'raw') {
+  rawScene = new THREE.Scene(); rawCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const quad = (x, frag) => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(0.98, 1.96), new THREE.ShaderMaterial({
+      uniforms: { t: { value: texture } }, depthTest: false,
+      vertexShader: 'varying vec2 vUv; void main() { vUv = vec2( uv.x, 1.0 - uv.y ); gl_Position = vec4( position.xy, 0.0, 1.0 ); }',
+      fragmentShader: `uniform sampler2D t; varying vec2 vUv; void main() { vec4 c = texture2D( t, vUv ); ${frag} }`,
+    }));
+    m.geometry.translate(x, 0, 0); rawScene.add(m);
+  };
+  quad(-0.5, 'gl_FragColor = vec4( pow( c.rgb, vec3( 1.0 / 2.2 ) ), 1.0 );');
+  quad(0.5, 'gl_FragColor = vec4( vec3( c.a ), 1.0 );');
+}
+let frames = 0;
+// view=quad: the four fixed room views in one frame (each at half size), so one job shows the bake where the game is played
+const QUAD = q.get('view') === 'quad' ? ['V1', 'V3', 'V9', 'V10'] : q.get('view') === 'quad2' ? ['TV', 'BACK', 'V9', 'V10'] : null; // (quad2: the arena's own poses)
+const renderQuad = () => {
+  const w = Math.floor(innerWidth / 2), h = Math.floor(innerHeight / 2);
+  renderer.setScissorTest(true);
+  QUAD.forEach((id, k) => {
+    const [p, t, f] = VIEWS[id];
+    camera.position.set(...p); camera.fov = f; camera.aspect = w / h; camera.updateProjectionMatrix(); camera.lookAt(...t); camera.updateMatrixWorld(true);
+    for (const fn of [...frameFns]) fn(frames / 60, 1 / 60);
+    const x = (k % 2) * w, y = (1 - (k >> 1)) * h;
+    renderer.setViewport(x, y, w, h); renderer.setScissor(x, y, w, h);
+    renderer.render(scene, camera);
+  });
+  renderer.setScissorTest(false);
+};
+renderer.setAnimationLoop(() => {
+  if (!QUAD) for (const fn of [...frameFns]) fn(frames / 60, 1 / 60);
+  if (rawScene) { const tm = renderer.toneMapping; renderer.toneMapping = THREE.NoToneMapping; renderer.render(rawScene, rawCam); renderer.toneMapping = tm; }
+  else if (QUAD) renderQuad();
+  else renderer.render(scene, camera);
+  if (++frames === 4) { lap('shown'); say('done'); window.__ready = true; }
+});
+}
+</script>
+</body>
+</html>

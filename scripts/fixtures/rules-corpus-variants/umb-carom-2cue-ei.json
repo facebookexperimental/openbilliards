@@ -1,0 +1,1436 @@
+{
+  "cases": [
+    {
+      "breaker": 1,
+      "comment": "Fresh break address under the equal-innings regime (Art 29.3).",
+      "expect": "{\"phase\":\"break\",\"shooter\":1,\"points\":{\"1\":0,\"2\":0},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":{\"kind\":\"break_spot\",\"chooser\":1},\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":0,\"foulContext\":null,\"result\":null,\"variant\":{\"task_hash\":\"9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":true}}}",
+      "expectSha256": "b4616d9f3d5519e83f042ce87d7870f2034c8166e3528967356b2ab760ae0c30",
+      "id": "umb-carom-2cue-ei/initialState-001",
+      "kind": "initialState",
+      "preset": "umb-carom-2cue-ei",
+      "ruleset": "carom3c-v2"
+    },
+    {
+      "call": null,
+      "comment": "The BREAKER's target point does not end the match: the opponent levels from the respotted initial starting position (Art 29.4) — phase leveling_break, break_spot option for the leveling seat (Art 23.1(c)).",
+      "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"leveling_break\",\"shooter\":2,\"points\":{\"1\":15,\"2\":3},\"innings\":9,\"target\":15,\"breaker\":1,\"pendingDecision\":{\"kind\":\"break_spot\",\"chooser\":2},\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":null,\"result\":null,\"variant\":{\"task_hash\":\"9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":true}}}}",
+      "expectSha256": "d46b99b21f646917d8b90af420a0036988e7ef1eeee1ccf9408e6d8f60526f97",
+      "id": "umb-carom-2cue-ei/judge-001-leveling-transition",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 9,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 14,
+          "2": 3
+        },
+        "result": null,
+        "shooter": 1,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": true,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "The NON-breaker's target point already levels the innings: the v1 terminal applies (Art 29.1/29.2).",
+      "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":{\"winner\":2,\"reason\":\"carom-target-reached\",\"cite\":\"UMB Art 29.1/29.2\"},\"next\":{\"phase\":\"over\",\"shooter\":2,\"points\":{\"1\":3,\"2\":15},\"innings\":1,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":null,\"result\":{\"winner\":2,\"reason\":\"carom-target-reached\",\"cite\":\"UMB Art 29.1/29.2\"},\"variant\":{\"task_hash\":\"9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":true}}}}",
+      "expectSha256": "17a6bfef5d83aa493abd20eb53dc553f0acfdcfb01afa0cf14fe98be915c74d9",
+      "id": "umb-carom-2cue-ei/judge-002-nonbreaker-finish-terminates",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 0
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "play",
+        "points": {
+          "1": 3,
+          "2": 14
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": true,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "The leveling break_spot option gates the judge exactly like the opening one.",
+      "expect": "{\"error\":{\"code\":\"decision-pending\",\"message\":\"carom3c-v2: judge called while the break-spot option is pending (Art 23.1(c)) — resolve it via applyDecision\"}}",
+      "expectSha256": "7df5b5b131b1d5bd93671ce4f82f807ba3b23357cf50cbef62c6567e37f69764",
+      "id": "umb-carom-2cue-ei/judge-003-error-leveling-pending-gate",
+      "kind": "judge-error",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 0
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": {
+          "chooser": 2,
+          "kind": "break_spot"
+        },
+        "phase": "leveling_break",
+        "points": {
+          "1": 15,
+          "2": 14
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": true,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac"
+        }
+      }
+    },
+    {
+      "comment": "The leveling seat resolves its start spot (Art 29.4 via 23.1(c)).",
+      "decision": {
+        "choice": 1,
+        "decision": 10
+      },
+      "expect": "{\"phase\":\"leveling_break\",\"shooter\":2,\"points\":{\"1\":15,\"2\":14},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"left\",\"lastReason\":null,\"cushionsThisShot\":0,\"foulContext\":null,\"result\":null,\"variant\":{\"task_hash\":\"9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":true}}}",
+      "expectSha256": "ef11c5b208e0ed4caed1d000cadc428ff0ada2868e15e81ed6f7ce914552e5bb",
+      "id": "umb-carom-2cue-ei/applyDecision-001-leveling-left",
+      "kind": "applyDecision",
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": {
+          "chooser": 2,
+          "kind": "break_spot"
+        },
+        "phase": "leveling_break",
+        "points": {
+          "1": 15,
+          "2": 14
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": true,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "The leveling stroke replays the starting-cannon conditions (Art 29.4 via 23.3): first contact on the white is the break foul, and the failed leveling hands the match to the first finisher.",
+      "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-first-ball-break\",\"cite\":\"UMB Art 23.3/41.12\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":1,\"reason\":\"carom-target-reached\",\"cite\":\"UMB Art 29.1/29.2\"},\"next\":{\"phase\":\"over\",\"shooter\":2,\"points\":{\"1\":15,\"2\":14},\"innings\":1,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-first-ball-break\",\"cite\":\"UMB Art 23.3/41.12\"}],\"by\":2},\"result\":{\"winner\":1,\"reason\":\"carom-target-reached\",\"cite\":\"UMB Art 29.1/29.2\"},\"variant\":{\"task_hash\":\"9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":true}}}}",
+      "expectSha256": "d1f1df00d78caf6024457129ce4b64bf4a176dd4fa57a5fb7a555318b4cc36f7",
+      "id": "umb-carom-2cue-ei/judge-004-leveling-red-first-foul",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 0
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "leveling_break",
+        "points": {
+          "1": 15,
+          "2": 14
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": true,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "A red-first leveling point short of the target continues the serie (phase leveling, Art 24.4).",
+      "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":null,\"next\":{\"phase\":\"leveling\",\"shooter\":2,\"points\":{\"1\":15,\"2\":13},\"innings\":0,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":null,\"result\":null,\"variant\":{\"task_hash\":\"9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":true}}}}",
+      "expectSha256": "cc619d52866464315056ecd6b80f24e2ccf5bacd65b1e28766b7fa7620fb1681",
+      "id": "umb-carom-2cue-ei/judge-005-leveling-point-continues",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 0
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "leveling_break",
+        "points": {
+          "1": 15,
+          "2": 12
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": true,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "A non-scoring leveling stroke ends the match for the first finisher; the leveling seat closes the inning pair.",
+      "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":1,\"reason\":\"carom-target-reached\",\"cite\":\"UMB Art 29.1/29.2\"},\"next\":{\"phase\":\"over\",\"shooter\":2,\"points\":{\"1\":15,\"2\":13},\"innings\":10,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":{\"code\":\"missed\",\"cite\":\"UMB Art 24.5\"},\"cushionsThisShot\":1,\"foulContext\":null,\"result\":{\"winner\":1,\"reason\":\"carom-target-reached\",\"cite\":\"UMB Art 29.1/29.2\"},\"variant\":{\"task_hash\":\"9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":true}}}}",
+      "expectSha256": "2f8704664b9dc076a6289d08c4628d145c88687739915cd48e066a2b987cf095",
+      "id": "umb-carom-2cue-ei/judge-006-leveling-miss-ends",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 9,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "leveling",
+        "points": {
+          "1": 15,
+          "2": 13
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": true,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "The leveling seat reaches the target: a DRAW (Art 29.4) — winner 0 is the draw sentinel.",
+      "expect": "{\"legal\":true,\"fouls\":[],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"continue\",\"decisionRequired\":null,\"terminal\":{\"winner\":0,\"reason\":\"carom-draw\",\"cite\":\"UMB Art 29.4\"},\"next\":{\"phase\":\"over\",\"shooter\":2,\"points\":{\"1\":15,\"2\":15},\"innings\":1,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":null,\"result\":{\"winner\":0,\"reason\":\"carom-draw\",\"cite\":\"UMB Art 29.4\"},\"variant\":{\"task_hash\":\"9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":true}}}}",
+      "expectSha256": "fe6a995215acecb49c342f53c8521c26f1c2acc9915483499340b722696beb90",
+      "id": "umb-carom-2cue-ei/judge-007-draw",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 0
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "leveling",
+        "points": {
+          "1": 15,
+          "2": 14
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": true,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "An Art 83 announce foul during leveling is non-scoring: the first finisher wins.",
+      "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"two-cushions\",\"cite\":\"UMB Art 83\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":1,\"reason\":\"carom-target-reached\",\"cite\":\"UMB Art 29.1/29.2\"},\"next\":{\"phase\":\"over\",\"shooter\":2,\"points\":{\"1\":15,\"2\":14},\"innings\":1,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":2,\"foulContext\":{\"fouls\":[{\"code\":\"two-cushions\",\"cite\":\"UMB Art 83\"}],\"by\":2},\"result\":{\"winner\":1,\"reason\":\"carom-target-reached\",\"cite\":\"UMB Art 29.1/29.2\"},\"variant\":{\"task_hash\":\"9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":true}}}}",
+      "expectSha256": "a470365775824bdff0c6b2675df3c43e27ba2a7af19315edb6f3535175381c89",
+      "id": "umb-carom-2cue-ei/judge-008-leveling-art83-foul-ends",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 1
+              }
+            },
+            "post": [],
+            "t": 0.30000000000000004
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 1,
+                "b2": 0
+              }
+            },
+            "post": [],
+            "t": 0.8
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "leveling",
+        "points": {
+          "1": 15,
+          "2": 14
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": true,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac"
+        }
+      }
+    },
+    {
+      "call": null,
+      "comment": "Playing the finisher's ball during leveling: Art 41.11 voids the point; the first finisher wins.",
+      "expect": "{\"legal\":false,\"fouls\":[{\"code\":\"wrong-ball\",\"cite\":\"UMB Art 41.11\"}],\"pocketed\":[],\"ballInHand\":\"none\",\"respot\":[],\"turn\":\"pass\",\"decisionRequired\":null,\"terminal\":{\"winner\":1,\"reason\":\"carom-target-reached\",\"cite\":\"UMB Art 29.1/29.2\"},\"next\":{\"phase\":\"over\",\"shooter\":2,\"points\":{\"1\":15,\"2\":14},\"innings\":1,\"target\":15,\"breaker\":1,\"pendingDecision\":null,\"breakSpot\":\"right\",\"lastReason\":null,\"cushionsThisShot\":3,\"foulContext\":{\"fouls\":[{\"code\":\"wrong-ball\",\"cite\":\"UMB Art 41.11\"}],\"by\":2},\"result\":{\"winner\":1,\"reason\":\"carom-target-reached\",\"cite\":\"UMB Art 29.1/29.2\"},\"variant\":{\"task_hash\":\"9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac\",\"config\":{\"target\":15,\"two_cue_balls\":true,\"insufficient_cushions_foul\":true,\"equal_innings\":true}}}}",
+      "expectSha256": "c47a956d538abd1e4cc44eb8ca37d7e4c3bfb9c9624c50eef8b8527fda1cc967",
+      "id": "umb-carom-2cue-ei/judge-009-leveling-wrong-ball-ends",
+      "kind": "judge",
+      "record": {
+        "events": [
+          {
+            "kind": {
+              "Strike": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.0
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 1
+              }
+            },
+            "post": [],
+            "t": 0.1
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.2
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.3
+          },
+          {
+            "kind": {
+              "BallLinearCushion": {
+                "ball": 0
+              }
+            },
+            "post": [],
+            "t": 0.4
+          },
+          {
+            "kind": {
+              "BallBall": {
+                "b1": 0,
+                "b2": 2
+              }
+            },
+            "post": [],
+            "t": 0.5
+          },
+          {
+            "kind": "Rest",
+            "post": [],
+            "t": 9.0
+          }
+        ],
+        "initial": {
+          "balls": [
+            {
+              "id": 0,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.2,
+                  "y": -0.9,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 1,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": -0.71,
+                  "z": 0.03075
+                }
+              }
+            },
+            {
+              "id": 2,
+              "params": {
+                "r": 0.03075
+              },
+              "state": {
+                "motion": "Stationary",
+                "pos": {
+                  "x": 0.0,
+                  "y": 0.71,
+                  "z": 0.03075
+                }
+              }
+            }
+          ],
+          "table": {
+            "length": 2.84,
+            "pockets": [],
+            "width": 1.42
+          }
+        }
+      },
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": null,
+        "phase": "leveling",
+        "points": {
+          "1": 15,
+          "2": 14
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": true,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac"
+        }
+      }
+    },
+    {
+      "comment": "The leveling stage rides the v1 hud projection (stage passthrough).",
+      "expect": "{\"stage\":\"leveling_break\",\"shooter\":2,\"breaker\":1,\"points\":{\"1\":15,\"2\":12},\"innings\":0,\"target\":15,\"cushionsThisShot\":0,\"breakSpot\":\"right\",\"pendingDecision\":{\"kind\":\"break_spot\",\"chooser\":2},\"lastReason\":null,\"foulContext\":null,\"result\":null}",
+      "expectSha256": "90e0509bcebfb391702323f02a2ef88269eaca8349d7b4593d06d25431b79e3c",
+      "id": "umb-carom-2cue-ei/hudState-001-leveling",
+      "kind": "hudState",
+      "ruleset": "carom3c-v2",
+      "state": {
+        "breakSpot": "right",
+        "breaker": 1,
+        "cushionsThisShot": 0,
+        "foulContext": null,
+        "innings": 0,
+        "lastReason": null,
+        "pendingDecision": {
+          "chooser": 2,
+          "kind": "break_spot"
+        },
+        "phase": "leveling_break",
+        "points": {
+          "1": 15,
+          "2": 12
+        },
+        "result": null,
+        "shooter": 2,
+        "target": 15,
+        "variant": {
+          "config": {
+            "equal_innings": true,
+            "insufficient_cushions_foul": true,
+            "target": 15,
+            "two_cue_balls": true
+          },
+          "task_hash": "9341d7077867ffa62757bc4470921172e557d334b0061d3be79ca5091c02aeac"
+        }
+      }
+    }
+  ],
+  "comment": [
+    "DO NOT REGENERATE (rules-corpus.json discipline; frozen at",
+    "the GH-383 review). Per-preset byte oracle for the",
+    "carom3c-v2 conformance gate: every expect line harvested",
+    "ONCE from the pool-rules crate through the public _json",
+    "boundary at the harvestedAt commit and reviewed",
+    "case-by-case against its cited clause (UMB World Rules of",
+    "Carom Billiard, 1 Jan 1989; the semantic source is",
+    "crates/pool-rules/tests/carom_v2_scenarios.rs).",
+    "Post-freeze changes ONLY via the erratum protocol",
+    "(docs/rules/variants.md §4): a pinned-clause proof against",
+    "the cited text — NEVER a re-run to fix a red gate; a byte",
+    "diff at any conformance leg is resolved by fixing the code",
+    "to reproduce THESE bytes."
+  ],
+  "harvestedAt": "17cde5934b241c737dca331f2eb656f9fdc3468c",
+  "preset": "umb-carom-2cue-ei",
+  "ruleset": "carom3c-v2",
+  "slice": "umb-carom-2cue-ei"
+}

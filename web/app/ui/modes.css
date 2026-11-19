@@ -1,0 +1,116 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* modes.css — issue #68 session-mode indicator skin; GH-156 chrome diet.
+   LEAF stylesheet, injected by web/app/flow.js as a <link> carrying
+   ?v=<MODES_CSS_V> — bump the constant IN flow.js on EVERY edit here
+   (the module-ownership contract CSS addendum). Colors/sizes consume --ob-* tokens ONLY
+   (tokens.css owns definitions; CI grep-gates hardcoded colors).
+
+   GH-156 split: #ob-mode-ind is the read-only mode INDICATOR (compact
+   icon+label badge — band-T center span on phone via touch.css §3.11,
+   panel flow on desktop); #ob-mode-chips is the PLAYGROUND-ONLY action
+   strip (44pt icon chips on coarse, 34px on desktop; a stale icons.js
+   degrades each chip to its pre-diet text label — those labels WRAP,
+   never ellipsize, the e2e-ui --audit law). */
+
+#ob-mode-ind { display: none; }
+#ob-mode-ind.on {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ob-sp-1);
+  margin-top: var(--ob-sp-2);
+  width: fit-content;
+  white-space: nowrap; /* the badge stays whole; ancestors crop (§3.11) */
+}
+#ob-mode-ind svg { display: block; flex: 0 0 auto; }
+
+#ob-mode-chips { display: none; }
+#ob-mode-chips.on {
+  margin-top: var(--ob-sp-2);
+  display: flex;
+  flex-wrap: wrap; /* stale-cache TEXT chips wrap, labels never ellipsize */
+  gap: var(--ob-sp-1);
+  align-items: center;
+}
+.ob-mode-chip-btn {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid var(--ob-line-1);
+  background: none;
+  color: var(--ob-text-1);
+}
+/* GH-156 icon register (set only when the icons.js face resolved): a fixed
+   square chip — the intrinsic size defeats the app.html `#hud button
+   { flex: 1 1 auto }` row leak on EVERY pointer class (the build-4 QA
+   full-width-bar defect class), and the fixed width is what keeps the
+   playground strip single-row at every register/locale. The #ob-mode-chips
+   id in the selector is LOAD-BEARING: it lifts specificity to (1,1,0) so
+   the rule outranks app.html's `#hud button` (1,0,1) — a bare class
+   selector loses and the leak re-stretches the chips (measured 47.5px). */
+#ob-mode-chips .ob-mode-chip-btn--icon {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ob-r-full); /* one clickable shape: the pill */
+}
+#ob-mode-chips .ob-mode-chip-btn--icon svg { display: block; }
+.ob-mode-chip-btn:hover:not(:disabled) {
+  background: var(--ob-bg-2);
+  color: var(--ob-text-0);
+}
+.ob-mode-chip-btn:focus-visible { outline: none; box-shadow: var(--ob-focus); }
+.ob-mode-chip-btn:disabled { opacity: 0.38; cursor: default; }
+
+/* issue GH-140: snap-to-grid toggle chip — the pressed register rides
+   aria-pressed (flow.js writes it; the chip repaint sig carries it).
+   Accent border + text from tokens only. */
+.ob-mode-chip-btn[aria-pressed="true"] {
+  border-color: var(--ob-accent);
+  color: var(--ob-accent-text);
+  background: var(--ob-accent-dim);
+}
+.ob-mode-chip-btn[aria-pressed="true"]:hover:not(:disabled) {
+  background: var(--ob-accent-dim-2);
+  color: var(--ob-accent-text);
+}
+
+/* review F2: flow.js hides the shipped HUD Re-rack button while the
+   playground chip strip owns sandbox actions (exactly one re-rack
+   affordance). Explicit [hidden] guard — the 024 F1 lesson: an author
+   display rule must never defeat the hidden attribute (kit.css
+   .ob-navmodal__section[hidden] precedent). */
+#rerack[hidden] { display: none; }
+
+/* phone (014 touch mode): action chips on the coarse register.
+   Doubly gated like every coarse rule (ui/touch.css convention). */
+@media (pointer: coarse) {
+  .ob-touch #ob-mode-chips .ob-mode-chip-btn {
+    min-height: 32px;
+    padding: var(--ob-sp-1) var(--ob-sp-2);
+    /* build-4 QA (MAJOR): chips keep their INTRINSIC width. app.html's
+       `#hud button { flex: 1 1 auto }` row law leaked into the strip's
+       chips (the strip is a #hud descendant, inserted after #rack), so
+       when the §3.12 record-dock cap wrapped the 5-chip strip at
+       667x375 de/ja, the lone row-2 snap chip stretched to a full-width
+       583x44 pointer-opaque bar across the felt core — ball drags dead
+       over the entire band (0/80 grid points reached the canvas, the
+       default rack inside it) and any tap silently toggled persisted
+       snap-to-grid state. Scoped to the coarse register: the desktop
+       panel's row-sharing chips stay byte-identical (SC-002). (GH-156:
+       this now only binds the stale-cache TEXT register — the icon chips
+       above carry flex: 0 0 auto unconditionally.) */
+    flex: 0 0 auto;
+  }
+  /* GH-156: icon chips grow to the 44pt coarse tap floor (touch.css §3.11
+     also floors them — this keeps the geometry self-contained when a
+     stale touch.css pairing misses the rule) */
+  .ob-touch #ob-mode-chips .ob-mode-chip-btn--icon {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+  }
+}

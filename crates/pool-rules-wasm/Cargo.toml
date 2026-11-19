@@ -1,0 +1,23 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+# SPDX-License-Identifier: MIT
+[package]
+name = "pool-rules-wasm"
+description = "wasm-bindgen bindings for pool-rules (openbilliards): the canonical rules artifact at web/dist/pool-rules"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+# Explicit, NOT workspace-inherited (feature 013 research R13 / issue #24):
+# the whole rules wasm artifact builds from OPEN source alone.
+license = "MIT"
+
+[lib]
+# cdylib: the .wasm artifact; rlib: native `cargo test`/clippy compile the
+# crate (wasm-bindgen glue is inert off-wasm32). No [profile.*] overrides
+# and no wasm-opt: the plain `--release` cdylib is the canonical artifact
+# (the rules-artifact contract §1, pool-wasm doctrine verbatim).
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pool-rules = { path = "../pool-rules" }
+wasm-bindgen = "0.2"

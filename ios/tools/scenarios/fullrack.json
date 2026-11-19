@@ -1,0 +1,132 @@
+{
+  "v": 1,
+  "name": "fullrack",
+  "notes": [
+    "016 T023 (lane V). Transcribed 1:1 from web/tools/e2e-touch.mjs sc12",
+    "(014 row 12: scripted US1 8-ball rack — break -> called pot -> spin",
+    "scratch -> ball-in-hand -> win; every PLAYER INPUT is a synthesized",
+    "gesture, scene/match shaping rides the same __test/__rules seams).",
+    "The 014 driver is NOT edited; constants POT/PHI/FAR and the pilot",
+    "targets below are byte-copied from its header. Executed by",
+    "AppUITests/GestureDriver under ios/tools/e2e-ios.mjs (test-pyramid 3).",
+    "checkpoint steps are L4 screenshot rendezvous (acceptance.mjs flows",
+    "break / aimed-shot-spin-power / pocket-call); e2e-ios.mjs auto-acks."
+  ],
+  "source": "web/tools/e2e-touch.mjs sc12 (S12 legs, lines 1173-1322 at 016 freeze)",
+  "viewport": { "width": 844, "height": 390 },
+  "boot": { "query": "obtool&seed=1", "ephemeralStore": true, "statusSeam": true },
+  "constants": {
+    "POT": { "x": 0.38903252247502133, "y": 0.7780650449500427 },
+    "PHI": 1.1071487177940904,
+    "BREAK_PHI": 1.5707963267948966,
+    "FAR": [ { "id": 9, "x": -0.5, "y": -1.0 }, { "id": 12, "x": 0.55, "y": -1.0 } ]
+  },
+  "phases": [
+    {
+      "name": "break",
+      "setup": [
+        "window.__e2e = {}; true",
+        "(async () => { for (let i = 0; i < 20; i++) { if (window.__rules?.game?.() !== 'eight_ball' || !window.__rules?.matchState?.()) { if ((await window.__rules?.setGame?.('eight_ball')) !== true) { await new Promise((r) => setTimeout(r, 200)); continue; } } __test.rerack(1); if (window.__rules?.setMatchState?.({ shooter: 1, breaker: 1 }) === true) return true; await new Promise((r) => setTimeout(r, 200)); } throw new Error('GH-566: could not (re)establish the scripted match (game=' + (window.__rules?.game?.() ?? '?') + ', fold=' + String(!!window.__rules?.matchState?.()) + ') \u2014 a mid-scenario page reload (WebContent recycle, the #514 class) or a rules-chain failure; each attempt re-selects eight_ball, re-stages the scene and re-injects the state, so this throw means 4 s of failed recovery, not one lost race'); })()"
+      ],
+      "steps": [
+        { "kind": "assertEval", "name": "scripted boot look pinned (R6 scripted arm)",
+          "js": "window.__test.bootLook === 'green'" },
+        { "kind": "assertEval", "name": "touch mode installed",
+          "js": "document.documentElement.classList.contains('ob-touch') && window.__touch?.installed === true" },
+        { "kind": "aimTo", "phi": 1.5707963267948966 },
+        { "kind": "gaugeTo", "power": 8.5 },
+        { "kind": "spinTo", "a": 0, "b": -0.1 },
+        { "kind": "closePopup" },
+        { "kind": "checkpoint", "name": "break-aimed" },
+        { "kind": "fire" },
+        { "kind": "assertEval", "name": "S12 break adjudicated",
+          "js": "window.__rules.judgment() !== null" },
+        { "kind": "eval", "js": "window.__rules?.matchState?.()?.pendingDecision != null ? (window.__rules.decide(1), true) : true" },
+        { "kind": "sleep", "ms": 400 },
+        { "kind": "checkpoint", "name": "break-settled" }
+      ]
+    },
+    {
+      "name": "called-pot",
+      "setup": [
+        "(async () => { for (let i = 0; i < 20; i++) { if (window.__rules?.game?.() !== 'eight_ball' || !window.__rules?.matchState?.()) { if ((await window.__rules?.setGame?.('eight_ball')) !== true) { await new Promise((r) => setTimeout(r, 200)); continue; } } __test.layout([{ id: 0, x: 0, y: 0 }, { id: 2, x: 0.38903252247502133, y: 0.7780650449500427 }, { id: 8, x: 0.5, y: -0.8 }, { id: 9, x: -0.5, y: -1.0 }, { id: 12, x: 0.55, y: -1.0 }]); if (window.__rules?.setMatchState?.({ phase: 'open', shooter: 1, breaker: 1 }) === true) return true; await new Promise((r) => setTimeout(r, 200)); } throw new Error('GH-566: could not (re)establish the scripted match (game=' + (window.__rules?.game?.() ?? '?') + ', fold=' + String(!!window.__rules?.matchState?.()) + ') \u2014 a mid-scenario page reload (WebContent recycle, the #514 class) or a rules-chain failure; each attempt re-selects eight_ball, re-stages the scene and re-injects the state, so this throw means 4 s of failed recovery, not one lost race'); })()"
+      ],
+      "steps": [
+        { "kind": "waitEval", "js": "window.__aim.nominationRequired() === true", "tries": 20 },
+        { "kind": "waitEval", "js": "window.__aim.pocketMarks().some((m) => m.visible)", "tries": 20 },
+        { "kind": "tapBall", "ball": 2 },
+        { "kind": "tapPocket", "pocket": 5 },
+        { "kind": "assertEval", "name": "S12 tap nomination composed {ball:2, pocket:5}",
+          "js": "(() => { const c = window.__aim.call(); return !!c && c.ball === 2 && c.pocket === 5; })()" },
+        { "kind": "checkpoint", "name": "call-composed" },
+        { "kind": "aimTo", "phi": 1.1071487177940904 },
+        { "kind": "gaugeTo", "power": 2.5 },
+        { "kind": "spinTo", "a": 0, "b": 0 },
+        { "kind": "closePopup" },
+        { "kind": "checkpoint", "name": "pot-aimed" },
+        { "kind": "fire" },
+        { "kind": "assertEval", "name": "S12 called pot returns to AIM",
+          "js": "__test.state() === 'AIM'" },
+        { "kind": "assertEval", "name": "S12 called ball potted (legal, [2])",
+          "js": "(() => { const j = window.__rules.judgment(); return j?.legal === true && JSON.stringify(j?.pocketed) === '[2]'; })()" },
+        { "kind": "assertEval", "name": "S12 groups assigned by the called solid",
+          "js": "window.__rules.matchState()?.groups?.[1] === 'solids'" },
+        { "kind": "checkpoint", "name": "pot-settled" }
+      ]
+    },
+    {
+      "name": "spin-scratch",
+      "setup": [
+        "(async () => { for (let i = 0; i < 20; i++) { if (window.__rules?.game?.() !== 'eight_ball' || !window.__rules?.matchState?.()) { if ((await window.__rules?.setGame?.('eight_ball')) !== true) { await new Promise((r) => setTimeout(r, 200)); continue; } } __test.layout([{ id: 0, x: 0, y: 0 }, { id: 3, x: 0.38903252247502133, y: 0.7780650449500427 }, { id: 8, x: 0.5, y: -0.8 }, { id: 9, x: -0.5, y: -1.0 }, { id: 12, x: 0.55, y: -1.0 }]); if (window.__rules?.setMatchState?.({ phase: 'grouped', groups: { 1: 'solids', 2: 'stripes' }, shooter: 1, breaker: 1 }) === true) return true; await new Promise((r) => setTimeout(r, 200)); } throw new Error('GH-566: could not (re)establish the scripted match (game=' + (window.__rules?.game?.() ?? '?') + ', fold=' + String(!!window.__rules?.matchState?.()) + ') \u2014 a mid-scenario page reload (WebContent recycle, the #514 class) or a rules-chain failure; each attempt re-selects eight_ball, re-stages the scene and re-injects the state, so this throw means 4 s of failed recovery, not one lost race'); })()"
+      ],
+      "steps": [
+        { "kind": "tapBall", "ball": 3 },
+        { "kind": "tapPocket", "pocket": 5 },
+        { "kind": "assertEval", "name": "S12 scratch-leg call composed by taps",
+          "js": "(() => { const c = window.__aim.call(); return !!c && c.ball === 3 && c.pocket === 5; })()" },
+        { "kind": "aimTo", "phi": 1.1071487177940904 },
+        { "kind": "gaugeTo", "power": 3.5 },
+        { "kind": "spinTo", "a": 0, "b": 0.45 },
+        { "kind": "closePopup" },
+        { "kind": "fire" },
+        { "kind": "assertEval", "name": "S12 follow-in scratch grants BALL_IN_HAND",
+          "js": "__test.state() === 'BALL_IN_HAND'" }
+      ]
+    },
+    {
+      "name": "ball-in-hand",
+      "steps": [
+        { "kind": "bihDragTo", "kx": -0.25, "ky": -0.35 },
+        { "kind": "assertEval", "name": "S12 classifier back to S0 after the placement",
+          "js": "window.__touch?.state?.() === 'S0'" }
+      ]
+    },
+    {
+      "name": "win",
+      "setup": [
+        "(async () => { for (let i = 0; i < 20; i++) { if (window.__rules?.game?.() !== 'eight_ball' || !window.__rules?.matchState?.()) { if ((await window.__rules?.setGame?.('eight_ball')) !== true) { await new Promise((r) => setTimeout(r, 200)); continue; } } __test.layout([{ id: 0, x: 0, y: 0 }, { id: 8, x: 0.38903252247502133, y: 0.7780650449500427 }]); if (window.__rules?.setMatchState?.({ phase: 'grouped', groups: { 1: 'solids', 2: 'stripes' }, shooter: 2, breaker: 1 }) === true) return true; await new Promise((r) => setTimeout(r, 200)); } throw new Error('GH-566: could not (re)establish the scripted match (game=' + (window.__rules?.game?.() ?? '?') + ', fold=' + String(!!window.__rules?.matchState?.()) + ') \u2014 a mid-scenario page reload (WebContent recycle, the #514 class) or a rules-chain failure; each attempt re-selects eight_ball, re-stages the scene and re-injects the state, so this throw means 4 s of failed recovery, not one lost race'); })()"
+      ],
+      "steps": [
+        { "kind": "tapBall", "ball": 8 },
+        { "kind": "tapPocket", "pocket": 5 },
+        { "kind": "assertEval", "name": "S12 the 8-call composed by pocket tap",
+          "js": "(() => { const c = window.__aim.call(); return !!c && c.ball === 8 && c.pocket === 5; })()" },
+        { "kind": "aimTo", "phi": 1.1061487177940904,
+          "note": "geometric PHI - 0.001: recenters the pot's error band for the shell transport — at the exact PHI a +0.02 sidespin residual combined with a +0.0005 aim residual throws the 8 past the jaw (kernel probe; the fragility predates the draw — b=0 misses the same corner combo); biased low the pot drops across a in [-0.04, +0.04] x phi residual +/-0.0005" },
+        { "kind": "gaugeTo", "power": 2.5 },
+        { "kind": "spinTo", "a": 0, "b": -0.2,
+          "note": "016 L3 round 2 (run 29148551834): with b=0 the cue's post-contact path passes the called corner with only ~0.15-0.2 m clearance and a +0.05 follow residual (INSIDE spinTo's tolerance) follows the 8 in — scratch, eight-ball foul (verified on the kernel via a headless probe of the exact recipe). b=-0.2 draw pulls the cue 0.62 m clear; the pot line is unchanged. Web sc12 keeps b=0 (CDP sets the pad exactly; recorded transport split)" },
+        { "kind": "closePopup" },
+        { "kind": "fire" },
+        { "kind": "assertEval", "name": "S12 called 8 reaches WIN and the terminal names it (winner 2, eight-ball-pocketed)",
+          "js": "(() => { if (__test.state() !== 'WIN') return false; const t = window.__rules.judgment()?.terminal ?? null; return t?.winner === 2 && t?.reason === 'eight-ball-pocketed'; })()",
+          "diag": "(() => ({ state: __test.state(), terminal: window.__rules.judgment()?.terminal ?? null, legal: window.__rules.judgment()?.legal ?? null, pocketed: (window.__test.balls() ?? []).filter((b) => b.pocketed).map((b) => b.id), cuePocketed: !!(window.__test.balls() ?? []).find((b) => b.id === 0 && b.pocketed) }))()",
+          "note": "GH-446: ONE eval round trip for both WIN laws — flow.js auto re-racks 2600 ms after WIN and the re-rack resets the judgment ledger, so the old two-assert tail (two seam round trips at ~0.5-1 s each) overran the window under runner load (measured locally at load 66+: the state assert passed, the terminal read null one round trip later). Same two assertions, fused; the auto-re-rack law itself keeps its own arm in web e2e-rules." },
+        { "kind": "sleep", "ms": 3200 }
+      ]
+    }
+  ],
+  "asserts": [
+    { "kind": "zeroNonAppRequests", "note": "SC-001 arm when run under e2e-ios --airplane" }
+  ]
+}

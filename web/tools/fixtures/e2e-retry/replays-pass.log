@@ -1,0 +1,3 @@
+teardown: 3 launched client(s) confirmed gone
+teardown: static server :18990 confirmed gone
+E2E-REPLAYS: PASS

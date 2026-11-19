@@ -1,0 +1,321 @@
+{
+  "scenario": "sidespin-kicks",
+  "title": "1/2/3-diamond sidespin kicks — the english kick ladder (battery C3)",
+  "kernel": "0.1.0+208e1dc4",
+  "anchor": {
+    "predicted_diamonds": [
+      1,
+      2,
+      3
+    ],
+    "measured_diamonds": [
+      1.031073,
+      2.061935,
+      2.895058
+    ]
+  },
+  "badge": {
+    "line1": "predicted 1 / 2 / 3 dia · measured 1.03 / 2.06 / 2.90 dia",
+    "line2": "1/2/3-DIAMOND SIDESPIN KICKS · DR. DAVE FAQ BANK/KICK (PATRICK JOHNSON) · TP 6.3 / 7.3 · BATTERY C3 (EXP_C3_KICKS) · HAN2005 · 3 M/S"
+  },
+  "segments": [
+    {
+      "id": "1dia",
+      "batterySha": "771eadcaad4a25d57664958b61ed3170bc0b9af1e4a469a2db4d6460f149ba2b",
+      "videoSha": "771eadcaad4a25d57664958b61ed3170bc0b9af1e4a469a2db4d6460f149ba2b",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "foot_contact": [
+          -0.4720095220006326,
+          1.241425
+        ],
+        "head_arrival": [
+          -0.12263434662406164,
+          -1.241425
+        ],
+        "predicted_arrival": [
+          -0.1325,
+          -1.241425
+        ],
+        "arrival_gap_m": 0.009866,
+        "t_roll_after_foot": 1.0596705302243645,
+        "tEnd": 1.9651,
+        "duration_full_record_s": 8.788064478857727,
+        "S_diamonds": 1.0310729240187035,
+        "minPairMm": "n/a (single-ball record — no pairs)",
+        "minPairAt": null,
+        "minPair": null
+      },
+      "plan": {
+        "frames": 358,
+        "outputSec": 5.966666666666667,
+        "maxCutlessStepRatio": 1.074889663087409,
+        "shutter": 8,
+        "shutterDeg": 310
+      }
+    },
+    {
+      "id": "2dia",
+      "batterySha": "ef1dea8e0cfbd8394a9713b64689116f720725a803d09d67e547beff03105a3b",
+      "videoSha": "ef1dea8e0cfbd8394a9713b64689116f720725a803d09d67e547beff03105a3b",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "foot_contact": [
+          -0.4931601170302917,
+          1.241425
+        ],
+        "head_arrival": [
+          0.20466450074846443,
+          -1.241425
+        ],
+        "predicted_arrival": [
+          0.185,
+          -1.241425
+        ],
+        "arrival_gap_m": 0.019665,
+        "t_roll_after_foot": 1.150358050999867,
+        "tEnd": 2.3207,
+        "duration_full_record_s": 8.985063806238594,
+        "S_diamonds": 2.0619354354282344,
+        "minPairMm": "n/a (single-ball record — no pairs)",
+        "minPairAt": null,
+        "minPair": null
+      },
+      "plan": {
+        "frames": 387,
+        "outputSec": 6.45,
+        "maxCutlessStepRatio": 1.074889663087409,
+        "shutter": 8,
+        "shutterDeg": 310
+      }
+    },
+    {
+      "id": "3dia",
+      "batterySha": "fc9bd1c66944374c358da54cd4d6a342d07ca7697b2980e736b30a917b6d54d3",
+      "videoSha": "fc9bd1c66944374c358da54cd4d6a342d07ca7697b2980e736b30a917b6d54d3",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "foot_contact": [
+          -0.5124920237257965,
+          1.241425
+        ],
+        "head_arrival": [
+          0.46918086210049836,
+          -1.241425
+        ],
+        "predicted_arrival": [
+          0.5025,
+          -1.241425
+        ],
+        "arrival_gap_m": -0.033319,
+        "t_roll_after_foot": 1.2542298094074846,
+        "tEnd": 2.8758,
+        "duration_full_record_s": 7.381017771962158,
+        "S_diamonds": 2.8950578333873964,
+        "minPairMm": "n/a (single-ball record — no pairs)",
+        "minPairAt": null,
+        "minPair": null
+      },
+      "plan": {
+        "frames": 434,
+        "outputSec": 7.233333333333333,
+        "maxCutlessStepRatio": 1.074889663087409,
+        "shutter": 8,
+        "shutterDeg": 310
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 6,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 0.9100000000000001,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 0.9100000000000001,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "1/3 english · kick straight in"
+            ],
+            "availSec": 3.35,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.1800000000000002,
+            "settledSec": 2.17,
+            "needScale": 0.38688524590163936,
+            "settledFrames": 130
+          },
+          {
+            "text": [
+              "1.03",
+              "diamonds across · rule says 1"
+            ],
+            "availSec": 2.25,
+            "spanSec": 1.3399999999999999,
+            "entrySec": 0.96,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.3399999999999999,
+            "settledSec": 0.9100000000000001,
+            "needScale": 0.6871794871794871,
+            "settledFrames": 54
+          }
+        ],
+        "refused": false
+      },
+      {
+        "segIdx": 1,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 1.2933333333333334,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "2/3 english · kick straight in"
+            ],
+            "availSec": 3.716666666666667,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.1800000000000002,
+            "settledSec": 2.5366666666666666,
+            "needScale": 0.3453658536585366,
+            "settledFrames": 152
+          },
+          {
+            "text": [
+              "2.06",
+              "diamonds across · rule says 2"
+            ],
+            "availSec": 2.6333333333333333,
+            "spanSec": 1.3399999999999999,
+            "entrySec": 0.96,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.3399999999999999,
+            "settledSec": 1.2933333333333334,
+            "needScale": 0.5742857142857142,
+            "settledFrames": 77
+          }
+        ],
+        "refused": false
+      },
+      {
+        "segIdx": 2,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 1.976666666666667,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "full english · kick straight in"
+            ],
+            "availSec": 4.35,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.1800000000000002,
+            "settledSec": 3.1699999999999995,
+            "needScale": 0.2913580246913581,
+            "settledFrames": 190
+          },
+          {
+            "text": [
+              "2.90",
+              "diamonds across · rule says 3"
+            ],
+            "availSec": 3.316666666666667,
+            "spanSec": 1.3399999999999999,
+            "entrySec": 0.96,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.3399999999999999,
+            "settledSec": 1.976666666666667,
+            "needScale": 0.4441988950276242,
+            "settledFrames": 118
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "1dia",
+      "frames": 358,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "d635f021cdd0376ffb3b6a60d2fa0b508c53e40b85a790a7bde2c9cf2a9e9600",
+      "sha256_last": "c3aafedbca3a2dca3702ec715eb288b6f0189bded929cd2dad3cc902cadc1c72"
+    },
+    {
+      "segment": "2dia",
+      "frames": 387,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "9896ee4515013c7bd12a5fc9071649ad68143da8c34a53a436627a40e85a39f6",
+      "sha256_last": "7690d6757af8ba1c8c6356ddf127ff028bd8c8454aa1d0a3c0569e1729912422"
+    },
+    {
+      "segment": "3dia",
+      "frames": 434,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "d23cd72b8031373ee79a1882ae1a7a701c42dc71410620fe751cfdc8cdbe2895",
+      "sha256_last": "f7f2ef85d26c5a3536b27bd622b767c207f44bcf3ab7cf4907253a0602e3a77e"
+    }
+  ],
+  "titleCard": {
+    "value": "1/2/3-diamond sidespin kicks",
+    "claim": "the english kick ladder (battery C3)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "70446756b6bb1c57b847e58cec5e26a5eea4e5205871d051cd10b4f2ee4adb40",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "936142537a99064cd1cc04dfaa523c9a3d6cf097f407293ee933ba567f4325cc"
+  }
+}

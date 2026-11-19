@@ -1,0 +1,48 @@
+{
+  "schema": "openbilliards/rox-fixed-pocket-reference/1",
+  "id": "ROX-A4-FIX2-MODEL-1",
+  "origin": "purchased-MODEL-fixed",
+  "ruling": "ORDER-ASTRA-ROX-A4-FIX2, B; ASTRA-REPORT-ROX-A4.md section 10.5",
+  "source": {
+    "path": "/tmp/ob-3dm-quarantine/rasson-9ft/src/obj/RASSON_Pool_Table_OBJ.obj",
+    "sha256": "61077b0850e8c34ea72e0a211583e24454b3d1239a36302921983708f54461cf"
+  },
+  "a1": {
+    "path": "docs/geometry/rasson-ox-9ft-a1-station-records.json",
+    "sha256": "cbd1b30a51674bffa82b15e052d40264ca23b32a78732ed0d2074cd00ca683bc",
+    "record": "OB-ROX-A1-REC-001",
+    "nose_xy_mm": [1174.066, 588.123],
+    "bed_z_mm": 785.828,
+    "note": "A1 nose station; PF-05 measured bed, not the rounded 785.8 documentation datum."
+  },
+  "letters": {
+    "CP-12": {
+      "a1_record": "OB-ROX-A1-REC-001#CP-12m",
+      "model_axis_xy_mm": [1206.394, 619.886],
+      "value_path": ["value_mm", "inner_wall_circle", "centre_xy_model_mm"]
+    },
+    "SP-12": {
+      "a1_record": "OB-ROX-A1-REC-001#SP-12m",
+      "model_axis_xy_mm": [0.38, 637.7],
+      "value_path": ["value", "inner_centre"]
+    },
+    "PF-01": {"playfield_mm": [2540.0, 1270.0], "value_path": ["value_mm"]},
+    "PF-05": {"bed_z_mm": 785.828, "value_path": ["value_mm", "bed_cloth_plane_measured_z_mm"]}
+  },
+  "transport": {
+    "corner": "Qref.xy = Q9.xy - PF-01/2 + A1.nose_xy_mm; subtract CP-12 axis; existing 45-degree basis",
+    "side": "Qref.x = Q9.x; Qref.y = Q9.y - PF-01.W/2 + A1.nose_y; subtract SP-12 axis",
+    "ours_bed_y_m": 0.0,
+    "local_scale": [1.0, 1.0, 1.0],
+    "rule": "Fixed dump-world bed=0; measured bed, nose, wall and pan positions are observations, never comparison origins. No per-dump fit or fallback."
+  },
+  "cache_sha256": {
+    "V.npy": "e48c70c778d932581c19dec009a693d28e07bd3f55c43f2ebf74dd22b6961038",
+    "F.npy": "b41463d2cbe73067f9c16c752ceeaa7c2707f98d4ee8ae4f9d04370f17692779",
+    "O.npy": "fd1b5c8ca9293c37572a3bab3c6316ccb50bcef7fec34e6ab511d77fcb2b36ea",
+    "M.npy": "49eae3451e9ddafd3d48c1293a15fe93555f0d2f7e4a6174cd92649decf8fb01",
+    "objnames.json": "d09cbd94105b28461fa427deeaa156e13627b5747ba6e9cdc551ae5aa6bba7a3",
+    "mtlnames.json": "58619668696ed717814e1703e69016839e94b9c721f5bbffa3df92bacc74bc45"
+  },
+  "quarantine": "Scalar reference readings and source/cache hashes only; no purchased vertices, faces or replacement triangulation."
+}

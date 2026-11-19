@@ -1,0 +1,18 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+[package]
+name = "kroots"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Real roots of low-degree polynomials inside a time window (clean-room unit)."
+
+[features]
+# Records pre-registered decision ids (verification builds only; off in production).
+decision-trace = []
+
+[dependencies]
+
+[dev-dependencies]
+serde_json = { version = "=1.0.150", features = ["float_roundtrip"] }
+proptest = { version = "1", default-features = false, features = ["std"] }

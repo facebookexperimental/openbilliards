@@ -1,0 +1,609 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club audio dev page</title>
+<style>html, body { margin: 0; height: 100%; background: #0b0c0e; overflow: hidden; } canvas { display: block; }</style>
+</head>
+<body>
+<canvas id="c" width="1280" height="720"></canvas>
+<script type="module">
+import { renderAssets, describeAssets, BED, RATES } from '../../scene/club/audio/render.js';
+import { buildGraph } from '../../scene/club/audio/graph.js';
+import * as plan from '../../scene/club/audio/plan.js';
+import * as M from '../../scene/club/audio/measure.js';
+import { createAudio } from '../../scene/club/audio.js';
+import { createStateMachine } from '../../app/state.js';
+
+const q = new URLSearchParams(location.search);
+const view = q.get('view') ?? 'bed';
+const wavFile = q.get('file') ?? '02';
+const seed = q.get('seed') !== null && Number.isFinite(Number(q.get('seed'))) ? Number(q.get('seed')) >>> 0 : plan.AUDIO_SEED;
+const cv = document.getElementById('c'), g2 = cv.getContext('2d');
+const W = cv.width, H = cv.height;
+const report = { view, seed, error: null, notes: [], heard: 'nobody has listened to any of this: every number is a measurement of an offline render' };
+window.__audioReport = report;
+const RATE = 48000;
+const r2 = (x, n = 2) => (Number.isFinite(x) ? +x.toFixed(n) : null);
+const micro = async () => { for (let i = 0; i < 8; i++) await Promise.resolve(); };
+const withTimeout = (p, ms, what) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error(`${what}: no answer in ${ms} ms`)), ms))]);
+
+// ---- drawing ---------------------------------------------------------------------------------------------------------------
+function text(s, x, y, colour = '#d8dadf', size = 12) { g2.fillStyle = colour; g2.font = `${size}px Menlo, Consolas, monospace`; g2.fillText(s, x, y); }
+const STOPS = [[8, 8, 24], [60, 20, 120], [190, 40, 110], [250, 140, 40], [255, 245, 200]];
+function heat(db, lo, hi) { // near black -> violet -> magenta -> orange -> near white
+  const u = Math.max(0, Math.min(0.9999, (db - lo) / (hi - lo))) * (STOPS.length - 1);
+  const k = Math.floor(u), f = u - k, a = STOPS[k], b = STOPS[k + 1];
+  return [Math.round(a[0] + (b[0] - a[0]) * f), Math.round(a[1] + (b[1] - a[1]) * f), Math.round(a[2] + (b[2] - a[2]) * f)];
+}
+/** A spectrogram of `data` into the rectangle (x, y, w, h): log frequency from fLo to fHi, colours from lo to hi dBFS per bin. */
+function spectrogram(data, rate, x, y, w, h, { fLo = 30, fHi = 12000, lo = -130, hi = -55, size = 2048 } = {}) {
+  const hop = Math.max(16, Math.floor((data.length - size) / Math.max(1, w - 1)));
+  const sp = M.stft(data, rate, size, hop, w);
+  const img = g2.createImageData(w, h);
+  const top = Math.min(fHi, rate / 2 * 0.98);
+  for (let py = 0; py < h; py++) {
+    const f = fLo * Math.pow(top / fLo, 1 - py / (h - 1));
+    const bin = Math.max(1, Math.min(sp.bins - 1, Math.round(f * sp.size / rate)));
+    for (let px = 0; px < w; px++) {
+      const c = Math.min(sp.cols - 1, px);
+      const p = sp.power[c * sp.bins + bin];
+      const [r, g, b] = px < sp.cols ? heat(p > 0 ? 10 * Math.log10(p) : -200, lo, hi) : [16, 16, 20];
+      const o = (py * w + px) * 4;
+      img.data[o] = r; img.data[o + 1] = g; img.data[o + 2] = b; img.data[o + 3] = 255;
+    }
+  }
+  g2.putImageData(img, x, y);
+  g2.strokeStyle = '#3a3d44'; g2.strokeRect(x - 0.5, y - 0.5, w + 1, h + 1);
+  for (const f of [50, 100, 200, 500, 1000, 2000, 5000, 10000]) {
+    if (f > top) continue;
+    const py = y + (1 - Math.log(f / fLo) / Math.log(top / fLo)) * (h - 1);
+    g2.fillStyle = 'rgba(255,255,255,0.35)'; g2.fillRect(x, Math.round(py), 5, 1);
+    if (h > 120) text(f >= 1000 ? `${f / 1000}k` : `${f}`, x + 7, py + 4, 'rgba(255,255,255,0.6)', 10);
+  }
+  return sp;
+}
+/** Axes for a level plot: time along x, dBFS from dbLo to dbHi. Returns the two mappings. */
+function levelAxes(x, y, w, h, t0, t1, dbLo, dbHi, label) {
+  g2.fillStyle = '#111317'; g2.fillRect(x, y, w, h);
+  g2.strokeStyle = '#3a3d44'; g2.strokeRect(x - 0.5, y - 0.5, w + 1, h + 1);
+  const tx = (t) => x + (t - t0) / (t1 - t0) * w, dy = (db) => y + (1 - (Math.max(dbLo, Math.min(dbHi, db)) - dbLo) / (dbHi - dbLo)) * h;
+  for (let db = Math.ceil(dbLo / 10) * 10; db <= dbHi; db += 10) { g2.fillStyle = 'rgba(255,255,255,0.08)'; g2.fillRect(x, Math.round(dy(db)), w, 1); text(`${db}`, x - 26, dy(db) + 4, '#8b8f98', 10); }
+  const stepT = (t1 - t0) > 30 ? 5 : 1;
+  for (let t = Math.ceil(t0 / stepT) * stepT; t <= t1; t += stepT) { g2.fillStyle = 'rgba(255,255,255,0.08)'; g2.fillRect(Math.round(tx(t)), y, 1, h); text(`${t}`, tx(t) - 6, y + h + 12, '#8b8f98', 10); }
+  if (label) text(label, x + 6, y + 13, '#8b8f98', 10);
+  return { tx, dy };
+}
+function line(points, colour, widthPx = 1.2) {
+  g2.strokeStyle = colour; g2.lineWidth = widthPx; g2.beginPath();
+  let pen = false;
+  for (const [px, py] of points) { if (!Number.isFinite(py)) { pen = false; continue; } if (pen) g2.lineTo(px, py); else { g2.moveTo(px, py); pen = true; } }
+  g2.stroke(); g2.lineWidth = 1;
+}
+function hline(ax, x, w, db, colour, label) { g2.fillStyle = colour; g2.fillRect(x, Math.round(ax.dy(db)), w, 1); if (label) text(label, x + w - 8 - label.length * 6.1, ax.dy(db) - 3, colour, 10); }
+
+// ---- the app's own voices: a canned record through web/app/sound.js ------------------------------------------------------------
+// A hand-made record in the kernel's shapes (not a simulation: a medium stroke of 2.6 m/s, a full hit that sends the object
+// ball off at 2.4 m/s, a rail, a corner pocket). Positions are consistent with the velocities so the app's plan reads the
+// arrivals it would read from a kernel record.
+const BALL_R = 0.028575;
+const st = (x, y, vx, vy, motion) => ({ pos: { x, y, z: BALL_R }, vel: { x: vx, y: vy, z: 0 }, motion });
+const RECORD = {
+  initial: {
+    balls: [{ id: 0, state: st(0, -0.6, 0, 0, 'Stationary'), params: { r: BALL_R } }, { id: 1, state: st(0, 0.2, 0, 0, 'Stationary'), params: { r: BALL_R } }],
+    table: { length: 2.54, width: 1.27, pockets: [{ center: { x: 0.635, y: 1.27, z: 0 } }] },
+  },
+  shot: { phi: 0, theta: 0, a: 0, b: 0, v0: 2.6 }, options: {},
+  events: [
+    { t: 0, kind: { Strike: { ball: 0 } }, post: [[0, st(0, -0.6, 0, 2.6, 'Sliding')]] },
+    { t: 0.30, kind: { BallBall: { b1: 0, b2: 1 } }, post: [[0, st(0, 0.2 - 2 * BALL_R, 0, 0.1, 'Rolling')], [1, st(0, 0.2, 0, 2.4, 'Sliding')]] },
+    { t: 0.85, kind: { BallLinearCushion: { ball: 1 } }, post: [[1, st(0, 1.2414, 0.9, -0.6, 'Rolling')]] },
+    { t: 1.20, kind: { Rest: { ball: 0 } }, post: [[0, st(0, 0.2, 0, 0, 'Stationary')]] },
+    { t: 1.90, kind: { BallPocket: { ball: 1, pocket: 0 } }, post: [[1, st(0.635, 1.27, 0, 0, 'Pocketed')]] },
+  ],
+};
+
+async function loadApp() {
+  const out = { sound: null, synth: null, bank: null, how: [] };
+  try { out.synth = await withTimeout(import('../../app/synth.js'), 8000, 'synth.js'); } catch (e) { out.how.push(`web/app/synth.js did not load: ${e.message}`); }
+  try { out.sound = await withTimeout(import('../../app/sound.js'), 12000, 'sound.js'); out.how.push('reference through web/app/sound.js deriveVoices and voiceOne'); } catch (e) { out.how.push(`web/app/sound.js did not load on this page (${e.message}); the reference goes through web/app/synth.js planVoices and scheduleVoice with a cue list made here`); }
+  if (out.synth?.loadSfxBank) {
+    try { out.bank = await withTimeout(out.synth.loadSfxBank('../../assets/sfx/'), 10000, 'the sfx bank'); } catch (e) { out.how.push(`the app's recorded bank did not load: ${e.message}`); }
+    out.how.push(out.bank ? `the app's recorded bank is loaded (${out.bank.clips?.size ?? '?'} clips): references are given with it (what a session plays) and without it (the modal synth)` : 'no recorded bank: references are the modal synth only');
+  }
+  return out;
+}
+function appVoicesOf(app, record) {
+  const profile = app.synth?.acousticProfile?.(record.initial.equipment);
+  if (app.sound?.deriveVoices) return { voices: app.sound.deriveVoices(record, profile), profile };
+  // the cue list as sound.js deriveCues makes it for this record (three impacts and a pocket), for the fallback path only
+  const cues = [{ t: 0, type: 'cue', gain: 2.6 / 8 }, { t: 0.30, type: 'click', gain: 2.4 / 7 }, { t: 0.85, type: 'cushion', gain: 0.27 }, { t: 1.90, type: 'pocket', gain: 0.5 }];
+  const evIdx = [0, 1, 2, 4];
+  return { voices: app.synth.planVoices(record, cues, evIdx, { profile }), profile };
+}
+const voiceOneOf = (app) => (app.sound?.voiceOne ? app.sound.voiceOne : (ac, dest, noise, v, when, opts) => app.synth.scheduleVoice(ac, dest, noise, v, when, opts));
+
+/** One voice of the app alone, dry, straight to the destination at volume 1 (as the export bed renders it). */
+async function renderAppVoice(app, v, profile, bank) {
+  const oc = new OfflineAudioContext(1, Math.round(1.2 * RATE), RATE);
+  const noise = app.synth.makeNoiseBuffer(oc);
+  voiceOneOf(app)(oc, oc.destination, noise, { ...v, t: 0 }, 0.05, { profile, bank, rate: 1 });
+  const data = (await oc.startRendering()).getChannelData(0);
+  return { data, levels: M.levels(data, RATE), spectrum: M.spectrumOf(M.stft(data.subarray(0, Math.round(0.3 * RATE)), RATE, 1024, 256)) };
+}
+
+// ---- the room for 60 seconds ------------------------------------------------------------------------------------------------
+const HIGH = Object.freeze({ roomDb: 0, chalkDb: 0 }); // the high step of the level (plan.js LEVELS as they are); the graph's default is the low one
+async function renderRoom(assets, seconds, { bed = true, far = true, levels = plan.LEVELS, trim = HIGH, volume = 1, fade = 0.01 } = {}) {
+  const oc = new OfflineAudioContext(2, Math.round(seconds * RATE), RATE);
+  const graph = buildGraph(oc, assets, levels, { trim });
+  graph.out.gain.value = volume; // the app's volume (1 for the level table)
+  const events = plan.farEvents(seed, 0, seconds);
+  if (bed) graph.startBed(0, fade);
+  if (far) for (const ev of events) graph.playFar(ev, ev.t, plan.panFor(ev.place, null, ev.pan0));
+  const buf = await oc.startRendering();
+  return { L: buf.getChannelData(0), R: buf.getChannelData(1), events };
+}
+// ---- recordings: an offline render as a WAV file's bytes ------------------------------------------------------------------------
+/** 16-bit PCM, stereo. Each sample that is not exactly zero gets a dither of one step (two seeded uniform draws); exact zeros
+ * stay zero, so a stretch the service leaves silent is silent in the file. The first and last `fade` seconds are faded. */
+function encodeWav(L, R, rate, fade = 0.05) {
+  const n = L.length, out = new Uint8Array(44 + n * 4), dv = new DataView(out.buffer);
+  const tag = (o, t) => { for (let i = 0; i < 4; i++) out[o + i] = t.charCodeAt(i); };
+  tag(0, 'RIFF'); dv.setUint32(4, 36 + n * 4, true); tag(8, 'WAVE'); tag(12, 'fmt '); dv.setUint32(16, 16, true);
+  dv.setUint16(20, 1, true); dv.setUint16(22, 2, true); dv.setUint32(24, rate, true); dv.setUint32(28, rate * 4, true); dv.setUint16(32, 4, true); dv.setUint16(34, 16, true);
+  tag(36, 'data'); dv.setUint32(40, n * 4, true);
+  const rnd = plan.mulberry32(0x57a7), nf = Math.max(1, Math.round(fade * rate));
+  let clipped = 0;
+  for (let i = 0; i < n; i++) {
+    const edge = Math.min(1, i / nf, (n - 1 - i) / nf);
+    for (let c = 0; c < 2; c++) {
+      const x = (c ? R[i] : L[i]) * edge;
+      let v = 0;
+      if (x !== 0) { v = Math.round(x * 32767 + rnd() - rnd()); if (v > 32767) { v = 32767; clipped += 1; } else if (v < -32768) { v = -32768; clipped += 1; } }
+      dv.setInt16(44 + i * 4 + c * 2, v, true);
+    }
+  }
+  return { bytes: out, clipped };
+}
+function fnv1a(bytes) { let h = 0x811c9dc5; for (let i = 0; i < bytes.length; i++) { h ^= bytes[i]; h = Math.imul(h, 0x01000193); } return (h >>> 0).toString(16).padStart(8, '0'); }
+function toBase64(bytes) { let str = ''; for (let i = 0; i < bytes.length; i += 0x8000) str += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(str); }
+const WAV_NAMES = Object.freeze({ '01': '01-room-60s-high.wav', '02': '02-shot-high.wav', '03': '03-shot-low.wav', '04': '04-shot-app-only.wav', '05': '05-takes.wav' });
+
+const add = (a, b) => { const o = new Float32Array(a.length); for (let i = 0; i < a.length; i++) o[i] = a[i] + b[i]; return o; };
+const scaled = (a, g) => { const o = new Float32Array(a.length); for (let i = 0; i < a.length; i++) o[i] = a[i] * g; return o; };
+
+// ---- the staged shot: the real service over an offline clock --------------------------------------------------------------------
+function fakeTarget() {
+  const map = new Map();
+  return {
+    addEventListener(type, fn) { if (!map.has(type)) map.set(type, new Set()); map.get(type).add(fn); },
+    removeEventListener(type, fn) { map.get(type)?.delete(fn); },
+    fire(type, ev = {}) { for (const fn of [...(map.get(type) ?? [])]) fn({ type, ...ev }); },
+  };
+}
+const SHOT = Object.freeze({ seconds: 22, bankAt: 4.0, strikeAt: 8.0, muteAt: 16.5, unmuteAt: 20.5, step: 0.05, volume: 0.8, rack: 7 });
+/** `entriesAt(t)`: what the page's resource entries are at context time t (the proof of the app's bank, or its absence). */
+async function stagedService(assets, appVoices, mode, entriesAt) {
+  const oc = new OfflineAudioContext(2, Math.round(SHOT.seconds * RATE), RATE);
+  if (typeof oc.suspend !== 'function') throw new Error('this engine has no OfflineAudioContext.suspend: the staged shot cannot be driven');
+  const calls = [];
+  // what the service sees as its AudioContext: the offline context's clock and nodes; resume and suspend only change `state`
+  // (the offline render goes on: a "suspended" stretch is rendered as the silence the service had already ramped to)
+  const live = {
+    get currentTime() { return oc.currentTime; }, get sampleRate() { return oc.sampleRate; }, destination: oc.destination, state: 'suspended', onstatechange: null,
+    resume() { calls.push(['resume', r2(oc.currentTime, 3)]); live.state = 'running'; live.onstatechange?.(); return Promise.resolve(); },
+    suspend() { calls.push(['suspend', r2(oc.currentTime, 3)]); live.state = 'suspended'; live.onstatechange?.(); return Promise.resolve(); },
+    close() { return Promise.resolve(); },
+    createGain: () => oc.createGain(), createBufferSource: () => oc.createBufferSource(), createStereoPanner: () => oc.createStereoPanner(),
+  };
+  let constructed = 0;
+  const machine = createStateMachine('AIM');
+  const sound = { muted: false, volume: SHOT.volume, scheduled: 0 };
+  const win = fakeTarget(); win.__sound = sound;
+  const doc = fakeTarget(); doc.visibilityState = 'visible';
+  const nav = { userActivation: { isActive: false, hasBeenActive: false } };
+  let k = 1;
+  while (!plan.chalkPlan(seed, k).play) k++; // the shot after which the plan has chalk
+  const game = { shotIndex: k - 1, seed: SHOT.rack, get state() { return machine.state; } };
+  const endT = RECORD.events[RECORD.events.length - 1].t;
+  let idx = 0;
+  // the app's sound, as its scheduler counts (web/app/sound.js): a voice once it is within 0.15 s; what is left at the end, in one pass
+  machine.on('stateChange', (next, prev) => { if (next === 'SETTLED' && prev === 'PLAYBACK') { sound.scheduled += appVoices.length - idx; idx = appVoices.length; } });
+  const frames = [], timers = [], states = [];
+  const club = { ctx: { machine, game, camera: null, query: new URLSearchParams(`clubaudio=${mode}&clubaudioseed=${seed}`) }, knobs: { audio: 'full', farTable: true }, onFrame: (fn) => frames.push(fn), offFrame() {} };
+  const svc = await createAudio(club, {
+    window: win, document: doc, navigator: nav, OfflineAudioContext,
+    performance: { getEntriesByType: (type) => (type === 'resource' ? entriesAt(oc.currentTime) : []) },
+    AudioContext: function StagedContext() { constructed += 1; return live; },
+    render: async (_o, _s, want) => ({ version: assets.version, bytes: 0, failed: [], bed: want.bed ? assets.bed : undefined, far: want.far ? assets.far : undefined, chalk: want.chalk ? assets.chalk : undefined }),
+    setInterval: (fn) => { timers.push(fn); return timers.length; }, clearInterval() {},
+  });
+  const before = { constructed, context: svc.state().context };
+  const script = [
+    [0, 'gesture', () => { nav.userActivation.isActive = true; nav.userActivation.hasBeenActive = true; win.fire('pointerdown', { isTrusted: true, pointerType: 'mouse' }); nav.userActivation.isActive = false; }],
+    [SHOT.strikeAt, 'strike', () => { machine.to('SIMULATING'); game.shotIndex = k; machine.to('PLAYBACK', { duration: endT, strike: true }); }],
+    [SHOT.muteAt, 'mute', () => { sound.muted = true; }],
+    [SHOT.unmuteAt, 'unmute', () => { sound.muted = false; }],
+  ];
+  const done = [];
+  let lastState = null, stepNo = 0;
+  const drive = () => {
+    const t = oc.currentTime;
+    for (const ev of script) if (!ev[3] && t >= ev[0] - 1e-6) { ev[3] = true; ev[2](); done.push([ev[1], r2(t, 3)]); }
+    if (machine.state === 'PLAYBACK') {
+      const clock = t - SHOT.strikeAt;
+      while (idx < appVoices.length && appVoices[idx].t <= clock + 0.15) { idx += 1; sound.scheduled += 1; }
+      if (clock >= endT) { machine.to('SETTLED'); machine.to('AIM'); }
+    }
+    for (const fn of frames) fn(t - SHOT.strikeAt, SHOT.step);
+    if (stepNo++ % 10 === 0) for (const fn of timers) fn();
+    if (machine.state !== lastState) { lastState = machine.state; states.push([r2(t, 3), lastState]); }
+  };
+  for (let i = 1; i * SHOT.step < SHOT.seconds - 1e-9; i++) oc.suspend(i * SHOT.step).then(async () => { drive(); await micro(); drive(); await oc.resume(); });
+  drive(); await micro(); drive();
+  const buf = await oc.startRendering();
+  const state = svc.state();
+  svc.dispose();
+  return { L: buf.getChannelData(0), R: buf.getChannelData(1), state, states, calls, done, before, constructed, shotIndex: k, plan: plan.chalkPlan(seed, k) };
+}
+async function stagedApp(app, appVoices, profile, bank) {
+  const oc = new OfflineAudioContext(2, Math.round(SHOT.seconds * RATE), RATE);
+  const master = oc.createGain();
+  master.gain.value = SHOT.volume;
+  master.connect(oc.destination);
+  const noise = app.synth.makeNoiseBuffer(oc);
+  const one = voiceOneOf(app);
+  for (const v of appVoices) { try { one(oc, master, noise, v, SHOT.strikeAt + v.t, { profile, bank, rate: 1 }); } catch (e) { report.notes.push(`an app voice was refused: ${e.message}`); } }
+  const buf = await oc.startRendering();
+  return { L: buf.getChannelData(0), R: buf.getChannelData(1) };
+}
+
+/** The latch in a real engine: synthetic events must not open it, and `off` must build nothing. No real context can be made here. */
+async function latchProof() {
+  let constructed = 0;
+  class Refuses { constructor() { constructed += 1; throw new Error('dev page: a real AudioContext is never made here'); } }
+  const frames = [];
+  const machine = createStateMachine('AIM');
+  const had = Object.prototype.hasOwnProperty.call(window, '__sound');
+  if (!had) window.__sound = { muted: false, volume: 0.8, scheduled: 0 };
+  const club = { ctx: { machine, game: { shotIndex: 0, seed: 1 }, query: new URLSearchParams('clubaudio=full') }, knobs: { audio: 'full' }, onFrame: (fn) => frames.push(fn), offFrame() {} };
+  const svc = await createAudio(club, { AudioContext: Refuses, OfflineAudioContext, setInterval: () => 0, clearInterval() {} });
+  for (const type of ['pointerdown', 'pointerup', 'keydown']) window.dispatchEvent(type === 'keydown' ? new KeyboardEvent(type, { key: 'a' }) : new PointerEvent(type, { pointerType: 'mouse' }));
+  for (let i = 0; i < 30; i++) for (const fn of frames) fn(0, 1 / 60);
+  machine.to('PLAYBACK', { strike: true }); machine.to('SETTLED'); machine.to('AIM');
+  await micro();
+  const st = svc.state();
+  const out = {
+    userActivation: navigator.userActivation ? { isActive: navigator.userActivation.isActive, hasBeenActive: navigator.userActivation.hasBeenActive } : null,
+    afterSyntheticEvents: { constructed, context: st.context, latched: st.latched, armed: st.armed, sources: st.sources.started, errors: st.errors },
+  };
+  svc.dispose();
+  const offSvc = await createAudio({ ...club, ctx: { ...club.ctx, query: new URLSearchParams('clubaudio=off') } }, { AudioContext: Refuses, OfflineAudioContext });
+  out.off = { enabled: offSvc.enabled, reason: offSvc.reason, constructed };
+  if (!had) delete window.__sound;
+  return out;
+}
+
+// ---- run ---------------------------------------------------------------------------------------------------------------------
+async function main() {
+  g2.fillStyle = '#0b0c0e'; g2.fillRect(0, 0, W, H);
+  if (typeof OfflineAudioContext !== 'function') throw new Error('no OfflineAudioContext');
+  // the page's resource entries before the app's bank is asked for (this page asks for it below, as the app does at boot)
+  const entriesNow = () => { try { return performance.getEntriesByType('resource'); } catch { return []; } };
+  const proofBefore = plan.bankProof(entriesNow());
+  // the buffers are always rendered from the fixed seed (as the service does); `seed` is the plan's
+  const assets = await renderAssets(OfflineAudioContext, plan.AUDIO_SEED);
+  report.assets = describeAssets(assets);
+  report.buffers = { bed: `${BED.seconds[0]} s + ${BED.seconds[1]} s + ${BED.humSeconds} s (hum), mono, ${RATES.bed} Hz`, bedBytes: assets.bed?.bytes ?? null, farBytes: assets.far?.bytes ?? null, chalkBytes: assets.chalk?.bytes ?? null, totalBytes: assets.bytes };
+  if (assets.failed.length) report.notes.push(...assets.failed.map((f) => `render: ${f}`));
+
+  const app = await loadApp();
+  report.reference = { how: app.how, record: 'hand-made: cue ball struck to 2.6 m/s, full hit (object ball leaves at 2.4 m/s: impact gain 0.34), a rail, a corner pocket' };
+  let appVoices = [], profile;
+  if (app.synth) {
+    const av = appVoicesOf(app, RECORD);
+    appVoices = av.voices; profile = av.profile;
+    report.reference.plan = appVoices.map((v) => ({ t: r2(v.t, 3), type: v.type, gain: r2(v.gain, 3), clip: v.clip ?? null }));
+    report.reference.voices = {};
+    for (const type of ['click', 'cue', 'cushion', 'pocket']) {
+      const v = appVoices.find((x) => x.type === type);
+      if (!v) continue;
+      const row = { gain: r2(v.gain, 3) };
+      if (app.bank) { const m = await renderAppVoice(app, v, profile, app.bank); row.bank = { ...m.levels, centroidHz: m.spectrum.centroidHz }; }
+      const s = await renderAppVoice(app, v, profile, null);
+      row.synth = { ...s.levels, centroidHz: s.spectrum.centroidHz };
+      report.reference.voices[type] = row;
+    }
+  }
+  // the bank test in THIS engine: the same function the service uses, on this page's real entries, before and after the load
+  {
+    const entries = entriesNow();
+    const one = entries.find((e) => typeof e.name === 'string' && e.name.includes(plan.BANK_DIR));
+    const proofAfter = plan.bankProof(entries);
+    report.bank = {
+      before: { proven: proofBefore.proven, ok: proofBefore.ok, why: proofBefore.why }, after: { proven: proofAfter.proven, ok: proofAfter.ok, wanted: proofAfter.wanted, why: proofAfter.why, missing: proofAfter.missing },
+      appBankLoaded: !!app.bank, appBankClips: app.bank?.clips?.size ?? 0, resourceEntries: entries.length,
+      anEntry: one ? { name: one.name.slice(one.name.indexOf(plan.BANK_DIR)), responseEnd: r2(one.responseEnd, 1), responseStatus: one.responseStatus ?? null, decodedBodySize: one.decodedBodySize ?? null, transferSize: one.transferSize ?? null, contentType: one.contentType ?? null } : null,
+      // the same entries with one file's response made a failure, and with the status the engine reports removed: both must fail
+      oneFileFailed: plan.bankProof(entries.map((e) => (e.name?.endsWith('cue-h2.wav') ? { name: e.name, responseEnd: e.responseEnd, responseStatus: 404, decodedBodySize: e.decodedBodySize } : e))).proven,
+      withoutStatus: plan.bankProof(entries.map((e) => ({ name: e.name, responseEnd: e.responseEnd, decodedBodySize: e.decodedBodySize }))).proven,
+    };
+  }
+  // THE reference: the app's medium ball-ball voice as a session plays it (the bank when it loads, else the modal synth)
+  const refRow = report.reference.voices?.click;
+  const ref = refRow ? (refRow.bank ?? refRow.synth) : null;
+  report.reference.used = ref ? { ...ref, voicing: refRow.bank ? 'recorded bank' : 'modal synth' } : null;
+  const rel = (m) => (ref ? { peakVsRefPeak: r2(m.peakDb - ref.peakDb, 1), rmsVsRefWin: r2(m.rmsDb - ref.rmsWinDb, 1), winVsRefWin: r2(m.rmsWinDb - ref.rmsWinDb, 1) } : null);
+  // the app's modal fallback (no bank): the reference of the LOW step
+  const fb = refRow?.synth ?? null;
+  report.reference.fallback = fb;
+  const bankRef = refRow?.bank ?? null;
+
+  // the level table: the room for 60 s (stems), every take at its loudest play level
+  const bedOnly = await renderRoom(assets, 60, { far: false });
+  const farOnly = await renderRoom(assets, 60, { bed: false });
+  const table = [];
+  // a row: measured on the HIGH step; the LOW step is the same signal `trimDb` lower (one gain: checked by a render below)
+  const row = (name, m, extra = {}, trimDb = plan.LOW_TRIM.roomDb) => {
+    const low = { peakDb: r2(m.peakDb + trimDb), rmsWinDb: r2(m.rmsWinDb + trimDb), rmsDb: r2(m.rmsDb + trimDb) };
+    const r = {
+      name, ...m, ...extra, vsRef: rel(m), trimDb, low,
+      highVsBank: bankRef ? { peak: r2(m.peakDb - bankRef.peakDb, 1), win: r2(m.rmsWinDb - bankRef.rmsWinDb, 1) } : null,
+      highVsFallback: fb ? { peak: r2(m.peakDb - fb.peakDb, 1), win: r2(m.rmsWinDb - fb.rmsWinDb, 1) } : null,
+      lowVsFallback: fb ? { peak: r2(low.peakDb - fb.peakDb, 1), win: r2(low.rmsWinDb - fb.rmsWinDb, 1) } : null,
+    };
+    table.push(r);
+    return r;
+  };
+  const bedSpec = M.spectrumOf(M.stft(bedOnly.L, RATE, 4096, 4096));
+  row('room tone, left channel, 60 s', M.levels(bedOnly.L, RATE), { centroidHz: bedSpec.centroidHz, bandsDb: bedSpec.bandsDb, look: 'LEVELS.bedRmsDb' });
+  row('room tone, right channel, 60 s', M.levels(bedOnly.R, RATE), { look: 'LEVELS.bedRmsDb' });
+  if (assets.bed) {
+    const hum = scaled(assets.bed.hum.buffer.getChannelData(0), plan.dbToGain(plan.LEVELS.humRmsDb) / assets.bed.hum.rms);
+    row('hum alone (part of the room tone)', M.levels(hum, assets.bed.hum.rate), { look: 'LEVELS.humRmsDb' });
+  }
+  const takes = [];
+  for (const kind of plan.FAR_KIND_IDS) (assets.far?.takes?.[kind] ?? []).forEach((t, v) => takes.push({ name: `far ${kind} ${v}`, kind, t, db: plan.LEVELS.farPeakDb[kind], look: `LEVELS.farPeakDb.${kind}` }));
+  (assets.chalk?.takes ?? []).forEach((t, v) => takes.push({ name: `chalk ${v}`, kind: 'chalk', t, db: plan.LEVELS.chalkPeakDb, look: 'LEVELS.chalkPeakDb' }));
+  for (const tk of takes) {
+    // through the real graph (the panner included) at the take's loudest plan level and its fallback pan; the louder channel is stated
+    const oc = new OfflineAudioContext(2, Math.round(1.5 * RATE), RATE);
+    const graph = buildGraph(oc, assets, plan.LEVELS, { trim: HIGH });
+    graph.out.gain.value = 1;
+    const v = Number(tk.name.split(' ').pop());
+    if (tk.kind === 'chalk') graph.playChalk({ variant: v, rate: 1, gainDb: 0, pan: 0 }, 0.01);
+    else graph.playFar({ kind: tk.kind, variant: v, rate: 1, gainDb: 0 }, 0.01, plan.FAR_KINDS[tk.kind].pan0);
+    const buf = await oc.startRendering();
+    const l = M.levels(buf.getChannelData(0), RATE), r = M.levels(buf.getChannelData(1), RATE);
+    const loud = l.peakDb >= r.peakDb ? buf.getChannelData(0) : buf.getChannelData(1);
+    tk.data = loud; tk.rate = RATE;
+    const sp = M.spectrumOf(M.stft(loud, RATE, 2048, 512));
+    // the take itself (as rendered, before any gain) checked for a stack of harmonics in the band of speech
+    const stack = M.harmonicStack(tk.t.buffer.getChannelData(0), tk.t.rate);
+    tk.row = row(`${tk.name} (louder channel)`, M.levels(loud, RATE), { centroidHz: sp.centroidHz, look: tk.look, nominalPeakDb: tk.db, pan: tk.kind === 'chalk' ? 0 : plan.FAR_KINDS[tk.kind].pan0, otherChannelPeakDb: Math.min(l.peakDb, r.peakDb), stack },
+      tk.kind === 'chalk' ? plan.LOW_TRIM.chalkDb : plan.LOW_TRIM.roomDb);
+  }
+  report.table = table;
+  // nothing speech-like: every take, and ten seconds of each bed loop, through the detector
+  {
+    const bedStack = assets.bed ? [assets.bed.a, assets.bed.b].map((x) => M.harmonicStack(x.buffer.getChannelData(0).subarray(0, 10 * x.rate), x.rate)) : [];
+    report.speechCheck = {
+      rule: 'flagged = 3 or more consecutive harmonics of one fundamental in 70-400 Hz, standing in 300-3000 Hz, for 3 half-overlapping frames (about 85 ms)',
+      takes: takes.map((tk) => ({ name: tk.name, flagged: tk.row.stack.flagged, maxRun: tk.row.stack.maxRun, heldSec: tk.row.stack.heldSec, peaksHz: tk.row.stack.peaks })),
+      bed: bedStack.map((b) => ({ flagged: b.flagged, maxRun: b.maxRun, heldSec: b.heldSec })),
+      flagged: takes.filter((tk) => tk.row.stack.flagged).map((tk) => tk.name).concat(bedStack.some((b) => b.flagged) ? ['bed'] : []),
+      farKinds: [...plan.FAR_KIND_IDS],
+    };
+  }
+  // the low step is one gain under the high one: a render of the room and of a chalk take on the graph's default (low) step
+  {
+    const lowRoom = await renderRoom(assets, 10, { far: false, trim: plan.LOW_TRIM });
+    const highRoom = M.levels(bedOnly.L.subarray(0, 10 * RATE), RATE), lr = M.levels(lowRoom.L, RATE);
+    const oc = new OfflineAudioContext(2, Math.round(1.5 * RATE), RATE);
+    const graph = buildGraph(oc, assets, plan.LEVELS); // no trim given: the default
+    graph.out.gain.value = 1;
+    graph.playChalk({ variant: 0, rate: 1, gainDb: 0, pan: 0 }, 0.01);
+    const lc = M.levels((await oc.startRendering()).getChannelData(0), RATE);
+    const hc = table.find((x) => x.name.startsWith('chalk 0'));
+    report.lowStep = {
+      trim: { ...plan.LOW_TRIM },
+      room: { highRmsDb: highRoom.rmsDb, lowRmsDb: lr.rmsDb, measuredStepDb: r2(lr.rmsDb - highRoom.rmsDb), lowPeakDb: lr.peakDb, lowWinDb: lr.rmsWinDb },
+      chalk0: { highPeakDb: hc?.peakDb ?? null, lowPeakDb: lc.peakDb, measuredStepDb: hc ? r2(lc.peakDb - hc.peakDb) : null, lowWinDb: lc.rmsWinDb },
+    };
+  }
+  report.curve60 = { step: 1, bedL: M.curve(bedOnly.L, RATE, 1).map((p) => [p.rmsDb, p.peakDb]), sumL: M.curve(add(bedOnly.L, farOnly.L), RATE, 1).map((p) => [p.rmsDb, p.peakDb]) };
+  report.farPlan = { first60s: bedOnly.events.map((e) => ({ t: r2(e.t, 2), kind: e.kind, variant: e.variant, gainDb: r2(e.gainDb, 1) })), in10min: plan.farEvents(seed, 0, 600).length, in30minByKind: plan.farEvents(seed, 0, 1800).reduce((o, e) => { o[e.kind] = (o[e.kind] ?? 0) + 1; return o; }, {}) };
+  // the seam: the level of the bed around each loop's wrap against the level away from it (60 s holds one wrap of loop A at 31 s and one of loop B at 43 s)
+  {
+    const seam = (t) => { const a = Math.round((t - 0.75) * RATE), b = Math.round((t + 0.75) * RATE); return M.levels(bedOnly.L.subarray(a, b), RATE); };
+    const step = (t) => { const i = Math.round(t * RATE); let d = 0; for (let k = i - 3; k < i + 3; k++) d = Math.max(d, Math.abs(bedOnly.L[k + 1] - bedOnly.L[k])); let ref2 = 0; for (let k = i + 4000; k < i + 12000; k++) ref2 = Math.max(ref2, Math.abs(bedOnly.L[k + 1] - bedOnly.L[k])); return { atSeam: r2(M.toDb(d), 1), elsewhereMax: r2(M.toDb(ref2), 1) }; };
+    report.seam = { loopA: { at: BED.seconds[0], around: seam(BED.seconds[0]), sampleStepDb: step(BED.seconds[0]) }, loopB: { at: BED.seconds[1], around: seam(BED.seconds[1]), sampleStepDb: step(BED.seconds[1]) }, away: seam(20) };
+  }
+  report.latch = await latchProof();
+
+  // the staged shot, twice: (A) the app's bank is established at SHOT.bankAt (this page's real resource entries) and the app's
+  // voices come from the bank; (B) it is never established and the app's voices come from its modal fallback
+  const shots = {};
+  const wantHigh = view === 'shot' || view === 'table' || (view === 'wav' && wavFile === '02');
+  const wantLow = view === 'shotlow' || view === 'table' || (view === 'wav' && wavFile === '03');
+  if (app.synth && (wantHigh || wantLow)) {
+    const realEntries = entriesNow();
+    const S = SHOT.strikeAt;
+    const seg = (d, a, b) => M.levels(d.subarray(Math.round(a * RATE), Math.round(b * RATE)), RATE);
+    const stage = async (entriesAt, bank) => {
+      const full = await stagedService(assets, appVoices, 'full', entriesAt);
+      const sfx = await stagedService(assets, appVoices, 'sfx', entriesAt);
+      const appStem = await stagedApp(app, appVoices, profile, bank);
+      const appSpans = M.activeSpans(appStem.L, RATE, -75, 0.08);
+      const chalkSpans = M.activeSpans(sfx.L, RATE, -100, 0.05);
+      const c = full.state.chalk.last;
+      const mutedFrom = SHOT.muteAt + 0.25, mutedTo = SHOT.unmuteAt - 0.05;
+      const click = seg(appStem.L, S + 0.28, S + 0.45), cue = seg(appStem.L, S - 0.01, S + 0.2);
+      const chalkLv = c ? seg(sfx.L, c.start, c.end) : null;
+      const roomLow = seg(full.L, 4.2, 4.95), roomBefore = seg(full.L, S - 0.8, S - 0.05);
+      const rep = {
+        script: full.done, states: full.states, appVolume: SHOT.volume, contextCalls: full.calls, appVoicing: bank ? 'recorded bank' : 'modal fallback',
+        beforeGesture: full.before, contextsConstructed: full.constructed,
+        voicing: full.state.voicing,
+        chalk: { shotIndex: full.shotIndex, plan: { variant: full.plan.variant, delay: r2(full.plan.delay, 3), gainDb: r2(full.plan.gainDb, 2), rate: r2(full.plan.rate, 3) }, start: c?.start ?? null, end: c?.end ?? null, spansMeasured: chalkSpans, levels: chalkLv },
+        app: { voices: appVoices.length, spans: appSpans, lastSoundEnds: appSpans.length ? appSpans[appSpans.length - 1][1] : null, levels: M.levels(appStem.L, RATE), click, cue },
+        chalkOverlapWithAppSeconds: M.overlapSeconds(chalkSpans, appSpans),
+        silenceBetweenAppAndChalk: c && appSpans.length ? r2(c.start - appSpans[appSpans.length - 1][1], 3) : null,
+        room: { atLowStep: roomLow, beforeShot: roomBefore, underPlayback: seg(full.L, S + 0.5, S + 1.85), afterRelease: seg(full.L, S + 7.9, S + 8.45), ducks: full.state.bed.ducks, far: full.state.far },
+        // the app's rolling layer alone, between its impacts (after the ball-ball hit and before the rail; after the rail and before the pocket)
+        appRolling: { afterHit: seg(appStem.L, S + 0.45, S + 0.8), afterRail: seg(appStem.L, S + 1.0, S + 1.85) },
+        // against the app's click and cue strike AS PLAYED IN THIS RUN (same app volume on both sides)
+        margins: {
+          roomVsClick: { peak: r2(roomBefore.peakDb - click.peakDb, 1), win: r2(roomBefore.rmsWinDb - click.rmsWinDb, 1) },
+          roomVsCue: { peak: r2(roomBefore.peakDb - cue.peakDb, 1), win: r2(roomBefore.rmsWinDb - cue.rmsWinDb, 1) },
+          chalkVsClick: chalkLv ? { peak: r2(chalkLv.peakDb - click.peakDb, 1), win: r2(chalkLv.rmsWinDb - click.rmsWinDb, 1) } : null,
+          chalkVsCue: chalkLv ? { peak: r2(chalkLv.peakDb - cue.peakDb, 1), win: r2(chalkLv.rmsWinDb - cue.rmsWinDb, 1) } : null,
+        },
+        muted: { from: mutedFrom, to: mutedTo, levels: seg(full.L, mutedFrom, mutedTo), suspendCalledAt: full.calls.filter((x) => x[0] === 'suspend').map((x) => x[1]) },
+        afterUnmute: seg(full.L, SHOT.unmuteAt + 0.4, SHOT.seconds - 0.05),
+        service: { errors: full.state.errors, notes: full.state.notes, off: full.state.off, sources: full.state.sources, chalk: full.state.chalk, seed: full.state.seed, seedFrom: full.state.seedFrom },
+        sfxMode: { bedSources: sfx.state.sources.bedSources, far: sfx.state.far.scheduled, chalkPlayed: sfx.state.chalk.played, beforeChalk: seg(sfx.L, 0.5, S - 0.1) },
+      };
+      return { full, sfx, appStem, rep };
+    };
+    if (wantHigh) { shots.high = await stage((t) => (t >= SHOT.bankAt ? realEntries : []), app.bank); report.shot = shots.high.rep; }
+    if (wantLow) { shots.low = await stage(() => [], null); report.shotLow = shots.low.rep; }
+  }
+
+  // a recording: one offline render as a WAV (see the header of this page)
+  let wav = null;
+  if (view === 'wav') {
+    if (!WAV_NAMES[wavFile]) throw new Error(`no recording named ${wavFile}`);
+    let L, R, what;
+    const shotFacts = (sr) => ({ appVoicing: sr.appVoicing, states: sr.states, script: sr.script, contextCalls: sr.contextCalls, voicing: { level: sr.voicing.level, provenAt: sr.voicing.provenAt, steppedAt: sr.voicing.steppedAt }, chalk: { take: sr.chalk.plan.variant, start: sr.chalk.start, end: sr.chalk.end }, appLastSoundEnds: sr.app.lastSoundEnds, far: sr.room.far, errors: sr.service.errors });
+    if (wavFile === '01') {
+      const room = await renderRoom(assets, 60, { trim: HIGH, volume: SHOT.volume, fade: 1.0 });
+      L = room.L; R = room.R;
+      what = { step: 'high', appVolume: SHOT.volume, planSeed: seed, farSounds: room.events.map((e) => ({ t: r2(e.t, 2), kind: e.kind, take: e.variant, gainDb: r2(e.gainDb, 1) })), loopsWrapAt: [BED.seconds[0], BED.seconds[1]] };
+    } else if (wavFile === '02' || wavFile === '03') {
+      const run = wavFile === '02' ? shots.high : shots.low;
+      if (!run) throw new Error('the app\'s sound modules did not load: no staged shot');
+      L = add(run.full.L, run.appStem.L); R = add(run.full.R, run.appStem.R);
+      what = { appVolume: SHOT.volume, planSeed: seed, ...shotFacts(run.rep) };
+    } else if (wavFile === '04') {
+      if (!app.synth) throw new Error('the app\'s sound modules did not load');
+      const stem = await stagedApp(app, appVoices, profile, app.bank);
+      L = stem.L; R = stem.R;
+      what = { appVolume: SHOT.volume, appVoicing: app.bank ? 'recorded bank' : 'modal fallback', strikeAt: SHOT.strikeAt, service: 'off: nothing of the club audio service is in this file', spans: M.activeSpans(stem.L, RATE, -75, 0.08) };
+    } else {
+      // every take once on the high step: the far takes at their place's pan and loudest plan level, then the chalk takes; a second of silence between two
+      let t = 0.5;
+      const index = takes.map((tk) => { const at = t; t += tk.t.seconds + 1.0; return { name: tk.name, start: r2(at, 3), end: r2(at + tk.t.seconds, 3) }; });
+      const oc = new OfflineAudioContext(2, Math.round((t - 0.5) * RATE), RATE);
+      const graph = buildGraph(oc, assets, plan.LEVELS, { trim: HIGH });
+      graph.out.gain.value = SHOT.volume;
+      takes.forEach((tk, i) => {
+        const v = Number(tk.name.split(' ').pop());
+        if (tk.kind === 'chalk') graph.playChalk({ variant: v, rate: 1, gainDb: 0, pan: 0 }, index[i].start);
+        else graph.playFar({ kind: tk.kind, variant: v, rate: 1, gainDb: 0 }, index[i].start, plan.FAR_KINDS[tk.kind].pan0);
+      });
+      const buf = await oc.startRendering();
+      L = buf.getChannelData(0); R = buf.getChannelData(1);
+      what = { step: 'high', appVolume: SHOT.volume, takes: index };
+    }
+    const enc = encodeWav(L, R, RATE);
+    window.__wavB64 = toBase64(enc.bytes);
+    wav = { file: wavFile, name: WAV_NAMES[wavFile], bytes: enc.bytes.length, seconds: r2(L.length / RATE, 3), rate: RATE, channels: 2, bits: 16, clipped: enc.clipped, fnv1a: fnv1a(enc.bytes), chars: window.__wavB64.length, levels: { L: M.levels(L, RATE), R: M.levels(R, RATE) }, what, L, R };
+    window.__wav = { ...wav, L: undefined, R: undefined };
+  }
+
+  // ---- pictures ----
+  const refLines = (ax, x, w) => { if (!ref) return; hline(ax, x, w, ref.peakDb, '#ff6b6b', `app ball-ball (medium) peak ${ref.peakDb}`); hline(ax, x, w, ref.rmsWinDb, '#ffa94d', `app ball-ball 50 ms RMS ${ref.rmsWinDb}`); };
+  if (view === 'wav' && wav) {
+    text(`club audio recording ${wav.name}: an OFFLINE render (not a device recording), 16-bit, 48 kHz, stereo, ${wav.seconds} s, ${wav.bytes} bytes, fnv1a ${wav.fnv1a}`, 40, 18, '#ffffff', 13);
+    spectrogram(M.mono([wav.L, wav.R]), RATE, 40, 28, 1200, 300, { lo: -125, hi: -40, size: 2048 });
+    const ax = levelAxes(40, 372, 1200, 250, 0, wav.seconds, -110, 0, 'dBFS, 20 ms RMS: blue = left, orange = right');
+    const c20 = (d) => M.curve(d, RATE, 0.02).map((pt) => [ax.tx(pt.t + 0.01), pt.rmsDb === null ? NaN : ax.dy(pt.rmsDb)]);
+    line(c20(wav.L), '#4dabf7', 1.2); line(c20(wav.R), '#ffa94d', 1);
+    text(`left: peak ${wav.levels.L.peakDb} dBFS, RMS ${wav.levels.L.rmsDb}; right: peak ${wav.levels.R.peakDb}, RMS ${wav.levels.R.rmsDb}; clipped samples ${wav.clipped}; app volume ${SHOT.volume}`, 40, 656, '#d8dadf', 12);
+    text(JSON.stringify(wav.what).slice(0, 190), 40, 676, '#8b8f98', 11);
+    text(JSON.stringify(wav.what).slice(190, 380), 40, 692, '#8b8f98', 11);
+  } else if (view === 'bed') {
+    const sum = M.mono([add(bedOnly.L, farOnly.L), add(bedOnly.R, farOnly.R)]);
+    text(`club audio: 60 s of the room (tone + far sounds) on the HIGH step, app volume 1, plan seed ${seed} (the low step is ${plan.LOW_TRIM.roomDb} dB under).  Nobody has listened to this.`, 40, 18, '#ffffff', 13);
+    spectrogram(sum, RATE, 40, 28, 1200, 330, { lo: -125, hi: -62, size: 4096 });
+    const ax = levelAxes(40, 380, 1200, 250, 0, 60, -100, 0, 'dBFS per second: line = RMS, dots = sample peak (left channel)');
+    const cu = M.curve(add(bedOnly.L, farOnly.L), RATE, 1), cb = M.curve(bedOnly.L, RATE, 1);
+    line(cb.map((p) => [ax.tx(p.t + 0.5), ax.dy(p.rmsDb)]), '#4dabf7', 1.6);
+    line(cu.map((p) => [ax.tx(p.t + 0.5), ax.dy(p.rmsDb)]), '#e9ecef', 1);
+    g2.fillStyle = '#e9ecef'; for (const p of cu) g2.fillRect(ax.tx(p.t + 0.5) - 1, ax.dy(p.peakDb) - 1, 3, 3);
+    refLines(ax, 40, 1200);
+    hline(ax, 40, 1200, plan.LEVELS.bedRmsDb, '#4dabf7', `LEVELS.bedRmsDb ${plan.LEVELS.bedRmsDb}`);
+    for (const e of bedOnly.events) { g2.fillStyle = '#69db7c'; g2.fillRect(Math.round(ax.tx(e.t)), 380, 1, 250); text(`${e.kind}${e.variant}`, ax.tx(e.t) + 3, 624, '#69db7c', 10); g2.fillRect(40 + Math.round(e.t / 60 * 1200), 28, 1, 6); }
+    for (const [t, name] of [[BED.seconds[0], 'loop A wraps'], [BED.seconds[1], 'loop B wraps']]) { g2.fillStyle = '#b197fc'; g2.fillRect(Math.round(ax.tx(t)), 380, 1, 12); text(name, ax.tx(t) + 3, 392, '#b197fc', 10); }
+    const b = table[0];
+    text(`room tone L: RMS ${b.rmsDb} dBFS, peak ${b.peakDb}, centroid ${b.centroidHz} Hz; octave bands re 1 kHz: ${Object.entries(b.bandsDb).filter(([, v]) => v !== null).map(([f, v]) => `${f}:${v}`).join('  ')}`, 40, 664, '#d8dadf', 12);
+    text(ref ? `app medium ball-ball (${report.reference.used.voicing}): peak ${ref.peakDb} dBFS, loudest 50 ms RMS ${ref.rmsWinDb}.  Room tone: RMS ${r2(b.rmsDb - ref.rmsWinDb, 1)} dB against that RMS, peak ${r2(b.peakDb - ref.peakDb, 1)} dB against that peak.` : 'no app reference on this page', 40, 684, '#ffa94d', 12);
+    text(`buffers: ${report.buffers.bed}, ${report.buffers.bedBytes} bytes; far takes ${report.buffers.farBytes} bytes; chalk takes ${report.buffers.chalkBytes} bytes; far sounds in 10 min: ${report.farPlan.in10min}`, 40, 704, '#8b8f98', 12);
+  } else if (view === 'takes') {
+    text(`club audio: every take through the graph at its loudest plan level, louder channel (app volume 1).  100 Hz to 12 kHz, -125 to -55 dBFS.  Nobody has listened to this.`, 20, 18, '#ffffff', 13);
+    const cols = 6, cw = 206, ch = 160;
+    takes.forEach((tk, i) => {
+      const x = 20 + (i % cols) * (cw + 4), y = 30 + Math.floor(i / cols) * (ch + 68);
+      spectrogram(tk.data.subarray(0, Math.round(1.3 * RATE)), RATE, x, y, cw, ch, { fLo: 100, fHi: 12000, lo: -125, hi: -55, size: 1024 });
+      const m = tk.row;
+      text(tk.name, x, y + ch + 14, tk.kind === 'chalk' ? '#ffa94d' : '#69db7c', 12);
+      text(`pk ${m.peakDb}  rms ${m.rmsDb}`, x, y + ch + 28, '#d8dadf', 11);
+      text(`50ms ${m.rmsWinDb}  ${m.activeSec} s`, x, y + ch + 42, '#d8dadf', 11);
+      text(`harmonic stack: ${m.stack.flagged ? 'YES' : 'none'} (run ${m.stack.maxRun})`, x, y + ch + 56, m.stack.flagged ? '#ff6b6b' : '#8b8f98', 11);
+    });
+    text(`levels are the HIGH step; the low step is ${plan.LOW_TRIM.roomDb} dB (far) / ${plan.LOW_TRIM.chalkDb} dB (chalk) under it.  harmonic stack = 3+ consecutive harmonics of a 70-400 Hz fundamental in 300-3000 Hz for 85 ms.  each cell: 1.3 s`, 20, 712, '#ffa94d', 12);
+  } else if ((view === 'shot' && shots.high) || (view === 'shotlow' && shots.low)) {
+    const run = view === 'shot' ? shots.high : shots.low, sr = run.rep;
+    const sumL = add(run.full.L, run.appStem.L);
+    text(`club audio: a staged shot through the real service code over an offline clock (app volume ${SHOT.volume}; the app's voices: ${sr.appVoicing}).  Nobody has listened to this.`, 40, 18, '#ffffff', 13);
+    spectrogram(sumL, RATE, 40, 28, 1200, 300, { lo: -125, hi: -40, size: 2048 });
+    const ax = levelAxes(40, 372, 1200, 250, 0, SHOT.seconds, -110, 0, 'dBFS, 20 ms RMS (left channel): white = the app\'s voices, blue = this service (room + chalk), orange = chalk alone');
+    const c20 = (d) => M.curve(d, RATE, 0.02).map((p) => [ax.tx(p.t + 0.01), p.rmsDb === null ? NaN : ax.dy(p.rmsDb)]);
+    line(c20(run.full.L), '#4dabf7', 1.2); line(c20(run.sfx.L), '#ffa94d', 1.2); line(c20(run.appStem.L), '#f1f3f5', 1.2);
+    const sts = sr.states;
+    sts.forEach(([t, name], i) => { const t1 = i + 1 < sts.length ? sts[i + 1][0] : SHOT.seconds; g2.fillStyle = name === 'PLAYBACK' ? 'rgba(255,107,107,0.75)' : name === 'AIM' ? 'rgba(105,219,124,0.55)' : 'rgba(180,180,180,0.6)'; g2.fillRect(ax.tx(t), 340, Math.max(1, ax.tx(t1) - ax.tx(t)), 10); if (ax.tx(t1) - ax.tx(t) > 40) text(name, ax.tx(t) + 3, 362, '#d8dadf', 10); });
+    g2.fillStyle = 'rgba(255,255,255,0.10)'; g2.fillRect(ax.tx(SHOT.muteAt), 372, ax.tx(SHOT.unmuteAt) - ax.tx(SHOT.muteAt), 250); text('app muted', ax.tx(SHOT.muteAt) + 4, 400, '#d8dadf', 11);
+    for (const [name, t] of sr.contextCalls.filter((x) => x[1] > 1)) { g2.fillStyle = '#b197fc'; g2.fillRect(Math.round(ax.tx(t)), 372, 1, 250); text(`context ${name}`, ax.tx(t) + 3, 414, '#b197fc', 10); }
+    const vz = sr.voicing;
+    if (vz.provenAt !== null) { g2.fillStyle = '#69db7c'; g2.fillRect(Math.round(ax.tx(vz.provenAt)), 372, 1, 250); text('bank proven', ax.tx(vz.provenAt) + 3, 428, '#69db7c', 10); }
+    if (vz.steppedAt !== null) { g2.fillStyle = '#69db7c'; g2.fillRect(Math.round(ax.tx(vz.steppedAt)), 372, 1, 250); text('level steps up', ax.tx(vz.steppedAt) + 3, 442, '#69db7c', 10); }
+    text(`level step: ${vz.level} (bank proven: ${vz.bankProven}${vz.provenAt !== null ? ` at ${r2(vz.provenAt, 2)} s, stepped up at ${r2(vz.steppedAt, 2)} s` : `; last check: ${vz.last?.why}`}).  room at the low step RMS ${sr.room.atLowStep.rmsDb}, before the shot ${sr.room.beforeShot.rmsDb}, under the playback ${sr.room.underPlayback.rmsDb}`, 40, 650, '#d8dadf', 12);
+    text(`strike at ${SHOT.strikeAt} s; the app's last sound ends at ${sr.app.lastSoundEnds} s; chalk (take ${sr.chalk.plan.variant}) ${sr.chalk.start} to ${sr.chalk.end} s: ${sr.silenceBetweenAppAndChalk} s after it; overlap with the app's voices ${sr.chalkOverlapWithAppSeconds} s`, 40, 666, '#d8dadf', 12);
+    text(`app click peak ${sr.app.click.peakDb} / 50 ms ${sr.app.click.rmsWinDb}; room before the shot peak ${sr.room.beforeShot.peakDb} / 50 ms ${sr.room.beforeShot.rmsWinDb}; chalk peak ${sr.chalk.levels?.peakDb} / 50 ms ${sr.chalk.levels?.rmsWinDb}`, 40, 682, '#ffa94d', 12);
+    text(`against the click: room ${sr.margins.roomVsClick.peak} dB (peak) ${sr.margins.roomVsClick.win} dB (50 ms); chalk ${sr.margins.chalkVsClick?.peak} dB (peak) ${sr.margins.chalkVsClick?.win} dB (50 ms).  against the cue strike: room ${sr.margins.roomVsCue.win} dB, chalk ${sr.margins.chalkVsCue?.win} dB (50 ms)`, 40, 698, '#ffa94d', 12);
+    text(`muted: peak ${sr.muted.levels.peakDb}, suspended at ${sr.muted.suspendCalledAt.join(', ')} s; after unmute RMS ${sr.afterUnmute.rmsDb}.  app rolling alone RMS ${sr.appRolling.afterHit.rmsDb} / ${sr.appRolling.afterRail.rmsDb}.  sfx mode: bed ${sr.sfxMode.bedSources}, far ${sr.sfxMode.far}, chalk ${sr.sfxMode.chalkPlayed}.  errors ${sr.service.errors.length}`, 40, 714, '#8b8f98', 12);
+  } else {
+    text(`club audio: both steps of the service against both voicings of the app's medium ball-ball voice (dBFS, app volume 1; takes through the graph, louder channel).  Nobody has listened to this.`, 20, 18, '#ffffff', 13);
+    let y = 38;
+    const xs = [20, 250, 310, 370, 440, 510, 590, 650, 720, 800, 900];
+    const put = (cells, colour) => { cells.forEach((c, i) => text(String(c ?? ''), xs[i], y, colour, 11)); y += 14; };
+    put(['', 'HIGH step (bank proven)', '', 'vs bank click', '', 'LOW step (default)', '', 'vs FALLBACK click', '', 'high vs fallback', 'harmonic stack'], '#8b8f98');
+    put(['sound', 'peak', '50 ms', 'peak', '50 ms', 'peak', '50 ms', 'peak', '50 ms', 'peak / 50 ms', '(run)'], '#8b8f98');
+    for (const [type, v] of Object.entries(report.reference.voices ?? {})) put([`app ${type} (gain ${v.gain})`, v.bank?.peakDb ?? '', v.bank?.rmsWinDb ?? '', '', '', v.synth.peakDb, v.synth.rmsWinDb, '', '', '', 'bank | fallback'], '#f1f3f5');
+    for (const m of table) {
+      const bad = m.lowVsFallback && (m.lowVsFallback.peak > -6 || m.lowVsFallback.win > -6);
+      put([m.name.replace(' (louder channel)', ''), m.peakDb, m.rmsWinDb, m.highVsBank?.peak, m.highVsBank?.win, m.low.peakDb, m.low.rmsWinDb, m.lowVsFallback?.peak, m.lowVsFallback?.win, m.highVsFallback ? `${m.highVsFallback.peak} / ${m.highVsFallback.win}` : '', m.stack ? `${m.stack.flagged ? 'YES' : 'none'} (${m.stack.maxRun})` : ''],
+        bad ? '#ff6b6b' : m.name.startsWith('chalk') ? '#ffa94d' : m.name.startsWith('far') ? '#69db7c' : '#4dabf7');
+    }
+    y += 6;
+    const b = report.bank;
+    text(`bank test in this engine: before the load proven=${b.before.proven} (${b.before.why}); after: proven=${b.after.proven} (${b.after.why}); entries ${b.resourceEntries}; an entry: ${JSON.stringify(b.anEntry)}`.slice(0, 205), 20, y, '#d8dadf', 11); y += 14;
+    text(`the same entries with one file failed: proven=${b.oneFileFailed}; without a status: proven=${b.withoutStatus}.  low step measured: room ${report.lowStep.room.measuredStepDb} dB, chalk ${report.lowStep.chalk0.measuredStepDb} dB under the high step`, 20, y, '#d8dadf', 11); y += 14;
+    text(`speech check: flagged ${JSON.stringify(report.speechCheck.flagged)}; far kinds ${report.speechCheck.farKinds.join(', ')}; bed loops ${JSON.stringify(report.speechCheck.bed)}`.slice(0, 205), 20, y, '#d8dadf', 11); y += 14;
+    if (report.shotLow) { const m = report.shotLow.margins; text(`staged shot, no proof, the app on its fallback (volume 0.8): room vs click ${m.roomVsClick.peak} / ${m.roomVsClick.win} dB, chalk vs click ${m.chalkVsClick?.peak} / ${m.chalkVsClick?.win} dB (peak / 50 ms); level ${report.shotLow.voicing.level}`, 20, y, '#ffa94d', 11); y += 14; }
+    if (report.shot) { const m = report.shot.margins; text(`staged shot, bank proven at ${r2(report.shot.voicing.provenAt, 2)} s, stepped up at ${r2(report.shot.voicing.steppedAt, 2)} s (volume 0.8): room vs click ${m.roomVsClick.peak} / ${m.roomVsClick.win} dB, chalk vs click ${m.chalkVsClick?.peak} / ${m.chalkVsClick?.win} dB`, 20, y, '#ffa94d', 11); y += 14; }
+    text(`latch in this engine: ${JSON.stringify(report.latch)}`.slice(0, 205), 20, y, '#8b8f98', 11); y += 14;
+    for (const h of report.reference.how) { text(h.slice(0, 200), 20, y, '#8b8f98', 11); y += 14; }
+  }
+}
+
+main().catch((e) => {
+  report.error = String(e?.stack ?? e);
+  text(`error: ${report.error}`.slice(0, 180), 20, H - 20, '#ff6b6b', 12);
+}).finally(() => { window.__ready = true; });
+</script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: occlusion and shadow</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<base href="../../">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from './vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { TIERS, pickTier } from './scene/club/tiers.js';
+import { createAdopt } from './scene/club/adopt.js';
+import { createOcclusion } from './scene/club/occlusion.js';
+
+const q = new URLSearchParams(location.search);
+const t0 = performance.now();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+RectAreaLightUniformsLib.init();
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x050505);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.02, 60);
+const VIEWS = {
+  nose: [[0.42, 0.075, 0.33], [0.05, 0.012, 0.63], 22],
+  nosem: [[0.42, 0.075, -0.33], [0.05, 0.012, -0.63], 22],     // the same on the -z side
+  body: [[-2.6, 0.25, 2.3], [0.2, -0.25, 0.3], 34],            // the table body: aprons, skirt, legs
+  side: [[0.25, 0.22, 0.25], [0.0, 0.02, 0.66], 26],          // V5
+  pocket: [[0.85, 0.28, 0.25], [1.27, 0.0, 0.635], 28],       // V4
+  sidepocket: [[0.22, 0.2, 0.3], [0.0, 0.0, 0.66], 30],
+  rail: [[0.05, 0.115, 0.75], [0.5, 0.045, 0.6], 26],         // V6
+  cue: [[-1.35, 0.32, 0.22], [0.2, 0.0, 0.0], 32],            // V2
+  cuetop: [[-0.75, 0.55, 0.42], [-0.55, 0.0, 0.0], 30],
+  cueside: [[-0.62, 0.11, 0.42], [-0.62, 0.02, 0.0], 30],
+  ball: [[-0.36, 0.2, 0.3], [-0.55, 0.0, 0.05], 22],          // the cue ball's contact shadow and the cue's shadow near the tip
+  play: [[-2.3, 1.05, 1.35], [0.1, 0.0, 0.0], 40],            // V1
+  wide: [[-4.0, 1.6, 2.6], [0.0, 0.3, 0.0], 50],              // V9
+  floor: [[-3.3, 0.35, 2.6], [0.0, -0.6, 0.0], 44],
+  under: [[-2.6, -0.45, 1.9], [0.0, -0.35, 0.0], 40],
+  top: [[0.0, 0.99, 0.0001], [0.0, 0.0, 0.0], 118],
+};
+const viewName = q.get('view') ?? 'side';
+let [pos, tgt, fov] = VIEWS[viewName] ?? VIEWS.side;
+if (q.get('cam')) { const c = q.get('cam').split(',').map(Number); if (c.length >= 6 && c.every(Number.isFinite)) { pos = c.slice(0, 3); tgt = c.slice(3, 6); fov = c[6] ?? 30; } }
+camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+
+const note = {};
+// ---- the app's room (lamp, lights, floor) and table, read-only ----
+const shadingMod = await import('./scene/shading.js');
+const roomMod = await import('./scene/room.js');
+const tableMod = await import('./scene/table.js');
+const shared = shadingMod.createShared({ lightPos: roomMod.LIGHT_POS, roomMin: roomMod.ROOM.min, roomMax: roomMod.ROOM.max });
+const room = roomMod.buildRoom({ envBinding: false });
+scene.add(room.group);
+if (room.lightRefs?.blob) room.lightRefs.blob.visible = false; // the app's painted floor blob: the floor map replaces it
+const tableId = q.get('table') ?? 'pool_pro_9ft';
+try { const prep = tableMod.buildTable.prepare?.(tableId); if (prep?.then) await prep; } catch (e) { note.prepare = String(e?.message ?? e); }
+const table = tableMod.buildTable({ shared, tableId });
+if (table.ready?.then) await table.ready;
+scene.add(table.group);
+note.table = table.group.userData?.tableId ?? null;
+
+// ---- a cue ball and the real cue ----
+const R = 0.028575;
+const cueAt = (q.get('cueat') ?? '-0.55,0.05').split(',').map(Number);
+const ballPos = new THREE.Vector3(cueAt[0], R, cueAt[1]);
+const ball = new THREE.Mesh(new THREE.SphereGeometry(R, 48, 32), new THREE.MeshStandardMaterial({ color: 0xf2efe4, roughness: 0.12 }));
+ball.position.copy(ballPos); scene.add(ball);
+shared.uSpheres.value[0].set(ballPos.x, ballPos.y, ballPos.z, R); shared.uSphereCount.value = 1; // the app's own analytic ball shadow
+if (q.get('cue') !== '0') {
+  try {
+    const cueMod = await import('./scene/cuestick.js');
+    const cue = cueMod.buildCue();
+    cueMod.poseCue(cue, ballPos, Number(q.get('cuephi') ?? 0.35), Number(q.get('cueel') ?? 5) * Math.PI / 180, Number(q.get('cuepull') ?? 0.04), 0, 0, 1 / 60, R);
+    scene.add(cue.group);
+  } catch (e) { note.cue = String(e?.message ?? e); }
+}
+// an environment the way the app makes one: a cube capture of the room from above the table (the app binds its own 512 cube)
+if (q.get('env') !== '0') {
+  const cubeRT = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+  const cubeCam = new THREE.CubeCamera(0.05, 30, cubeRT);
+  cubeCam.position.set(0, 0.45, 0);
+  ball.visible = false;
+  cubeCam.update(renderer, scene);
+  ball.visible = true;
+  scene.environment = cubeRT.texture;
+}
+if (viewName === 'top') for (const o of [room.lightRefs?.hood, room.lightRefs?.lampFace, ...(room.lightRefs?.rods ?? [])]) if (o) o.visible = false;
+
+// ---- the stand-in club object (what index.js hands a service) ----
+const frameFns = [];
+const tier = pickTier({ renderer, query: q });
+const club = {
+  enabled: true, tier, knobs: TIERS[tier], time: { value: 0 },
+  ctx: { renderer, scene, camera, table, room, gi: { uniforms: shared }, query: q },
+  onFrame(fn) { frameFns.push(fn); }, offFrame(fn) { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); },
+  room: { enabled: true, floor: { mesh: room.lightRefs?.floor, material: room.lightRefs?.floor?.material } },
+};
+club.adopt = createAdopt(club);
+const debugView = ['atlas', 'floormap', 'height', 'raw', 'profile'].includes(viewName);
+if (debugView) q.set('cluboccdebug', '1');
+let occ = { enabled: false, reason: 'occ=off' };
+if (q.get('occ') !== 'off') occ = await createOcclusion(club);
+club.occ = occ;
+window.__club = club; window.__occ = occ; window.__dev = { THREE, renderer, scene, camera, shared, table, room, note };
+// what stands within `r` of a world point: mesh names, material names and classes (which materials make a pocket)
+window.__dev.probe = (x, y, z, r = 0.09) => {
+  const out = new Map(), box = new THREE.Box3(), pt = new THREE.Vector3(x, y, z), tmp = new THREE.Vector3();
+  table.group.updateWorldMatrix(true, true);
+  table.group.traverse((o) => {
+    if (!o.isMesh || !o.geometry?.attributes?.position || o.isInstancedMesh) return;
+    const pos = o.geometry.attributes.position; let near = 0, yMin = Infinity, yMax = -Infinity;
+    const step = Math.max(1, Math.floor(pos.count / 4000));
+    for (let i = 0; i < pos.count; i += step) { tmp.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld); if (tmp.distanceTo(pt) < r) { near += 1; yMin = Math.min(yMin, tmp.y); yMax = Math.max(yMax, tmp.y); } }
+    if (!near) return;
+    for (const m of Array.isArray(o.material) ? o.material : [o.material]) {
+      let key = ''; try { key = String(m.customProgramCacheKey?.() ?? '').slice(0, 40); } catch { /* none */ }
+      const id = `${o.name || '(mesh)'} | ${m.name || m.type} | class ${m.userData?.obClass ?? '-'} | #${m.color?.getHexString?.() ?? '-'} r${m.roughness ?? '-'} | key ${key}`;
+      const e = out.get(id) ?? { near: 0, y: [Infinity, -Infinity] };
+      e.near += near; e.y = [Math.min(e.y[0], +yMin.toFixed(3)), Math.max(e.y[1], +yMax.toFixed(3))];
+      out.set(id, e);
+    }
+  });
+  return [...out].map(([id, e]) => `${id} | verts ${e.near} | y ${e.y[0]}..${e.y[1]}`);
+};
+if (occ.enabled && q.get('k')) {
+  // fixed strengths for an A/B
+  const k = q.get('k').split(',').map(Number);
+  occ.setDebug({ k: k.slice(0, 4), lamp: k[4] });
+}
+if (occ.enabled && q.get('flush') === '1') occ.flush();
+
+// ---- the maps themselves as pictures ----
+const dbgScene = new THREE.Scene();
+const dbgMat = new THREE.ShaderMaterial({
+  uniforms: { uTex: { value: null }, uTex2: { value: null }, uMode: { value: 0 }, uLine: { value: new THREE.Vector4() }, uRect: { value: new THREE.Vector4() }, uYMap: { value: new THREE.Vector2(-0.12, 0.19) } },
+  vertexShader: 'varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4( position.xy, 0.0, 1.0 ); }',
+  fragmentShader: `
+    uniform sampler2D uTex; uniform sampler2D uTex2; uniform int uMode; uniform vec4 uLine; uniform vec4 uRect; uniform vec2 uYMap; varying vec2 vUv;
+    float u16( vec2 v ) { return dot( floor( v * 255.0 + 0.5 ), vec2( 256.0, 1.0 ) ) / 65535.0; }
+    void main() {
+      if ( uMode == 3 ) {
+        // the maps along a world line: uLine = x0, z0, x1, z1; uRect = minX, minZ, 1 / sizeX, 1 / sizeZ of the table map
+        vec2 xz = mix( uLine.xy, uLine.zw, vUv.x );
+        vec2 muv = ( xz - uRect.xy ) * uRect.zw;
+        vec4 t = texture2D( uTex, muv ), hh = texture2D( uTex2, muv );
+        float band = floor( ( 1.0 - vUv.y ) * 6.0 ), val;
+        if ( band < 0.5 ) val = t.r; else if ( band < 1.5 ) val = t.g; else if ( band < 2.5 ) val = t.b; else if ( band < 3.5 ) val = t.a;
+        else { float y = uYMap.x + uYMap.y * ( band < 4.5 ? u16( hh.rg ) : u16( hh.ba ) ); val = clamp( ( y + 0.02 ) / 0.08, 0.0, 1.0 ); }
+        float edge = fract( ( 1.0 - vUv.y ) * 6.0 );
+        gl_FragColor = vec4( edge < 0.02 ? vec3( 0.6, 0.1, 0.1 ) : vec3( val ), 1.0 );
+        return;
+      }
+      vec2 cell = floor( vUv * 2.0 ), uv = fract( vUv * 2.0 );
+      uv.y = 1.0 - uv.y; // world +z toward the bottom of the screen, as seen from above with +x to the right
+      float v;
+      if ( uMode == 0 ) { vec4 t = texture2D( uTex, uv ); v = cell.y > 0.5 ? ( cell.x < 0.5 ? t.r : t.g ) : ( cell.x < 0.5 ? t.b : t.a ); }
+      else if ( uMode == 1 ) { vec4 t = cell.y > 0.5 ? texture2D( uTex, uv ) : texture2D( uTex2, uv ); v = cell.x < 0.5 ? t.r : t.g; }
+      else { vec4 t = cell.y > 0.5 ? texture2D( uTex, uv ) : texture2D( uTex2, uv ); v = cell.x < 0.5 ? u16( t.rg ) : u16( t.ba ); v = cell.y > 0.5 ? clamp( ( v - 0.5 ) * 2.5, 0.0, 1.0 ) : v; }
+      vec2 e = min( uv, 1.0 - uv );
+      gl_FragColor = vec4( min( e.x, e.y ) < 0.002 ? vec3( 0.6, 0.1, 0.1 ) : vec3( v ), 1.0 );
+    }`,
+  depthTest: false, depthWrite: false, toneMapped: false,
+});
+dbgScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), dbgMat));
+const dbgCam = new THREE.Camera();
+function drawDebug() {
+  const s = occ.scratch?.() ?? [];
+  if (viewName === 'atlas') { dbgMat.uniforms.uTex.value = occ.table.texture; dbgMat.uniforms.uMode.value = 0; }       // top: bed lamp | bed ambient; bottom: top lamp | top ambient
+  else if (viewName === 'floormap') { dbgMat.uniforms.uTex.value = occ.floor.texture; dbgMat.uniforms.uTex2.value = s[1]?.raw?.texture ?? occ.floor.texture; dbgMat.uniforms.uMode.value = 1; }
+  else if (viewName === 'profile') {
+    const ln = (q.get('pline') ?? '0.4,0.50,0.4,0.70').split(',').map(Number);
+    dbgMat.uniforms.uTex.value = occ.table.texture; dbgMat.uniforms.uTex2.value = s[0]?.height?.texture ?? null; dbgMat.uniforms.uMode.value = 3;
+    dbgMat.uniforms.uLine.value.set(ln[0], ln[1], ln[2], ln[3]);
+    dbgMat.uniforms.uRect.value.copy(occ.table.uniforms.uClubVisRect.value);
+    const yr = occ.state().heightRange; if (yr) dbgMat.uniforms.uYMap.value.set(yr[0], yr[1] - yr[0]);
+  }
+  else if (viewName === 'height') { dbgMat.uniforms.uTex.value = s[0]?.height?.texture ?? null; dbgMat.uniforms.uTex2.value = s[1]?.height?.texture ?? null; dbgMat.uniforms.uMode.value = 2; }
+  else { dbgMat.uniforms.uTex.value = s[0]?.raw?.texture ?? null; dbgMat.uniforms.uMode.value = 0; }
+  renderer.toneMapping = THREE.NoToneMapping;
+  renderer.render(dbgScene, dbgCam);
+}
+
+// ?relamp=N: after the first bake, hang N emitters through the app's own setEmitters (what a fixture change does); the service
+// must notice on its own and bake again
+let relamp = occ.enabled ? Math.max(0, Math.min(4, Number(q.get('relamp') ?? 0) | 0)) : 0;
+function hangEmitters(n) {
+  const positions = [], halves = [];
+  for (let i = 0; i < n; i++) {
+    positions.push(new THREE.Vector3(n === 1 ? 0 : -0.75 + 1.5 * i / (n - 1), 0.92, 0));
+    halves.push(new THREE.Vector2(n === 1 ? 0.5 : 0.22, 0.12));
+  }
+  shadingMod.setEmitters(shared, positions, halves);
+  shadingMod.recompileInjected?.();
+  note.relamp = n;
+}
+// ?pair=<term>: the same view twice in one frame, the term off (top strip) and on (bottom strip); every term is a uniform
+const pairTerm = q.get('pair');
+const baseOff = (q.get('cluboccoff') ?? '').split(',').filter(Boolean);
+const baseAmbient = q.get('cluboccambient') === null ? null : Number(q.get('cluboccambient'));
+function renderPair() {
+  const W = innerWidth, H = innerHeight, h2 = Math.floor(H / 2);
+  camera.aspect = W / h2; camera.updateProjectionMatrix();
+  renderer.setScissorTest(true);
+  occ.setDebug({ off: [...baseOff, pairTerm], ambient: baseAmbient });
+  renderer.setViewport(0, H - h2, W, h2); renderer.setScissor(0, H - h2, W, h2); renderer.render(scene, camera);
+  occ.setDebug({ off: baseOff, ambient: baseAmbient });
+  renderer.setViewport(0, 0, W, h2); renderer.setScissor(0, 0, W, h2); renderer.render(scene, camera);
+  renderer.setScissorTest(false); renderer.setViewport(0, 0, W, H);
+}
+let frames = 0, settled = 0, last = performance.now(), baked = !occ.enabled;
+if (occ.enabled) Promise.all([occ.table.ready, occ.floor.ready]).then(() => { baked = true; note.bakeMs = Math.round(performance.now() - t0); });
+renderer.setAnimationLoop(() => {
+  const now = performance.now();
+  const dt = Math.min(0.1, (now - last) / 1000); last = now;
+  frames += 1;
+  club.time.value += dt;
+  for (const fn of [...frameFns]) fn(club.time.value, baked ? 0.1 : dt);
+  if (baked && relamp) { hangEmitters(relamp); relamp = 0; note.relampAtBakes = occ.state().bakes; }
+  const st = occ.enabled ? occ.state() : null;
+  const baking = !!st && (st.baking || (note.relampAtBakes !== undefined && st.bakes <= note.relampAtBakes));
+  // under software GL a scene frame costs far more than a bake slice: draw the scene rarely while the maps bake
+  if (!baking || frames % 12 === 0) { if (debugView && baked && occ.enabled) drawDebug(); else if (pairTerm && occ.enabled) renderPair(); else renderer.render(scene, camera); }
+  if (baked && !baking && (!st || st.fade >= 1 || st.errors.length) && ++settled === 3) { note.readyMs = Math.round(performance.now() - t0); window.__ready = true; }
+});
+</script>
+</body>
+</html>

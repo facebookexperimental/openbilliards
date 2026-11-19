@@ -1,0 +1,506 @@
+{
+ "schema": "ball-return-assembly/1.0",
+ "table_id": "wpbsa_snooker_12ft",
+ "doc": {
+  "title": "wpbsa_snooker_12ft — pocket-assembly declaration (V18), the XW101 body",
+  "status": "DECLARATION (the snooker lane's, consumed)",
+  "revision": "r33v17-v3",
+  "date": "2026-09-07",
+  "issue": "#650 / #489 (SNK-R29)",
+  "source": "the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read",
+  "built_on": {
+   "scene_tip": "bf03b289 (ceremony merge tip; scene bytes identical through HEAD 4424eb84)",
+   "dump": "/tmp/craftr3/clay-r3o/ours-table.json"
+  },
+  "index_mapping": "pocket index = kernel order: 0 corner (−x,−z) p0 short run; 1 middle (−z) p1; 2 corner (+x,−z) p2 long run; 3 corner (−x,+z) p3 long run; 4 middle (+z) p4; 5 corner (+x,+z) p5 short run (from the export's runway first vertices)",
+  "assemblies": [
+   {
+    "index": 0,
+    "kind": "corner (−x,−z)",
+    "plate_axis_three_xz_mm": [
+     -1812.4,
+     -916.92
+    ],
+    "entry_runway": "p0-chute",
+    "pocket_assembly_mesh_names": [
+     "obPocketNet",
+     "obPocketRing",
+     "obPocketRingGather",
+     "obPocketFallWall",
+     "obPocketFallRoll",
+     "obPocketCap",
+     "obPocketLining",
+     "obPocketPlate",
+     "obPocketStitch",
+     "obPocketEmboss",
+     "obPocketShade",
+     "obPocketMouthShade"
+    ],
+    "hardware_centroids_xz": {
+     "slide_ring": [
+      -1811.5,
+      -916.9
+     ],
+     "strap": [
+      -1542.4,
+      -946.9
+     ],
+     "strap_plate": [
+      -1541.5,
+      -942.4
+     ],
+     "track": [
+      -1657.1,
+      -916.5
+     ]
+    },
+    "table_body_near": {
+     "obPocketBoard_centroid_xz": [
+      -1692.1,
+      -796.6
+     ],
+     "note": "corner boards 460 × 250 × 16 at 45°, centre 120.3 mm inboard of the plate axis on both axes; middle boards 380 wide along x at |z| 734.6-750.6"
+    }
+   },
+   {
+    "index": 1,
+    "kind": "middle (−z)",
+    "plate_axis_three_xz_mm": [
+     0.0,
+     -940.59
+    ],
+    "entry_runway": "p1-chute",
+    "pocket_assembly_mesh_names": [
+     "obPocketNet",
+     "obPocketRing",
+     "obPocketRingGather",
+     "obPocketFallWall",
+     "obPocketFallRoll",
+     "obPocketCap",
+     "obPocketLining",
+     "obPocketPlate",
+     "obPocketStitch",
+     "obPocketValance",
+     "obPocketShade",
+     "obPocketMouthShade"
+    ],
+    "hardware_centroids_xz": {
+     "slide_ring": [
+      0.9,
+      -940.6
+     ],
+     "strap": [
+      -274.0,
+      -970.6
+     ],
+     "strap_plate": [
+      -273.1,
+      -966.1
+     ],
+     "track": [
+      -157.3,
+      -940.2
+     ]
+    },
+    "table_body_near": {
+     "obPocketBoard_centroid_xz": [
+      0.0,
+      -742.6
+     ],
+     "note": "corner boards 460 × 250 × 16 at 45°, centre 120.3 mm inboard of the plate axis on both axes; middle boards 380 wide along x at |z| 734.6-750.6"
+    }
+   },
+   {
+    "index": 2,
+    "kind": "corner (+x,−z)",
+    "plate_axis_three_xz_mm": [
+     1812.4,
+     -916.92
+    ],
+    "entry_runway": "p2-chute",
+    "pocket_assembly_mesh_names": [
+     "obPocketNet",
+     "obPocketRing",
+     "obPocketRingGather",
+     "obPocketFallWall",
+     "obPocketFallRoll",
+     "obPocketCap",
+     "obPocketLining",
+     "obPocketPlate",
+     "obPocketStitch",
+     "obPocketEmboss",
+     "obPocketShade",
+     "obPocketMouthShade"
+    ],
+    "hardware_centroids_xz": {
+     "slide_ring": [
+      1813.3,
+      -916.9
+     ],
+     "strap": [
+      1365.4,
+      -946.9
+     ],
+     "strap_plate": [
+      1366.3,
+      -942.4
+     ],
+     "track": [
+      1569.2,
+      -916.5
+     ]
+    },
+    "table_body_near": {
+     "obPocketBoard_centroid_xz": [
+      1692.1,
+      -796.6
+     ],
+     "note": "corner boards 460 × 250 × 16 at 45°, centre 120.3 mm inboard of the plate axis on both axes; middle boards 380 wide along x at |z| 734.6-750.6"
+    }
+   },
+   {
+    "index": 3,
+    "kind": "corner (−x,+z)",
+    "plate_axis_three_xz_mm": [
+     -1812.4,
+     916.92
+    ],
+    "entry_runway": "p3-chute",
+    "pocket_assembly_mesh_names": [
+     "obPocketNet",
+     "obPocketRing",
+     "obPocketRingGather",
+     "obPocketFallWall",
+     "obPocketFallRoll",
+     "obPocketCap",
+     "obPocketLining",
+     "obPocketPlate",
+     "obPocketStitch",
+     "obPocketEmboss",
+     "obPocketShade",
+     "obPocketMouthShade"
+    ],
+    "hardware_centroids_xz": {
+     "slide_ring": [
+      -1811.5,
+      916.9
+     ],
+     "strap": [
+      -1365.4,
+      946.9
+     ],
+     "strap_plate": [
+      -1364.5,
+      942.4
+     ],
+     "track": [
+      -1569.2,
+      917.3
+     ]
+    },
+    "table_body_near": {
+     "obPocketBoard_centroid_xz": [
+      -1692.1,
+      796.6
+     ],
+     "note": "corner boards 460 × 250 × 16 at 45°, centre 120.3 mm inboard of the plate axis on both axes; middle boards 380 wide along x at |z| 734.6-750.6"
+    }
+   },
+   {
+    "index": 4,
+    "kind": "middle (+z)",
+    "plate_axis_three_xz_mm": [
+     0.0,
+     940.59
+    ],
+    "entry_runway": "p4-chute",
+    "pocket_assembly_mesh_names": [
+     "obPocketNet",
+     "obPocketRing",
+     "obPocketRingGather",
+     "obPocketFallWall",
+     "obPocketFallRoll",
+     "obPocketCap",
+     "obPocketLining",
+     "obPocketPlate",
+     "obPocketStitch",
+     "obPocketValance",
+     "obPocketShade",
+     "obPocketMouthShade"
+    ],
+    "hardware_centroids_xz": {
+     "slide_ring": [
+      0.9,
+      940.6
+     ],
+     "strap": [
+      274.0,
+      970.6
+     ],
+     "strap_plate": [
+      274.9,
+      966.1
+     ],
+     "track": [
+      157.3,
+      941.0
+     ]
+    },
+    "table_body_near": {
+     "obPocketBoard_centroid_xz": [
+      0.0,
+      742.6
+     ],
+     "note": "corner boards 460 × 250 × 16 at 45°, centre 120.3 mm inboard of the plate axis on both axes; middle boards 380 wide along x at |z| 734.6-750.6"
+    }
+   },
+   {
+    "index": 5,
+    "kind": "corner (+x,+z)",
+    "plate_axis_three_xz_mm": [
+     1812.4,
+     916.92
+    ],
+    "entry_runway": "p5-chute",
+    "pocket_assembly_mesh_names": [
+     "obPocketNet",
+     "obPocketRing",
+     "obPocketRingGather",
+     "obPocketFallWall",
+     "obPocketFallRoll",
+     "obPocketCap",
+     "obPocketLining",
+     "obPocketPlate",
+     "obPocketStitch",
+     "obPocketEmboss",
+     "obPocketShade",
+     "obPocketMouthShade"
+    ],
+    "hardware_centroids_xz": {
+     "slide_ring": [
+      1813.3,
+      916.9
+     ],
+     "strap": [
+      1542.4,
+      946.9
+     ],
+     "strap_plate": [
+      1543.3,
+      942.4
+     ],
+     "track": [
+      1657.1,
+      917.3
+     ]
+    },
+    "table_body_near": {
+     "obPocketBoard_centroid_xz": [
+      1692.1,
+      796.6
+     ],
+     "note": "corner boards 460 × 250 × 16 at 45°, centre 120.3 mm inboard of the plate axis on both axes; middle boards 380 wide along x at |z| 734.6-750.6"
+    }
+   }
+  ],
+  "table_body_conflicts_on_tip": {
+   "S-BOARD": {
+    "where": "corners p0/p2/p3/p5",
+    "mesh": "obPocketBoard",
+    "min_clearance_mm": {
+     "V16 convention (s ≤ wall_s, normal seat)": {
+      "p0/p5": -16.2,
+      "p2/p3": -26.1
+     },
+     "at the rest station": {
+      "p0/p5": -16.1,
+      "p2/p3": -26.1
+     },
+     "R3c.32 straight-run census (vertical seat)": {
+      "export_lateral": -11.7,
+      "plate_axis_lateral": -21.8
+     }
+    },
+    "owner": "snooker lane (ours) — retire or re-derive in #637's next byte round (ruling §R3c.32.7); the chute does not move for it"
+   },
+   "MID-SOFFIT": {
+    "where": "middles p1/p4 (s = 0, the entry station)",
+    "mesh": "obSnkSoffit — the rail underside slab under the recess step: 129-137 under the rail top (railBandBot 129 PHOTO; the 8 mm thickness is the construction's own class), |z| 835.1-1010.1; on each long side TWO objects x[−1581.1, −41.9] and x[41.9, 1581.1] — an 83.8 mm GAP at the middle pocket; the ±106 x-figure of the first draft was the end triangles' extent, not a span",
+    "min_clearance_mm": {
+     "vertical seat": -12.6,
+     "V16 convention": -14.6
+    },
+    "mechanism": "the entry ball sits at the gap's edge in plan: under the vertical seat (centre x −30, top 117.5 under) the interference is the slab's inboard END EDGE at x ±41.9 clipping the sphere (nearest point the bottom arris (−41.9, −96.8): −12.6); under V16's seat (centre x −45.4, 3.5 mm outboard of the edge, top 122.4 under) the slab IS overhead and the nearest point is the underside straight above (137 − 122.4 = −14.6). The first draft's '19.5 mm inside the slab' and 'about 55 mm below after the lead' were wrong: 55 was the WIRE line's clearance, not the ball top's.",
+    "re_derived_entry_vs_the_soffit": {
+     "law": "ring plane 162 + L_v → the wire line at the run start; ball top = wire − 26.53 (vertical seat) or − 21.6 (V16 seat on the ~36° slope) − 26.25",
+     "L_v 30": {
+      "ball_top_under": [
+       139.2,
+       144.2
+      ],
+      "vs_underside_137": "2.2 / 7.2 mm below (clear, marginal)"
+     },
+     "L_v 22": {
+      "ball_top_under": [
+       131.2,
+       136.2
+      ],
+      "vs_underside_137": "5.8 / 0.85 mm ABOVE (still clipping)"
+     },
+     "L_v 44": {
+      "ball_top_under": [
+       153.2,
+       158.2
+      ],
+      "vs_underside_137": "16.2 / 21.2 mm below"
+     },
+     "plan": "the drop at the rim (x ±44 from the axis on the PHOTO OD 88; ±48 on the BUILT ring, outer diameter 96) puts the entry ball's centre 2-6 mm outboard of the slab's end edge (±41.9), i.e. under the slab in plan: the HEIGHT governs",
+     "constraint_for_their_re_derivation": "ball top ≥ 137 under while |x| > 41.9 − r, i.e. L_v ≥ 27.8 (vertical seat) / 22.9 (V16 seat: 137 + 21.6 + 26.25 − 162 = 22.85) at ring 162; the ring's own ±15 band moves this one-for-one"
+    },
+    "owner": "ballreturn lane — the chute moves (SNK-R25/R27 re-derivation) against a table-body constraint that is MODEL/PHOTO and stays; the constraint is tight, not removed by the lead"
+   }
+  },
+  "unnamed_meshes_near_the_assemblies": {
+   "list": "obTable/Mesh@1..@6 = the six cushion cloth bodies (BufferGeometry 4406/5972 tris, hex 041d08); obTable/Mesh@7..@12 = the six rail planks (ExtrudeGeometry 1028/1460 tris, hex 6f7a72); obTable/Mesh@0 = the bed cloth",
+   "v16": "named by parent/geometry/world box in their refusal text; all above the cull line for these runways; naming them is a byte-round item (no bytes now)",
+   "dump_scope": "the dump carries geometry for 219 of 271 inventory entries; obPocketShade and obPocketMouthShade are inventory-only (visible, inTable) and were read from the code"
+  },
+  "note": "one entry per merged mesh name (every mesh is ONE object across the six assemblies; attribution stays by station in V16's read); solid_simplification false on every assembly mesh (the net is real perforated cords) — the one true flag of the source, the strap iron, is hardware and lives in the V17 companion"
+ },
+ "meshes": [
+  {
+   "id": "asm-net",
+   "kind": "net",
+   "name": "obPocketNet",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — the ball ENTERS the bag and leaves through the slide ring; {\"cell_cord_knot\": \"MODEL (Magnum: cell side 11.90 median, cord Ø 2.16, 178 measured knots) (6899-6900, 7226)\", \"drape\": \"MODEL M2 re-applied on OUR datum as offsets (DERIVED) (6936-6961)\", \"bottom\": \"PHOTO: ends in the XW101 slide ring 162 under / OD 88 (28247-28250)\", \"band_tail\": \"OPEN (montage unscaled; the Magnum has no tail) (6885-6886)\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  },
+  {
+   "id": "asm-ring",
+   "kind": "ring",
+   "name": "obPocketRing",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — the ball falls through it (throat); {\"class\": \"OPEN (ledger item 10): W-series class, no MODEL support, no XW101 frame sees inside the boot; corner plane = the signed E10 plane −62.5 (28181-28185)\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  },
+  {
+   "id": "asm-ringgather",
+   "kind": "other",
+   "name": "obPocketRingGather",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — adjacent (decorative studs on the mouth ring); {\"class\": \"OPEN montage bosses (28191)\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  },
+  {
+   "id": "asm-fallwall",
+   "kind": "other",
+   "name": "obPocketFallWall",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — the ball falls past it; {\"depth\": \"MFR 50 mm slab (middle 52 = slab + cloth lip; corner 30 = the kernel throat) (28130-28135)\", \"radius_centre\": \"DERIVED from the kernel disc R 88.9 corner / 53.19 middle (27153-27158)\", \"shading\": \"AUTHORED(render) canvas ladder\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  },
+  {
+   "id": "asm-fallroll",
+   "kind": "other",
+   "name": "obPocketFallRoll",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — the ball rolls over it into the fall; {\"roll_radius\": \"MODEL(Magnum) ADOPTED, BODY-2 R4 (2158)\", \"radius\": \"kernel disc (DERIVED)\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  },
+  {
+   "id": "asm-cap",
+   "kind": "cup",
+   "name": "obPocketCap",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — the mouth the ball passes (render only; the kernel owns the jaw); {\"plate\": \"MODEL-anchored (Magnum II construction element by element, SNK_PLATE provenance law 5441-5444: flapFoot M1, foldT leather 2.76, lip station M1), XW101 photo-corroborated (25361-25364)\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  },
+  {
+   "id": "asm-lining",
+   "kind": "liner",
+   "name": "obPocketLining",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — cavity wall behind the net (no contact); {\"corner\": \"DERIVED under the sheet's 1.2 mm class (28159-28160)\", \"middle\": \"OURS(render hygiene) 0.2 mm inside the slate bore (28115-28118)\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  },
+  {
+   "id": "asm-plate",
+   "kind": "other",
+   "name": "obPocketPlate",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — hidden backing board; {\"backing\": \"MODEL backing box 15.5-16.0 (5677; Magnum comp25)\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  },
+  {
+   "id": "asm-stitch",
+   "kind": "other",
+   "name": "obPocketStitch",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — surface detail; {\"dash\": \"MODEL 10.36 × 3.47, relief 1.72; pitch M1/M3 (5652, 5671)\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  },
+  {
+   "id": "asm-emboss",
+   "kind": "other",
+   "name": "obPocketEmboss",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — surface detail (corners); {\"zone\": \"DERIVED mid-skirt (MFR feature in the OEM montage, no OEM mm); E19 zone 40 × 18 (6796-6800)\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  },
+  {
+   "id": "asm-valance",
+   "kind": "skirt",
+   "name": "obPocketValance",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — the middle plate's lower skirt sheet; {\"plate\": \"MODEL (same Magnum plate, split at SNK_PLATE.middle.split) (25366-25369; name 25440)\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  },
+  {
+   "id": "asm-shade",
+   "kind": "other",
+   "name": "obPocketShade",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — the ball drops through the shelf's hole; {\"hole\": \"DERIVED from the kernel disc (28446-28452)\", \"plate\": \"OURS(render): an unlit black seal, not a table member\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  },
+  {
+   "id": "asm-mouthshade",
+   "kind": "other",
+   "name": "obPocketMouthShade",
+   "solid_simplification": false,
+   "provenance": {
+    "tag": "MODEL",
+    "source": "pocket assembly — adjacent (rim occlusion ring at the mouth arris); {\"form\": \"OURS(render): occlusion hygiene around the MODEL roll radius\"} — the snooker lane's SNK-R29 declaration (xw101-v17-declaration.json v3 after two refuter passes, 2026-09-07; §R3c.33 at a3b87ec5; Drive ceremony-merge-bf03b289/r33v17/) — split mechanically into this lane's companion forms by the ballreturn lane (order 21 item 2); nothing renamed, retagged or re-read"
+   }
+  }
+ ],
+ "provenance": {
+  "tag": "MODEL",
+  "source": "Magnum II purchased-model pocket construction read element by element (SNK_PLATE provenance law, table.js 5441-5444: leather plate flapFoot/foldT/backing box/stitch dash MODEL M1-M5; fall-arris roll MODEL ADOPTED BODY-2 R4), XW101 photo-corroborated; the bag is the Magnum net cell/cord/knot (MODEL, 178 measured knots) draped on OUR datum (DERIVED) and ending in the XW101 slide ring (PHOTO 162 / OD 88); the fall walls are the MFR 50 mm slab on the kernel CEBP disc (R 88.9 corner / 53.19 middle, DERIVED); the mouth iron ring and its studs are an OPEN W-series class (no MODEL support, no frame sees inside the boot). One merged object per name for all six assemblies (net: three objects, six bags)."
+ }
+}

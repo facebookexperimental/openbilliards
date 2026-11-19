@@ -1,0 +1,56 @@
+{
+  "schema": "rules-preset-v1",
+  "preset": "wpbsa-snooker-full",
+  "family": "snooker",
+  "display_key": "settings.variant.wpbsa-snooker-full",
+  "source": {
+    "title": "WPBSA Official Rules of the Games of Snooker and English Billiards",
+    "publisher": "World Professional Billiards and Snooker Association",
+    "edition": "Revised September 2024 (the 011/012 pinned edition; GH-382 completion)",
+    "url": "https://wpbsa.com/rules/",
+    "tier": "primary"
+  },
+  "judged": {
+    "miss_rule": {
+      "value": true,
+      "cite": "WPBSA Sec3 R14 (Foul and a Miss: strict-liability best-attempt model with the R14(a)(i) points-needed exemption, the R14(b) replace options as decision 17, the R14(d) sequence/Warning/frame-award ladder — model documented in rulesets/snooker_v2.rs)"
+    },
+    "free_ball": {
+      "value": true,
+      "cite": "WPBSA Sec2 R13; Sec3 R12 (free-ball nomination after a foul when snookered — Sec2 R17 geometry incl. the R17(a) in-hand D arm; R12(a)-(e) scoring/respot; R12(b)(ii) free-ball snooker foul; R12(f) voiding)"
+    },
+    "touching_ball": {
+      "value": true,
+      "cite": "WPBSA Sec3 R8 (touching-ball call at address, judged play-away: moving the called ball is the Sec2 R19 push stroke per R8(b)/R11(b)(v); clean play-away from a ball on or declared ball is the R8(c) no-penalty deemed contact)"
+    }
+  },
+  "adapter": {
+    "replace_geometry": {
+      "value": "record_initial_bitexact",
+      "cite": "WPBSA Sec3 R14(b) (all balls shall be replaced: the adapter restores the recorded pre-stroke placements byte-for-byte from the very scenario bytes it fed the kernel — replay-grade by construction)",
+      "owner": "adapter"
+    },
+    "free_ball_call": {
+      "value": "address_facts_geometry",
+      "cite": "WPBSA Sec3 R12 via Sec2 R17 (the referee's FREE BALL call: the crate's address_facts_json geometry over the adapter's live post-respot positions, recorded on the stroke's nomination wire)",
+      "owner": "adapter"
+    }
+  },
+  "not_modeled": [
+    {
+      "axis": "pre_stroke_fouls_and_consultations",
+      "cite": "WPBSA Sec3 R10(i), R14(e), R14(f), R15, R16",
+      "reason": "fouls committed without a stroke and consultation-period procedure have no judged events in a ShotRecord (the v1 boundary, unchanged)"
+    },
+    {
+      "axis": "simultaneous_free_ball_contact",
+      "cite": "WPBSA Sec3 R12(b)(i), R11(b)(iv)",
+      "reason": "'hit simultaneously with a ball on' is not mechanically distinguishable: kernel contacts at identical t resolve by emission order (the frozen P1 stream-position doctrine), so the first stream contact governs"
+    },
+    {
+      "axis": "referee_touching_clarifications",
+      "cite": "WPBSA Sec3 R8(d)-(g)",
+      "reason": "out-of-stroke referee dialogue and repositioning; the declaration chip surfaces the called set instead"
+    }
+  ]
+}

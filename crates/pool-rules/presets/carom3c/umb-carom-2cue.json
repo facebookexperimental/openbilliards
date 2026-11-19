@@ -1,0 +1,55 @@
+{
+  "schema": "rules-preset-v1",
+  "preset": "umb-carom-2cue",
+  "family": "carom3c",
+  "display_key": "settings.variant.umb-carom-2cue",
+  "source": {
+    "title": "UMB World Rules of Carom Billiard (three cushions)",
+    "publisher": "Union Mondiale de Billard",
+    "edition": "1 January 1989 (Art 92.1; the 011/012 pinned edition)",
+    "url": "https://files.umb-carom.org/Public/Rules/CAROM%20BILLIARD%20RULES.pdf",
+    "tier": "primary"
+  },
+  "judged": {
+    "target": {
+      "value": 15,
+      "cite": "UMB Art 29.1 (the distance is determined by the committee; 15 is the shipped spec-012 default)"
+    },
+    "two_cue_balls": {
+      "value": true,
+      "cite": "UMB Art 22.1 (two white balls, one spot/yellow) / 23.2 (the starter plays the plain white) / 23.4 (each player keeps the same ball for the entirety of the match) / 41.11 (not playing with his ball is a foul, indicated 'wrong ball')"
+    },
+    "insufficient_cushions_foul": {
+      "value": true,
+      "cite": "UMB Art 83 (fewer than three cushion contacts before the second object ball: 'there will be a foul', indicated by 'no cushion' or 'one cushion' or 'two cushions')"
+    },
+    "equal_innings": {
+      "value": false,
+      "cite": "UMB Art 29.3 (the committee determines whether matches are played with or without an even number of innings — the without regime; owner order GH-383: default OFF)"
+    }
+  },
+  "adapter": {
+    "second_ball_visual": {
+      "value": "yellow_default_marked_white_variant",
+      "cite": "UMB Art 22.1 ('the spot or yellow ball' — both markings are rulebook-sanctioned; worldwide practice is yellow, the letter also admits a dot-marked white; render default pending the GH-383 owner pick)",
+      "owner": "adapter"
+    },
+    "respot_incoming_striker": {
+      "value": "judgment_next_shooter",
+      "cite": "UMB Art 27.3(b) ('the white ball of the player who wants to play' takes the central spot of the starting line — the INCOMING striker after the turn passed; audit-carom F5)",
+      "owner": "adapter"
+    }
+  },
+  "not_modeled": [
+    {
+      "axis": "cushion_draw_lag",
+      "cite": "UMB Art 22.2-22.6",
+      "reason": "the lag for the choice to begin is a physical pre-match ceremony; initialState(breaker) takes the winner as input (all five 011/012 rulesets share this simplification)"
+    },
+    {
+      "axis": "referee_fouls",
+      "cite": "UMB Art 41.2-41.10, 41.13",
+      "reason": "balls-in-motion / leather-tip / touched / pushed-through / frozen-cushion / foot-on-floor / marking / time fouls are physical-world referee judgments not detectable from the ShotRecord event stream"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "C0EA0166-0000-4000-8000-000000000002",
+      "name" : "Default",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:OpenBilliards.xcodeproj",
+      "identifier" : "E63FEE40454C32B9B44C8949",
+      "name" : "OpenBilliards"
+    }
+  },
+  "testTargets" : [
+    {
+      "selectedTests" : [
+        "GestureDriver"
+      ],
+      "target" : {
+        "containerPath" : "container:OpenBilliards.xcodeproj",
+        "identifier" : "9AC1444371B91656038651E0",
+        "name" : "AppUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

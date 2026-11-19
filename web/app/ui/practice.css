@@ -1,0 +1,283 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* ui/practice.css — practice-place content leaf (feature 036 sub-slice (a),
+   program 525 S4). Kit leaf per the cache-poison contract: loaded by
+   web/app/practice.js via a `?v=` stamped <link> whose href is RESOLVED FROM
+   THE MODULE URL (bump PRACTICE_CSS_V in practice.js on EVERY change to this
+   file). Tokens only (--ob-* and --ob-glass-*, ci.yml token-grep gated);
+   labels wrap or grow, never ellipsize (e2e-ui --audit law). Selectors here
+   are the contracts/practice.md §3 surface; the `.ob-practice-*` class names
+   are styling hooks (a PRACTICE_CSS_V bump may change them), the `data-ob`
+   values and `#ob-practice` are frozen.
+
+   Material: the S1 smoked-glass family (shell.md §6 material law) — the
+   place invents no new material language (spec FR-040). The host SECTION is
+   the glass pane (shell.css owns it; the ONE blur of the stack); every card
+   inside sits on the SOLID rung on every register (GH-668 B-PR02 / B-K02 /
+   B-K14: --ob-glass-solid + noise, no lift, no second backdrop-filter — the
+   thin inner tint that read the felt through the text is gone). The act
+   rows ARE the kit card-pole control (kit.css .ob-card-option, B-PR07 /
+   B-K12): the row paints the solid rung, the ring, the G9 current register
+   and the guarded hover / pressed ladder — this sheet restates none of it;
+   an act card's ARTICLE paints no material of its own (one rung, never two
+   stacked solids). */
+
+/* ---- host section: the practice place's card section while the module
+   owns it (the ADDITIVE .ob-practice-host class is added by practice.js at
+   mount — never a rewrite of the shell's .ob-shell-card / section rules;
+   the S1 stub-card degrade keeps the S1 geometry untouched) ------------- */
+#ob-shell-cards > section.ob-practice-host {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  position: relative;
+  /* phone landscape (844x390 / 667x375 / 926x428): the four-card stack is
+     taller than the column above the rail band, and the shell column has
+     no scroll of its own — the host clamps and the card group below scrolls
+     inside it (the fold-snap leaf takes this cap as its BUDGET). The cap
+     DOCKS TO THE PUBLISHED RAIL BAND (GH-668 B-K05 seam, shell.js
+     writeBands: --ob-shell-rail-top = the rail's top in viewport px, live)
+     instead of the retired 130 px guess: the host's bottom = rail top −
+     sp-2 (the seam's own clearance), so the column ends exactly where the
+     band begins on every register and follows it when it moves
+     (ob:shell-bands → practice.js re-derives the fold). 14 px + the top
+     inset = the shell column's own top (shell.css #ob-shell-cards `top:
+     calc(14px + env(safe-area-inset-top))`, the only offset between the
+     viewport and this host; restated here because the seam publishes no
+     column-top value — follow-up filed). NOT --ob-shell-reserve-b: that
+     scalar folds the quick-play stack in (viewport − min(rail.top,
+     quickPlay.top) + sp-2 = 144 at 844×390), and on the stacked coarse
+     register that stack stands at the far right (x 709–830) while this
+     column ends at x 294 — the 58 px it would take are the difference
+     between the assist segmented resting whole at a stop (measured stops
+     [0, 122] with H 206 under the rail cap) and never (H 163, stops
+     [0, 207] under the reserve cap: the last card blocks every candidate).
+     STALE-SHELL FALLBACK: a pre-seam shell.css publishes no rail var; the
+     fallback total is the old clamp to the pixel (100vh − 108 − 8 − 14 =
+     100vh − 130 − inset). The e2e-ui practice geometry walker judges the
+     host bottom against the rail band (>= 4 px) wherever they share a span;
+     e2e-practice P-J derives the same law from window.__shell.bands(). */
+  max-height: calc(var(--ob-shell-rail-top, calc(100vh - 108px)) - var(--ob-sp-2) - 14px - env(safe-area-inset-top, 0px));
+}
+/* the display:flex rule above ties shell.css's own `section[hidden]
+   { display:none }` guard at specificity — the atelier GH-534 F1 ghost
+   class; the host needs its own [hidden] kill rule at (1,2,1) */
+#ob-shell-cards > section.ob-practice-host[hidden] { display: none; }
+/* the S1 stub content retires while the module owns the section (the JS
+   sets [hidden] AND an inline display pair — paint truth; this rule is the
+   belt for any child added later without the pair) */
+#ob-shell-cards > section.ob-practice-host > [hidden] { display: none; }
+
+/* ---- the card group (ALL four cards DOM-present; hidden toggles) -------- */
+#ob-practice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-2);
+  min-height: 0;
+  /* the scrollport when the host clamps (phone landscape); cards keep their
+     fixed heights (hints <= 2 lines), the group pans vertically */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  font-family: var(--ob-font);
+  color: var(--ob-text-0);
+  /* the FOLD-SNAP law (ui/foldsnap.js; GH-525 integrator 2026-09-05, the
+     combined review visual audit r1 finding 7 — the phone fold clipped into
+     the assist strip's option glyphs): the leaf writes the component-local
+     --fs-h (the snapped clip height — the largest clean text-line / block
+     boundary at or above the host clamp's budget, never below the first
+     card) and --fs-pad (the end pad that makes the last stop clean at its
+     top edge). Fallbacks = today's layout: the clamp alone bounds the
+     group, no pad. NOT --ob-* (the --sf-* precedent). */
+  max-height: var(--fs-h, none);
+  /* B-K06: the kit focus ring is OUTSET (--ob-focus, 4 px) and a scroller
+     clips to its padding box — a 4 px pad with a matching negative margin
+     keeps every card's border box where it was and lets the ring paint
+     whole on the first / last row and at the inline edges. foldsnap.js
+     measures paddings from computed style, so the constant pad and its
+     --fs-pad end pad compose (the leaf tracks only the var it wrote). */
+  margin: -4px;
+  padding: 4px 4px calc(4px + var(--fs-pad, 0px));
+}
+#ob-practice[hidden] { display: none; }
+
+/* ---- cards ------------------------------------------------------------ */
+.ob-practice-card {
+  border: 1px solid var(--ob-line-0);
+  border-top-color: var(--ob-glass-edge);
+  border-radius: var(--ob-r-m);
+  /* the SOLID rung on every register (B-PR02): the tinted solid + noise;
+     the pane behind blurs once, this card never does */
+  background-color: var(--ob-glass-solid);
+  background-image: var(--ob-glass-noise);
+  /* B-K06: clip + a 4 px clip margin so an inner control's ONE kit focus
+     ring (outset) paints — never an inset ring variant */
+  overflow: clip;
+  overflow-clip-margin: 4px;
+  /* a flex child of the scrolling group: NEVER squash to fit the clamp
+     (a clip would cut the hint) — the group scrolls instead */
+  flex: 0 0 auto;
+}
+.ob-practice-card[hidden] { display: none; }
+/* an ACT card: the whole card is the kit .ob-card-option row (B-PR07), which
+   paints the solid rung, the hairline, the G9 current register (practice.js
+   mirrors the article's frozen aria-current onto the row) and the ladder —
+   the article paints nothing, so the rung is never stacked twice */
+.ob-practice-card--act {
+  border: 0;
+  background: none;
+}
+
+/* ---- act rows / the last-drill line -------------------------------------
+   button.ob-card-option (kit) — anatomy __body > __name + __hint; the
+   .ob-practice-title / .ob-practice-hint classes stay as HOOKS on the same
+   spans (the e2e-ui PRACTICE_GEO_WALKER and the 036 suite address them) and
+   carry no declarations of their own. The non-actionable last-drill line is
+   a <p> on the card's rung: only the padding rhythm lives here, the type is
+   the kit's roles (.ob-control name / .ob-hint hint). */
+.ob-practice-line {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-1);
+  margin: 0;
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+}
+.ob-practice-hint[hidden] { display: none; }
+/* GH-668 S5 slice 4 (B-PR05 / the GH-144 chips law): the last-drill line is
+   nowrap ATOMS (span.seg: name / best / mode) joined by ' · ' separator
+   spans — a break lands only at a separator, never inside "Assistance
+   standard"; the noScoreYet sentence rides span.text and wraps as prose. */
+.ob-practice-hint .seg { white-space: nowrap; }
+
+/* ---- assist card: title + NESTED kit segmented + secondary ---------------
+   the control is the kit .ob-segmented (GH-668 B-PR01 / R8; kit.css owns
+   the pill, the equal segments, the nowrap law, the coarse 44 rung, the
+   checked register and the --stack fallback); this sheet keeps only the
+   card's column layout. The segmented sits at its INTRINSIC width at the
+   column's start (B-K03) — the kit's own max-width: 100 % keeps it inside
+   the card, controls.js flips it to the --stack column when a locale's
+   copy cannot paint on one line (a stack is legal, a cut glyph is not). */
+.ob-practice-card[data-ob="practice-assist"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-2);
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+}
+[data-ob="practice-assist-strip"].ob-segmented { align-self: flex-start; }
+/* the segmented's TEXT node (practice's own span — the kit never styles it):
+   a flex item at min-width:auto never shrinks below its text, so a squeezed
+   label's nowrap text spilled into the label's OWN pads on both sides
+   (centred) and the kit's measure (`label.scrollWidth > clientWidth`,
+   controls.js) slept — "Complète" painting over the 13.6 / 17.6 px pads at
+   scrollWidth == clientWidth. `min-width: 0` lets the span take the cell so
+   the overflow runs past the label's end edge where the kit sees it and
+   changes pole (--stack). No kit declaration restated: the TRACK law is
+   the kit's (kit.css .ob-segmented grid-auto-columns: minmax(0, 1fr) —
+   S5 slice 4 verifier round 1 P2-a deleted the local minmax(0, auto)
+   override; B-K03 equal segments = longest label + 2 × pad). At this
+   card's 228 px well all seven locales fit the PILL at rest through the
+   kit's fit ladder (controls.js fitSegmented, kit hunks #3 / #3b): CJK at
+   the default rung (intrinsic width, pad 13.6 / 17.6), the four Latin
+   locales on the TIGHT rung (fs-1, `--seg-pad` 9.42 en/de · 8.74 fr ·
+   8.67 es — above that rung's sp-2 floor); the pad-first rung (fs-0, sp-3)
+   stands from a 276 px well; the --stack pole only where the tracks still
+   overflow at sp-2 + fs-1 (a 218 px well). Scoped to the pill form; the
+   --stack rows are the kit's. */
+[data-ob="practice-assist-strip"].ob-segmented:not(.ob-segmented--stack) > label > span {
+  min-width: 0;
+}
+/* kit-less rung: the same three NATIVE radios (label > input + span) stand
+   as a plain column of kit rows, every level reachable */
+[data-ob="practice-assist-strip"]:not(.ob-segmented) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-1);
+}
+/* STALE-KIT BELT (the ownership ledger mixed-cache rule; GH-668 review r1 P2): a
+   returning client can pair THIS sheet with a cached pre-v028 kit.css that
+   has no .ob-btn--row part. The row declarations are restated at the kit's
+   own values so that pairing degrades to the ROW register (wrap / start /
+   mid pole / 44 floor), never to a nowrap pill; the token fallbacks cover a
+   stale tokens.css. A belt never states what its kit part does not. */
+[data-ob="practice-assist-strip"]:not(.ob-segmented) > .ob-btn--row {
+  justify-content: flex-start;
+  min-height: var(--ob-h-coarse, 44px);
+  border-radius: var(--ob-r-m);
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  line-height: var(--ob-lh-control, 1.35);
+  text-align: start;
+  white-space: normal;
+}
+[data-ob="practice-assist-strip"]:not(.ob-segmented) > .ob-btn--row .ob-btn__label { white-space: normal; }
+/* the kit-less row's selected register = the kit R1 register (dim fill +
+   accent hairline + accent ink) keyed on the NATIVE radio's own state */
+[data-ob="practice-assist-strip"]:not(.ob-segmented) > .ob-btn--row:has(input:checked) {
+  border-color: var(--ob-accent-line);
+  background: var(--ob-accent-dim);
+  color: var(--ob-accent-text);
+}
+/* "All assists" is the kit ghost pill at its INTRINSIC width, aligned to
+   the card's end (GH-668 B-K01 / B-PR07: a secondary action, never a
+   100 %-wide row box). No stale-kit belt: every kit vintage this module
+   pairs with has .ob-btn--ghost. The column placement lives here, plus the
+   RUNG: contract §6 / FR-041 floors every card control at 44 pt on every
+   pointer, so the pill takes the kit's COARSE pill rung by its own tokens
+   (kit.css's coarse rule: --ob-h-coarse + --ob-pill-pad-coarse — G6, the
+   pad tracks the height; the 40 control rung would read 40 on the desktop
+   and red the e2e-ui practice geometry walker). */
+#ob-practice [data-ob="practice-assist-more"] {
+  align-self: flex-end;
+  min-height: var(--ob-h-coarse);
+  padding-inline: var(--ob-pill-pad-coarse);
+}
+#ob-practice [data-ob="practice-assist-more"][hidden] { display: none; }
+
+/* motion: the card registers live on the kit row (.ob-card-option carries
+   its own --ob-t-fast transitions and the kit's reduced-motion kill) — the
+   article paints no register of its own, so nothing here animates. */
+
+/* ---- phone register (coarse pointer; contract §6 phone law) -------------
+   44 pt targets already hold above; the column tightens so four cards +
+   the strip fit the 844×390 landscape fold without a third hint line. */
+@media (pointer: coarse) {
+  #ob-practice { gap: var(--ob-sp-1); }
+  /* B-PR04 (ruled sp-1 / sp-3): the two cards this sheet pads tighten
+     their block padding to sp-1 on coarse (the act cards are kit
+     .ob-card-option rows — the kit's coarse rhythm, not restated). The
+     segmented's coarse 44 rung is kit.css's (html.ob-touch rule). */
+  .ob-practice-card[data-ob="practice-assist"] {
+    gap: var(--ob-sp-1);
+    padding: var(--ob-sp-1) var(--ob-sp-3);
+  }
+  .ob-practice-line { padding: var(--ob-sp-1) var(--ob-sp-3); }
+  /* GH-668 S5 slice 4 round 6, ruling R-PR-6 (2): on the coarse register
+     the host docks AT the published rail top. Between the group's last
+     card and the rail's pills stood TWO --ob-sp-2 steps — this host's own
+     clearance below and the kit strip's block inset inside the rail (kit.css
+     .ob-strip, sp-2). The strip is a control block and sp-2 above a control
+     block is the kit's standard control spacing, so the strip's own inset is
+     the one step that stays; the host's step goes. It is the 8 px the
+     SAFE-AREA budget was short of (round-5 table: the strip's bottom past
+     the budget by 3.84 fresh 667 / 1.48 fresh fr-es / 7.9 seeded 667 /
+     7.94 seeded de 844) — measured before / after in the round-6 report.
+     Fine pointers keep the base rule. The stale-shell fallback keeps the
+     old pixel clamp (100vh − 130 − inset). */
+  #ob-shell-cards > section.ob-practice-host {
+    max-height: calc(var(--ob-shell-rail-top, calc(100vh - 108px - var(--ob-sp-2))) - 14px - env(safe-area-inset-top, 0px));
+  }
+  /* R-PR-6 (3): the seeded Last-drill line is ONE line on coarse. practice.js
+     composes the full line, then drops the trailing QUALIFIER atoms (mode,
+     then best) while it wraps. The ruling allowed an ellipsis on the drill
+     NAME (informational — the full name lives on the drill card itself), but
+     the kit's A8 law stands over it (e2e-ui --audit: no computed
+     text-overflow: ellipsis anywhere in the place; round 6 audit run 1 red
+     21 cells on that declaration), so the NAME atom — nowrap by the B-PR05
+     chips law above — may WRAP at its own spaces on coarse instead: never
+     clamped, never cut. MEASURED in round 7 (ruling R-PR-7, the width lab,
+     restated by R-PR-8 (3)): every catalog name of the seven locales paints
+     ONE line at this rung with the qualifiers dropped — the three longest
+     (en 31 / fr 32 / es 33 characters) at 175.91 / 184.05 / 187.28 px in
+     the 228 px hint box — so the wrap is the law for a wider future name,
+     not a case on the shelf today (the round-6 estimate of ~215 px in a
+     196 px hint, two lines, was wrong on both numbers). */
+  .ob-practice-card--act .ob-practice-hint > .seg:first-child { white-space: normal; }
+}

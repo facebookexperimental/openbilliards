@@ -1,0 +1,16 @@
+// Copyright (c) Meta Platforms, Inc. and affiliates.
+
+// Signing overlay TEMPLATE — feature 016 T029 (the distribution contract 1,
+// SC-008: the owner plugs in signing with ZERO code edits).
+//
+// Usage (runbook ios/docs/testflight-runbook.md, section 2):
+//   cp ios/Signing.example.xcconfig ios/Signing.xcconfig
+//   then fill DEVELOPMENT_TEAM with the Apple Developer team id.
+//
+// ios/Signing.xcconfig is gitignored; ios/project.yml includes it for both
+// configurations (validation disabled when absent, so unsigned CI/simulator
+// builds keep working).
+
+DEVELOPMENT_TEAM = REPLACE_ME
+PRODUCT_BUNDLE_IDENTIFIER = org.openbilliards.app
+CODE_SIGN_STYLE = Automatic

@@ -1,0 +1,221 @@
+{
+  "schema": "cue-render-fold-reference/1",
+  "reference": "9fa49ef261a4f3efaa0ba07d20af36b703e1df0c",
+  "authority": [
+    "a3d3fdae7b337624ef211da8d5b159840caa5ceec192fca8cebffb16d1a13b39",
+    "9ac7acff14d3501839c1ad9a0144c53db64cb9ee3b5b02d9a9665a2f5e60e35d"
+  ],
+  "scope": "FunctionDeclaration bytes excluding export, or VariableDeclarator bytes excluding const and semicolon; only the constraintPen declaration name may differ.",
+  "functions": [
+    {
+      "kind": "function",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "constraintPen",
+      "candidate_name": "referenceConstraintPen",
+      "sha256": "86c5051427f629f42b155e6a77221e46724f6eac8e7c1353fa00051175864c46"
+    },
+    {
+      "kind": "function",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "cueRailLift",
+      "candidate_name": "cueRailLift",
+      "sha256": "8664b2df266d5243b16794076bb042102cd00564528daf841c2780ea822cc1ee"
+    },
+    {
+      "kind": "function",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "railGeometryFor",
+      "candidate_name": "railGeometryFor",
+      "sha256": "8f1e1f7a97426d281592c79fed8bc18e02d99cab4ce14b1163dffe8adb62f5e4"
+    },
+    {
+      "kind": "function",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "aimRingPlan",
+      "candidate_name": "aimRingPlan",
+      "sha256": "85bc0ccea77bc5f1985711cfd36fbd34f5f5966bfd5937c592d75d07497e3ef0"
+    },
+    {
+      "kind": "function",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "railMouthsForKernel",
+      "candidate_name": "railMouthsForKernel",
+      "sha256": "8997b66979f6fc0d64c8451a5dc009b23839ac9573c79c956f0036eb4794286b"
+    },
+    {
+      "kind": "function",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "mouthCarveAt",
+      "candidate_name": "mouthCarveAt",
+      "sha256": "bce35a7de75c7768083a7d86649b43e39c40f2b840b1ba8f7912cdc1f30b646d"
+    },
+    {
+      "kind": "function",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "mouthJoinTop",
+      "candidate_name": "mouthJoinTop",
+      "sha256": "59d24e49e830a69812089576e11ef992235bceca2067d0fe3d0b9fa1d08045bd"
+    },
+    {
+      "kind": "function",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "mouthJoinIndex",
+      "candidate_name": "mouthJoinIndex",
+      "sha256": "c658c7d6231137515e4930a83696a08475d40a1b9e33d578b644e9641ae12978"
+    },
+    {
+      "kind": "function",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "upperMouthBand",
+      "candidate_name": "upperMouthBand",
+      "sha256": "96becf9a605284f5476079953b59f54ee4fce69aa9ee965c938824fb989b8f5f"
+    },
+    {
+      "kind": "function",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "inCollarLeg",
+      "candidate_name": "inCollarLeg",
+      "sha256": "fa6e2f37c968760ed4f7156651a3caa394eb4803add8312352958d66b497279b"
+    },
+    {
+      "kind": "function",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "mouthBoundaryStations",
+      "candidate_name": "mouthBoundaryStations",
+      "sha256": "3bb41c73edebaf47289734d636187b3733f74a05cdffc97c925e36f25a5881bc"
+    },
+    {
+      "kind": "function",
+      "file": "web/scene/table.js",
+      "reference_name": "bootRingPlan",
+      "candidate_name": "bootRingPlan",
+      "sha256": "ba8625433e2cd3ed442b4c43349ebaba3184d5d0528f80d9326a9e0ab65728e0"
+    },
+    {
+      "kind": "function",
+      "file": "web/scene/table.js",
+      "reference_name": "cushionProfile",
+      "candidate_name": "cushionProfile",
+      "sha256": "a676f83c9405ed1042d81242ecb1e85519673aeef06195888021131e86ad1b25"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/table.js",
+      "reference_name": "castingTop",
+      "candidate_name": "castingTop",
+      "sha256": "c2d425352b3ce9d4ec1249ab09d6902f089056884a2a84f54f50bac6cf88c22b"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "TIP_LEN",
+      "candidate_name": "TIP_LEN",
+      "sha256": "144c58341b450ee29c0502d88718a525fb96d8bf33278ebb3e56a2bc4e0f0fda"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "FERRULE_LEN",
+      "candidate_name": "FERRULE_LEN",
+      "sha256": "b1ef4b35ff7fb459dbfce3d77d3111ddeea450154c433f2efce11eeb8752cb03"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "SHAFT_LEN",
+      "candidate_name": "SHAFT_LEN",
+      "sha256": "cd7f183ebbce88cc241c8911b7a8b3014d583c28764190bc9b6f15b54b1a913c"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "JOINT_LEN",
+      "candidate_name": "JOINT_LEN",
+      "sha256": "c4719f658797a5f1f9f2896ee4baa9b806ec31c96a43945fcc5f05a7992f519f"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "BUTT_LEN",
+      "candidate_name": "BUTT_LEN",
+      "sha256": "d49b4f2d0b5585c7947dfe5ccbd59d79237f9adbc870f6b4740062f20033910d"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "CAP_LEN",
+      "candidate_name": "CAP_LEN",
+      "sha256": "833777dffe9a12f65e726a3391b32fee13e263ef78339c75f034374ec65cfd5a"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "R_FERRULE",
+      "candidate_name": "R_FERRULE",
+      "sha256": "f82a62364e99355de454dd365c638da4107d4fac7db1354c6a911305c1b47191"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "R_BUTT",
+      "candidate_name": "R_BUTT",
+      "sha256": "570dbf85ec02f68cda203e06504e842dea8852a5b6f10d70c631bea4777ad7e1"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "CUE_LEN",
+      "candidate_name": "CUE_LEN",
+      "sha256": "09fad19234164b646b3cffbd731fbc6970ae8a9198fbd21010bffbeb515c712a"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "RAIL_CLEAR",
+      "candidate_name": "RAIL_CLEAR",
+      "sha256": "466ddb714bf5adbee3fc2006a4b09fb184fc06936ce7b8b910d4187fe8ad7d11"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "RAIL_MAX",
+      "candidate_name": "RAIL_MAX",
+      "sha256": "ff56af5c1666599f9e1239ee9d0aec9f3fabed72aeb57c6f601ba8ab8f261292"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "RAIL_SAMPLES",
+      "candidate_name": "RAIL_SAMPLES",
+      "sha256": "9b34bc4b059f8c617f7c1e4f1345647e6143ee28bd33e391c2ebdacb4029c1db"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "TIP_GAP",
+      "candidate_name": "TIP_GAP",
+      "sha256": "3564cab5c9d90c76aace3e4d914b3ee81eca7071effe7d52a92ee8ba9a3072ea"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "EDGE_EPS",
+      "candidate_name": "EDGE_EPS",
+      "sha256": "1471c6fc76f106e717262d2787a0b9bd752ef89b486ce434da99b9a2bb9b2b50"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "JAW_MARGIN",
+      "candidate_name": "JAW_MARGIN",
+      "sha256": "68c1b87ffde05c79887bf604ebf0e4a7b273b739a4558e8be201790d676f6786"
+    },
+    {
+      "kind": "variable",
+      "file": "web/scene/cuestick.js",
+      "reference_name": "COLLAR_LEG_L_IN",
+      "candidate_name": "COLLAR_LEG_L_IN",
+      "sha256": "32b11abf1d410c70bc6decff23b0e3ea139b0347cd8b32f9bf594c60a6ca0de7"
+    }
+  ]
+}

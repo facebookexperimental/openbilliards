@@ -1,0 +1,757 @@
+{
+  "what": "DERIVED recording of the metal-rim table's retired ring rows under its neutral key and its old-key alias (18 per id), restored by clearing only the context jawArcSegments opt-in on unchanged exported plans (GH-671).",
+  "recorded_on": {
+    "sha": "6f333d92d89327bd68a2107a4a66ebe688f5e461",
+    "command": "node tools/render/check-cushion-profile.mjs --perturb=pairwise-jaw-weld",
+    "state": "Replayed on the committed tree of the TABLE_SPECS neutral-key commit: exit 0, ARMED at 36 rows (18 under pool_pro_9ft_metal_rim, 18 replayed under the old-key alias predator_apex_9ft), with the recorded row order, inputs, and first-crossing coordinates unchanged.",
+    "evidence": "reproduce: node tools/render/check-cushion-profile.mjs --perturb=pairwise-jaw-weld @ 6f333d92d89327bd68a2107a4a66ebe688f5e461; identities: each of the 18 rows of git show 47292df49133c02ec14ba5d8649cd6e76b1615fe:tools/render/fixtures/cushion-profile-baseline-490.json appears once under pool_pro_9ft_metal_rim and once under predator_apex_9ft (id token normalized).",
+    "source_sha256": {
+      "tools/render/check-cushion-profile.mjs": "c1e1165f61e1b9c33acea4cd776548ce37c1e67fb1ac1b30a1ccdaff022b32a9",
+      "tools/render/lib/jaw-weld-arm.mjs": "a6e2763bb10086c933a3defae492883df336b57893f53f074fa8cc359ac77e53",
+      "tools/render/lib/jaw-erosion.mjs": "fdc32ce71b25b754995c0afed6c14733ca6fdb18044862c93d17f82666784876"
+    },
+    "baseline_sha": "47292df49133c02ec14ba5d8649cd6e76b1615fe"
+  },
+  "provenance": {
+    "jaw_radii": "EST: unchanged kernel-pinned cornerJawRadius and sideJawRadius; the metal-rim table has no purchased model. Reproduce the exported values in [jaw-weld inputs]: node tools/render/check-cushion-profile.mjs --perturb=pairwise-jaw-weld @ 6f333d92d89327bd68a2107a4a66ebe688f5e461.",
+    "profile": "MFR / DERIVED: unchanged cushionProfile rows exported for the live family; no geometry number authored. Reproduce [jaw-weld inputs].rows: node tools/render/check-cushion-profile.mjs --perturb=pairwise-jaw-weld @ 6f333d92d89327bd68a2107a4a66ebe688f5e461.",
+    "plans": "DERIVED: SHA-256 of unchanged railPolysFor(G) polygons; context-only jawArcSegments = 0 means the opt-in is absent. Reproduce [jaw-weld inputs].plans: node tools/render/check-cushion-profile.mjs --perturb=pairwise-jaw-weld @ 6f333d92d89327bd68a2107a4a66ebe688f5e461.",
+    "rows": "DERIVED rule-2 identities in log order: the 18 rows of git show 47292df49133c02ec14ba5d8649cd6e76b1615fe:tools/render/fixtures/cushion-profile-baseline-490.json under pool_pro_9ft_metal_rim (the spec's first TABLE_SPECS key), then the same 18 replayed under the old-key alias predator_apex_9ft (renameAliasRow, tools/render/lib/alias-replay.mjs:12); replay: node tools/render/check-cushion-profile.mjs --perturb=pairwise-jaw-weld @ 6f333d92d89327bd68a2107a4a66ebe688f5e461.",
+    "crossings": "DERIVED strict first intersections from ringCrossings, in kernel-plan metres, checked against live offset facing/nose support-line intersections within the existing 1e-9 m tolerance; 18 under pool_pro_9ft_metal_rim, then the same 18 replayed under predator_apex_9ft, each id equal to its row's id. Reproduce [jaw-weld crossing]: node tools/render/check-cushion-profile.mjs --perturb=pairwise-jaw-weld @ 6f333d92d89327bd68a2107a4a66ebe688f5e461."
+  },
+  "inputs": {
+    "table": "pool_pro_9ft_metal_rim",
+    "cushionFamily": "us_pool_k55",
+    "jawArcSegments": 12,
+    "jawArcSampled": null,
+    "cornerJawRadius": 0.02095,
+    "sideJawRadius": 0.00795,
+    "rows": [
+      {
+        "o": 0.0229,
+        "z": 0
+      },
+      {
+        "o": 0.0222,
+        "z": 0.0015902390929258077,
+        "crease": true
+      },
+      {
+        "o": 0.0006658451507173969,
+        "z": 0.034080405788068924
+      },
+      {
+        "o": 0.0005620655555624416,
+        "z": 0.034245596788389336
+      },
+      {
+        "o": 0.0004664635754462452,
+        "z": 0.034415651286581084
+      },
+      {
+        "o": 0.0003792666132477647,
+        "z": 0.03459016478388356
+      },
+      {
+        "o": 0.00030068207931787565,
+        "z": 0.03476872217517389
+      },
+      {
+        "o": 0.00023089689812441378,
+        "z": 0.03495089873635337
+      },
+      {
+        "o": 0.00017007706362579585,
+        "z": 0.03513626113461404
+      },
+      {
+        "o": 0.00011836724443082961,
+        "z": 0.03532436845918224
+      },
+      {
+        "o": 7.589043968389553e-05,
+        "z": 0.03551477327008752
+      },
+      {
+        "o": 4.2747686494023183e-05,
+        "z": 0.03570702266246206
+      },
+      {
+        "o": 1.901781960378466e-05,
+        "z": 0.035900659343839215
+      },
+      {
+        "o": 4.757283869673626e-06,
+        "z": 0.03609522272188853
+      },
+      {
+        "o": 0,
+        "z": 0.03629025
+      },
+      {
+        "o": 2.8558658259099715e-05,
+        "z": 0.0367673806625142
+      },
+      {
+        "o": 0.00011382683455561779,
+        "z": 0.037237698219260554
+      },
+      {
+        "o": 0.0002545869565359414,
+        "z": 0.03769448685105088
+      },
+      {
+        "o": 0.00044882906408999544,
+        "z": 0.03813122392266922
+      },
+      {
+        "o": 0.0006937795102332006,
+        "z": 0.038541673121726835
+      },
+      {
+        "o": 0.0009859405669246477,
+        "z": 0.038919973509019434
+      },
+      {
+        "o": 0.0013211403702770002,
+        "z": 0.03926072320880704
+      },
+      {
+        "o": 0.0016945924919740314,
+        "z": 0.03955905654397557
+      },
+      {
+        "o": 0.0021009642862559012,
+        "z": 0.039810713514641854
+      },
+      {
+        "o": 0.002534453036523093,
+        "z": 0.04001210062809399
+      },
+      {
+        "o": 0.002988868814236583,
+        "z": 0.040160342211456555
+      },
+      {
+        "o": 0.0034577228669447407,
+        "z": 0.040253321474370024
+      },
+      {
+        "o": 0.0325,
+        "z": 0.04422725000000001
+      }
+    ],
+    "plans": [
+      {
+        "rail": 0,
+        "M": 28,
+        "sha256": "63c8e9482dfcdc9920515952f01a91e56c79a26b416995df1ea82ed51fb82bf1"
+      },
+      {
+        "rail": 1,
+        "M": 28,
+        "sha256": "22eaa58925d7358ca1504ac0690daa45d6a30897b027cbd0dbc593f2b046632b"
+      },
+      {
+        "rail": 2,
+        "M": 28,
+        "sha256": "39d4daf04f7f6812eaae4dfabe1a02c8bae1703aa0123b5793337e934dda0ba0"
+      },
+      {
+        "rail": 3,
+        "M": 28,
+        "sha256": "30731e5dbc718d3407df4e5ff5be869b65f39de5d66a0e21491287e7e3abc1ec"
+      },
+      {
+        "rail": 4,
+        "M": 28,
+        "sha256": "66eee5107422632a11b0c2957a2d3789b8733831d81f199e02b00ca37124835a"
+      },
+      {
+        "rail": 5,
+        "M": 28,
+        "sha256": "74ae6f4107f4b52c070e946aa8f5888e5b03186fd20096b7255cdd4e91022f82"
+      }
+    ]
+  },
+  "rows": [
+    "pool_pro_9ft_metal_rim rail0: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail0: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail0: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail1: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail1: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail1: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail2: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail2: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail2: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail3: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail3: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail3: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail4: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail4: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail4: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail5: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail5: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+    "pool_pro_9ft_metal_rim rail5: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+    "predator_apex_9ft rail0: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+    "predator_apex_9ft rail0: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+    "predator_apex_9ft rail0: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+    "predator_apex_9ft rail1: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+    "predator_apex_9ft rail1: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+    "predator_apex_9ft rail1: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+    "predator_apex_9ft rail2: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+    "predator_apex_9ft rail2: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+    "predator_apex_9ft rail2: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+    "predator_apex_9ft rail3: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+    "predator_apex_9ft rail3: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+    "predator_apex_9ft rail3: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+    "predator_apex_9ft rail4: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+    "predator_apex_9ft rail4: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+    "predator_apex_9ft rail4: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+    "predator_apex_9ft rail5: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+    "predator_apex_9ft rail5: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+    "predator_apex_9ft rail5: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13"
+  ],
+  "crossings": [
+    {
+      "row": "pool_pro_9ft_metal_rim rail0: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 0,
+      "z": 0,
+      "o": 0.0229,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        -0.022900000000000004,
+        0.07700361587500265
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail0: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 0,
+      "z": 0.0015902390929258077,
+      "o": 0.0222,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        -0.022200000000000004,
+        0.07676258654569988
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail0: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 0,
+      "z": 0.04422725000000001,
+      "o": 0.0325,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        -0.0325,
+        0.08030916096258346
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail1: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 1,
+      "z": 0,
+      "o": 0.0229,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        -0.0229,
+        1.3441642201162753
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail1: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 1,
+      "z": 0.0015902390929258077,
+      "o": 0.0222,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        -0.022200000000000004,
+        1.3436173201777206
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail1: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 1,
+      "z": 0.04422725000000001,
+      "o": 0.0325,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        -0.0325,
+        1.35166456213074
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail2: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 2,
+      "z": 0,
+      "o": 0.0229,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.2929,
+        1.1958357798837245
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail2: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 2,
+      "z": 0.0015902390929258077,
+      "o": 0.0222,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.2922,
+        1.1963826798222792
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail2: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 2,
+      "z": 0.04422725000000001,
+      "o": 0.0325,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.3025,
+        1.18833543786926
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail3: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 3,
+      "z": 0,
+      "o": 0.0229,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.2929,
+        2.462996384124997
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail3: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 3,
+      "z": 0.0015902390929258077,
+      "o": 0.0222,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.2922,
+        2.4632374134543
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail3: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 3,
+      "z": 0.04422725000000001,
+      "o": 0.0325,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.3025,
+        2.4596908390374166
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail4: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 4,
+      "z": 0,
+      "o": 0.0229,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        0.07700361587500265,
+        -0.022900000000000004
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail4: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 4,
+      "z": 0.0015902390929258077,
+      "o": 0.0222,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        0.0767625865456999,
+        -0.0222
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail4: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 4,
+      "z": 0.04422725000000001,
+      "o": 0.0325,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        0.08030916096258346,
+        -0.0325
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail5: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 5,
+      "z": 0,
+      "o": 0.0229,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.1929963841249973,
+        2.5629
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail5: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 5,
+      "z": 0.0015902390929258077,
+      "o": 0.0222,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.1932374134543007,
+        2.5622000000000003
+      ]
+    },
+    {
+      "row": "pool_pro_9ft_metal_rim rail5: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+      "id": "pool_pro_9ft_metal_rim",
+      "rail": 5,
+      "z": 0.04422725000000001,
+      "o": 0.0325,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.189690839037417,
+        2.5725000000000002
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail0: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 0,
+      "z": 0,
+      "o": 0.0229,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        -0.022900000000000004,
+        0.07700361587500265
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail0: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 0,
+      "z": 0.0015902390929258077,
+      "o": 0.0222,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        -0.022200000000000004,
+        0.07676258654569988
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail0: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 0,
+      "z": 0.04422725000000001,
+      "o": 0.0325,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        -0.0325,
+        0.08030916096258346
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail1: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 1,
+      "z": 0,
+      "o": 0.0229,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        -0.0229,
+        1.3441642201162753
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail1: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 1,
+      "z": 0.0015902390929258077,
+      "o": 0.0222,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        -0.022200000000000004,
+        1.3436173201777206
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail1: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 1,
+      "z": 0.04422725000000001,
+      "o": 0.0325,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        -0.0325,
+        1.35166456213074
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail2: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 2,
+      "z": 0,
+      "o": 0.0229,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.2929,
+        1.1958357798837245
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail2: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 2,
+      "z": 0.0015902390929258077,
+      "o": 0.0222,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.2922,
+        1.1963826798222792
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail2: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 2,
+      "z": 0.04422725000000001,
+      "o": 0.0325,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.3025,
+        1.18833543786926
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail3: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 3,
+      "z": 0,
+      "o": 0.0229,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.2929,
+        2.462996384124997
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail3: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 3,
+      "z": 0.0015902390929258077,
+      "o": 0.0222,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.2922,
+        2.4632374134543
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail3: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 3,
+      "z": 0.04422725000000001,
+      "o": 0.0325,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.3025,
+        2.4596908390374166
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail4: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 4,
+      "z": 0,
+      "o": 0.0229,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        0.07700361587500265,
+        -0.022900000000000004
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail4: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 4,
+      "z": 0.0015902390929258077,
+      "o": 0.0222,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        0.0767625865456999,
+        -0.0222
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail4: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 4,
+      "z": 0.04422725000000001,
+      "o": 0.0325,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        0.08030916096258346,
+        -0.0325
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail5: ring self-intersection at z=0.0000 (o=22.9mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 5,
+      "z": 0,
+      "o": 0.0229,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.1929963841249973,
+        2.5629
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail5: ring self-intersection at z=0.0016 (o=22.2mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 5,
+      "z": 0.0015902390929258077,
+      "o": 0.0222,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.1932374134543007,
+        2.5622000000000003
+      ]
+    },
+    {
+      "row": "predator_apex_9ft rail5: ring self-intersection at z=0.0442 (o=32.5mm) edges 0/13",
+      "id": "predator_apex_9ft",
+      "rail": 5,
+      "z": 0.04422725000000001,
+      "o": 0.0325,
+      "edges": [
+        0,
+        13
+      ],
+      "point": [
+        1.189690839037417,
+        2.5725000000000002
+      ]
+    }
+  ]
+}

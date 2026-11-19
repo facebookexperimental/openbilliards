@@ -1,0 +1,3 @@
+E2E-REPLAYS FAIL: 5b: exit must restore the entry gameplay pose: {"entryPose":{"target":[0.3,0.12,-0.3],"radius":3.3,"theta":-0.72,"phi":1.12,"fov":42},"exitPose":{"target":[0,0.05,0],"radius":2.7}}
+E2E-REPLAYS: 1 failure(s) in this arm — OK line withheld (5b OK)
+E2E-REPLAYS: FAIL (1 failure(s))

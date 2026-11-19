@@ -1,0 +1,10 @@
+{
+  "format": "openbilliards.anchors.v1",
+  "anchor": "endmass_squirt",
+  "provenance": "Shepard 2001 squirt-model reference points as quoted in Dr. Dave TP A-31; docs/research/literature.md sec 2.4. The contract-frozen kernel formula is TP A-31 eq. 13, which evaluates to 2.150 deg at (a = 0.375, ratio 20) - a documented model difference (TP A-31 p.1 notes Shepard's model is 'slightly different'), hence the widened ratio-20 tolerance arbitrated at integration (T020).",
+  "contact_offset_a": 0.375,
+  "points": [
+    { "ball_to_endmass_ratio": 20.0, "psi_deg": 2.33, "tol_deg": 0.2 },
+    { "ball_to_endmass_ratio": 100.0, "psi_deg": 0.49, "tol_deg": 0.15 }
+  ]
+}

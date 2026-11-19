@@ -1,0 +1,50 @@
+{
+  "v": 1,
+  "name": "perf",
+  "notes": [
+    "016 T023 (lane V). SC-009 probe rows per quickstart par.7 /",
+    "test-pyramid.md par.3: cold-launch-to-interactive and rAF cadence at",
+    "the 60 Hz cap, recorded as new iOS rows in the perf evidence (internal)",
+    "app-perf.md (T037; on-device pass is the TestFlight follow-up).",
+    "Cadence source: the game's OWN frame-time ring (__test.frameTimes,",
+    "web/app/main.js — rAF deltas including compositor scheduling; the",
+    "app-perf.md convention), sliced to the busy window of a scripted",
+    "break playback. p95 gate 34 ms (= two 60 Hz frames; the standing",
+    "app-perf p95 convention for headless hosts — the strict on-device",
+    "number rides TestFlight).",
+    "Cold-launch: the page-side navigation entry (custom-scheme fetch +",
+    "parse + module graph) plus the first-interactive observation; the",
+    "wall-clock launch->interactive stamp is measured by e2e-ios.mjs",
+    "around the driver's launch (both land in perf.json for the record).",
+    "GESTURE-FREE by design (pure probe scenario)."
+  ],
+  "source": "web/app/main.js frameTimes ring, the perf-evidence conventions (internal), quickstart.md par.7",
+  "viewport": { "width": 844, "height": 390 },
+  "boot": { "query": "obtool&norec&seed=1", "ephemeralStore": true, "statusSeam": true },
+  "phases": [
+    {
+      "name": "cadence",
+      "setup": [
+        "window.__e2e = {}; true",
+        "(async () => { for (let i = 0; i < 20; i++) { if (window.__rules?.game?.() !== 'eight_ball' || !window.__rules?.matchState?.()) { if ((await window.__rules?.setGame?.('eight_ball')) !== true) { await new Promise((r) => setTimeout(r, 200)); continue; } } __test.rerack(1); if (window.__rules?.setMatchState?.({ shooter: 1, breaker: 1 }) === true) return true; await new Promise((r) => setTimeout(r, 200)); } throw new Error('GH-566: could not (re)establish the scripted match (game=' + (window.__rules?.game?.() ?? '?') + ', fold=' + String(!!window.__rules?.matchState?.()) + ') \u2014 a mid-scenario page reload (WebContent recycle, the #514 class) or a rules-chain failure; each attempt re-selects eight_ball, re-stages the scene and re-injects the state, so this throw means 4 s of failed recovery, not one lost race'); })()"
+      ],
+      "steps": [
+        { "kind": "eval", "js": "(() => { const n = performance.getEntriesByType('navigation')[0]; window.__e2e.nav = n ? { domContentLoadedMs: n.domContentLoadedEventEnd, loadEventEndMs: n.loadEventEnd, durationMs: n.duration } : null; return true; })()" },
+        { "kind": "eval", "js": "window.__e2e.f0 = window.__test.frameTimes.length; true" },
+        { "kind": "assertEval", "name": "scripted break accepted (cadence load)",
+          "js": "(() => { const err = __test.shoot({ v0: 8.5, phi: Math.PI / 2, theta: 0, a: 0, b: -0.1 }); return err == null; })()" },
+        { "kind": "waitEval", "js": "['SIMULATING', 'PLAYBACK'].includes(__test.state())", "tries": 60 },
+        { "kind": "waitEval", "js": "!['SIMULATING', 'PLAYBACK'].includes(__test.state())", "tries": 400 },
+        { "kind": "assertEval", "name": "SC-009 rAF cadence at the 60 Hz cap: p95 <= 34 ms over the playback window (>= 120 frames)",
+          "js": "(() => { const ds = window.__test.frameTimes.slice(window.__e2e.f0); if (ds.length < 120) return false; const s = [...ds].sort((a, b) => a - b); const q = (p) => s[Math.min(s.length - 1, Math.floor(s.length * p))]; window.__e2e.raf = { n: ds.length, p50Ms: q(0.5), p95Ms: q(0.95), p99Ms: q(0.99), maxMs: s[s.length - 1] }; return window.__e2e.raf.p95Ms <= 34; })()" },
+        { "kind": "eval", "js": "JSON.stringify({ nav: window.__e2e.nav, raf: window.__e2e.raf })", "saveAs": "perf.json" },
+        { "kind": "eval", "js": "window.__rules?.matchState?.()?.pendingDecision != null ? (window.__rules.decide(1), true) : true" }
+      ]
+    }
+  ],
+  "asserts": [
+    { "kind": "perfRecord", "artifact": "perf.json",
+      "note": "print the perf-evidence row material, internal (cold-launch + rAF cadence)" },
+    { "kind": "zeroNonAppRequests", "note": "SC-001 arm when run under e2e-ios --airplane" }
+  ]
+}

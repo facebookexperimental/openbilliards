@@ -1,0 +1,13 @@
+leg returning
+    returning-eight_ball: boot returning, lighting leaf held 1x, hall open at release true
+    returning-eight_ball: pixels over 0 (budget 120) mean 0.000
+  - returning-eight_ball: green
+    returning-b085-eight_ball: boot returning, lighting leaf held 1x, hall open at release true
+    returning-b085-eight_ball: pixels over 0 (budget 120) mean 0.000
+  - returning-b085-eight_ball: green
+leg replay
+  - replay-continue-snooker: green
+leg phone
+    phone-eight_ball-snooker: pixels over 0 (budget 120) mean 0.000
+  - phone-eight_ball-snooker: green
+E2E-SWITCH PASS (44 arms)

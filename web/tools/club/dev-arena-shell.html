@@ -1,0 +1,323 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: arena shell</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<script type="importmap">
+{ "imports": { "three": "../../vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from '../../vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { pickTier, TIERS } from '../../scene/club/tiers.js';
+import { createAssets } from '../../scene/club/assets.js';
+import { createAdopt } from '../../scene/club/adopt.js';
+import { roomLight } from '../../scene/club/room/light.js';
+import { buildShell, HALL } from '../../scene/club/arena/shell.js';
+import * as LAYOUT from '../../scene/club/arena/layout.js';
+import { tableStandIn } from './bake-room-scene.mjs';
+
+const q = new URLSearchParams(location.search);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = Number(q.get('exposure')) > 0 ? Number(q.get('exposure')) : 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+// shader compile errors as data (the picture host has no console to read by eye)
+window.__shaderErrors = [];
+renderer.debug.onShaderError = (gl, program, vs, fs) => {
+  const log = (sh) => (gl.getShaderInfoLog(sh) ?? '').split('\n').slice(0, 6).join(' | ');
+  window.__shaderErrors.push({ program: gl.getProgramInfoLog(program), vertex: log(vs), fragment: log(fs) });
+  console.error('[dev-arena-shell] shader error:', log(fs) || log(vs));
+};
+RectAreaLightUniformsLib.init();
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.05, 60);
+const VIEWS = Object.fromEntries(LAYOUT.VIEWS.map((v) => [v.id, [v.cam, v.target, v.fov]]));
+Object.assign(VIEWS, {
+  graze: [[-4.7, 0.12, 0.9], [3.0, -0.79, 2.6], 38],     // the carpet at a low angle along a roll: the seam at z = 1.83, tracks
+  edge: [[-3.7, 0.3, -2.9], [-4.9, -0.79, -4.35], 36],   // the island's edge (the edging profile on the joint) in the north-west way in
+  rim: [[3.1, -0.25, -2.9], [4.6, -0.79, -4.12], 30],    // the edging profile close up, at the north boards' feet (0.54 m over the carpet)
+  rimE: [[2.2, 0.4, 0.6], [5.42, -0.79, 0.2], 34],       // the island's east edge from beside the table, standing height over the bed
+  up: [[-1.6, 0.3, 1.4], [0.6, 8.7, -0.6], 78],          // from the island straight up into the roof: the lid, the rig's steel
+  upN: [[-1.0, 0.3, 1.0], [1.5, 9.0, -10.4], 46],        // from the island up to the north round duct (over the upper seating)
+  upE: [[-2.0, 0.3, 0.0], [12.6, 9.2, 0.5], 36],         // from the island up to the cross duct at the east end
+  leg: [[-2.15, 0.1, 1.5], [-1.2, -0.79, 0.8], 34],      // the carpet beside a table leg (the lowest the app's camera gets)
+  top: [[0.4, 1.6, 1.9], [0.4, -0.79, 1.85], 50],        // straight down beside the table: seam, tracks, the walked band
+  cloth: [[-7.6, 0.9, 1.0], [-8.9, 1.1, -0.4], 40],      // the backdrop at close range: weave, a seam, a rail's ridge
+  foot: [[-6.3, 1.0, 2.6], [-8.7, -0.5, -0.6], 46],      // the backdrop's foot from over the west boards: floor lights, scallops
+  fold: [[6.0, 1.2, -9.0], [9.5, 2.2, -12.6], 40],       // a drape fold close up (from where the north seating stands)
+  hem: [[6.4, 0.5, -6.6], [10.2, -0.5, -12.6], 40],      // the drape's hem on the floor in the north-east corner
+  pipe: [[-1.5, 1.3, 1.5], [7.0, 6.2, -12.6], 36],       // the drape's head, its pipe, the bare wall above
+  roof: [[-3.0, 0.2, 2.2], [1.5, 8.7, -2.5], 60],        // the roof's lid
+  east: [[-1.2, 0.9, 0.3], [9, 1.2, -0.5], 50],          // the east end: boards, seating, drape behind
+  // round A4
+  corner: [[4.6, 0.9, -3.4], [14.0, 1.6, -11.6], 50],    // into the hall's north-east corner from inside the boards: the drape, the east door, its sign
+  doorE: [[9.2, 0.4, -7.2], [14.0, 0.5, -10.7], 44],     // the east exit door close up: portal, leaves, sign, the upright and its base beside it
+  doorW: [[-5.2, 0.7, -5.4], [-11.0, 0.5, -9.1], 44],    // the west exit door beside the backdrop's north end
+  head: [[9.6, 2.6, -11.2], [11.8, 6.25, -12.6], 34],    // the drape's head from under it (between the perimeter truss and the wall): the crossbar, the uprights' heads, the sag between ties
+  lap: [[7.0, 0.6, -8.2], [9.0, 1.5, -12.6], 28],        // a join of two drape widths (a lap) and the folds beside it
+  roofS: [[-1.6, 0.3, 1.4], [3.9, 8.7, 3.9], 62],        // up to a cable tray, the purlins and the deck over the south side
+  eaves: [[2.0, 0.6, -3.0], [9.0, 9.2, -12.6], 40],      // the head of the north wall: the bare wall, the eaves beam, the deck
+});
+let [pos, tgt, fov] = VIEWS[q.get('view')] ?? VIEWS.V10;
+if (q.get('cam')) { const c = q.get('cam').split(',').map(Number); pos = c.slice(0, 3); tgt = c.slice(3, 6); fov = c[6] || 40; }
+camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+
+// ---- stand-in app room (as web/scene/room.js builds it): box, floor, shadow overlay, wall props, lamp, three lights
+const FLOOR_Y = -0.79, CEIL_Y = 2.45;
+const appGroup = new THREE.Group();
+const appFloor = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), new THREE.MeshStandardMaterial({ color: 0x3a2a20, roughness: 0.55 }));
+appFloor.rotation.x = -Math.PI / 2; appFloor.position.y = FLOOR_Y; appGroup.add(appFloor);
+const appWalls = new THREE.Mesh(new THREE.BoxGeometry(9, CEIL_Y - FLOOR_Y + 0.02, 6), new THREE.MeshStandardMaterial({ color: 0x8a8070, roughness: 0.95, side: THREE.BackSide }));
+appWalls.position.set(0, (CEIL_Y + FLOOR_Y) / 2 - 0.01, 0); appGroup.add(appWalls);
+const blob = new THREE.Mesh(new THREE.PlaneGeometry(4.6, 3.2), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.6, depthWrite: false }));
+blob.rotation.x = -Math.PI / 2; blob.position.y = FLOOR_Y + 0.002; appGroup.add(blob);
+const LIGHT_W = 2.05, LIGHT_D = 0.66, LIGHT_Y = 1.02;
+const lampFace = new THREE.Mesh(new THREE.PlaneGeometry(LIGHT_W, LIGHT_D), new THREE.MeshBasicMaterial({ color: new THREE.Color(19.7, 20.9, 25.1), side: THREE.DoubleSide }));
+lampFace.rotation.x = Math.PI / 2; lampFace.position.set(0, LIGHT_Y, 0); appGroup.add(lampFace);
+const hood = new THREE.Mesh(new THREE.BoxGeometry(LIGHT_W + 0.14, 0.10, LIGHT_D + 0.14), new THREE.MeshStandardMaterial({ color: 0x142014, roughness: 0.45, metalness: 0.25 }));
+hood.position.set(0, LIGHT_Y + 0.055, 0); appGroup.add(hood);
+const rectLight = new THREE.RectAreaLight(0xf6f7f9, 7.8, LIGHT_W, LIGHT_D);
+rectLight.position.set(0, LIGHT_Y, 0); rectLight.lookAt(0, 0, 0); appGroup.add(rectLight);
+const hemi = new THREE.HemisphereLight(0x3a3a3e, 0x2a2a2c, 1.25); appGroup.add(hemi);
+const fill = new THREE.PointLight(0xd9dcdf, 2.2, 0, 2); fill.position.set(3.2, 1.9, -2.3); appGroup.add(fill);
+scene.add(appGroup);
+const appRoom = { group: appGroup, giRefs: { floor: appFloor, blob, hemi }, envRefs: [],
+  lightRefs: { group: appGroup, rectLights: [rectLight], hemi, fill, lampFace, hood, rods: [], walls: appWalls, floor: appFloor, blob } };
+
+// ---- stand-in table and a few balls
+const standIn = tableStandIn();
+const tableGroup = standIn.group, apronMat = standIn.materials.dark;
+scene.add(tableGroup);
+const balls = [];
+const R = 0.028575;
+[[-0.55, 0.1, 0xf5f0e0], [0.05, -0.05, 0xf2c200], [0.42, 0.28, 0x1b3fb0], [0.7, -0.38, 0xc81e1e], [-0.15, 0.45, 0x5a1f8a]].forEach(([x, z, c]) => {
+  const b = new THREE.Mesh(new THREE.SphereGeometry(R, 32, 24), new THREE.MeshPhysicalMaterial({ color: c, roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.03 }));
+  b.position.set(x, R, z); scene.add(b); balls.push(b);
+});
+
+// ---- the cube capture, as main.js does it
+const cubeRT = new THREE.WebGLCubeRenderTarget(128, { type: THREE.HalfFloatType });
+const cubeCam = new THREE.CubeCamera(0.02, 40, cubeRT);
+cubeCam.position.set(0, (FLOOR_Y + LIGHT_Y) / 2, 0);
+let bakes = 0;
+const rebakeEnv = () => {
+  balls.forEach((b) => { b.visible = false; });
+  try { cubeCam.update(renderer, scene); } finally { balls.forEach((b) => { b.visible = true; }); }
+  bakes += 1;
+};
+rebakeEnv();
+scene.environment = cubeRT.texture;
+for (const m of [apronMat, hood.material]) { m.envMap = cubeRT.texture; m.envMapIntensity = 0.05; }
+
+// ---- the club object, as index.js builds it (the real tiers, assets and adopt modules)
+const frameFns = [];
+if (q.get('lm') !== null && q.get('clublm') === null) q.set('clublm', q.get('lm'));
+const tier = pickTier({ renderer, query: q });
+const club = {
+  enabled: true, tier, knobs: TIERS[tier], venue: 'arena', time: { value: 0 },
+  ctx: { renderer, scene, camera, room: appRoom, table: { group: tableGroup }, rebakeEnv, query: q, venue: 'arena' },
+  assets: null, adopt: null, env: { enabled: false }, occ: { enabled: false }, post: { enabled: false },
+  onFrame(fn) { if (!frameFns.includes(fn)) frameFns.push(fn); }, offFrame(fn) { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); },
+};
+club.assets = createAssets(club);
+club.adopt = createAdopt(club);
+window.__club = club;
+window.__dev = { THREE, renderer, scene, camera, club, room: null, bakes: () => bakes, layout: LAYOUT };
+
+// ---- the hall: the venue's room; the shell alone when the room does not build
+let room = { enabled: false, reason: 'bare' }, shell = null, mode = 'room';
+if (q.get('bare') !== '1') {
+  try {
+    const { createRoom } = await import('../../scene/club/arena/room.js');
+    room = await createRoom(club);
+  } catch (e) { room = { enabled: false, reason: String(e?.message ?? e) }; }
+  if (!room.enabled) console.warn('[dev-arena-shell] the room did not build, the shell stands alone:', room.reason);
+}
+let rigStandIn = 0;
+const standInHeads = () => {
+  const A = LAYOUT.ARENA;
+  for (const [k, [x, z]] of [[-1.9, -1.5], [1.9, -1.5], [-1.9, 1.5], [1.9, 1.5]].entries()) {
+    roomLight.addEmitter({ id: `dev.rig.${k}`, type: 'point', position: new THREE.Vector3(x, FLOOR_Y + A.rig.bottomH - 0.2, z), axis: new THREE.Vector3(0, -1, 0), size: [0.5, 0.8],
+      color: new THREE.Color(1.0, 0.97, 0.92), intensity: 16, radius: 9 });
+    rigStandIn += 1;
+  }
+  roomLight.commit();
+};
+if (room.enabled) {
+  club.room = room; window.__dev.room = room;
+  if (!room.parts.lamp) standInHeads();
+} else {
+  // the shell alone, lit as arena/room.js lights it (the same calls, the hall's own levels)
+  mode = 'bare';
+  const A = LAYOUT.ARENA, HB = A.hall;
+  const box = { min: new THREE.Vector3(HB.x0, FLOOR_Y, HB.z0), max: new THREE.Vector3(HB.x1, FLOOR_Y + HB.height, HB.z1) };
+  const levels = { ...HALL };
+  for (const kv of (q.get('arenahall') ?? '').split(',')) { const [k, v] = kv.split(':'); if (typeof HALL[k] === 'number' && Number.isFinite(Number(v))) levels[k] = Number(v); }
+  roomLight.reset();
+  // (`cone: true`: the arena's switch, as arena/room.js sets it: the backdrop's wash is a one-sided tube since round A5)
+  roomLight.init({ club, envMap: scene.environment, tableBlock: true, cone: true });
+  roomLight.setPool({ t0: levels.poolT0, t1: levels.poolT1, strength: 1, gain: levels.poolGain });
+  roomLight.setFloorGloss({ sheen: levels.sheen, emitter: levels.emitterGloss, knee: levels.knee, cap: levels.cap, shadow: 1 });
+  roomLight.setBox(box.min, box.max);
+  roomLight.setAmbient(new THREE.Color(...levels.ambientSky), new THREE.Color(...levels.ambientGround), new THREE.Color(...levels.ambientSide));
+  shell = buildShell({ club, roomLight, box, detail: club.knobs.roomDetail, levels, layout: A });
+  roomLight.setSides(LAYOUT.cutPlanes(FLOOR_Y, A));
+  roomLight.setTableBlock({ strength: levels.tableBlock, soft: levels.tableBlockSoft });
+  roomLight.setShadow({ lamp: { cx: 0, cz: 0, hx: LIGHT_W / 2, hz: LIGHT_D / 2 }, table: { cx: 0, cz: 0, hx: 1.45, hz: 0.82 }, lampY: LIGHT_Y, tableY: 0.035, ambient: 0.32, strength: 1 });
+  scene.add(shell.group);
+  appWalls.visible = false; appFloor.visible = false; blob.visible = false;
+  standInHeads();
+}
+for (let i = 0; i < 3; i++) rebakeEnv();
+// the shell's parts, whichever way it was built
+const S = shell ? { meshes: shell.meshes, materials: shell.materials, uniforms: shell.uniforms, state: shell.state, counts: shell.counts, signature: shell.signature }
+  : (() => { const m = room.shell?.meshes ?? {}; return { meshes: m, materials: { carpet: m.floor?.material, drape: m.drape?.material, matt: m.matt?.material, backdrop: m.backdrop?.material, lens: m.lenses?.material }, uniforms: null, state: null, counts: null, signature: null }; })();
+// (the carpet patch's uniform objects: the shell leaves them on its floor material for tools)
+const carpetU = () => S.uniforms ?? S.materials.carpet?.userData?.arenaCarpet ?? null;
+
+window.__dev.state = () => (room.enabled ? { mode, ...room.state(), rigStandIn } : { mode, reason: room.reason, shell: shell?.state?.(), counts: shell?.counts?.(), light: roomLight.state(), rigStandIn });
+window.__dev.shell = () => ({ mode, tier, state: S.state?.() ?? room.state?.().shell ?? null, counts: S.counts?.() ?? room.state?.().shell ?? null, signature: S.signature?.() ?? null,
+  emitters: roomLight.emitters.filter((e) => e.id.startsWith('hall.')).map((e) => [e.id, e.type, e.intensity]), patched: !!carpetU(), keys: S.materials.carpet?.userData?.clubKeys ?? null,
+  programs: (renderer.info.programs ?? []).length, shaderErrors: window.__shaderErrors ?? [] });
+if (q.get('white') === '1') {
+  for (const m of Object.values(S.meshes)) {
+    const mat = m.material;
+    if (!mat?.isMeshStandardMaterial) continue;
+    mat.map = null; mat.normalMap = null; mat.color.set(0xb4b4b4); mat.vertexColors = false; mat.needsUpdate = true;
+  }
+}
+// what the shell costs (its four meshes), for the report
+window.__dev.cost = () => {
+  let triangles = 0, calls = 0;
+  const textures = new Map(), by = {};
+  for (const [k, o] of Object.entries(S.meshes)) {
+    if (!o?.isMesh) continue;
+    const tri = (o.geometry.index?.count ?? o.geometry.attributes.position.count) / 3;
+    by[k] = tri; triangles += tri; calls += 1;
+    for (const key of ['map', 'normalMap', 'roughnessMap', 'emissiveMap']) {
+      const t = o.material?.[key], im = t?.image; if (!im) continue;
+      const w = im.naturalWidth || im.width || 0, h = im.naturalHeight || im.height || 0;
+      textures.set(t.source?.uuid ?? t.uuid, { name: `${o.material.name}.${key}`, w, h, bytes: Math.round(w * h * 4 * (t.generateMipmaps === false ? 1 : 4 / 3)) });
+    }
+  }
+  const list = [...textures.values()];
+  return { tier, mode, calls, triangles, by, textures: list.length, textureBytes: list.reduce((n, t) => n + t.bytes, 0), list,
+    frame: { calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, programs: (renderer.info.programs ?? []).length } };
+};
+
+let frames = 0;
+const clock = new THREE.Clock();
+const QUAD = (q.get('quad') ?? '').split(',').filter((id) => VIEWS[id]).slice(0, 4);
+const pose = (id, w, h) => {
+  const [p, tg, f] = VIEWS[id];
+  camera.position.set(...p); camera.fov = f; camera.aspect = w / h; camera.updateProjectionMatrix(); camera.lookAt(...tg); camera.updateMatrixWorld(true);
+};
+const renderQuad = (t) => {
+  const w = Math.floor(innerWidth / 2), h = Math.floor(innerHeight / 2);
+  renderer.setScissorTest(true);
+  QUAD.forEach((id, k) => {
+    pose(id, w, h);
+    for (const fn of [...frameFns]) fn(t, 1 / 60);
+    const x = (k % 2) * w, y = (1 - (k >> 1)) * h;
+    renderer.setViewport(x, y, w, h); renderer.setScissor(x, y, w, h);
+    renderer.render(scene, camera);
+  });
+  renderer.setScissorTest(false);
+};
+// ---- ?pair=: the same views with one thing of the shell on (left) and off (right)
+// (round A5: `relief` = the backdrop cloth's relief under the wash; `sign` also switches the signs' glow on the pier)
+const PAIRS = ['carpet', 'pileview', 'nap', 'tape', 'pile', 'wash', 'house', 'cloth', 'scan', 'trim', 'gloss', 'scallop', 'sign', 'relief'];
+const PAIR = PAIRS.includes(q.get('pair')) ? q.get('pair') : null;
+const pairViews = (q.get('views') ?? 'V10,graze').split(',').filter((id) => VIEWS[id]).slice(0, 2);
+const pairSwitch = (() => {
+  if (!PAIR) return null;
+  const ems = roomLight.emitters.filter((e) => e.id.startsWith(PAIR === 'wash' ? 'hall.wash.' : 'hall.house.'));
+  const keep = ems.map((e) => e.intensity);
+  const lens = S.materials.lens, lensC = lens?.color.clone();
+  const carpet = S.materials.carpet, pileScale = carpet?.normalScale.x ?? 0;
+  const back = S.materials.backdrop, backMap = back?.map, backNormal = back?.normalMap;
+  const flatCv = document.createElement('canvas'); flatCv.width = flatCv.height = 2;
+  { const c = flatCv.getContext('2d'); c.fillStyle = 'rgb(200,200,200)'; c.fillRect(0, 0, 2, 2); }
+  const flatMap = new THREE.CanvasTexture(flatCv); flatMap.colorSpace = THREE.SRGBColorSpace;
+  const flatN = new THREE.DataTexture(new Uint8Array([128, 128, 255, 255]), 1, 1); flatN.needsUpdate = true;
+  const gloss0 = (() => { try { const f = roomLight.state().floorGloss ?? roomLight.state().gloss ?? null; return f ?? { sheen: HALL.sheen, emitter: HALL.emitterGloss }; } catch { return { sheen: HALL.sheen, emitter: HALL.emitterGloss }; } })();
+  // the edging profile's vertices (the low matt vertices inside the boards' line), for the `trim` pair
+  const trimSwap = (() => {
+    const g = S.meshes.matt?.geometry, pos = g?.attributes.position; if (!pos) return null;
+    const A = LAYOUT.ARENA.island, built = pos.array.slice(), flat = pos.array.slice();
+    let n = 0;
+    for (let i = 0; i < pos.count; i++) {
+      const x = built[3 * i], y = built[3 * i + 1] - FLOOR_Y, z = built[3 * i + 2];
+      if (x > A.x0 && x < A.x1 && z > A.z0 && z < A.z1 && y > 0 && y < 0.05) { flat[3 * i + 1] = FLOOR_Y - 0.01; n += 1; }
+    }
+    return n ? (on) => { pos.array.set(on ? built : flat); pos.needsUpdate = true; } : null;
+  })();
+  // the exit signs' faces (the lens mesh's vertices over 1 m above the floor), for the `sign` pair: off = their colour black
+  const signSwap = (() => {
+    const g = S.meshes.lenses?.geometry, pos = g?.attributes.position, col = g?.attributes.color; if (!pos || !col) return null;
+    const built = col.array.slice(), dark = col.array.slice();
+    let n = 0;
+    for (let i = 0; i < pos.count; i++) if (pos.getY(i) - FLOOR_Y > 1) { dark[3 * i] = dark[3 * i + 1] = dark[3 * i + 2] = 0; n += 1; }
+    return n ? (on) => { col.array.set(on ? built : dark); col.needsUpdate = true; } : null;
+  })();
+  return (on) => {
+    const u = carpetU();
+    if (PAIR === 'carpet' && u) u.uArenaSw.value[0] = on ? 1 : 0;
+    if ((PAIR === 'pileview' || PAIR === 'nap') && u) u.uArenaSw.value[2] = on ? 1 : 0;
+    if (PAIR === 'tape' && u) u.uArenaSw.value[1] = on ? 1 : 0;
+    if (PAIR === 'scan' && u) u.uArenaSw.value[3] = on ? 1 : 0;
+    // (the carpet's gloss rows of the room light: the lamp's glare share and the emitters' highlights; off = a carpet
+    // that only scatters. `?gloss=sheen,emitter` sets the OFF arm's values instead of 0, 0)
+    if (PAIR === 'gloss') { const g = (q.get('gloss') ?? '0,0').split(',').map(Number); roomLight.setFloorGloss(on ? { sheen: gloss0.sheen, emitter: gloss0.emitter } : { sheen: g[0] || 0, emitter: g[1] || 0 }); }
+    // (the edging profile is part of the matt mesh: its triangles are the first `trimCount` indices' worth after the hems;
+    // the pair hides the whole profile by drawing the matt mesh without the low vertices: a draw range cannot, so the
+    // off arm lowers the profile's vertices to the floor through a copy of the positions)
+    if (PAIR === 'trim' && trimSwap) { trimSwap(on); if (u) u.uArenaSw.value[1] = on ? 1 : 0; }
+    if (PAIR === 'pile' && carpet) carpet.normalScale.set(on ? pileScale : 0, on ? pileScale : 0);
+    // (round A4: the wash's scallops are light of the backdrop's own patch: they go with the wash; `scallop` switches
+    // them alone; `sign` darkens the exit signs' faces, which share the lens mesh: the off arm draws it without them)
+    const bu = back?.userData?.arenaBackdrop ?? null;
+    if (PAIR === 'wash' || PAIR === 'house') { ems.forEach((e, i) => { e.intensity = on ? keep[i] : 0; }); roomLight.commit(); if (PAIR === 'wash' && lens) lens.color.copy(lensC).multiplyScalar(on ? 1 : 0.004); if (PAIR === 'wash' && bu) bu.uArenaWashC.value[3] = on ? 1 : 0; }
+    if (PAIR === 'scallop' && bu) bu.uArenaWashC.value[3] = on ? 1 : 0;
+    if (PAIR === 'sign' && signSwap) signSwap(on);
+    if (PAIR === 'sign') { const su = S.materials.matt?.userData?.arenaSign?.uArenaSignP?.value; if (su) for (let i = 3; i < su.length; i += 4) su[i] = on ? 1 : 0; }
+    if (PAIR === 'relief' && bu) bu.uArenaWashB.value[2] = on ? 1 : 0;
+    if (PAIR === 'cloth' && back) { back.map = on ? backMap : flatMap; if (backNormal) back.normalMap = on ? backNormal : flatN; }
+  };
+})();
+const renderPair = (t) => {
+  const w = Math.floor(innerWidth / 2), h = Math.floor(innerHeight / 2);
+  renderer.setScissorTest(true);
+  pairViews.forEach((id, row) => {
+    pose(id, w, h);
+    for (const fn of [...frameFns]) fn(t, 1 / 60);
+    for (const [col, on] of [[0, true], [1, false]]) {
+      pairSwitch(on);
+      const x = col * w, y = (1 - row) * h;
+      renderer.setViewport(x, y, w, h); renderer.setScissor(x, y, w, h);
+      renderer.render(scene, camera);
+    }
+    pairSwitch(true);
+  });
+  renderer.setScissorTest(false);
+};
+renderer.setAnimationLoop(() => {
+  const t = clock.getElapsedTime();
+  if (!QUAD.length && !PAIR) for (const fn of [...frameFns]) fn(t, 1 / 60);
+  if (PAIR) renderPair(t); else if (QUAD.length) renderQuad(t); else renderer.render(scene, camera);
+  if (++frames === 4) {
+    window.__dev.info = { calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, programs: renderer.info.programs?.length ?? 0, textures: renderer.info.memory.textures, geometries: renderer.info.memory.geometries };
+    window.__ready = true;
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,977 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>게임 가이드 — openbilliards</title>
+  <meta name="description" content="openbilliards 플레이 방법: 조작, 당점과 조준 보조선, 실제 구현 그대로의 나인볼·에이트볼·스누커·3쿠션·원포켓 규칙, 게임 카탈로그, 장비와 보정 배지, 리플레이 공유, 동영상 내보내기 — 7개 언어.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="게임 가이드 — openbilliards">
+  <meta property="og:description" content="openbilliards 플레이 방법: 조작, 당점과 조준 보조선, 실제 구현 그대로의 나인볼·에이트볼·스누커·3쿠션·원포켓 규칙, 게임 카탈로그, 장비와 보정 배지, 리플레이 공유, 동영상 내보내기 — 7개 언어.">
+  <meta property="og:image" content="../../assets/img/hero-poster.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b100c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23efe9d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../assets/guide.css">
+  <script src="../../assets/site.js" defer></script>
+  <script src="../../assets/motion.js" defer></script>
+</head>
+<body>
+  <a class="bb-skip" href="#main">본문으로 건너뛰기</a>
+
+  <header>
+    <nav class="bb-nav" aria-label="주 내비게이션">
+      <a class="bb-wordmark" href="../../index.html">Openbilliards</a>
+      <button class="bb-nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">메뉴</button>
+      <ul class="bb-nav-links" id="nav-links">
+        <li><a href="index.html">가이드</a></li>
+        <li><a href="../../docs/index.html">API 문서</a></li>
+        <li><a href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a></li>
+        <li><a class="bb-pill bb-pill--fill" href="../../web/app.html">지금 플레이</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="bb-section gd-hero" aria-labelledby="gd-h">
+      <p class="bb-edge-tab bb-label">Openbilliards — gameplay guide</p>
+
+      <p class="bb-label bb-marker bb-reveal">가이드 — 다섯 종목</p>
+      <h1 id="gd-h" class="bb-display bb-reveal bb-d1" style="margin: 24px 0 32px; max-width: 10em;">
+        테이블의<br>모든 것.
+      </h1>
+      <p class="bb-body bb-reveal bb-d2" style="max-width: 36em;">
+        모든 조작, 모든 규칙, 게임이 그리는 모든 선 — 출시 빌드가 실제로
+        동작하는 그대로 기록했습니다. 모든 수치에는 그것을 정의하는 소스
+        파일을 함께 표기합니다.
+      </p>
+
+      <nav class="gd-lang bb-reveal bb-d3" aria-label="가이드 언어" style="margin-top: 48px;">
+        <a data-lang="en" href="../en/index.html" lang="en">English</a>
+        <a data-lang="zh-CN" href="../zh-CN/index.html" lang="zh-CN">中文</a>
+        <a data-lang="es" href="../es/index.html" lang="es">Español</a>
+        <a data-lang="ja" href="../ja/index.html" lang="ja">日本語</a>
+        <a data-lang="de" href="../de/index.html" lang="de">Deutsch</a>
+        <a data-lang="fr" href="../fr/index.html" lang="fr">Français</a>
+        <a data-lang="ko" href="index.html">한국어</a>
+      </nav>
+
+      <nav aria-label="목차" class="bb-reveal bb-d4">
+        <ul class="gd-toc">
+          <li><a href="#first-shot"><span class="n">01</span>첫 샷</a></li>
+          <li><a href="#controls"><span class="n">02</span>조작</a></li>
+          <li><a href="#spin"><span class="n">03</span>당점과 조준 보조선</a></li>
+          <li><a href="#games"><span class="n">04</span>게임 고르기</a></li>
+          <li><a href="#rules"><span class="n">05</span>나인볼 규칙</a></li>
+          <li><a href="#rules-8ball"><span class="n">06</span>에이트볼 규칙</a></li>
+          <li><a href="#rules-snooker"><span class="n">07</span>스누커 규칙</a></li>
+          <li><a href="#rules-carom"><span class="n">08</span>캐롬 규칙</a></li>
+          <li><a href="#rules-onepocket"><span class="n">09</span>원포켓 규칙</a></li>
+          <li><a href="#equipment"><span class="n">10</span>장비와 배지</a></li>
+          <li><a href="#replays"><span class="n">11</span>리플레이와 공유</a></li>
+          <li><a href="#export"><span class="n">12</span>동영상 내보내기</a></li>
+          <li><a href="#recording"><span class="n">13</span>녹화와 슬로모션</a></li>
+          <li><a href="#language"><span class="n">14</span>언어</a></li>
+          <li><a href="#faq"><span class="n">15</span>자주 묻는 질문</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="first-shot" aria-labelledby="first-shot-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">01 — 첫 샷</p>
+        <div class="gd-content">
+          <h2 id="first-shot-h" class="bb-heading bb-reveal" style="max-width: 14em;">치고, 보고,<br>반복한다.</h2>
+          <ol class="gd-steps bb-reveal bb-d1" style="margin-top: 48px;">
+            <li><strong>조준.</strong> 테이블 위 아무 곳이나 왼쪽 드래그하면 큐가
+              포인터 방향으로 돌아갑니다. 흰 실선이 첫 접촉까지의 수구 경로를
+              미리 보여 줍니다. 수구에서 2.5 볼 반지름 안쪽의 누름은
+              무시되므로, 너무 가까이 잡아도 조준이 흐트러지지 않습니다
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.</li>
+            <li><strong>파워 설정.</strong> 조준 중에 휠을 굴리거나
+              <kbd>↑</kbd>/<kbd>↓</kbd>를 누릅니다. 파워 범위는 0.5–12&nbsp;m/s
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a> —
+              상한은 실측된 프로 브레이크 속도(약 27&nbsp;mph)에 맞춰져
+              있습니다.</li>
+            <li><strong>미세 조준.</strong> <kbd>Shift</kbd>를 누른 채 드래그하면
+              포인터 움직임의 0.1배로 미세 조준. 화살표 키는 ±0.05°씩
+              (<kbd>Shift</kbd>&nbsp;0.5°) 움직입니다.</li>
+            <li><strong>샷.</strong> 상태 배너가 “재생 중”으로 바뀝니다 — 커널은
+              이미 샷 전체를 풀어 두었습니다. 공이 멈추면 차례가 넘어가고,
+              플레이어 1과 플레이어 2가 한 대의 기기에서 번갈아 칩니다
+              <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.</li>
+            <li><strong>HUD 읽기.</strong> “P1 목표는 1번”이 누구 차례인지, 어느
+              공이 합법 목표인지 알려 줍니다 — 언제나 테이블 위 가장 낮은
+              번호입니다.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="controls" aria-labelledby="controls-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">02 — 조작</p>
+        <div class="gd-content">
+          <h2 id="controls-h" class="bb-heading bb-reveal" style="max-width: 14em;">마우스 하나,<br>동사는 넷.</h2>
+
+          <div class="gd-scroll bb-reveal bb-d1" style="margin-top: 48px;">
+            <table class="gd-table">
+              <caption>마우스</caption>
+              <thead><tr><th scope="col">입력</th><th scope="col">동작</th></tr></thead>
+              <tbody>
+                <tr>
+                  <th scope="row">테이블 위 왼쪽 드래그</th>
+                  <td>조준 — 큐의 방위각이 포인터를 향해 곧장 맞춰집니다.
+                    볼 인 핸드 중에는 수구에서 3 볼 반지름 안에서 시작한
+                    드래그가 수구 이동이 되고, 그 밖에서는 평소처럼 조준합니다
+                    <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><kbd>Shift</kbd> + 왼쪽 드래그</th>
+                  <td>조준 중에는 포인터 각도 변화의 0.1배로 미세 조준.
+                    조준 상태가 아니면 카메라 회전.</td>
+                </tr>
+                <tr>
+                  <th scope="row">오른쪽 드래그</th>
+                  <td>카메라 회전
+                    <a class="bb-cite" href="../../web/app/orbit.js">web/app/orbit.js</a>.</td>
+                </tr>
+                <tr>
+                  <th scope="row">휠</th>
+                  <td>조준 중에는 파워, 그 외에는 줌. <kbd>Shift</kbd>&nbsp;+ 휠은
+                    항상 줌.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 48px;">
+            <table class="gd-table">
+              <caption>키보드</caption>
+              <thead><tr><th scope="col">키</th><th scope="col">효과</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><kbd>←</kbd> <kbd>→</kbd></th>
+                  <td>조준 ±0.05° — <kbd>Shift</kbd>와 함께 ±0.5°
+                    <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a></td></tr>
+                <tr><th scope="row"><kbd>↑</kbd> <kbd>↓</kbd></th>
+                  <td>파워 ±0.1&nbsp;m/s — <kbd>Shift</kbd>와 함께 ±0.5&nbsp;m/s</td></tr>
+                <tr><th scope="row"><kbd>V</kbd></th>
+                  <td>조준 시점 전환(아래 참조)</td></tr>
+                <tr><th scope="row"><kbd>Esc</kbd></th>
+                  <td>설정 서랍 닫기 — 최상위 레이어부터
+                    <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 24px;">
+            “샷”이나 “다시 랙” 같은 일반 버튼에 포커스가 있어도 화살표 키는
+            계속 동작합니다. 셀렉트나 텍스트 입력에서는 입력에 양보합니다.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">조준 시점</h3>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            <kbd>V</kbd>를 누르면 공 뒤의 낮은 카메라로 전환됩니다 — 수구 뒤
+            0.78&nbsp;m, 높이 0.34&nbsp;m
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a> —
+            조준선을 따라 수구를 쫓아갑니다. 조준은 화면 기준이 되어
+            오른쪽으로 드래그하면 오른쪽으로 꺾이고, 누르는 것만으로 조준이
+            튀는 일은 없습니다. 오른쪽 드래그를 위아래로 움직여 파워를
+            조절하며, 아래로 끌수록 큐가 눈에 띄게 뒤로 당겨집니다.
+            <kbd>V</kbd>를 다시 누르면 저장된 카메라로 돌아갑니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="spin" aria-labelledby="spin-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">03 — 당점과 조준 보조선</p>
+        <div class="gd-content">
+          <h2 id="spin-h" class="bb-heading bb-reveal" style="max-width: 14em;">회전은 공 위의<br>한 점.</h2>
+
+          <div class="gd-side" style="margin-top: 48px;">
+            <div>
+              <p class="bb-body bb-reveal bb-d1">
+                왼쪽 아래 패널의 당점 패드는 수구를 정면에서 본 원입니다.
+                점을 드래그하세요:
+                <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">a</code>는
+                좌우 — 양수는 나를 기준으로 오른쪽 회전 —
+                <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">b</code>는
+                상하 — 중심보다 위는 팔로우(밀어치기), 아래는
+                드로우(끌어치기)입니다
+                <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>.
+                오프셋의 단위는 볼 반지름이고, 검증기가
+                a²&nbsp;+&nbsp;b²&nbsp;≤&nbsp;0.25를 강제합니다: 큐 팁은
+                반지름 절반에 있는 점선 링을 절대 넘을 수 없습니다 — 미스큐
+                한계입니다. 허용되지 않는 값은 애초에 설정할 수 없고, 게임
+                안에 미스큐 이벤트는 존재하지 않습니다.
+              </p>
+              <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+                아치 슬라이더는 큐 뒤쪽을 0°에서 80°까지 들어 올립니다
+                <a class="bb-cite" href="../../web/app/aimwidgets.js">web/app/aimwidgets.js</a>.
+                45°를 넘으면 마세 힌트가 깜박입니다: 수구가 휘어져 갈 것을
+                예상하세요. 미리보기는 샷과 같은 커널로 계산되므로, 지금
+                보이는 곡선이 그대로 실제 곡선입니다.
+              </p>
+            </div>
+            <figure class="gd-tip bb-reveal bb-d2" aria-hidden="false">
+              <svg viewBox="0 0 220 220" role="img" aria-label="수구 정면: 당점 오프셋 (a, b)와 반지름 절반에 있는 점선 미스큐 링">
+                <line class="st-axis" x1="110" y1="10" x2="110" y2="210"></line>
+                <line class="st-axis" x1="10" y1="110" x2="210" y2="110"></line>
+                <circle class="st-ball" cx="110" cy="110" r="96"></circle>
+                <circle class="st-ring" cx="110" cy="110" r="48"></circle>
+                <circle class="st-dot" cx="134" cy="80" r="6"></circle>
+                <text x="182" y="100">+a</text>
+                <text x="118" y="30">+b</text>
+              </svg>
+              <figcaption>당점 오프셋 (a, b) — 점선 링은 0.5&nbsp;R의 미스큐 한계</figcaption>
+            </figure>
+          </div>
+
+          <h3 class="bb-heading-s bb-reveal">읽어야 할 세 개의 선</h3>
+          <ul class="gd-legend bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><span class="ln" aria-hidden="true"></span>
+              <span><strong>흰 실선</strong> — 첫 접촉까지의 수구 진행 경로.</span></li>
+            <li><span class="ln ln--object" aria-hidden="true"></span>
+              <span><strong>호박색</strong> — 접촉 후 목적구가 나아갈 방향. 약 반 다이아몬드 길이의 짧은 선.</span></li>
+            <li><span class="ln ln--cue" aria-hidden="true"></span>
+              <span><strong>초록 점선</strong> — 접촉 <em>후</em> 수구의 경로: 드로우, 팔로우, 또는 탄젠트 라인.</span></li>
+          </ul>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 24px;">
+            실선은 접촉 전, 점선은 접촉 후. 이 구분이 시각 언어의 전부입니다
+            <a class="bb-cite" href="../../web/app/preview.js">web/app/preview.js</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">조준 보조 단계</h3>
+          <ul class="bb-list bb-body-s bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><strong>끄기</strong> — 선을 전혀 표시하지 않음.</li>
+            <li><strong>표준(경로 + 고스트 볼)</strong> — 기본값: 진입 선, 접촉
+              지점의 고스트 볼, 목적구의 짧은 방향선.</li>
+            <li><strong>연습(모든 공의 경로)</strong> — 표준에 더해, 테이블 위
+              모든 공의 완전한 예측 경로를 흐리게 표시.</li>
+          </ul>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            초록 점선에는 전용 스위치가 있습니다 — “접촉 후 큐볼 경로”,
+            기본값은 켜짐
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>.
+            이 모든 선은 조준이 바뀔 때마다 진짜 물리 커널을 다시 실행해
+            그려집니다. 샷 하나에 약 0.2&nbsp;ms
+            <a class="bb-cite" href="../../web/app/preview.js">web/app/preview.js</a> —
+            이 선들은 기하학적 근사가 아니라 정확한 물리입니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="games" aria-labelledby="games-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">04 — 게임 고르기</p>
+        <div class="gd-content">
+          <h2 id="games-h" class="bb-heading bb-reveal" style="max-width: 14em;">다섯 모두 플레이 가능,<br>모두 출처와 함께.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            설정 서랍 맨 위에 “게임” 선택기가 있고, 다섯 항목 모두 플레이할
+            수 있습니다: 기본값인 <strong>나인볼</strong>,
+            <strong>에이트볼</strong>, <strong>스누커</strong>,
+            <strong>3쿠션</strong>, <strong>원포켓</strong>. 선택은 저장되고,
+            전환하기 전에 먼저 물어봅니다 — “게임을 바꾸면 공을 다시
+            배치합니다. 계속할까요?” — 게임이 바뀌면 랙도 새로 배치되기
+            때문입니다(스누커와 캐롬은 테이블도 바뀝니다)
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>.
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            선택기 아래 “게임 카탈로그”를 펼치면 전체 목록이 나옵니다: 다섯
+            종목 각각에 관장 단체와 전사(轉寫)의 근거가 된 규정집 판본을 적은
+            출처 줄이 붙습니다 — 실제 출처가 없는 항목은 검증에서 곧바로
+            거부됩니다
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/games/catalog.ts">sdk/ts/src/games/catalog.ts</a>.
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>게임 카탈로그</caption>
+              <thead><tr><th scope="col">게임</th><th scope="col">규정집</th><th scope="col">배지</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">나인볼</th>
+                  <td>WPA Rules of Play(2025-09-15 발효) 5절</td>
+                  <td>플레이 가능</td></tr>
+                <tr><th scope="row">에이트볼</th>
+                  <td>WPA Rules of Play(2025-09-15 발효) 4절</td>
+                  <td>플레이 가능</td></tr>
+                <tr><th scope="row">스누커</th>
+                  <td>WPBSA Official Rules of the Games of Snooker and English
+                    Billiards(2024년 9월 개정)</td>
+                  <td>플레이 가능</td></tr>
+                <tr><th scope="row">3쿠션</th>
+                  <td>UMB World Rules of Carom Billiard(1989년 1월 1일;
+                    World Cup 보충 규정 15.12.2025)</td>
+                  <td>플레이 가능</td></tr>
+                <tr><th scope="row">원포켓</th>
+                  <td>WPA Rules of Play(2025-09-15 발효) 12절</td>
+                  <td>플레이 가능</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            다섯 종목 모두 플레이할 수 있습니다. 종목을 고르면 테이블과 공도
+            그 종목의 출처 있는 조합으로 함께 바뀝니다 — 스누커는 WPBSA
+            12피트 테이블과 52.5&nbsp;mm 공, 캐롬은 포켓 없는 UMB
+            2.84&nbsp;m 테이블과 61.5&nbsp;mm 공, 원포켓은 쓰던 풀
+            테이블 — 그리고 게임마다 자기 장비 선택을 따로 기억하므로 종목을
+            오가도 상태가 섞이지 않습니다
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="rules" aria-labelledby="rules-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">05 — 실제 구현 그대로의 나인볼 규칙</p>
+        <div class="gd-content">
+          <h2 id="rules-h" class="bb-heading bb-reveal" style="max-width: 14em;">가장 낮은 번호부터.<br>9번이면 승리.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            합법적인 샷의 조건은 두 가지입니다: 수구의 첫 접촉이 테이블 위
+            가장 낮은 번호의 공이어야 하고, <em>그리고</em> 그 뒤에 최소 한 개의
+            공이 포켓되거나 쿠션에 닿아야 합니다
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/nineball.ts">sdk/ts/src/rules/nineball.ts</a>.
+            그 외에는 모두 파울이며, 파울은 겹쳐서 성립할 수도 있습니다:
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d2" style="margin-top: 24px;">
+            <li><strong>수구가 아무 공도 맞히지 못함</strong> — 접촉이 전혀 없음.</li>
+            <li><strong>잘못된 공을 먼저 맞힘</strong> — 첫 접촉이 가장 낮은 번호가 아니었음.</li>
+            <li><strong>접촉 후 노 쿠션</strong> — 아무것도 포켓되지 않았고, 어떤 공도 쿠션에 닿지 않음.</li>
+            <li><strong>스크래치</strong> — 수구가 포켓되었거나 테이블 밖으로 튀어 나감.</li>
+          </ul>
+          <p class="bb-body bb-reveal" style="margin-top: 32px;">
+            어떤 파울이든 상대에게 <strong>볼 인 핸드(테이블 위 어디든)</strong>를
+            줍니다 — 키친 제한은 없습니다. 수구는 일단 헤드 스폿에 나타나며,
+            원하는 곳으로 드래그한 뒤(겹침은 검증됩니다) 샷하면 됩니다
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            합법적인 샷으로 9번을 넣으면 승리 — 콤비네이션도 인정됩니다.
+            9번이 파울 중에 떨어지거나 테이블을 벗어나면 풋 스폿에 되돌려
+            놓습니다. 자리가 막혀 있으면 롱 스트링을 따라 물러나고, 그 선이
+            완전히 막혀 있으면 v1에서는 그대로 둡니다. 합법적이지만 아무것도
+            넣지 못한 샷은 차례를 넘깁니다. 승리하면 배너가 표시되고, 2.6초
+            후 새 시드로 자동으로 다시 랙을 배치합니다
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            v1에 구현되지 않은 것: 브레이크 후 푸시아웃, WPA의 드라이 브레이크
+            4구 쿠션 규정, 3연속 파울 패배. 브레이크는 다른 샷과 똑같이
+            판정되고, 테이블을 벗어난 목적구는 돌아오지 않습니다 — 다시
+            놓이는 것은 9번뿐입니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-8ball" aria-labelledby="rules-8ball-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">06 — 실제 구현 그대로의 에이트볼 규칙</p>
+        <div class="gd-content">
+          <h2 id="rules-8ball-h" class="bb-heading bb-reveal" style="max-width: 14em;">모든 샷을 지정.<br>8번이 결정한다.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            에이트볼은 WPA Rules of Play(2025-09-15 발효) 4절을 그대로
+            옮겼고, 모든 판정에 규칙 번호가 함께 표시됩니다. 규정집이
+            “명백한” 샷을 심판 재량에 맡기는 대목에서는 가장 엄격한 해석을
+            택합니다: 모든 샷을 명시적으로 지정하고, 아무것도 추정하지
+            않습니다
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/eightball.ts">sdk/ts/src/rules/eightball.ts</a>.
+            공 15개를 삼각형으로 랙하며 — 8번이 중앙, 뒷줄 양 모서리에
+            솔리드와 스트라이프가 하나씩 들어갑니다(WPA 4.2).
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">오픈 테이블과 그룹</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            브레이크는 지정이 필요 없는 유일한 샷이고, 브레이크 후 테이블은
+            <strong>오픈</strong> 상태입니다: HUD 칩에 “오픈 테이블”이 뜨고,
+            첫 접촉은 8번만 아니면 어느 공이든 됩니다 — 단, 한 그룹이 이미
+            모두 포켓된 상태라면 8번도 됩니다(WPA 4.4). 그룹은 처음
+            합법적으로 포켓된 <em>지정</em> 공이 결정합니다 — 지정한
+            솔리드(1–7)를 넣으면 내가 솔리드, 상대가 스트라이프(9–15)입니다.
+            그때부터 칩이 양쪽의 그룹을 표시하고, 자기 그룹을 다 치우면 “8번
+            차례”로 바뀝니다.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">샷 지정</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            브레이크 뒤의 모든 샷에는 목표 공 + 포켓의 명시적 지정이
+            따릅니다(WPA 4.6, 1.7의 가장 엄격한 해석). HUD가 “지정 필요:
+            포켓을 선택하세요”라고 안내하면 여섯 개의 포켓 마커 중 하나를
+            누르세요. 인디케이터가 “N번 공 → 포켓”으로 확정되며, 그 전까지
+            “샷”은 거부됩니다 — “먼저 목표 공과 포켓을 지정하세요 (또는
+            세이프티 선언)”
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.
+            당점 패드 옆의 “세이프티” 버튼이 그 대안입니다(WPA 1.7): 선언하면
+            그 샷이 끝난 뒤 차례가 넘어가고 — 세이프티 중에 포켓된 공은
+            그대로 남습니다. 지정한 공이 지정한 포켓에 들어가면 계속 치고,
+            그 외에는 차례가 넘어갑니다. 다만 지정하지 않고 들어간 공도
+            꺼내지 않습니다.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">파울, 볼 인 핸드, 선택</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            파울 목록은 나인볼과 같고 — 스크래치, 접촉 없음, 잘못된 공을
+            먼저(여기서는 내 그룹이 아닌 공), 접촉 후 노 쿠션 — 공이 테이블
+            밖으로 나가는 경우가 더해집니다. 일반 파울은 상대에게
+            <strong>테이블 위 어디든 놓을 수 있는 볼 인 핸드</strong>를
+            주고(WPA 4.9), 브레이크 파울은 배치를 <strong>헤드 라인
+            뒤</strong>로 제한합니다(WPA 4.3(g),(h)). 파울 배너는 매번 규칙을
+            지목합니다 — “파울 — 스크래치(WPA 3.1 via 4.9)”
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.
+            에이트볼에는 3연속 파울 패배가 없고(WPA 3.13이 스스로를 제외),
+            다시 놓이는 공은 오직 8번뿐입니다(WPA 4.7).
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            어떤 브레이크는 판정 대신 규정집의 선택지로 끝납니다: 프롬프트가
+            누가 결정하는지 알려 주고, 선택 전까지 샷이 잠기며, 선택은
+            리플레이에 기록됩니다:
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d1" style="margin-top: 24px;">
+            <li><strong>드라이 브레이크</strong>(WPA 4.3(d)) — 쿠션에 닿은 공이 4개
+              미만이고 포켓된 공 없음: 상대가 현재 배치를 받거나, 다시 랙 후
+              본인이 브레이크하거나, 다시 랙 후 원래 브레이커가
+              재브레이크합니다.</li>
+            <li><strong>합법 브레이크에 8번 인</strong>(WPA 4.3(e)) — 브레이커가
+              8번을 스팟에 놓고 계속하거나, 다시 브레이크합니다.</li>
+            <li><strong>파울 브레이크에 8번 인</strong>(WPA 4.3(f)) — 상대가 8번을
+              스팟에 놓고 헤드 라인 뒤 볼 인 핸드를 갖거나, 다시
+              브레이크시킵니다.</li>
+            <li><strong>브레이크 파울</strong>(WPA 4.3(g),(h)) — 상대가 현재 배치를
+              받거나, 헤드 라인 뒤 볼 인 핸드를 갖습니다.</li>
+            <li><strong>교착</strong>(WPA 4.11) — 양쪽 플레이어가 확인: 다시 랙,
+              원래 브레이커가 브레이크합니다.</li>
+          </ul>
+
+          <h3 class="bb-heading-s bb-reveal">이기는 법 — 그리고 지는 네 가지 길</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            내 그룹을 다 치우고, 8번의 포켓을 지정하고, 정확히 그곳에
+            넣으세요: 그 샷이 랙의 승리입니다(WPA 4절; 4.6). 다음의 경우
+            그 자리에서 패배합니다: 8번을 넣은 같은 샷에서 파울(4.8(a)),
+            그룹을 다 치우기 전에 8번을 넣음(4.8(b)), 지정하지 않은 포켓에
+            8번이 들어감 — 세이프티 중 들어간 8번 포함(4.8(c)), 8번을 테이블
+            밖으로 보냄(4.8(d))
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/eightball.ts">sdk/ts/src/rules/eightball.ts</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-snooker" aria-labelledby="rules-snooker-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">07 — 실제 구현 그대로의 스누커 규칙</p>
+        <div class="gd-content">
+          <h2 id="rules-snooker-h" class="bb-heading bb-reveal" style="max-width: 14em;">레드 하나, 컬러 하나.<br>브레이크가 쌓인다.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            스누커는 WPBSA 공식 규칙(2024년 9월 개정)을 전사한 것으로, 모든
+            판정이 해당 조항을 인용합니다. 12피트 테이블에 22개의 공: 핑크
+            뒤로 레드 15개가 삼각형으로 놓이고, 컬러 6개는 각자의 스폿에,
+            수구는 D 안 어디든 놓습니다
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">온 볼: 레드, 그다음 지명한 컬러</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            레드가 남아 있는 동안 온 볼은 언제나 레드(1점)입니다. 하나를
+            넣으면 컬러가 온이 됩니다 — <strong>지명할 컬러를 탭</strong>하세요
+            (조준 UI가 선택 가능한 컬러를 강조하고 선택을 확인합니다. 지명하기
+            전에는 샷이 거부됩니다)
+            <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.
+            컬러가 들어가면 그 점수를 얻고 — 옐로&nbsp;2, 그린&nbsp;3,
+            브라운&nbsp;4, 블루&nbsp;5, 핑크&nbsp;6, 블랙&nbsp;7 — 레드가
+            남아 있는 동안에는 스폿으로 되돌아갑니다. 그다음은 다시 레드,
+            이렇게 레드가 다 없어질 때까지 번갈아 칩니다. HUD에는 양쪽 점수,
+            진행 중인 브레이크, 그리고 지금 무엇이 합법인지 항상 알려 주는
+            “온 볼” 칩이 있습니다
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">리스폿과 마지막 컬러</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            컬러는 자기 스폿으로 돌아갑니다. 자리가 차 있으면 비어 있는 가장
+            높은 점수의 스폿으로, 여섯 스폿이 모두 차 있으면 자기 스폿에서 톱
+            쿠션 방향 중앙선 위의 가장 가까운, 다른 공에 닿지 않는 지점으로
+            갑니다(WPBSA Sec3 R7). 리스폿 대기열은 HUD에 표시되고 배치는
+            애니메이션으로 보여 줍니다. 마지막 레드에 이어진 컬러가 들어가면
+            <strong>마지막 컬러</strong> 단계가 시작됩니다: 옐로부터 블랙까지
+            점수 오름차순으로, 더 이상 리스폿은 없습니다(Sec3 R3(h)(ii)).
+            점수가 다른 상태에서 블랙이 떨어지면 프레임 종료. 동점이면 블랙을
+            다시 놓고 — 토스로 선공을 정한 뒤, 다음 득점이나 파울로 끝납니다
+            (Sec3 R4)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">파울: 공의 점수만큼, 최소 4점</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            파울은 온 볼의 점수 <em>또는</em> 관련된 공 가운데 가장 높은
+            점수를 상대에게 줍니다. 최소 4점, 최대 7점(Sec3 R11): 레드가 온일
+            때 블루를 건드리면 5점 헌납 — 배너가 매번 조항을 알려 줍니다.
+            파울에는 잘못된 첫 접촉, 무접촉, 수구 포켓 인, 공을 테이블 밖으로
+            쳐 내기, 지명 누락, 사이에 놓인 공을 뛰어넘는 점프가 있습니다.
+            어떤 파울이든 그 뒤 상대는 <strong>당신에게 다시 치게</strong> 할
+            수 있습니다(Sec3 R13) — 프롬프트가 그 선택을 리플레이에
+            기록합니다. 수구가 빠지면 <strong>D 안</strong>에서의 볼 인
+            핸드입니다(Sec3 R8(a)): 드래그 배치가 D 안쪽으로 제한됩니다
+            <a class="bb-cite" href="../../web/app/game.js">web/app/game.js</a>.
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            심판의 재량이 필요한 조항은 의도적으로 범위 밖에 두고, 지어내는
+            대신 출처와 함께 기록했습니다: 파울 앤드 어 미스(Sec3 R14), 프리
+            볼(Sec2 R13), 터칭 볼(Sec3 R9), 푸시 샷(Sec3 R18)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/snooker.ts">sdk/ts/src/rules/snooker.ts</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="rules-carom" aria-labelledby="rules-carom-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">08 — 실제 구현 그대로의 3쿠션</p>
+        <div class="gd-content">
+          <h2 id="rules-carom-h" class="bb-heading bb-reveal" style="max-width: 14em;">쿠션 세 번,<br>그다음 두 번째 공.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            공 세 개, 포켓 없음: UMB 세계 규칙(1989년 1월 1일)을 2.84&nbsp;m
+            가열 슬레이트 테이블에서. 기본값인 수구 두 개 설정에서는 두
+            선수가 경기 내내 <strong>자기 수구</strong>를 씁니다 — 먼저 치는
+            쪽은 무지 흰 공, 상대는 노란 공(제22.1/23.2조, 세계선수권의
+            관행; 상대의 수구를 치면 조항이 인용된 “잘못된 공” 파울,
+            제41.11조. 흰 공을 함께 쓰는 클래식 변형은 설정에서 한 번의
+            클릭으로 선택할 수 있습니다). 득점하려면 내 수구가 두 목적구에
+            모두 닿아야 하고, <strong>두 번째 목적구에 처음 닿기 전에 쿠션을
+            최소 세 번</strong> 맞혀야 합니다(제83조) — 같은 쿠션을 두 번
+            맞히면 두 번으로 세고, 순서는 커널의 이벤트 스트림을 그대로
+            읽습니다
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/carom3c.ts">sdk/ts/src/rules/carom3c.ts</a>.
+            득점하면 계속 칩니다. 쿠션 세 번을 채우지 못하고 이루어진 캐롬은
+            규칙서의 표현 그대로 선언됩니다 — “노 쿠션” / “원 쿠션” / “투
+            쿠션”(UMB 제83조), 이닝이 넘어가는 파울입니다 — 반면 아무것도
+            맞히지 못한 깨끗한 실패는 여전히 규정상의 미스입니다(제24.5조).
+            샷이 진행되는 동안 HUD가 쿠션 수를 실시간으로 세고, 옆에는 점수,
+            이닝, 목표 점수가 나란히 있습니다
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">브레이크, 리스폿, 레이스</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            시작 프롬프트가 어느 스타트 스폿에서 칠지 묻습니다 — 아래 스폿의
+            왼쪽 또는 오른쪽(제23.2조) — 그리고 첫 샷은 <strong>레드를
+            먼저</strong> 맞혀야 합니다(제23.3조). 그 외는 모두 조항이 인용된
+            브레이크 파울입니다. 테이블 밖으로 튄 공은 지정 스폿으로
+            돌아갑니다 — 레드는 위, 내 수구는 아래, 상대 공은 가운데, 스폿이
+            막혀 있으면 맞바꿈 규칙 — 그리고 관련된 공만 움직입니다
+            (제27.3(b), 28.1(b)조). 목표 점수(기본 15, 설정에서 변경 가능)에
+            먼저 도달하면 승리 — 또는 동일 이닝 프리셋(제29.3/29.4조)에서는
+            뒤진 쪽이 되돌려 놓은 시작 배치에서 따라잡기 이닝 한 번을 얻고,
+            동점이 되면 그 경기는 무승부로 끝납니다. 결과 화면에는 두 선수의
+            점수와 이닝이 표시됩니다(제29.1/29.2조)
+            <a class="bb-cite" href="../../web/app/flow.js">web/app/flow.js</a>.
+          </p>
+          <p class="bb-note bb-reveal" style="margin-top: 32px;">
+            포켓 없는 테이블에서는 포켓 마커를 그리지 않고 조준선이 포켓에
+            달라붙지도 않습니다. 물리 세계에서만 일어나는 파울(터치,
+            밀어치기, 두 발이 바닥에서 떨어짐; 제41.4–41.7, 41.9–41.10조)은
+            여전히 출처와 함께 범위 밖으로 기록되어 있습니다. 반면 수구가
+            붙어 있는 쿠션으로 곧장 치는 행위는 판정되고(제27.2조, 41.8
+            경유), “잘못된 공” 파울은 수구 두 개 설정에서 적용되며(제41.11조),
+            동일 이닝 방식은 설정의 프리셋입니다(제29.3/29.4조)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/carom3c.ts">sdk/ts/src/rules/carom3c.ts</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="rules-onepocket" aria-labelledby="rules-onepocket-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">09 — 실제 구현 그대로의 원포켓</p>
+        <div class="gd-content">
+          <h2 id="rules-onepocket-h" class="bb-heading bb-reveal" style="max-width: 14em;">포켓은 하나씩.<br>여덟 개면 승리.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            원포켓은 WPA Rules of Play(2025-09-15 발효) 12절을 전사한
+            것입니다: 공은 15개지만 각 선수는 <strong>자기 풋 코너
+            포켓</strong>에서만 득점합니다. 브레이크 전에 프롬프트가 포켓을
+            배정합니다 — 기본값은 12.3을 따라, 수구를 놓은 쪽의 반대편 포켓 —
+            그리고 HUD 배지가 누구의 포켓인지 표시합니다. 내 포켓에 들어간
+            공은 무엇이든 1점. 먼저 8개를 넣으면 승리입니다
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/onepocket.ts">sdk/ts/src/rules/onepocket.ts</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">모든 포켓에 의미가 있다</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            <em>상대</em> 포켓에 들어간 공은 상대의 점수가 됩니다 — 같은
+            스트로크에서 당신이 파울을 했더라도요(12.5). 네 개의 중립 포켓에
+            들어가거나 테이블 밖으로 나간 공은 되돌아옵니다: “스폿 대기”
+            칩으로 쌓였다가 당신의 차례가 끝나면 풋 스폿으로 돌아갑니다
+            (12.6, 테이블이 그 외에 비어 있으면 즉시 스폿). 포켓별 집계는
+            HUD에, 그 옆에는 빚 공 칩이 있습니다
+            <a class="bb-cite" href="../../web/app/hud.js">web/app/hud.js</a>.
+          </p>
+
+          <h3 class="bb-heading-s bb-reveal">파울, 빚 공, 삼진</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            대부분의 파울 뒤에 수구는 <strong>그 자리에 그대로</strong>
+            남습니다(12.8) — 스크래치나 수구가 테이블 밖으로 나간 경우(3.1)에만
+            상대가 헤드 스트링 뒤에서 볼 인 핸드를 얻습니다. 파울은 또한 내
+            점수에서 공 하나를 빼 테이블로 되돌립니다. 0점에서 파울하면 하나를
+            <em>빚지게</em> 되고(12.4) — HUD가 빚을 표시하며, 다음에 넣은
+            공이 즉시 빚을 갚습니다. 연속 세 번 파울하면 그 자리에서 랙을
+            잃습니다(12.9, 3.13 경유). 카운터는 합법 샷마다 초기화됩니다.
+            교착 상태가 되면 집계와 빚을 그대로 이월해 다시 랙을 놓고, 래그로
+            누가 브레이크할지 정합니다(12.10)
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/onepocket.ts">sdk/ts/src/rules/onepocket.ts</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="equipment" aria-labelledby="equipment-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">10 — 장비와 보정 배지</p>
+        <div class="gd-content">
+          <h2 id="equipment-h" class="bb-heading bb-reveal" style="max-width: 14em;">다섯 개의 축,<br>정직한 배지.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            설정 서랍에는 다섯 개의 장비 축이 있습니다. 어느 것이든 변경하면
+            확인을 거쳐 랙을 다시 배치합니다
+            <a class="bb-cite" href="../../web/app/settings.js">web/app/settings.js</a>.
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>카탈로그 — 기본값이 맨 앞</caption>
+              <thead><tr><th scope="col">축</th><th scope="col">선택지</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">테이블</th>
+                  <td>WPA 규격 9피트(공칭값) ·
+                    포켓볼 토너먼트 9피트, 구형(4.56인치 포켓) ·
+                    포켓볼 토너먼트 9피트(4.5인치 포켓) · 포켓볼 토너먼트 9피트, 금속 림(4.25인치 포켓) ·
+                    차이니즈 8볼 토너먼트 테이블 9피트 · WPBSA 12피트 스누커 ·
+                    UMB 캐롬 2.84&nbsp;m (포켓 없음) — 현재 게임의 테이블
+                    클래스로 필터링</td></tr>
+                <tr><th scope="row">라사</th>
+                  <td>소모사 토너먼트 클로스(새것) · 소모사 토너먼트 클로스(빠름) ·
+                    낡고 느린 라사 · 스누커 기모 울 ·
+                    캐롬 워스티드(가열 슬레이트)</td></tr>
+                <tr><th scope="row">볼 세트</th>
+                  <td>포켓볼(57.15&nbsp;mm) · 포켓볼, 낡음 ·
+                    스누커(52.5&nbsp;mm) · 캐롬(61.5&nbsp;mm)</td></tr>
+                <tr><th scope="row">큐</th>
+                  <td>표준 메이플 큐 · 로우 디플렉션 샤프트 ·
+                    Pro LD 샤프트, 피벗 14.1인치(가죽 팁) ·
+                    Pro LD 샤프트, 피벗 11.8인치(가죽 팁) ·
+                    Pro LD 샤프트, 피벗 10.1인치(가죽 팁) ·
+                    브레이크 큐(페놀 팁) · 표준 메이플 큐(다임 팁)</td></tr>
+                <tr><th scope="row">쿠션 모델(고급)</th>
+                  <td>Stronge 탄성 모델(사실적) · Han 2005(커널 기본) ·
+                    Mathavan 2010(HSV 동시 피팅) · Mathavan 2010 그립 모드
+                    (쿠션 v5)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="bb-heading-s bb-reveal">배지의 의미</h3>
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 24px;">
+            카탈로그의 모든 항목에는 세 가지 배지 중 하나가 붙어, 그 물리
+            파라미터의 근거를 알려 줍니다:
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal bb-d2" style="margin-top: 24px;">
+            <li><span class="gd-badge">보정됨</span>&nbsp; — 실측 데이터에 피팅한
+              파라미터. 게임 안에서는 강조색 칩으로 표시됩니다.</li>
+            <li><span class="gd-badge">문헌</span>&nbsp; — 공개된 논문과 제조사
+              사양에서 가져온 값.</li>
+            <li><span class="gd-badge">추정</span>&nbsp; — 문서화된 최선의 추정값.
+              실측 대기 중.</li>
+          </ul>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            카탈로그 v3의 새 기능: 테이블 축이 실측 포켓 지오메트리를 갖게 되었습니다.
+            포켓볼 토너먼트 9피트 항목은 감사된 4.5인치 코너 마우스와
+            141°/102° 페이싱으로 만들어져 표준 WPA 테이블보다 확연히 타이트합니다.
+            <span class="bb-cite">테이블 치수 감사(내부 자료)</span>
+          </p>
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            알아 두면 좋은 조용한 동작 두 가지: 테이블을 고르면 그 브랜드의
+            권장 쿠션 모델이 말없이 함께 적용됩니다. 그리고 공유 리플레이
+            중에는 장비 선택이 잠기고, 보낸 사람의 사양으로 관전하게 됩니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="replays" aria-labelledby="replays-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">11 — 리플레이와 공유</p>
+        <div class="gd-content">
+          <h2 id="replays-h" class="bb-heading bb-reveal" style="max-width: 15em;">링크에 담기는 것은<br>샷, 프레임이 아니다.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            “리플레이 공유”는 게임 전체를 URL의
+            <code style="font-family:var(--bb-mono); font-size:.9em; color:var(--bb-chalk);">#r=</code>
+            뒤에 담습니다 — 랙 시드, 각 샷의 다섯 숫자(v0, φ, θ, a, b)
+            그대로, 볼 인 핸드 배치 하나하나, 다섯 축의 장비 사양 전체,
+            그리고 커널 버전까지 — 압축하고 인코딩해 클립보드에 복사합니다
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/share.ts">sdk/ts/src/share.ts</a>.
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            프레임은 단 하나도 이동하지 않습니다. 보는 쪽 브라우저가 같은
+            정식 wasm 커널로 모든 샷을 다시 시뮬레이션하고, 그 결과 기록은
+            보낸 사람의 것과 바이트 단위로 일치합니다 — 그것이 결정론
+            보증입니다
+            <a class="bb-cite" href="../../web/app/share.js">web/app/share.js</a>.
+            커널 버전이 다르면 경고가 뜨고 “그래도 보기”와 “닫기” 중에서
+            고를 수 있습니다.
+          </p>
+          <p class="bb-body bb-reveal" style="margin-top: 24px;">
+            트랜스포트 바는 “리플레이 샷 i/n”을 표시하고, 이전 샷·다음 샷·
+            재생/일시정지와 0.25× 슬로모션 토글을 갖추고 있습니다. 샷과 샷
+            사이에는 700&nbsp;ms의 정지가 들어갑니다
+            <a class="bb-cite" href="../../web/app/share.js">web/app/share.js</a>.
+            리플레이가 도는 동안에는 샷 입력, 수구 배치, 장비 변경이 모두
+            잠깁니다. 링크는 자신이 <em>어느 게임</em> 소속인지도 기억합니다 —
+            에이트볼 공유는 그룹, 지정, 브레이크 선택까지 그대로 재현되고,
+            게임 축 이전의 옛 링크(v1–v3)는 예전처럼 디코딩되어 나인볼로
+            재생됩니다. 무엇을 묻는 일도 없습니다
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/share.ts">sdk/ts/src/share.ts</a>.
+          </p>
+          <ul class="bb-list bb-body-s bb-reveal" style="margin-top: 32px;">
+            <li><strong>여기서 계속하기</strong> — 마지막 배치를 이어받아 라이브
+              플레이로. 이어진 게임도 그 자리에서 바로 공유할 수 있으며,
+              새로고침하기 전까지는 보낸 사람의 장비로 계속 플레이합니다.</li>
+            <li><strong>리플레이 종료</strong> — 내 장비를 복원하고 랙을 다시
+              배치합니다.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="export" aria-labelledby="export-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">12 — 동영상 내보내기 티어</p>
+        <div class="gd-content">
+          <h2 id="export-h" class="bb-heading bb-reveal" style="max-width: 14em;">다섯 개의 티어,<br>하나의 샷.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            “동영상 내보내기…”는 <em>마지막</em> 샷을 다시 렌더링합니다 — 아직
+            친 샷이 없으면 먼저 하나 치라고 안내합니다. “실시간”은 리플레이가
+            재생되는 동안 실황으로 녹화하며 어느 브라우저에서든 동작합니다.
+            나머지 티어는 모두 WebCodecs가 필요한 결정론적 오프라인
+            재렌더링으로, 페이지 안에서 mp4(H.264/AAC)로 인코딩하고
+            webm(VP9)으로 폴백합니다
+            <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>.
+          </p>
+
+          <div class="gd-scroll bb-reveal bb-d2" style="margin-top: 32px;">
+            <table class="gd-table">
+              <caption>내보내기 티어</caption>
+              <thead><tr><th scope="col">티어</th><th scope="col">해상도</th><th scope="col">특징</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">실시간</th><td>캔버스</td>
+                  <td>실제 속도의 라이브 캡처; webm; 모든 브라우저</td></tr>
+                <tr><th scope="row">표준</th><td>720p / 1080p</td>
+                  <td>필름 그레이딩; 모션 블러 없음, 피사계 심도 없음</td></tr>
+                <tr><th scope="row">고품질</th><td>최대 1080p</td>
+                  <td>1.5× 슈퍼샘플링, 8 서브프레임 310° 셔터 모션 블러,
+                    피사계 심도</td></tr>
+                <tr><th scope="row">울트라 4K</th><td>1440p / 2160p</td>
+                  <td>8 서브프레임 모션 블러, 피사계 심도</td></tr>
+                <tr><th scope="row">시네마 4K</th><td>2160p</td>
+                  <td>16 서브프레임 셔터; 가장 느리고 최고 화질</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="bb-body-s bb-muted bb-reveal" style="margin-top: 32px;">
+            비트레이트는 720 / 1080 / 1440 / 2160p에서 8 / 12 / 24 /
+            40&nbsp;Mbps입니다
+            <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>.
+            속도는 오프라인 티어에서 1×, 0.5×, 0.25×를 제공하고, 소리는
+            체크박스입니다. 클립은 60&nbsp;fps로 최대 60초(+0.5초 테일)까지.
+            대화 상자는 열릴 때 프레임 10장을 시험 렌더링해 남은 시간과
+            파일 크기 추정을 다듬고, 1080p를 넘는 해상도는 전용 UHD 인코더
+            프로브를 통과해야 합니다. 진행 중인 내보내기는 “취소” 버튼으로만
+            멈춥니다 — Escape와 배경 클릭은 의도적으로 무시됩니다. 파일은
+            openbilliards-&lt;티어&gt;-&lt;타임스탬프&gt;.mp4 또는 .webm으로
+            다운로드됩니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="recording" aria-labelledby="recording-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">13 — 녹화와 슬로모션</p>
+        <div class="gd-content">
+          <h2 id="recording-h" class="bb-heading bb-reveal" style="max-width: 14em;">녹화를 누르면,<br>전부 남는다.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            “녹화”는 라이브 캔버스를 60&nbsp;fps로, 마스터 오디오 믹스까지
+            함께 webm에 담습니다 — VP9, 미지원 시 VP8, 8&nbsp;Mbps
+            <a class="bb-cite" href="../../web/app/record.js">web/app/record.js</a>.
+            상태를 가리지 않습니다: 조준, 메뉴, 샷 — 화면에 있는 것이라면
+            무엇이든. 녹화 중에는 빨간 점이 깜박이고, “정지”를 누르면
+            openbilliards-&lt;타임스탬프&gt;.webm이 다운로드됩니다. 매초
+            청크를 기록하므로 탭이 갑자기 죽어도 찍힌 분량은 남습니다.
+            미지원 브라우저에서는 버튼 자체가 나타나지 않습니다.
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            슬로모션이 있는 곳은 세 군데입니다: HUD의 “슬로모션” 체크박스는
+            모든 샷 재생을 0.25×로 만들고
+            <a class="bb-cite" href="../../web/app/game.js">web/app/game.js</a>,
+            공유 리플레이 바에도 같은 0.25× 토글이 있으며(실체는 같은
+            스위치), 내보내기 대화 상자는 0.5×와 0.25×를 오프라인으로
+            렌더링합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band" id="language" aria-labelledby="language-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">14 — 언어 설정</p>
+        <div class="gd-content">
+          <h2 id="language-h" class="bb-heading bb-reveal" style="max-width: 14em;">일곱 개의 언어,<br>전환은 즉시.</h2>
+
+          <p class="bb-body bb-reveal bb-d1" style="margin-top: 48px;">
+            게임은 English, 中文, español, 日本語, Deutsch, français,
+            한국어로 제공됩니다. 언어는 다음 순서로 결정됩니다: 설정에서의
+            명시적 선택(저장됩니다), 다음은 브라우저 언어의 최적 일치 —
+            zh-TW는 中文으로, es-MX는 español로 — 마지막으로 영어
+            <a class="bb-cite" href="../../web/app/i18n.js">web/app/i18n.js</a>.
+            전환은 즉시 반영되며, 새로고침이 필요 없습니다.
+          </p>
+          <p class="bb-body bb-reveal bb-d2" style="margin-top: 24px;">
+            모든 로케일은 정확히 같은 키 집합을 갖습니다 — e2e 스위트가 이를
+            강제하고, 빠진 항목은 영어로 폴백합니다. 언어 선택기의 라벨은
+            의도적으로 각 언어 자신의 표기를 유지합니다. 이 가이드도
+            마찬가지입니다: 맨 위의 필 줄로 일곱 개의 번역을 오갈 수 있고,
+            선택은 저장됩니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bb-section" style="padding-top:0; padding-bottom:0;"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band" id="faq" aria-labelledby="faq-h">
+      <div class="bb-split">
+        <p class="bb-label bb-marker bb-reveal">15 — 자주 묻는 질문</p>
+        <div class="gd-content">
+          <h2 id="faq-h" class="bb-heading bb-reveal" style="max-width: 14em;">뜻밖의 동작,<br>이유가 있다.</h2>
+
+          <dl class="gd-faq bb-reveal bb-d1" style="margin-top: 48px;">
+            <dt>테이블을 바꿨더니 쿠션 모델이 저절로 바뀌었습니다.</dt>
+            <dd>의도된 동작입니다. 각 테이블은 별도의 확인 없이 그 브랜드의
+              권장 쿠션 모델을 적용합니다. 이후 “고급”에서 다른 모델을 다시
+              고를 수 있습니다.</dd>
+
+            <dt>휠로 파워가 바뀌지 않습니다.</dt>
+            <dd>휠이 파워가 되는 것은 조준 중일 때뿐입니다. 조준 상태 밖에서는
+              줌이고 — Shift&nbsp;+ 휠은 항상 줌입니다.</dd>
+
+            <dt>도움말에는 Shift 드래그가 카메라 회전이라는데, 미세 조준이 됩니다.</dt>
+            <dd>조준 중에는 Shift&nbsp;+ 왼쪽 드래그가 0.1× 미세 조준으로
+              우선합니다. 카메라가 도는 것은 조준 상태가 아닐 때뿐입니다.</dd>
+
+            <dt>공유 리플레이에서 이어서 하면, 누구의 테이블에서 치는 건가요?</dt>
+            <dd>보낸 사람의 테이블입니다. “여기서 계속하기”는 새로고침 전까지
+              상대의 장비 사양 전체를 유지합니다. “리플레이 종료”는 내 장비를
+              복원하고 랙을 다시 배치합니다.</dd>
+
+            <dt>이겼더니 테이블이 곧바로 다시 랙 되었습니다. 그 랙을 다시 칠 수 있나요?</dt>
+            <dd>승리 후의 자동 다시 랙(2.6초)은 랙 시드를 하나 진행시키므로,
+              다음 랙은 새 배치입니다. 이긴 랙은 “리플레이”와, 공유해 둔 링크
+              속에 그대로 남아 있습니다.</dd>
+
+            <dt>당점의 점이 점선 링에서 멈춥니다.</dt>
+            <dd>그 링이 미스큐 한계입니다. 볼 반지름의 절반을 넘는 오프셋
+              (a²&nbsp;+&nbsp;b²&nbsp;&gt;&nbsp;0.25)은 검증을 통과하지 못해
+              설정할 수 없습니다. 미스큐 이벤트는 따로 없고, 이 한계 자체가
+              규칙입니다.</dd>
+
+            <dt>“리플레이”를 보면 볼 인 핸드 배치가 사라지나요?</dt>
+            <dd>아니요. 볼 인 핸드를 쥔 채 리플레이를 봐도, 맞춰 둔 수구
+              배치는 리플레이가 끝난 뒤에도 유지됩니다.</dd>
+
+            <dt>파워는 왜 12&nbsp;m/s에서 멈추나요?</dt>
+            <dd>신뢰할 수 있는 실측 프로 브레이크 속도(약 27&nbsp;mph)에 맞춘
+              의도적인 현실 상한입니다
+              <a class="bb-cite" href="../../web/app/aim.js">web/app/aim.js</a>.
+              커널 자체의 검증 하드 캡은 15&nbsp;m/s입니다.</dd>
+
+            <dt>“표준” 내보내기는 필름 그레이딩이라는데, 제 클립에는 모션 블러가 없습니다.</dt>
+            <dd>정상입니다 — 표준은 서브프레임을 한 장만 렌더링합니다. 모션
+              블러와 피사계 심도는 “고품질” 티어부터입니다
+              <a class="bb-cite" href="../../web/app/export.js">web/app/export.js</a>.</dd>
+
+            <dt>푸시아웃과 3파울 규칙은 어디 있나요?</dt>
+            <dd>v1에는 없습니다. 브레이크는 다른 샷과 똑같이 판정되고, 드라이
+              브레이크에 벌칙이 없으며, 테이블을 벗어난 목적구는 돌아오지
+              않습니다 — 다시 놓이는 것은 9번뿐입니다
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/rules/nineball.ts">sdk/ts/src/rules/nineball.ts</a>.</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bb-footer">
+    <p class="bb-display bb-footer-statement bb-reveal">언제나,<br>가장 낮은 공부터.</p>
+
+    <div class="bb-footer-grid">
+      <nav aria-label="사이트">
+        <p class="bb-label">사이트</p>
+        <ul>
+          <li><a class="bb-link" href="../../index.html">홈</a></li>
+          <li><a class="bb-link" href="index.html">게임 가이드</a></li>
+          <li><a class="bb-link" href="../../docs/index.html">API 문서</a></li>
+          <li><a class="bb-link" href="../../web/app.html">플레이</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="프로젝트">
+        <p class="bb-label">프로젝트</p>
+        <ul>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards">GitHub</a></li>
+          <li><span class="bb-cite">디자인 시스템</span></li>
+          <li><a class="bb-link" href="https://github.com/facebookexperimental/openbilliards/blob/main/README.md">Readme</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="bb-label">콜로폰</p>
+        <p class="bb-body-s bb-muted" style="max-width: 34ch;">Space&nbsp;Grotesk와 JetBrains&nbsp;Mono를 내장.
+          트래커 없음, CDN 없음, 이 오리진 밖으로 나가는 요청은 전혀
+          없습니다.</p>
+      </div>
+    </div>
+
+    <p class="bb-footer-credits">
+      <span>&copy; 2026 Meta Platforms, Inc. &#183; MIT &#183; <a href="../../web/vendor/NOTICE-pooltool.txt" style="white-space: nowrap;">Apache-2.0 코드 포함</a> &#183; <a href="https://opensource.fb.com/legal/terms" style="white-space: nowrap;">Terms of Use</a> &#183; <a href="https://opensource.fb.com/legal/privacy" style="white-space: nowrap;">Privacy Policy</a></span>
+      <span>자체 엔진으로 렌더링</span>
+    </p>
+  </footer>
+</body>
+</html>

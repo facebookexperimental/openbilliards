@@ -1,0 +1,127 @@
+{
+ "what": "ORDER-LIGHT-12 item 2: the nine interior nodes of lighting-occlusion-check.json read back from the BOUND uOccLut DataTexture (its image.data \u2014 the array uploaded as the R32F texture; textureUploaded = the renderer holds a __webglTexture for it) in one eval boot per mode (Predator, default look), plus the count of lit ball programs whose compiled fragment source samples texelFetch(uOccLut)",
+ "method": "node tools/render/lighting-eval.mjs --table predator_apex_9ft --look default [--flags venue=off] --js '<read D[j*nx+i] at the nine nodes; count ball programs with texelFetch( uOccLut in getShaderSource>'",
+ "sha": "38ac7c56",
+ "measured_at": "2026-09-05T16:02:39Z",
+ "modes": {
+  "default": {
+   "present": true,
+   "nx": 65,
+   "ny": 33,
+   "textureUploaded": true,
+   "lit_ball_programs": 10,
+   "bound_ball_programs": 10,
+   "max_abs_delta_vs_fixture": 2.6786041273929584e-08,
+   "nodes": [
+    {
+     "i": 16,
+     "j": 8,
+     "bound": 0.7641564011573792
+    },
+    {
+     "i": 40,
+     "j": 16,
+     "bound": 0.9688292741775513
+    },
+    {
+     "i": 8,
+     "j": 4,
+     "bound": 0.529853105545044
+    },
+    {
+     "i": 56,
+     "j": 24,
+     "bound": 0.9987741112709045
+    },
+    {
+     "i": 2,
+     "j": 2,
+     "bound": 0.19231249392032623
+    },
+    {
+     "i": 60,
+     "j": 31,
+     "bound": 0.9999287128448486
+    },
+    {
+     "i": 24,
+     "j": 12,
+     "bound": 0.8848087191581726
+    },
+    {
+     "i": 48,
+     "j": 6,
+     "bound": 0.9329618215560913
+    },
+    {
+     "i": 12,
+     "j": 20,
+     "bound": 0.8769096732139587
+    }
+   ],
+   "venue_flag": null
+  },
+  "off": {
+   "present": true,
+   "nx": 65,
+   "ny": 33,
+   "textureUploaded": false,
+   "lit_ball_programs": 10,
+   "bound_ball_programs": 0,
+   "max_abs_delta_vs_fixture": 2.6786041273929584e-08,
+   "nodes": [
+    {
+     "i": 16,
+     "j": 8,
+     "bound": 0.7641564011573792
+    },
+    {
+     "i": 40,
+     "j": 16,
+     "bound": 0.9688292741775513
+    },
+    {
+     "i": 8,
+     "j": 4,
+     "bound": 0.529853105545044
+    },
+    {
+     "i": 56,
+     "j": 24,
+     "bound": 0.9987741112709045
+    },
+    {
+     "i": 2,
+     "j": 2,
+     "bound": 0.19231249392032623
+    },
+    {
+     "i": 60,
+     "j": 31,
+     "bound": 0.9999287128448486
+    },
+    {
+     "i": 24,
+     "j": 12,
+     "bound": 0.8848087191581726
+    },
+    {
+     "i": 48,
+     "j": 6,
+     "bound": 0.9329618215560913
+    },
+    {
+     "i": 12,
+     "j": 20,
+     "bound": 0.8769096732139587
+    }
+   ],
+   "venue_flag": "off"
+  }
+ },
+ "max_abs_delta_default": 2.6786041273929584e-08,
+ "bound_default": 10,
+ "lit_default": 10,
+ "bound_off": 0,
+ "present_off": 1
+}

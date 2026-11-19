@@ -1,0 +1,791 @@
+{
+  "schema": "d621-cushion-end/1",
+  "order": "ORDER-ASTRA-D621-O22-C9",
+  "instrument": "tools/render/d621/plan/cushion_end_source_621.py",
+  "instrument_sha256": "bc8779835d4d5f40893252bc8580c58bdb0e251640ce7b987163960b1535a393",
+  "source_max_sha256": "abde0e5220ac2e838c6019a38d8dd2e024de9256e25daea70c889e350cc8bb0a",
+  "model_obj_set_sha256": "213d21bbf0223f9e262768ab6a476948151c75f15867603f07cfb872b09c709e",
+  "provenance": {
+    "tag": "MODEL",
+    "mode": "C9 ordered macro PLAN section measurement",
+    "modifier_applied": false,
+    "caveat": "The supplied OBJ is the TurboSmooth control cage. These are reproducible macro section measurements, not a decoded/evaluated modifier or a physical facing-material thickness."
+  },
+  "recipe": {
+    "plane": "Z = 805.88 mm; model bed Z = 770 mm",
+    "nose_intersection_mm": [
+      1152,
+      576
+    ],
+    "registration": "Unscaled, reflected pocket-local nose frame; eight independent corner ends",
+    "endpoint": "Minimum along-rail coordinate of the exact triangle/plane section inside the standing 150 mm pocket window",
+    "angle": "Continuous two-line least squares on 0.25 mm depth crossings; minimum total squared residual selects the hinge; terminal slope is reported with full residuals",
+    "sampling_tag": "TESSELLATION",
+    "step_mm": 0.25
+  },
+  "facing_thickness": {
+    "status": "UNRESOLVED",
+    "reason": "The purchased model has one closed rubber mesh per rail and no separately bounded facing solid. Section control loops cannot establish the thickness of a physical facing material; no thickness is authored or consumed."
+  },
+  "heights": {
+    "tag": "MODEL",
+    "rubber_top_above_bed_mm": 44.47499999999991,
+    "cover_crest_above_bed_mm": 56.23299999999995,
+    "global_crest_over_rubber_top_mm": 11.758000000000038,
+    "scope": "Global part extrema; local cover/cushion occlusion is measured separately by the pocket sections."
+  },
+  "records": [
+    {
+      "mesh": "pool_rubber01",
+      "node": 1152,
+      "corner": [
+        1,
+        -1
+      ],
+      "rail_axis": 0,
+      "obj_sha256": "68e9602e66a1dbf206ac91479bb9db5cfdc9a313ffacfb5ba6e95dd12e5cd85f",
+      "z_mm": 805.88,
+      "above_bed_mm": 35.879999999999995,
+      "nose_depth_mm": -0.0019991039182514214,
+      "nose_end_along_mm": 86.5339987512777,
+      "end_depth_mm": 52.98632920189743,
+      "end_along_mm": 27.04085663667354,
+      "end_lateral_mm": 56.58776578572957,
+      "fit": {
+        "front_face_deg": 54.601508245675184,
+        "terminal_face_deg": 37.78868841856001,
+        "hinge_depth_mm": 30.74800089608175,
+        "rms_mm": 0.5389049962660993,
+        "max_mm": 1.619657351752796,
+        "n": 211,
+        "depth_span_mm": [
+          0.24800089608174858,
+          52.74800089608175
+        ]
+      },
+      "height_witnesses": [
+        {
+          "z_mm": 790.0,
+          "above_bed_mm": 20.0,
+          "nose_depth_mm": 11.122717529657848,
+          "nose_end_along_mm": 70.39619382181297,
+          "end_depth_mm": 48.03588312630336,
+          "end_along_mm": 29.051702543163515,
+          "end_lateral_mm": 54.50915457217895,
+          "fit": {
+            "front_face_deg": 53.294701078329176,
+            "terminal_face_deg": 40.899991546243825,
+            "hinge_depth_mm": 31.58215725968671,
+            "rms_mm": 0.3980769626598978,
+            "max_mm": 1.1072492362120272,
+            "n": 147,
+            "depth_span_mm": [
+              11.33215725968671,
+              47.83215725968671
+            ]
+          }
+        },
+        {
+          "z_mm": 810.0,
+          "above_bed_mm": 40.0,
+          "nose_depth_mm": 11.057800665722652,
+          "nose_end_along_mm": 70.55195927762009,
+          "end_depth_mm": 54.28678181579198,
+          "end_along_mm": 26.554917314606087,
+          "end_lateral_mm": 57.163713657747095,
+          "fit": {
+            "front_face_deg": 53.00712117125268,
+            "terminal_face_deg": 34.31444757020895,
+            "hinge_depth_mm": 34.26105933050076,
+            "rms_mm": 0.5710901704875345,
+            "max_mm": 1.4169156725699992,
+            "n": 173,
+            "depth_span_mm": [
+              11.261059330500757,
+              54.26105933050076
+            ]
+          }
+        },
+        {
+          "z_mm": 813.7,
+          "above_bed_mm": 43.700000000000045,
+          "nose_depth_mm": 37.65384968725152,
+          "nose_end_along_mm": 106.82412967031922,
+          "end_depth_mm": 54.85484982599996,
+          "end_along_mm": 26.315675043000056,
+          "end_lateral_mm": 57.396228567341204,
+          "fit": {
+            "front_face_deg": 88.6133151166816,
+            "terminal_face_deg": 29.480083652268792,
+            "hinge_depth_mm": 39.360224388446795,
+            "rms_mm": 1.358981847301729,
+            "max_mm": 9.031679085811916,
+            "n": 68,
+            "depth_span_mm": [
+              37.860224388446795,
+              54.610224388446795
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "mesh": "pool_rubber01",
+      "node": 1152,
+      "corner": [
+        1,
+        1
+      ],
+      "rail_axis": 0,
+      "obj_sha256": "68e9602e66a1dbf206ac91479bb9db5cfdc9a313ffacfb5ba6e95dd12e5cd85f",
+      "z_mm": 805.88,
+      "above_bed_mm": 35.879999999999995,
+      "nose_depth_mm": -0.0019991039182514214,
+      "nose_end_along_mm": 86.5339987512777,
+      "end_depth_mm": 52.98632920189743,
+      "end_along_mm": 27.04085663667354,
+      "end_lateral_mm": 56.58776578572957,
+      "fit": {
+        "front_face_deg": 54.60150279401707,
+        "terminal_face_deg": 37.789338847282174,
+        "hinge_depth_mm": 30.74800089608175,
+        "rms_mm": 0.5390300630036701,
+        "max_mm": 1.6197727096221186,
+        "n": 211,
+        "depth_span_mm": [
+          0.24800089608174858,
+          52.74800089608175
+        ]
+      },
+      "height_witnesses": [
+        {
+          "z_mm": 790.0,
+          "above_bed_mm": 20.0,
+          "nose_depth_mm": 11.122717529657848,
+          "nose_end_along_mm": 70.39619382181297,
+          "end_depth_mm": 48.03588312630336,
+          "end_along_mm": 29.051702543163515,
+          "end_lateral_mm": 54.50915457217895,
+          "fit": {
+            "front_face_deg": 53.29465232122532,
+            "terminal_face_deg": 40.90011434935699,
+            "hinge_depth_mm": 31.58215725968671,
+            "rms_mm": 0.3980910413159204,
+            "max_mm": 1.1072551682021263,
+            "n": 147,
+            "depth_span_mm": [
+              11.33215725968671,
+              47.83215725968671
+            ]
+          }
+        },
+        {
+          "z_mm": 810.0,
+          "above_bed_mm": 40.0,
+          "nose_depth_mm": 11.057800665722652,
+          "nose_end_along_mm": 70.55195927762009,
+          "end_depth_mm": 54.28678181579198,
+          "end_along_mm": 26.554917314606087,
+          "end_lateral_mm": 57.163713657747095,
+          "fit": {
+            "front_face_deg": 53.00654160125431,
+            "terminal_face_deg": 34.316150775219555,
+            "hinge_depth_mm": 34.26105933050076,
+            "rms_mm": 0.5711347144619439,
+            "max_mm": 1.417186522462945,
+            "n": 173,
+            "depth_span_mm": [
+              11.261059330500757,
+              54.26105933050076
+            ]
+          }
+        },
+        {
+          "z_mm": 813.7,
+          "above_bed_mm": 43.700000000000045,
+          "nose_depth_mm": 37.65384968725152,
+          "nose_end_along_mm": 106.82434779681324,
+          "end_depth_mm": 54.85484982599996,
+          "end_along_mm": 26.315675043000056,
+          "end_lateral_mm": 57.396228567341204,
+          "fit": {
+            "front_face_deg": 88.61331742743673,
+            "terminal_face_deg": 29.480148887961377,
+            "hinge_depth_mm": 39.360224388446795,
+            "rms_mm": 1.3589829559334334,
+            "max_mm": 9.03170715703456,
+            "n": 68,
+            "depth_span_mm": [
+              37.860224388446795,
+              54.610224388446795
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "mesh": "pool_rubber04",
+      "node": 1190,
+      "corner": [
+        -1,
+        -1
+      ],
+      "rail_axis": 0,
+      "obj_sha256": "bb5c8898430635808742176df0e6a231317c50c75e7cfa39b8df8561534bcd1a",
+      "z_mm": 805.88,
+      "above_bed_mm": 35.879999999999995,
+      "nose_depth_mm": -0.0019991039182514214,
+      "nose_end_along_mm": 86.5339987512777,
+      "end_depth_mm": 52.98632920189743,
+      "end_along_mm": 27.04085663667354,
+      "end_lateral_mm": 56.58776578572957,
+      "fit": {
+        "front_face_deg": 54.601482289299405,
+        "terminal_face_deg": 37.788709852841095,
+        "hinge_depth_mm": 30.74800089608175,
+        "rms_mm": 0.53890153419103,
+        "max_mm": 1.6196616945228293,
+        "n": 211,
+        "depth_span_mm": [
+          0.24800089608174858,
+          52.74800089608175
+        ]
+      },
+      "height_witnesses": [
+        {
+          "z_mm": 790.0,
+          "above_bed_mm": 20.0,
+          "nose_depth_mm": 11.122717529657848,
+          "nose_end_along_mm": 70.39619382181297,
+          "end_depth_mm": 48.03588312630336,
+          "end_along_mm": 29.051702543163515,
+          "end_lateral_mm": 54.50915457217895,
+          "fit": {
+            "front_face_deg": 53.294699206948984,
+            "terminal_face_deg": 40.90000767615549,
+            "hinge_depth_mm": 31.58215725968671,
+            "rms_mm": 0.3980766840266151,
+            "max_mm": 1.1072560016560153,
+            "n": 147,
+            "depth_span_mm": [
+              11.33215725968671,
+              47.83215725968671
+            ]
+          }
+        },
+        {
+          "z_mm": 810.0,
+          "above_bed_mm": 40.0,
+          "nose_depth_mm": 11.057800665722652,
+          "nose_end_along_mm": 70.55095927762017,
+          "end_depth_mm": 54.28678181579198,
+          "end_along_mm": 26.554917314606087,
+          "end_lateral_mm": 57.163713657747095,
+          "fit": {
+            "front_face_deg": 53.006529139227226,
+            "terminal_face_deg": 34.314804093772295,
+            "hinge_depth_mm": 34.26105933050076,
+            "rms_mm": 0.5710167947486698,
+            "max_mm": 1.4169757206729408,
+            "n": 173,
+            "depth_span_mm": [
+              11.261059330500757,
+              54.26105933050076
+            ]
+          }
+        },
+        {
+          "z_mm": 813.7,
+          "above_bed_mm": 43.700000000000045,
+          "nose_depth_mm": 37.65384968725152,
+          "nose_end_along_mm": 106.82334779681327,
+          "end_depth_mm": 54.85484982599996,
+          "end_along_mm": 26.315675043000056,
+          "end_lateral_mm": 57.396228567341204,
+          "fit": {
+            "front_face_deg": 88.61329388498609,
+            "terminal_face_deg": 29.48010279284007,
+            "hinge_depth_mm": 39.360224388446795,
+            "rms_mm": 1.3589730370426254,
+            "max_mm": 9.03152541760916,
+            "n": 68,
+            "depth_span_mm": [
+              37.860224388446795,
+              54.610224388446795
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "mesh": "pool_rubber04",
+      "node": 1190,
+      "corner": [
+        -1,
+        1
+      ],
+      "rail_axis": 0,
+      "obj_sha256": "bb5c8898430635808742176df0e6a231317c50c75e7cfa39b8df8561534bcd1a",
+      "z_mm": 805.88,
+      "above_bed_mm": 35.879999999999995,
+      "nose_depth_mm": -0.0019991039182514214,
+      "nose_end_along_mm": 86.53499874957413,
+      "end_depth_mm": 52.98632920189743,
+      "end_along_mm": 27.04085663667354,
+      "end_lateral_mm": 56.58776578572957,
+      "fit": {
+        "front_face_deg": 54.602137106548646,
+        "terminal_face_deg": 37.78821775108054,
+        "hinge_depth_mm": 30.74800089608175,
+        "rms_mm": 0.5388046159053719,
+        "max_mm": 1.6186651249138642,
+        "n": 211,
+        "depth_span_mm": [
+          0.24800089608174858,
+          52.74800089608175
+        ]
+      },
+      "height_witnesses": [
+        {
+          "z_mm": 790.0,
+          "above_bed_mm": 20.0,
+          "nose_depth_mm": 11.123618868990889,
+          "nose_end_along_mm": 70.39619382181297,
+          "end_depth_mm": 48.03588312630336,
+          "end_along_mm": 29.051702543163515,
+          "end_lateral_mm": 54.50915457217895,
+          "fit": {
+            "front_face_deg": 53.29436296995769,
+            "terminal_face_deg": 40.89956118816219,
+            "hinge_depth_mm": 31.58215725968671,
+            "rms_mm": 0.39810708925112465,
+            "max_mm": 1.1066091121561001,
+            "n": 147,
+            "depth_span_mm": [
+              11.33215725968671,
+              47.83215725968671
+            ]
+          }
+        },
+        {
+          "z_mm": 810.0,
+          "above_bed_mm": 40.0,
+          "nose_depth_mm": 11.057800665722652,
+          "nose_end_along_mm": 70.55195927762009,
+          "end_depth_mm": 54.28678181579198,
+          "end_along_mm": 26.554917314606087,
+          "end_lateral_mm": 57.163713657747095,
+          "fit": {
+            "front_face_deg": 53.00673932547269,
+            "terminal_face_deg": 34.314355232432575,
+            "hinge_depth_mm": 34.2612467719548,
+            "rms_mm": 0.5709087214529879,
+            "max_mm": 1.4159101477927791,
+            "n": 173,
+            "depth_span_mm": [
+              11.261246771954802,
+              54.2612467719548
+            ]
+          }
+        },
+        {
+          "z_mm": 813.7,
+          "above_bed_mm": 43.700000000000045,
+          "nose_depth_mm": 37.65406781374554,
+          "nose_end_along_mm": 106.82434779681324,
+          "end_depth_mm": 54.85484982599996,
+          "end_along_mm": 26.315675043000056,
+          "end_lateral_mm": 57.396228567341204,
+          "fit": {
+            "front_face_deg": 88.61395812536003,
+            "terminal_face_deg": 29.474994845102508,
+            "hinge_depth_mm": 39.360442514940814,
+            "rms_mm": 1.3577197070869707,
+            "max_mm": 9.035633006610098,
+            "n": 68,
+            "depth_span_mm": [
+              37.860442514940814,
+              54.610442514940814
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "mesh": "pool_rubber02",
+      "node": 1167,
+      "corner": [
+        1,
+        -1
+      ],
+      "rail_axis": 1,
+      "obj_sha256": "3bec2d9ef11a93845ce398d273f0105c83e4dfe9b00f189c1c33d75bfb4da970",
+      "z_mm": 805.88,
+      "above_bed_mm": 35.879999999999995,
+      "nose_depth_mm": -0.0019991039181377346,
+      "nose_end_along_mm": 86.53399875127752,
+      "end_depth_mm": 52.98632920189743,
+      "end_along_mm": 27.040856636673425,
+      "end_lateral_mm": 56.587765785729495,
+      "fit": {
+        "front_face_deg": 54.60169054886888,
+        "terminal_face_deg": 37.79028395776303,
+        "hinge_depth_mm": 30.748000896081862,
+        "rms_mm": 0.5389636498103754,
+        "max_mm": 1.6196496419092092,
+        "n": 211,
+        "depth_span_mm": [
+          0.24800089608186227,
+          52.74800089608186
+        ]
+      },
+      "height_witnesses": [
+        {
+          "z_mm": 790.0,
+          "above_bed_mm": 20.0,
+          "nose_depth_mm": 11.123618868990775,
+          "nose_end_along_mm": 70.39619382181286,
+          "end_depth_mm": 48.03588312630336,
+          "end_along_mm": 29.0517025431634,
+          "end_lateral_mm": 54.509154572178865,
+          "fit": {
+            "front_face_deg": 53.294220530465346,
+            "terminal_face_deg": 40.89974576576771,
+            "hinge_depth_mm": 31.58215725968671,
+            "rms_mm": 0.3981114614550851,
+            "max_mm": 1.1066237258976201,
+            "n": 147,
+            "depth_span_mm": [
+              11.33215725968671,
+              47.83215725968671
+            ]
+          }
+        },
+        {
+          "z_mm": 810.0,
+          "above_bed_mm": 40.0,
+          "nose_depth_mm": 11.058613224268242,
+          "nose_end_along_mm": 70.5519592776202,
+          "end_depth_mm": 54.2867818157921,
+          "end_along_mm": 26.5549173146062,
+          "end_lateral_mm": 57.16371365774725,
+          "fit": {
+            "front_face_deg": 53.00707665403117,
+            "terminal_face_deg": 34.31689712971256,
+            "hinge_depth_mm": 34.261246771954916,
+            "rms_mm": 0.5710668504638184,
+            "max_mm": 1.4170697358125501,
+            "n": 173,
+            "depth_span_mm": [
+              11.261246771954916,
+              54.261246771954916
+            ]
+          }
+        },
+        {
+          "z_mm": 813.7,
+          "above_bed_mm": 43.700000000000045,
+          "nose_depth_mm": 37.65406781374543,
+          "nose_end_along_mm": 106.82412967031928,
+          "end_depth_mm": 54.85484982599996,
+          "end_along_mm": 26.31567504299983,
+          "end_lateral_mm": 57.39622856734105,
+          "fit": {
+            "front_face_deg": 88.61395750210647,
+            "terminal_face_deg": 29.47560034440268,
+            "hinge_depth_mm": 39.3604425149407,
+            "rms_mm": 1.3577359359657506,
+            "max_mm": 9.035551870436969,
+            "n": 68,
+            "depth_span_mm": [
+              37.8604425149407,
+              54.6104425149407
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "mesh": "pool_rubber03",
+      "node": 1179,
+      "corner": [
+        -1,
+        -1
+      ],
+      "rail_axis": 1,
+      "obj_sha256": "b9970d621e6ee50d84c10e1bf343f66b6161af6d49d51beee13e5650e3777474",
+      "z_mm": 805.88,
+      "above_bed_mm": 35.879999999999995,
+      "nose_depth_mm": -0.0019991039181377346,
+      "nose_end_along_mm": 86.53399875127752,
+      "end_depth_mm": 52.98632920189743,
+      "end_along_mm": 27.040856636673425,
+      "end_lateral_mm": 56.587765785729495,
+      "fit": {
+        "front_face_deg": 54.601525189298656,
+        "terminal_face_deg": 37.788835682097385,
+        "hinge_depth_mm": 30.748000896081862,
+        "rms_mm": 0.5390323784590392,
+        "max_mm": 1.6194860363483805,
+        "n": 211,
+        "depth_span_mm": [
+          0.24800089608186227,
+          52.74800089608186
+        ]
+      },
+      "height_witnesses": [
+        {
+          "z_mm": 790.0,
+          "above_bed_mm": 20.0,
+          "nose_depth_mm": 11.122717529657962,
+          "nose_end_along_mm": 70.39619382181286,
+          "end_depth_mm": 48.03588312630336,
+          "end_along_mm": 29.0517025431634,
+          "end_lateral_mm": 54.509154572178865,
+          "fit": {
+            "front_face_deg": 53.29466381678864,
+            "terminal_face_deg": 40.900090421314836,
+            "hinge_depth_mm": 31.58215725968671,
+            "rms_mm": 0.39808616044539447,
+            "max_mm": 1.107252000403708,
+            "n": 147,
+            "depth_span_mm": [
+              11.33215725968671,
+              47.83215725968671
+            ]
+          }
+        },
+        {
+          "z_mm": 810.0,
+          "above_bed_mm": 40.0,
+          "nose_depth_mm": 11.057800665722539,
+          "nose_end_along_mm": 70.5519592776202,
+          "end_depth_mm": 54.2867818157921,
+          "end_along_mm": 26.5549173146062,
+          "end_lateral_mm": 57.16371365774725,
+          "fit": {
+            "front_face_deg": 53.006566911463416,
+            "terminal_face_deg": 34.31546514289058,
+            "hinge_depth_mm": 34.26105933050064,
+            "rms_mm": 0.5711202544396987,
+            "max_mm": 1.4168544968643992,
+            "n": 173,
+            "depth_span_mm": [
+              11.261059330500643,
+              54.26105933050064
+            ]
+          }
+        },
+        {
+          "z_mm": 813.7,
+          "above_bed_mm": 43.700000000000045,
+          "nose_depth_mm": 37.65384968725141,
+          "nose_end_along_mm": 106.82412967031928,
+          "end_depth_mm": 54.85484982599996,
+          "end_along_mm": 26.31567504299983,
+          "end_lateral_mm": 57.39622856734105,
+          "fit": {
+            "front_face_deg": 88.6133149030095,
+            "terminal_face_deg": 29.479951949550646,
+            "hinge_depth_mm": 39.36022438844668,
+            "rms_mm": 1.3589812503765433,
+            "max_mm": 9.031679098896895,
+            "n": 68,
+            "depth_span_mm": [
+              37.86022438844668,
+              54.61022438844668
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "mesh": "pool_rubber05",
+      "node": 1201,
+      "corner": [
+        -1,
+        1
+      ],
+      "rail_axis": 1,
+      "obj_sha256": "288dffe6e87b5245fd8a4c87a21bb243ef8355549e2e788a168485c8822f010b",
+      "z_mm": 805.88,
+      "above_bed_mm": 35.879999999999995,
+      "nose_depth_mm": -0.0019991023890497672,
+      "nose_end_along_mm": 86.53399874914658,
+      "end_depth_mm": 52.98632920189743,
+      "end_along_mm": 27.04053076460127,
+      "end_lateral_mm": 56.587535359377476,
+      "fit": {
+        "front_face_deg": 54.602053739299066,
+        "terminal_face_deg": 37.789395033413534,
+        "hinge_depth_mm": 30.74800089761095,
+        "rms_mm": 0.5388672124652977,
+        "max_mm": 1.619271490044838,
+        "n": 211,
+        "depth_span_mm": [
+          0.24800089761095023,
+          52.74800089761095
+        ]
+      },
+      "height_witnesses": [
+        {
+          "z_mm": 790.0,
+          "above_bed_mm": 20.0,
+          "nose_depth_mm": 11.122899244498967,
+          "nose_end_along_mm": 70.39723878713244,
+          "end_depth_mm": 48.03588312630336,
+          "end_along_mm": 29.050813083214052,
+          "end_lateral_mm": 54.508525629017086,
+          "fit": {
+            "front_face_deg": 53.29450495864021,
+            "terminal_face_deg": 40.900973241205854,
+            "hinge_depth_mm": 31.581440385733003,
+            "rms_mm": 0.3980302793563478,
+            "max_mm": 1.10587514206426,
+            "n": 147,
+            "depth_span_mm": [
+              11.331440385733003,
+              47.831440385733
+            ]
+          }
+        },
+        {
+          "z_mm": 810.0,
+          "above_bed_mm": 40.0,
+          "nose_depth_mm": 11.0623746149123,
+          "nose_end_along_mm": 70.54549492685283,
+          "end_depth_mm": 54.2867818157921,
+          "end_along_mm": 26.554795019962285,
+          "end_lateral_mm": 57.16362718237524,
+          "fit": {
+            "front_face_deg": 53.0053452934109,
+            "terminal_face_deg": 34.310045712099864,
+            "hinge_depth_mm": 34.26495217696993,
+            "rms_mm": 0.5710524877803321,
+            "max_mm": 1.4165215587557825,
+            "n": 173,
+            "depth_span_mm": [
+              11.264952176969928,
+              54.26495217696993
+            ]
+          }
+        },
+        {
+          "z_mm": 813.7,
+          "above_bed_mm": 43.700000000000045,
+          "nose_depth_mm": 37.65406781374543,
+          "nose_end_along_mm": 106.82334779681332,
+          "end_depth_mm": 54.85484982599996,
+          "end_along_mm": 26.31567504299983,
+          "end_lateral_mm": 57.39622856734105,
+          "fit": {
+            "front_face_deg": 88.61394025546892,
+            "terminal_face_deg": 29.475575122493066,
+            "hinge_depth_mm": 39.3604425149407,
+            "rms_mm": 1.357739213811192,
+            "max_mm": 9.035421856658033,
+            "n": 68,
+            "depth_span_mm": [
+              37.8604425149407,
+              54.6104425149407
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "mesh": "pool_rubber06",
+      "node": 1213,
+      "corner": [
+        1,
+        1
+      ],
+      "rail_axis": 1,
+      "obj_sha256": "75ed314641a60f63a9fed3e0e26c58d4a33d58d127845d7541ce0256e4859b88",
+      "z_mm": 805.88,
+      "above_bed_mm": 35.879999999999995,
+      "nose_depth_mm": -0.0019991039181377346,
+      "nose_end_along_mm": 86.53499874957402,
+      "end_depth_mm": 52.98632920189743,
+      "end_along_mm": 27.040856636673425,
+      "end_lateral_mm": 56.587765785729495,
+      "fit": {
+        "front_face_deg": 54.60150621602577,
+        "terminal_face_deg": 37.78934980861548,
+        "hinge_depth_mm": 30.748000896081862,
+        "rms_mm": 0.539033566570823,
+        "max_mm": 1.6197745621649844,
+        "n": 211,
+        "depth_span_mm": [
+          0.24800089608186227,
+          52.74800089608186
+        ]
+      },
+      "height_witnesses": [
+        {
+          "z_mm": 790.0,
+          "above_bed_mm": 20.0,
+          "nose_depth_mm": 11.122717529657962,
+          "nose_end_along_mm": 70.39619382181286,
+          "end_depth_mm": 48.03588312630336,
+          "end_along_mm": 29.0517025431634,
+          "end_lateral_mm": 54.509154572178865,
+          "fit": {
+            "front_face_deg": 53.29466601690367,
+            "terminal_face_deg": 40.90007602228515,
+            "hinge_depth_mm": 31.58215725968671,
+            "rms_mm": 0.39808860442429256,
+            "max_mm": 1.107249654364864,
+            "n": 147,
+            "depth_span_mm": [
+              11.33215725968671,
+              47.83215725968671
+            ]
+          }
+        },
+        {
+          "z_mm": 810.0,
+          "above_bed_mm": 40.0,
+          "nose_depth_mm": 11.057800665722539,
+          "nose_end_along_mm": 70.5519592776202,
+          "end_depth_mm": 54.2867818157921,
+          "end_along_mm": 26.5549173146062,
+          "end_lateral_mm": 57.16371365774725,
+          "fit": {
+            "front_face_deg": 53.006477020577314,
+            "terminal_face_deg": 34.31618877520825,
+            "hinge_depth_mm": 34.26105933050064,
+            "rms_mm": 0.5711311815865574,
+            "max_mm": 1.4171925934923912,
+            "n": 173,
+            "depth_span_mm": [
+              11.261059330500643,
+              54.26105933050064
+            ]
+          }
+        },
+        {
+          "z_mm": 813.7,
+          "above_bed_mm": 43.700000000000045,
+          "nose_depth_mm": 37.65384968725141,
+          "nose_end_along_mm": 106.8243477968133,
+          "end_depth_mm": 54.85484982599996,
+          "end_along_mm": 26.31567504299983,
+          "end_lateral_mm": 57.39622856734105,
+          "fit": {
+            "front_face_deg": 88.6133174274368,
+            "terminal_face_deg": 29.480148887962304,
+            "hinge_depth_mm": 39.36022438844668,
+            "rms_mm": 1.3589829559335966,
+            "max_mm": 9.03170715703559,
+            "n": 68,
+            "depth_span_mm": [
+              37.86022438844668,
+              54.61022438844668
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

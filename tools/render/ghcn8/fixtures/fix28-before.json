@@ -1,0 +1,170 @@
+{
+  "schema": "cn8-fix28-before/1",
+  "source_commit": "cf673b39af99053bfe86cf6d097b5d2b807b4f71",
+  "source_table_sha256": "c857c746b404b615d943e2d67fc6e6fd9ee12c7426815c20cb92ef8de4accd67",
+  "tag": "DERIVED actual CPU emission, all attributes/index/world matrices outside the twelve fascia partition meshes; no GPU proof",
+  "rows": [
+    {
+      "table": "chinese8_pro_9ft",
+      "protected_meshes": 244,
+      "excluded_meshes": [
+        "cn8-beam-long-nW",
+        "cn8-blind-long-nW",
+        "cn8-beam-long-nE",
+        "cn8-blind-long-nE",
+        "cn8-beam-long-pW",
+        "cn8-blind-long-pW",
+        "cn8-beam-long-pE",
+        "cn8-blind-long-pE",
+        "cn8-beam-end-n",
+        "cn8-blind-end-n",
+        "cn8-beam-end-p",
+        "cn8-blind-end-p"
+      ],
+      "protected_geometry_sha256": "7185e08ec8486b192126fd954d843be8be7b149e5d0e3f6a4df2583d2d180a6a",
+      "pocket_materials": [
+        {
+          "pocket": 0,
+          "mesh": "cn8r82-ring-0",
+          "color": "ac8d6c",
+          "roughness": 0.68,
+          "clearcoat": 0,
+          "bumpScale": 0.35,
+          "emissive": "796750",
+          "emissiveIntensity": 1
+        },
+        {
+          "pocket": 1,
+          "mesh": "cn8-mid-leather-1",
+          "color": "f1ebdc",
+          "roughness": 0.68,
+          "clearcoat": 0,
+          "bumpScale": 0.07291666666666667,
+          "emissive": "000000",
+          "emissiveIntensity": 0
+        },
+        {
+          "pocket": 2,
+          "mesh": "cn8r82-ring-2",
+          "color": "ac8d6c",
+          "roughness": 0.68,
+          "clearcoat": 0,
+          "bumpScale": 0.35,
+          "emissive": "796750",
+          "emissiveIntensity": 1
+        },
+        {
+          "pocket": 3,
+          "mesh": "cn8r82-ring-3",
+          "color": "ac8d6c",
+          "roughness": 0.68,
+          "clearcoat": 0,
+          "bumpScale": 0.35,
+          "emissive": "796750",
+          "emissiveIntensity": 1
+        },
+        {
+          "pocket": 4,
+          "mesh": "cn8-mid-leather-4",
+          "color": "f1ebdc",
+          "roughness": 0.68,
+          "clearcoat": 0,
+          "bumpScale": 0.07291666666666667,
+          "emissive": "000000",
+          "emissiveIntensity": 0
+        },
+        {
+          "pocket": 5,
+          "mesh": "cn8r82-ring-5",
+          "color": "ac8d6c",
+          "roughness": 0.68,
+          "clearcoat": 0,
+          "bumpScale": 0.35,
+          "emissive": "796750",
+          "emissiveIntensity": 1
+        }
+      ]
+    },
+    {
+      "table": "joy_q8_9ft",
+      "protected_meshes": 244,
+      "excluded_meshes": [
+        "cn8-beam-long-nW",
+        "cn8-blind-long-nW",
+        "cn8-beam-long-nE",
+        "cn8-blind-long-nE",
+        "cn8-beam-long-pW",
+        "cn8-blind-long-pW",
+        "cn8-beam-long-pE",
+        "cn8-blind-long-pE",
+        "cn8-beam-end-n",
+        "cn8-blind-end-n",
+        "cn8-beam-end-p",
+        "cn8-blind-end-p"
+      ],
+      "protected_geometry_sha256": "7185e08ec8486b192126fd954d843be8be7b149e5d0e3f6a4df2583d2d180a6a",
+      "pocket_materials": [
+        {
+          "pocket": 0,
+          "mesh": "cn8r82-ring-0",
+          "color": "ac8d6c",
+          "roughness": 0.68,
+          "clearcoat": 0,
+          "bumpScale": 0.35,
+          "emissive": "796750",
+          "emissiveIntensity": 1
+        },
+        {
+          "pocket": 1,
+          "mesh": "cn8-mid-leather-1",
+          "color": "f1ebdc",
+          "roughness": 0.68,
+          "clearcoat": 0,
+          "bumpScale": 0.07291666666666667,
+          "emissive": "000000",
+          "emissiveIntensity": 0
+        },
+        {
+          "pocket": 2,
+          "mesh": "cn8r82-ring-2",
+          "color": "ac8d6c",
+          "roughness": 0.68,
+          "clearcoat": 0,
+          "bumpScale": 0.35,
+          "emissive": "796750",
+          "emissiveIntensity": 1
+        },
+        {
+          "pocket": 3,
+          "mesh": "cn8r82-ring-3",
+          "color": "ac8d6c",
+          "roughness": 0.68,
+          "clearcoat": 0,
+          "bumpScale": 0.35,
+          "emissive": "796750",
+          "emissiveIntensity": 1
+        },
+        {
+          "pocket": 4,
+          "mesh": "cn8-mid-leather-4",
+          "color": "f1ebdc",
+          "roughness": 0.68,
+          "clearcoat": 0,
+          "bumpScale": 0.07291666666666667,
+          "emissive": "000000",
+          "emissiveIntensity": 0
+        },
+        {
+          "pocket": 5,
+          "mesh": "cn8r82-ring-5",
+          "color": "ac8d6c",
+          "roughness": 0.68,
+          "clearcoat": 0,
+          "bumpScale": 0.35,
+          "emissive": "796750",
+          "emissiveIntensity": 1
+        }
+      ]
+    }
+  ]
+}

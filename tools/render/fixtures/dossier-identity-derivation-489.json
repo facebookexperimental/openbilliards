@@ -1,0 +1,1266 @@
+{
+ "what": "GH-489 IDENTITY-round dossier derivation \u2014 reference rail/leg/apron appearance distributions across the XW101 dossier bearing sweep (hand-placed ROI boxes, verified via annotated sheets in the lane workspace). These rows derive the orbitsweep-489 per-bearing-band identity windows (judge header carries the window arithmetic).",
+ "dossier": "Drive openbilliards/dossier-star-xw101/ (INDEX.md, 2026-08-19)",
+ "excluded_rows": [
+  "star-xw101-full-table-product.png railtop roi2 (white background)",
+  "star-xw101-full-table-product.png railtop roi1 + apron roi0 (gold-band contamination)",
+  "official-xw101-three-quarter.png ALL rows (629x328 too small to place clean ROIs; kept in raw rows, excluded from windows)",
+  "star-xw101-crucible-2021 rows (red-flooded venue lighting \u2014 corroboration only, never absolute H/S/V targets)",
+  "sweep sw12/sw16/sw20 leg roi1 (background/reflection contamination)",
+  "official-video-frame1 (motion-blurred pan \u2014 flare-family existence anchor only, no ROI)"
+ ],
+ "bands": {
+  "sweep/sw06.png": "side_low",
+  "sweep/sw12.png": "side_low",
+  "sweep/sw16.png": "end_low",
+  "sweep/sw20.png": "end_low",
+  "star-xw101-full-table-product.png": "oblique_34",
+  "official-xw101-three-quarter.png": "oblique_34",
+  "press-pgcsnooker-star-table-4k.png": "side_product",
+  "germanmasters-2025-10.jpg": "venue",
+  "star-xw101-crucible-2021-tv-full-table.jpg": "venue",
+  "official-gold-leg-flute-embroidery-closeup.jpg": "close"
+ },
+ "rows": [
+  {
+   "h_med": 291.4,
+   "s_med": 0.216,
+   "v_med": 0.184,
+   "v_p10": 0.125,
+   "v_p90": 0.302,
+   "s_p90": 0.318,
+   "bright_frac": 0.0,
+   "n": 9000,
+   "frame": "sweep/sw06.png",
+   "band": "side_low",
+   "el": "railtop",
+   "roi": 0,
+   "box": [
+    700,
+    348,
+    1150,
+    368
+   ]
+  },
+  {
+   "h_med": 282.0,
+   "s_med": 0.268,
+   "v_med": 0.161,
+   "v_p10": 0.118,
+   "v_p90": 0.208,
+   "s_p90": 0.359,
+   "bright_frac": 0.0,
+   "n": 5000,
+   "frame": "sweep/sw06.png",
+   "band": "side_low",
+   "el": "railtop",
+   "roi": 1,
+   "box": [
+    1250,
+    352,
+    1500,
+    372
+   ]
+  },
+  {
+   "h_med": 37.0,
+   "s_med": 0.636,
+   "v_med": 0.69,
+   "v_p10": 0.549,
+   "v_p90": 0.863,
+   "s_p90": 0.797,
+   "bright_frac": 0.31,
+   "n": 26400,
+   "frame": "sweep/sw06.png",
+   "band": "side_low",
+   "el": "leg",
+   "roi": 0,
+   "box": [
+    330,
+    720,
+    450,
+    940
+   ]
+  },
+  {
+   "h_med": 37.0,
+   "s_med": 0.632,
+   "v_med": 0.651,
+   "v_p10": 0.565,
+   "v_p90": 0.78,
+   "s_p90": 0.792,
+   "bright_frac": 0.165,
+   "n": 21000,
+   "frame": "sweep/sw06.png",
+   "band": "side_low",
+   "el": "leg",
+   "roi": 1,
+   "box": [
+    1440,
+    680,
+    1545,
+    880
+   ]
+  },
+  {
+   "h_med": 315.0,
+   "s_med": 0.183,
+   "v_med": 0.22,
+   "v_p10": 0.18,
+   "v_p90": 0.31,
+   "s_p90": 0.295,
+   "bright_frac": 0.003,
+   "n": 14400,
+   "frame": "sweep/sw06.png",
+   "band": "side_low",
+   "el": "apron",
+   "roi": 0,
+   "box": [
+    600,
+    468,
+    900,
+    516
+   ]
+  },
+  {
+   "h_med": 28.4,
+   "s_med": 0.135,
+   "v_med": 0.216,
+   "v_p10": 0.11,
+   "v_p90": 0.357,
+   "s_p90": 0.276,
+   "bright_frac": 0.002,
+   "n": 9600,
+   "frame": "sweep/sw06.png",
+   "band": "side_low",
+   "el": "apron",
+   "roi": 1,
+   "box": [
+    1150,
+    468,
+    1350,
+    516
+   ]
+  },
+  {
+   "h_med": 252.9,
+   "s_med": 0.25,
+   "v_med": 0.333,
+   "v_p10": 0.188,
+   "v_p90": 0.765,
+   "s_p90": 0.479,
+   "bright_frac": 0.142,
+   "n": 9000,
+   "frame": "sweep/sw12.png",
+   "band": "side_low",
+   "el": "railtop",
+   "roi": 0,
+   "box": [
+    650,
+    330,
+    1100,
+    350
+   ]
+  },
+  {
+   "h_med": 264.5,
+   "s_med": 0.222,
+   "v_med": 0.243,
+   "v_p10": 0.161,
+   "v_p90": 0.647,
+   "s_p90": 0.405,
+   "bright_frac": 0.058,
+   "n": 5000,
+   "frame": "sweep/sw12.png",
+   "band": "side_low",
+   "el": "railtop",
+   "roi": 1,
+   "box": [
+    1250,
+    335,
+    1500,
+    355
+   ]
+  },
+  {
+   "h_med": 36.9,
+   "s_med": 0.624,
+   "v_med": 0.702,
+   "v_p10": 0.533,
+   "v_p90": 0.871,
+   "s_p90": 0.791,
+   "bright_frac": 0.351,
+   "n": 28600,
+   "frame": "sweep/sw12.png",
+   "band": "side_low",
+   "el": "leg",
+   "roi": 0,
+   "box": [
+    350,
+    700,
+    480,
+    920
+   ]
+  },
+  {
+   "h_med": 233.5,
+   "s_med": 0.25,
+   "v_med": 0.612,
+   "v_p10": 0.498,
+   "v_p90": 0.718,
+   "s_p90": 0.754,
+   "bright_frac": 0.065,
+   "n": 22800,
+   "frame": "sweep/sw12.png",
+   "band": "side_low",
+   "el": "leg",
+   "roi": 1,
+   "box": [
+    1410,
+    670,
+    1530,
+    860
+   ]
+  },
+  {
+   "h_med": 322.5,
+   "s_med": 0.417,
+   "v_med": 0.137,
+   "v_p10": 0.118,
+   "v_p90": 0.176,
+   "s_p90": 0.5,
+   "bright_frac": 0.001,
+   "n": 15000,
+   "frame": "sweep/sw12.png",
+   "band": "side_low",
+   "el": "apron",
+   "roi": 0,
+   "box": [
+    600,
+    458,
+    900,
+    508
+   ]
+  },
+  {
+   "h_med": 300.0,
+   "s_med": 0.034,
+   "v_med": 0.325,
+   "v_p10": 0.282,
+   "v_p90": 0.345,
+   "s_p90": 0.082,
+   "bright_frac": 0.003,
+   "n": 10000,
+   "frame": "sweep/sw12.png",
+   "band": "side_low",
+   "el": "apron",
+   "roi": 1,
+   "box": [
+    1150,
+    458,
+    1350,
+    508
+   ]
+  },
+  {
+   "h_med": 266.2,
+   "s_med": 0.245,
+   "v_med": 0.224,
+   "v_p10": 0.165,
+   "v_p90": 0.82,
+   "s_p90": 0.472,
+   "bright_frac": 0.12,
+   "n": 8000,
+   "frame": "sweep/sw16.png",
+   "band": "end_low",
+   "el": "railtop",
+   "roi": 0,
+   "box": [
+    500,
+    330,
+    900,
+    350
+   ]
+  },
+  {
+   "h_med": 261.7,
+   "s_med": 0.226,
+   "v_med": 0.29,
+   "v_p10": 0.176,
+   "v_p90": 0.725,
+   "s_p90": 0.439,
+   "bright_frac": 0.07,
+   "n": 8000,
+   "frame": "sweep/sw16.png",
+   "band": "end_low",
+   "el": "railtop",
+   "roi": 1,
+   "box": [
+    1000,
+    330,
+    1400,
+    350
+   ]
+  },
+  {
+   "h_med": 37.0,
+   "s_med": 0.622,
+   "v_med": 0.706,
+   "v_p10": 0.529,
+   "v_p90": 0.875,
+   "s_p90": 0.785,
+   "bright_frac": 0.363,
+   "n": 29700,
+   "frame": "sweep/sw16.png",
+   "band": "end_low",
+   "el": "leg",
+   "roi": 0,
+   "box": [
+    380,
+    660,
+    490,
+    930
+   ]
+  },
+  {
+   "h_med": 244.3,
+   "s_med": 0.161,
+   "v_med": 0.498,
+   "v_p10": 0.412,
+   "v_p90": 0.741,
+   "s_p90": 0.734,
+   "bright_frac": 0.082,
+   "n": 33600,
+   "frame": "sweep/sw16.png",
+   "band": "end_low",
+   "el": "leg",
+   "roi": 1,
+   "box": [
+    1310,
+    650,
+    1430,
+    930
+   ]
+  },
+  {
+   "h_med": 325.0,
+   "s_med": 0.327,
+   "v_med": 0.157,
+   "v_p10": 0.133,
+   "v_p90": 0.188,
+   "s_p90": 0.441,
+   "bright_frac": 0.009,
+   "n": 24650,
+   "frame": "sweep/sw16.png",
+   "band": "end_low",
+   "el": "apron",
+   "roi": 0,
+   "box": [
+    600,
+    470,
+    890,
+    555
+   ]
+  },
+  {
+   "h_med": 300.0,
+   "s_med": 0.204,
+   "v_med": 0.192,
+   "v_p10": 0.165,
+   "v_p90": 0.231,
+   "s_p90": 0.306,
+   "bright_frac": 0.0,
+   "n": 20400,
+   "frame": "sweep/sw16.png",
+   "band": "end_low",
+   "el": "apron",
+   "roi": 1,
+   "box": [
+    1060,
+    470,
+    1300,
+    555
+   ]
+  },
+  {
+   "h_med": 259.4,
+   "s_med": 0.208,
+   "v_med": 0.361,
+   "v_p10": 0.2,
+   "v_p90": 0.929,
+   "s_p90": 0.354,
+   "bright_frac": 0.342,
+   "n": 8000,
+   "frame": "sweep/sw20.png",
+   "band": "end_low",
+   "el": "railtop",
+   "roi": 0,
+   "box": [
+    500,
+    330,
+    900,
+    350
+   ]
+  },
+  {
+   "h_med": 250.6,
+   "s_med": 0.202,
+   "v_med": 0.373,
+   "v_p10": 0.196,
+   "v_p90": 0.761,
+   "s_p90": 0.385,
+   "bright_frac": 0.162,
+   "n": 8000,
+   "frame": "sweep/sw20.png",
+   "band": "end_low",
+   "el": "railtop",
+   "roi": 1,
+   "box": [
+    1000,
+    330,
+    1400,
+    350
+   ]
+  },
+  {
+   "h_med": 37.1,
+   "s_med": 0.602,
+   "v_med": 0.733,
+   "v_p10": 0.565,
+   "v_p90": 0.898,
+   "s_p90": 0.779,
+   "bright_frac": 0.445,
+   "n": 29700,
+   "frame": "sweep/sw20.png",
+   "band": "end_low",
+   "el": "leg",
+   "roi": 0,
+   "box": [
+    380,
+    660,
+    490,
+    930
+   ]
+  },
+  {
+   "h_med": 248.6,
+   "s_med": 0.142,
+   "v_med": 0.443,
+   "v_p10": 0.388,
+   "v_p90": 0.592,
+   "s_p90": 0.727,
+   "bright_frac": 0.019,
+   "n": 33600,
+   "frame": "sweep/sw20.png",
+   "band": "end_low",
+   "el": "leg",
+   "roi": 1,
+   "box": [
+    1310,
+    650,
+    1430,
+    930
+   ]
+  },
+  {
+   "h_med": 308.6,
+   "s_med": 0.255,
+   "v_med": 0.188,
+   "v_p10": 0.173,
+   "v_p90": 0.204,
+   "s_p90": 0.318,
+   "bright_frac": 0.01,
+   "n": 24650,
+   "frame": "sweep/sw20.png",
+   "band": "end_low",
+   "el": "apron",
+   "roi": 0,
+   "box": [
+    600,
+    470,
+    890,
+    555
+   ]
+  },
+  {
+   "h_med": 313.8,
+   "s_med": 0.333,
+   "v_med": 0.157,
+   "v_p10": 0.133,
+   "v_p90": 0.161,
+   "s_p90": 0.429,
+   "bright_frac": 0.0,
+   "n": 20400,
+   "frame": "sweep/sw20.png",
+   "band": "end_low",
+   "el": "apron",
+   "roi": 1,
+   "box": [
+    1060,
+    470,
+    1300,
+    555
+   ]
+  },
+  {
+   "h_med": 294.0,
+   "s_med": 0.164,
+   "v_med": 0.337,
+   "v_p10": 0.22,
+   "v_p90": 0.898,
+   "s_p90": 0.489,
+   "bright_frac": 0.248,
+   "n": 1302,
+   "frame": "star-xw101-full-table-product.png",
+   "band": "oblique_34",
+   "el": "railtop",
+   "roi": 0,
+   "box": [
+    260,
+    233,
+    353,
+    247
+   ]
+  },
+  {
+   "h_med": 44.7,
+   "s_med": 0.439,
+   "v_med": 0.569,
+   "v_p10": 0.224,
+   "v_p90": 0.91,
+   "s_p90": 0.536,
+   "bright_frac": 0.387,
+   "n": 1023,
+   "frame": "star-xw101-full-table-product.png",
+   "band": "oblique_34",
+   "el": "railtop",
+   "roi": 1,
+   "box": [
+    420,
+    250,
+    513,
+    261
+   ]
+  },
+  {
+   "h_med": 0.0,
+   "s_med": 0.0,
+   "v_med": 1.0,
+   "v_p10": 1.0,
+   "v_p90": 1.0,
+   "s_p90": 0.0,
+   "bright_frac": 1.0,
+   "n": 744,
+   "frame": "star-xw101-full-table-product.png",
+   "band": "oblique_34",
+   "el": "railtop",
+   "roi": 2,
+   "box": [
+    607,
+    121,
+    700,
+    129
+   ]
+  },
+  {
+   "h_med": 36.0,
+   "s_med": 0.724,
+   "v_med": 0.812,
+   "v_p10": 0.627,
+   "v_p90": 1.0,
+   "s_p90": 0.949,
+   "bright_frac": 0.692,
+   "n": 5742,
+   "frame": "star-xw101-full-table-product.png",
+   "band": "oblique_34",
+   "el": "leg",
+   "roi": 0,
+   "box": [
+    347,
+    313,
+    413,
+    400
+   ]
+  },
+  {
+   "h_med": 34.0,
+   "s_med": 0.581,
+   "v_med": 0.816,
+   "v_p10": 0.592,
+   "v_p90": 1.0,
+   "s_p90": 0.911,
+   "bright_frac": 0.647,
+   "n": 5220,
+   "frame": "star-xw101-full-table-product.png",
+   "band": "oblique_34",
+   "el": "leg",
+   "roi": 1,
+   "box": [
+    193,
+    273,
+    253,
+    360
+   ]
+  },
+  {
+   "h_med": 30.2,
+   "s_med": 0.035,
+   "v_med": 1.0,
+   "v_p10": 0.627,
+   "v_p90": 1.0,
+   "s_p90": 0.865,
+   "bright_frac": 0.714,
+   "n": 9831,
+   "frame": "star-xw101-full-table-product.png",
+   "band": "oblique_34",
+   "el": "leg",
+   "roi": 2,
+   "box": [
+    833,
+    280,
+    920,
+    393
+   ]
+  },
+  {
+   "h_med": 33.2,
+   "s_med": 0.646,
+   "v_med": 0.675,
+   "v_p10": 0.251,
+   "v_p90": 0.82,
+   "s_p90": 0.816,
+   "bright_frac": 0.343,
+   "n": 3729,
+   "frame": "star-xw101-full-table-product.png",
+   "band": "oblique_34",
+   "el": "apron",
+   "roi": 0,
+   "box": [
+    687,
+    300,
+    800,
+    333
+   ]
+  },
+  {
+   "h_med": 39.4,
+   "s_med": 0.388,
+   "v_med": 0.71,
+   "v_p10": 0.251,
+   "v_p90": 0.949,
+   "s_p90": 0.775,
+   "bright_frac": 0.488,
+   "n": 3360,
+   "frame": "official-xw101-three-quarter.png",
+   "band": "oblique_34",
+   "el": "railtop",
+   "roi": 0,
+   "box": [
+    260,
+    142,
+    470,
+    158
+   ]
+  },
+  {
+   "h_med": 40.2,
+   "s_med": 0.271,
+   "v_med": 0.427,
+   "v_p10": 0.259,
+   "v_p90": 0.984,
+   "s_p90": 0.721,
+   "bright_frac": 0.353,
+   "n": 1500,
+   "frame": "official-xw101-three-quarter.png",
+   "band": "oblique_34",
+   "el": "railtop",
+   "roi": 1,
+   "box": [
+    150,
+    130,
+    250,
+    145
+   ]
+  },
+  {
+   "h_med": 0.0,
+   "s_med": 0.0,
+   "v_med": 1.0,
+   "v_p10": 0.725,
+   "v_p90": 1.0,
+   "s_p90": 0.792,
+   "bright_frac": 0.867,
+   "n": 3825,
+   "frame": "official-xw101-three-quarter.png",
+   "band": "oblique_34",
+   "el": "leg",
+   "roi": 0,
+   "box": [
+    500,
+    175,
+    545,
+    260
+   ]
+  },
+  {
+   "h_med": 0.0,
+   "s_med": 0.0,
+   "v_med": 1.0,
+   "v_p10": 0.8,
+   "v_p90": 1.0,
+   "s_p90": 0.662,
+   "bright_frac": 0.945,
+   "n": 4050,
+   "frame": "official-xw101-three-quarter.png",
+   "band": "oblique_34",
+   "el": "leg",
+   "roi": 1,
+   "box": [
+    330,
+    205,
+    375,
+    295
+   ]
+  },
+  {
+   "h_med": 0.0,
+   "s_med": 0.0,
+   "v_med": 1.0,
+   "v_p10": 0.722,
+   "v_p90": 1.0,
+   "s_p90": 0.807,
+   "bright_frac": 0.876,
+   "n": 2850,
+   "frame": "official-xw101-three-quarter.png",
+   "band": "oblique_34",
+   "el": "leg",
+   "roi": 2,
+   "box": [
+    120,
+    175,
+    158,
+    250
+   ]
+  },
+  {
+   "h_med": 312.0,
+   "s_med": 0.188,
+   "v_med": 0.263,
+   "v_p10": 0.192,
+   "v_p90": 0.678,
+   "s_p90": 0.535,
+   "bright_frac": 0.08,
+   "n": 800,
+   "frame": "official-xw101-three-quarter.png",
+   "band": "oblique_34",
+   "el": "apron",
+   "roi": 0,
+   "box": [
+    310,
+    168,
+    360,
+    184
+   ]
+  },
+  {
+   "h_med": 35.6,
+   "s_med": 0.408,
+   "v_med": 0.851,
+   "v_p10": 0.62,
+   "v_p90": 1.0,
+   "s_p90": 0.926,
+   "bright_frac": 0.781,
+   "n": 1280,
+   "frame": "official-xw101-three-quarter.png",
+   "band": "oblique_34",
+   "el": "apron",
+   "roi": 1,
+   "box": [
+    210,
+    166,
+    290,
+    182
+   ]
+  },
+  {
+   "h_med": 293.3,
+   "s_med": 0.353,
+   "v_med": 0.212,
+   "v_p10": 0.129,
+   "v_p90": 0.722,
+   "s_p90": 0.955,
+   "bright_frac": 0.091,
+   "n": 44000,
+   "frame": "press-pgcsnooker-star-table-4k.png",
+   "band": "side_product",
+   "el": "railtop",
+   "roi": 0,
+   "box": [
+    500,
+    810,
+    1600,
+    850
+   ]
+  },
+  {
+   "h_med": 38.5,
+   "s_med": 0.591,
+   "v_med": 0.22,
+   "v_p10": 0.125,
+   "v_p90": 0.984,
+   "s_p90": 0.986,
+   "bright_frac": 0.26,
+   "n": 44000,
+   "frame": "press-pgcsnooker-star-table-4k.png",
+   "band": "side_product",
+   "el": "railtop",
+   "roi": 1,
+   "box": [
+    2200,
+    810,
+    3300,
+    850
+   ]
+  },
+  {
+   "h_med": 39.6,
+   "s_med": 0.715,
+   "v_med": 0.98,
+   "v_p10": 0.796,
+   "v_p90": 1.0,
+   "s_p90": 0.976,
+   "bright_frac": 0.933,
+   "n": 58500,
+   "frame": "press-pgcsnooker-star-table-4k.png",
+   "band": "side_product",
+   "el": "leg",
+   "roi": 0,
+   "box": [
+    480,
+    1140,
+    630,
+    1530
+   ]
+  },
+  {
+   "h_med": 39.8,
+   "s_med": 0.727,
+   "v_med": 0.98,
+   "v_p10": 0.773,
+   "v_p90": 1.0,
+   "s_p90": 0.974,
+   "bright_frac": 0.91,
+   "n": 53650,
+   "frame": "press-pgcsnooker-star-table-4k.png",
+   "band": "side_product",
+   "el": "leg",
+   "roi": 1,
+   "box": [
+    1425,
+    1140,
+    1570,
+    1510
+   ]
+  },
+  {
+   "h_med": 40.1,
+   "s_med": 0.714,
+   "v_med": 0.984,
+   "v_p10": 0.827,
+   "v_p90": 1.0,
+   "s_p90": 0.975,
+   "bright_frac": 0.951,
+   "n": 55500,
+   "frame": "press-pgcsnooker-star-table-4k.png",
+   "band": "side_product",
+   "el": "leg",
+   "roi": 2,
+   "box": [
+    2325,
+    1140,
+    2475,
+    1510
+   ]
+  },
+  {
+   "h_med": 36.1,
+   "s_med": 0.492,
+   "v_med": 0.988,
+   "v_p10": 0.706,
+   "v_p90": 1.0,
+   "s_p90": 0.971,
+   "bright_frac": 0.872,
+   "n": 58500,
+   "frame": "press-pgcsnooker-star-table-4k.png",
+   "band": "side_product",
+   "el": "leg",
+   "roi": 3,
+   "box": [
+    3190,
+    1140,
+    3340,
+    1530
+   ]
+  },
+  {
+   "h_med": 338.2,
+   "s_med": 0.364,
+   "v_med": 0.118,
+   "v_p10": 0.106,
+   "v_p90": 0.518,
+   "s_p90": 0.719,
+   "bright_frac": 0.073,
+   "n": 64512,
+   "frame": "press-pgcsnooker-star-table-4k.png",
+   "band": "side_product",
+   "el": "apron",
+   "roi": 0,
+   "box": [
+    672,
+    950,
+    1344,
+    1046
+   ]
+  },
+  {
+   "h_med": 326.7,
+   "s_med": 0.321,
+   "v_med": 0.118,
+   "v_p10": 0.086,
+   "v_p90": 0.686,
+   "s_p90": 0.859,
+   "bright_frac": 0.089,
+   "n": 45600,
+   "frame": "press-pgcsnooker-star-table-4k.png",
+   "band": "side_product",
+   "el": "apron",
+   "roi": 1,
+   "box": [
+    1730,
+    950,
+    2205,
+    1046
+   ]
+  },
+  {
+   "h_med": 105.9,
+   "s_med": 0.417,
+   "v_med": 0.278,
+   "v_p10": 0.118,
+   "v_p90": 0.851,
+   "s_p90": 0.648,
+   "bright_frac": 0.134,
+   "n": 30960,
+   "frame": "germanmasters-2025-10.jpg",
+   "band": "venue",
+   "el": "railtop",
+   "roi": 0,
+   "box": [
+    1440,
+    1376,
+    2300,
+    1412
+   ]
+  },
+  {
+   "h_med": 119.0,
+   "s_med": 0.579,
+   "v_med": 0.329,
+   "v_p10": 0.173,
+   "v_p90": 0.78,
+   "s_p90": 0.745,
+   "bright_frac": 0.178,
+   "n": 20280,
+   "frame": "germanmasters-2025-10.jpg",
+   "band": "venue",
+   "el": "railtop",
+   "roi": 1,
+   "box": [
+    1800,
+    906,
+    2580,
+    932
+   ]
+  },
+  {
+   "h_med": 28.0,
+   "s_med": 0.627,
+   "v_med": 0.475,
+   "v_p10": 0.392,
+   "v_p90": 0.651,
+   "s_p90": 0.771,
+   "bright_frac": 0.045,
+   "n": 20700,
+   "frame": "germanmasters-2025-10.jpg",
+   "band": "venue",
+   "el": "leg",
+   "roi": 0,
+   "box": [
+    1400,
+    1580,
+    1490,
+    1810
+   ]
+  },
+  {
+   "h_med": 30.0,
+   "s_med": 0.648,
+   "v_med": 0.537,
+   "v_p10": 0.424,
+   "v_p90": 0.69,
+   "s_p90": 0.784,
+   "bright_frac": 0.039,
+   "n": 26000,
+   "frame": "germanmasters-2025-10.jpg",
+   "band": "venue",
+   "el": "leg",
+   "roi": 1,
+   "box": [
+    2210,
+    1580,
+    2310,
+    1840
+   ]
+  },
+  {
+   "h_med": 272.0,
+   "s_med": 0.469,
+   "v_med": 0.129,
+   "v_p10": 0.114,
+   "v_p90": 0.569,
+   "s_p90": 0.631,
+   "bright_frac": 0.007,
+   "n": 22400,
+   "frame": "germanmasters-2025-10.jpg",
+   "band": "venue",
+   "el": "apron",
+   "roi": 0,
+   "box": [
+    1420,
+    1440,
+    1700,
+    1520
+   ]
+  },
+  {
+   "h_med": 272.0,
+   "s_med": 0.5,
+   "v_med": 0.122,
+   "v_p10": 0.106,
+   "v_p90": 0.667,
+   "s_p90": 0.64,
+   "bright_frac": 0.001,
+   "n": 28800,
+   "frame": "germanmasters-2025-10.jpg",
+   "band": "venue",
+   "el": "apron",
+   "roi": 1,
+   "box": [
+    1900,
+    1440,
+    2260,
+    1520
+   ]
+  },
+  {
+   "h_med": 17.0,
+   "s_med": 0.824,
+   "v_med": 0.451,
+   "v_p10": 0.31,
+   "v_p90": 0.71,
+   "s_p90": 0.964,
+   "bright_frac": 0.079,
+   "n": 30400,
+   "frame": "star-xw101-crucible-2021-tv-full-table.jpg",
+   "band": "venue",
+   "el": "railtop",
+   "roi": 0,
+   "box": [
+    1120,
+    2000,
+    1880,
+    2040
+   ]
+  },
+  {
+   "h_med": 347.4,
+   "s_med": 0.822,
+   "v_med": 0.694,
+   "v_p10": 0.302,
+   "v_p90": 0.851,
+   "s_p90": 1.0,
+   "bright_frac": 0.43,
+   "n": 19040,
+   "frame": "star-xw101-crucible-2021-tv-full-table.jpg",
+   "band": "venue",
+   "el": "railtop",
+   "roi": 1,
+   "box": [
+    2520,
+    1878,
+    3200,
+    1906
+   ]
+  },
+  {
+   "h_med": 5.3,
+   "s_med": 0.76,
+   "v_med": 0.525,
+   "v_p10": 0.0,
+   "v_p90": 0.859,
+   "s_p90": 1.0,
+   "bright_frac": 0.189,
+   "n": 15400,
+   "frame": "star-xw101-crucible-2021-tv-full-table.jpg",
+   "band": "venue",
+   "el": "leg",
+   "roi": 0,
+   "box": [
+    1840,
+    2060,
+    1910,
+    2280
+   ]
+  },
+  {
+   "h_med": 349.0,
+   "s_med": 0.819,
+   "v_med": 0.71,
+   "v_p10": 0.541,
+   "v_p90": 0.816,
+   "s_p90": 0.982,
+   "bright_frac": 0.32,
+   "n": 7755,
+   "frame": "star-xw101-crucible-2021-tv-full-table.jpg",
+   "band": "venue",
+   "el": "leg",
+   "roi": 1,
+   "box": [
+    2815,
+    1845,
+    2862,
+    2010
+   ]
+  },
+  {
+   "h_med": 16.3,
+   "s_med": 0.966,
+   "v_med": 0.522,
+   "v_p10": 0.165,
+   "v_p90": 0.816,
+   "s_p90": 1.0,
+   "bright_frac": 0.172,
+   "n": 9381,
+   "frame": "star-xw101-crucible-2021-tv-full-table.jpg",
+   "band": "venue",
+   "el": "leg",
+   "roi": 2,
+   "box": [
+    2965,
+    1838,
+    3018,
+    2015
+   ]
+  },
+  {
+   "h_med": 349.1,
+   "s_med": 0.789,
+   "v_med": 0.588,
+   "v_p10": 0.247,
+   "v_p90": 0.812,
+   "s_p90": 0.955,
+   "bright_frac": 0.265,
+   "n": 31200,
+   "frame": "star-xw101-crucible-2021-tv-full-table.jpg",
+   "band": "venue",
+   "el": "apron",
+   "roi": 0,
+   "box": [
+    1200,
+    2044,
+    1800,
+    2096
+   ]
+  },
+  {
+   "h_med": 7.1,
+   "s_med": 0.786,
+   "v_med": 0.737,
+   "v_p10": 0.314,
+   "v_p90": 0.988,
+   "s_p90": 1.0,
+   "bright_frac": 0.435,
+   "n": 25600,
+   "frame": "star-xw101-crucible-2021-tv-full-table.jpg",
+   "band": "venue",
+   "el": "apron",
+   "roi": 1,
+   "box": [
+    2540,
+    1944,
+    3180,
+    1984
+   ]
+  },
+  {
+   "h_med": 39.9,
+   "s_med": 0.675,
+   "v_med": 0.945,
+   "v_p10": 0.839,
+   "v_p90": 0.992,
+   "s_p90": 0.91,
+   "bright_frac": 0.997,
+   "n": 25200,
+   "frame": "official-gold-leg-flute-embroidery-closeup.jpg",
+   "band": "close",
+   "el": "leg",
+   "roi": 0,
+   "box": [
+    200,
+    340,
+    340,
+    520
+   ]
+  },
+  {
+   "h_med": 40.0,
+   "s_med": 0.676,
+   "v_med": 0.941,
+   "v_p10": 0.831,
+   "v_p90": 0.996,
+   "s_p90": 0.953,
+   "bright_frac": 0.972,
+   "n": 11900,
+   "frame": "official-gold-leg-flute-embroidery-closeup.jpg",
+   "band": "close",
+   "el": "leg",
+   "roi": 1,
+   "box": [
+    195,
+    245,
+    335,
+    330
+   ]
+  },
+  {
+   "h_med": 351.8,
+   "s_med": 0.385,
+   "v_med": 0.227,
+   "v_p10": 0.2,
+   "v_p90": 0.251,
+   "s_p90": 0.491,
+   "bright_frac": 0.0,
+   "n": 18000,
+   "frame": "official-gold-leg-flute-embroidery-closeup.jpg",
+   "band": "close",
+   "el": "apron",
+   "roi": 0,
+   "box": [
+    0,
+    0,
+    200,
+    90
+   ]
+  }
+ ]
+}

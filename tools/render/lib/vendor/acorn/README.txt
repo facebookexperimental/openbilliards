@@ -1,0 +1,1 @@
+acorn 8.17.0 — https://github.com/acornjs/acorn — MIT (LICENSE beside) — vendored 2026-09-10 for tools/render/lib/parse-first-fence.mjs (an offline, pinned JS parser; also imported by web/tools/test-served-strings-privacy.mjs since GH-789 FIX3 — the served-strings privacy gate resolves its renderer closures on the AST)

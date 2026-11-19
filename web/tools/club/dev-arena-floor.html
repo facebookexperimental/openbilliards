@@ -1,0 +1,409 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: arena floor furniture</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<script type="importmap">
+{ "imports": { "three": "../../vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from '../../vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { TIERS, TIER_IDS } from '../../scene/club/tiers.js';
+import { ARENA, PALETTE, VIEWS as LAYOUT_VIEWS, cutPlanes } from '../../scene/club/arena/layout.js';
+import * as LAYOUT from '../../scene/club/arena/layout.js';
+import { buildFloor } from '../../scene/club/arena/floor.js';
+
+const q = new URLSearchParams(location.search);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = Number(q.get('exposure')) || 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x010101);
+
+const FLOOR_Y = -0.79;
+// (round A4: `camE` = the layout's first RISER on the hall's floor, `camN` = the second riser if there is one; `camT`,
+// `camT2`, `camT3` = its platforms on the seating blocks, in the layout's order)
+const F = ARENA.floor, RISERS = F.cameras.filter((c) => !c.platform?.on), TOWERS = F.cameras.filter((c) => c.platform?.on);
+const camE = RISERS[0] ?? F.cameras[0], camN = RISERS[1] ?? camE, chA = F.chairs[0], chB = F.chairs[1] ?? F.chairs[0];
+const camT = TOWERS[0] ?? camE, camT2 = TOWERS[1] ?? camT, camT3 = TOWERS[2] ?? camT;
+const tabA = (F.sideTables ?? [])[0] ?? { x: chA.x, z: chA.z + 0.7 }, dk = F.refereeTable;
+const h = (v) => FLOOR_Y + v;   // a height above the floor, in world y
+// a place `d` metres from a camera toward the table, `s` metres to its left as it looks; `y` = a height over the floor for
+// a camera on a 0.30 m riser, and the same height over its own deck for a camera on a higher one
+const from = (cam, d, s = 0) => { const l = Math.hypot(cam.x, cam.z) || 1, ux = -cam.x / l, uz = -cam.z / l; return [cam.x + ux * d - uz * s, cam.z + uz * d + ux * s]; };
+const at = (cam, d, s, y) => { const [x, z] = from(cam, d, s); return [x, h(y + (cam.platform?.h ?? 0.3) - 0.3), z]; };
+const VIEWS = {
+  wide: [[-4.0, 1.6, 2.6], [0, 0.3, 0], 50],
+  over: [[0.6, 6.2, 3.4], [1.4, -0.8, -0.6], 62],                                         // high over the south boards: where everything stands
+  // the platforms on the seating blocks
+  tower: [at(camT, 3.0, 2.0, 1.9), at(camT, 0, 0, 0.6), 40],                                // the first platform, three quarters, from the table's side
+  towerUp: [at(camT, 3.6, -1.2, 0.1), at(camT, 0, 0, 0.5), 44],                             // from in front of it, at its deck's height: the skirt on the rows, the deck's edge
+  towerHead: [at(camT, 1.7, 1.0, 1.9), at(camT, 0, 0, 1.7), 30],                            // its camera's upper half, close
+  towerDeck: [at(camT, -0.2, 2.1, 1.7), at(camT, 0, 0, 0.45), 44],                          // its deck from the side, a little above: wear, marks, cover, toe boards, rails
+  towerBack: [at(camT, -2.6, -1.4, 1.6), at(camT, 0, 0, 0.8), 44],                          // from the rows behind it
+  towerFoot: [at(camT, 1.2, 1.7, 0.5), at(camT, -0.3, 0.3, -0.7), 40],                      // the open end: the skirt's two lengths, the cable down its face to the row (cards=0 takes the stand-in seat cards away)
+  tower2: [at(camT2, 3.0, -2.0, 1.9), at(camT2, 0, 0, 0.6), 40],
+  tower3: [at(camT3, 3.0, 2.0, 1.9), at(camT3, 0, 0, 0.6), 40],
+  camE: [at(camE, 2.6, 2.0, 1.75), at(camE, 0, 0, 1.05), 40],                               // three quarters on the first camera and its platform, from the table side
+  camN: [at(camN, 2.6, -2.0, 1.75), at(camN, 0, 0, 1.05), 40],                              // the second camera, from its other side
+  lens: [at(camE, 1.9, 0.35, 1.72), at(camE, 0.3, 0, 1.76), 26],                            // into the first camera's lens
+  rear: [at(camE, -1.9, -1.2, 2.0), at(camE, 0, 0, 1.2), 44],                               // the first camera from behind its bars: finder, bars, cable, stool
+  plat: [at(camE, 1.6, 2.4, 1.0), at(camE, 0, 0.1, 0.35), 40],                              // the platform: deck, frame, kick rail, nosing, the cable's drop
+  head: [at(camE, 1.5, 1.1, 1.95), at(camE, 0, 0, 1.75), 30],                               // the camera's upper half, close
+  corner: [[2.6, h(1.74), -1.2], [camE.x, h(1.5), camE.z], 30],                             // the first camera from the island, at eye height, over the boards
+  cornerW: [[-1.5, h(1.74), -2.2], [camN.x, h(1.5), camN.z], 30],                           // the second camera from the island
+  chairA: [[chA.x - 1.9, h(1.0), chA.z + 1.35], [chA.x, h(0.36), (chA.z + tabA.z) / 2], 36],
+  chairB: [[chB.x - 2.0, h(0.95), chB.z - 1.2], [chB.x, h(0.36), chB.z - 0.3], 36],
+  tableA: [[tabA.x - 0.95, h(0.95), tabA.z + 0.45], [tabA.x, h(0.52), tabA.z], 30],        // close on a side table: bottle, towel, chalk
+  desk: [[dk.x - 0.7, h(1.2), dk.z + 2.0], [dk.x + 0.35, h(0.5), dk.z], 38],
+  rest: [[dk.x + 1.6, h(0.9), dk.z + 1.3], [dk.x + 0.6, h(0.6), dk.z - 0.1], 34],
+  cable: [at(camE, 0.4, -2.6, 1.3), at(camE, 0.2, -1.0, 0.1), 44],                         // the first camera's taped run from its platform to the seating's flank
+  walkin: [[-2.9, h(1.2), -2.6], [-4.6, h(0.1), -4.25], 40],                               // the north walk-in: threshold and the cable going out
+  // ROUND A5, the dress of the playing floor (cells take `dress:1,low:1`: the dress on, the proposed low camera stood in)
+  eastEnd: [[2.5, h(1.45), 0.5], [5.0, h(0.35), 0.35], 52],                                // the foot end from the table: the low camera, the monitor, the cue stands, both tables
+  lowCam: [[3.75, h(1.2), 2.45], [5.0, h(0.62), 1.25], 30],                                // the low camera, three quarters, from the table's side
+  lowLens: [[4.05, h(0.98), 0.98], [5.0, h(0.9), 1.25], 20],                               // into its lens
+  lowRear: [[5.3, h(1.15), 2.3], [5.0, h(0.6), 1.25], 34],                                 // from behind it, by the boards: the cable down the post, the tape
+  monitor: [[3.9, h(0.75), -1.2], [5.02, h(0.22), -0.35], 30],                             // the floor monitor's screen
+  tableB: [[tabA.x - 0.95, h(0.95), -tabA.z - 0.45], [tabA.x, h(0.55), -tabA.z], 30],      // close on the other side table
+  corner5: [[3.2, h(1.25), 1.2], [4.75, h(0.4), 2.9], 44],                                 // the players' corner: chair b with the towel, its table, the cue stand, the low camera
+  bin: [[-0.7, h(0.95), -2.3], [0.2, h(0.2), -3.5], 34],                                   // the waste bin at the desk's end
+  officials: [[1.6, h(1.3), -0.9], [-0.5, h(0.3), -3.6], 50],                              // the officials' corner: the desk, the bin, the second floor monitor
+  // ROUND A6, the round's set (cells take `dress:1,a6:1`; the platforms' close poses stand just inside the hall's cut)
+  lampN1: [[-0.274, h(3.278), -5.286], [1.3, h(3.75), -8.7], 22],                          // the first stand camera and its work lamp, along the wide pose V10's own line
+  lampE1: [[6.51, h(3.47), 1.88], [9.3, h(3.75), 1.7], 22],                                // the east stand camera and its lamp, along V10's line
+  lampSide: [[-1.6, h(4.6), -6.9], [1.2, h(3.9), -8.6], 30],                               // the first lamp from the side and a little above: mast, swivel, can, the lit opening's back
+  headEnd: [[0.6, h(1.5), -1.0], [-4.3, h(0.3), -2.6], 50],                                // the head end from the table: the flight case, the cart, the camera spot and its run
+  caseW: [[-3.2, h(1.0), -1.5], [-4.9, h(0.3), -2.9], 36],                                 // close on the flight case
+  cart: [[-1.4, h(1.1), -2.2], [-2.5, h(0.45), -3.65], 34],                                // close on the cart
+  spotTV: [[-3.2, h(1.3), 1.2], [-4.6, h(0), -0.3], 40],                                   // the camera spot: the tape cross, the coil, the run curving in from the boards
+  deskTop: [[0.3, h(1.25), -2.5], [0.9, h(0.75), -3.5], 30],                               // the desk's top: the tray, the rack, the second rest lying on it
+  // ROUND A7 (the default build; `a7:0` in a cell gives round A6's floor there)
+  west: [[-2.9, h(1.0), 0.6], [-4.7, h(0.4), 1.85], 36],                                   // the west corner: the second chair, askew to the boards, and its table
+  westTable: [[-3.75, h(0.95), 2.7], [-4.72, h(0.55), 2.23], 30],                          // close on its table: a glass and a folded towel
+  spot: [[-1.3, h(1.15), 1.7], [-3.7, h(0.25), 3.0], 34],                                  // round A8: the monitor position on the west floor, from the table's side
+  spikes: [[3.6, h(0.9), 2.2], [4.7, h(0), 3.05], 30],                                     // the spike tape at a chair's front feet
+};
+for (const v of LAYOUT_VIEWS) VIEWS[v.id] = [v.cam.slice(), v.target.slice(), v.fov];
+const viewName = q.get('view') ?? 'wide';
+let [pos, tgt, fov] = VIEWS[viewName] ?? VIEWS.wide;
+const camArg = (q.get('cam') ?? '').split(',').map(Number);
+if (camArg.length === 7 && camArg.every(Number.isFinite)) { pos = camArg.slice(0, 3); tgt = camArg.slice(3, 6); fov = camArg[6]; }
+
+// ---- the stand-in club object
+const tier = TIER_IDS.includes(q.get('clubtier')) ? q.get('clubtier') : 'base';
+const club = { enabled: true, tier, knobs: TIERS[tier], time: { value: 0 }, ctx: { query: q } };
+
+// ---- the room's light (the real room/light.js unless light=off)
+let roomLight = null;
+if (q.get('light') !== 'off') {
+  try { roomLight = (await import('../../scene/club/room/light.js')).roomLight ?? null; } catch (e) { console.warn('[dev-arena-floor] no room/light.js:', e?.message ?? e); }
+}
+const HALL = ARENA.hall;
+const box = { min: new THREE.Vector3(HALL.x0, FLOOR_Y, HALL.z0), max: new THREE.Vector3(HALL.x1, FLOOR_Y + HALL.height, HALL.z1) };
+if (roomLight) {
+  roomLight.reset?.(); roomLight.init?.({ club }); roomLight.setBox?.(box.min, box.max);
+  // (round A4: the layout's own ambient rows, "house lights at half": 0.60 units on an open floor, 1.0 on an open vertical
+  // face; `ambient=<k>` scales them: a tool level to judge a shape, never the app's)
+  const ak = q.has('ambient') ? Number(q.get('ambient')) : 1;
+  const row = (r, d) => new THREE.Color(...(Array.isArray(r) ? r : d).map((v) => v * ak));
+  roomLight.setAmbient?.(row(LAYOUT.LIGHT?.ambientSky, [0.6, 0.57, 0.53]), row(LAYOUT.LIGHT?.ambientGround, [0.09, 0.085, 0.08]), row(LAYOUT.LIGHT?.ambientSide, [0.65, 0.62, 0.57]));
+  // (the hall's cut, as the app sets it: what stands on a seating block is dropped while the camera is behind that side's
+  // plane. `cut=0`: a tool switch for the close views of a platform, whose poses stand behind the plane)
+  if (q.get('cut') !== '0') roomLight.setSides?.(cutPlanes(FLOOR_Y));
+  roomLight.setShadow?.({ lamp: { cx: 0, cz: 0, hx: 1.02, hz: 0.33 }, table: { cx: 0, cz: 0, hx: 1.45, hz: 0.82 }, lampY: 1.02, tableY: 0.035, strength: 1, ambient: 0.32 });
+}
+const lit = (p) => {
+  if (roomLight) return roomLight.material(p);
+  const m = new THREE.MeshStandardMaterial({ color: p.color, roughness: p.roughness ?? 0.9, metalness: p.metalness ?? 0, side: p.side ?? THREE.FrontSide }); m.name = p.name; return m;
+};
+const glow = (p) => {
+  if (roomLight) return roomLight.emissive(p);
+  const m = new THREE.MeshBasicMaterial({ color: new THREE.Color(p.color).multiplyScalar(p.intensity ?? 1) }); m.name = p.name; return m;
+};
+
+// ---- stand-ins for the app's three lights (the tournament look's values) and its lamp
+RectAreaLightUniformsLib.init();
+scene.add(new THREE.HemisphereLight(0x3a3a3e, 0x2a2a2c, 1.25));
+const fill = new THREE.PointLight(0xd9dcdf, 2.2, 0, 2); fill.position.set(3.2, 1.9, -2.3); scene.add(fill);
+const lamp = new THREE.RectAreaLight(0xf6f7f9, 7.8, 2.05, 0.66); lamp.position.set(0, 1.02, 0); lamp.lookAt(0, 0, 0); scene.add(lamp);
+const lampFace = new THREE.Mesh(new THREE.PlaneGeometry(2.05, 0.66), new THREE.MeshBasicMaterial({ color: new THREE.Color(10, 9, 7.1) }));
+lampFace.rotation.x = Math.PI / 2; lampFace.position.set(0, 1.02, 0); scene.add(lampFace);
+const hood = new THREE.Mesh(new THREE.BoxGeometry(2.19, 0.1, 0.8), new THREE.MeshBasicMaterial({ color: 0x050505 }));
+hood.position.set(0, 1.075, 0); scene.add(hood);
+
+// ---- the stand-in table
+const tableG = new THREE.Group(); scene.add(tableG);
+const std = (color, roughness, metalness = 0) => new THREE.MeshStandardMaterial({ color, roughness, metalness });
+const dull = (color, roughness) => { const m = std(color, roughness); m.envMapIntensity = 0.1; return m; };
+const addBox = (sx, sy, sz, x, y, z, mat, parent = tableG) => { const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), mat); m.position.set(x, y, z); parent.add(m); return m; };
+const railMat = dull(0x1a1a1c, 0.45);
+addBox(2.9, 0.3, 1.63, 0, -0.16, 0, dull(0x161616, 0.5));
+addBox(2.54, 0.01, 1.27, 0, -0.005, 0, dull(0x1f5f9c, 0.92));
+for (const s of [-1, 1]) { addBox(2.9, 0.04, 0.18, 0, 0.015, s * 0.725, railMat); addBox(0.18, 0.04, 1.27, s * 1.36, 0.015, 0, railMat); }
+for (const sx of [-1, 1]) for (const sz of [-1, 1]) addBox(0.16, 0.5, 0.16, sx * 1.2, -0.54, sz * 0.6, dull(0x1c1c1e, 0.4));
+for (const [col, x, z] of [[0xf2f0e6, -0.55, 0.10], [0xf0c21c, 0.05, -0.05], [0x2444b0, 0.42, 0.28], [0xc8241e, 0.70, -0.38], [0x0b0b0b, 0.95, 0.02]]) {
+  const b = new THREE.Mesh(new THREE.SphereGeometry(0.028575, 32, 20), std(col, 0.06)); b.position.set(x, 0.028575, z); tableG.add(b);
+}
+
+// ---- the stand-in hall: a dark drape box, the carpet, the island
+const hall = new THREE.Group(); hall.name = 'standin.hall'; scene.add(hall);
+const I = ARENA.island;
+{
+  // (round A3: the stand-ins carry the albedo table's values too: a palette hue scaled so its linear luminance is the value)
+  const onAlbedo = (hex, a) => { const c = new THREE.Color(hex); const l = 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b || 1; return c.multiplyScalar(a / l); };
+  const shell = new THREE.Mesh(new THREE.BoxGeometry(HALL.x1 - HALL.x0, HALL.height, HALL.z1 - HALL.z0), lit({ color: onAlbedo(PALETTE.drape, LAYOUT.ALBEDO?.drape ?? 0.035), roughness: 0.95, side: THREE.BackSide, name: 'standin.drape' }));
+  shell.position.set((HALL.x0 + HALL.x1) / 2, FLOOR_Y + HALL.height / 2 + 0.002, (HALL.z0 + HALL.z1) / 2); hall.add(shell);
+  const carpet = new THREE.Mesh(new THREE.PlaneGeometry(HALL.x1 - HALL.x0, HALL.z1 - HALL.z0), lit({ color: onAlbedo(PALETTE.carpet, LAYOUT.ALBEDO?.carpet ?? 0.10), roughness: 0.95, name: 'standin.carpet' }));
+  carpet.rotation.x = -Math.PI / 2; carpet.position.set((HALL.x0 + HALL.x1) / 2, FLOOR_Y + 0.0005, (HALL.z0 + HALL.z1) / 2); hall.add(carpet);
+  const island = new THREE.Mesh(new THREE.PlaneGeometry(I.x1 - I.x0, I.z1 - I.z0), lit({ color: onAlbedo(PALETTE.island, LAYOUT.ALBEDO?.island ?? 0.13), roughness: 0.95, tableShadow: true, name: 'standin.island' }));
+  island.rotation.x = -Math.PI / 2; island.position.set((I.x0 + I.x1) / 2, FLOOR_Y + 0.0012, (I.z0 + I.z1) / 2); hall.add(island);
+}
+
+// ---- stand-ins for the seating (round A4: three platforms stand ON it): per block and row a deck and a card where the
+// folded seats stand (0.88 m high, leaning as the seats' backs do), the stair aisle open. surround=real builds the real one.
+if (q.get('surround') !== 'real') {
+  const S = ARENA.seating, g = new THREE.Group(); g.name = 'standin.seating'; scene.add(g);
+  const onAlbedo = (hex, a) => { const c = new THREE.Color(hex); const l = 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b || 1; return c.multiplyScalar(a / l); };
+  const deckMat = lit({ color: onAlbedo(PALETTE.step, LAYOUT.ALBEDO?.deck ?? 0.10), roughness: 0.85, name: 'standin.deck' });
+  const seatMat = lit({ color: onAlbedo(PALETTE.seat, LAYOUT.ALBEDO?.seatFabric ?? 0.09), roughness: 0.9, name: 'standin.seat' });
+  for (const blk of S.blocks) for (const r of LAYOUT.seatingRows(S)) {
+    const lo = Math.min(blk.from, blk.to), hi = Math.max(blk.from, blk.to), aw = S.aisleWidth / 2;
+    for (const [p, e] of [[lo, blk.aisleAt - aw], [blk.aisleAt + aw, hi], [blk.aisleAt - aw, blk.aisleAt + aw]]) {
+      const aisle = p === blk.aisleAt - aw, len = e - p, mid = (p + e) / 2, d = r.offset + S.tread / 2, sl = r.offset + 0.63;
+      const put = (sAlong, depth, sizeAlong, sizeDepth, hh, y, mat, lean = 0) => {
+        const north = blk.side === 'north', south = blk.side === 'south', east = blk.side === 'east';
+        const x = north || south ? sAlong : east ? I.x1 + depth : I.x0 - depth, z = north ? I.z0 - depth : south ? I.z1 + depth : sAlong;
+        const m = addBox(north || south ? sizeAlong : sizeDepth, hh, north || south ? sizeDepth : sizeAlong, x, FLOOR_Y + y, z, mat, g);
+        if (lean) { if (north) m.rotation.x = -lean; else if (south) m.rotation.x = lean; else if (east) m.rotation.z = -lean; else m.rotation.z = lean; }
+      };
+      put(mid, d, len, S.tread, r.h, r.h / 2, deckMat);
+      if (!aisle && q.get('cards') !== '0') put(mid, sl, len - 0.06, 0.05, 0.86, r.h + 0.45, seatMat, 0.21);
+    }
+  }
+}
+// ---- stand-ins for the six house floods of round A4 (scratch/light/LEVELS-A4.md: 5.8 m up just inside the boards' line,
+// aimed out at the middle of each half block 2 m up; about 2 to 2.6 units on rows 3 and 4). house=0 leaves them out.
+if (roomLight && q.get('house') !== '0') {
+  const hk = q.has('housek') ? Number(q.get('housek')) : 1;
+  const FLOODS = [[-2.4, -3.6, -2.4 - 1.3, -8.5, 115], [2.8, -3.6, 2.8 + 1.3, -8.5, 115], [-2.4, 3.6, -2.4 - 1.3, 8.5, 115], [2.8, 3.6, 2.8 + 1.3, 8.5, 115], [4.9, -2.655, 10.0, -3.0, 90], [4.9, 2.655, 10.0, 3.0, 90]];
+  FLOODS.forEach(([x, z, ax, az, cd], i) => {
+    const p = new THREE.Vector3(x, FLOOR_Y + 5.8, z), dir = new THREE.Vector3(ax, FLOOR_Y + 2.0, az).sub(p).normalize();
+    roomLight.addEmitter({ id: `standin.house.${i}`, type: 'point', position: p, normal: dir, axis: dir, size: [0.2, 1.0], color: new THREE.Color(1.0, 0.94, 0.85), intensity: cd * hk, radius: 14 });
+  });
+}
+
+// ---- the boards: the real surround when asked for, else plain panels with a lit top line, the walk-ins open
+let realSurround = null;
+if (q.get('surround') === 'real') {
+  try {
+    const { buildSurround } = await import('../../scene/club/arena/surround.js');
+    realSurround = await buildSurround(club, { box, floorY: FLOOR_Y, tableBounds: null, roomLight, layout: LAYOUT });
+    scene.add(realSurround.group);
+  } catch (e) { console.warn('[dev-arena-floor] the real surround is unavailable, stand-in boards instead:', e?.message ?? e); realSurround = null; }
+}
+if (!realSurround) {
+  const B = ARENA.boards, panel = lit({ color: PALETTE.board, roughness: 0.6, name: 'standin.board' }), rail = glow({ color: PALETTE.rail, intensity: 1.9, name: 'standin.rail' });
+  const g = new THREE.Group(); g.name = 'standin.boards'; scene.add(g);
+  const runs = (side, from, to) => {
+    let cur = from; const segs = [];
+    for (const gap of B.gaps.filter((x) => x.side === side).sort((a, b) => a.from - b.from)) { if (gap.from > cur) segs.push([cur, gap.from]); cur = Math.max(cur, gap.to); }
+    if (to > cur) segs.push([cur, to]);
+    return segs;
+  };
+  const put = (side, a, b) => {
+    const along = side === 'north' || side === 'south', line = side === 'north' ? I.z0 : side === 'south' ? I.z1 : side === 'east' ? I.x1 : I.x0;
+    const len = b - a, c = (a + b) / 2, bodyH = B.height - 0.05;
+    addBox(along ? len : B.thickness, bodyH, along ? B.thickness : len, along ? c : line, FLOOR_Y + 0.05 + bodyH / 2, along ? line : c, panel, g);
+    addBox(along ? len : B.rail.width, B.rail.height, along ? B.rail.width : len, along ? c : line, FLOOR_Y + B.height + B.rail.height / 2, along ? line : c, rail, g);
+  };
+  for (const [a, b] of runs('north', I.x0, I.x1)) put('north', a, b);
+  for (const [a, b] of runs('south', I.x0, I.x1)) put('south', a, b);
+  for (const [a, b] of runs('east', I.z0, I.z1)) put('east', a, b);
+  for (const [a, b] of runs('west', I.z0, I.z1)) put('west', a, b);
+  if (roomLight) for (const [id, p, axis, len] of [['n', [0.8, I.z0], [1, 0, 0], 9.6], ['s', [0.8, I.z1], [1, 0, 0], 9.6], ['e', [I.x1, 0], [0, 0, 1], 8.6], ['w', [I.x0, 0], [0, 0, 1], 8.6]]) {
+    roomLight.addEmitter({ id: `standin.rail.${id}`, type: 'tube', position: new THREE.Vector3(p[0], FLOOR_Y + B.height + 0.03, p[1]), axis: new THREE.Vector3(...axis), size: [len, 0.05], color: new THREE.Color(PALETTE.rail), intensity: 1.6, radius: 3.2 });
+  }
+}
+
+// ---- stand-ins for the rig's eight wash heads as round A2 has them (scratch/rig/HEADS-READY.md, 00:19Z: each head lights
+// the side of the island it hangs over; a point lobe 0.6 m down the beam from the lens, 24 units, radius 5.6 m). rig=0
+// leaves them out, rigk=<k> scales them, rig=a1 gives round A1's heads (aimed across the table).
+if (roomLight && q.get('rig') !== '0') {
+  const rk = q.has('rigk') ? Number(q.get('rigk')) : 1;
+  if (q.get('rig') === 'a1') {
+    let n = 0;
+    for (const side of [-1, 1]) for (let i = 0; i < 4; i++) {
+      const p = new THREE.Vector3((i - 1.5) * 1.3, FLOOR_Y + 3.6, side * 1.15), aim = new THREE.Vector3(p.x * 0.75, FLOOR_Y, -side * 1.9);
+      const dir = aim.clone().sub(p).normalize();
+      roomLight.addEmitter({ id: `standin.rig.${n++}`, type: 'point', position: p, normal: dir, axis: dir, size: [0.1, 0.85], color: new THREE.Color(1.0, 0.93, 0.82), intensity: 15 * rk, radius: 8.5 });
+    }
+  } else {
+    const HEADS = [[-1.70, -1.70, -2.465, -2.20], [0, -1.70, 0, -2.20], [1.70, -1.70, 2.465, -2.20], [-1.70, 1.70, -2.465, 2.20], [0, 1.70, 0, 2.20], [1.70, 1.70, 2.465, 2.20], [-2.80, 0, -3.40, 0], [2.80, 0, 3.40, 0]];
+    HEADS.forEach(([cx, cz, ax, az], i) => {
+      const can = new THREE.Vector3(cx, FLOOR_Y + 3.575, cz), aim = new THREE.Vector3(ax, FLOOR_Y, az);
+      const dir = aim.clone().sub(can).normalize(), p = can.clone().addScaledVector(dir, 0.75);
+      // (round A3: the heads' wash is 5.1, scratch/light/LEVELS.md)
+      roomLight.addEmitter({ id: `standin.rig.${i}`, type: 'point', position: p, normal: new THREE.Vector3(0, -1, 0), axis: dir, size: [0.1, 1.0], color: new THREE.Color(1.0, 0.93, 0.82), intensity: 5.1 * rk, radius: 5.6 });
+    });
+  }
+}
+
+// ---- the floor part, in one or several variants (a variant = tier | switches, or the bare hall)
+const tableBounds = { minX: -1.45 - ARENA.keepOut.strokeRoom, maxX: 1.45 + ARENA.keepOut.strokeRoom, minZ: -0.82 - ARENA.keepOut.strokeRoom, maxZ: 0.82 + ARENA.keepOut.strokeRoom };
+const parseCell = (text) => {
+  const [view, ...rest] = text.split(',');
+  return { view, bare: rest.includes('bare'), tier: rest.find((r) => TIER_IDS.includes(r)) ?? null, sw: rest.filter((r) => r !== 'bare' && !TIER_IDS.includes(r)).join(',') };
+};
+const cells = q.get('sheet')
+  ? q.get('sheet').split(';').slice(0, 4).map(parseCell)
+  : [{ view: viewName, bare: q.get('floor') === '0', tier: null, sw: q.get('clubfloor') ?? '' }];
+const variants = new Map();
+for (const c of cells) {
+  c.key = c.bare ? 'bare' : `${c.tier ?? tier}|${c.sw}`;
+  if (variants.has(c.key)) continue;
+  const v = { key: c.key, part: null, cube: null, cubeCam: null };
+  if (!c.bare) {
+    const t = c.tier ?? tier;
+    const vq = new URLSearchParams(q); vq.set('clubfloor', c.sw);
+    v.part = await buildFloor({ enabled: true, tier: t, knobs: TIERS[t], time: club.time, ctx: { query: vq } }, { box, floorY: FLOOR_Y, tableBounds, roomLight, layout: LAYOUT });
+    scene.add(v.part.group);
+    v.part.group.visible = false;
+  }
+  variants.set(c.key, v);
+}
+for (const c of cells) {
+  const [cp, ct, cf] = c === cells[0] && !q.get('sheet') ? [pos, tgt, fov] : (VIEWS[c.view] ?? VIEWS.wide);
+  c.camera = new THREE.PerspectiveCamera(cf, innerWidth / innerHeight, 0.05, 80);
+  c.camera.position.set(...cp); c.camera.lookAt(...ct); c.camera.updateMatrixWorld(true);
+}
+const part = [...variants.values()].find((v) => v.part)?.part ?? null;
+if (roomLight) roomLight.commit?.();
+
+// ---- an environment capture from the table centre per variant (what the app's cube does)
+for (const v of variants.values()) {
+  v.cube = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+  v.cubeCam = new THREE.CubeCamera(0.05, 60, v.cube);
+  v.cubeCam.position.set(0, 0.45, 0);
+  scene.add(v.cubeCam);
+}
+let active = null, envOf = null;
+function activate(v) {
+  if (active !== v) { for (const o of variants.values()) if (o.part) o.part.group.visible = o === v; active = v; }
+  if (v.captured && envOf !== v) {
+    scene.environment = v.cube.texture;
+    tableG.traverse((o) => { if (o.isMesh && o.material.envMapIntensity < 1) { o.material.envMap = v.cube.texture; o.material.needsUpdate = true; } });
+    roomLight?.setEnvMap?.(v.cube.texture);
+    envOf = v;
+  }
+}
+const capture = () => { for (const v of variants.values()) { activate(v); v.cubeCam.update(renderer, scene); v.captured = true; envOf = null; } };
+
+// ---- view=flats: the part's canvases, flat (the pixels the 2D canvases hold: on an untoned material)
+let flatScene = null, flatCam = null;
+if (viewName === 'flats' && part) {
+  const seen = new Map();
+  part.group.traverse((o) => { if (o.isMesh) for (const k of ['map', 'roughnessMap', 'normalMap']) { const t = o.material?.[k]; if (t && !seen.has(t.name)) seen.set(t.name, t); } });
+  flatScene = new THREE.Scene(); flatScene.background = new THREE.Color(0x3a2030);
+  flatCam = new THREE.OrthographicCamera(0, innerWidth, innerHeight, 0, -1, 1);
+  let x = 16;
+  for (const t of seen.values()) {
+    const quad = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: t, toneMapped: false }));
+    quad.scale.set(384, 384, 1); quad.position.set(x + 192, innerHeight / 2, 0); flatScene.add(quad);
+    x += 400;
+  }
+  window.__flat = { which: 'flats', textures: [...seen.keys()] };
+}
+
+// ---- where each cell is drawn (x, y from the lower left, as the renderer counts)
+const W = innerWidth, Hh = innerHeight;
+const rectOf = (i, n) => (n === 1 ? [0, 0, W, Hh] : n === 2 ? [(i * W) / 2, Hh / 4, W / 2, Hh / 2] : [((i % 2) * W) / 2, i < 2 ? Hh / 2 : 0, W / 2, Hh / 2]);
+cells.forEach((c, i) => { c.rect = rectOf(i, cells.length).map(Math.round); });
+
+// ---- display levels at named points: world points projected into the cell, the mean of a small patch (0..255, after the tone map)
+const toward = (p, d) => { const l = Math.hypot(p.x, p.z) || 1; return [p.x - (p.x / l) * d, p.z - (p.z / l) * d]; };
+const [lx, lz] = toward(camE, 0.5), [nx, nz] = toward(camN, 0.5), [sx, sz] = toward(camE, 0.3), [dx, dz] = toward(camE, 0.62);
+const POINTS = {
+  bed: [0, 0.001, 0], bedFar: [0.85, 0.001, -0.3],
+  carpetNearTable: [2.2, h(0.002), 1.4], carpetByCamE: [camE.x - 1.2, h(0.002), camE.z + 1.3], deckE: [dx, h(0.302), dz],
+  camELens: [lx, h(1.8), lz], camEHousing: [camE.x + 0.18, h(1.83), camE.z - 0.12], camESkirt: [sx, h(0.44), sz], camEColumn: [camE.x, h(1.0), camE.z],
+  camNLens: [nx, h(1.8), nz], camNSkirt: [camN.x + 0.2, h(0.44), camN.z + 0.25],
+  // the first platform on the stands: its camera's lens, housing and skirt, its deck's front toe board
+  camTLens: [toward(camT, 0.45)[0], h((camT.platform?.h ?? 0.3) + 1.36), toward(camT, 0.45)[1]], camTHousing: [toward(camT, -0.2)[0], h((camT.platform?.h ?? 0.3) + 1.62), toward(camT, -0.2)[1]],
+  camTSkirt: [toward(camT, 0.3)[0], h((camT.platform?.h ?? 0.3) + 0.15), toward(camT, 0.3)[1]], towerToe: [camT.x, h((camT.platform?.h ?? 0.3) + 0.05), camT.z + Math.sign(-camT.z || 1) * ((camT.platform?.d ?? 1.6) / 2 - 0.02)],
+  chairASeat: [chA.x - 0.05, h(0.44), chA.z + 0.03], chairABack: [chA.x + 0.2, h(0.66), chA.z - 0.12], carpetByChairA: [chA.x - 0.9, h(0.002), chA.z + 0.2],
+  towelA: [tabA.x, h(0.545), tabA.z], deskCloth: [dk.x, h(0.4), dk.z + 0.27], deskTop: [dk.x + 0.1, h(0.75), dk.z + 0.12], carpetByDesk: [dk.x, h(0.002), dk.z + 0.75],
+  tapeE: [camE.x, h(0.012), camE.z + Math.sign(-camE.z || 1) * 1.2], carpetByTapeE: [camE.x - 0.4, h(0.002), camE.z + Math.sign(-camE.z || 1) * 1.2],
+};
+function probe() {
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = Hh;
+  const c2 = cv.getContext('2d', { willReadFrequently: true });
+  c2.drawImage(renderer.domElement, 0, 0);
+  const vv = new THREE.Vector3();
+  const rad = cells.length === 1 ? 2 : 1;
+  return cells.map((c) => {
+    const [rx, ry, rw, rh] = c.rect, top = Hh - ry - rh;   // the cell's rectangle with y from the top
+    const out = {};
+    for (const [name, p] of Object.entries(POINTS)) {
+      vv.set(...p).project(c.camera);
+      if (vv.z < -1 || vv.z > 1 || Math.abs(vv.x) > 0.98 || Math.abs(vv.y) > 0.98) { out[name] = null; continue; }
+      const px = Math.round(rx + (vv.x * 0.5 + 0.5) * rw), py = Math.round(top + (-vv.y * 0.5 + 0.5) * rh);
+      const x0 = Math.max(rx, px - rad), y0 = Math.max(top, py - rad), w = Math.min(rx + rw - x0, 2 * rad + 1), hh = Math.min(top + rh - y0, 2 * rad + 1);
+      const d = c2.getImageData(x0, y0, w, hh).data;
+      let r = 0, g = 0, b = 0, mx = 0;
+      for (let i = 0; i < d.length; i += 4) { r += d[i]; g += d[i + 1]; b += d[i + 2]; mx = Math.max(mx, d[i], d[i + 1], d[i + 2]); }
+      const n = d.length / 4;
+      out[name] = { px: [px, py], rgb: [Math.round(r / n), Math.round(g / n), Math.round(b / n)], luma: Math.round((0.2126 * r + 0.7152 * g + 0.0722 * b) / n), max: mx };
+    }
+    // the cell's own numbers: its mean level, its brightest luma, the share of clipped and of black pixels
+    const all = c2.getImageData(rx, top, rw, rh).data;
+    let sum = 0, clipped = 0, black = 0, peak = 0;
+    for (let i = 0; i < all.length; i += 16) { const l = 0.2126 * all[i] + 0.7152 * all[i + 1] + 0.0722 * all[i + 2]; sum += l; peak = Math.max(peak, l); if (all[i] >= 254 && all[i + 1] >= 254 && all[i + 2] >= 254) clipped += 1; if (l < 2) black += 1; }
+    const n = all.length / 16;
+    out.frame = { mean: +(sum / n).toFixed(1), peak: Math.round(peak), clippedShare: +(clipped / n).toFixed(4), blackShare: +(black / n).toFixed(4) };
+    return out;
+  });
+}
+
+window.__dev = { THREE, renderer, scene, cells, variants, club, part, roomLight, capture };
+let frames = 0;
+renderer.setAnimationLoop(() => {
+  if (flatScene) { const tm = renderer.toneMapping; renderer.toneMapping = THREE.NoToneMapping; renderer.render(flatScene, flatCam); renderer.toneMapping = tm; }
+  else {
+    renderer.setScissorTest(cells.length > 1);
+    if (cells.length > 1) { renderer.setViewport(0, 0, W, Hh); renderer.setScissor(0, 0, W, Hh); renderer.setClearColor(0x000000); renderer.clear(); }
+    for (const c of cells) {
+      activate(variants.get(c.key));
+      renderer.setViewport(...c.rect); renderer.setScissor(...c.rect);
+      renderer.render(scene, c.camera);
+      c.drawn = { calls: renderer.info.render.calls, triangles: renderer.info.render.triangles };
+    }
+  }
+  frames += 1;
+  if (!flatScene && (frames === 2 || frames === 4)) capture(); // the second capture holds the first one's reflections
+  if (frames === 7) {
+    let probes = null;
+    try { probes = flatScene ? null : probe(); } catch (e) { probes = [{ error: String(e?.message ?? e) }]; }
+    const c0 = part ? part.counts() : null;
+    window.__info = {
+      view: viewName, tier, sheet: q.get('sheet') ?? null, light: roomLight ? roomLight.state?.() ?? true : null,
+      // (the parts list is long: the page hands the counts without it; the node arm reads the list)
+      counts: c0 ? { ...c0, parts: c0.parts?.length ?? 0 } : null, state: part ? part.state() : null, signature: part ? part.signature() : null,
+      frame: { calls: cells[0].drawn?.calls ?? renderer.info.render.calls, triangles: cells[0].drawn?.triangles ?? renderer.info.render.triangles, programs: renderer.info.programs?.length ?? null,
+        textures: renderer.info.memory.textures, geometries: renderer.info.memory.geometries },
+      cells: cells.map((c, i) => ({ view: c.view, variant: c.key, rect: c.rect, drawn: c.drawn ?? null, probes: probes ? probes[i] : null })),
+    };
+    window.__ready = true;
+  }
+});
+</script>
+</body>
+</html>

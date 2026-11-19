@@ -1,0 +1,2494 @@
+{
+  "schema": "openbilliards/rox-pocket-geometry-control/1",
+  "reference_revision": "557c14dde2f6390c74d0767cab343434cf5c3f5b",
+  "source_file": "web/scene/table.js",
+  "source_sha256": "41df9a25f01aed88f4c9a015e41c6e081402b76e4bd54af7bc6dbef4293c7267",
+  "three_sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+  "geometry_sha256": "a810afd19aacf7881e791d0de76c36f8c142d4a031147de34f429bea5c02b35a",
+  "geometry": [
+    {
+      "name": "dm-pocket-rox-corner-nxnz-cup-c",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 312,
+          "sha256": "71e608da635a566287f2686ffd76539a23e7cc753aee0a40e881372f5ce20734"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 312,
+          "sha256": "da3fd4f9f3c2db8ab1e703421ca46fbc3b83ae331a3fee24228b911953967a51"
+        }
+      },
+      "index": "1ad8f8af7ee112eeb3ab4cd0d914a2b566416a6ec98f4b24384fb1fe303493f6",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxnz-cup-c-end-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "d82d03b75023a55d3a8e174c3d3627d77e7f6c5c175bbeacb7031ca1922851c8"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "c06c589b4778dac1b2f405eea6bc59603fa70408bd3bef37ef3e7166a969b661"
+        }
+      },
+      "index": "485b1ea5961e468609cf51f310ba93f21e7bd9a1e906655af438bfc8e18322c1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxnz-cup-c-end-1",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "f39850963a200a4f83de47124b05e66551885b1bc22c2ffbc13be017b96f1ec8"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "796f0b940d4268e7d9ccbd67f52dca773c768e372dae64d3c1b1caf59e6c8247"
+        }
+      },
+      "index": "485b1ea5961e468609cf51f310ba93f21e7bd9a1e906655af438bfc8e18322c1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxnz-cup-bucket-measured",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 14926,
+          "sha256": "ed8a7312064c938a9064a6982c1cd07bdab2d27e2d06784688dd04d0196579d9"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 14926,
+          "sha256": "4968a313e05206c81fca5b77b9e886e7e45aea4ceab9c883dea11246b7cb684c"
+        }
+      },
+      "index": "82bcb089450e1f8d2dda81d88dac8bffe37f8b8270fd1cfa15912379053fad02",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxnz-flange",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 17964,
+          "sha256": "7aaacc27298dcadb6f3a1c6215f22c83c2da4e375315cc6045108f1ebdc66fa8"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 17964,
+          "sha256": "efd9129a7956d2f1a31fb0d977c471e9aeca0798b76d5f4c73bf460effbe694b"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxnz-flange-ear-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 10344,
+          "sha256": "f7bf3b39523c3eb4fc595d9a16f3b6f589137e11b4663d31d2d8e49c996f312a"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 10344,
+          "sha256": "162919501a86ad589fce70b774e15e4b0331cb9d70a08d389fb93bf50bc2834f"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxnz-casting-top-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 1296,
+          "sha256": "1fbc4141284f5967ee5c8dcdbe1d88afaa5ad80efece0ef97dd01c0cd32ed406"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 1296,
+          "sha256": "4342111956c44302f2a375659587373836ff969bfd77a32d409f8b76e33ed72e"
+        }
+      },
+      "index": "a413cd68fe9baaf40f8c373b6be4ad2a228a343c25235022125eb5edcdf5efda",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxnz-casting-lip-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 186,
+          "sha256": "735ef0753a5c287f6c2400e16a506c207d59e3b1500a06e295ae3b9a54839808"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 186,
+          "sha256": "a92a08d8fed62e3fd57ffc7faa12837a557cedc53af4fb226ff511205a2578ef"
+        }
+      },
+      "index": "ae00ea8b2be25f6d7046241dae42dc8d15dad9470a1b96df8cf4a38ad7876d5a",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxnz-cut",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 13206,
+          "sha256": "684d14fb216910b37cba018191c419a8f377c3c04324a06e130e15d98838b2c6"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 13206,
+          "sha256": "ec8aefd731d9972577d59b6e08fbd22fca94af2382841ec70651ca8223be437a"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxnz-cut-model-front",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 26991,
+          "sha256": "30dc07597d5cce1a103b46abf53d220d74f34c6f7baedc1d5ca5d2b9accf3ecf"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 26991,
+          "sha256": "c0d80fc6a27037b19fdeceb40baf79eb144eb0381118bd02bf5fab5a1d34013c"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxnz-pan",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 50,
+          "sha256": "d890c039645204fc516609e709d2590a6c9c9273f5109ecadbaf9867f9004770"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 50,
+          "sha256": "30ee01ab24ef8c34686c205e38a05e12ed33886de7466e515f1d67ce3ecdec08"
+        },
+        "uv": {
+          "type": "Float32Array",
+          "itemSize": 2,
+          "count": 50,
+          "sha256": "8a7f7c3dfc50c3ef696635514525f95a1707fb900c1c15285aea08787d251316"
+        }
+      },
+      "index": "60a1c337749cd8b9aee8dc23446b3b640a3b1f25897d91d32cd66bdee7805864",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        -1,
+        0,
+        0,
+        1,
+        2.220446049250313e-16,
+        0,
+        -1.2963966496950845,
+        -0.15157799999999996,
+        -0.6613966496950844,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-nz-cup-ring",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 252,
+          "sha256": "bf990d5303ff5c56c7bd0341c26ab366ff1ba2cd28a43570a5da46c90abe7a53"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 252,
+          "sha256": "4a48441bec4cf118f12e34db9162a642cfc7a833247a79b3ebd88b701d3b31c9"
+        }
+      },
+      "index": "48c12f0ecd7f52fa26b98bf61f2c296da87a113237f31311a5f27f6d999596a1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-nz-cup-ring-end-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "9e589f5b1b4f3ac7503451aaad75ed7c7ded5f771313e37c9b5fd1f09221aac0"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "796f0b940d4268e7d9ccbd67f52dca773c768e372dae64d3c1b1caf59e6c8247"
+        }
+      },
+      "index": "485b1ea5961e468609cf51f310ba93f21e7bd9a1e906655af438bfc8e18322c1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-nz-cup-ring-end-1",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "3e55bb170a915e5203cfd237ea54c581636fba0eb5bf29fc0c7611605743eccd"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "a0de3fc19353a669778626872d2a7cb8afbf2eec74d18ffb009d826fad2e14c3"
+        }
+      },
+      "index": "485b1ea5961e468609cf51f310ba93f21e7bd9a1e906655af438bfc8e18322c1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-nz-cup-bucket",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 488,
+          "sha256": "2f9df2e858fd08813692fa2748d282f1a7f83a23e82c3dddea652ad3ee474e52"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 488,
+          "sha256": "f842b340d41d57a9880e62b37ae4468e00f1c0c8ff292ca77774618402e6284d"
+        }
+      },
+      "index": "f06cc6bad649927050a482bf623aae74c69e1781a7005d9e04f7c52f2f92d8c7",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-nz-cup-floor",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 181,
+          "sha256": "a765b056cfbc531b878656b0e2d38714763d0c9fb935fc085924f8c430cbd1b1"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 181,
+          "sha256": "75c57142531b7dbf4352f2e6a1993e745cfad5a850cf1d9f32d07e491bbdd73e"
+        }
+      },
+      "index": "848465b0b0e7fd803832cc36f3620663bd0e8027e4a1474b9e69dcad1f86bb33",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-nz-flange",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 24525,
+          "sha256": "632353b7fe2762d4780afec77576f812a9892bf077f788bd87709a93a4b89c40"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 24525,
+          "sha256": "5091b249915ea697e68559d3651b6f4566344caf74275744ba193c974e2b9640"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-nz-piece-top-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 3879,
+          "sha256": "0582d17641ebef97ac41c3d272ca870ec01230b0bad1e0667bacc599df4b675c"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 3879,
+          "sha256": "ba096127b7a977ee5745126cda3707fb0fd2e6771d3e6b628dd6187cf42ac7d3"
+        }
+      },
+      "index": "0e1ac848eb1363a760842abf30ec270777d3fbe5a684aa98914b003bbe1382d9",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-nz-piece-lip-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 252,
+          "sha256": "23d6298942acc0ddd9dd4711c34c9aff9234e494018524c57450da252adb5352"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 252,
+          "sha256": "678d8861d6aef1fa2220529541e1073f0b1d91979c1b5baa8ceef7aa10c6950a"
+        }
+      },
+      "index": "9615d32f4dae581e55528ba2c87e9ebc98686c7344060bd20aa2a1a68bb09a9e",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-nz-cut",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 812,
+          "sha256": "347037333e7f5ff7ec3a2db1aa532d9b17c84e5d4f861076539398adad1e3172"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 812,
+          "sha256": "d3c66755e98ddaa4bc0e41f1f8c0f4b0530ad35ca26134a3b0874859e3b50c17"
+        }
+      },
+      "index": "bc5f3ed74ee77658ea59c43b65565d913277d4279bcf61c0d832e976a588917a",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-nz-cut-1",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 28,
+          "sha256": "18547a837d6e1ff9d17b1a58b1665c1523c38c555728daaa8365cf1f61fc00a2"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 28,
+          "sha256": "7e8cb99a71699902b5f1bee141bc5822282ee6968bd5e88621bc0e16e76fa61e"
+        }
+      },
+      "index": "68550c3d942803dca03342072772599133910bc0d73c8e172965740eaf27acfc",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-nz-cut-2",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 28,
+          "sha256": "d2d5e59a54f45b5e7b1cefc05e2eee3e520c3916522a2d9b19506e99bcf40e6f"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 28,
+          "sha256": "4cea6827eed90a11965b530c9dc20c3d1547c32da6b05252aa28687b9649a23e"
+        }
+      },
+      "index": "68550c3d942803dca03342072772599133910bc0d73c8e172965740eaf27acfc",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-nz-pan",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 50,
+          "sha256": "ebe4d1de286835a80dc0ca0608fee08dfc5345f7aec12f039ed2ca3d12ed4e1c"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 50,
+          "sha256": "30ee01ab24ef8c34686c205e38a05e12ed33886de7466e515f1d67ce3ecdec08"
+        },
+        "uv": {
+          "type": "Float32Array",
+          "itemSize": 2,
+          "count": 50,
+          "sha256": "8a7f7c3dfc50c3ef696635514525f95a1707fb900c1c15285aea08787d251316"
+        }
+      },
+      "index": "60a1c337749cd8b9aee8dc23446b3b640a3b1f25897d91d32cd66bdee7805864",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        -1,
+        0,
+        0,
+        1,
+        2.220446049250313e-16,
+        0,
+        0,
+        -0.157918,
+        -0.699172,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxnz-cup-c",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 312,
+          "sha256": "9886f27f9b14829c20ddc309607345cd4dbebc2715101e22ccd33f8ee003573b"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 312,
+          "sha256": "1de46317f2ab92203c3e699f3e754ddb4b6995619df3e7f68bf367a6585f2f7a"
+        }
+      },
+      "index": "1ad8f8af7ee112eeb3ab4cd0d914a2b566416a6ec98f4b24384fb1fe303493f6",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxnz-cup-c-end-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "d3c098ff40b75680a601e7e7e2c055b45e176e719ea398b1b3888c12b72823be"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "c06c589b4778dac1b2f405eea6bc59603fa70408bd3bef37ef3e7166a969b661"
+        }
+      },
+      "index": "485b1ea5961e468609cf51f310ba93f21e7bd9a1e906655af438bfc8e18322c1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxnz-cup-c-end-1",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "3d08d5385b0ede164c33c1c6b1d998fcad507c9c618050d030f22e7683224e1a"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "a0de3fc19353a669778626872d2a7cb8afbf2eec74d18ffb009d826fad2e14c3"
+        }
+      },
+      "index": "485b1ea5961e468609cf51f310ba93f21e7bd9a1e906655af438bfc8e18322c1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxnz-cup-bucket-measured",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 14926,
+          "sha256": "423784d5e6902c338acfd04b8e2d802bb4ef07bc7625bc47d3e26d89eb627de6"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 14926,
+          "sha256": "0c2722f22d51dc1c15c391c3c9ddef0f92b7a23c7324251ffcb8da2570749ecb"
+        }
+      },
+      "index": "82bcb089450e1f8d2dda81d88dac8bffe37f8b8270fd1cfa15912379053fad02",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxnz-flange",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 17964,
+          "sha256": "06e08bae32a877532389e5082ca747fbd319142b1f8f4595dd33b14af8304779"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 17964,
+          "sha256": "cecc5316a7dffca26fc973a369beb31972b638a08d3eee63965a0a3c4065c729"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxnz-flange-ear-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 10344,
+          "sha256": "776508742daa059a1454282851f1c5d465e0a76850a54bd5d6e5c7329d36c524"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 10344,
+          "sha256": "3db8c715d678a774cd5ef152f41a63766c84a599c0ce20ce8d9bae39c587ac85"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxnz-casting-top-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 1296,
+          "sha256": "57148f1a97e1500f8154b588e767003ec7421b6f919261accb73c8edb2807824"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 1296,
+          "sha256": "e8bc5e3906fe7992b108a42b2335ddd0cacd7d1a0d6cde9a325c13ee92ffffda"
+        }
+      },
+      "index": "8c2e1b50b4bf29428a06997d89db1f528ad05a638897c7591f6a5edf438d4444",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxnz-casting-lip-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 186,
+          "sha256": "5eb9f96cd8f15d2c3fc5c84ec3262412bf32c77fdce59fe0c5c60671a2d7ff8d"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 186,
+          "sha256": "37b307cf0fa61a4a2540f2e297cd2b7425c4260d03aad66844c9e1d9ab04dd94"
+        }
+      },
+      "index": "9f5de834cde2183b41f59e9fae4f23dc5b473622bbb4b42a51d8d05a1889679c",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxnz-cut",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 13080,
+          "sha256": "5de999188e2ed2625d5cc805e05498598c8c17512e33c862eac88b491e249940"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 13080,
+          "sha256": "a08d1384ec0fe0372e27a1d4aeb48e391caf5ee3acab865b28d8721270a82896"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxnz-cut-model-front",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 26991,
+          "sha256": "5c14bbd0ac68be2ac1db92e9cc02f5aec202ac0602791aafaea1540f1b2a7fb9"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 26991,
+          "sha256": "0986baf5dc877b520bbdc8311f3a1e27b0da856361b177867a0a26dd5d9ee0a8"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxnz-pan",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 50,
+          "sha256": "d890c039645204fc516609e709d2590a6c9c9273f5109ecadbaf9867f9004770"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 50,
+          "sha256": "30ee01ab24ef8c34686c205e38a05e12ed33886de7466e515f1d67ce3ecdec08"
+        },
+        "uv": {
+          "type": "Float32Array",
+          "itemSize": 2,
+          "count": 50,
+          "sha256": "8a7f7c3dfc50c3ef696635514525f95a1707fb900c1c15285aea08787d251316"
+        }
+      },
+      "index": "60a1c337749cd8b9aee8dc23446b3b640a3b1f25897d91d32cd66bdee7805864",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        -1,
+        0,
+        0,
+        1,
+        2.220446049250313e-16,
+        0,
+        1.2963966496950845,
+        -0.15157799999999996,
+        -0.6613966496950844,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxpz-cup-c",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 312,
+          "sha256": "f757435b1ab0cfeb230b7f9a6d238d0e22fa0b4f3364a93690e3a6b8cc191837"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 312,
+          "sha256": "6c60262d054ccb5329251f0831984cdb53f40b6edb8e1db68e8fc137071e3e8d"
+        }
+      },
+      "index": "1ad8f8af7ee112eeb3ab4cd0d914a2b566416a6ec98f4b24384fb1fe303493f6",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxpz-cup-c-end-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "6f81cb8c5a65de5bcca1bf4a614f4ee463b53dc180aa25cdbc4f8b63670d9447"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "afefd1546babde907f5c4bace310b6b87f0f72f5a3cd8832a5c61f477590e759"
+        }
+      },
+      "index": "485b1ea5961e468609cf51f310ba93f21e7bd9a1e906655af438bfc8e18322c1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxpz-cup-c-end-1",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "bbb97a208027902e6ac928b9d2ca5db357907930cdaf4c22423071fd93892bf1"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "796f0b940d4268e7d9ccbd67f52dca773c768e372dae64d3c1b1caf59e6c8247"
+        }
+      },
+      "index": "485b1ea5961e468609cf51f310ba93f21e7bd9a1e906655af438bfc8e18322c1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxpz-cup-bucket-measured",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 14926,
+          "sha256": "681a8461029bfed3a50958fd21faf9e9a235a48f219042c06dad0ce4b4320efa"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 14926,
+          "sha256": "bb33946c2cdd74f13a2bc07d482395990da045798f6950c47edc0b9e5f44ee0e"
+        }
+      },
+      "index": "82bcb089450e1f8d2dda81d88dac8bffe37f8b8270fd1cfa15912379053fad02",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxpz-flange",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 17964,
+          "sha256": "14601cd1503a53c27ef9af5df28cbb8fff0423582a35146cea448729948a0e45"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 17964,
+          "sha256": "cf18f7d46ea29953cb904f832234d686e4e908109c9083dbfef8715d1fc32558"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxpz-flange-ear-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 10344,
+          "sha256": "e75a387561272961709d0b2278a357b11cfa86bd26b87a2b117905e0868934fa"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 10344,
+          "sha256": "f50c2cb8bb681786bde95d0a95f283c675d9c93b10db9a36687bc579d3f549ae"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxpz-casting-top-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 1296,
+          "sha256": "829e7f9ab3f67ad3b3fd20793d5bf0c6304834f6c8fa3654e7b0a865dfae2219"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 1296,
+          "sha256": "138dcba292bf4348330f9e4645fb1c43a790c71ac4f7952766f9ad71aa11adb7"
+        }
+      },
+      "index": "8c2e1b50b4bf29428a06997d89db1f528ad05a638897c7591f6a5edf438d4444",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxpz-casting-lip-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 186,
+          "sha256": "70734ec80eae3f556b2ff8749928fdb2a879d4565daf37f01dc1212201741f1d"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 186,
+          "sha256": "d91c2d6bb3deb54eea7cb79570c3344f9efb5058373fe1093713d2a92e8b7f52"
+        }
+      },
+      "index": "9f5de834cde2183b41f59e9fae4f23dc5b473622bbb4b42a51d8d05a1889679c",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxpz-cut",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 13080,
+          "sha256": "a1ad136db73f41cd77ef014ba117a80be52a496b223d51d81346769640f551fc"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 13080,
+          "sha256": "949e674f46c6c0beca9650a7c7cc4f528d7d0dd95dc78261caa4b063b473c1d6"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxpz-cut-model-front",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 26991,
+          "sha256": "61ff247c3f63b42bb3548a1a8831f2d5cc4f85449a333835d1779a43ae33a07b"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 26991,
+          "sha256": "0eab6a9e51c344ec4571b979782f238a3ae00a687cdcfe67ba9ba2de14160e7a"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-nxpz-pan",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 50,
+          "sha256": "d890c039645204fc516609e709d2590a6c9c9273f5109ecadbaf9867f9004770"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 50,
+          "sha256": "30ee01ab24ef8c34686c205e38a05e12ed33886de7466e515f1d67ce3ecdec08"
+        },
+        "uv": {
+          "type": "Float32Array",
+          "itemSize": 2,
+          "count": 50,
+          "sha256": "8a7f7c3dfc50c3ef696635514525f95a1707fb900c1c15285aea08787d251316"
+        }
+      },
+      "index": "60a1c337749cd8b9aee8dc23446b3b640a3b1f25897d91d32cd66bdee7805864",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        -1,
+        0,
+        0,
+        1,
+        2.220446049250313e-16,
+        0,
+        -1.2963966496950845,
+        -0.15157799999999996,
+        0.6613966496950844,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-pz-cup-ring",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 252,
+          "sha256": "9daee7909be416196f31c354bde60fc7cc3b50f9f2cba56dd11817bb611c5da2"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 252,
+          "sha256": "29640ba84a1960df50726cc79a930552e0862b15c1cc2710ddecd6df0ca772b9"
+        }
+      },
+      "index": "48c12f0ecd7f52fa26b98bf61f2c296da87a113237f31311a5f27f6d999596a1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-pz-cup-ring-end-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "0c9e802c6b954a8ae6004f85c9badcab1bf7e2a1194ce7919bc744a00b9e5efc"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "796f0b940d4268e7d9ccbd67f52dca773c768e372dae64d3c1b1caf59e6c8247"
+        }
+      },
+      "index": "485b1ea5961e468609cf51f310ba93f21e7bd9a1e906655af438bfc8e18322c1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-pz-cup-ring-end-1",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "0f0394fba65a132ea24742e3bdaf919a480eacad2b69379c509a9c0cfa971bc4"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "a0de3fc19353a669778626872d2a7cb8afbf2eec74d18ffb009d826fad2e14c3"
+        }
+      },
+      "index": "485b1ea5961e468609cf51f310ba93f21e7bd9a1e906655af438bfc8e18322c1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-pz-cup-bucket",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 488,
+          "sha256": "2be72a5aa18c4578e5462a663d4d0e12eed77bef8e598826be328d60c5ca97cc"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 488,
+          "sha256": "cdea5393f5f81747f48ff32d434778afdb126b780d2222b5d2a295c62a291a96"
+        }
+      },
+      "index": "f06cc6bad649927050a482bf623aae74c69e1781a7005d9e04f7c52f2f92d8c7",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-pz-cup-floor",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 181,
+          "sha256": "aef1dda91a62658dc29c0106718829c5bf32440064e64cedb90ad33ff0fa2a5d"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 181,
+          "sha256": "75c57142531b7dbf4352f2e6a1993e745cfad5a850cf1d9f32d07e491bbdd73e"
+        }
+      },
+      "index": "5720494fe27ebbf82b3ed8bac6dcc56c9d78bf74d531706b94a15a6c5b6977c8",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-pz-flange",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 24525,
+          "sha256": "5cdea27641d7e721cf38cdc41be1cc16dddb61d73593aafa71631719ba650792"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 24525,
+          "sha256": "ddad87076455c455026fb76efb9e64c689a313b1b6c04ea41fcb49f4a64dde8d"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-pz-piece-top-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 3879,
+          "sha256": "94c962d3acb2048cc7919f6666fd6782cf2f756c6369d082c1852fbce80ea327"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 3879,
+          "sha256": "eeee3d524cf2156bb2e4b78c4d7d802a190a94bbb305917bd0d078921e28654a"
+        }
+      },
+      "index": "78f337175ba319cbcfea6f27990618cc7c1406ffdf8ecc0939fa5fd47bf30178",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-pz-piece-lip-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 252,
+          "sha256": "0d8100c22d46990a4cc5052b32c8d3fb4a1b75f59f884d3525007d12e41804eb"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 252,
+          "sha256": "b981359549c70229eaafbf9735befcb334b00b4c1842fddc74a9a2a34b573e4a"
+        }
+      },
+      "index": "c91567924ead02e14d21d3375459a861c1e0084a3bc0b24c26f7d8058509f067",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-pz-cut",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 812,
+          "sha256": "18f815d90683faac43a8ddba9b0779411ee5194afb72ec8249c54a30e5e67b74"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 812,
+          "sha256": "c000d7383bc19358316de7d91701f6744f88118bde74886f1a0af363766e4c85"
+        }
+      },
+      "index": "bc5f3ed74ee77658ea59c43b65565d913277d4279bcf61c0d832e976a588917a",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-pz-cut-1",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 28,
+          "sha256": "1a938aa26bd157c3686471db9420d1a297d92498a437404cff3c692ee0d6daaf"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 28,
+          "sha256": "5ad812cd166e6448d0cc9a45b7842e94982a0ade3799cb235cdfb0e9a238167c"
+        }
+      },
+      "index": "68550c3d942803dca03342072772599133910bc0d73c8e172965740eaf27acfc",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-pz-cut-2",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 28,
+          "sha256": "872807b6fab5cab48d20dbd78b555173673c320b888800055377ac4838dd281d"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 28,
+          "sha256": "112ce1d6a35983b1c1e08a7bc2eb7c57925e5532c0382b72a2d1f44250b10160"
+        }
+      },
+      "index": "68550c3d942803dca03342072772599133910bc0d73c8e172965740eaf27acfc",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-side-pz-pan",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 50,
+          "sha256": "ebe4d1de286835a80dc0ca0608fee08dfc5345f7aec12f039ed2ca3d12ed4e1c"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 50,
+          "sha256": "30ee01ab24ef8c34686c205e38a05e12ed33886de7466e515f1d67ce3ecdec08"
+        },
+        "uv": {
+          "type": "Float32Array",
+          "itemSize": 2,
+          "count": 50,
+          "sha256": "8a7f7c3dfc50c3ef696635514525f95a1707fb900c1c15285aea08787d251316"
+        }
+      },
+      "index": "60a1c337749cd8b9aee8dc23446b3b640a3b1f25897d91d32cd66bdee7805864",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        -1,
+        0,
+        0,
+        1,
+        2.220446049250313e-16,
+        0,
+        0,
+        -0.157918,
+        0.699172,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxpz-cup-c",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 312,
+          "sha256": "fad980c7bdd722512d15444f90a1e25b727135e9d713ec92c8cb49bb4951ee9b"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 312,
+          "sha256": "00c01142c15b904af458d19554d33301f3af55d00a8998768748f24e122208cf"
+        }
+      },
+      "index": "1ad8f8af7ee112eeb3ab4cd0d914a2b566416a6ec98f4b24384fb1fe303493f6",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxpz-cup-c-end-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "379ba7c1ef6a3e85c8264d1f42c73504f4c9f4492292d5f2d3376344697f2c0e"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "afefd1546babde907f5c4bace310b6b87f0f72f5a3cd8832a5c61f477590e759"
+        }
+      },
+      "index": "485b1ea5961e468609cf51f310ba93f21e7bd9a1e906655af438bfc8e18322c1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxpz-cup-c-end-1",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "c2461252d62f8f579cbafaac43664e512b86d2d9f88affa233911938cfd1d9bf"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 4,
+          "sha256": "a0de3fc19353a669778626872d2a7cb8afbf2eec74d18ffb009d826fad2e14c3"
+        }
+      },
+      "index": "485b1ea5961e468609cf51f310ba93f21e7bd9a1e906655af438bfc8e18322c1",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxpz-cup-bucket-measured",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 14926,
+          "sha256": "65d814b6b388acedb09bd3acf8188d845187271ef40b8cf6992508702ac75f5b"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 14926,
+          "sha256": "9e8a1bcf5260675e09f107ea09cf05e9a8ecbf62fa52bd3ad07a8281ef53582e"
+        }
+      },
+      "index": "82bcb089450e1f8d2dda81d88dac8bffe37f8b8270fd1cfa15912379053fad02",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxpz-flange",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 17964,
+          "sha256": "20889f6a8d82e3a0027bf05f809fdee5a7ebceceae040a71c0709e22920bece0"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 17964,
+          "sha256": "248b0ac69b6fdb2ac2f477ade6955e49ac4f6b577220aaedb85a294dc527c6e5"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxpz-flange-ear-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 10344,
+          "sha256": "fb1498dbfebfb886e6be3aa076ded1d07dc9fda9fa6b0d26f0d7be558f1a3e19"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 10344,
+          "sha256": "e85870d69b23bf585cb84549ae14520d7fbff179fe63133a019c78248cb9e83c"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxpz-casting-top-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 1296,
+          "sha256": "d04c08e8411d60f2dc4c160404c9b17e9dc6d7ce558a55391ac2321b55378da4"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 1296,
+          "sha256": "1f815dee70ce9cec08e2f5b4fde545a2d1f3b316adeecee5f3d2f1bdf1982039"
+        }
+      },
+      "index": "a413cd68fe9baaf40f8c373b6be4ad2a228a343c25235022125eb5edcdf5efda",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxpz-casting-lip-0",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 186,
+          "sha256": "af4efaa11d7d998ca7f41e272f1e8c80b1d48f881f8570da5f5ab0e5e69e6513"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 186,
+          "sha256": "8740dfd3b6fb6851797f74e3d6b93d0092f6b0d18e4fa5ec59e2206555fee243"
+        }
+      },
+      "index": "ae00ea8b2be25f6d7046241dae42dc8d15dad9470a1b96df8cf4a38ad7876d5a",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxpz-cut",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 13206,
+          "sha256": "f175f03f8e3ff81565092f2a0425d203dcf89602957ea7c3a42d51abc9178c42"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 13206,
+          "sha256": "c2792ffb5806ec723d987641ff30251726eafd816d5a4c847d48ad0db32bdac2"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxpz-cut-model-front",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 26991,
+          "sha256": "5927c138917cd4a018fca7aded983fe114f64cb4fe6190ee1a231cd0aefd8a41"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 26991,
+          "sha256": "45e0b8b26e169c8b04786ac14eec7daf2cc2a55f6ce1ea5619c3dd43d4067123"
+        }
+      },
+      "index": null,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "dm-pocket-rox-corner-pxpz-pan",
+      "attributes": {
+        "position": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 50,
+          "sha256": "d890c039645204fc516609e709d2590a6c9c9273f5109ecadbaf9867f9004770"
+        },
+        "normal": {
+          "type": "Float32Array",
+          "itemSize": 3,
+          "count": 50,
+          "sha256": "30ee01ab24ef8c34686c205e38a05e12ed33886de7466e515f1d67ce3ecdec08"
+        },
+        "uv": {
+          "type": "Float32Array",
+          "itemSize": 2,
+          "count": 50,
+          "sha256": "8a7f7c3dfc50c3ef696635514525f95a1707fb900c1c15285aea08787d251316"
+        }
+      },
+      "index": "60a1c337749cd8b9aee8dc23446b3b640a3b1f25897d91d32cd66bdee7805864",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.220446049250313e-16,
+        -1,
+        0,
+        0,
+        1,
+        2.220446049250313e-16,
+        0,
+        1.2963966496950845,
+        -0.15157799999999996,
+        0.6613966496950844,
+        1
+      ]
+    }
+  ]
+}

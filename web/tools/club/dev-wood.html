@@ -1,0 +1,223 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: wood</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<base href="../../">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from './vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { TIERS, pickTier } from './scene/club/tiers.js';
+import { createAdopt } from './scene/club/adopt.js';
+import { createAssets } from './scene/club/assets.js';
+import { applyWood } from './scene/club/mat/wood.js';
+
+const q = new URLSearchParams(location.search);
+const t0 = performance.now();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+RectAreaLightUniformsLib.init();
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x030303);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.02, 60);
+const VIEWS = {
+  play: [[-2.3, 1.05, 1.35], [0.1, 0.0, 0.0], 40],            // V1
+  cue: [[-1.35, 0.32, 0.22], [0.2, 0.0, 0.0], 32],            // V2
+  pocket: [[0.85, 0.28, 0.25], [1.27, 0.0, 0.635], 28],       // V4
+  side: [[0.25, 0.22, 0.25], [0.0, 0.02, 0.66], 26],          // V5
+  rail: [[0.05, 0.115, 0.75], [0.5, 0.045, 0.6], 26],         // V6
+  wide: [[-4.0, 1.6, 2.6], [0.0, 0.3, 0.0], 50],              // V9
+  eye: [[-4.2, 0.95, 2.8], [0.0, 0.25, 0.0], 50],             // V10
+  top: [[0.0, 2.3, 0.03], [0.0, 0.0, 0.0], 66],               // V11
+  near: [[-0.35, 0.42, 1.25], [0.15, 0.0, 0.2], 40],          // a player's view across the near long rail (the lamp in the lacquer)
+  end: [[-1.95, 0.4, 0.1], [-0.6, 0.0, 0.0], 40],             // across the head rail
+  edge: [[-0.2, 0.16, 1.02], [0.1, 0.03, 0.8], 24],           // the rail's outer edge and the skirt under it
+  sight: [[0.36, 0.2, 0.92], [0.32, 0.045, 0.74], 22],        // one sight close up
+  body: [[-2.6, 0.25, 2.3], [0.2, -0.25, 0.3], 34],           // aprons, skirt, legs
+};
+let [pos, tgt, fov] = VIEWS[q.get('view')] ?? VIEWS.near;
+if (q.has('cam')) { const c = q.get('cam').split(',').map(Number); if (c.length >= 6 && c.every(Number.isFinite)) { pos = c.slice(0, 3); tgt = c.slice(3, 6); fov = c[6] ?? fov; } }
+camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+
+const note = {};
+// ---- the app's room (lamp, lights, floor) and table, read-only ----
+const shadingMod = await import('./scene/shading.js');
+const roomMod = await import('./scene/room.js');
+const tableMod = await import('./scene/table.js');
+const shared = shadingMod.createShared({ lightPos: roomMod.LIGHT_POS, roomMin: roomMod.ROOM.min, roomMax: roomMod.ROOM.max });
+const room = roomMod.buildRoom({ envBinding: false });
+scene.add(room.group);
+const tableId = q.get('table') ?? 'pool_pro_9ft';
+try { const prep = tableMod.buildTable.prepare?.(tableId); if (prep?.then) await prep; } catch (e) { note.prepare = String(e?.message ?? e); }
+const table = tableMod.buildTable({ shared, tableId });
+if (table.ready?.then) await table.ready;
+scene.add(table.group);
+
+// ---- the club look's lamp levels (dumped from the running app with look=club: the light's radiance and the face's colour) ----
+if (q.get('levels') !== 'app') {
+  try {
+    for (const l of room.lightRefs?.rectLights ?? []) { l.intensity = 7.8; l.color.setRGB(0.9216, 0.9301, 0.9473); }
+    room.lightRefs?.lampFace?.material?.color?.setRGB(19.691, 20.858, 25.1269);
+  } catch (e) { note.levels = String(e?.message ?? e); }
+}
+
+// ---- the club room's light at the table: the room's own service with the club room's emitters and ambient (a fixture
+// dumped from the running app on 2026-11-14: id, type, position, colour, intensity, window radius, size, axis, normal) ----
+const ROOM_EMITTERS = [
+  ['shell.window.0', 'rect', [-1.95, 1.04, -6.02], [0.42, 0.56, 1], 0.22, 4.5, [1.25, 1.26], [1, 0, 0], [0, 0, 1]],
+  ['shell.window.1', 'rect', [1.95, 1.04, -6.02], [0.42, 0.56, 1], 0.22, 4.5, [1.25, 1.26], [1, 0, 0], [0, 0, 1]],
+  ['shell.sconce.0', 'point', [-3.06, 1.03, -5.845], [1, 0.6, 0.27], 2.2, 6.5, [0.24, 0.62], [0, -1, 0], null],
+  ['shell.sconce.1', 'point', [3.06, 1.03, -5.845], [1, 0.6, 0.27], 2.2, 6.5, [0.24, 0.62], [0, -1, 0], null],
+  ['shell.sconce.2', 'point', [5.345, 1.03, -5.2], [1, 0.6, 0.27], 2.2, 6.5, [0.24, 0.62], [0, -1, 0], null],
+  ['shell.sconce.3', 'point', [-3.06, 1.03, 3.445], [1, 0.6, 0.27], 2.2, 6.5, [0.24, 0.62], [0, -1, 0], null],
+  ['shell.sconce.4', 'point', [3.06, 1.03, 3.445], [1, 0.6, 0.27], 2.2, 6.5, [0.24, 0.62], [0, -1, 0], null],
+  ['shell.sconce.5', 'point', [-1.02, 1.03, 3.445], [1, 0.6, 0.27], 2.2, 6.5, [0.24, 0.62], [0, -1, 0], null],
+  ['shell.sconce.6', 'point', [1.02, 1.03, 3.445], [1, 0.6, 0.27], 2.2, 6.5, [0.24, 0.62], [0, -1, 0], null],
+  ['shell.sconce.7', 'point', [-5.345, 1.03, 1], [1, 0.6, 0.27], 2.2, 6.5, [0.24, 0.62], [0, -1, 0], null],
+  ['shell.sconce.8', 'point', [-5.345, 1.03, -3.4], [1, 0.6, 0.27], 2.2, 6.5, [0.24, 0.62], [0, -1, 0], null],
+  ['props.bar.shelves.0', 'rect', [5.03, 0.77, -1.88], [1, 0.76, 0.48], 1.2, 8, [1.44, 1.15], [0, 0, 1], [-1, 0, 0]],
+  ['props.bar.shelves.1', 'rect', [5.03, 0.77, -0.44], [1, 0.76, 0.48], 1.2, 8, [1.44, 1.15], [0, 0, 1], [-1, 0, 0]],
+  ['props.bar.shelves.2', 'rect', [5.03, 0.77, 1], [1, 0.76, 0.48], 1.2, 8, [1.44, 1.15], [0, 0, 1], [-1, 0, 0]],
+  ['props.bar.lamp', 'point', [4.6675, 0.535, 1.47], [1, 0.85, 0.62], 0.5, 2.2, [0.1, 0], null, [0, -1, 0]],
+  ['props.bar.counter', 'tube', [3.47, 0.21, -0.44], [1, 0.7, 0.4], 1.1, 2.6, [4.02, 0.02], [0, 0, 1], null],
+  ['props.far.lamp', 'rect', [1.2, 0.725, -3.6314], [1, 0.86, 0.64], 9, 6, [1.55, 0.36], [1, 0, 0], [0, -1, 0]],
+  ['props.sign.a', 'tube', [5.4, 0.73, -3.89], [1, 0.3, 0.12], 0.9, 4.5, [1.156, 0.03], [0, 0, 1], null],
+  ['props.sign.b', 'tube', [-4.08, 0.73, -5.9], [0.12, 0.85, 0.8], 0.9, 4.5, [0.935, 0.03], [1, 0, 0], null],
+];
+const ROOM_AMBIENT = { sky: [0.3916, 0.2832, 0.1904], ground: [0.4044, 0.2901, 0.2221], side: [0.2175, 0.1697, 0.1234] };
+let roomLight = null;
+if (q.get('roomlight') !== '0') {
+  try {
+    roomLight = (await import('./scene/club/room/light.js')).roomLight;
+    roomLight.reset();
+    roomLight.init({ club: null });
+    for (const [id, type, p, c, intensity, radius, size, axis, normal] of ROOM_EMITTERS) {
+      roomLight.addEmitter({ id, type, position: new THREE.Vector3(...p), color: new THREE.Color(...c), intensity, radius, size,
+        axis: axis ? new THREE.Vector3(...axis) : null, normal: normal ? new THREE.Vector3(...normal) : null });
+    }
+    roomLight.setAmbient(new THREE.Color(...ROOM_AMBIENT.sky), new THREE.Color(...ROOM_AMBIENT.ground), new THREE.Color(...ROOM_AMBIENT.side));
+    roomLight.commit();
+  } catch (e) { roomLight = null; note.roomLight = String(e?.message ?? e); }
+}
+
+// ---- bright shapes on the walls: lit shelves, sconces, a sign, a window (what a lacquer has to mirror) ----
+const RMIN = roomMod.ROOM.min, RMAX = roomMod.ROOM.max;
+if (q.get('bars') !== '0') {
+  const glow = (r, g, b) => new THREE.MeshBasicMaterial({ color: new THREE.Color(r, g, b), side: THREE.DoubleSide });
+  const quad = (mat, w, h, x, y, z, ry) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat); m.position.set(x, y, z); m.rotation.y = ry; scene.add(m); return m; };
+  const zn = RMIN.z + 0.02, zp = RMAX.z - 0.02, xn = RMIN.x + 0.02, xp = RMAX.x - 0.02;
+  quad(glow(5.5, 4.2, 2.3), 3.2, 0.34, 0.8, 1.15, zn, 0);                               // a lit shelf on the -z wall
+  [[1.2, 0.2, 0.2], [0.2, 1.0, 0.3], [1.3, 0.8, 0.1], [0.2, 0.4, 1.4], [1.2, 0.2, 0.9], [1.0, 1.0, 1.0]]
+    .forEach((c, i) => quad(glow(c[0] * 2.5, c[1] * 2.5, c[2] * 2.5), 0.12, 0.3, -0.55 + i * 0.55, 1.6, zn + 0.01, 0));
+  quad(glow(4.0, 0.5, 2.5), 0.9, 0.24, -2.6, 1.7, zn, 0);                               // a sign
+  for (const z of [-1.8, 0, 1.8]) quad(glow(9, 5.5, 2.4), 0.22, 0.34, xp, 1.25, z, -Math.PI / 2); // sconces on the +x wall
+  quad(glow(1.6, 2.6, 4.2), 0.9, 1.7, xn, 1.0, 0.8, Math.PI / 2);                       // a cool window on the -x wall
+  for (const x of [-2.2, 2.2]) quad(glow(8, 5, 2.2), 0.22, 0.34, x, 1.25, zp, Math.PI);  // sconces on the +z wall
+}
+
+// ---- a few balls for scale (and for the app's own ball shadows on the rails) ----
+const R = 0.028575;
+const balls = [];
+[[0xf2efe4, -0.55, 0.05], [0xd8b21a, 0.32, 0.585], [0x1c3fa8, -0.2, 0.5], [0xb81c1c, 0.6, -0.3], [0x111111, 1.18, 0.2]].forEach(([c, x, z], i) => {
+  const m = new THREE.Mesh(new THREE.SphereGeometry(R, 48, 32), new THREE.MeshPhysicalMaterial({ color: c, roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.03 }));
+  m.position.set(x, R, z); scene.add(m); balls.push(m);
+  shared.uSpheres.value[i].set(x, R, z, R);
+});
+shared.uSphereCount.value = balls.length;
+
+// ---- a cue stand-in crossing the near long rail (the part reads the occlusion service's capsule uniforms: stood in here) ----
+const cueTip = new THREE.Vector3(-0.42, 0.058, 0.3), cueButt = new THREE.Vector3(-0.72, 0.19, 1.72);
+const cueOn = q.get('cue') !== '0';
+if (cueOn) {
+  const len = cueTip.distanceTo(cueButt);
+  const cue = new THREE.Mesh(new THREE.CylinderGeometry(0.0145, 0.00625, len, 20), new THREE.MeshStandardMaterial({ color: 0xd9b77a, roughness: 0.35 }));
+  cue.name = 'obCueStick';
+  cue.position.copy(cueTip).add(cueButt).multiplyScalar(0.5);
+  cue.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), cueButt.clone().sub(cueTip).normalize());
+  scene.add(cue);
+  balls.push(cue); // left out of the capture like the balls
+}
+
+// ---- the environment the way the app makes one: a cube capture from just above the middle of the cloth ----
+const cubeRT = new THREE.WebGLCubeRenderTarget(512, { type: THREE.HalfFloatType });
+const cubeCam = new THREE.CubeCamera(0.03, 40, cubeRT);
+cubeCam.position.set(0, 0.115, 0);
+let bakes = 0;
+const rebakeEnv = () => {
+  for (const b of balls) b.visible = false;
+  try { cubeCam.update(renderer, scene); } finally { for (const b of balls) b.visible = true; }
+  bakes += 1;
+};
+scene.environment = cubeRT.texture;
+rebakeEnv();
+window.__dbg = { scene, renderer, cubeRT, cubeCam, camera };
+
+// ---- the stand-in club object (what index.js hands a part) ----
+const frameFns = [];
+const tier = pickTier({ renderer, query: q });
+const club = {
+  enabled: true, tier, knobs: TIERS[tier], time: { value: 0 },
+  ctx: { renderer, scene, camera, table, room, rebakeEnv, gi: { uniforms: shared }, query: q },
+  onFrame(fn) { frameFns.push(fn); }, offFrame(fn) { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); },
+  room: { enabled: true, floor: { mesh: room.lightRefs?.floor, material: room.lightRefs?.floor?.material }, box: { min: RMIN.clone(), max: new THREE.Vector3(RMAX.x, 2.45, RMAX.z) },
+    ...(roomLight ? { light: roomLight } : {}) },
+  env: { enabled: false, reason: 'not run on this page' },
+  occ: cueOn ? { enabled: true, cue: { uniforms: { uClubCueA: { value: cueTip }, uClubCueB: { value: cueButt }, uClubCueR: { value: new THREE.Vector2(0.00625, 0.0145) }, uClubCueOn: { value: 1 } } } }
+    : { enabled: false, reason: 'not run on this page' },
+};
+club.adopt = createAdopt(club);
+club.assets = createAssets(club);
+if (q.get('envsvc') === '1') {
+  try { const m = await import('./scene/club/env.js'); club.env = await m.createEnv(club); } catch (e) { note.env = String(e?.message ?? e); }
+}
+let part = { enabled: false, reason: 'wood=off' };
+if (q.get('wood') !== 'off') part = await applyWood(club);
+if (part.enabled && q.get('dbg')) { try { part.debug(JSON.parse(q.get('dbg'))); } catch (e) { note.dbg = String(e?.message ?? e); } }
+window.__club = club; window.__wood = part; window.__dev = { THREE, renderer, scene, camera, shared, table, room, note };
+
+// ---- cells: several 1:1 crops of full-size views in one frame ----
+let cells = null;
+try { if (q.get('cells')) cells = JSON.parse(q.get('cells')).slice(0, 4); } catch (e) { note.cells = String(e?.message ?? e); }
+const ALL_ON = { on: 1, edges: 1, grain: 1, scratches: tier === 'lite' ? 0 : 1, lamp: 1, room: 1, floor: 1, aa: 1, cue: 1, bodyRoom: 1, bodyOcc: 1, bodyBounce: 1, tubes: 1, cut: 0 };
+const cellCam = new THREE.PerspectiveCamera(40, 16 / 9, 0.02, 60);
+function drawCells() {
+  const W = renderer.domElement.width, H = renderer.domElement.height, cw = Math.floor(W / 2), ch = Math.floor(H / 2);
+  renderer.setScissorTest(true);
+  cells.forEach((c, i) => {
+    const [p, t, f] = Array.isArray(c.v) ? [c.v.slice(0, 3), c.v.slice(3, 6), c.v[6] ?? 40] : (VIEWS[c.v] ?? VIEWS.near);
+    cellCam.position.set(...p); cellCam.fov = f; cellCam.aspect = W / H; cellCam.lookAt(...t);
+    cellCam.setViewOffset(W, H, Math.round(c.x ?? 0), Math.round(c.y ?? 0), cw, ch);
+    cellCam.updateProjectionMatrix(); cellCam.updateMatrixWorld(true);
+    if (part.enabled && typeof part.debug === 'function') part.debug({ ...ALL_ON, ...(c.d ?? {}) });
+    const vx = (i % 2) * cw, vy = H - ch - Math.floor(i / 2) * ch;   // row by row from the top left (GL's origin is the bottom left)
+    renderer.setViewport(vx, vy, cw, ch); renderer.setScissor(vx, vy, cw, ch);
+    renderer.render(scene, cellCam);
+  });
+  renderer.setScissorTest(false);
+}
+
+let frames = 0, settled = false, good = 0, last = performance.now();
+Promise.resolve(club.assets.ready()).then(() => { settled = true; note.assetsMs = Math.round(performance.now() - t0); });
+renderer.setAnimationLoop(() => {
+  const now = performance.now();
+  const dt = Math.min(0.1, (now - last) / 1000); last = now;
+  frames += 1;
+  club.time.value += dt;
+  for (const fn of [...frameFns]) fn(club.time.value, dt);
+  if (cells?.length) drawCells(); else renderer.render(scene, camera);
+  if (settled && ++good === 3) { note.readyMs = Math.round(performance.now() - t0); window.__ready = true; }
+});
+</script>
+</body>
+</html>

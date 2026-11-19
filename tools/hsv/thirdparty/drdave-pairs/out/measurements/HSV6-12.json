@@ -1,0 +1,47 @@
+{
+ "clip_id": "HSV6-12",
+ "stem": "HSV6-12_cue_bank_angled_right",
+ "conditions": {
+  "approach": "angled",
+  "speed": "medium",
+  "spin": "running"
+ },
+ "side": "top",
+ "time_base": "frame_index_dup2_1000fps_inferred",
+ "cushion_tilt_deg": -0.99,
+ "ball_radius_px": 32.2,
+ "mm_per_px": 0.887,
+ "measured": {
+  "apex_frame": 8,
+  "theta_in_deg": 27.74,
+  "theta_in_sigma_deg": 6.52,
+  "v_in_pxcf": 8.7896,
+  "n_frames_in": 5,
+  "theta_out_deg": 33.03,
+  "theta_out_sigma_deg": 0.92,
+  "v_out_pxcf": 6.6952,
+  "n_frames_out": 18,
+  "speed_ratio": 0.7617,
+  "speed_ratio_sigma": 0.1518,
+  "e_n": 0.7215,
+  "e_n_sigma": 0.145,
+  "tangential_ratio": 0.8922,
+  "tangential_ratio_sigma": 0.1718,
+  "dwell_video_frames": 25,
+  "vn_in_pxcf": 7.7795,
+  "vt_in_pxcf": 4.091,
+  "vt_out_pxcf": 3.6499,
+  "vt_in_sigma_pxcf": 0.7804,
+  "vt_out_sigma_pxcf": 0.0964,
+  "vn_in_sigma_pxcf": 1.5533,
+  "vn_out_sigma_pxcf": 0.1293,
+  "vn_out_pxcf": 5.6129,
+  "v_in_mps": 7.8,
+  "v_out_mps": 5.94
+ },
+ "qc": [
+  "short_pre_contact_capture",
+  "duplicated_frames_factor_2",
+  "perspective_skew_uncorrected"
+ ]
+}
