@@ -1,0 +1,18 @@
+// Copyright (c) Meta Platforms, Inc. and affiliates.
+
+// Signing overlay TEMPLATE — feature 023 (research R14: signed-local vs
+// unsigned-CI arms both named honestly).
+//
+// Usage (quickstart §3):
+//   cp macos/Signing.example.xcconfig macos/Signing.xcconfig
+//   then fill DEVELOPMENT_TEAM with the Apple Developer team id.
+//
+// macos/Signing.xcconfig is gitignored; macos/project.yml includes it for
+// both configurations (validation disabled when absent, so unsigned
+// CI-style builds keep working: CODE_SIGNING_ALLOWED=NO).
+// Ad-hoc signing (the Xcode default without this overlay) is enough for
+// the runnable sandboxed local build.
+
+DEVELOPMENT_TEAM = REPLACE_ME
+PRODUCT_BUNDLE_IDENTIFIER = org.openbilliards.mac
+CODE_SIGN_STYLE = Automatic

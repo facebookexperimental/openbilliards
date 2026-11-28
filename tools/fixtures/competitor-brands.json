@@ -1,0 +1,1016 @@
+{
+ "_what": "The competitor-brand gate's rules for the public tree. The brand rules are hashed (tools/check-competitor-brands.mjs, --export-fixture): each carries its canonical forms' lengths, rolling hashes and salted sha256s, so the gate can match them without the list being published.",
+ "_why": "No competitor product name in anything the app ships.",
+ "_scope": "The shipped set the gate derives from pages.yml and the native bundle manifest.",
+ "cjk_min_length": 3,
+ "binary_strings": {
+  "_why": "The canonical kernel's string table carries catalog provenance text that the equipment Details disclosure renders, so its UTF-8 runs get every rule, the initialism included. Other binaries (images, video, fonts) get only the long rules over raw bytes: a two-letter literal is satisfied by random compressed bytes.",
+  "exts": [
+   ".wasm"
+  ],
+  "min_run": 6
+ },
+ "tokens": [
+  {
+   "id": "B01",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": true,
+   "rb": true,
+   "short": true,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 2,
+     "rk": 21411,
+     "sha256": "ce7a2ac12522832a92c2dcdf72ee956916dc028cfd42f651bfc128ea9d81debb",
+     "tail": 2787
+    }
+   ]
+  },
+  {
+   "id": "B02",
+   "rule": "hashed",
+   "fold": "ci",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": true,
+   "forms": [
+    {
+     "len": 11,
+     "rk": 4267098558,
+     "sha256": "8bb306e9db0efd54c9f39b00ffceeb2c59f32d3e000c45e413863f279cd8ddac",
+     "tail": 3619
+    },
+    {
+     "len": 12,
+     "rk": 1647153713,
+     "sha256": "14ed58e41bcb3bfae9d22ebeaec4d5b0ea43a56e71412013be28c51848a65c3a",
+     "tail": 3619
+    }
+   ]
+  },
+  {
+   "id": "B03",
+   "rule": "hashed",
+   "fold": "ci",
+   "lb": true,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 8,
+     "rk": 785735556,
+     "sha256": "b53d620d8f3979fafc53df20c21b79d3e5e0203c7b79a80d418e074cdfa1fcfa",
+     "tail": 3682
+    }
+   ]
+  },
+  {
+   "id": "B04",
+   "rule": "hashed",
+   "fold": "ci",
+   "lb": true,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 6,
+     "rk": 2864014472,
+     "sha256": "c03b8f795188a870950381cea962a5e2c270b067281e7784fb50e1118f0fa2d3",
+     "tail": 3682
+    }
+   ]
+  },
+  {
+   "id": "B05",
+   "rule": "hashed",
+   "fold": "ci",
+   "lb": true,
+   "rb": false,
+   "short": false,
+   "nonascii": true,
+   "forms": [
+    {
+     "len": 7,
+     "rk": 2152338684,
+     "sha256": "48cedcf62698b6bea595268797436a4e0e5e8403fc223f0f96c11935a18a93a0",
+     "tail": 3766
+    },
+    {
+     "len": 7,
+     "rk": 2152338816,
+     "sha256": "ecf24cea725800690ccf2cfbbd61b935aa55919e974af9125d1624c61966068f",
+     "tail": 3642
+    }
+   ]
+  },
+  {
+   "id": "B06",
+   "rule": "hashed",
+   "fold": "ci",
+   "lb": true,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 12,
+     "rk": 2753717486,
+     "sha256": "8e8860972055b60913abfd072fb6bdb81dd853d82319ddba58a2405e4a12149b",
+     "tail": 3425
+    }
+   ]
+  },
+  {
+   "id": "B07",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 11,
+     "rk": 441472545,
+     "sha256": "889f7186d7bbc2d03e033bf3a4720edc358278815d4c31885ccc105da863e28d",
+     "tail": 3409
+    }
+   ]
+  },
+  {
+   "id": "B08",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": true,
+   "forms": [
+    {
+     "len": 9,
+     "rk": 869539275,
+     "sha256": "6661262333a95c5f4731689db5556a44d49cecc5ae70c6b8db34925e9b308b36",
+     "tail": 151
+    }
+   ]
+  },
+  {
+   "id": "B09",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": true,
+   "forms": [
+    {
+     "len": 10,
+     "rk": 741952710,
+     "sha256": "4505ae58a41e213dc57f186e3c12895d3522dd55e1a0dc8d57cb8cd47130104e",
+     "tail": 151
+    }
+   ]
+  },
+  {
+   "id": "B10",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": true,
+   "forms": [
+    {
+     "len": 4,
+     "rk": 2776090332,
+     "sha256": "ca31cdccc582abd320bdf3051533a4a003563c98e59c7ac2618493eadb910e25",
+     "tail": 932
+    }
+   ]
+  },
+  {
+   "id": "B11",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": true,
+   "forms": [
+    {
+     "len": 5,
+     "rk": 476726012,
+     "sha256": "45d540d7d741d7d28049b5205c11a07d66241fdb34b45fa76127b48dfb9d1600",
+     "tail": 160
+    }
+   ]
+  },
+  {
+   "id": "B12",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": true,
+   "forms": [
+    {
+     "len": 4,
+     "rk": 2089097282,
+     "sha256": "ff3d4c5cbbfee69aa849d8b5adf4503fcc7f4e8c9455e5e76821eb6cca2cb94d",
+     "tail": 1523
+    }
+   ]
+  },
+  {
+   "id": "B13",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 12,
+     "rk": 1616888993,
+     "sha256": "f8f4aa3bc49962c1b65c5ef22cc0bb16e56909f91b684df94b8a50834ea67bee",
+     "tail": 3619
+    }
+   ]
+  },
+  {
+   "id": "B14",
+   "rule": "hashed",
+   "fold": "ci",
+   "lb": true,
+   "rb": true,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 7,
+     "rk": 3505420775,
+     "sha256": "9057848d43043b05133500880b43e01dee6ab995a9ee42f72e5eed5191506fbb",
+     "tail": 3578
+    }
+   ]
+  },
+  {
+   "id": "B15",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 11,
+     "rk": 3082214947,
+     "sha256": "7c8db7c85289192df3cdf5ca9d7363a60e33f43f5cd0a87db341273e7c654fba",
+     "tail": 3617
+    }
+   ]
+  },
+  {
+   "id": "B16",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": true,
+   "forms": [
+    {
+     "len": 8,
+     "rk": 711484440,
+     "sha256": "35ae2a4b390fd96783383eaaec4bf3ef1c68d4fb3dee3a8d1658496b2c47c880",
+     "tail": 3380
+    }
+   ]
+  },
+  {
+   "id": "B17",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 9,
+     "rk": 1210390614,
+     "sha256": "4c3640b76a96802a66bf790092001345a3bd4747356027d61c1dbb30cc83ef72",
+     "tail": 3619
+    }
+   ]
+  },
+  {
+   "id": "B18",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 12,
+     "rk": 762312081,
+     "sha256": "9156af65d58788a7582c98ebb50e79eb1b48a6e96a9b66280d0bac3f4130252f",
+     "tail": 3380
+    }
+   ]
+  },
+  {
+   "id": "B19",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 11,
+     "rk": 356477837,
+     "sha256": "dd32e6382200592e0b2d9497d22248e48820808cef5a918dbee977920ede6e41",
+     "tail": 3619
+    }
+   ]
+  },
+  {
+   "id": "B20",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": true,
+   "forms": [
+    {
+     "len": 7,
+     "rk": 2873105593,
+     "sha256": "f8b3f272f9cd0556b164dc9c279737d1dfaedc65c07203e86317863f6026bad8",
+     "tail": 151
+    }
+   ]
+  },
+  {
+   "id": "B21",
+   "rule": "hashed",
+   "fold": "ci",
+   "lb": true,
+   "rb": true,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 8,
+     "rk": 2239408213,
+     "sha256": "c51b28591d2e149c26cf528cdc5160044b0d60ba3cb4162c9eafd8ac23ef224c",
+     "tail": 3577
+    }
+   ]
+  },
+  {
+   "id": "B22",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 10,
+     "rk": 2288218987,
+     "sha256": "3e11566adc945c06ce197737f86c25f77997d6e2625a46617d66ba0f1c372200",
+     "tail": 1640
+    }
+   ]
+  },
+  {
+   "id": "B23",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 14,
+     "rk": 2962091882,
+     "sha256": "32d54db04ec90ad3ca6ae0fa74ae92d5af710d00337506bb674225f69b9080e2",
+     "tail": 3617
+    }
+   ]
+  },
+  {
+   "id": "B24",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 15,
+     "rk": 1400646261,
+     "sha256": "0854b7376813785ba630190b6667a7f491cfd5709d8cc1af033aee00f14258f1",
+     "tail": 3619
+    }
+   ]
+  },
+  {
+   "id": "B25",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 16,
+     "rk": 2387355935,
+     "sha256": "cb4edebadfe57c5f0ec564a317fc0e51d0db2090e01dac796d16939bf3f4043e",
+     "tail": 3617
+    }
+   ]
+  },
+  {
+   "id": "B26",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 14,
+     "rk": 260449359,
+     "sha256": "8d22c9613e626e5e0bf2567e1854a6f7a1fa5442ba3ca274043191369b5458cc",
+     "tail": 3725
+    }
+   ]
+  },
+  {
+   "id": "B27",
+   "rule": "hashed",
+   "fold": "ci",
+   "lb": true,
+   "rb": true,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 7,
+     "rk": 3406125993,
+     "sha256": "5d6c9f344f38eff8e5ab62f6921efd56f59b1634c850752daa09df41d857645e",
+     "tail": 1783
+    }
+   ]
+  },
+  {
+   "id": "B28",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 8,
+     "rk": 340403395,
+     "sha256": "1ab5df656ae896ec4da7583fc994c7e1444579b055f3885b414fbcf5c1c5fa92",
+     "tail": 3959
+    }
+   ]
+  },
+  {
+   "id": "B29",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 14,
+     "rk": 3932631316,
+     "sha256": "98a208be941197718d4114184b7a04212c64bc7395446420850d7b8fff4ab18e",
+     "tail": 3943
+    }
+   ]
+  },
+  {
+   "id": "B30",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 15,
+     "rk": 2061701232,
+     "sha256": "efded8e597bd6be64ad91f4afa4ca92c3dc31834500aa370f1f5b6cba13fabaf",
+     "tail": 3659
+    }
+   ]
+  },
+  {
+   "id": "B31",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 10,
+     "rk": 73141951,
+     "sha256": "6e3fc684339d5d6fcb48252285a13b121d5d065068fe6396da6fc5ad59d009ad",
+     "tail": 3726
+    }
+   ]
+  },
+  {
+   "id": "B32",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 10,
+     "rk": 275651245,
+     "sha256": "f99b6927cda682109af31251caa92353b96b74a4cf555896ff8ca22a02cbad52",
+     "tail": 3729
+    }
+   ]
+  },
+  {
+   "id": "B33",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 10,
+     "rk": 1355962567,
+     "sha256": "5b8e463e2b884544fb0d520896a6c9000b7a2ad00d26be22f4073efae70bd12a",
+     "tail": 3777
+    }
+   ]
+  },
+  {
+   "id": "B34",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 10,
+     "rk": 831792293,
+     "sha256": "c3c34c439cf023ffc406396779452f17e084dc58f09c2faa73fb1030999d63a4",
+     "tail": 3562
+    }
+   ]
+  },
+  {
+   "id": "B35",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 11,
+     "rk": 2545503271,
+     "sha256": "f3e670b0efe2cf5d4a009554f9ff0bfa1985a9028d1cc7aa1090095d4e56e77a",
+     "tail": 3729
+    }
+   ]
+  },
+  {
+   "id": "B36",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 14,
+     "rk": 3782452774,
+     "sha256": "f5a3104046469b9fe9d57aefb5cd792027a08bb6de5c93c628edc3661326dd34",
+     "tail": 3311
+    }
+   ]
+  },
+  {
+   "id": "B37",
+   "rule": "hashed",
+   "fold": "ci",
+   "lb": true,
+   "rb": true,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 9,
+     "rk": 654649044,
+     "sha256": "21622ee32d63dbfc741c04ecdd4a1e2c4afb55b11a2df0b7af20fd0059cc2d1b",
+     "tail": 3618
+    }
+   ]
+  },
+  {
+   "id": "B38",
+   "rule": "hashed",
+   "fold": "ci",
+   "lb": true,
+   "rb": true,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 7,
+     "rk": 4245060058,
+     "sha256": "ffd02986d80b11b5df4960f1b7e6c92d0df0d0c675b3a48f321d4b614a926396",
+     "tail": 3952
+    }
+   ]
+  },
+  {
+   "id": "B39",
+   "rule": "hashed",
+   "fold": "ci",
+   "lb": true,
+   "rb": true,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 7,
+     "rk": 4174239979,
+     "sha256": "8152186be41383b23b2f86a32ba2c14a045d5350ccb4d9af39fc42e229a10b51",
+     "tail": 3362
+    }
+   ]
+  },
+  {
+   "id": "B40",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 9,
+     "rk": 2018735422,
+     "sha256": "c20410450e06254124cdf41e696958b0407ae291a6da77e2fa2db94bec8853ec",
+     "tail": 3619
+    }
+   ]
+  },
+  {
+   "id": "B41",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 10,
+     "rk": 174720415,
+     "sha256": "cf9bb9c9cc7f21ca820bf2b3043e49ce68f53fa2c41d84846a96ea10af58e7ef",
+     "tail": 3306
+    }
+   ]
+  },
+  {
+   "id": "B42",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 26,
+     "rk": 1473422816,
+     "sha256": "10c3e677b3b5c501950ba0f21eb4971e484f7d45a35233d795fc5fc6202843f8",
+     "tail": 3577
+    }
+   ]
+  },
+  {
+   "id": "B43",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 13,
+     "rk": 887494501,
+     "sha256": "ea2b809ebcb84d87c5e7fc7528aac87afcb9fb8f432cc1f83347de2c3536eed5",
+     "tail": 3502
+    }
+   ]
+  },
+  {
+   "id": "B44",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 12,
+     "rk": 3486952321,
+     "sha256": "9934a76356db67120b6a2ba4425d36247cb4f86211d979724c5fb1da7954d5c1",
+     "tail": 3619
+    }
+   ]
+  },
+  {
+   "id": "home-path",
+   "class": "privacy",
+   "rule": "regex-ci",
+   "scope": "binary-strings",
+   "pattern": "(?:/Users|/home)/[A-Za-z0-9._-]+/"
+  },
+  {
+   "id": "look-id-sp",
+   "class": "retired-id",
+   "rule": "regex-cs",
+   "scope": "text",
+   "pattern": "(?:['\"`‘’“”„«»]|&(?:quot|#34|ldquo|rdquo|lsquo|rsquo|bdquo|laquo|raquo);|\\\\['\"])sp(?:['\"`‘’“”„«»]|&(?:quot|#34|ldquo|rdquo|lsquo|rsquo|bdquo|laquo|raquo);|\\\\['\"])|(?<![0-9A-Za-z_.])look=sp(?![0-9A-Za-z_])"
+  },
+  {
+   "id": "canary-syn-initials",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": true,
+   "rb": true,
+   "short": true,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 3,
+     "rk": 5372659,
+     "sha256": "d46bfc2dd744bd88c2e5daad1d182e786ef700c33a7ca56d6c75fdb9d8cb2f23",
+     "tail": 2834
+    }
+   ]
+  },
+  {
+   "id": "canary-syn-name",
+   "rule": "hashed",
+   "fold": "ci",
+   "lb": true,
+   "rb": true,
+   "short": false,
+   "nonascii": true,
+   "forms": [
+    {
+     "len": 7,
+     "rk": 653882398,
+     "sha256": "a375322735e3975f7561bd3617bef732a635cdc6dd1b913d9b692c60a268b55f",
+     "tail": 3453
+    },
+    {
+     "len": 8,
+     "rk": 612211601,
+     "sha256": "034f605e95ae1ae14d520b23399de33f05d00370dfe893899f3d4462d7195eb6",
+     "tail": 3453
+    }
+   ]
+  },
+  {
+   "id": "canary-syn-title",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": false,
+   "forms": [
+    {
+     "len": 13,
+     "rk": 2624103681,
+     "sha256": "8bacf19553ad3453a05d34adf54a1e45b3962140387f0a11aede082ba3d29356",
+     "tail": 3663
+    }
+   ]
+  },
+  {
+   "id": "canary-syn-cjk",
+   "rule": "hashed",
+   "fold": "cs",
+   "lb": false,
+   "rb": false,
+   "short": false,
+   "nonascii": true,
+   "forms": [
+    {
+     "len": 6,
+     "rk": 2575274600,
+     "sha256": "d1769c2cdb5ea22ed9220d32f2a54a132627b331fe0bde8857361235a6a7a055",
+     "tail": 1590
+    }
+   ]
+  }
+ ],
+ "_tokens_not_here": "Equipment manufacturers are covered by other gates, in locales only. Governing bodies and literature are citations.",
+ "non_brand_contexts": [
+  {
+   "id": "side-pocket-spec-id",
+   "kind": "following",
+   "pattern": "-(?:\\d|\\*)",
+   "why": "OB-ROX-GEO-001 pocket spec ids: SP-01..SP-15 / SP-* (side pocket) beside CP-nn (corner pocket) — a pocket spec, not a brand"
+  },
+  {
+   "id": "spin-decay-constant",
+   "kind": "preceding",
+   "pattern": "(?<![0-9A-Za-z])K_",
+   "why": "K_SP, the cloth spin-decay constant derived from u_sp (web/tools/e2e-rollslip.mjs: K_SP = 2.5*u_sp_scale*g), quoted in web/app/rollcorrect.js — a physics symbol, not a brand"
+  },
+  {
+   "id": "base64-run",
+   "kind": "base64-run",
+   "min_length": 40,
+   "why": "SP inside a long base64 run (+SP/ in the CN8 transport artifact's encoded arrays) — encoded floats, not text — limited to the file where it was measured (6 of 6 declines are on its line 3), so a long slash path elsewhere is still judged",
+   "files": [
+    "web/scene/cn8transport-data.js"
+   ]
+  }
+ ],
+ "negative_controls": [
+  {
+   "file": "web/scene/ballreturn/assemblies/pool_pro_9ft_k55.json",
+   "context": "side-pocket-spec-id",
+   "min_present": 7,
+   "strip_pattern": "SP-12",
+   "why": "seven SP-12 pocket spec citations; they must stay present AND unconvicted"
+  },
+  {
+   "file": "web/app/rollcorrect.js",
+   "context": "spin-decay-constant",
+   "min_present": 2,
+   "strip_pattern": "K_SP",
+   "why": "two K_SP quotations of the spin-decay constant; they must stay present AND unconvicted"
+  },
+  {
+   "file": "web/scene/cn8transport-data.js",
+   "context": "base64-run",
+   "min_present": 1,
+   "strip_pattern": "\\+SP/",
+   "why": "+SP/ inside base64 arrays; must stay present AND unconvicted"
+  }
+ ],
+ "exceptions": [
+  {
+   "file": "web/app/bugreport.js",
+   "tokens": [
+    "look-id-sp"
+   ],
+   "max_counts": {
+    "look-id-sp": 2
+   },
+   "rebuilt": true,
+   "reason": "legacy look-id alias (GH-973): this entry point still accepts the retired id 'sp', so stored settings, native snapshot restores, shared ?look=sp links, bug reports filed before the rename and the test seams keep landing on the tournament look",
+   "until": "the legacy look id is retired: no stored settings, shared link or bug report in use carries it, and the repo's own drivers that still pass sp (render recorders, e2e callers, the lighting capture pipeline's labels) move to tournament first"
+  },
+  {
+   "file": "web/app/main.js",
+   "tokens": [
+    "look-id-sp"
+   ],
+   "max_counts": {
+    "look-id-sp": 12
+   },
+   "rebuilt": true,
+   "reason": "legacy look-id alias (GH-973): this entry point still accepts the retired id 'sp', so stored settings, native snapshot restores, shared ?look=sp links, bug reports filed before the rename and the test seams keep landing on the tournament look",
+   "until": "the legacy look id is retired: no stored settings, shared link or bug report in use carries it, and the repo's own drivers that still pass sp (render recorders, e2e callers, the lighting capture pipeline's labels) move to tournament first"
+  },
+  {
+   "file": "web/app/settings.js",
+   "tokens": [
+    "look-id-sp"
+   ],
+   "max_counts": {
+    "look-id-sp": 4
+   },
+   "rebuilt": true,
+   "reason": "legacy look-id alias (GH-973): this entry point still accepts the retired id 'sp', so stored settings, native snapshot restores, shared ?look=sp links, bug reports filed before the rename and the test seams keep landing on the tournament look",
+   "until": "the legacy look id is retired: no stored settings, shared link or bug report in use carries it, and the repo's own drivers that still pass sp (render recorders, e2e callers, the lighting capture pipeline's labels) move to tournament first"
+  },
+  {
+   "file": "web/scene/gi.js",
+   "tokens": [
+    "look-id-sp"
+   ],
+   "max_counts": {
+    "look-id-sp": 1
+   },
+   "rebuilt": true,
+   "reason": "legacy look-id alias (GH-973): this entry point still accepts the retired id 'sp', so stored settings, native snapshot restores, shared ?look=sp links, bug reports filed before the rename and the test seams keep landing on the tournament look",
+   "until": "the legacy look id is retired: no stored settings, shared link or bug report in use carries it, and the repo's own drivers that still pass sp (render recorders, e2e callers, the lighting capture pipeline's labels) move to tournament first"
+  },
+  {
+   "file": "web/scene/lightingvisuals.js",
+   "tokens": [
+    "look-id-sp"
+   ],
+   "max_counts": {
+    "look-id-sp": 4
+   },
+   "rebuilt": true,
+   "reason": "legacy look-id alias (GH-973): this entry point still accepts the retired id 'sp', so stored settings, native snapshot restores, shared ?look=sp links, bug reports filed before the rename and the test seams keep landing on the tournament look",
+   "until": "the legacy look id is retired: no stored settings, shared link or bug report in use carries it, and the repo's own drivers that still pass sp (render recorders, e2e callers, the lighting capture pipeline's labels) move to tournament first"
+  },
+  {
+   "file": "web/scene/look.js",
+   "tokens": [
+    "look-id-sp"
+   ],
+   "max_counts": {
+    "look-id-sp": 6
+   },
+   "rebuilt": true,
+   "reason": "legacy look-id alias (GH-973): this entry point still accepts the retired id 'sp', so stored settings, native snapshot restores, shared ?look=sp links, bug reports filed before the rename and the test seams keep landing on the tournament look",
+   "until": "the legacy look id is retired: no stored settings, shared link or bug report in use carries it, and the repo's own drivers that still pass sp (render recorders, e2e callers, the lighting capture pipeline's labels) move to tournament first"
+  },
+  {
+   "file": "web/assets/gi/gi-manifest.json",
+   "tokens": [
+    "look-id-sp"
+   ],
+   "max_counts": {
+    "look-id-sp": 10
+   },
+   "rebuilt": true,
+   "reason": "legacy look-id alias (GH-973, review r1): a cached pre-rename gi.js asks the manifest for 'sp', so every 'tournament' looks entry also ships under 'sp', deep-equal (bake-lightmap writes the pair; tools/test-look-id-alias.mjs checks it); the fresh gi.js reads 'tournament'",
+   "until": "the legacy look id is retired: no stored settings, shared link or bug report in use carries it, and the repo's own drivers that still pass sp (render recorders, e2e callers, the lighting capture pipeline's labels) move to tournament first"
+  }
+ ],
+ "pixel_declarations": [],
+ "not_proven": [
+  "token coverage is the declared list",
+  "pixels are read only through pixel_declarations",
+  "inflections the rules do not spell are invisible",
+  "equipment brands are covered by other gates, in locales only",
+  "the retired look id is read only as a quoted id or a ?look= value in shipped text",
+  "the home-path rider reads the wasm string tables only"
+ ],
+ "_public_snapshot": "Exported by the public-snapshot sync: the pins of excluded files are dropped, every pin becomes a per-token maximum (max_counts), and the brand rules are hashed.",
+ "rendered_catalog_tokens": [
+  {
+   "id": "pooltool",
+   "class": "upstream",
+   "rule": "regex-ci",
+   "pattern": "pooltool",
+   "scope": "rendered-catalog",
+   "reason": "Retired from player-visible equipment names and dossiers; developer provenance and the frozen catalog are unchanged."
+  }
+ ]
+}

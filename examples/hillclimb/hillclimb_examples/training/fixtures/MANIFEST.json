@@ -1,0 +1,31 @@
+{
+ "agent": "the baseline agent with its defaults (straightpool.base_agent)",
+ "commands": [
+  "python -B -m hillclimb_examples.training.datagen hillclimb_examples/training/fixtures --games 36 --namespace hillclimb/training/fixture --noise 0.1 --cap 29 --small --workers 4",
+  "python -B -m hillclimb_examples.training.relog hillclimb_examples/training/fixtures/games.jsonl hillclimb_examples/training/fixtures --m 16 --draws 16 --keep 4 --namespace hillclimb/training/fixture/relog"
+ ],
+ "files": {
+  "break-rows.jsonl": {
+   "lines": 8,
+   "sha16": "e8ae8639706ab681"
+  },
+  "games.jsonl": {
+   "lines": 36,
+   "sha16": "c6b69a4e48d18792"
+  },
+  "leaves.jsonl": {
+   "lines": 9,
+   "sha16": "34a63d3071aecc57"
+  },
+  "trigger-rows.jsonl": {
+   "lines": 58,
+   "sha16": "440e59cd24b52462"
+  }
+ },
+ "left_out": {
+  "decision-rows.jsonl": "every decision row of the games, written by the first command; the tests read only the trigger rows"
+ },
+ "made_with": "a previous version of this package's code, before the baseline agent aimed its ball-in-hand strokes from the seat (straightpool/AGENT-CARD-base.md); the commands name this version's modules, and run with this version they may write other bytes",
+ "note": "The bytes depend on the kernel build each game record names as a hash ('kernel') and on this package's code when they were made; another build or a later version of the code makes other games.",
+ "run_from": "examples/hillclimb"
+}

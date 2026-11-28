@@ -1,0 +1,17 @@
+{
+ "what": "no rows - predator's 18 (#671) cured by the shared run law in ringAt",
+ "gate": "tools/render/check-cushion-profile.mjs --expect-baseline (the battery row cushion-profile) and the --perturb=flip-tucked-cap differential arm",
+ "recorded_on": {
+  "sha": "b88c25c2ba2cbc449d68a2a40b24dbc1b1938f27",
+  "utc": "2026-09-12T00:14:33.782277+00:00",
+  "command": "node tools/render/check-cushion-profile.mjs",
+  "evidence": "reproduce: git worktree add --detach <dir> b88c25c2ba2cbc449d68a2a40b24dbc1b1938f27 && (cd <dir> && node tools/render/check-cushion-profile.mjs) (exit 0, all entries OK, 0 rows); node tools/render/check-cushion-profile.mjs --expect-baseline (BASELINE HELD 0 rows) at this fixture's commit and every later tip; also measured @ 20c2f80a72ae2f46c3b8af1ce3de34eea38b6cd9."
+ },
+ "measurement": [
+  "DERIVED mesh measurement: git worktree add --detach <dir> 47292df49133c02ec14ba5d8649cd6e76b1615fe, then node tools/render/lib/jaw-erosion-report.mjs --repo <dir> --table predator_apex_9ft @ 20c2f80a72ae2f46c3b8af1ce3de34eea38b6cd9; mesh-edge crossings 0 on 18/18 profile rows at z = 0 / 1.59 / 44.23 mm, read directly from cushionGeom triangles. Repeat using git worktree add --detach <fixed-dir> 20c2f80a72ae2f46c3b8af1ce3de34eea38b6cd9, then node tools/render/lib/jaw-erosion-report.mjs --repo <fixed-dir> --table predator_apex_9ft @ 20c2f80a72ae2f46c3b8af1ce3de34eea38b6cd9: mesh crossings remain 0 on 18/18 rows.",
+  "DERIVED stranded-vertex measurement: node tools/render/lib/jaw-erosion-report.mjs --repo <dir> --table predator_apex_9ft @ 20c2f80a72ae2f46c3b8af1ce3de34eea38b6cd9, with <dir> from git worktree add --detach <dir> 47292df49133c02ec14ba5d8649cd6e76b1615fe; side deviations 10.364 / 9.876 / 17.067 mm and corner deviations 0.509 / 0.326 / 3.401 mm at the same rows. Repeat using git worktree add --detach <fixed-dir> 20c2f80a72ae2f46c3b8af1ce3de34eea38b6cd9, then node tools/render/lib/jaw-erosion-report.mjs --repo <fixed-dir> --table predator_apex_9ft @ 20c2f80a72ae2f46c3b8af1ce3de34eea38b6cd9: every jaw distance is 0.000 mm and the sign guard fires 0 times. Unchanged jaw radii retain EST kernel-pinned provenance.",
+  "DERIVED recording: the 18 retired identities equal the rows in git show 47292df49133c02ec14ba5d8649cd6e76b1615fe:tools/render/fixtures/cushion-profile-baseline-490.json; their first-crossing coordinates are reproduced by node tools/render/check-cushion-profile.mjs --perturb=pairwise-jaw-weld @ 20c2f80a72ae2f46c3b8af1ce3de34eea38b6cd9 and retained in tools/render/fixtures/cushion-profile-jawweld-arm-671.json. The unperturbed command node tools/render/check-cushion-profile.mjs @ b88c25c2ba2cbc449d68a2a40b24dbc1b1938f27 exits 0 with no rows."
+ ],
+ "superseded_rows_moved_to": "tools/render/fixtures/cushion-profile-jawweld-arm-671.json",
+ "rows": []
+}

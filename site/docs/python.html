@@ -1,0 +1,287 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Python SDK — openbilliards API docs</title>
+  <meta name="description" content="pool_py reference: GIL-released batch simulation, numpy trajectory sampling, deterministic headless loops for analysis and reinforcement learning over the openbilliards kernel.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Python SDK — openbilliards API docs">
+  <meta property="og:description" content="pool_py reference: GIL-released batch simulation, numpy trajectory sampling, deterministic headless loops for analysis and reinforcement learning over the openbilliards kernel.">
+  <meta property="og:image" content="../assets/img/hero-poster.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b100c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23efe9d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/docs.css">
+  <script src="../assets/site.js" defer></script>
+  <script src="../assets/motion.js" defer></script>
+</head>
+<body>
+  <a class="bb-skip" href="#main">Skip to content</a>
+
+  <header>
+    <nav class="bb-nav" aria-label="Primary">
+      <a class="bb-wordmark" href="../index.html">Openbilliards</a>
+      <button class="bb-nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <ul class="bb-nav-links" id="nav-links">
+        <li><a href="../guide/en/index.html">Guide</a></li>
+        <li><a href="index.html">API docs</a></li>
+        <li><a href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a></li>
+        <li><a class="bb-pill bb-pill--fill" href="../web/app.html">Play now</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="docs-shell">
+
+      <aside class="docs-side">
+        <nav class="docs-toc" aria-label="API documentation">
+          <p class="bb-label docs-toc-head">API docs</p>
+          <ul class="docs-toc-pages">
+            <li><a href="index.html">Getting started</a></li>
+            <li><a href="ts.html">TypeScript SDK</a></li>
+            <li><a href="python.html" aria-current="page">Python SDK</a></li>
+            <li><a href="cli.html">CLI</a></li>
+            <li><a href="concepts.html">Concepts</a></li>
+            <li><a href="physics.html">The engine</a></li>
+          </ul>
+          <p class="bb-label docs-toc-head">On this page</p>
+          <ul class="docs-toc-anchors">
+            <li><a href="#install">01 — Install</a></li>
+            <li><a href="#surface">02 — The surface</a></li>
+            <li><a href="#batch">03 — Batch analysis</a></li>
+            <li><a href="#rl">04 — The RL loop</a></li>
+            <li><a href="#errors">05 — Errors &amp; determinism</a></li>
+          </ul>
+        </nav>
+        <div class="docs-side-plate">
+          <p class="bb-label">pool_py &#183; abi3 &#8805; py3.9</p>
+          <p class="bb-label"><a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/crates/pool-py/README.md">crates/pool-py</a></p>
+        </div>
+      </aside>
+
+      <article class="docs-main">
+        <div class="docs-head">
+          <nav class="docs-crumbs bb-label bb-reveal" aria-label="Breadcrumb">
+            <a href="../index.html">Openbilliards</a><span class="sep" aria-hidden="true">/</span><a href="index.html">API docs</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Python SDK</span>
+          </nav>
+          <p class="bb-label bb-marker bb-reveal">Reference — CPython &#8805; 3.9</p>
+          <h1 class="bb-heading bb-reveal bb-d1">Python SDK</h1>
+          <p class="bb-body docs-lede bb-reveal bb-d2">
+            <code style="font-family:var(--bb-mono);font-size:.9em;color:var(--bb-chalk)">pool_py</code>
+            binds the same kernel crate that powers the wasm build: zero physics
+            reimplementation. Simulation releases the GIL, batches parallelize
+            deterministically, and sampling returns numpy arrays: an analysis and
+            reinforcement-learning surface, not a port
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/crates/pool-py/README.md">crates/pool-py/README.md</a>.
+          </p>
+        </div>
+
+        <section class="docs-section" id="install">
+          <p class="bb-label bb-marker">01 — Install</p>
+          <h2 class="bb-heading-s">Install</h2>
+          <p class="bb-label well-cap">Shell</p>
+          <pre class="bb-code"><code><i class="tk-c"># development install into the active venv (needs Rust + maturin)</i>
+cd crates/pool-py
+maturin develop --release        <i class="tk-c"># add --uv inside a uv-managed venv</i>
+
+<i class="tk-c"># or build the abi3 wheel: one per platform covers CPython &#8805; 3.9</i>
+maturin build --release          <i class="tk-c"># target/wheels/pool_py-*.whl</i>
+pip install target/wheels/pool_py-*.whl</code></pre>
+          <div class="bb-prose">
+            <p>Verify the build by asking the kernel who it is:
+              <code>python -c "import pool_py; print(pool_py.kernel_version())"</code>.
+              The version hash is stamped into every record this module produces.</p>
+          </div>
+        </section>
+        <section class="docs-section" id="surface">
+          <p class="bb-label bb-marker">02 — The surface</p>
+          <h2 class="bb-heading-s">Classes &amp; functions</h2>
+          <table class="docs-table">
+            <thead><tr><th scope="col">Symbol</th><th scope="col">Does</th></tr></thead>
+            <tbody>
+              <tr><td><code>Table.wpa_9ft(*, ball_r=None)</code></td>
+                <td>The kernel's WPA 9-ft geometry. <code>.with_cushion_response(preset)</code> takes <code>'default' | 'hsv_fitted' | 'grip_fitted'</code>; getters <code>.width</code>/<code>.length</code>; <code>.to_json()</code>.</td></tr>
+              <tr><td><code>Ball(id, pos, *, vel, avel, motion, r, m)</code></td>
+                <td><code>pos</code> is (x, y), with z defaulting to r, or (x, y, z). Getters for every field.</td></tr>
+              <tr><td><code>SystemState(balls, *, table=None)</code></td>
+                <td>The ball set + table. Statics <code>nine_ball_rack(seed, *, table, cloth, ballset, cue, cushion_model)</code> / <code>fifteen_ball_rack(&#8230;)</code> build seeded bit-identical racks; equipment kwargs are catalog ids (unknown &#8594; <code>ValueError</code>). Also <code>with_cushion_response</code>, <code>with_cloth</code>, <code>.balls</code>, <code>ball_ids()</code>, <code>.table</code>, <code>to_json()</code>/<code>from_json(s)</code>.</td></tr>
+              <tr><td><code>Shot(v0, phi, *, theta=0, a=0, b=0, seed=0)</code></td>
+                <td>Shot parameters; validity enforced at simulate time: 0 &lt; v0 &#8804; 15, a&#178;+b&#178; &#8804; 0.25, 0 &#8804; theta &lt; &#960;/2.</td></tr>
+              <tr><td><code>SimOptions(*, max_events=None, t_max=None)</code></td>
+                <td>Statics <code>realistic()</code>, <code>stronge(omega_ratio)</code>, <code>mathavan_2010(&#8230;)</code>, <code>mathavan_fitted()</code> (pair table with <code>'hsv_fitted'</code>), <code>grip_fitted()</code> (pair with <code>'grip_fitted'</code>), <code>equipment(*, cushion_model, cue, ballset, &#8230;)</code>; <code>to_json()</code>/<code>from_json(s)</code>.</td></tr>
+              <tr><td><code>ShotRecord</code></td>
+                <td>Getters <code>.duration</code>, <code>.kernel_version</code>, <code>.format_version</code>, <code>.initial</code>, <code>.shot</code>, <code>.options</code>, <code>.stats</code>; <code>ball_ids()</code>; <code>events()</code> &#8594; flat pandas-friendly dicts; <code>sample(t)</code> &#8594; numpy (N, 8); <code>sample_batch(ts)</code> &#8594; numpy (T, N, 8); lossless <code>to_json()</code>/strict <code>from_json(s)</code>.</td></tr>
+              <tr><td><code>simulate(state, shot, options=None)</code></td>
+                <td>One shot &#8594; <code>ShotRecord</code>. Releases the GIL even single-shot.</td></tr>
+              <tr><td><code>batch_simulate(scenarios, *, options=None, threads=0)</code></td>
+                <td>List of (state, shot) or (state, shot, options) tuples, parallel, GIL-released; <code>results[i]</code> always matches <code>scenarios[i]</code>.</td></tr>
+              <tr><td><code>sweep(state, shots, *, options=None, threads=0)</code></td>
+                <td>Many shots over ONE state (aim sweeps), same ordering guarantee.</td></tr>
+              <tr><td><code>kernel_version() &#183; catalog()</code></td>
+                <td>The kernel stamp; the equipment registry as a plain dict, identical to the wasm&rsquo;s <code>catalog_json()</code>.</td></tr>
+              <tr><td><code>FORMAT_VERSION &#183; FLOATS_PER_BALL</code></td>
+                <td>Record schema version (1); sample stride (8: x, y, z, qw, qx, qy, qz, motion code).</td></tr>
+            </tbody>
+          </table>
+          <div class="bb-prose">
+            <p><code>events()</code> kinds are snake_case strings (<code>'strike'</code>, <code>'ball_ball'</code>,
+              <code>'ball_linear_cushion'</code>, <code>'ball_circular_cushion'</code>,
+              <code>'ball_pocket'</code>, <code>'ball_table'</code>,
+              <code>'ball_off_table'</code>, <code>'transition'</code>,
+              <code>'rest'</code>), each dict carrying <code>t</code>, participant
+              fields, and the post-event ball states.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="batch">
+          <p class="bb-label bb-marker">03 — Batch analysis</p>
+          <h2 class="bb-heading-s">A hundred breaks, one call</h2>
+          <div class="bb-prose">
+            <p>Each seed re-racks the nine balls with seeded micro-gaps, so a seed
+              range measures the break-outcome distribution. Results come back in
+              order regardless of thread count.</p>
+          </div>
+          <p class="bb-label well-cap">Python — <strong>verified</strong> CPython 3.12, pool_py 0.1.0</p>
+          <pre class="bb-code"><code><b class="tk-n">import</b> math
+<b class="tk-n">import</b> numpy <b class="tk-n">as</b> np
+<b class="tk-n">import</b> pool_py <b class="tk-n">as</b> pp
+
+scenarios = [
+    (pp.SystemState.<b class="tk-n">nine_ball_rack</b>(seed), pp.<b class="tk-n">Shot</b>(v0=<b class="tk-n">9.0</b>, phi=math.pi / <b class="tk-n">2</b>, seed=seed))
+    <b class="tk-n">for</b> seed <b class="tk-n">in</b> <b class="tk-n">range</b>(<b class="tk-n">100</b>)
+]
+records = pp.<b class="tk-n">batch_simulate</b>(scenarios, options=pp.SimOptions.<b class="tk-n">realistic</b>())
+
+pocketed = [<b class="tk-n">sum</b>(e[<b class="tk-n">"kind"</b>] == <b class="tk-n">"ball_pocket"</b> <b class="tk-n">for</b> e <b class="tk-n">in</b> rec.<b class="tk-n">events</b>()) <b class="tk-n">for</b> rec <b class="tk-n">in</b> records]
+<b class="tk-n">print</b>(<b class="tk-n">"mean balls pocketed on the break:"</b>, <b class="tk-n">sum</b>(pocketed) / <b class="tk-n">len</b>(pocketed))
+
+ts = np.<b class="tk-n">linspace</b>(<b class="tk-n">0.0</b>, records[<b class="tk-n">0</b>].duration, <b class="tk-n">500</b>)
+frames = records[<b class="tk-n">0</b>].<b class="tk-n">sample_batch</b>(ts)   <i class="tk-c"># (T, N, 8): x y z qw qx qy qz code</i>
+np.<b class="tk-n">savetxt</b>(<b class="tk-n">"cue_path.csv"</b>, np.c_[ts, frames[:, <b class="tk-n">0</b>, :<b class="tk-n">3</b>]], header=<b class="tk-n">"t,x,y,z"</b>)</code></pre>
+          <p class="bb-label well-cap">Output</p>
+          <pre class="bb-code well-out"><code>mean balls pocketed on the break: 1.15
+<i class="tk-c"># frames.shape == (500, 10, 8); cue_path.csv written</i></code></pre>
+          <div class="bb-prose">
+            <p>Rows of <code>sample(t)</code> / <code>sample_batch(ts)</code> follow
+              <code>ball_ids()</code> order. The trajectory is reconstructed exactly
+              from the analytic motion; records store events, never frames
+              <a class="bb-cite" href="concepts.html#records">concepts &#183; records</a>.</p>
+          </div>
+        </section>
+        <section class="docs-section" id="rl">
+          <p class="bb-label bb-marker">04 — The RL loop</p>
+          <h2 class="bb-heading-s">Deterministic, headless, fast</h2>
+          <div class="bb-prose">
+            <p>The kernel is an event solver, not a frame stepper: a full break
+              resolves in milliseconds with no renderer attached, and the same seed
+              and parameters produce byte-identical records on any machine. That is
+              the whole contract a training environment needs: a state in, a shot in,
+              an exact table state out.</p>
+          </div>
+          <p class="bb-label well-cap">Python — <strong>verified</strong> CPython 3.12, pool_py 0.1.0</p>
+          <pre class="bb-code"><code><b class="tk-n">import</b> math, time
+<b class="tk-n">import</b> pool_py <b class="tk-n">as</b> pp
+
+state = pp.SystemState.<b class="tk-n">nine_ball_rack</b>(<b class="tk-n">7</b>)
+t0 = time.<b class="tk-n">perf_counter</b>()
+<b class="tk-n">for</b> episode <b class="tk-n">in</b> <b class="tk-n">range</b>(<b class="tk-n">20</b>):
+    <i class="tk-c"># a crude policy: sweep the break angle a little each episode</i>
+    shot = pp.<b class="tk-n">Shot</b>(v0=<b class="tk-n">8.0</b>, phi=math.pi / <b class="tk-n">2</b> + <b class="tk-n">0.002</b> * episode, seed=episode)
+    rec = pp.<b class="tk-n">simulate</b>(state, shot)          <i class="tk-c"># releases the GIL</i>
+    final = rec.<b class="tk-n">sample</b>(rec.duration)        <i class="tk-c"># numpy (N, 8) table state</i>
+    on_table = (final[:, <b class="tk-n">7</b>] != <b class="tk-n">4</b>).<b class="tk-n">sum</b>()     <i class="tk-c"># motion code 4 = Pocketed</i>
+dt = time.<b class="tk-n">perf_counter</b>() - t0
+<b class="tk-n">print</b>(f<b class="tk-n">"20 full breaks in {dt:.2f}s, last on_table={on_table}"</b>)</code></pre>
+          <p class="bb-label well-cap">Output — one laptop core, no rendering</p>
+          <pre class="bb-code well-out"><code>20 full breaks in 0.05s, last on_table=9</code></pre>
+          <div class="bb-prose">
+            <p>Scale up with <code>batch_simulate</code> (thread-parallel over a
+              scenario list) or <code>sweep</code> (one state, many candidate shots);
+              both are deterministic and order-stable for any <code>threads</code> value,
+              so an experiment is reproducible from its seed list alone
+              <span class="bb-cite">feature 005 (internal spec)</span>.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="errors">
+          <p class="bb-label bb-marker">05 — Errors &amp; determinism</p>
+          <h2 class="bb-heading-s">Errors &amp; determinism</h2>
+          <div class="bb-prose">
+            <p>Kernel input rejections and malformed JSON surface as
+              <code>ValueError</code> carrying the kernel's own message (batch errors
+              are prefixed <code>scenario {i}:</code>); budget exhaustion and internal
+              invariants are <code>RuntimeError</code>. No panic ever crosses the FFI
+              boundary
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/crates/pool-py/README.md">crates/pool-py/README.md</a>.</p>
+          </div>
+          <p class="bb-label well-cap">Python — <strong>verified</strong> error and determinism checks</p>
+          <pre class="bb-code"><code>&gt;&gt;&gt; pp.SystemState.<b class="tk-n">nine_ball_rack</b>(<b class="tk-n">1</b>, cloth=<b class="tk-n">"velvet"</b>)
+ValueError: invalid input: unknown equipment cloth id "velvet"
+
+&gt;&gt;&gt; a = pp.<b class="tk-n">simulate</b>(state, pp.<b class="tk-n">Shot</b>(v0=<b class="tk-n">8.0</b>, phi=math.pi / <b class="tk-n">2</b>, seed=<b class="tk-n">3</b>)).<b class="tk-n">to_json</b>()
+&gt;&gt;&gt; b = pp.<b class="tk-n">simulate</b>(state, pp.<b class="tk-n">Shot</b>(v0=<b class="tk-n">8.0</b>, phi=math.pi / <b class="tk-n">2</b>, seed=<b class="tk-n">3</b>)).<b class="tk-n">to_json</b>()
+&gt;&gt;&gt; a == b
+True</code></pre>
+          <div class="bb-prose">
+            <p><code>ShotRecord.from_json</code> is strict: the record's format version
+              and kernel version must match this build, because cross-build replay is
+              not bit-reproducible
+              <a class="bb-cite" href="concepts.html#determinism">concepts &#183; determinism</a>.
+              <code>to_json()</code> round-trips floats losslessly.</p>
+          </div>
+        </section>
+
+        <nav class="docs-prevnext" aria-label="Docs pagination">
+          <a href="ts.html"><p class="bb-label">Previous</p><p class="pn-title">&#8592; TypeScript SDK</p></a>
+          <a href="cli.html"><p class="bb-label">Next</p><p class="pn-title">CLI reference &#8594;</p></a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <footer class="bb-footer docs-footer">
+    <div class="bb-footer-grid">
+      <nav aria-label="API docs">
+        <p class="bb-label">API docs</p>
+        <ul>
+          <li><a class="bb-link" href="index.html">Getting started</a></li>
+          <li><a class="bb-link" href="ts.html">TypeScript SDK</a></li>
+          <li><a class="bb-link" href="python.html">Python SDK</a></li>
+          <li><a class="bb-link" href="cli.html">CLI reference</a></li>
+          <li><a class="bb-link" href="concepts.html">Concepts</a></li>
+          <li><a class="bb-link" href="physics.html">The engine</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site">
+        <p class="bb-label">Site</p>
+        <ul>
+          <li><a class="bb-link" href="../index.html">Home</a></li>
+          <li><a class="bb-link" href="../guide/en/index.html">Gameplay guide</a></li>
+          <li><a class="bb-link" href="../web/app.html">Play</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Project">
+        <p class="bb-label">Project</p>
+        <ul>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards">GitHub</a></li>
+          <li><a class="bb-link" href="https://github.com/facebookexperimental/openbilliards/blob/main/crates/pool-py/README.md">pool-py readme</a></li>
+          <li><span class="bb-cite">SDK spec</span></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="bb-label">Colophon</p>
+        <p class="bb-body-s bb-muted" style="max-width: 34ch;">Every example on these
+          pages ran against the shipped kernel before publication. No trackers, no
+          CDNs, no requests beyond this origin.</p>
+      </div>
+    </div>
+    <p class="bb-footer-credits">
+      <span>&copy; 2026 Meta Platforms, Inc. &#183; MIT &#183; <a href="../web/vendor/NOTICE-pooltool.txt" style="white-space: nowrap;">includes Apache-2.0 code</a> &#183; <a href="https://opensource.fb.com/legal/terms" style="white-space: nowrap;">Terms of Use</a> &#183; <a href="https://opensource.fb.com/legal/privacy" style="white-space: nowrap;">Privacy Policy</a></span>
+      <span>Docs verified against kernel 0.1.0</span>
+    </p>
+  </footer>
+</body>
+</html>

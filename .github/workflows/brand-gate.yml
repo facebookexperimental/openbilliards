@@ -1,0 +1,35 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+# Competitor brands in shipped surfaces (tools/check-competitor-brands.mjs) for the
+# one shipped tree ci.yml skips: ci.yml runs the same two steps next to the GH-789
+# de-branding gates but filters out site/** on purpose, so a site-only change would
+# never meet the gate. GitHub-hosted runner only (the self-hosted Mac runner must not
+# gain jobs); node-only. The arms' modelled public snapshot ships the held site
+# set from the snapshot manifest's HOLD_REV, so they read that commit's
+# blobs: the checkout fetches history.
+name: brand-gate
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/brand-gate.yml"
+  pull_request:
+    paths:
+      - "site/**"
+      - ".github/workflows/brand-gate.yml"
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: competitor brands absent from shipped surfaces
+        run: node tools/check-competitor-brands.mjs
+      - name: competitor-brand gate arms
+        run: node tools/check-competitor-brands.mjs --selftest

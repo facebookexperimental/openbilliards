@@ -1,0 +1,70 @@
+{
+ "_comment": "parse-first fence pins (COMPANION-1b): the 39 verdict writers the fence judges and the sha-pinned exempt files. Kept as DATA beside the fence so a static reader of tool names (main's ci-bands nested-spawn lint) cannot mistake the audited list for spawn edges — the fence spawns only python3 for its own AST twin.",
+ "pinned": [
+  "asmodeled-drawings-488d.mjs",
+  "asmodeled-drawings-488p.mjs",
+  "asmodeled-drawings-489.mjs",
+  "asmodeled-drawings-490.mjs",
+  "c14-488d.mjs",
+  "c14-488p.mjs",
+  "cammatch-488d-compare.py",
+  "cammatch-488d-edgeaudit.py",
+  "cammatch-488d.mjs",
+  "cammatch-488p-admit.py",
+  "cammatch-489-compare.py",
+  "cammatch-489.mjs",
+  "cammatch-490.mjs",
+  "cammatch/compare-490.py",
+  "cammatch/ownerpanel-490.py",
+  "census-490-tables.mjs",
+  "check-coplanar-pairs.mjs",
+  "check-corner-form.mjs",
+  "check-pocket-construction.mjs",
+  "crosstable-spot-488p.mjs",
+  "fullview-overlay-488d.mjs",
+  "fullview-overlay-488p.mjs",
+  "fullview-overlay-489.mjs",
+  "fullview-overlay-490.mjs",
+  "gh488d/census_488d.py",
+  "gh488d/liveness_488d.py",
+  "gh488d/make_card_488d.py",
+  "gi-mirror-census-490.mjs",
+  "gi-mirror-dump-490.mjs",
+  "liveswitch-628.mjs",
+  "meshident-488d.mjs",
+  "orbitsweep-488d.mjs",
+  "orbitsweep-489.mjs",
+  "orbitsweep-490.mjs",
+  "orbitsweep-judge.py",
+  "overlay-490-gate.mjs",
+  "probe-489-w8.mjs",
+  "redarm-a9-datum-488d.mjs",
+  "regdiff-628.mjs"
+ ],
+ "exempt": {
+  "selftest-regdiff-628.mjs": {
+   "sha": "aecc44516a78080e",
+   "why": "removes only the mktemp root it created (line ~220)"
+  },
+  "orbit-488d.mjs": {
+   "sha": "6899c2dcfa044e81",
+   "why": "removes its own decode scratch dirs (dec / dir it created)",
+   "repinned": "23c2daf25bfda151 → 6899c2dcfa044e81: main be25b147 added the exported SHARED_DEFAULT_WINDOW constant (+5 lines, no removal or effect changed) — re-pinned at the fold (COMPANION-1b)"
+  },
+  "break-scrub.mjs": {
+   "sha": "0fca818e994baeb6",
+   "why": "removes its own /tmp/break-scrub-work scratch and its own dstDir output"
+  },
+  "orbitsweep-488p.mjs": {
+   "sha": "6f1bd1a0a717e744",
+   "why": "clears run dirs under its own --pack output (evidence generator outside the FIX3 verdict-writer list; open row)",
+   "repinned": "563e2dfa26f4c186 → 6f1bd1a0a717e744: main be25b147 moved its claimPortBand window 9690-9719 → 23850-23879 (2 lines, no removal or effect changed) — re-pinned at the fold (COMPANION-1b)"
+  }
+ },
+ "vendor": {
+  "acorn/acorn.mjs": {
+   "sha": "1cbcbf252a5800e4",
+   "why": "acorn 8.17.0, MIT (lib/vendor/acorn/LICENSE) — the JavaScript reader behind this fence itself and, since GH-750, behind web/tools/cdp.mjs’s port readers; its module scope builds the TokenType / TokContext tables, which a static judge can only report as unknown constructors (465 findings), and third-party table construction is not what the parse-first law judges"
+  }
+ }
+}

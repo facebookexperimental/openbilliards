@@ -1,0 +1,5 @@
+E2E-REPLAYS: 1 failure(s) in this arm — OK line withheld (5b OK)
+note: a previous run ended with E2E-REPLAYS: FAIL (1 failure(s)) on this box
+  E2E-REPLAYS: PASS
+E2E-REPLAYS PASSED
+E2E-REPLAYS-STALE PASS (3 arms)

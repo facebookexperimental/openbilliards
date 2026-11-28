@@ -1,0 +1,641 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* ui/play.css — play-place card content leaf (feature 034, program 525 S4).
+   Kit leaf per the cache-poison contract: loaded by web/app/play.js via a
+   `?v=` stamped <link id="ob-play-css"> (bump PLAY_CSS_V in play.js on
+   EVERY change to this file; v003 = Phase B registers + phone cap; v004 =
+   review visual audit round 1: rail edge fades + the phone rail-first
+   order; v005 = visual audit round 2: the scroller's fade band as
+   scroll-padding; v009 = GH-668 S5 slice 3: the cards + variant picks are
+   kit .ob-card-option parts, the play register blocks are gone; v017 =
+   GH-668 S5 play visual r1: the fine-register rest position, the muted
+   NAME on a readiness card, the full-citation reserve; v018 = the merge
+   round: review r1 P2-1 rung-1 browse marker + visual r1 folded; v019 =
+   review r2: the compact current-preset line of the degraded registers +
+   the Details body's glass ink; v020 = review r2 follow-through: the Details
+   body on the kit solid strip; v021 = GH-668 S5 play r4: the B-K05
+   publish-marker gate on the cap; v022 = GH-668 S5 play r5: the stale-kit
+   PART FALLBACK under the host marker, review r4 F1). Tokens only (--ob-* and --ob-glass-*, ci.yml
+   grep gated); labels wrap or grow, never ellipsize (e2e-ui --audit law —
+   no text-overflow anywhere in this sheet). Selectors here are the
+   contracts/play.md §3 surface (frozen at S4a integration).
+
+   Scope law (spec FR-015 / tasks T004): every rule is scoped under
+   section[data-place="play"].ob-play-host — the host class play.js adds
+   inside its stylesheet-gated mount(). The S1 stub register (no host
+   class) never sees a rule from this sheet, so the degrade rungs keep the
+   frozen S1 geometry byte-for-byte.
+
+   Material: the S1 smoked-glass family (shell.md §6) — the section itself
+   keeps shell.css's card material; the inner cards (rail, variant rows)
+   ride --ob-glass-* with the body.ob-glass-off / no-backdrop-filter /
+   prefers-reduced-transparency solid rung (tokens.css:164-172). */
+
+/* ---- host section: the play place's card section becomes a height-
+   capped flex column while play owns it (FR-003 boot-frame restraint —
+   the boot frame at 844x390 never covers the bed; internal scroll lives
+   on [data-ob="play-body"] with the ui/scrollfade.js edge law). The cap
+   CONSUMES the shell's published reserve (B-K05 / B-PL02 seam, shell.css
+   --ob-shell-reserve-b = the px from the viewport bottom the place content
+   keeps clear of: the rail / quick-play band + sp-2); 14 px = the card
+   column's datum (shell.css section top). Fallback 116 = the measured
+   desktop reserve → 130 total, byte-identical geometry on a stale shell.
+   (GH-668 S5 slice 3: the cap half of B-PL02 landed with G1 — the kit
+   card's uniform reserve moved the fold-snap's clean boundary INSIDE the
+   phone rail (body 82 px at 844x390, a fork option row could no longer
+   sit whole in the clean window); the seam gives the body the room the
+   shell actually has.)
+   PUBLISH-MARKER GATE (GH-668 S5 play r4, review r3 F1 — blame 1c70e7ac):
+   shell.css declares the seam's :root DEFAULT (--ob-shell-reserve-b: 0px,
+   "a closed shell reserves nothing"), so on the supported mixed-cache
+   pairing — THIS sheet + a cached pre-B-K05 shell.js — the var is DEFINED
+   and never updated: the fallback inside var() never engaged, the cap read
+   100vh - 14 and long Play content ran under the quick-play band (844x390:
+   the section's edge 108 px below the band top; measured by e2e-play
+   P-STALE-SHELL on c25b6487). The consumption is now gated on the marker
+   only a PUBLISHING shell writes: the inline declaration the B-K05 band
+   observer sets on :root (shell.js writeBands — setProperty on #ob-shell
+   AND documentElement; the style attribute serialises it as
+   `--ob-shell-reserve-b: <px>;`). The BASE rule restates the pre-seam cap
+   byte-for-byte (130 = 14 + 116, the G1-replaced expression) and holds on
+   a stale shell AND on the observer's pre-publish frame (the legacy cap,
+   never the 0 px reserve). The r1 form — the constants as var() fallbacks
+   — is RESTATED here as superseded: correct only while the seam's default
+   was undefined. Arms: P-STALE-SHELL (the stale shell DERIVED from the
+   current module, served at the network), P-NOTCH-FALLBACK; P-RESERVE
+   keeps the published pairing. */
+#ob-shell-cards > section[data-place="play"].ob-play-host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* the reserve NOT published (stale shell.js / the pre-publish frame):
+     the pre-seam desktop cap, restated */
+  max-height: calc(100vh - 130px - env(safe-area-inset-top, 0px));
+}
+/* the reserve PUBLISHED (the marker): the cap consumes the seam. The 116
+   inside var() is the r1 fallback kept for the record — the marker
+   guarantees the var is set. */
+:root[style*="--ob-shell-reserve-b:"] #ob-shell-cards > section[data-place="play"].ob-play-host {
+  max-height: calc(100vh - 14px - env(safe-area-inset-top, 0px) - var(--ob-shell-reserve-b, 116px));
+}
+/* GH-534 F1 law (the S1 ghost class): the display:flex rule above ties
+   shell.css's `section[hidden] { display:none }` at specificity and would
+   win on source order — the host needs its own [hidden] kill rule. */
+#ob-shell-cards > section[data-place="play"].ob-play-host[hidden] { display: none; }
+/* the S1 stub content (summary lines + the game-settings action) retires
+   from view while play owns the section: play.js sets [hidden], and
+   shell.css's own display rules (.ob-shell-actions display:flex) outrank
+   the UA [hidden] rule — restore the law at host scope. The place heading
+   (h2 — the long-press act-now point) and play's own body stand. */
+#ob-shell-cards > section[data-place="play"].ob-play-host > [hidden] { display: none; }
+/* every play-owned hidden toggle is honoured regardless of the display the
+   kit classes below set on the same node (review round 1 P1-2) */
+section[data-place="play"].ob-play-host [data-ob^="play-"][hidden] { display: none; }
+
+/* ---- body: the ONE scroller (the h2 stays put above it) ---------------- */
+section[data-place="play"].ob-play-host [data-ob="play-body"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-2);
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  font-family: var(--ob-font);
+  color: var(--ob-text-0);
+  /* the FOLD-SNAP law (ui/foldsnap.js; GH-525 integrator 2026-09-05, the
+     combined review visual audit r1 finding 7): the leaf writes the
+     component-local --fs-h (the snapped clip height — the largest clean
+     text-line / block boundary at or above the section cap's budget, never
+     below the first block) and --fs-pad (the end pad that makes the last
+     stop clean at its top edge). Fallbacks = today's layout: the section
+     cap alone bounds the body, no pad. NOT --ob-* (the --sf-* precedent). */
+  max-height: var(--fs-h, none);
+  padding-bottom: var(--fs-pad, 0px);
+}
+/* the scrollfade band is part of the scroller's INSET (review visual audit
+   round 2, finding 1): the kit paints a 24 px gradient band at each clipped
+   edge (ui/kit.css .ob-scrollfade::before/::after), so a control parked
+   inside that band is only half legible. scroll-padding makes EVERY
+   scroll-into-view — the browser's own focus scroll and play.js's
+   reveal-on-focus — treat the band as outside the visible box; the
+   correction is 0 wherever the band is not drawn (top / end of the
+   scroll). play.js reads this value back (scrollPaddingTop), so the number
+   lives here only; the rung without the kit leaf has no band and no
+   padding. */
+section[data-place="play"].ob-play-host [data-ob="play-body"].ob-scrollfade {
+  scroll-padding-block: 24px;
+}
+/* the reduced-transparency rung swaps the band for a 1 px hairline */
+@media (prefers-reduced-transparency: reduce) {
+  section[data-place="play"].ob-play-host [data-ob="play-body"].ob-scrollfade {
+    scroll-padding-block: 1px;
+  }
+}
+
+/* ---- labels: wrap, never ellipsize (FR-016 / FR-017 budget law) --------
+   `label` LEFT this blanket with GH-668 S5 slice 3 G2 (B-PL01): a segment
+   label never wraps (kit WRAP LAW, kit.css `.ob-segmented[role=radiogroup]
+   > label`); the fork copy is the two nouns + a kit .ob-hint line, so the
+   pill form fits every locale at 254 px and the e2e-ui OVERRIDE_OK
+   `segmented-blanket` row is retired. The radio's text rides the inner span. */
+section[data-place="play"].ob-play-host [data-ob="play-body"] h3,
+section[data-place="play"].ob-play-host [data-ob="play-body"] p,
+section[data-place="play"].ob-play-host [data-ob="play-body"] button,
+section[data-place="play"].ob-play-host [data-ob="play-body"] span {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ---- summary (reuses the S1 .ob-shell-line anatomy + shell.css skin) ---
+   Under the host the node paints ONLY as the compact current-preset line
+   of a DEGRADED register (play.js renderSummary — review review r2 P2-1:
+   the picker-less fallbacks said the active preset nowhere); the Game
+   line is [hidden] there (the card says the game). The line wears the kit
+   text register the ruling names — --ob-fs--1 in --ob-text-1 (the S1
+   skin's --ob-fs-0 body line is the stub's register, not this one); the
+   lead keeps the S1 primary ink (shell.css `b`); no margin — the body's
+   gap is the rhythm. The id anchor matches shell.css's own
+   `#ob-shell-cards .ob-shell-line` weight class (an id outranks any
+   class chain), stated once, at host scope only. */
+section[data-place="play"].ob-play-host [data-ob="play-summary"] {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+#ob-shell-cards > section[data-place="play"].ob-play-host [data-ob="play-summary"] .ob-shell-line {
+  margin: 0;
+  font-size: var(--ob-fs--1);
+  color: var(--ob-text-1);
+}
+
+/* ---- Details body: ink + the kit SOLID strip (review review r2 P2-2 + the
+   fix check's follow-through; the design charter G7 ground law / B-K14 material
+   ladder): the kit .ob-hint role paints --ob-text-2, legal only on an opaque
+   --ob-bg step or the solid rung; `[data-ob="play-details-body"]` sits on
+   the section's 52 % smoke over the LIVE scene, where the hint role is
+   --ob-text-1 — and on a true top-down frame the bright cloth is the ground
+   under the card column (camel + 1.4: text-1 on smoke read 2.83:1 there),
+   so the body wears the kit `.ob-mat-solid` strip (play.js adds the class;
+   kit.css paints --ob-glass-solid 94 %, no blur — the same register the
+   carom fork block sits on). The sheet keeps ONLY the strip idiom's layout
+   (the fork's): sp-2 / sp-1 pad with the rail's sp-1 inline bleed into the
+   section pad, so the strip reads column-wide and the text keeps the
+   column's edge; no radius (P-KIT static law; card chrome is the kit
+   part's). Ink one value on every rung (text-1 on the solid rung is the kit
+   card part's own hint ink, B-K02; on the solid rung the strip is the pane's
+   own colour — invisible); the kit hint's size / weight / leading stand.
+   e2e-play P-DETAILS-INK judges the expanded body by the A2 ground method
+   over a LIGHT scene on the orbit AND the top-down frame, glass + solid. */
+section[data-place="play"].ob-play-host [data-ob="play-details-body"] {
+  color: var(--ob-text-1);
+  padding: var(--ob-sp-2) var(--ob-sp-1);
+  margin: 0 calc(-1 * var(--ob-sp-1));
+}
+
+/* ---- section heads (Discipline / Rules preset / the carom fork) --------
+   The type voice is the kit CAPS role — play.js puts `.ob-caps` on every h3
+   (GH-668 S5 slice 3 G5 / B-K24; kit.css G7 type roles own size / weight /
+   tracking / transform / ink, incl. the CJK arm); the sheet keeps ONLY the
+   margin rhythm. */
+section[data-place="play"].ob-play-host [data-ob="play-body"] h3 {
+  margin: var(--ob-sp-1) 0 0;
+}
+
+/* ---- back-to-play action (FR-013; >= 44 pt both dims): a kit .ob-btn--row
+   part (GH-668 B-K01, S5 kit step 9) — the 44 floor / start alignment / mid
+   pole come from the kit; the full-width start-aligned PILL is gone ------- */
+/* STALE-KIT BELT (the ownership ledger mixed-cache rule; GH-668 review r1 P2): a
+   returning client can pair THIS sheet with a cached pre-v028 kit.css that
+   has no .ob-btn--row part. The row declarations are restated at the kit's
+   own values so that pairing degrades to the ROW register (wrap / start /
+   mid pole / 44 floor), never to a nowrap pill; the token fallbacks cover a
+   stale tokens.css. A belt never states what its kit part does not.
+   vfix1 (verifier P3, the local-restatement law): the play scope sits
+   inside :where() so the belt weighs EXACTLY what the kit rule it restates
+   weighs — .ob-btn--row (0,1,0) and .ob-btn--row .ob-btn__label (0,2,0) —
+   never more: with the live kit it is a tie the later sheet wins with the
+   same values (no visible effect; any MORE specific kit rung still
+   outranks it); under the stale pairing it wins the same tie against the
+   base .ob-btn rules (centre / control rung / nowrap label at (0,1,0)),
+   which is the whole belt. A zero-specificity belt cannot do that job. */
+/* (S5 slice 3 battery: G4's Details expander [data-ob="play-details"] is a
+   migrated .ob-btn--row too — it wears the SAME belt; the e2e-ui stale-kit
+   pairing lab judges both rows.) */
+:where(section[data-place="play"].ob-play-host [data-ob="play-back"],
+       section[data-place="play"].ob-play-host [data-ob="play-details"]).ob-btn--row {
+  justify-content: flex-start;
+  min-height: var(--ob-h-coarse, 44px);
+  border-radius: var(--ob-r-m);
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  line-height: var(--ob-lh-control, 1.35);
+  text-align: start;
+  white-space: normal;
+}
+:where(section[data-place="play"].ob-play-host [data-ob="play-back"],
+       section[data-place="play"].ob-play-host [data-ob="play-details"]).ob-btn--row .ob-btn__label { white-space: normal; }
+
+/* ---- discipline rail (ui/cardrail.js mount; the mount is the scroller).
+   The cards are the kit `.ob-card-option--card` part (GH-668 B-PL08, S5
+   slice 3 G1; play.js decorateCard adds the classes on BOTH registers —
+   the cardrail leaf card and the rung-1 button): material (the solid rung,
+   never a second blur), radius, the hover / active / current / disabled
+   registers (G9), the focus composition (B-K06 / B-PL03) and the hint ink
+   (--ob-text-1 on the solid rung, B-K02) are the kit's. This sheet keeps
+   ONLY the rail's layout — the scroller and the caller-owned SLOT width
+   (cardrail leaf law: label length never drives the card's width). A
+   cached pre-v028 kit.css has no part: the card degrades to a plain button
+   inside the shell (functional, legible, un-skinned — the cache-poison
+   contract's rung; no belt restates a part this large). ----------------- */
+section[data-place="play"].ob-play-host [data-ob="play-games"] {
+  display: flex;
+  flex-direction: row;
+  gap: var(--ob-sp-2);
+  padding: var(--ob-sp-1) var(--ob-sp-1) var(--ob-sp-2);
+  margin: 0 calc(-1 * var(--ob-sp-1));
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--ob-sp-1);
+  scrollbar-width: none;
+  flex: none;
+}
+section[data-place="play"].ob-play-host [data-ob="play-games"]::-webkit-scrollbar { display: none; }
+/* perf-tier low / rung 1b: plain scroll, no snap (play.js sets the class) */
+section[data-place="play"].ob-play-host [data-ob="play-games"].ob-play-rail--plain {
+  scroll-snap-type: none;
+}
+/* rail edge fades: the kit ui/scrollfade.js INLINE law (GH-668 B-K04, step
+   9) — play.js arms attachScrollFade(games, { axis: 'inline' }); the rail
+   owns no paint, so the kit masks the scrollport (data-ob-fade-start / -end
+   truthful per axis, --sf-w band, reduced-transparency hairline). */
+/* the card SLOT: a layout declaration (the kit part is width: 100% of its
+   slot; the rail's slot is caller-owned). On coarse it becomes the peek-law
+   slot (B-PL02 / B-K04, slice 3 G3). */
+section[data-place="play"].ob-play-host [data-ob="play-games"] > button {
+  flex: none;
+  scroll-snap-align: start;
+  width: min(168px, 64vw);
+}
+/* THE REST POSITION (GH-668 S5 play visual r1, V2 / V3b): the proximity snap
+   used to align the presented card's START at the scroller's sp-1 pad — 4 px
+   from the clip, 44 px inside the kit's 48 px inline fade band (the text
+   lead at 17 px read 0.35 of the band: the audit's "fade over the current
+   card's leading text"). ui/cardrail.js snapTo aims the card at the
+   scrollport CENTRE (clamped to the pad at the ends); the snap now agrees
+   with it on the FINE register: the fixed 168 px slot centred in the 262 px
+   rail leaves 47 px each side — the text lead at 60 px clears the 48 px
+   band, both neighbours show 39 px (≥ 32, kit law A4), the first / last
+   card still rest at the clamped ends (no fade lit there). COARSE keeps
+   `start`: the kit peek-law slot (clip − 2 × 32 = 198) + the sp-2 gap leave
+   48 px of neighbour for BOTH sides together, and A4 wants ≥ 32 per visible
+   neighbour — a centred rest shows 24 / 24 and fires A4; the only A4-legal
+   rests are the start pad (prev 0 / next 52; the text 17 px into the band)
+   or next-hidden (p ≥ 56; the trailing text under the end band). That is a
+   kit-constant conflict (fitPeek's slot vs A4 vs the card pad 13 < the band
+   margin 16) — GH-668 kit follow-up; e2e-play P-FADE-CLEAR judges the fine
+   register and LOGS the coarse leading edge until the kit resolves it. */
+@media (pointer: fine) and (min-width: 701px) {
+  section[data-place="play"].ob-play-host [data-ob="play-games"] > button {
+    scroll-snap-align: center;
+  }
+}
+/* FULL-CITATION MODE (OWNER Q2 answer B, `data-ob-citation="full"`; GH-668
+   S5 play visual r1, V5): the full citation is catalog DATA of varying
+   length, so the kit --card's DECLARED reserve no longer holds every card —
+   the kit part align-starts its cards (no card stretches to a sibling's
+   overflow: right for the declared reserve), which left the rail's cross
+   size at the tallest card (201 px) while the visible 9-Ball stayed 96 — a
+   93 px empty band before Details. In this mode the tallest sibling IS the
+   reserve: the cards stretch to the rail's content box (uniform, data-
+   driven) and Details follows at the normal step. e2e-play P-CITE-RESERVE. */
+section[data-place="play"].ob-play-host[data-ob-citation="full"] [data-ob="play-games"] > button {
+  align-self: stretch;
+}
+/* ATELIER LEAK GUARD (shrink-only; deleted the day ui/atelier.css scopes
+   its cardrail skin under #ob-atelier-rail — GH-668 slice 5 / follow-up):
+   atelier.css skins `button.ob-cardrail-card`, its `[aria-selected]` /
+   `[aria-disabled]` registers and `.ob-cardrail-name` UNSCOPED, so once
+   the equipment place has loaded that sheet, its thin-glass / 0.72-opacity
+   / flex-end / text-1 register outranks the kit part on the play rail
+   ((0,1,1) and (0,2,1) over the kit's (0,1,0) / (0,2,0)). Before G1 the
+   play card's own restatement masked the leak. Each declaration below is
+   the kit .ob-card-option value, stated ONLY where the leak differs and
+   only for the register the kit's own rule cannot win: the rest state
+   (the kit's hover / active / current rules still outrank this block by
+   their own specificity where they carry the same property), the selected
+   register, the disabled opacity, the name's 2-line reserve. Not stated:
+   the focus composition (the atelier's `[aria-selected]:focus-visible`
+   ring wins the inset hairline — the ring itself still paints). */
+section[data-place="play"].ob-play-host [data-ob="play-games"] > button.ob-cardrail-card {
+  /* (atelier.css also carries a COARSE row register for the class —
+     flex-direction: row / align-items: center / gap sp-2 / min-width 44 /
+     max-width 100% — which turned the phone play card into a row and
+     squeezed its name to one glyph per line after an equipment hop) */
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--ob-sp-3);
+  min-width: auto;
+  max-width: none;
+  min-height: var(--ob-card-option-reserve, var(--ob-h-coarse, 44px));
+  padding: var(--ob-sp-2) var(--ob-sp-3);
+  opacity: 1;
+  transition: background-color var(--ob-t-fast) var(--ob-ease),
+              border-color var(--ob-t-fast) var(--ob-ease),
+              color var(--ob-t-fast) var(--ob-ease);
+}
+section[data-place="play"].ob-play-host [data-ob="play-games"] > button.ob-cardrail-card:not([aria-current="true"]):not([aria-selected="true"]):not([data-ob-browsed="true"]) {
+  color: var(--ob-text-0);
+}
+/* the REST fill only — hover / active are the kit's own rungs (their rules
+   outrank the atelier's base rule by themselves; this block must step
+   aside for them, so the state pseudos are excluded here) */
+section[data-place="play"].ob-play-host [data-ob="play-games"] > button.ob-cardrail-card:not([aria-current="true"]):not([aria-selected="true"]):not([data-ob-browsed="true"]):not(:hover):not(:active) {
+  background-color: var(--ob-glass-solid);
+  background-image: none;
+}
+section[data-place="play"].ob-play-host [data-ob="play-games"] > button.ob-cardrail-card[aria-selected="true"] {
+  background-color: var(--ob-glass-solid);
+  background-image: linear-gradient(var(--ob-accent-dim-3), var(--ob-accent-dim-3));
+  border-color: var(--ob-accent-line);
+  color: var(--ob-accent-text);
+}
+/* THE MUTED VOICE IS THE NAME (GH-668 S5 play visual r1, V4): the kit's
+   aria-disabled rung dims the WHOLE card 0.38 — on a readiness card that
+   took its only status (the badge) and its issuer / edition down with the
+   action (badge ≈ 2.2:1 by the A2 ground method). The kit part has no
+   "muted name" register yet (kit follow-up filed): INTERIM at the consumer,
+   for both card registers (the cardrail leaf + the rung-1 button), stated
+   at the leak guard's own specificity because the atelier leak's
+   `[aria-disabled]` 0.72 rung ((0,2,1)) outranks the kit's (0,2,0) and any
+   :where() belt — the card box paints at 1 (the kit's rest / browsed fills,
+   the kit's cursor: default), the NAME carries the kit's 0.38 figure, the
+   badge / hint / meta read at 1. Deleted the day the kit part carries the
+   register. e2e-play P-READY-INK judges the opacity chain + the rendered
+   ground; P-ONCE's 0.38 pin is restated onto the name. */
+section[data-place="play"].ob-play-host [data-ob="play-games"] > button[aria-disabled="true"] {
+  opacity: 1;
+}
+section[data-place="play"].ob-play-host [data-ob="play-games"] > button[aria-disabled="true"] .ob-card-option__name {
+  opacity: 0.38;
+}
+section[data-place="play"].ob-play-host [data-ob="play-games"] > button.ob-cardrail-card .ob-cardrail-name {
+  min-height: 0;
+}
+/* cardrail leaf anatomy under the play voice (its skin is caller-owned):
+   the meta row carries the readiness badge chip; the equipped tick is
+   never shown here */
+section[data-place="play"].ob-play-host [data-ob="play-games"] .ob-cardrail-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--ob-sp-1);
+}
+section[data-place="play"].ob-play-host [data-ob="play-games"] .ob-cardrail-meta:empty,
+section[data-place="play"].ob-play-host [data-ob="play-games"] .ob-cardrail-tick,
+section[data-place="play"].ob-play-host [data-ob="play-games"] [hidden] {
+  display: none;
+}
+section[data-place="play"].ob-play-host [data-ob="play-games"] .ob-cardrail-thumb {
+  display: none; /* text-led cards: no thumb provider in S4a */
+}
+
+/* ---- variant citation list (FR-008): the pick control is the kit
+   `.ob-card-option` ROW form (play.js renderVariants builds the part's
+   `__body > __head > __hint` anatomy on the play hooks; aria-current is
+   mirrored onto the control so the kit's register paints it) — the
+   `.ob-eq-prov-row` restatement this sheet carried is gone; only the
+   list's column layout is play's. -------------------------------------- */
+section[data-place="play"].ob-play-host [data-ob="play-variants"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-1);
+}
+
+/* ---- carom second-ball fork (FR-009): the [hidden] host is a PLAIN div;
+   the kit .ob-segmented class (display:inline-flex) lives on the inner
+   wrapper so the UA [hidden] rule on the host is never defeated -------- */
+section[data-place="play"].ob-play-host [data-ob="play-carom2b"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ob-sp-1);
+  /* the kit SOLID rung under the fork block (play.js adds `.ob-mat-solid`;
+     GH-668 B-K14 material ladder: every inner card on a glass pane — the
+     hint's text-2 ink is legal only on a solid ground, the place card is
+     smoke): the sheet keeps the LAYOUT — sp-2 / sp-1 pad with the rail's
+     sp-1 bleed into the section pad, so the inner column stays the 254 px
+     the B-PL01 pill form was measured at (246 stacked ja on the phone —
+     P-FORK caught it). No radius: card chrome is the kit part's (P-KIT
+     static law) — the rung reads as a column-wide strip (GH-668 S5 slice 3
+     G5; kit follow-up 15 = a declared inner-block part). */
+  padding: var(--ob-sp-2) var(--ob-sp-1);
+  margin: var(--ob-sp-1) calc(-1 * var(--ob-sp-1)) 0;
+}
+section[data-place="play"].ob-play-host [data-ob="play-carom2b"] > [role="radiogroup"] {
+  align-self: flex-start;
+}
+/* BROWSE REGISTER of a READINESS card (GH-668 S5 play vfix1, verifier F2; the
+   kit follow-up is filed): a disabled card is BROWSED, never selected —
+   play.js marks it data-ob-browsed="true" (aria-selected stays false, so no
+   sync() can revert the browse by re-selecting the committed game). The kit
+   .ob-card-option part has no browse register yet; this is the INTERIM at
+   the consumer = the kit's own selected-register values (dim-3 fill, accent
+   hairline, accent ink; the muted voice is the NAME (0.38); the card box
+   paints at 1 — the V4 rule above), scoped
+   like the leak guard above so the atelier leak's rest rung cannot outrank
+   it. Deleted the day the kit part styles [data-ob-browsed]. The focus
+   composition (ring + inset hairline) is NOT restated — this sheet declares
+   no box-shadow; the kit's plain ring paints. The rung-1 button register
+   (`button.ob-play-card`, ui/cardrail.js absent) browses through the same
+   marker (review review r1 P2-1) — the second selector, at the same
+   specificity, paints it there. */
+section[data-place="play"].ob-play-host [data-ob="play-games"] > button.ob-cardrail-card[data-ob-browsed="true"],
+section[data-place="play"].ob-play-host [data-ob="play-games"] > button.ob-play-card[data-ob-browsed="true"] {
+  background-color: var(--ob-glass-solid);
+  background-image: linear-gradient(var(--ob-accent-dim-3), var(--ob-accent-dim-3));
+  border-color: var(--ob-accent-line);
+  color: var(--ob-accent-text);
+}
+/* THE TINT IS A LAYER OVER THE SOLID BASE (GH-638 / #727 ORDER-LIGHT-C2-FIX21):
+   the kit's current / selected / browsed register paints the 36 % accent
+   wash as the card's background-COLOR, i.e. REPLACING the solid base
+   (kit.css .ob-card-option[aria-current], [aria-selected]) — over the
+   place card's smoke that left the current card translucent to the scene,
+   and under the venue-lit room the card name / variant label read 4.25:1
+   (e2e-ui A2, 2026-09-16). The kit's own recipe for a tint on a solid
+   base is the quick-play gradient LAYER (shell.css) and the atelier rail's
+   selected card (atelier.css): solid colour under, the accent-dim-3
+   gradient over — the same token, layered, no new value. Stated here for
+   the play-games cards (both card registers) and the variant rows at the
+   sheet's own specificity, so the kit's wash rule never outranks it; the
+   selected / browsed rules above carry the same pair. */
+section[data-place="play"].ob-play-host [data-ob="play-games"] > button.ob-cardrail-card[aria-current="true"],
+section[data-place="play"].ob-play-host [data-ob="play-games"] > button.ob-play-card[aria-current="true"],
+section[data-place="play"].ob-play-host [data-ob="play-variants"] .ob-card-option[aria-current="true"] {
+  background-color: var(--ob-glass-solid);
+  background-image: linear-gradient(var(--ob-accent-dim-3), var(--ob-accent-dim-3));
+}
+/* SELECTED-STATE META INK (GH-668 S5 play vfix1, verifier F1; the kit
+   follow-up is filed): the kit lifts __hint to --ob-text-0 on the selected
+   register (kit.css) but leaves __meta at --ob-text-1 — the edition line
+   measured 4.29:1 (solid rung) / 4.53:1 (glass) on the dim-3 fill by the A2
+   ground method (e2e-play P-CARD meta leg, ×7 locales × glass / solid ×
+   1440 / 844). INTERIM at the consumer, stated at the kit rule's OWN
+   specificity (0,1,0) through :where() — it never outranks a kit rule, it
+   wins the tie by source order alone, and the day kit.css carries the
+   declaration this one is a byte-identical no-op to delete. */
+.ob-card-option__meta:where(section[data-place="play"].ob-play-host [aria-current="true"] *,
+                            section[data-place="play"].ob-play-host [aria-selected="true"] *,
+                            section[data-place="play"].ob-play-host [data-ob-browsed="true"] *) {
+  color: var(--ob-text-0);
+}
+/* the BROWSED register's HINT ink (GH-668 S5 play visual r1, V4 follow-on):
+   the kit lifts __hint to --ob-text-0 on aria-current / aria-selected only;
+   a browsed readiness card wears the same dim-3 fill through the marker,
+   and once its information paints at opacity 1 the issuer line measured
+   4.24:1 (solid) / 4.45:1 (glass) by the A2 ground method (e2e-play
+   P-READY-INK browsed legs) — masked before by the whole-card 0.38 the A2
+   walker skips. Same belt form as the meta rule above: the kit's own
+   specificity (0,1,0) through :where(), source order wins the tie, a
+   byte-identical no-op the day the kit part styles [data-ob-browsed]. */
+.ob-card-option__hint:where(section[data-place="play"].ob-play-host [data-ob-browsed="true"] *) {
+  color: var(--ob-text-0);
+}
+/* STALE-KIT PART FALLBACK (GH-668 S5 play r5, review review r4 F1 + the
+   round-5 census (a); the the ownership ledger mixed-cache rule): a returning client
+   can pair THIS sheet + a fresh play.js with a cached PRE-PART kit.css — no
+   `.ob-card-option` part at all. That pairing is supported as the un-skinned
+   rung ("functional"), but on 37a46b30 it lost every register ONLY the part
+   paints: (A1) the variant pick's aria-current face — picking APA changed the
+   persisted pin while the summary stayed hidden by R7, so nothing visible
+   moved; (A2) the committed card's aria-current face while a PLAYABLE browse
+   is live — the leak guard above restates aria-selected only and its rest
+   rule excludes aria-current cards, so the committed card painted as a raw
+   UA button; (A3) the pick's aria-disabled 0.38 under the shared-replay
+   lock. No belt restates the part: this block restates ONLY the part's
+   CURRENT and DISABLED registers at the kit's own tokens, and ONLY under the
+   marker play.js sets after a FEATURE-DETECT of the part —
+   `data-ob-part-fallback="card-option"` on the host when the computed
+   `--ob-card-option-reserve` (the one custom property the B-K12 `--card`
+   rule defines) reads empty on a rail card (re-probed on every sync, once
+   more when a pending kit <link> lands). With the live kit the marker is
+   never set and this block is inert byte-for-byte; a kit 404 (the e2e-ui
+   lab's second pass) engages it the same way. R7 stands: the picker now
+   SHOWS the pick on both pairings, so the compact summary line stays hidden
+   — a textual "current preset" line beside a visible pick would restore
+   the double statement review r2 P2-1 removed. The focus composition is NOT
+   restated (the UA ring paints under the stale kit; an inset --ob-focus
+   ring outside kit.css is a B-K06 red). e2e-play P-STALE-KIT-STATES stages
+   the DERIVED pre-part sheet (kit.css minus the --row rules and the whole
+   B-K12 block) at the network and judges A1 / A2 / A3 + the fresh pairing. */
+section[data-place="play"].ob-play-host[data-ob-part-fallback~="card-option"] [data-ob="play-variants"] .ob-card-option[aria-current="true"],
+section[data-place="play"].ob-play-host[data-ob-part-fallback~="card-option"] [data-ob="play-games"] > button[aria-current="true"] {
+  background-color: var(--ob-glass-solid);
+  background-image: linear-gradient(var(--ob-accent-dim-3), var(--ob-accent-dim-3));
+  border-color: var(--ob-accent-line);
+  color: var(--ob-accent-text);
+}
+section[data-place="play"].ob-play-host[data-ob-part-fallback~="card-option"] [data-ob="play-variants"] .ob-card-option[aria-current="true"] .ob-card-option__hint,
+section[data-place="play"].ob-play-host[data-ob-part-fallback~="card-option"] [data-ob="play-games"] > button[aria-current="true"] .ob-card-option__hint {
+  color: var(--ob-text-0);
+}
+section[data-place="play"].ob-play-host[data-ob-part-fallback~="card-option"] [data-ob="play-variants"] .ob-card-option[aria-disabled="true"] {
+  opacity: 0.38;
+  cursor: default;
+}
+/* rung 2 (no controls.js): PLAIN radios stay >= 44 pt tap targets. Scoped
+   to the un-upgraded group (GH-668 S5 slice 3 G2, B-PL01): the kit segment
+   keeps the kit's own rungs (fine 28 / coarse 44 — kit.css); the 44 here
+   never reaches a `.ob-segmented` label again (it used to, at (0,3,2)). */
+section[data-place="play"].ob-play-host [data-ob="play-carom2b"] > [role="radiogroup"]:not(.ob-segmented) label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ob-sp-1);
+  min-height: 44px;
+}
+/* (GH-668 slice 1 deletion) the kit-register `.ob-segmented label { min-height:
+   40px }` restated the kit part's height at (0,4,2) and, loading after
+   kit.css, beat the kit's coarse 44 floor (tie on specificity, later sheet
+   wins) — the segment height is the kit's (fine 28 / coarse 44; the stack
+   rows ≥ 44). */
+
+/* ---- GH-524 conditions slot: reserved, zero pixels (FR-019) ------------ */
+section[data-place="play"].ob-play-host [data-ob="play-conditions"] {
+  display: none;
+}
+
+/* ---- material: the inner cards keep the SOLID rung set above on every
+   register (GH-668 B-K14, step 9 — one blur per stack: the section behind
+   already blurs the hall; the @supports lift to --ob-glass-bg + a second
+   backdrop-filter, and its reduced-transparency restatement, are gone) --- */
+
+/* ---- reduced motion (plan §5.6 b): no transitions on card selection ---- */
+@media (prefers-reduced-motion: reduce) {
+  /* (the rail cards + variant picks are kit .ob-card-option parts — the kit
+     sheet's own reduced-motion rung covers them; the cardrail-card selector
+     rides along ONLY because the atelier leak guard above restates the
+     transition at a specificity the kit's rung cannot reach) */
+  section[data-place="play"].ob-play-host [data-ob="play-games"] > button.ob-cardrail-card,
+  section[data-place="play"].ob-play-host [data-ob="play-back"] {
+    transition: none;
+  }
+  section[data-place="play"].ob-play-host [data-ob="play-games"] {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---- phone register (coarse pointer / narrow windows; FR-017): the card
+   column is min(280px, 58vw) wide (shell.css:328) and quick-play stacks at
+   bottom: 88px + safe-area — the tighter cap keeps the section's bottom
+   edge above #ob-shell-quickplay-wrap and the rail band at 844x390 while
+   every control stays >= 44 pt and un-clipped inside the body scroller. */
+@media (pointer: coarse), (max-width: 700px) {
+  /* the coarse cap consumes the same seam: the shell publishes the stacked
+     reserve (quick-play wrap + rail + sp-2 — 144 at 844x390 / 667x375, safe
+     bottom included in its measure); fallback 198 + 14 = the 212 px cap of
+     v001–v008 (14 card top + 96 wrap + 88 clearance + 14 gap, measured by
+     e2e-play P2p) on a stale shell. dvh: the phone's dynamic viewport.
+     The same PUBLISH-MARKER GATE as the desktop rule above (review r3 F1):
+     the base rule = the reserve NOT published; the marker rule = the
+     seam consumed. The base rule restates the v001–v008 expression WITH
+     its safe-area-bottom term (`100vh - 212px - env(top) - env(bottom)`,
+     the G1-replaced text; review r3 F2 — the r1 fallback had dropped the
+     bottom inset, so a notched landscape phone (844x390, insets 47/47/21)
+     read a 178 px cap where the legacy cap read 157); the dynamic unit is
+     the r1 form's (equal to 100vh under emulation; the phone's own bar
+     shrinks it). The shell's published reserve already carries the safe
+     bottom, so the marker rule subtracts it once, inside the var. */
+  #ob-shell-cards > section[data-place="play"].ob-play-host {
+    max-height: calc(100dvh - 212px - env(safe-area-inset-top, 0px)
+                      - env(safe-area-inset-bottom, 0px));
+  }
+  :root[style*="--ob-shell-reserve-b:"] #ob-shell-cards > section[data-place="play"].ob-play-host {
+    max-height: calc(100dvh - 14px - env(safe-area-inset-top, 0px)
+                      - var(--ob-shell-reserve-b, 198px));
+  }
+  /* the coarse card SLOT is the kit's peek-law slot (GH-668 S5 slice 3 G3,
+     B-PL02 / B-K04): play.js arms fitPeek(games, { peek: 32 }) on the rail,
+     which writes --sf-slot = clip width − 2 × 32 (198 px at the 262 px
+     phone rail) so the neighbour card shows ≥ 32 px whole inside the 48 px
+     fade band instead of a 22 px sliver of first letters. Fallback = the
+     v001–v010 width for a kit without fitPeek (rung 3 degrade); labels
+     still wrap, never ellipsize. */
+  section[data-place="play"].ob-play-host [data-ob="play-games"] > button {
+    width: var(--sf-slot, min(228px, 70vw));
+  }
+  /* rail FIRST under the cap (review visual audit round 1, finding 2): with
+     the summary lines above it, the rail's first row sat below the body's
+     fold on the boot frame whenever the rules line wrapped (snooker, de,
+     fr…) — no visible discipline affordance at arrival. On this register
+     the DISCIPLINE heading + rail ride directly under the h2 (the current
+     card shows the game and its rulebook), and the Game/Rules summary +
+     Back follow inside the scroller — still rendered (FR-004), reached by
+     the scrollfade's bottom cue. Visual order only (flex `order`): the DOM,
+     the reading order and every selector are unchanged; the only focus
+     stops inside the body are Back (playground) and the rail. */
+  section[data-place="play"].ob-play-host [data-ob="play-body"] > h3:has(+ [data-ob="play-games"]),
+  section[data-place="play"].ob-play-host [data-ob="play-games"] {
+    order: -1;
+  }
+}
+

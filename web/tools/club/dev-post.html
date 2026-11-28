@@ -1,0 +1,520 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club post dev page</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<script type="importmap">
+{ "imports": { "three": "../../vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { createPostFX, createAccumulator } from '../../scene/postfx.js';
+import { createPost } from '../../scene/club/post.js';
+import { TIERS } from '../../scene/club/tiers.js';
+
+const q = new URLSearchParams(location.search);
+const W = innerWidth, H = innerHeight;
+const renderer = new THREE.WebGLRenderer({ antialias: false, depth: false });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x020202);
+const camera = new THREE.PerspectiveCamera(40, W / H, 0.01, 50);
+const VIEWS = {
+  aim: [[-1.35, 0.32, 0.22], [0.2, 0, 0], 32],
+  low: [[-1.78, 0.24, -0.05], [0.3, 0, 0.05], 32],
+  wide: [[-4.0, 1.6, 2.6], [0, 0.3, 0], 50],
+  play: [[-2.3, 1.05, 1.35], [0.1, 0, 0], 40],
+  top: [[0, 3.3, 0.001], [0, 0, 0], 40],
+  V1: [[-2.3, 1.05, 1.35], [0.1, 0, 0], 40], V2: [[-1.35, 0.32, 0.22], [0.2, 0, 0], 32], V3: [[-2.15, 0.62, 0], [0.6, 0, 0], 38],
+  V7: [[-0.85, 0.2, 0.42], [0.05, 0.02, -0.02], 28],
+};
+const [pos, tgt, fov] = VIEWS[q.get('view')] ?? VIEWS.aim;
+camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+
+// ---- stand-in scene: a table, glossy spheres, a near rail, a cue, a room with small bright emitters ------------------------
+const R = 0.028575;
+const std = (color, roughness, extra = {}) => new THREE.MeshStandardMaterial({ color, roughness, ...extra });
+const box = (w, h, d, mat, x, y, z, parent = scene) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat); m.position.set(x, y, z); parent.add(m); return m; };
+const emit = (r, g, b) => new THREE.MeshBasicMaterial({ color: new THREE.Color().setRGB(r, g, b), toneMapped: false });
+scene.add(new THREE.HemisphereLight(0xfff1dc, 0x2a1c12, 0.5));
+for (const x of [-0.7, 0, 0.7]) {
+  const l = new THREE.SpotLight(0xfff0dc, 7, 6, 1.0, 0.7, 1.6); l.position.set(x, 1.15, 0); l.target.position.set(x, 0, 0); scene.add(l, l.target);
+}
+const warm = new THREE.PointLight(0xffb070, 30, 9, 1.6); warm.position.set(3.9, 1.6, -0.5); scene.add(warm);
+const warm2 = new THREE.PointLight(0xff9a60, 22, 8, 1.6); warm2.position.set(-0.5, 1.4, -2.6); scene.add(warm2);
+// table: a group whose cloth and rail materials carry the app's class tags (the lens reads the table volume from them)
+const tableGroup = new THREE.Group(); scene.add(tableGroup);
+const clothMat = std(0x1f6e9c, 0.95); clothMat.userData.obClass = 'cloth';
+box(2.54, 0.06, 1.27, clothMat, 0, -0.03, 0, tableGroup);
+const wood = new THREE.MeshPhysicalMaterial({ color: 0x4a2414, roughness: 0.32, clearcoat: 1, clearcoatRoughness: 0.12 });
+wood.userData.obClass = 'railwood';
+const cush = std(0x1c6592, 0.9); cush.userData.obClass = 'cloth';
+for (const s of [-1, 1]) {
+  box(2.54 + 0.36, 0.05, 0.13, wood, 0, 0.012, s * (0.635 + 0.115), tableGroup);
+  box(0.13, 0.05, 1.27 + 0.10, wood, s * (1.27 + 0.115), 0.012, 0, tableGroup);
+  box(2.44, 0.037, 0.05, cush, 0, 0.0185, s * (0.635 + 0.025), tableGroup);
+  box(0.05, 0.037, 1.17, cush, s * (1.27 + 0.025), 0.0185, 0, tableGroup);
+  for (let k = -3; k <= 3; k++) box(0.012, 0.002, 0.012, emit(1.2, 1.2, 1.1), k * 0.3175 + 0.16, 0.038, s * (0.635 + 0.115), tableGroup); // sights
+}
+box(2.9, 0.24, 1.63, std(0x2a1710, 0.5), 0, -0.19, 0); // apron
+for (const sx of [-1, 1]) for (const sz of [-1, 1]) box(0.14, 0.5, 0.14, std(0x24130c, 0.5), sx * 1.2, -0.55, sz * 0.6);
+// balls
+const COLORS = [0xf4f0e2, 0xf2c21a, 0x1c3fb0, 0xc81e1e, 0x5a1e8c, 0xe8671a, 0x13703a, 0x7a1a1a, 0x101010, 0xf2c21a];
+const SPOTS = [[-0.62, 0.08], [-0.20, -0.04], [0.05, 0.22], [0.32, -0.30], [0.48, 0.12], [0.70, -0.08], [0.92, 0.36], [1.08, -0.42], [-0.36, -0.38], [0.18, 0.47]];
+const ballGeo = new THREE.SphereGeometry(R, 48, 32);
+const balls = SPOTS.map(([x, z], i) => {
+  const mesh = new THREE.Mesh(ballGeo, new THREE.MeshPhysicalMaterial({ color: COLORS[i], roughness: 0.08, clearcoat: 1, clearcoatRoughness: 0.03 }));
+  mesh.position.set(x, R, z); scene.add(mesh);
+  return { id: i, mesh, pocketed: false };
+});
+// a cue from behind the cue ball back past the camera (the near field)
+{
+  const a = new THREE.Vector3(-0.665, 0.034, 0.083), b = new THREE.Vector3(-2.05, 0.30, 0.245);
+  const cue = new THREE.Mesh(new THREE.CylinderGeometry(0.0065, 0.014, a.distanceTo(b), 20), std(0xc9a26a, 0.35));
+  cue.position.copy(a).add(b).multiplyScalar(0.5);
+  cue.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), a.clone().sub(b).normalize());
+  scene.add(cue);
+}
+// room: floor, walls, a lit back bar with small bright emitters (the bokeh sources), frames on the side wall, a far lamp
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(12, 9), std(0x4a3222, 0.55)); floor.rotation.x = -Math.PI / 2; floor.position.y = -0.8; scene.add(floor);
+box(0.1, 3.4, 9, std(0x4a7a66, 0.9), 4.75, 0.9, 0);          // back wall
+box(12, 3.4, 0.1, std(0x4a7a66, 0.9), 0, 0.9, -3.4);         // side wall
+box(12, 3.4, 0.1, std(0x4a7a66, 0.9), 0, 0.9, 3.4);
+box(0.1, 1.0, 9, std(0x3a2416, 0.6), 4.68, -0.3, 0);         // wainscot
+box(12, 1.0, 0.1, std(0x3a2416, 0.6), 0, -0.3, -3.33);
+box(0.45, 1.05, 3.4, std(0x2c1a10, 0.45), 4.35, -0.28, -0.6); // bar counter
+for (let i = 0; i < 4; i++) {
+  box(0.04, 0.035, 3.0, emit(7.0, 4.6, 2.2), 4.66, 0.62 + i * 0.36, -0.6);                 // lit shelf strips
+  for (let j = 0; j < 9; j++) box(0.05, 0.16 + 0.05 * ((i * 3 + j) % 3), 0.06, std([0x7a3b12, 0x2f6a3a, 0x9a8a50, 0x6a1a1a][(i + j) % 4], 0.2), 4.62, 0.73 + i * 0.36, -1.9 + j * 0.33);
+}
+for (let j = 0; j < 14; j++) { const s = new THREE.Mesh(new THREE.SphereGeometry(0.012, 10, 8), emit(30, 22, 12)); s.position.set(4.6, 2.35, -3.0 + j * 0.45); scene.add(s); } // a string of small lamps
+// small separate emitters low on the back wall and the bar front, in the frame of the low views: the bokeh test
+const DOTS = [[60, 44, 24], [20, 40, 70], [70, 16, 12], [16, 60, 26], [60, 56, 44]];
+const dots = [];
+for (let j = 0; j < 11; j++) { const c = DOTS[j % 5]; const s = new THREE.Mesh(new THREE.SphereGeometry(0.011, 10, 8), emit(...c)); s.position.set(4.1, 0.34 + 0.11 * ((j * 7) % 4), -2.75 + j * 0.52 + 0.1 * ((j * 3) % 3)); scene.add(s); dots.push(s); }
+for (let j = 0; j < 5; j++) { const s = new THREE.Mesh(new THREE.SphereGeometry(0.016, 10, 8), emit(40, 34, 22)); s.position.set(2.6 + 0.3 * j, 0.5 + 0.06 * j, -3.2); scene.add(s); }
+box(0.03, 0.22, 0.34, emit(5.5, 1.2, 0.8), 4.66, 0.32, 1.9);   // a small lit sign
+for (let j = 0; j < 5; j++) { box(0.5, 0.36, 0.03, std(0x8a7a60, 0.8), -2.4 + j * 1.3, 1.05, -3.33); box(0.56, 0.42, 0.02, std(0x1a1008, 0.4), -2.4 + j * 1.3, 1.05, -3.345); }
+box(0.5, 0.05, 0.28, emit(9, 7.5, 5), 3.3, 1.45, 2.2);       // a far lamp face
+box(1.9, 0.04, 0.5, emit(14, 12.5, 10), 0, 1.16, 0);         // the lamp over the table (seen in the wide view)
+box(1.3, 0.75, 0.75, std(0x2b1b12, 0.6), 3.3, -0.42, 2.2);   // a side table under the far lamp
+for (const z of [-2.2, -1.5]) box(0.42, 0.5, 0.42, std(0x3a1d14, 0.6), -1.2, -0.55, z); // stools
+
+// ---- the app chain, then the club chain on top -----------------------------------------------------------------------------
+const msaa = q.has('msaa') ? Number(q.get('msaa')) : 4;
+const composer = createPostFX(renderer, scene, camera, W, H, { samples: msaa });
+// the tournament look's values (main.js __test.setLook): the club chain installs after them, as in the app
+const fall = composer.passes.find((p) => p.uniforms?.strength); if (fall) fall.uniforms.strength.value = 0.62;
+composer.__obCine.bloom.strength = 0.03;
+
+const tier = ['lite', 'base', 'high'].includes(q.get('tier')) ? q.get('tier') : 'high';
+const knobs = { ...TIERS[tier] };
+if (q.get('dof') === '0') knobs.dof = 'off'; else if (q.has('dof') && q.get('dof') !== '1') knobs.dof = q.get('dof');
+if (q.has('grade')) knobs.grade = q.get('grade') !== '0';
+if (q.has('bloom')) knobs.bloom = q.get('bloom') !== '0';
+// ?debug= and the A/B keys go through the chain's own ?clubpost= list
+const cq = new URLSearchParams();
+{
+  const parts = [];
+  if (q.get('debug')) parts.push(`debug:${q.get('debug')}`);
+  for (const k of ['ap', 'maxr', 'farmax', 'applens', 'boost', 'edge', 'guard', 'fold', 'dofscale', 'dofwork', 'stillout', 'fade', 'ao', 'smaa', 'gs', 'ge', 'gc', 'gsat', 'aoi', 'aor', 'bs', 'bt', 'br', 'fs']) if (q.has(k)) parts.push(`${k}:${q.get(k)}`);
+  if (parts.length) cq.set('clubpost', parts.join(','));
+}
+const frameFns = [];
+const game = { ballSet: { balls }, cueBall: () => balls[0], clock: 0 };
+const club = {
+  enabled: true, tier, knobs, time: { value: 0 },
+  ctx: { renderer, scene, camera, composer, game, table: { group: tableGroup }, query: cq },
+  onFrame(fn) { frameFns.push(fn); return () => { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); }; },
+};
+let post = { enabled: false, reason: 'chain=0' };
+if (q.get('chain') !== '0') { post = await createPost(club); post.show?.(); } // index.js calls show() in its show pass
+club.post = post;
+window.__dev = { THREE, renderer, scene, camera, composer, post, club, balls };
+window.__club = club;
+
+// ---- the tap proof (GH-329): the screen, the accumulator's export frame and the ink sampler's tap must be one image ---------
+const grab = () => {
+  const c = document.createElement('canvas'); c.width = 320; c.height = 180;
+  const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(renderer.domElement, 0, 0, 320, 180);
+  return g.getImageData(0, 0, 320, 180).data;
+};
+const diff = (a, b) => { let sum = 0, max = 0, n = 0; for (let i = 0; i < a.length; i++) { if ((i & 3) === 3) continue; const d = Math.abs(a[i] - b[i]); sum += d; if (d > max) max = d; n++; } return { mean: +(sum / n).toFixed(4), max }; };
+function proof() {
+  const output = composer.__obCine.output;
+  const out = {};
+  composer.render(); composer.render();
+  const screen = grab();
+  composer.render();
+  out.screenRepeat = diff(screen, grab());                 // the chain is deterministic frame to frame at rest
+  const acc = createAccumulator(composer);
+  acc.begin(); acc.add(1); acc.resolve();
+  out.accum1 = diff(screen, grab());                       // tap 1: one sub-frame through the accumulator
+  acc.begin(); for (let i = 0; i < 4; i++) acc.add(0.25); acc.resolve();
+  out.accum4 = diff(screen, grab());                       // tap 1: four identical sub-frames averaged
+  acc.dispose();
+  composer.render();
+  const rts = output.renderToScreen; output.renderToScreen = true;
+  output.render(renderer, null, composer.writeBuffer); output.renderToScreen = rts;
+  out.inkTap = diff(screen, grab());                       // tap 2: the OutputPass on composer.writeBuffer after a frame
+  if (post.enabled) {
+    out.hdrTapIsWriteBuffer = post.hdrTap === composer.writeBuffer;
+    output.renderToScreen = true; output.render(renderer, null, composer.readBuffer); output.renderToScreen = rts;
+    out.control_wrongBuffer = diff(screen, grab());        // sensitivity: the OTHER buffer is not the frame
+    const s0 = post.grade.strength; post.grade.strength = 0; composer.render();
+    out.control_gradeOff = diff(screen, grab());           // sensitivity: the grade is in the picture
+    post.grade.strength = s0;
+    // the fold: the app's falloff inside the grade's draw against the two as separate passes (round 1's chain), whole frame
+    {
+      const full = (a, b) => { let sum = 0, max = 0, over1 = 0; for (let i = 0; i < a.length; i += 4) { const m = Math.max(Math.abs(a[i] - b[i]), Math.abs(a[i + 1] - b[i + 1]), Math.abs(a[i + 2] - b[i + 2])); sum += m; if (m > max) max = m; if (m > 1) over1 += 1; } return { mean: +(sum / (a.length / 4)).toFixed(4), max, over1 }; };
+      composer.render(); composer.render();
+      const folded = fullGrab(), wasFolded = post.falloff.folded, listFolded = post.counts().passes.list.join(' > ');
+      post.falloff.folded = false; composer.render(); composer.render();
+      out.fold = { folded: wasFolded, list: listFolded, unfoldedList: post.counts().passes.list.join(' > '), unfolded_vs_folded: full(folded, fullGrab()) };
+      post.falloff.folded = true; composer.render(); composer.render();
+      out.fold.backToFolded = full(folded, fullGrab());
+    }
+    out.counts = post.counts();
+    // the app's own accumulation lens (main.js renderAccum with opts.dof, reproduced here step for step: frame hooks, then the
+    // eye on a golden-spiral aperture disc re-aimed at the focus depth on the view axis, then one accumulator sub-frame, then
+    // the pose restored). The club lens must stand down for exactly those sub-frames and be back on the next plain frame.
+    if (post.dof?.enabled) {
+      const N = 8, r = 0.012, focus = balls[0].mesh.position;
+      const accumulate = (jitter) => {
+        const a2 = createAccumulator(composer); a2.begin();
+        const amounts = [];
+        for (let i = 0; i < N; i++) {
+          for (const fn of [...frameFns]) fn(clock, i === 0 ? 1 / 60 - (N - 1) * 0.0018 : 0.0018);
+          let saved = null;
+          if (jitter) {
+            saved = { p: camera.position.clone(), q: camera.quaternion.clone() };
+            const th = i * 2.399963229728653, rr = r * Math.sqrt((i + 0.5) / N);
+            const right = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 1);
+            const view = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+            const fd = Math.max(camera.near, view.dot(focus.clone().sub(camera.position)));
+            const aim = camera.position.clone().addScaledVector(view, fd);
+            camera.position.addScaledVector(right, rr * Math.cos(th)).addScaledVector(up, rr * Math.sin(th));
+            camera.lookAt(aim); camera.updateMatrixWorld();
+          }
+          a2.add(1 / N);
+          amounts.push(+post.dof.amount.toFixed(3));
+          if (saved) { camera.position.copy(saved.p); camera.quaternion.copy(saved.q); camera.updateMatrixWorld(); }
+        }
+        a2.resolve(); const img = grab(); a2.dispose();
+        return { img, amounts };
+      };
+      const settle = () => { post.dof.snap(); for (const fn of [...frameFns]) fn(clock, 1 / 60); composer.render(); for (const fn of [...frameFns]) fn(clock, 1 / 60); composer.render(); };
+      const al = {};
+      settle();
+      let n0 = post.dof.appLensFrames;
+      const detected = accumulate(true);
+      al.detected = { subFrames: N, recognised: post.dof.appLensFrames - n0, clubLensAmountPerSubFrame: detected.amounts };
+      for (const fn of [...frameFns]) fn(clock, 1 / 60); composer.render();
+      al.nextPlainFrame = { clubLensAmount: +post.dof.amount.toFixed(3), appLens: post.dof.appLens };
+      // reference: the same accumulate with the club lens switched off by hand = the app's lens alone
+      const ap = post.dof.aperture; post.dof.aperture = 0;
+      const alone = accumulate(true); post.dof.aperture = ap;
+      al.vsAppLensAlone = diff(detected.img, alone.img);
+      // control: detection off = the old behaviour (two lenses on the first frames)
+      settle(); post.dof.detectAppLens = false;
+      const both = accumulate(true); post.dof.detectAppLens = true;
+      al.control_detectionOff = { vsAppLensAlone: diff(both.img, alone.img), clubLensAmountPerSubFrame: both.amounts };
+      // no false positive: an accumulate without the jitter (a shutter-only export) keeps the club lens
+      settle(); n0 = post.dof.appLensFrames;
+      const plain = accumulate(false);
+      al.shutterOnly = { recognised: post.dof.appLensFrames - n0, clubLensAmountPerSubFrame: plain.amounts, vsScreen: null };
+      settle(); composer.render();
+      al.shutterOnly.vsScreen = diff(plain.img, grab());
+      out.appLens = al;
+    }
+  }
+  composer.render();
+  return out;
+}
+window.__proofRun = proof;
+
+// ---- the readability proof: the lens's own numbers per class of pixel, and the picture with the lens on against off ------------
+const fullGrab = () => {
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(renderer.domElement, 0, 0);
+  return g.getImageData(0, 0, W, H).data;
+};
+const frameNow = (dt = 0) => { clock += dt; for (const fn of [...frameFns]) fn(clock, dt); composer.render(); };
+function probeRun() {
+  if (!post.enabled || !post.dof?.enabled) return { ok: false, reason: 'no lens on this tier' };
+  const NAMES = ['outside', 'bed', 'ball', 'cushion', 'pocket', 'rail'];
+  frameNow(); frameNow();
+  const on = fullGrab();
+  const frameOn = post.counts().frame;
+  const p = post.dof.probe({ mask: true });
+  if (!p.ok) return p;
+  const mask = p.mask; delete p.mask;
+  const ap = post.dof.aperture; post.dof.aperture = 0; frameNow(); frameNow();
+  const off = fullGrab();
+  const activeOff = post.counts().frame.active.join(',');
+  post.dof.aperture = ap; frameNow(); frameNow();
+  const back = fullGrab();
+  // the picture, lens on against lens off, per class (8-bit levels; the largest channel difference of a pixel)
+  const d = NAMES.map(() => ({ px: 0, max: 0, sum: 0, over1: 0 }));
+  let again = 0;
+  for (let i = 0, k = 0; i < mask.length; i++, k += 4) {
+    const m = Math.max(Math.abs(on[k] - off[k]), Math.abs(on[k + 1] - off[k + 1]), Math.abs(on[k + 2] - off[k + 2]));
+    const c = d[mask[i]]; c.px += 1; c.sum += m; if (m > c.max) c.max = m; if (m > 1) c.over1 += 1;
+    again = Math.max(again, Math.abs(on[k] - back[k]), Math.abs(on[k + 1] - back[k + 1]), Math.abs(on[k + 2] - back[k + 2]));
+  }
+  const picture = {};
+  NAMES.forEach((n, i) => { picture[n] = { px: d[i].px, max: d[i].max, mean: +(d[i].sum / Math.max(1, d[i].px)).toFixed(4), over1: d[i].over1 }; });
+  // the farthest ball in the frame: every pixel of the square around it, lens on against off
+  let farBall = null;
+  const v = new THREE.Vector3();
+  for (const b of balls) {
+    v.copy(b.mesh.position).applyMatrix4(camera.matrixWorldInverse);
+    const depth = -v.z; if (!(depth > 0.05)) continue;
+    v.copy(b.mesh.position).project(camera);
+    const x = (v.x * 0.5 + 0.5) * W, y = (1 - (v.y * 0.5 + 0.5)) * H;
+    const r = R * (H / 2) * camera.projectionMatrix.elements[5] / depth;
+    if (x < r || y < r || x > W - r || y > H - r) continue;
+    if (!farBall || depth > farBall.depth) farBall = { id: b.id, depth: +depth.toFixed(3), x: Math.round(x), y: Math.round(y), r: +r.toFixed(1) };
+  }
+  if (farBall) {
+    const h = Math.ceil(farBall.r) + 3;
+    let max = 0, n = 0, over1 = 0;
+    for (let y = farBall.y - h; y <= farBall.y + h; y++) for (let x = farBall.x - h; x <= farBall.x + h; x++) {
+      if (x < 0 || y < 0 || x >= W || y >= H) continue;
+      if (Math.hypot(x - farBall.x, y - farBall.y) > farBall.r + 1.5) continue;   // the ball's disc and one pixel of rim
+      const k = (y * W + x) * 4;
+      const m = Math.max(Math.abs(on[k] - off[k]), Math.abs(on[k + 1] - off[k + 1]), Math.abs(on[k + 2] - off[k + 2]));
+      n += 1; if (m > max) max = m; if (m > 1) over1 += 1;
+    }
+    farBall.disc = { px: n, max, over1 };
+    farBall.crop = [Math.max(0, farBall.x - 40), Math.max(0, farBall.y - 30), 80, 60];
+  }
+  return { ...p, lensOnFrame: { active: frameOn.active.join(','), draws: frameOn.draws }, lensOffFrame: { active: activeOff }, picture, onAgainMax: again, farBall };
+}
+// the proof at the four review poses, with the guard whole and with each control (post.js `guard`): what the rule gives, what
+// each half of it gives alone, and what a plain lens without it does to the same frame
+function probeAll() {
+  const out = {};
+  const brief = (p) => (p.ok ? { zoneFar: p.lens.zoneFar, farPx: p.lens.farPx, drawn: p.lens.drawn, tablePx: p.table.px, tableMaxCoc: p.table.maxCoc, tableMaxBlend: p.table.maxBlend,
+    maxCoc: Object.fromEntries(Object.entries(p.classes).map(([k, v]) => [k, v.maxCoc])), pictureMax: Object.fromEntries(Object.entries(p.picture).map(([k, v]) => [k, v.max])),
+    pictureOver1: Object.fromEntries(Object.entries(p.picture).map(([k, v]) => [k, v.over1])), farBall: p.farBall ? { id: p.farBall.id, depth: p.farBall.depth, discMax: p.farBall.disc.max, discOver1: p.farBall.disc.over1, discPx: p.farBall.disc.px } : null } : p);
+  for (const id of ['V2', 'V7', 'V3', 'V1']) {
+    const [p, t, f] = VIEWS[id];
+    camera.position.set(...p); camera.fov = f; camera.updateProjectionMatrix(); camera.lookAt(...t);
+    post.dof.snap();
+    out[id] = {};
+    for (const mode of ['full', 'zone', 'mask', 'off']) {
+      post.dof.guardMode = mode;
+      const r = probeRun();
+      out[id][mode] = mode === 'full' ? { ...brief(r), classesPx: r.ok ? Object.fromEntries(Object.entries(r.classes).map(([k, v]) => [k, v.px])) : null, outside: r.ok ? r.classes.outside : null, box: r.box } : brief(r);
+    }
+    post.dof.guardMode = 'full';
+  }
+  camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt); post.dof.snap(); frameNow();
+  return out;
+}
+// ---- what a frame draws, at rest and moving (the tier's cost in counts) ---------------------------------------------------------
+function planRun() {
+  if (!post.enabled) return { enabled: false };
+  const rows = {};
+  const row = () => { const c = post.counts(); return { drew: c.frame.active.join(',') || '-', draws: c.frame.draws, lens: c.frame.dof, depthResolved: c.frame.depthValid, folded: c.frame.folded }; };
+  for (let i = 0; i < 30; i++) frameNow(1 / 60);
+  rows.rest = row();
+  for (let i = 0; i < 12; i++) { camera.position.x += 0.05; camera.lookAt(...tgt); frameNow(1 / 60); }   // 3 m/s
+  rows.moving = row();
+  for (let i = 0; i < 12; i++) { camera.position.x += 0.012; camera.lookAt(...tgt); frameNow(1 / 60); }  // 0.7 m/s
+  rows.movingSlowly = row();
+  for (let i = 0; i < 12; i++) { camera.position.x -= 0.062; camera.lookAt(...tgt); frameNow(1 / 60); }
+  for (let i = 0; i < 5; i++) frameNow(1 / 60);
+  rows.justStopped = row();
+  for (let i = 0; i < 90; i++) frameNow(1 / 60);
+  rows.restAgain = row();
+  const c = post.counts();
+  return { tier, rows, passes: c.passes.list, programs: c.programs, targets: c.targets, bytes: c.bytes, depthFramesOfFrames: [c.seen.depthFrames, c.seen.frames] };
+}
+
+// ---- an enlarged crop of the frame, lens on against lens off (the lens's edges, the discs, a far ball) -----------------------------
+function zoomRun(spec) {
+  const crops = spec.split(';').slice(0, 3).map((t) => t.split(',').map(Number));
+  const shot = () => { const c = document.createElement('canvas'); c.width = W; c.height = H; c.getContext('2d').drawImage(renderer.domElement, 0, 0); return c; };
+  frameNow(); frameNow();
+  const a = shot();
+  let b = a;
+  if (post.enabled && post.dof?.enabled) { const ap = post.dof.aperture; post.dof.aperture = 0; frameNow(); frameNow(); b = shot(); post.dof.aperture = ap; frameNow(); }
+  const ov = document.createElement('canvas'); ov.width = W; ov.height = H;
+  ov.style.cssText = 'position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:10';
+  const g = ov.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.imageSmoothingEnabled = false;
+  const rowH = H / crops.length;
+  g.font = '13px monospace';
+  crops.forEach(([cx, cy, cw, ch], i) => {
+    const k = Math.min((W / 2 - 4) / cw, (rowH - 4) / ch);
+    g.drawImage(a, cx, cy, cw, ch, 0, i * rowH, cw * k, ch * k);
+    g.drawImage(b, cx, cy, cw, ch, W / 2 + 4, i * rowH, cw * k, ch * k);
+    g.fillStyle = 'rgba(0,0,0,0.55)'; g.fillRect(0, i * rowH, 420, 17); g.fillRect(W / 2 + 4, i * rowH, 80, 17);
+    g.fillStyle = '#fff';
+    g.fillText(`lens on | crop ${cw}x${ch} at (${cx},${cy}) x${k.toFixed(1)}`, 6, i * rowH + 13); g.fillText('lens off', W / 2 + 10, i * rowH + 13);
+  });
+  document.body.appendChild(ov);
+}
+
+// ---- small lights at two working resolutions: 360 rows (round 2's rule) | the default | lens off ------------------------------------
+function abRun() {
+  if (!post.enabled || !post.dof?.enabled) return { ok: false, reason: 'no lens on this tier' };
+  const shot = () => { const c = document.createElement('canvas'); c.width = W; c.height = H; c.getContext('2d', { willReadFrequently: true }).drawImage(renderer.domElement, 0, 0); return c; };
+  const settle = () => { post.dof.snap(); frameNow(); frameNow(); };
+  const rows0 = post.config.workRows;
+  const cols = [];
+  post.config.workRows = 360; settle(); cols.push({ name: '360 working rows (round 2)', c: shot(), f: post.counts().frame, targets: post.counts().targets.map((t) => `${t.w}x${t.h}`) });
+  post.config.workRows = rows0; settle(); cols.push({ name: `${rows0} working rows at most (default)`, c: shot(), f: post.counts().frame, targets: post.counts().targets.map((t) => `${t.w}x${t.h}`) });
+  const ap = post.dof.aperture; post.dof.aperture = 0; settle(); cols.push({ name: 'lens off', c: shot(), f: post.counts().frame, targets: [] }); post.dof.aperture = ap; settle();
+  // the lights to show: the small emitters that are in the frame, nearest the middle first (or ?zoom= crops)
+  const cw = 72, ch = 48;
+  let crops = [];
+  if (q.get('zoom')) crops = q.get('zoom').split(';').slice(0, 3).map((t) => t.split(',').map(Number)).map(([x, y]) => ({ x, y }));
+  else {
+    const v = new THREE.Vector3();
+    const found = [];
+    for (const d of dots) {
+      v.copy(d.position).project(camera);
+      const x = (v.x * 0.5 + 0.5) * W, y = (1 - (v.y * 0.5 + 0.5)) * H;
+      if (v.z < 1 && x > cw && x < W - cw && y > ch && y < H - ch) found.push({ x: Math.round(x - cw / 2), y: Math.round(y - ch / 2), cx: x, cy: y, depth: +d.position.clone().applyMatrix4(camera.matrixWorldInverse).z.toFixed(2) * -1, px: +(0.022 * (H / 2) * camera.projectionMatrix.elements[5] / -d.position.clone().applyMatrix4(camera.matrixWorldInverse).z).toFixed(1) });
+    }
+    found.sort((a, b) => Math.hypot(a.cx - W / 2, a.cy - H / 3) - Math.hypot(b.cx - W / 2, b.cy - H / 3));
+    crops = found.slice(0, 3);
+  }
+  // how round: the lit shape's outline (pixels over half of the white level in any channel) along 36 directions from its
+  // centroid: (largest - smallest radius) / mean, and the width / height of its bounding box
+  const roundness = (c, crop) => {
+    const d = c.getContext('2d', { willReadFrequently: true }).getImageData(crop.x, crop.y, cw, ch).data;
+    const on = (x, y) => { if (x < 0 || y < 0 || x >= cw || y >= ch) return false; const k = (y * cw + x) * 4; return Math.max(d[k], d[k + 1], d[k + 2]) > 200; };
+    let sx = 0, sy = 0, n = 0, x0 = cw, x1 = -1, y0 = ch, y1 = -1;
+    for (let y = 0; y < ch; y++) for (let x = 0; x < cw; x++) if (on(x, y)) { sx += x; sy += y; n += 1; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+    if (n < 4) return { px: n };
+    const cx = sx / n, cy = sy / n; const rr = [];
+    for (let a = 0; a < 36; a++) { const th = a * Math.PI / 18; let r = 0; while (r < 40 && on(Math.round(cx + Math.cos(th) * r), Math.round(cy + Math.sin(th) * r))) r += 0.25; rr.push(r); }
+    const mean = rr.reduce((p, v) => p + v, 0) / rr.length;
+    const diag = (rr[4] + rr[5] + rr[13] + rr[14] + rr[22] + rr[23] + rr[31] + rr[32]) / 8, axis = (rr[0] + rr[9] + rr[18] + rr[27]) / 4;
+    // a disc fills pi / 4 = 0.785 of its bounding box, a square all of it
+    return { px: n, box: [x1 - x0 + 1, y1 - y0 + 1], fill: +(n / ((x1 - x0 + 1) * (y1 - y0 + 1))).toFixed(3), meanRadius: +mean.toFixed(2), spread: +((Math.max(...rr) - Math.min(...rr)) / mean).toFixed(3), diagOverAxis: +(diag / axis).toFixed(3) };
+  };
+  const ov = document.createElement('canvas'); ov.width = W; ov.height = H;
+  ov.style.cssText = 'position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:10';
+  const g = ov.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.imageSmoothingEnabled = false;
+  const colW = Math.floor(W / 3), rowH = Math.floor(H / Math.max(1, crops.length));
+  const k = Math.min((colW - 4) / cw, (rowH - 4) / ch);
+  g.font = '13px monospace';
+  const out = { size: [W, H], lights: [] };
+  crops.forEach((crop, i) => {
+    const row = { at: [crop.x, crop.y], sourcePx: crop.px ?? null, depth: crop.depth ?? null, cols: {} };
+    cols.forEach((col, j) => {
+      g.drawImage(col.c, crop.x, crop.y, cw, ch, j * colW, i * rowH, cw * k, ch * k);
+      row.cols[j === 0 ? 'rows360' : j === 1 ? 'default' : 'off'] = roundness(col.c, crop);
+      g.fillStyle = 'rgba(0,0,0,0.6)'; g.fillRect(j * colW, i * rowH, colW - 4, 17);
+      g.fillStyle = '#fff'; g.fillText(`${col.name}${j < 2 ? `, scale ${col.f.scale}` : ''} | x${k.toFixed(1)}`, j * colW + 5, i * rowH + 13);
+    });
+    out.lights.push(row);
+  });
+  out.cols = cols.map((c) => ({ name: c.name, scale: c.f.scale, farPx: c.f.farPx, capPx: c.f.capPx, drew: c.f.active.join(','), targets: c.targets }));
+  out.bytes = post.counts().bytes;
+  document.body.appendChild(ov);
+  return out;
+}
+
+// ---- the first frames of a move on the `still` tier: the cut against the ramp --------------------------------------------------------
+function stripRun() {
+  if (!post.enabled || !post.dof?.enabled) return { ok: false, reason: 'no lens on this tier' };
+  const [sx, sy] = (q.get('stripcrop') || '540,30').split(',').map(Number);
+  const cols = 6, cw = Math.floor(W / cols), chh = Math.floor(H / 4);
+  const shot = () => { const c = document.createElement('canvas'); c.width = cw; c.height = chh; c.getContext('2d', { willReadFrequently: true }).drawImage(renderer.domElement, sx, sy, cw, chh, 0, 0, cw, chh); return c; };
+  const px = (c) => c.getContext('2d', { willReadFrequently: true }).getImageData(0, 0, cw, chh).data;
+  const dist = (a, b) => { let sum = 0, max = 0; for (let i = 0; i < a.length; i += 4) { const m = Math.max(Math.abs(a[i] - b[i]), Math.abs(a[i + 1] - b[i + 1]), Math.abs(a[i + 2] - b[i + 2])); sum += m; if (m > max) max = m; } return { mean: +(sum / (a.length / 4)).toFixed(3), max }; };
+  const row = () => { const f = post.counts().frame; return { drew: f.active.join(',') || '-', lens: f.dof, depth: f.depthValid }; };
+  const cam0 = camera.position.clone(), ball = balls[1].mesh, ball0 = ball.position.clone();
+  const home = () => { camera.position.copy(cam0); camera.lookAt(...tgt); ball.position.copy(ball0); post.dof.snap(); frameNow(1 / 60); frameNow(1 / 60); };
+  const out = { tier, mode: post.dof.mode, crop: [sx, sy, cw, chh], runs: {} };
+  const ov = document.createElement('canvas'); ov.width = W; ov.height = H;
+  ov.style.cssText = 'position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:10';
+  const g = ov.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.font = '12px monospace';
+  // the lens-off picture of the resting frame (the room behind a moving ball does not change)
+  home(); const ap = post.dof.aperture; post.dof.aperture = 0; frameNow(0); const offRest = px(shot()); post.dof.aperture = ap;
+  const still0 = post.dof.stillOut, fade0 = post.config.fade, secs0 = still0 > 0 ? still0 : 0.08;
+  let r = 0;
+  for (const [kind, name, secs, fade] of [['ball', 'cut', 0, fade0], ['ball', 'mix', secs0, 'mix'], ['ball', 'ramp', secs0, 'dissolve'], ['ball', 'pull', secs0, 'pull']]) {
+    post.dof.stillOut = secs; post.config.fade = fade; home();
+    const frames = [];
+    const cell = (label) => {
+      const c = shot(); const f = row();
+      f.farPx = post.counts().frame.farPx;
+      if (kind === 'ball') f.fromLensOff = dist(px(c), offRest);
+      frames.push(f);
+      g.drawImage(c, frames.length * cw - cw, r * chh);
+      g.fillStyle = 'rgba(0,0,0,0.65)'; g.fillRect(frames.length * cw - cw, r * chh, cw - 2, 15);
+      g.fillStyle = '#fff'; g.fillText(`${{ cut: 'cut', mix: 'linear mix', ramp: 'dissolve', pull: 'aperture' }[name]}: ${label}, lens ${f.lens}`, frames.length * cw - cw + 3, r * chh + 11);
+    };
+    cell('rest');
+    for (let i = 1; i < cols; i++) {
+      ball.position.x += 0.002;   // a rolling ball, the camera at rest
+      frameNow(1 / 60);
+      cell(`move ${i}`);
+      // inside the ramp, with a ball rolling: the readability probe, and the picture against the lens-off picture of the same frame
+      if (name === 'ramp' && kind === 'ball' && i === 2) {
+        const on = fullGrab();
+        const p = post.dof.probe({ mask: true });
+        if (p.ok) {
+          const mask = p.mask; delete p.mask;
+          post.dof.aperture = 0; frameNow(0); const off = fullGrab(); post.dof.aperture = ap; frameNow(0);
+          let tableMax = 0, roomMax = 0, tablePx = 0;
+          for (let j = 0, k4 = 0; j < mask.length; j++, k4 += 4) { const m = Math.max(Math.abs(on[k4] - off[k4]), Math.abs(on[k4 + 1] - off[k4 + 1]), Math.abs(on[k4 + 2] - off[k4 + 2])); if (mask[j] === 0) { if (m > roomMax) roomMax = m; } else { tablePx += 1; if (m > tableMax) tableMax = m; } }
+          out.probeInRamp = { frame: i, lens: p.lens, table: p.table, classes: p.classes, picture: { tablePx, tableMax, roomMax }, lensAfterProbe: row().lens };
+        } else out.probeInRamp = p;
+      }
+    }
+    out.runs[name] = frames;
+    r += 1;
+  }
+  // the camera moving (numbers only): a slow orbit, 0.24 m/s
+  post.dof.stillOut = still0; post.config.fade = fade0; home();
+  { const rows = []; for (let i = 0; i < 6; i++) { camera.position.z += 0.004; camera.lookAt(...tgt); frameNow(1 / 60); rows.push(row()); } out.runs.cameraDefault = rows; }
+  // the way back, at 60 Hz: the first frame with a lens after a stop, and how it grows
+  post.dof.stillOut = still0; post.config.fade = fade0; home();
+  for (let i = 0; i < 6; i++) { camera.position.z += 0.004; camera.lookAt(...tgt); frameNow(1 / 60); }
+  const back = [], backPx = []; for (let i = 0; i < 90; i++) { frameNow(1 / 60); back.push(row().lens); backPx.push(post.counts().frame.farPx); }
+  out.back = { firstLensFrame: back.findIndex((v) => v > 0) + 1, lens: back.slice(0, 24), farPx: backPx.slice(0, 24), at30: back[29], at60: back[59], wholeAt: back.findIndex((v) => v === 1) + 1 };
+  home();
+  document.body.appendChild(ov);
+  return out;
+}
+
+// ---- frames ------------------------------------------------------------------------------------------------------------------
+const want = Math.max(2, Number(q.get('frames')) || 4);
+const moving = q.get('move') === '1';
+let frames = 0, clock = 0;
+renderer.setAnimationLoop(() => {
+  const dt = 1 / 60; clock += dt; game.clock = clock;
+  if (moving) { camera.position.x += 0.03; camera.lookAt(...tgt); }
+  for (const fn of [...frameFns]) fn(clock, dt);
+  composer.render();
+  if (++frames === want) {
+    if (!moving) renderer.setAnimationLoop(null);
+    if (q.get('proof') === '1') { try { window.__proof = proof(); } catch (e) { window.__proof = { error: String(e?.stack ?? e) }; } }
+    if (q.get('probe') === '1') { try { window.__probe = probeRun(); } catch (e) { window.__probe = { error: String(e?.stack ?? e) }; } }
+    if (q.get('probe') === 'all') { try { window.__probe = probeAll(); } catch (e) { window.__probe = { error: String(e?.stack ?? e) }; } }
+    if (q.get('zoom')) { try { zoomRun(q.get('zoom')); } catch (e) { console.error(e); } }
+    if (q.get('plan') === '1') { try { window.__plan = planRun(); } catch (e) { window.__plan = { error: String(e?.stack ?? e) }; } }
+    if (q.get('strip') === '1') { try { window.__strip = stripRun(); } catch (e) { window.__strip = { error: String(e?.stack ?? e) }; } }
+    if (q.get('ab') === 'rows') { try { window.__ab = abRun(); } catch (e) { window.__ab = { error: String(e?.stack ?? e) }; } }
+    window.__state = post.enabled ? post.counts() : { enabled: false, reason: post.reason };
+    window.__ready = true;
+  }
+});
+</script>
+</body>
+</html>

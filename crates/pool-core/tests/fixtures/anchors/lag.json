@@ -1,0 +1,8 @@
+{
+  "format": "openbilliards.anchors.v1",
+  "anchor": "wpa_lag_distance",
+  "provenance": "WPA Tournament Table & Equipment Specifications sec 8 (table speed): a firm center-ball lag from the head spot travels 4-4.5 table lengths of total path. The WPA specifies the DISTANCE window, not a stroke speed; cue_v0 is the kernel's documented reference calibration point for that window (tune jointly with u_r/e_c if recalibrated - docs/research/gap-k66-cushion-params.md sec 5/6).",
+  "cue_v0": 4.5,
+  "min_table_lengths": 4.0,
+  "max_table_lengths": 4.5
+}

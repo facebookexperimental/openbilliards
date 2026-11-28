@@ -1,0 +1,375 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: cloth marks</title>
+<style>
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }
+.tag { position: absolute; font: 12px/1.2 ui-monospace, Menlo, monospace; color: #fff; background: rgba(0, 0, 0, 0.55); padding: 2px 5px; pointer-events: none; }
+</style>
+<base href="../../">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from './vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { TIERS, pickTier } from './scene/club/tiers.js';
+import { createAdopt } from './scene/club/adopt.js';
+import { createAssets } from './scene/club/assets.js';
+import { applyCloth } from './scene/club/mat/cloth.js';
+import { createMotion } from './scene/club/motion.js';
+import { OutputPass } from './vendor/jsm/postprocessing/OutputPass.js';
+import { createGrade } from './scene/club/post/grade.js';
+import { createDrawer } from './scene/club/post/fsq.js';
+import { CLUB_TUNE } from './scene/club/post/tune.js';
+import { init as initSdk, ScenarioBuilder, ShotBuilder, recordDuration } from './dist/pool-sdk/index.js';
+
+const q = new URLSearchParams(location.search);
+q.set('clubcloth', [q.get('clubcloth'), 'on'].filter(Boolean).join(','));
+const t0 = performance.now();
+const W = innerWidth, H = innerHeight;
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+RectAreaLightUniformsLib.init();
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x050505);
+const camera = new THREE.PerspectiveCamera(40, W / H, 0.02, 60);
+const VIEWS = {
+  play: [[-2.3, 1.05, 1.35], [0.1, 0.0, 0.0], 40],            // V1
+  cue: [[-1.35, 0.32, 0.22], [0.2, 0.0, 0.0], 32],            // V2
+  break: [[-2.15, 0.62, 0.0], [0.6, 0.0, 0.0], 38],           // V3
+  corner: [[0.85, 0.28, 0.25], [1.27, 0.0, 0.635], 28],       // V4
+  cluster: [[-0.85, 0.2, 0.42], [0.05, 0.02, -0.02], 28],     // V7
+  plan: [[0.0, 2.3, 0.03], [0.0, 0.0, 0.0], 66],              // V11
+  track: [[-0.3, 0.6, 0.75], [-0.27, 0.0, 0.03], 30],         // a standing look down at the draw shot's track
+  close: [[-0.5, 0.18, 0.42], [-0.33, 0.0, 0.05], 24],        // a close look at a piece of track
+  strike: [[-0.95, 0.16, 0.3], [-0.56, 0.0, 0.1], 22],        // where the cue ball sat: the chalk
+};
+const viewName = q.get('view') ?? 'cluster';
+let [pos, tgt, fov] = VIEWS[viewName] ?? VIEWS.cluster;
+if (q.get('cam')) { const c = q.get('cam').split(',').map(Number); if (c.length >= 6 && c.every(Number.isFinite)) { pos = c.slice(0, 3); tgt = c.slice(3, 6); fov = c[6] ?? 40; } }
+
+const note = {};
+const report = { page: 'dev-marks', gl: 'software GL on the picture host unless said otherwise', view: viewName, note };
+window.__report = report;
+
+// ---- the app's room (lamp, lights) and table, read-only ----
+const shadingMod = await import('./scene/shading.js');
+const roomMod = await import('./scene/room.js');
+const tableMod = await import('./scene/table.js');
+const shared = shadingMod.createShared({ lightPos: roomMod.LIGHT_POS, roomMin: roomMod.ROOM.min, roomMax: roomMod.ROOM.max });
+const room = roomMod.buildRoom({ envBinding: false });
+scene.add(room.group);
+const lr = room.lightRefs;
+if (lr) {
+  try {
+    lr.hemi.intensity = 1.25; lr.hemi.color.setHex(0x3a3a3e); lr.hemi.groundColor.setHex(0x2a2a2c);
+    lr.fill.intensity = 2.2; lr.fill.color.setHex(0xd9dcdf);
+    for (const rl of lr.rectLights ?? []) { rl.color.setHex(0xf6f7f9); rl.intensity = 7.8; }
+    lr.lampFace?.material?.color?.setRGB(19.4 * 1.015, 19.4 / 0.9301, 19.4 / 0.7605 * 0.985);
+  } catch (e) { note.look = String(e?.message ?? e); }
+}
+const tableId = q.get('table') ?? 'pool_pro_9ft';
+try { const prep = tableMod.buildTable.prepare?.(tableId); if (prep?.then) await prep; } catch (e) { note.prepare = String(e?.message ?? e); }
+const table = tableMod.buildTable({ shared, tableId });
+if (table.ready?.then) await table.ready;
+scene.add(table.group);
+if (q.get('color')) { try { tableMod.setClothColor?.(q.get('color')); note.color = q.get('color'); await new Promise((r) => setTimeout(r, 400)); } catch (e) { note.color = String(e?.message ?? e); } }
+
+// ---- the canned shot: a fixed scenario through the canonical kernel ----
+const engine = await initSdk(new URL('./dist/pool-wasm/pool_wasm.js', document.baseURI).href);
+const kTable = engine.table();
+const shotName = q.get('shot') ?? 'draw';
+// every canned shot uses the rack scenario's table and options (the kernel's realistic preset: what the app plays with)
+const rack = engine.nineBallRack(1);
+const shotOf = (place, shot) => { const sb = new ScenarioBuilder(rack.system.table); for (const [id, x, y] of place) sb.ball(id, { x, y }); return sb.shot(shot).options(rack.options).build(); };
+function scenarioFor(name) {
+  if (name === 'break') return shotOf(rack.system.balls.map((b) => [b.id, b.state.pos.x, b.state.pos.y]), new ShotBuilder().v0(9).phi(Math.PI / 2).tip(0, 0).seed(1).build());
+  if (name === 'jump') return shotOf([[0, 0.1, -0.55], [1, 0.1, -0.3], [2, 0.1, 0.5]], new ShotBuilder().v0(3).phi(Math.PI / 2).theta(35 * Math.PI / 180).tip(0, 0).seed(4).build());
+  if (name === 'soft') return shotOf([[0, 0.1, -0.55], [1, -0.05, 0.05]], new ShotBuilder().v0(1.2).phi(Math.atan2(0.6, -0.15)).tip(0, 0.2).seed(3).build());
+  if (name === 'swerve') return shotOf([[0, -0.3, -0.8], [1, 0.3, 0.9]], new ShotBuilder().v0(4).phi(Math.PI / 2 - 0.1).theta(8 * Math.PI / 180).tip(0.4, -0.2).seed(5).build());
+  // lift: the draw shot with the cue raised 8 degrees (the ball is driven into the bed, flies half a metre, lands and skids)
+  if (name === 'lift') return shotOf([[0, 0.10, -0.55], [1, -0.05, 0.05], [2, 0.28, 0.42], [4, 0.45, -0.15]], new ShotBuilder().v0(5).phi(Math.atan2(0.6, -0.15)).theta(8 * Math.PI / 180).tip(0, -0.45).seed(2).build());
+  // draw: the lane's fixed layout (cue ball and the one ball), a hard draw shot at the one ball
+  return shotOf([[0, 0.10, -0.55], [1, -0.05, 0.05], [2, 0.28, 0.42], [4, 0.45, -0.15]], new ShotBuilder().v0(5).phi(Math.atan2(0.6, -0.15)).tip(0, -0.45).seed(2).build());
+}
+const record = engine.simulate(scenarioFor(shotName));
+const sampler = engine.sampler(record);
+const duration = recordDuration(record);
+report.shot = { name: shotName, kernel: engine.version(), events: record.events.length, duration: +duration.toFixed(3), params: record.shot };
+
+// ---- balls (plain spheres posed by the kernel's sampler; the app's analytic ball shadow reads the shared sphere list) ----
+const R = Number(record.initial.balls[0]?.params?.r) || 0.028575;
+const COLORS = [0xf2efe4, 0xd9a400, 0x1c3f9e, 0xb01818, 0x4a1f78, 0xd8601a, 0x1f6b3a, 0x6e1c1c, 0x111111, 0xd9a400];
+const balls = record.initial.balls.map((rb, i) => {
+  const mesh = new THREE.Mesh(new THREE.SphereGeometry(R, 48, 32), new THREE.MeshStandardMaterial({ color: COLORS[rb.id % COLORS.length], roughness: 0.12 }));
+  scene.add(mesh);
+  return { id: rb.id, mesh, pocketed: false, i };
+});
+function pose(t) {
+  const d = sampler.sampleAt(Math.min(Math.max(t, 0), duration));
+  let n = 0;
+  for (const b of balls) {
+    const o = 8 * b.i;
+    const gone = d[o + 7] === 4;
+    b.pocketed = gone; b.mesh.visible = !gone;
+    if (gone) continue;
+    b.mesh.position.set(d[o + 1], d[o + 2], d[o]); // kernel (x, y, z) -> world (y, z, x)
+    if (n < shared.uSpheres.value.length) shared.uSpheres.value[n++].set(d[o + 1], d[o + 2], d[o], R);
+  }
+  shared.uSphereCount.value = n;
+}
+pose(0);
+// an environment the way the app makes one: a cube capture of the room from above the table, balls hidden
+const cubeRT = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+const cubeCam = new THREE.CubeCamera(0.05, 30, cubeRT);
+cubeCam.position.set(0, 0.45, 0);
+function bakeEnv() { for (const b of balls) b.mesh.visible = false; cubeCam.update(renderer, scene); for (const b of balls) b.mesh.visible = !b.pocketed; }
+if (q.get('env') !== '0') { bakeEnv(); scene.environment = cubeRT.texture; }
+
+// ---- stub state machine and game (what the app hands the look) ----
+const listeners = { frame: [], stateChange: [], shotComplete: [] };
+const machine = {
+  state: 'AIM',
+  is: (...s) => s.includes(machine.state),
+  on(event, fn) { (listeners[event] ??= []).push(fn); return () => { const i = listeners[event].indexOf(fn); if (i >= 0) listeners[event].splice(i, 1); }; },
+  emit(event, ...args) { for (const fn of [...(listeners[event] ?? [])]) fn(...args); },
+  to(next, info) { const prev = machine.state; machine.state = next; machine.emit('stateChange', next, prev, info); },
+};
+const game = {
+  record: null, clock: 0, duration: 0, state: 'AIM', phi: record.shot.phi,
+  template: { system: { table: { length: kTable.length, width: kTable.width }, balls: [{ params: { r: R } }] } },
+  ballSet: { balls }, playbackBalls: balls,
+  cueBall: () => balls.find((b) => b.id === 0) ?? null, activeBalls: () => balls.filter((b) => !b.pocketed),
+};
+
+// ---- the stand-in club object ----
+const frameFns = [];
+const tier = pickTier({ renderer, query: q });
+const club = {
+  enabled: true, tier, knobs: TIERS[tier], time: { value: 0 },
+  ctx: { renderer, scene, camera, table, room, gi: { uniforms: shared }, query: q, machine, game },
+  onFrame(fn) { frameFns.push(fn); }, offFrame(fn) { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); },
+  room: { enabled: false },
+};
+club.adopt = createAdopt(club);
+club.assets = createAssets(club);
+let occ = { enabled: false, reason: 'occ=off' };
+if (q.get('occ') !== 'off') {
+  try { const m = await import('./scene/club/occlusion.js'); occ = await m.createOcclusion(club); } catch (e) { occ = { enabled: false, reason: String(e?.message ?? e) }; }
+}
+club.occ = occ;
+let cloth = { enabled: false, reason: 'cloth=off', state: () => ({ enabled: false }) };
+if (q.get('cloth') !== 'off') cloth = await applyCloth(club);
+window.__club = club; window.__cloth = cloth;
+window.__dev = { THREE, renderer, scene, camera, shared, table, room, engine, record, sampler, game, machine };
+
+// ---- the frame: scene -> the look's grade -> the app's output pass, into one tile of the page ----
+const usePost = q.get('post') !== '0';
+const drawer = usePost ? createDrawer() : null;
+const grade = usePost ? createGrade({ drawer }) : null;
+if (grade) { grade.state.strength = CLUB_TUNE.grade.strength; grade.state.exposure = CLUB_TUNE.grade.exposure; }
+const out = usePost ? new OutputPass() : null;
+if (out) out.renderToScreen = true;
+let sceneRT = null, gradeRT = null;
+function drawTile(x, y, w, h) { // x, y from the top-left of the page
+  camera.aspect = w / h; camera.fov = fov; camera.position.set(...pos); camera.lookAt(...tgt); camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);
+  const gy = H - y - h;
+  if (usePost) {
+    if (!sceneRT || sceneRT.width !== w || sceneRT.height !== h) {
+      sceneRT?.dispose(); gradeRT?.dispose();
+      sceneRT = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, samples: 4 });
+      gradeRT = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, depthBuffer: false });
+    }
+    renderer.setRenderTarget(sceneRT); renderer.render(scene, camera);
+    grade.render(renderer, sceneRT.texture, gradeRT);
+    renderer.setRenderTarget(null);
+    renderer.setViewport(x, gy, w, h); renderer.setScissor(x, gy, w, h); renderer.setScissorTest(true);
+    out.render(renderer, null, gradeRT);
+    renderer.setScissorTest(false);
+  } else {
+    renderer.setRenderTarget(null);
+    renderer.setViewport(x, gy, w, h); renderer.setScissor(x, gy, w, h); renderer.setScissorTest(true);
+    renderer.render(scene, camera);
+    renderer.setScissorTest(false);
+  }
+  return { x, y, w, h, gy };
+}
+const gl = renderer.getContext();
+function hashTile(tile) {
+  const buf = new Uint8Array(tile.w * tile.h * 4);
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  gl.readPixels(tile.x, tile.gy, tile.w, tile.h, gl.RGBA, gl.UNSIGNED_BYTE, buf);
+  let h = 0x811c9dc5;
+  for (let i = 0; i < buf.length; i++) { h ^= buf[i]; h = Math.imul(h, 0x01000193); }
+  return (h >>> 0).toString(16).padStart(8, '0');
+}
+function levelAt(tile, wx, wz, k = 1) { // mean display RGB of a (2k+1)^2 box at a point of the bed
+  const v = new THREE.Vector3(wx, 0, wz).project(camera);
+  const px = Math.round((v.x + 1) / 2 * tile.w - 0.5), py = Math.round((v.y + 1) / 2 * tile.h - 0.5); // from the tile's bottom-left
+  const n = 2 * k + 1;
+  if (!(px >= k && py >= k && px < tile.w - k && py < tile.h - k) || v.z > 1) return { out: true };
+  const buf = new Uint8Array(n * n * 4);
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  gl.readPixels(tile.x + px - k, tile.gy + py - k, n, n, gl.RGBA, gl.UNSIGNED_BYTE, buf);
+  const rgb = [0, 0, 0];
+  for (let i = 0; i < n * n; i++) for (let c = 0; c < 3; c++) rgb[c] += buf[i * 4 + c];
+  return { px: [tile.x + px, tile.y + tile.h - 1 - py], rgb: rgb.map((s) => +(s / (n * n)).toFixed(1)) };
+}
+function tag(tile, text) {
+  const d = document.createElement('div'); d.className = 'tag'; d.textContent = text;
+  d.style.left = `${tile.x + 4}px`; d.style.top = `${tile.y + 4}px`; document.body.appendChild(d);
+}
+
+// ---- playback by hand: the same path the app's loop takes (pose the balls, then the 'frame' event) ----
+let motion = { enabled: false, reason: 'marks=off', parts: {}, state: () => ({ enabled: false }) };
+const marksPart = () => motion.parts?.marks ?? null;
+function frame(t) {
+  game.clock = t;
+  pose(t);
+  club.time.value = t;
+  for (const fn of [...frameFns]) fn(t, 0);
+  machine.emit('frame', t, 0);
+}
+function strike() { game.record = record; game.duration = duration; game.clock = 0; machine.to('PLAYBACK', { duration, strike: true }); }
+
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+// the occlusion maps bake in slices on the frame hook: run it until they are done
+if (occ.enabled) {
+  let done = false;
+  Promise.all([occ.table.ready, occ.floor?.ready]).then(() => { done = true; }, () => { done = true; });
+  for (let i = 0; i < 4000; i++) {
+    for (const fn of [...frameFns]) fn(i * 0.1, 0.1);
+    const st = occ.state();
+    if (done && !st.baking && (st.fade >= 1 || st.errors.length)) break;
+    if (i % 20 === 0) await wait(0);
+  }
+}
+await club.assets.ready().catch(() => {});
+cloth.rebuild?.('assets');
+
+const times = (q.get('times') ?? q.get('t') ?? '2').split(',').map(Number).filter(Number.isFinite).slice(0, 8);
+const mode = q.get('mode') ?? 'strip';
+const full = { x: 0, y: 0, w: W, h: H };
+const proof = {};
+
+if (mode === 'prove') {
+  // 1. the cloth before the part exists (the program without the term)
+  const half = { x: 0, y: 0, w: W / 2, h: H / 2 };
+  frame(-1); drawTile(half.x, half.y, half.w, half.h); drawTile(half.x, half.y, half.w, half.h);
+  proof.beforePart = hashTile(drawTile(half.x, half.y, half.w, half.h));
+}
+if (q.get('marks') !== 'off') {
+  motion = await createMotion(club, { parts: [['marks', './motion/marks.js', () => import('./scene/club/motion/marks.js'), 'applyMarks']] });
+  club.motion = motion;
+}
+window.__motion = motion;
+
+if (mode === 'prove') {
+  const half = { x: 0, y: 0, w: W / 2, h: H / 2 };
+  const shot = (t) => { frame(t); return hashTile(drawTile(half.x, half.y, half.w, half.h)); };
+  // 2. the part is built (the program with the term), no record: twice, the first draw compiles
+  shot(-1);
+  proof.partNoRecord = shot(-1);
+  // 3. a record, at a time before the strike
+  strike();
+  proof.recordBeforeStrike = shot(-0.5);
+  proof.identical = proof.beforePart === proof.partNoRecord && proof.beforePart === proof.recordBeforeStrike;
+  // 4. law 2: the same time twice with other times in between, in another order, and a time before the mark's event
+  const seq = [0.06, 0.4, 1.5, 0.06, duration + 1, 0.4, -0.5, 1.5, 0.0, 0.06];
+  const seen = {};
+  proof.sequence = seq.map((t) => { const h = shot(t); (seen[t] ??= []).push(h); return { t, hash: h, drawn: marksPart()?.state?.().drawn ?? null }; });
+  proof.sameTimeSamePixels = Object.values(seen).every((list) => list.every((h) => h === list[0]));
+  proof.beforeEventShowsNoMark = seen[-0.5][0] === proof.recordBeforeStrike && proof.sequence.find((s) => s.t === -0.5).drawn === 0;
+  proof.marksChangeThePicture = seen[1.5][0] !== seen[-0.5][0];
+  // the same with the balls taken out of the comparison: marks at 1.5 against no marks at 1.5 (the part's switch)
+  frame(1.5); const on15 = hashTile(drawTile(half.x, half.y, half.w, half.h));
+  marksPart()?.set?.({ on: false }); frame(1.5); const off15 = hashTile(drawTile(half.x, half.y, half.w, half.h));
+  marksPart()?.set?.({ on: true });
+  proof.onAgainstOffAt15 = { on: on15, off: off15, differ: on15 !== off15 };
+  // 5. a cube capture taken while marks are on the cloth holds none: one face looking down at the bed, marks on / off / guard off
+  const capRT = new THREE.WebGLCubeRenderTarget(128, { type: THREE.UnsignedByteType });
+  const capCam = new THREE.CubeCamera(0.05, 30, capRT);
+  capCam.position.set(-0.25, 0.3, 0.03);
+  const faceHash = () => {
+    for (const b of balls) b.mesh.visible = false;
+    capCam.update(renderer, scene);
+    for (const b of balls) b.mesh.visible = !b.pocketed;
+    const buf = new Uint8Array(128 * 128 * 4);
+    renderer.readRenderTargetPixels(capRT, 0, 0, 128, 128, buf, 3); // the face that looks down
+    let h = 0x811c9dc5; for (let i = 0; i < buf.length; i++) { h ^= buf[i]; h = Math.imul(h, 0x01000193); }
+    return (h >>> 0).toString(16).padStart(8, '0');
+  };
+  frame(duration + 1); drawTile(half.x, half.y, half.w, half.h);
+  const capOn = faceHash();
+  marksPart()?.set?.({ on: false }); frame(duration + 1); const capOff = faceHash();
+  marksPart()?.set?.({ on: true, guard: false }); frame(duration + 1); const capNoGuard = faceHash();
+  marksPart()?.set?.({ guard: true });
+  proof.capture = { marksOn: capOn, marksOff: capOff, guardOff: capNoGuard, holdsNoMark: capOn === capOff, testIsSensitive: capNoGuard !== capOff, cubeDrawsZeroed: marksPart()?.state?.().guard?.cubeDrawsZeroed ?? null };
+  report.proof = proof;
+  // the picture: before the strike | 0.06 | 0.4 | the end
+  const cells = [[-0.5, 'before the strike'], [0.06, 't = 0.06 s'], [0.4, 't = 0.4 s'], [duration + 1, 'played out']];
+  cells.forEach(([t, label], i) => { frame(t); const tile = drawTile((i % 2) * W / 2, Math.floor(i / 2) * H / 2, W / 2, H / 2); tag(tile, `${shotName}: ${label}  (records ${marksPart()?.state?.().drawn ?? '-'})`); });
+} else {
+  strike();
+  const pair = mode === 'pair';
+  const cols = pair ? 2 : (times.length <= 1 ? 1 : times.length <= 4 ? 2 : times.length <= 6 ? 3 : 4);
+  const rows = pair ? times.length : Math.ceil(times.length / cols);
+  const tw = Math.floor(W / cols), th = Math.floor(H / rows);
+  report.tiles = [];
+  report.levels = [];
+  const wantProbe = q.get('probe') === '1';
+  // probe points: the middle of every drawn record, and a point 15 mm beside it
+  const probePoints = () => (marksPart()?.state?.().records ?? []).map((r, n) => {
+    const mx = (r.a[0] + r.b[0]) / 2, mz = (r.a[1] + r.b[1]) / 2;
+    let dx = r.b[0] - r.a[0], dz = r.b[1] - r.a[1]; const l = Math.hypot(dx, dz);
+    if (l > 1e-6) { dx /= l; dz /= l; } else { dx = 1; dz = 0; }
+    // 15 points along the record (the centre line): the on / off difference is read at each
+    const along = Array.from({ length: 15 }, (_, j) => { const f = (j + 0.5) / 15; return [r.a[0] + (r.b[0] - r.a[0]) * f, r.a[1] + (r.b[1] - r.a[1]) * f]; });
+    return { n, kind: r.kind, s: Math.max(...r.s), on: [mx, mz], beside: [mx - dz * 0.015, mz + dx * 0.015], beside2: [mx + dz * 0.015, mz - dx * 0.015], along };
+  });
+  const diffAlong = (onRows, offRows) => {
+    const max = [0, 0, 0], sum = [0, 0, 0]; let n = 0;
+    onRows.forEach((a, j) => { const b = offRows[j]; if (a.out || b.out) return; n += 1; for (let c = 0; c < 3; c++) { const d = a.rgb[c] - b.rgb[c]; sum[c] += d; if (Math.abs(d) > Math.abs(max[c])) max[c] = d; } });
+    return { points: n, max: max.map((v) => +v.toFixed(1)), mean: sum.map((v) => +(v / Math.max(1, n)).toFixed(1)) };
+  };
+  times.forEach((t, i) => {
+    const label = t < 0 ? 'before the strike' : `t = ${t} s`;
+    if (pair) {
+      frame(t);
+      const pts = wantProbe ? probePoints() : [];
+      marksPart()?.set?.({ on: false }); frame(t);
+      const a = drawTile(0, i * th, tw, th); tag(a, `${shotName} ${label}: marks OFF`);
+      const offLv = pts.map((p) => ({ on: levelAt(a, ...p.on), beside: levelAt(a, ...p.beside), beside2: levelAt(a, ...p.beside2), along: p.along.map((w) => levelAt(a, ...w)) }));
+      const offHash = hashTile(a);
+      marksPart()?.set?.({ on: true }); frame(t);
+      const b = drawTile(tw, i * th, tw, th); tag(b, `${shotName} ${label}: marks ON (records ${marksPart()?.state?.().drawn ?? '-'})`);
+      const onLv = pts.map((p) => ({ on: levelAt(b, ...p.on), beside: levelAt(b, ...p.beside), beside2: levelAt(b, ...p.beside2), along: p.along.map((w) => levelAt(b, ...w)) }));
+      report.tiles.push({ t, off: offHash, on: hashTile(b) });
+      pts.forEach((p, n) => report.levels.push({ t, record: p.n, kind: p.kind, strength: p.s, at: p.on.map((v) => +v.toFixed(3)), markOn: onLv[n].on, markOff: offLv[n].on, besideOn: onLv[n].beside, besideOff: offLv[n].beside, beside2On: onLv[n].beside2, beside2Off: offLv[n].beside2, alongOnMinusOff: diffAlong(onLv[n].along, offLv[n].along) }));
+      report.summary = (report.summary ?? []).concat(pts.map((p, n) => ({ t, record: p.n, kind: p.kind, strength: p.s, ...diffAlong(onLv[n].along, offLv[n].along), besideDiff: [onLv[n].beside, offLv[n].beside].some((x) => x.out) ? null : onLv[n].beside.rgb.map((v, c) => +(v - offLv[n].beside.rgb[c]).toFixed(1)) })));
+    } else {
+      frame(t);
+      const tile = drawTile((i % cols) * tw, Math.floor(i / cols) * th, tw, th);
+      tag(tile, `${shotName} ${label}${q.get('marks') === 'off' ? ': part not built' : `  (records ${marksPart()?.state?.().drawn ?? '-'})`}`);
+      report.tiles.push({ t, hash: hashTile(tile), drawn: marksPart()?.state?.().drawn ?? null });
+      if (wantProbe) for (const p of probePoints()) report.levels.push({ t, record: p.n, kind: p.kind, strength: p.s, at: p.on.map((v) => +v.toFixed(3)), mark: levelAt(tile, ...p.on), beside: levelAt(tile, ...p.beside), beside2: levelAt(tile, ...p.beside2) });
+    }
+  });
+}
+report.motion = (() => { try { return motion.state?.() ?? null; } catch (e) { return { error: String(e?.message ?? e) }; } })();
+report.adopt = club.adopt.state();
+report.cloth = (() => { try { const s = cloth.state?.(); return s ? { key: s.key, materials: s.materials } : null; } catch { return null; } })();
+note.readyMs = Math.round(performance.now() - t0);
+window.__ready = true;
+</script>
+</body>
+</html>

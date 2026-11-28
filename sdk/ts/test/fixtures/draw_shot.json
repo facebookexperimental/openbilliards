@@ -1,0 +1,79 @@
+{
+  "name": "draw_shot",
+  "description": "Near-full hit (4 mm offset) with draw b = -0.4: cue ball draws back toward the head rail while the object ball banks off the foot rail.",
+  "system": {
+    "balls": [
+      {
+        "id": 0,
+        "params": {
+          "m": 0.170097,
+          "r": 0.028575,
+          "u_s": 0.2,
+          "u_r": 0.01,
+          "u_sp": 0.0127,
+          "e_b": 0.95,
+          "e_c": 0.85,
+          "f_c": 0.2
+        },
+        "state": {
+          "pos": {
+            "x": 0.0,
+            "y": -0.6,
+            "z": 0.028575
+          },
+          "vel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "avel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "motion": "Stationary"
+        }
+      },
+      {
+        "id": 1,
+        "params": {
+          "m": 0.170097,
+          "r": 0.028575,
+          "u_s": 0.2,
+          "u_r": 0.01,
+          "u_sp": 0.0127,
+          "e_b": 0.95,
+          "e_c": 0.85,
+          "f_c": 0.2
+        },
+        "state": {
+          "pos": {
+            "x": 0.004,
+            "y": -0.1,
+            "z": 0.028575
+          },
+          "vel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "avel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "motion": "Stationary"
+        }
+      }
+    ],
+    "table": "wpa_9ft"
+  },
+  "shot": {
+    "v0": 2.5,
+    "phi": 1.5707963267948966,
+    "theta": 0.0,
+    "a": 0.0,
+    "b": -0.4,
+    "seed": 3
+  }
+}

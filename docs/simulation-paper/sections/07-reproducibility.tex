@@ -1,0 +1,336 @@
+% ===========================================================================
+% Section 7 — Reproducibility
+% Evidence: the study's baseline manifest (identity chain, pinned hashes,
+% normalization), its determinism matrix, the bundle's results map, the
+% continuous-reproduction job, and the identity checker with its ledger.
+% Claim C4's evidence section.
+% ===========================================================================
+\section{Reproducibility}
+\label{sec:reproducibility}
+
+This section states the reproduction contract behind every number and
+figure in the paper, the evidence that the contract holds, and what of
+it the public source release supports. The contract is deliberately
+narrow and mechanical: one canonical binary, one manifest of expected
+hashes, and hash equality as the verification criterion.
+
+\subsection{Source availability}
+\label{sec:availability}
+
+The kernel, its WebAssembly and Python bindings, the TypeScript SDK, and
+the application that consumes them are published as source in the
+project's public repository under the MIT license; the portions of the
+kernel derived from pooltool \citep{kiefl2024pooltool} remain under the
+Apache License~2.0, and the repository's notice files identify the
+upstream project and list the derived files. The public repository
+receives curated snapshots of the project's development repository, and
+its history begins at a snapshot later than the kernel revision this
+paper reports on. Two limits follow, and we state them plainly. First,
+the canonical kernel of record, \code{0.1.0+fb3425ad}, is not part of
+the public history: a build from the public tree is a later kernel
+revision, the hashes and digests quoted in this paper cannot be
+regenerated bit-for-bit from it, and this paper reports no measurement
+made on it. Second, the canonical \code{pool_wasm} binary of record
+(SHA-256 prefix \code{5e3b6ee4}) with its Python wheel and npm SDK
+tarball, the experiment scripts, the oracle harness, the 25 pinned
+outputs, the expected-hash manifest, the waiver ledger, and the
+validated-scenario video pack described below belong to the artifact
+bundle, which is not part of the public release and has not been
+published. The registered results quoted in this paper are those of the
+\code{0.1.0+fb3425ad} battery, and checks made on later canonical stamps
+state their stamp (the lineage notes below; Table~\ref{tab:determinism}).
+
+\subsection{Tier-1 protocol}
+
+The reproduction protocol's first tier is designed as \emph{anyone,
+minutes --- execute the canonical artifact}; until the bundle is
+published, it can be executed only within the project. Its bundle
+contains the pinned canonical \code{pool_wasm} binary, whose
+version-hash string is identical to the stamp recorded in replay
+files, together with the scripts, fixtures, expected hashes, and a
+results map tying every figure and table in this paper to the script
+that regenerates its data. The bundle also carries the
+validated-scenario video pack: sixteen slow-motion renders with
+predicted-overlay annotations, each replaying a solved strike
+through the then-current shipped canonical binary with its pinned
+record digest reproduced \emph{before} any frame is captured
+(per-entry kernel stamps recorded in the pack's gate reports),
+accompanied by per-entry machine-readable gate reports and a pack
+ledger carrying per-entry SHA-256 hashes of the delivered bytes
+together with the render and verification history, including the
+cue-model provenance
+(presentation methods in Supplementary Material Section~S6); the
+videos present verified records, and no claim of this paper rests on
+them. Verification \emph{is} hash equality: the
+reproducer's success criterion is a byte-for-byte match, not a visual
+one. The entire kernel of Fig.~\ref{fig:F1} ships as this single
+hash-identified binary.
+
+A second tier --- rebuilding the kernel from source --- exists through
+the public repository, with a narrower scope than tier~1. The shipped
+WebAssembly binary remains the paper's normative physics definition, a
+posture with precedent in deterministic-WebAssembly runtimes that treat
+the hash-identified binary as the consensus artifact
+\citep{wasm2015nondeterminism}. Native and PyO3 builds are development
+conveniences: they are held to the wasm by byte comparison where we run
+them (Table~\ref{tab:determinism}), but the \code{.wasm} alone defines
+expected outputs. A rebuild from the public source therefore lets a
+reader inspect and test the published models, not regenerate this
+paper's hashes, which are bound to \code{0.1.0+fb3425ad}
+(Section~\ref{sec:availability}). The costs of this posture are discussed
+in Section~\ref{sec:limitations}.
+
+WebAssembly can carry this obligation because its numeric semantics are
+IEEE-deterministic up to two specified escape hatches --- NaN payload
+bits and relaxed SIMD \citep{wasm2015nondeterminism} --- and the kernel
+excludes both by construction: simulation state is NaN-free by an
+invariant enforced at the API boundary, and the binary uses no SIMD and
+no threading. Every transcendental function is compiled into the binary
+rather than imported from the host, so engine-to-engine variance in
+host math libraries never enters the physics. Replay is version-hashed
+end to end, and model evolution is held to the same doctrine: an
+archived corpus of event streams re-simulates byte-identically on the
+committed binary, with the five streams that predate the corrected slip
+law reproducing their pre-fix bytes only under the explicit legacy
+options (Table~\ref{tab:determinism}, row 5; Section~\ref{sec:oracle}).
+
+The bundle is designed to the FAIR principles \citep{wilkinson2016fair}
+and their research-software profile \citep{chuehong2022fair4rs}: findable
+and accessible once published, interoperable
+(self-describing JSON outputs carrying kernel version, shot parameters,
+and fixture identifiers), and reusable (per-fixture provenance
+blocks). The bundle inventory and the step-by-step five-step
+procedure are the mechanics of Supplementary Material Section~S2.
+
+\subsection{Baseline identity and the two-sided proof}
+
+The paper's baseline of record was recorded under the canonical wasm
+stamped \code{0.1.0+fb3425ad}; the battery outputs themselves were
+produced by a native Python-surface build stamped \code{0.1.0+a321d64f}.
+The bridge between the two stamps is a source-identity proof, not an
+assumption: the version-control diff between the two pins over every
+compiled kernel source is empty (the only intervening changes are
+test-only files not compiled into the library), and the rebuilt
+environment passes all 13 smoke checks. The bridge is no longer
+load-bearing on its own: every kernel simulation the battery executes
+has since been replayed end-to-end through the shipped binary itself
+with digest equality (matrix row 11 below). Four lineage notes apply: after
+the baseline was recorded, the canonical stamp advanced to
+\code{0.1.0+c1c3de9a} through a catalog-only change (two visual ball-set
+entries, with fixture re-pins proving the event streams byte-identical),
+and subsequently to \code{0.1.0+8efd660e} through the post-registration
+input-envelope revision (Section~\ref{sec:limitations}), proven
+bit-exact for every previously
+accepted input at its repin --- two supersessions that leave the physics
+definition of record for every simulated battery input unchanged (the
+\expid{B3} rejection-probe disclosure is the amendment note of
+Section~\ref{sec:limitations}); and thirdly to \code{0.1.0+b4d6e418}
+through the pinch-strike revision
+--- the first supersession that changes simulated physics, confined to
+strikes at cue elevations above $60^\circ$. Its battery effect (the
+$65$--$75^\circ$ cells of experiment \expid{D2}) and the materialized
+\expid{B3} rejection-probe class are measured and re-baselined in the
+study's baseline manifest. Fourthly, the stamp
+advanced to \code{0.1.0+e654eb93} through the ball--ball at-contact
+window guard --- a detection-correctness fix inside the frozen impact
+semantics (an airborne re-collision immediately after a same-instant
+compound event went undetected), deliberately shipped without a legacy
+option because the pre-fix behavior is a defect, not a model choice. It
+is, to date, the only supersession beyond the three above that has
+moved any battery output: exactly one trajectory-digest leaf of
+experiment \expid{F3}'s verification cell~3, with the cell's verdict
+and every measured column unchanged. The drift is carried as a
+hash-bound waiver of the continuous-reproduction job and as a numbered
+exclusion in the study's ledger, with its census recorded in the
+baseline manifest, and is retired at the submission-freeze battery
+re-baseline. Later canonical advances are catalog and serialization
+repins proven battery-empty, chronicled in the same manifest. In every
+case the registered results quoted in this
+paper remain those of the \code{0.1.0+fb3425ad} battery.
+
+The baseline manifest is proven two-sided. In one direction, the current
+outputs are pinned by their SHA-256 hashes. In the other, the superseded
+pre-cascade baseline (build \code{0.1.0+5be7647}) was regenerated from a
+clean working tree at its own pin and reproduced all 25 pinned
+pre-cascade hashes byte-identically, including the oracle run. Every
+drift row in the manifest is therefore a measured old-versus-new
+comparison on byte-verified endpoints --- never an inference from hash
+inequality.
+
+Raw file hashes are commit-bound by construction: every output embeds the
+kernel build stamp, which contains the source-control short hash. The
+battery therefore also fingerprints trajectories in a stamp-independent
+form: every serialized shot record carries a digest computed with the
+version stamp replaced by a fixed token --- a cross-build trajectory
+fingerprint that identity checks \emph{compare}, never strip (checker
+mechanics in Supplementary Material Section~S2). At the re-record that
+established this normalization, a JSON tree comparison excluding digest
+fields showed zero differences across all 25 outputs; all 3157 digest
+leaves were re-recorded; and the full battery, run twice, produced 25/25
+byte-identical outputs across runs.
+
+\subsection{Determinism audit matrix}
+
+Table~\ref{tab:determinism} transcribes the determinism evidence matrix:
+eleven verdict rows, each citing a mechanically checked run --- a
+fixture-corpus byte comparison, a continuous-integration job, a browser
+boot pair, or the battery reconstruction above --- rather than an
+argument. The comparison methods are: (A) the native command-line kernel
+versus the canonical-source wasm under Node, byte comparison of seven
+serialized shot records; (B) the seven native records byte-compared
+across operating systems and architectures; (C) an archived corpus of 14
+event streams re-simulated on the committed wasm and byte-diffed, with
+registered divergences re-proven through explicit legacy options; (D)
+hermetic browser boots with submitted scenario bytes byte-compared; (E)
+cross-surface byte identity (command line, TypeScript SDK on the
+committed wasm, and Python SDK); (F) the rules layer's three-leg byte
+identity against frozen corpus bytes, raw comparison with no
+normalization; (G) the paper battery's byte-stable reconstruction
+described above; and (H) the battery's full recorded-input corpus
+re-executed through a shipped wasm binary under Node --- an opt-in tap
+on the battery's simulation entry points records one row per kernel
+simulation (the serde-exact inputs plus the stamp-normalized trajectory
+digest of the native record; tap-on and tap-off battery outputs proven
+byte-identical), and the replay harness feeds each row verbatim to the
+shipped binary through the committed loader and compares digests, after
+a ten-record preflight proving native and wasm record JSON
+byte-identical modulo the version stamp (the harness, the
+per-experiment counts, and the corpus SHA-256 are recorded in the
+bundle's replay report).
+
+% The unbounded l-columns produced a 322pt overfull hbox that clipped
+% the Method/Verdict columns in [review,12pt]; bounded p{} widths +
+% page-breakable longtable.
+% Table typography: ragged-right rebalanced
+% columns (width moved toward the Verdict column), the two long verdict
+% narratives compressed via lettered notes under \bottomrule (all hashes
+% and counts preserved verbatim), two-line 'Platform / runtime' header,
+% and longtable continuation furniture.
+{\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}c>{\raggedright\arraybackslash}p{0.23\linewidth}>{\raggedright\arraybackslash}p{0.17\linewidth}c>{\raggedright\arraybackslash}p{0.40\linewidth}@{}}
+  \caption{Determinism audit matrix at the paper's kernel pin: artifacts
+  compared, platform and runtime, method (letters defined in the text),
+  and verdict. Every row cites a mechanically checked run. The matrix's
+  untested cells --- non-V8 JavaScript engines, wasmtime, Windows,
+  further OS/architecture pairs, wheel stamp coherence, and third-party
+  attestation --- are stated as untested in the text and in
+  Section~\ref{sec:limitations}. Lettered marks resolve to the notes at
+  the end of the table.}
+  \label{tab:determinism}\\
+    \toprule
+    \# & Artifacts compared & Platform /\newline runtime & Method & Verdict \\
+    \midrule
+    \endfirsthead
+    \multicolumn{5}{@{}l}{Table~\ref{tab:determinism} \emph{(continued)}}\\
+    \toprule
+    \# & Artifacts compared & Platform /\newline runtime & Method & Verdict \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{5}{r@{}}{\emph{Continued on next page}}\\
+    \endfoot
+    \bottomrule
+    \multicolumn{5}{@{}>{\raggedright\arraybackslash}p{0.98\linewidth}@{}}{%
+    \rule{0pt}{2.4ex}%
+    Notes.
+    \textsuperscript{a}\,registered slip-law-class divergences, re-proven
+    under explicit legacy options.
+    \textsuperscript{b}\,on BOTH the paper-canonical
+    (\code{0.1.0+fb3425ad}) and the superseding committed
+    (\code{0.1.0+c1c3de9a}) binaries; 10/10 preflight records
+    byte-identical modulo stamp.}\\
+    \endlastfoot
+    1 & native CLI vs canonical-source wasm & macOS arm64, Node 26 (V8)
+      & A & PASS, 7/7 byte-identical \\
+    2 & native CLI vs canonical-source wasm & Ubuntu x86\_64, Node 22
+      (V8) & A & PASS \\
+    3 & native CLI vs canonical-source wasm & macOS arm64 (CI), Node 22
+      (V8) & A & PASS \\
+    4 & native records across OS and architecture & Ubuntu x86\_64 vs
+      macOS arm64 & B & PASS, byte-identical \\
+    5 & committed wasm vs archived pre-fix capture & Ubuntu x86\_64,
+      Node 22 (V8) & C & PASS: 9/14 streams byte-identical; 5
+      divergences reproduce pre-fix bytes\textsuperscript{a} \\
+    6 & committed wasm, in-browser & macOS arm64, Chrome (V8) & D &
+      PASS, bytes identical across hermetic boots \\
+    7 & CLI vs TypeScript SDK (wasm) vs Python SDK & Ubuntu x86\_64 & E &
+      PASS \\
+    8 & rules layer, three legs vs frozen corpus bytes & Ubuntu x86\_64
+      and macOS arm64 & F & PASS (raw \code{cmp}, no normalization) \\
+    9 & paper battery, 25 outputs (native Python SDK) & macOS arm64,
+      CPython 3.12 & G & PASS, 25/25 hashes reproduced \\
+    10 & committed wasm, break-fixture event bytes across model
+      revisions & Ubuntu x86\_64, Node 22 (V8) & C & PASS: divergence
+      registered honestly (195 $\to$ 189 events); pre-fix stream
+      retained and reproduced \\
+    11 & paper battery, all 16{,}933 recorded simulations vs shipped
+      wasm & macOS arm64, Node 26 (V8) & H & PASS, 16{,}933/16{,}933
+      digest-identical on both binaries\textsuperscript{b} \\
+\end{longtable}
+}
+
+One measured platform sensitivity is reported deliberately, because it
+argues \emph{for} the binary-canonical doctrine rather than against it.
+A regression probe that sits intentionally on the structural double
+root of the branch-selection defect (Section~\ref{sec:oracle}) fails on
+Linux x86\_64 native builds
+while passing on macOS arm64 native builds: under the explicit
+\emph{legacy} bracket selection, the probe measures a tangent-ratio step
+of $2.7\times10^{-5}$ on Linux instead of the ${>}0.1$ jump recorded on
+macOS, because code-generation and math-library differences between
+native targets flip which solution family the legacy path settles on at
+the $10^{-16}$-noise tangency. No shipped-artifact obligation is
+breached --- the corrected default is continuous by construction, and the
+canonical wasm is one binary that native code-generation variance cannot
+reach --- but the probe demonstrates that native rebuilds are not
+bit-trustworthy at measure-zero critical points, which is exactly why the
+expected outputs are defined by the \code{.wasm}.
+
+The matrix's untested cells are stated as untested, not argued away;
+they are enumerated, with the structural argument for why the untested
+engine cells are expected to pass, in Section~\ref{sec:limitations}. The
+cell that mattered most for reading this paper is now closed by
+measurement rather than argument: row 11 replays all 16{,}933 recorded
+simulations of the battery end-to-end through the shipped binary with
+stamp-normalized trajectory-digest equality (16{,}933/16{,}933), and the
+replayed digest set covers all 3{,}157 digest-pinned evidence records
+carried in the pinned outputs, so the battery grids no longer rest on
+the native surface plus the source-identity bridge. The remaining
+reader-facing cell is that no non-author has yet executed the tier-1
+protocol. The doctrine is to measure, not argue: each remaining cell is
+an open pre-submission item.
+
+\subsection{Continuous reproduction}
+
+In the development repository the battery also runs as a
+continuous-integration target; the job and its inputs are not part of
+the public release. A scheduled (weekly, plus on-demand)
+reproduction job --- deliberately
+informational, never a merge gate --- rebuilds the Python surface from
+pinned sources with a pinned numerical stack, runs the 13-check smoke
+test, executes all 24 experiments plus the oracle harness, and checks
+every output for physics identity against the committed normalized
+manifest under the normalization above (mask version stamps only;
+compare trajectory digests). Where the runner lacks the pinned oracle
+environment, the oracle harness records an explicit skip reason in its
+output: a recorded skip is data; a silent skip is a failure. The runner
+platform is itself part of the baseline identity --- one least-squares
+fit in experiment \expid{D1} differs in full precision between BLAS
+back ends with unchanged trajectory digests --- so the job runs on the
+platform the baseline was recorded on.
+
+Any unwaivered mismatch fails the job. A mismatch can be downgraded only
+by a waiver entry carrying an identifier, a physical rationale, and a
+tracking reference --- the loader rejects entries missing any of the
+three --- and this hash-bound waiver ledger is empty by design at the
+baseline of record. The paper-level ledger travels the same way: it
+ships verbatim in the artifact bundle, and Section~\ref{sec:limitations}
+is organized by its categories, so the paper and the bundle reference
+one machine-readable object.
+
+Two items close the loop before submission: the wheel and the battery
+are rebuilt at the submission-freeze commit, so that raw hash equality
+holds with no normalization at all; and a third party (a CODECHECK-style
+attestation) executes tier 1 on all three operating systems and confirms
+the hashes. Both are recorded above as open cells of the audit matrix.

@@ -1,0 +1,240 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: arena</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<script type="importmap">
+{ "imports": { "three": "../../vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from '../../vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { pickTier, TIERS } from '../../scene/club/tiers.js';
+import { createAssets } from '../../scene/club/assets.js';
+import { createAdopt } from '../../scene/club/adopt.js';
+import { createRoom } from '../../scene/club/arena/room.js';
+import { roomLight } from '../../scene/club/room/light.js';
+import * as LAYOUT from '../../scene/club/arena/layout.js';
+import { tableStandIn } from './bake-room-scene.mjs';
+
+const q = new URLSearchParams(location.search);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = Number(q.get('exposure')) > 0 ? Number(q.get('exposure')) : 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+RectAreaLightUniformsLib.init();
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.05, 60);
+const VIEWS = Object.fromEntries(LAYOUT.VIEWS.map((v) => [v.id, [v.cam, v.target, v.fov]]));
+Object.assign(VIEWS, {
+  east: [[-1.2, 0.9, 0.3], [9, 1.2, -0.5], 50],        // the east end: boards, seating, drape behind
+  north: [[0.5, 1.0, 2.2], [0, 1.4, -9], 50],          // the north side
+  floor: [[-3.2, 0.6, 2.4], [-5.6, -0.79, 4.3], 40],   // the island's corner: the two carpets and the bound edge
+  drape: [[6.0, 1.2, -9.0], [9.5, 2.2, -12.6], 40],    // a drape close up (from where the north seating stands)
+  wash: [[-3.4, 0.5, 1.2], [-8.9, 0.9, -1.5], 46],     // the backdrop's foot and its battens
+  up: [[-3.0, 0.2, 2.2], [1.5, 6.5, -2.5], 60],        // the roof void
+  out: [[2.0, 1.6, 7.6], [0, 0.2, 0], 44],             // beyond the south cut plane: the south block is dropped
+  above: [[-1.4, 4.4, 2.2], [0.3, 0, -0.3], 50],       // above the rig's plane
+  far: [[-5.2, 2.6, 3.9], [3.5, 0.6, -3], 58],         // the whole hall from the south-west corner of the island
+});
+let [pos, tgt, fov] = VIEWS[q.get('view')] ?? VIEWS.V9;
+if (q.get('cam')) { const c = q.get('cam').split(',').map(Number); pos = c.slice(0, 3); tgt = c.slice(3, 6); fov = c[6] || 40; }
+camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+
+// ---- stand-in app room (as web/scene/room.js builds it): box, floor, shadow overlay, wall props, lamp, three lights
+const FLOOR_Y = -0.79, CEIL_Y = 2.45;
+const appGroup = new THREE.Group();
+const appFloor = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), new THREE.MeshStandardMaterial({ color: 0x3a2a20, roughness: 0.55 }));
+appFloor.rotation.x = -Math.PI / 2; appFloor.position.y = FLOOR_Y; appGroup.add(appFloor);
+const appWalls = new THREE.Mesh(new THREE.BoxGeometry(9, CEIL_Y - FLOOR_Y + 0.02, 6), new THREE.MeshStandardMaterial({ color: 0x8a8070, roughness: 0.95, side: THREE.BackSide }));
+appWalls.position.set(0, (CEIL_Y + FLOOR_Y) / 2 - 0.01, 0); appGroup.add(appWalls);
+const blob = new THREE.Mesh(new THREE.PlaneGeometry(4.6, 3.2), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.6, depthWrite: false }));
+blob.rotation.x = -Math.PI / 2; blob.position.y = FLOOR_Y + 0.002; appGroup.add(blob);
+const farProp = new THREE.Group(); farProp.name = 'obFarPropTable';
+farProp.add(new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.4, 0.4), new THREE.MeshStandardMaterial({ color: 0x553322 })));
+farProp.position.set(1.35, -0.4, -2.78); appGroup.add(farProp);
+const LIGHT_W = 2.05, LIGHT_D = 0.66, LIGHT_Y = 1.02;
+const faceCv = document.createElement('canvas'); faceCv.width = 256; faceCv.height = 84;
+{ const c = faceCv.getContext('2d'); c.fillStyle = '#3a3426'; c.fillRect(0, 0, 256, 84); c.fillStyle = '#fff6e2'; for (const y of [14, 36, 58]) c.fillRect(8, y, 240, 12); }
+const faceTex = new THREE.CanvasTexture(faceCv); faceTex.colorSpace = THREE.SRGBColorSpace;
+const lampFace = new THREE.Mesh(new THREE.PlaneGeometry(LIGHT_W, LIGHT_D), new THREE.MeshBasicMaterial({ map: faceTex, color: new THREE.Color(19.7, 20.9, 25.1), side: THREE.DoubleSide }));
+lampFace.rotation.x = Math.PI / 2; lampFace.position.set(0, LIGHT_Y, 0); appGroup.add(lampFace);
+const hood = new THREE.Mesh(new THREE.BoxGeometry(LIGHT_W + 0.14, 0.10, LIGHT_D + 0.14), new THREE.MeshStandardMaterial({ color: 0x142014, roughness: 0.45, metalness: 0.25 }));
+hood.position.set(0, LIGHT_Y + 0.055, 0); appGroup.add(hood);
+const rods = [-0.75, 0.75].map((x) => { const r = new THREE.Mesh(new THREE.CylinderGeometry(0.007, 0.007, CEIL_Y - (LIGHT_Y + 0.14), 10), new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 0.4, metalness: 0.7 })); r.position.set(x, (CEIL_Y + LIGHT_Y + 0.14) / 2, 0); appGroup.add(r); return r; });
+const rectLight = new THREE.RectAreaLight(0xf6f7f9, 7.8, LIGHT_W, LIGHT_D);
+rectLight.position.set(0, LIGHT_Y, 0); rectLight.lookAt(0, 0, 0); appGroup.add(rectLight);
+const hemi = new THREE.HemisphereLight(0x3a3a3e, 0x2a2a2c, 1.25); appGroup.add(hemi);
+const fill = new THREE.PointLight(0xd9dcdf, 2.2, 0, 2); fill.position.set(3.2, 1.9, -2.3); appGroup.add(fill);
+scene.add(appGroup);
+const appRoom = { group: appGroup, giRefs: { floor: appFloor, blob, hemi }, envRefs: [],
+  lightRefs: { group: appGroup, rectLights: [rectLight], hemi, fill, lampFace, hood, rods, walls: appWalls, floor: appFloor, blob } };
+
+// ---- stand-in table and a few balls
+const standIn = tableStandIn({ venue: 'arena' }); // (round A5: the app table's real section, as the arena's bake sees it)
+const tableGroup = standIn.group, apronMat = standIn.materials.dark;
+scene.add(tableGroup);
+const balls = [];
+const R = 0.028575;
+[[-0.55, 0.1, 0xf5f0e0], [0.05, -0.05, 0xf2c200], [0.42, 0.28, 0x1b3fb0], [0.7, -0.38, 0xc81e1e], [-0.15, 0.45, 0x5a1f8a], [0.62, -0.15, 0x101010], [1.05, 0.52, 0x0f6b3a]].forEach(([x, z, c]) => {
+  const b = new THREE.Mesh(new THREE.SphereGeometry(R, 48, 32), new THREE.MeshPhysicalMaterial({ color: c, roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.03 }));
+  b.position.set(x, R, z); scene.add(b); balls.push(b);
+});
+
+// ---- the cube capture, as main.js does it
+const cubeRT = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+const cubeCam = new THREE.CubeCamera(0.02, 40, cubeRT);
+cubeCam.position.set(0, (FLOOR_Y + LIGHT_Y) / 2, 0);
+let bakes = 0;
+const rebakeEnv = () => {
+  balls.forEach((b) => { b.visible = false; });
+  try { cubeCam.update(renderer, scene); } finally { balls.forEach((b) => { b.visible = true; }); }
+  bakes += 1;
+};
+rebakeEnv();
+scene.environment = cubeRT.texture;
+for (const m of [apronMat, hood.material]) { m.envMap = cubeRT.texture; m.envMapIntensity = 0.05; }
+
+// ---- the club object, as index.js builds it (the real tiers, assets and adopt modules)
+const frameFns = [];
+if (q.get('lm') !== null && q.get('clublm') === null) q.set('clublm', q.get('lm'));
+const tier = pickTier({ renderer, query: q });
+const club = {
+  enabled: true, tier, knobs: TIERS[tier], venue: 'arena', time: { value: 0 },
+  ctx: { renderer, scene, camera, room: appRoom, table: { group: tableGroup }, rebakeEnv, query: q, venue: 'arena' },
+  assets: null, adopt: null, env: { enabled: false }, occ: { enabled: false }, post: { enabled: false },
+  onFrame(fn) { if (!frameFns.includes(fn)) frameFns.push(fn); }, offFrame(fn) { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); },
+};
+club.assets = createAssets(club);
+club.adopt = createAdopt(club);
+window.__club = club;
+window.__dev = { THREE, renderer, scene, camera, club, room: null, bakes: () => bakes, layout: LAYOUT };
+
+let room = { enabled: false, reason: 'off' };
+if (q.get('room') !== 'app') {
+  room = await createRoom(club);
+  club.room = room;
+  window.__dev.room = room;
+  if (!room.enabled) console.error('[dev-arena] createRoom returned a stub:', room.reason);
+}
+// a stand-in for the rig's wash of the island while arena/rig.js is not in the tree (dev page only: four soft points at the
+// truss's height over the island; the rig's own heads replace them)
+let rigStandIn = 0;
+if (room.enabled && !room.parts.lamp && q.get('rigstand') !== '0') {
+  const A = LAYOUT.ARENA;
+  for (const [k, [x, z]] of [[-1.9, -1.5], [1.9, -1.5], [-1.9, 1.5], [1.9, 1.5]].entries()) {
+    roomLight.addEmitter({ id: `dev.rig.${k}`, type: 'point', position: new THREE.Vector3(x, FLOOR_Y + A.rig.bottomH - 0.2, z), axis: new THREE.Vector3(0, -1, 0), size: [0.5, 0.8],
+      color: new THREE.Color(1.0, 0.97, 0.92), intensity: 16, radius: 9 });
+    rigStandIn += 1;
+  }
+  roomLight.commit();
+}
+for (let i = 0; i < 3; i++) rebakeEnv();
+
+window.__dev.state = () => (room.enabled ? { ...room.state(), rigStandIn } : { enabled: false, reason: room.reason });
+if (q.get('white') === '1' && room.enabled) {
+  for (const m of Object.values(room.shell?.meshes ?? {})) {
+    const mat = m.material;
+    if (!mat?.isMeshStandardMaterial) continue;
+    mat.map = null; mat.normalMap = null; mat.color.set(0xb4b4b4); mat.vertexColors = false; mat.needsUpdate = true;
+  }
+}
+// what the hall costs (every mesh under the room's group), for the report
+window.__dev.cost = () => {
+  if (!room.enabled) return null;
+  const by = {}; let triangles = 0, calls = 0;
+  const textures = new Map();
+  room.group.traverse((o) => {
+    if (!o.isMesh || !o.visible) return;
+    const tri = ((o.geometry.index?.count ?? o.geometry.attributes.position.count) / 3) * (o.isInstancedMesh ? o.count : 1);
+    const top = (() => { let p = o; while (p.parent && p.parent !== room.group) p = p.parent; return p.name || 'unnamed'; })();
+    by[top] = by[top] ?? { calls: 0, triangles: 0 }; by[top].calls += 1; by[top].triangles += tri; triangles += tri; calls += 1;
+    for (const mat of Array.isArray(o.material) ? o.material : [o.material]) for (const k of ['map', 'normalMap', 'roughnessMap', 'emissiveMap']) {
+      const t = mat?.[k], im = t?.image; if (!im) continue;
+      const w = im.naturalWidth || im.width || 0, h = im.naturalHeight || im.height || 0;
+      textures.set(t.source?.uuid ?? t.uuid, { name: `${mat.name}.${k}`, w, h, bytes: Math.round(w * h * 4 * (t.generateMipmaps === false ? 1 : 4 / 3)) });
+    }
+  });
+  const list = [...textures.values()];
+  return { tier, calls, triangles, by, textures: list.length, textureBytes: list.reduce((n, t) => n + t.bytes, 0), list };
+};
+
+let frames = 0;
+const clock = new THREE.Clock();
+// (round A4: a house flood from below and beside, a key light's spot under the perimeter truss)
+Object.assign(VIEWS, {
+  flood: [[1.2, 3.3, -5.6], [2.8, 5.0, -3.6], 40],
+  keyspot: [[-1.4, 2.9, -7.2], [-0.13, 4.13, -9.77], 30],
+});
+const QUADS = { quad: ['V1', 'V3', 'V9', 'V10'], quad2: ['TV', 'BACK', 'east', 'far'], quad3: ['floor', 'wash', 'up', 'drape'], quad4: ['out', 'above', 'north', 'V11'], quad5: ['flood', 'keyspot', 'V10', 'north'] };
+const QUAD = QUADS[q.get('view')] ?? null;
+const renderQuad = (t) => {
+  const w = Math.floor(innerWidth / 2), h = Math.floor(innerHeight / 2);
+  renderer.setScissorTest(true);
+  QUAD.forEach((id, k) => {
+    const [p, tg, f] = VIEWS[id];
+    camera.position.set(...p); camera.fov = f; camera.aspect = w / h; camera.updateProjectionMatrix(); camera.lookAt(...tg); camera.updateMatrixWorld(true);
+    for (const fn of [...frameFns]) fn(t, 1 / 60);
+    const x = (k % 2) * w, y = (1 - (k >> 1)) * h;
+    renderer.setViewport(x, y, w, h); renderer.setScissor(x, y, w, h);
+    renderer.render(scene, camera);
+  });
+  renderer.setScissorTest(false);
+};
+// ---- ?pair=: the same views with one light of the hall on (left) and off (right)
+// (round A4: `floods` = the six house floods of arena/room.js HOUSE (`panels` is its old name: round A3's panels are gone);
+// `heads` = the rig's eight wash heads; `ambient` = the roof's bells and cans as the ambient rows, now a real level)
+const PAIR = room.enabled && ['wash', 'house', 'panels', 'floods', 'heads', 'pool', 'ambient', 'block', 'lm'].includes(q.get('pair')) ? q.get('pair') : null;
+const pairViews = (q.get('views') ?? 'BACK,TV').split(',').filter((id) => VIEWS[id]).slice(0, 2);
+const pairSwitch = (() => {
+  if (!PAIR) return null;
+  // (`floods`: the house floods, in the analytic light; `lm`: the baked light against the analytic)
+  const ems = roomLight.emitters.filter((e) => e.id.startsWith(PAIR === 'wash' ? 'hall.wash.' : PAIR === 'panels' || PAIR === 'floods' ? 'house.' : PAIR === 'heads' ? 'rig.head.' : 'hall.house.'));
+  const keep = ems.map((e) => e.intensity);
+  const lens = room.shell?.meshes?.lenses?.material ?? null, lensC = lens ? lens.color.clone() : null;
+  const u = roomLight.uniforms, amb = [u.uRoomAmbSky.value.clone(), u.uRoomAmbGround.value.clone(), u.uRoomAmbSide.value.clone()], gain = u.uRoomPool.value.w;
+  let lmOn = null;
+  return (on) => {
+    if (PAIR === 'lm') { if (lmOn !== on) { room.lightmap.set(on); lmOn = on; } return; }
+    if (PAIR === 'wash' || PAIR === 'house' || PAIR === 'panels' || PAIR === 'floods' || PAIR === 'heads') { ems.forEach((e, i) => { e.intensity = on ? keep[i] : 0; }); roomLight.commit(); if (PAIR === 'wash' && lens) lens.color.copy(lensC).multiplyScalar(on ? 1 : 0.004); }
+    if (PAIR === 'pool') u.uRoomPool.value.w = on ? gain : 1;
+    if (PAIR === 'block') roomLight.setTableBlock({ strength: on ? room.state().levels.tableBlock : 0, soft: room.state().levels.tableBlockSoft });
+    if (PAIR === 'ambient') { u.uRoomAmbSky.value.copy(amb[0]).multiplyScalar(on ? 1 : 0); u.uRoomAmbGround.value.copy(amb[1]).multiplyScalar(on ? 1 : 0); u.uRoomAmbSide.value.copy(amb[2]).multiplyScalar(on ? 1 : 0); }
+  };
+})();
+const renderPair = (t) => {
+  const w = Math.floor(innerWidth / 2), h = Math.floor(innerHeight / 2);
+  renderer.setScissorTest(true);
+  pairViews.forEach((id, row) => {
+    const [p, tg, f] = VIEWS[id];
+    camera.position.set(...p); camera.fov = f; camera.aspect = w / h; camera.updateProjectionMatrix(); camera.lookAt(...tg); camera.updateMatrixWorld(true);
+    for (const fn of [...frameFns]) fn(t, 1 / 60);
+    for (const [col, on] of [[0, true], [1, false]]) {
+      pairSwitch(on);
+      const x = col * w, y = (1 - row) * h;
+      renderer.setViewport(x, y, w, h); renderer.setScissor(x, y, w, h);
+      renderer.render(scene, camera);
+    }
+    pairSwitch(true);
+  });
+  renderer.setScissorTest(false);
+};
+renderer.setAnimationLoop(() => {
+  const t = clock.getElapsedTime();
+  if (!QUAD && !PAIR) for (const fn of [...frameFns]) fn(t, 1 / 60);
+  if (PAIR) renderPair(t); else if (QUAD) renderQuad(t); else renderer.render(scene, camera);
+  if (++frames === 4) {
+    window.__dev.info = { calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, programs: renderer.info.programs?.length ?? 0, textures: renderer.info.memory.textures, geometries: renderer.info.memory.geometries };
+    window.__ready = true;
+  }
+});
+</script>
+</body>
+</html>

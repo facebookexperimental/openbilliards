@@ -1,0 +1,50 @@
+{
+ "clip_id": "HSVA-69",
+ "stem": "HSVA-69_kick_shot_with_running-English_fast",
+ "conditions": {
+  "approach": "large-angle",
+  "speed": "fast",
+  "spin": "running"
+ },
+ "side": "top",
+ "time_base": "osd_counter_1000fps_stamped",
+ "cushion_tilt_deg": null,
+ "ball_radius_px": 25.5,
+ "mm_per_px": 1.121,
+ "measured": {
+  "apex_frame": 62,
+  "theta_in_deg": 85.12,
+  "theta_in_sigma_deg": 2.21,
+  "v_in_pxcf": 3.0275,
+  "n_frames_in": 32,
+  "theta_out_deg": 83.82,
+  "theta_out_sigma_deg": 2.05,
+  "v_out_pxcf": 2.4538,
+  "n_frames_out": 60,
+  "speed_ratio": 0.8105,
+  "speed_ratio_sigma": 0.0221,
+  "e_n": 1.0253,
+  "e_n_sigma": 0.2116,
+  "tangential_ratio": 0.8087,
+  "tangential_ratio_sigma": 0.0165,
+  "dwell_video_frames": 13,
+  "vn_in_pxcf": 0.2575,
+  "vt_in_pxcf": 3.0165,
+  "vt_out_pxcf": 2.4396,
+  "vt_in_sigma_pxcf": 0.0597,
+  "vt_out_sigma_pxcf": 0.0121,
+  "vn_in_sigma_pxcf": 0.05,
+  "vn_out_sigma_pxcf": 0.0183,
+  "vn_out_pxcf": 0.264,
+  "v_in_mps": 3.39,
+  "v_out_mps": 2.75
+ },
+ "qc": [
+  "no_cushion_edge_fit_axis_aligned",
+  "low_normal_speed_dwell_unreliable",
+  "camera_along_rail_normal_channel_is_depth_proxy_only",
+  "angles_and_e_n_not_physical_use_tangential_ratio_only",
+  "stripe_rotation_centroid_bias",
+  "perspective_skew_uncorrected"
+ ]
+}

@@ -1,0 +1,256 @@
+{
+  "scenario": "masse-bar-aiming",
+  "title": "Massé BAR aiming — Coriolis' rule as an aiming approximation under test at 74° (battery D2 family)",
+  "kernel": "0.1.0+dedc61cd",
+  "anchor": {
+    "rule": "Coriolis massé BAR aiming (Dr. Dave TP A.19): the cue ball's final direction is parallel to the line R→A — under test here as an aiming APPROXIMATION: with the footage-calibrated dwell cue the measured turn comes up short of the rule, exactly the shortfall TP A.19 attributes to jamming the cue ball between tip and slate.",
+    "sources": "Dr. Dave TP A.19 (rev 5/13/2025) + massé-aiming FAQ (B = ball contact point, A = cloth aim point, R = CB resting point); Coriolis 1835; battery D2 (examples/paper/exp_d2_masse.py, the internal paper baselines §9)",
+    "battery": "D2 75° invariance family, member (|o| 0.20 R, ψ 90°, v0 2.5) — the grounded-regime elevation row nearest the video's 74°; registered §9 record sha reproduced on the canonical wasm",
+    "recordSha256": "8720696855089ec422581ce2f7334c81d1f7152508f7fde977e5e2d579255659",
+    "chi_pred_deg": 90,
+    "final_heading_deg": 93.127203699,
+    "err_deg": 3.127203699,
+    "turn_pred_deg": 36.7380338,
+    "turn_meas_deg": -33.610830101,
+    "initial_deflection_deg": 3.647010177,
+    "v_planar0": 0.900243734,
+    "vz0": 1.728059582,
+    "roll_onset_t_s": 0.616535019,
+    "roll_onset_dist_m": 0.491013184,
+    "v_roll_onset": 0.748113873,
+    "rest_dist_m": 3.308259998,
+    "duration_s": 8.242568385,
+    "n_hops": 3,
+    "n_events": 6,
+    "ra_vec_m": [
+      0,
+      0.009554344
+    ],
+    "elevation_deg": 75,
+    "offset_mag_r": 0.2,
+    "psi_deg": 90,
+    "supersedes": "The 45° recipe (battery cell 5a315d95…, videoSha 041711da…) is WITHDRAWN (owner decision 2026-07-30, refs #264): the 45° staging had no literature basis — the BAR rule's exemplified domain starts ~70° and 45° is the canonical JUMP elevation (Alciatore) — and agreement there is guaranteed by the launch-invariance conservation identity (the natural-roll heading w = (5v₀ + 2Rω₀×ẑ)/7 is invariant to hops and bounce friction under ANY impulsive strike; Amendment-022 theorem, kernel-api.md), so it validated the solver's conservation structure, not the aiming rule. Restaged at 74° grounded on the catalog-v12 masse_trick_dwell cue; the BAR miss is shown, not tuned."
+  },
+  "badge": {
+    "line1": "BAR predicts 56.23° · measured 64.94° · turn 8.71° short",
+    "line2": "MASSÉ BAR AIMING · CORIOLIS / DR. DAVE TP A.19 · BATTERY D2 75° FAMILY · ELEVATION 74° · DWELL CUE · TIP 0.20 R SIDE"
+  },
+  "segments": [
+    {
+      "id": "main",
+      "batterySha": "8720696855089ec422581ce2f7334c81d1f7152508f7fde977e5e2d579255659",
+      "videoSha": "2a6990daadea0e637c3062cdf111d41cc0bc9d4b83b189ffb21ce2dab1e10040",
+      "parity": "byte-identical (normalized sha, battery + video, sim ×2)",
+      "marks": {
+        "tStrike": 0,
+        "tPressEnd": 0.12,
+        "tRollOnset": 0.35132045774886655,
+        "tPot": 2.4335933832632244,
+        "tEnd": 2.4335933832632244,
+        "cueStart": [
+          -0.28,
+          -0.95
+        ],
+        "rollOnsetPos": [
+          -0.20159527180152167,
+          -0.5204112292791523
+        ],
+        "potPos": [
+          0.664486352775479,
+          1.299486352775479
+        ],
+        "potPocket": 5,
+        "chiPredDeg": 56.23309564795939,
+        "turnPredDeg": 26.96505590262416,
+        "finalHeadingDeg": 64.93818680604191,
+        "errDeg": 8.705091158082496,
+        "turnMeasDeg": -18.259964744541662,
+        "initialDeflectionDeg": 7.479161222338234,
+        "vPlanar0": 1.532894260431522,
+        "vz0": 0,
+        "vRollOnset": 1.0409865805738256,
+        "rollOnsetDistM": 0.43668502760379396,
+        "vNearPot": 0.8381871065808625,
+        "hopApexMm": 0,
+        "readRunM": 2.0154713070639905,
+        "pathLenM": 2.4571851444663535,
+        "minRailClearM": 0.10994160864694635,
+        "contactSideR": 0.14588385449904276,
+        "raVecM": [
+          0.005109725941348765,
+          0.007642363221093346
+        ],
+        "parallelGapCm": {
+          "atRollOnset": 17.35938126658204,
+          "atPot": 46.514257993236065
+        },
+        "predictedRayMissAtPocketM": 0.46514257993236063,
+        "tailLawEnd": 3.0935933832632245,
+        "minPairMm": "n/a (single-ball record — no pairs)",
+        "minPairAt": null,
+        "minPair": null
+      },
+      "plan": {
+        "frames": 613,
+        "outputSec": 10.216666666666667,
+        "maxCutlessStepRatio": 1.074889663087409,
+        "shutter": 8,
+        "shutterDeg": 310,
+        "replay": {
+          "runs": 2,
+          "dissolveSpans": [
+            [
+              234,
+              258
+            ]
+          ],
+          "deliveredFrames": 589,
+          "deliveredSec": 9.816666666666666,
+          "firstReplayFrame": 234,
+          "recoveredFrames": 64,
+          "dissolveS": 0.4
+        }
+      }
+    }
+  ],
+  "textLayer": {
+    "blocks": 3,
+    "badgeChecked": true,
+    "smallTreatment": "d-site-620-17",
+    "labelWeight": 620,
+    "motion": "flyin",
+    "holdMinSec": 0.3,
+    "dropFloorSec": 0.35,
+    "minSettledSec": 1.8133333333333332,
+    "entranceScale": [
+      {
+        "segIdx": 0,
+        "scale": 1,
+        "wanted": 1,
+        "dropSec": 0.9,
+        "holdMinSec": 0.3,
+        "minSettledSec": 1.8133333333333332,
+        "shutterSpanSec": 0.012557870370370372,
+        "blocks": [
+          {
+            "text": [
+              "74°",
+              "elevated · 0.20 R side — grounded dwell massé"
+            ],
+            "availSec": 3.1333333333333333,
+            "spanSec": 1.32,
+            "entrySec": 0.9400000000000001,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.32,
+            "settledSec": 1.8133333333333332,
+            "needScale": 0.46588235294117647,
+            "settledFrames": 108
+          },
+          {
+            "text": [
+              "8.7° short",
+              "of the BAR line — the TP A.19 jam shortfall"
+            ],
+            "availSec": 4.85,
+            "spanSec": 1.6600000000000001,
+            "entrySec": 1.06,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.6600000000000001,
+            "settledSec": 3.1899999999999995,
+            "needScale": 0.36483516483516487,
+            "settledFrames": 191
+          },
+          {
+            "text": [
+              "Coriolis/BAR predicted final direction"
+            ],
+            "availSec": 4.85,
+            "spanSec": 1.1800000000000002,
+            "entrySec": 0.8,
+            "exitSec": 0.38,
+            "scaledSpanSec": 1.1800000000000002,
+            "settledSec": 3.6699999999999995,
+            "needScale": 0.25934065934065936,
+            "settledFrames": 220
+          }
+        ],
+        "refused": false
+      }
+    ],
+    "refusedByTextLayer": [],
+    "deliverableByTextLayer": true
+  },
+  "capture": [
+    {
+      "segment": "main",
+      "frames": 613,
+      "viewport": {
+        "width": 3840,
+        "height": 2160
+      },
+      "sha256_first": "0d3bd33ed687c137406f053783bab06c49b389bf19a438f1f853507a9fb52f21",
+      "sha256_last": "53cfaad5415fb8ddcaad98eb34b77e7e9f165026f3906bc5ab9f1dd4c2469213"
+    }
+  ],
+  "verifyLaw": "sameboot-x2+crossboot-envelope/v1-chunked",
+  "verify": {
+    "main": {
+      "law": "sameboot-x2+crossboot-envelope/v1-chunked",
+      "tierA": "lsb-speckle",
+      "tierB": "lsb-speckle",
+      "frames": 554,
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "chunks": 4,
+      "chunkFrames": 150,
+      "relaunches": 0,
+      "sameBoot": {
+        "differingFrames": 554,
+        "worstDelta": 1,
+        "worstFrac": 0.000029166666666666666,
+        "worstComponentPx": 3
+      },
+      "crossBoot": {
+        "differingFrames": 19,
+        "worstDelta": 1,
+        "worstFrac": 0.000001388888888888889,
+        "worstComponentPx": 1
+      },
+      "kernel": "0.1.0+dedc61cd",
+      "renderer": "7e3b2b35014137dabd495ac2d14fe9be5cc1e29660e5132a1968b92b316a3e17",
+      "atUTC": "2026-08-05T17:12:14.020Z"
+    }
+  },
+  "titleCard": {
+    "value": "Massé BAR aiming",
+    "claim": "Coriolis' rule as an aiming approximation under test at 74° (battery D2 family)",
+    "startSec": 0.05,
+    "endSec": 1.55,
+    "claimFill": [
+      239,
+      233,
+      216,
+      235
+    ],
+    "motion": "flyin",
+    "shutter": {
+      "subFrames": 8,
+      "deg": 310
+    },
+    "cardFrames": 95,
+    "layerSha256": "4ef698b34c6a2cdc0ca589b7ebba30bd3c867820d8aa5032767d6250e46ff426",
+    "determinism": {
+      "verifiedSeekFrames": [
+        4,
+        30,
+        48,
+        87
+      ],
+      "byteIdentical": true
+    },
+    "encoder": "libx264 crf 23 preset slow (pack delivery settings)",
+    "mp4Sha256": "b3df24fc50bb1ed984b0cdb36e3fd995f0a7d835033a0ab7cb4766e6359ff608"
+  }
+}

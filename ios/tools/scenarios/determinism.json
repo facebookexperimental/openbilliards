@@ -1,0 +1,53 @@
+{
+  "v": 1,
+  "name": "determinism",
+  "notes": [
+    "016 T023 (lane V). SC-003 byte gate: a scripted shot in-shell produces",
+    "record-1.json (captured via the eval channel saveAs from the SAME",
+    "page-side serializer share.js uses at shotComplete —",
+    "window.__share.records()[0], a JSON.stringify'd ShotRecord",
+    "string) and ios/tools/e2e-ios.mjs re-runs the IDENTICAL eval-only",
+    "phase list on a web-surface Chrome boot, byte-comparing the two",
+    "strings (both ?norec boots, same canonical wasm — test-pyramid.md",
+    "par.3 determinism gate).",
+    "Shot recipe transcribed 1:1 from the 014 suite's scripted break",
+    "(web/tools/e2e-touch.mjs sc13 setup / e2e-8ball precedent):",
+    "eight_ball, rerack(1), shooter 1, __test.shoot v0 8.5 phi PI/2 b -0.1.",
+    "DESIGN LAW: this table stays GESTURE-FREE (eval/waitEval/assertEval/",
+    "sleep only) so the web reference arm can replay it verbatim over CDP;",
+    "e2e-ios.mjs fails loudly on any gesture-kind step in this table."
+  ],
+  "source": "web/tools/e2e-touch.mjs sc13 setup recipe (scripted break), web/app/share.js recordJsons serializer",
+  "viewport": { "width": 844, "height": 390 },
+  "boot": { "query": "obtool&norec&seed=1", "ephemeralStore": true, "statusSeam": true },
+  "web": { "bootQuery": "obtool&norec&seed=1" },
+  "phases": [
+    {
+      "name": "scripted-shot",
+      "setup": [
+        "window.__e2e = {}; true",
+        "(async () => { for (let i = 0; i < 20; i++) { if (window.__rules?.game?.() !== 'eight_ball' || !window.__rules?.matchState?.()) { if ((await window.__rules?.setGame?.('eight_ball')) !== true) { await new Promise((r) => setTimeout(r, 200)); continue; } } __test.rerack(1); if (window.__rules?.setMatchState?.({ shooter: 1, breaker: 1 }) === true) return true; await new Promise((r) => setTimeout(r, 200)); } throw new Error('GH-566: could not (re)establish the scripted match (game=' + (window.__rules?.game?.() ?? '?') + ', fold=' + String(!!window.__rules?.matchState?.()) + ') \u2014 a mid-scenario page reload (WebContent recycle, the #514 class) or a rules-chain failure; each attempt re-selects eight_ball, re-stages the scene and re-injects the state, so this throw means 4 s of failed recovery, not one lost race'); })()"
+      ],
+      "steps": [
+        { "kind": "assertEval", "name": "norec boot (recorder wiring disabled on both arms)",
+          "js": "new URLSearchParams(location.search).has('norec')" },
+        { "kind": "assertEval", "name": "seeded boot (seed=1 on both arms)",
+          "js": "new URLSearchParams(location.search).get('seed') === '1'" },
+        { "kind": "assertEval", "name": "scripted break accepted",
+          "js": "(() => { const err = __test.shoot({ v0: 8.5, phi: Math.PI / 2, theta: 0, a: 0, b: -0.1 }); return err == null; })()" },
+        { "kind": "waitEval", "js": "['SIMULATING', 'PLAYBACK'].includes(__test.state())", "tries": 60 },
+        { "kind": "waitEval", "js": "!['SIMULATING', 'PLAYBACK'].includes(__test.state())", "tries": 400 },
+        { "kind": "assertEval", "name": "exactly one record logged",
+          "js": "(window.__share?.records?.() ?? []).length === 1" },
+        { "kind": "eval", "js": "window.__share.records()[0]", "saveAs": "record-1.json" },
+        { "kind": "eval", "js": "window.__rules?.matchState?.()?.pendingDecision != null ? (window.__rules.decide(1), true) : true" }
+      ]
+    }
+  ],
+  "asserts": [
+    { "kind": "recordByteCompare", "artifact": "record-1.json",
+      "recordJs": "window.__share.records()[0]",
+      "note": "SC-003: shell bytes == web-surface bytes for the same scenario" },
+    { "kind": "zeroNonAppRequests", "note": "SC-001 arm when run under e2e-ios --airplane" }
+  ]
+}

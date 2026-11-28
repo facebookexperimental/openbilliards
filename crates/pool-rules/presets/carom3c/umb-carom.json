@@ -1,0 +1,50 @@
+{
+  "schema": "rules-preset-v1",
+  "preset": "umb-carom",
+  "family": "carom3c",
+  "display_key": "settings.variant.umb-carom",
+  "source": {
+    "title": "UMB World Rules of Carom Billiard (three cushions)",
+    "publisher": "Union Mondiale de Billard",
+    "edition": "1 January 1989 (Art 92.1; the 011/012 pinned edition)",
+    "url": "https://files.umb-carom.org/Public/Rules/CAROM%20BILLIARD%20RULES.pdf",
+    "tier": "primary"
+  },
+  "judged": {
+    "target": {
+      "value": 15,
+      "cite": "UMB Art 29.1 (the distance is determined by the committee; 15 is the shipped spec-012 default)"
+    },
+    "two_cue_balls": {
+      "value": false,
+      "cite": "UMB Art 22.1/23.2/23.4 — the DOCUMENTED v1 shared-white residual (both seats strike ball 0; carom3c.rs header, audit-carom F5): this preset IS the frozen carom3c-v1 behavior point and routes through that untouched id (FR-005)"
+    },
+    "insufficient_cushions_foul": {
+      "value": false,
+      "cite": "UMB Art 83 — the v1 classification (cited NON-scoring reason, legal: true; audit-carom F1: identical score/turn consequences, classification surface only)"
+    },
+    "equal_innings": {
+      "value": false,
+      "cite": "UMB Art 29.3 (the committee determines whether matches are played with or without an even number of innings — the without regime)"
+    }
+  },
+  "adapter": {
+    "second_ball_visual": {
+      "value": "not_rendered_as_cue",
+      "cite": "UMB Art 22.1 (ball 1 sits on the table from the opening but is never a cue ball under the shared-white residual)",
+      "owner": "adapter"
+    }
+  },
+  "not_modeled": [
+    {
+      "axis": "cushion_draw_lag",
+      "cite": "UMB Art 22.2-22.6",
+      "reason": "the lag for the choice to begin is a physical pre-match ceremony; initialState(breaker) takes the winner as input (all five 011/012 rulesets share this simplification)"
+    },
+    {
+      "axis": "referee_fouls",
+      "cite": "UMB Art 41.2-41.10, 41.13",
+      "reason": "balls-in-motion / leather-tip / touched / pushed-through / frozen-cushion / foot-on-floor / marking / time fouls are physical-world referee judgments not detectable from the ShotRecord event stream"
+    }
+  ]
+}

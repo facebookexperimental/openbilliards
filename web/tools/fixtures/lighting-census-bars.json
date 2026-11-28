@@ -1,0 +1,37 @@
+{
+  "schema": "lighting-census-bars/1",
+  "about": "GH-996 card 45 C1: the cue-ball clipping census bars. Every MEASURED web/tools/e2e-lighting-matrix.mjs row (factory and neutral legs, nightly 240 cells and the per-PR slice) must keep cams.player.ballClip <= its bar. Judged by web/tools/lib/lighting-judge.mjs whyCensus; this file is checked by web/tools/test-lighting-matrix-judge.mjs (whyBadBars, the signed values, the measured margin).",
+  "quantity": "cams.player.ballClip",
+  "definition": "the share of cue-ball disc pixels within 0.9 R with any display channel >= 250, matrix player camera, 1280x800 at DSF 1 (web/tools/lib/lighting-matrix.mjs MEASURE_SRC); the row carries the disc pixel count cams.player.ballClipN, which must equal disc_px[table]",
+  "rule": "bar = ceil((k + 1) / n x 100) / 100 per class over b <= 1 and at b 1.4, where k / n = the LARGEST clipped SHARE measured over the class's cells (k = that cell's clipped-pixel count, n = disc_px of that cell's table; card 45 r4); the values below are the owner-signed bars",
+  "provenance": {
+    "card": "card 45 r4 (board card b20-lighting-996-card45-r4), option A, snooker table included",
+    "decision": "maintainer decision 9e59610c-324f-4578-b146-4051c525610d, response 68426360-2540-4024-bee5-645bc3ccb8e6, 2026-10-14T16:59:04Z",
+    "record": "https://github.com/facebookexperimental/openbilliards/issues/996#issuecomment-6173880295",
+    "measured": "2026-10-14: the production knee over the batch-4 base (web == edb0dbb3 = 03dbe6e2 + the knee), all 240 cells, factory rows sha256 b1e70d1a15ae5fe4..., neutral rows sha256 1eed16b10e96ba66...; every ballClip identical to the card-45 prototype runs (and to the prototype over the same base); measured_max below"
+  },
+  "classes": {
+    "snooker": { "tables": ["wpbsa_snooker_12ft"], "bars": { "0.6": 0.09, "1": 0.09, "1.4": 0.15 } },
+    "other": {
+      "tables": ["pool_pro_9ft", "pool_pro_9ft_older_gen", "pool_pro_9ft_metal_rim", "pool_pro_9ft_k55", "wpa_spec_9ft", "pool_pro_8ft",
+        "pool_pro_7ft", "chinese8_pro_9ft", "umb_carom_284"],
+      "bars": { "0.6": 0.07, "1": 0.07, "1.4": 0.10 }
+    }
+  },
+  "disc_px": {
+    "pool_pro_9ft": 282, "pool_pro_9ft_older_gen": 282, "pool_pro_9ft_metal_rim": 282, "pool_pro_9ft_k55": 282, "wpa_spec_9ft": 282,
+    "pool_pro_8ft": 351, "pool_pro_7ft": 446, "chinese8_pro_9ft": 282, "umb_carom_284": 275, "wpbsa_snooker_12ft": 131
+  },
+  "measured_max": {
+    "snooker": {
+      "0.6": [5, 131, "factory|wpbsa_snooker_12ft|pendant_bar|0.6"],
+      "1": [10, 131, "factory|wpbsa_snooker_12ft|pendant_bar|1"],
+      "1.4": [18, 131, "factory|wpbsa_snooker_12ft|pendant_bar|1.4"]
+    },
+    "other": {
+      "0.6": [7, 282, "factory|pool_pro_9ft|pendant_bar|0.6"],
+      "1": [16, 282, "factory|pool_pro_9ft|pendant_bar|1"],
+      "1.4": [26, 275, "factory|umb_carom_284|pendant_bar|1.4"]
+    }
+  }
+}

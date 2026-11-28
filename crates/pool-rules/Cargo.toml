@@ -1,0 +1,97 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+# SPDX-License-Identifier: MIT
+[package]
+name = "pool-rules"
+description = "Open rules adjudication for openbilliards: pool/snooker/carom rulesets as pure functions over recorded shot event streams"
+# Explicit, NOT workspace-inherited (the rules-artifact contract §2 / FR-006): a
+# rules BEHAVIOR change bumps ONLY this version (it feeds RULES_VERSION),
+# never the workspace/kernel stamp. 0.1.1: issue #37 audit fixes — snooker
+# Sec3 R11(a)(x) jump pricing + R11(d)(iii) successive-reds seven-pointer,
+# one-pocket WPA 12.5 scratch-exception strict text. 0.1.2: feature 022
+# registry growth (the registry API contract §6 step 4) — eightball-v2
+# variant engine + task-config-v1 entry fns + presets catalog rows; the
+# 430-case corpus stays byte-identical (judgments carry no version stamp).
+# 0.1.4: issue #62 erratum batch — CITE-STRING corrections only (nineball/
+# eightball/eightball_v2 no-contact 3.2→3.3, snooker Sec2 R11 / Sec3 R5 /
+# R4(a),(b), carom Art 23.1(c)); the affected corpus/slice expects
+# regenerate under the rules-variants §4 erratum protocol (first
+# byte-changing corpus erratum; provenance in the fixture headers).
+# The batch's one-pocket 12.4/12.6 behavior arm was REFUTED on the
+# verbatim 12.6 text and reverted (issue #62 adjudication): the original
+# frozen cleared-table-continues behavior stands.
+# 0.1.5: issue #211 — snooker-v1 false-positive `jump-over` foul. The P10
+# chord test flagged the very ball the cue first-contacts: on a near-flat
+# strike the kernel leaves the cue "Airborne" for a sub-mm micro-hop, and
+# `flight_covers` measured only horizontal (x,y) distance, so the 2-D
+# projection of the exact 3-D contact distance dipped just under the
+# r_cue+r_obj threshold. Fix (scan.rs): drop the first-contact id from
+# `jumped_over` (WPBSA Sec2 R20 exempts the natural first contact). NEW
+# regression pins only — the 430-case corpus stays byte-identical (the one
+# pinned genuine jump case jumps a DIFFERENT ball than it contacts;
+# judgments carry no version stamp). build.rs hardened tag-proof to match
+# pool-core (rev-parse --short HEAD; release tags now break plain describe).
+# 0.1.6: feature 026 (GH-343) registry growth (the registry API contract §6 step 4)
+# — tenball-v1 (WPA Sec 6 call-shot rotation: push-out decision 12,
+# wrongful-pot opponent option 13, three-foul rack loss, spotted 10); the
+# 442-case corpus + existing variant slices stay byte-identical.
+# 0.1.7: GH-371 rules-alignment phase 2 — WPA 3.11 kitchen-shot law
+# (scan.rs P21 head-string facts; codes `bad-kitchen-shot`/`kitchen-no-
+# exit`): eightball family `kitchen_rule` axis appended (variant-config
+# §6 schema evolution — every preset hash repinned, both eightball
+# slices mechanically regenerated, zero verdict flips), fourteenone-v1
+# additive `kitchenBih` state flag (declared slice-repin: 32/46 cases
+# gained ONLY the appended key, zero verdict flips), onepocket-v1
+# 12.8-via-3.11 with the ¶2 second kitchen-BIH grant (foul-context-
+# derived; the 442 frozen corpus cases stay byte-identical), and carom
+# UMB Art 27.2/41.8 `frozen-cushion-play` (the rulesets contract Amendment
+# A5). 11 additive corpus/slice pins.
+# 0.1.8: GH-383 registry growth (the registry API contract §6 step 4) — carom3c-v2
+# variant engine (two cue balls Art 22/23 + wrong-ball Art 41.11, Art 83
+# insufficient-cushions letter, Art 29.4 equal innings) behind the newly
+# COMPILED carom3c task-config family; presets umb-carom (FR-005 alias ->
+# frozen carom3c-v1) / umb-carom-2cue / umb-carom-2cue-ei. The 442-case
+# corpus (carom3c-v1's 71 cases included) stays byte-untouched.
+# 0.1.9: GH-382 registry growth (the registry API contract §6 step 4) — snooker-v2
+# (the WPBSA completion: Foul and a Miss Sec3 R14 as decision 17, Free
+# Ball Sec2 R13/Sec3 R12 with the Sec2 R17 snookered geometry incl. the
+# R17(a) in-hand D arm, Touching Ball Sec3 R8 with the judged play-away/
+# push-stroke arm) + the `snooker` task-config family (presets
+# wpbsa-snooker [v1 alias] / wpbsa-snooker-full) + the
+# snooker_address_facts_json adapter surface; snooker-v1 and the
+# 442-case corpus + every other slice stay byte-identical. (GH-382 and
+# GH-383 each bumped 0.1.7→0.1.8 independently; this merge takes 0.1.9
+# so the combined behavior set has its own stamp — same composition law
+# as the 0.1.8 note above.)
+# 0.1.10: GH-491 registry growth (the registry API contract §6 step 4, build 18) —
+# heyball-v1 (WPA Rules of Heyball eff. 2025-08-16, pinned at
+# docs/research/rules-audit/heyball-rulebook-pin.md): no-call play, the
+# II.6 break option matrices (illegal break 18 / break foul 19 with the
+# kitchen-only BIH / 8-on-break 20+21 / miscue 22, stalemate agreement
+# 23), open-table-regardless grouping (II.10.3/II.12.1), the II.15.2
+# frozen-cushion escape law (geometric address detection), the II.8
+# kitchen restriction rider (`kitchenBih`), jumped balls stay down
+# (II.12.3), the II.20 loss family incl. eight-with-last-ball. The
+# 442-case corpus + every existing slice stay byte-identical (judgments
+# carry no version stamp).
+version = "0.1.10"
+edition.workspace = true
+repository.workspace = true
+# Explicit, NOT workspace-inherited (feature 013 research R13 / issue #24):
+# this crate is OPEN source; the proprietary boundary sits between
+# pool-rules and pool-core. The metadata must survive a future workspace
+# license change.
+license = "MIT"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+# float_roundtrip: record wire floats (ball poses, radii) must parse to the
+# exact f64 the TS oracle saw — the snooker jump-over geometry (P10) is the
+# one judgment-relevant float consumer (research R11).
+serde_json = { version = "1", features = ["float_roundtrip"] }
+
+# The SC-003 worked example (feature 013 US3, T042): `test = true` runs its
+# embedded scenario tests in the plain `cargo test -p pool-rules` invocation.
+[[example]]
+name = "moneyball"
+test = true

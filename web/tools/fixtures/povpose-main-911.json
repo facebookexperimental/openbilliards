@@ -1,0 +1,11 @@
+{
+  "schema": "povpose-main/1",
+  "main_rev": "10197041d8bf3266fcb07ce6f2ae7ba8135f8af0",
+  "main_playback_sha256": "8c7cd9b3e0d29d2b4761f35b3aa58ca683268c39f91f10713b27b6c2ffdfc648",
+  "note": "10197041d8bf3266fcb07ce6f2ae7ba8135f8af0 recCueId, povTImpact and povAnchors, each the whole declaration [start, end) with the sha256 of its text; test-povpose.mjs case 1 runs them under the running engine",
+  "slices": {
+    "recCueId": {"sha256":"dacfa2141926a9d96382d79077779386c70c2247cde15a8cfac09f22c31b6ca4","text":"function recCueId(rec) {\n    const k = rec?.events?.[0]?.kind;\n    return (k && typeof k !== 'string' && Number.isFinite(k.Strike?.ball))\n      ? k.Strike.ball : 0;\n  }"},
+    "povTImpact": {"sha256":"5a986d1dd14b8721dc151927775754b7edefd75402e617de803aadf912d173f0","text":"function povTImpact(rec) {\n    const evs = rec?.events ?? [];\n    for (const e of evs) {\n      const k = e?.kind;\n      if (k && typeof k !== 'string' && k.BallBall) {\n        return Number.isFinite(e.t) ? e.t : 0.5;\n      }\n    }\n    const cueId = recCueId(rec); // GH-383: the record's struck ball\n    for (const e of evs) {\n      const k = e?.kind;\n      if (k && typeof k !== 'string' && k.BallLinearCushion?.ball === cueId) {\n        return Number.isFinite(e.t) ? e.t : 0.5;\n      }\n    }\n    return 0.5;\n  }"},
+    "povAnchors": {"sha256":"29973a4bcf706945ebf09ecb81d7a989d4bb267327fe1c1fcc66c8d94898c833","text":"function povAnchors(rec) {\n    try {\n      const p = rec?.initial?.balls\n        ?.find((b) => b.id === recCueId(rec))?.state?.pos; // GH-383\n      const phi = Number(rec?.shot?.phi);\n      if (!p || ![p.x, p.y, p.z, phi].every(Number.isFinite)) return null;\n      const dx = Math.cos(phi), dy = Math.sin(phi);\n      return {\n        ti: povTImpact(rec), d: [dx, dy],\n        addrCam: [p.x - 1.05 * dx, p.y - 1.05 * dy, p.z + 0.36],\n        addrLook: [p.x + 1.40 * dx, p.y + 1.40 * dy, p.z],\n        standCam: [p.x - 1.75 * dx, p.y - 1.75 * dy, 0.81],\n        standLook: [0, 0, 0.02],\n      };\n    } catch { return null; }\n  }"}
+  }
+}

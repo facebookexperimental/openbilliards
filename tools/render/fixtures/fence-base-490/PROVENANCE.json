@@ -1,0 +1,25 @@
+{
+  "base_tree": "fc929fa8",
+  "base_tree_full": "fc929fa8368bca800adc9e5ccedfb9a3db8b6fbf",
+  "what": "the #766 landing tree fc929fa8 (pred-fillet-2026-09 + main 9018b450): the fence baseline re-recorded for the WHOLE catalog (13) \u2014 main's fence pins dated 2026-09-09 (b430d377) predate four landed, maintainer-approved changes: #727 venue hooks (program identity on every material; predator rows glsl/programKey only), #896 cn8 apron landing (chinese8/joy +75 meshes, cloth normal map, beam shadow flags), #644 D621 landing (diamond_proam_9ft +18 meshes, subrail material), #637/#892 + #642 snooker/OX ceremony (wpbsa +15 meshes, 160 geometry rows, cloth normal map); the ring branch moves predator rows 1..6 only (GH-671), proven by the live-vs-live control on main 9018b450; first pins for rasson_ox_9ft, diamond_proam_8ft, diamond_proam_7ft",
+  "schema": 2,
+  "tool": "tools/render/census-490-tables.mjs (schema v2: geo + attr + flags + material + map pixel content incl. cube maps + compiled GLSL) with the NOTE-CENSUS-SETTLE wait (lib/settle.mjs: the per-mesh geometry signature held still 5 reads x 500 ms after the GI-bake wait, cap 30 s); run with --allow-unexposed-built-id because main's table.js does not yet expose obTable.userData.tableId (the FIX1 line lives on the branch)",
+  "exported": "2026-09-21T17:41:48+00:00",
+  "served": "<worktree>/web (git worktree at fc929fa8)",
+  "tables": 13,
+  "note": "whole-catalog re-pin per maintainer rulings 2026-09-20/21 (census-766 RED, class pin re-record, measurement-corrected): main's fence pins dated 2026-09-09 (b430d377) predate four landed, maintainer-approved changes: #727 venue hooks (program identity on every material; predator rows glsl/programKey only), #896 cn8 apron landing (chinese8/joy +75 meshes, cloth normal map, beam shadow flags), #644 D621 landing (diamond_proam_9ft +18 meshes, subrail material), #637/#892 + #642 snooker/OX ceremony (wpbsa +15 meshes, 160 geometry rows, cloth normal map); the ring branch moves predator rows 1..6 only (GH-671), proven by the live-vs-live control on main 9018b450; first pins for rasson_ox_9ft, diamond_proam_8ft, diamond_proam_7ft. CENSUS of record: <artifacts>/ring-chain/census-766/catalog-20260921T173902Z (13 ids under run-gate on the landing tree; judge-A/B.log). CONTROL: <artifacts>/ring-chain/census-766/catalog-20260921T174558Z = the same 13 censuses on a detached checkout of main 9018b450 (no #766 code): live(S) vs live(tip) IDENTICAL on 11 ids incl. the three first pins, predator geo/attr on rows 1..6 only (GH-671), wpbsa attr on 7 pocket rows (below). WPBSA TERMINAL STATE: the 7 pocket rows obPocketCap#187, obPocketValance#189, obPocketEmboss#190, obPocketNet#199/#200/#201, obPocketBoard#209 carry attributes that land in asynchronous stages after the GI bake; the settle predicate (5 quiet reads x 500 ms, 30 s cap; lib/settle.mjs) declares stability while stages are still landing, so a census reads one of three states as a function of the stages landed when it stopped: B (2 changes, last at +2.1..2.6 s), C (5 changes, last at +7.6..7.8 s), A (7 changes, last at +10.3 s). Repeat matrix <artifacts>/ring-chain/census-766/repeat-wpbsa-20260921 (4 main-S reads, 5 tip reads): B and C and A each observed on BOTH trees; state A = the terminal state (all stages landed) read byte-identically on main S (mainS-b/wpbsa-run2, +10332 ms) and on the tip (tip-b/wpbsa-run2, +10324 ms) on all 222 rows; this pin is that tip read (the window read of wpbsa, state A as well, is kept as wpbsa_snooker_12ft.window.json). No move is claimed for wpbsa. Instrument item for b19: the settle predicate must wait N quiet reads AFTER THE LAST CHANGE with the pocket stages counted (reads stop at 4-12 s while stages land to >= +10.3 s) and expose its cap/quiet count as a flag. Class proof for the program-identity delta: <private evidence>/ring-chain/census-766/20260920T175640Z.",
+  "repins": [
+    {
+      "table": "predator_apex_9ft",
+      "recorded_on": "16835644",
+      "order": "ORDER-PRED-FILLET-A2 (GH-671, PR #766)",
+      "why": "shared jaw run law moved the six cushion lofts at 3 deep profile rows (side 10.364/9.876/17.067 mm, corner 0.509/0.326/3.401 mm); measurement-corrected, predator rows only; see predator_apex_9ft.json \"repin\""
+    },
+    {
+      "table": "ALL (13)",
+      "recorded_on": "fc929fa8",
+      "order": "maintainer ruling 2026-09-20 (census-766 RED, class: pin re-record, measurement-corrected)",
+      "why": "main's fence pins dated 2026-09-09 (b430d377) predate four landed, maintainer-approved changes: #727 venue hooks (program identity on every material; predator rows glsl/programKey only), #896 cn8 apron landing (chinese8/joy +75 meshes, cloth normal map, beam shadow flags), #644 D621 landing (diamond_proam_9ft +18 meshes, subrail material), #637/#892 + #642 snooker/OX ceremony (wpbsa +15 meshes, 160 geometry rows, cloth normal map); the ring branch moves predator rows 1..6 only (GH-671), proven by the live-vs-live control on main 9018b450; first pins for rasson_ox_9ft, diamond_proam_8ft, diamond_proam_7ft"
+    }
+  ]
+}

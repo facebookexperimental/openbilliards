@@ -1,0 +1,21 @@
+{
+ "counts": {
+  "inputs-cov.json": 1600,
+  "inputs-f1.json": 230,
+  "inputs-f1c.json": 16,
+  "inputs-f2.json": 253,
+  "inputs-f3.json": 70,
+  "inputs-f3b.json": 210,
+  "inputs-k2.json": 31
+ },
+ "k_dir": "k-90958db6",
+ "p1_json_sha256": "6edd04419ac71d98a66392853995963aeaa6309086ea9dbaeb9acd163c9d4bc2",
+ "sources": {
+  "diag/refdiscrete-140.json": "65a768220cd6b5e4566573d21fc7ca565e9e920b183bd786eb5d7744426a6c32",
+  "diag/resid-253-rows.jsonl": "4e1d154433ffbcef9173654530d9e7e9398303fd14a6b537a840c4de31416e06",
+  "out/fail-band-rel.jsonl": "37aab56fcd1e29a37278a37f78ca4e826548fc5230d78bdaa90f6635d714693a",
+  "out/fail-boundary-rel.jsonl": "d13139d267b61e31fd3c07dc6605c7635bd5ceee0f85756e41db2870f03e5ce9",
+  "out/fail-harvest-rel.jsonl": "c4d979c471309490e610e29e7ee9b92ee2bc2363d353e53b1f971347b1d668ae",
+  "out/fail-random-rel.jsonl": "48f7359b1b4f39234e8757c61c9d0c97d01f4bd2fcb63a2ad1f7caa2511ea9a4"
+ }
+}

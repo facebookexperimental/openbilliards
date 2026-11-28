@@ -1,0 +1,80 @@
+{
+  "name": "draw",
+  "description": "Straight full-hit draw shot: heavy backspin (b < 0) makes the cue ball reverse after contact. Demonstrates the sliding->rolling transition and backspin retention over the approach.",
+  "provenance": "Copied from crates/pool-core/tests/fixtures/scenarios/draw_shot.json (oracle-compared fixture: tests/fixtures/oracle/draw_shot.json). See also the behavioral slow-motion draw suite, tests/fixtures/slowmo/draw.json (draw scenes 01..06 of the third-party slow-motion reference catalog).",
+  "system": {
+    "balls": [
+      {
+        "id": 0,
+        "params": {
+          "m": 0.170097,
+          "r": 0.028575,
+          "u_s": 0.2,
+          "u_r": 0.01,
+          "u_sp": 0.0127,
+          "e_b": 0.95,
+          "e_c": 0.85,
+          "f_c": 0.2
+        },
+        "state": {
+          "pos": {
+            "x": 0.0,
+            "y": -0.6,
+            "z": 0.028575
+          },
+          "vel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "avel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "motion": "Stationary"
+        }
+      },
+      {
+        "id": 1,
+        "params": {
+          "m": 0.170097,
+          "r": 0.028575,
+          "u_s": 0.2,
+          "u_r": 0.01,
+          "u_sp": 0.0127,
+          "e_b": 0.95,
+          "e_c": 0.85,
+          "f_c": 0.2
+        },
+        "state": {
+          "pos": {
+            "x": 0.004,
+            "y": -0.1,
+            "z": 0.028575
+          },
+          "vel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "avel": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "motion": "Stationary"
+        }
+      }
+    ],
+    "table": "wpa_9ft"
+  },
+  "shot": {
+    "v0": 2.5,
+    "phi": 1.5707963267948966,
+    "theta": 0.0,
+    "a": 0.0,
+    "b": -0.4,
+    "seed": 3
+  }
+}

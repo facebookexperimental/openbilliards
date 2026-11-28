@@ -1,0 +1,82 @@
+{
+ "src": {
+  "dir": "/tmp/brc5/r7/basemod",
+  "files": {
+   "jsonschema.js": "ec11953367b6cf6dbe63df5909c98449b362eaa17f5b86a5ad598886205a4952",
+   "kinematics.js": "cc61dad221a93d2f987e307724e38f7ac567d2785f3d7e52aca0baf73f01054e",
+   "schema.js": "71476c3c43e5b0fca76c3a03ab731116be1590762fbbd763b17a5100f18c7214",
+   "track-schema.js": "ec1a630023b62d4506ca1e30aaeacca0fd0e40f6b89356106ef2ac3e37f184db",
+   "track.js": "fe610470847fdfc1fa14fdf238673bfb93f20410147aa1f4a5396f79530f2b44"
+  }
+ },
+ "base": "4818480fc1b93fdbb2d43f286ed4f17374157073",
+ "y1": {
+  "drop_mm": 0.1,
+  "err": null,
+  "total_m": 4.180140792426679,
+  "cuts": 0,
+  "minEnt_m": null,
+  "solved": 2,
+  "routes": 2,
+  "thrown": null
+ },
+ "y1sweep": {
+  "steps": 101,
+  "built": 101,
+  "solved2": 101,
+  "neg": 101
+ },
+ "y2": {
+  "err": null,
+  "total_m": 0.2909071460950096,
+  "segs": 6,
+  "routes": 2,
+  "gate": 0,
+  "solved": 30
+ },
+ "y2grid": {
+  "combos": 441,
+  "built": 441,
+  "refused": 0,
+  "laws": []
+ },
+ "y3": {
+  "ts": [
+   1,
+   2,
+   5,
+   10,
+   20,
+   40,
+   80
+  ],
+  "errs": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   "[V6]"
+  ],
+  "first_m": [
+   0.15330155225900288,
+   0.15330155225900288,
+   0.15330155225900288,
+   0.15330155225900288,
+   0.15330155225900288,
+   0.15330155225900288,
+   null
+  ],
+  "seats": [
+   8,
+   8,
+   8,
+   8,
+   8,
+   8,
+   null
+  ],
+  "worst_m": 0
+ }
+}

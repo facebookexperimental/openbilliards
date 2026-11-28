@@ -1,0 +1,219 @@
+% ===========================================================================
+% Section 1 — Introduction
+% Contribution claims C1-C5 keep their registered wording (sizing
+% included).
+% ===========================================================================
+\section{Introduction}
+\label{sec:introduction}
+
+Instruction in pool and billiards is transmitted through a canon of
+empirical rules: the $30^\circ$ and $90^\circ$ rules for post-impact
+cue-ball direction, the throw, squirt, and swerve laws, gearing english,
+the ten-times-fuller rule for frozen-ball kisses, the trisect system for
+draw shots, and the diamond systems for banks and kicks. The canon's
+analytic ancestry runs to Coriolis
+\citep{coriolis1835,nadler2005coriolis}, and its modern statements are
+maintained in Alciatore's technical-proof corpus and the companion
+high-speed-video and FAQ collections
+\citep{alciatore2008coriolis,alciatore_tp_catalog,alciatore_faq}. Every
+rule in the canon is an idealization---a closed form or a geometric
+shortcut calibrated at one operating point---yet none is taught with a
+quantified statement of \emph{where it holds}. A player learns that a
+well-struck draw shot departs at roughly three times the cut angle
+``below about $40^\circ$''; no source states the lower boundary of that
+claim, its speed window, or the error incurred at the edges.
+
+The literature does not close this gap. Experimental work has validated
+single rules at single operating points: \citet{bayes1963collision}
+measured ball--ball collision losses, \citet{wallace1988billiard}
+analyzed two-dimensional collisions (with the frictional correction of
+\citealp{onoda1989comment}), and \citet{cohen2002threecushion} treated
+the corner-5 diamond system as geometry alone. Simulation authors have
+validated their own sub-models against their own footage
+\citep{mathavan2010cushion,mathavan2014numerical}, and the most complete
+open simulator, pooltool, ships a single self-consistency notebook
+\citep{kiefl2024pooltool}. To our knowledge, no systematic, whole-canon,
+domains-of-validity study exists.
+
+This paper conducts that study. The instrument is an event-driven
+analytic rigid-body simulator for cue-sports mechanics
+(Section~\ref{sec:simulator}): ball motion between events is closed
+form, event times are polynomial roots, and the shipped WebAssembly
+binary---canonical kernel \code{0.1.0+fb3425ad}---reproduces every
+trajectory bit-exactly across the operating systems, architectures, and
+runtimes tested (Section~\ref{sec:reproducibility}), making the shipped
+binary itself the paper's physics definition
+of record. We use the term simulator deliberately: billiards is the
+vehicle, and the verification-and-validation (V\&V) methodology together
+with the rules study are the contributions. One definition governs the
+title's word \emph{validated} and every use of it below: validation means
+comparison against anchors classified as \emph{measured data} (camera
+points, instrumented tables, high-speed video, a robot protocol), with
+comparison error and validation uncertainty reported and every miss
+ledgered --- never pass/fail certification; comparisons against sources'
+own idealized forms are labeled model benchmarking or verification of the
+port, and rule-of-thumb lore is characterized, not validated
+(Section~\ref{sec:methodology}). The simulator's validity is
+established by a registered battery of 24 experiments spanning
+ball--ball impact and throw, stick--ball interaction, cushion rebound
+and the diamond systems, curved (Coriolis) trajectories, frozen contacts
+and the break, and closed-form kinematics with jump shots, plus a
+cross-simulator oracle run---25 pinned outputs in all, byte-stable
+across repeated runs.
+
+The battery is designed to be hard on its own instrument
+(Section~\ref{sec:methodology}). We adopt ASME V\&V~20 vocabulary
+throughout \citep{asme2009vv20}: each anchor names its validation
+variable and validation points, reports the comparison error
+$E = S - D$ between simulation value $S$ and source datum $D$, and
+carries a validation uncertainty $u_{\mathrm{val}}$ whose numerical,
+input, and source-data components are estimated per source family
+(Section~\ref{sec:methodology}), including digitization uncertainty for
+points lifted from published figures.
+Verification---agreement of the code with its own closed forms and with
+a cross-simulator oracle whose event times match to within
+$7.4\times10^{-14}$~s where the model registries coincide---is kept
+strictly separate from validation, agreement with physical measurement.
+Evidence spans four source tiers (published curves and tables ---
+classified per anchor as measured data or derived reference forms ---
+high-speed video, a published specification window, and the
+cross-simulator oracle), every
+experiment design was frozen and registered in-repository before any
+sweep ran, and
+misses of registered bands are never re-tuned: they are recorded in a
+machine-readable waiver ledger (38 rows) kept with the study's artifact
+bundle.
+
+\figstub{F0}{F0.pdf}{%
+  \textbf{Verdict map.} One row per rule family of
+  Table~\ref{tab:domains}, spanning all three anchor classes. Bars
+  span the registered sweep domains, verdict-segmented (legend at
+  top; in-bar ticks: measured boundaries), with one headline note per
+  row (values: pinned outputs, Supplementary Material S1).}{F0}
+
+Figure~\ref{fig:F0} is the battery's one-look summary --- one
+verdict-segmented domain bar per rule family, annotated with the
+headline comparison errors the following sections quantify. Most rows
+benchmark derived forms or lore; ``validation'' is reserved for
+measured-datum rows (Section~\ref{sec:methodology}). Throughout the
+figures, headline errors $E$ and markers in orange are the
+waiver-marker convention (Section~\ref{sec:results}). The map's
+239/240 cushion count is verification-of-port; its measured-datum
+content is the 12/12 camera points (Section~\ref{sec:results-c}); its
+miscue-limit row states the registered input-envelope convention,
+revised post-registration under the scoped compatibility note of
+Section~\ref{sec:limitations} (simulated results unchanged).
+Three numbers preview what the battery finds. The trisect
+``$3\times$~cut'' rule is exact only at its half-ball calibration point:
+the measured ratio declines monotonically from 3.99 to 2.59 over
+$5$--$45^\circ$ cuts and stays within 10\% of 3 only for
+$22.5$--$40^\circ$ cuts---even friction-free perfect balls, calibrated
+at the same half-ball anchor, give a small-cut limit of 4.0, and the
+measured small-cut ratio ($5^\circ$ cut) stays at 3.99--4.01 across the
+restitution and friction
+sensitivity arms because each arm re-anchors its own calibration; the
+breakdown is geometric in that calibration-anchored sense, with $e_b$
+and friction setting only the operating point (the decomposition is in
+Section~\ref{sec:results-f}) (experiment \expid{F2}; Fig.~\ref{fig:F13}). The
+$30^\circ$-rule peak height sits inside the registered
+$33.7\pm0.3^\circ$ band only at the slowest registered speed
+($E = -0.57^\circ$ at 1.5~m/s and $-0.83^\circ$ at 2.0~m/s, against a
+frictionless-elastic reference form), while the peak location and the
+$27$--$34^\circ$ plateau hold at every tested speed (experiment
+\expid{A2};
+Fig.~\ref{fig:F3}). And the standard claim that cut-induced throw
+collapses across speeds for cuts at or below $20^\circ$ holds strictly
+only to $17.5^\circ$ on the registered grid---consistent with the
+source's own crossover near $18^\circ$ (experiment \expid{A3};
+Fig.~\ref{fig:F2}).
+
+The methodology also proved to have teeth against the instrument itself:
+the battery uncovered two inherited defects in our own kernel---a
+ball--ball slip-impulse law that left slip-regime throw about 2.6\% low
+(found by experiment \expid{A1}; hereafter the \emph{slip-law defect}) and a
+discontinuous settled-rebound branch selection in one
+compliant cushion model that jumped registered bank arrivals by
+0.49--0.85 diamonds (found by experiment \expid{C1}; hereafter the
+\emph{branch-selection defect})---both fixed and
+confirmed by predicted-shift verification, and
+Section~\ref{sec:oracle} presents the episode as a case study.
+
+\subsection{Contribution claims}
+\label{sec:contributions}
+
+This paper makes five contributions, each sized by verified novelty
+against the closest prior art we could locate. The novelty sizing rests
+on two structured prior-art research sweeps (run 2026-07-21, coverage
+through July 2026) across scholar-indexed journals and preprint servers
+in the simulation, sports-engineering, and computational-billiards
+literature together with the cue-sports gray literature (the Dr.~Dave
+technical-proof and high-speed-video catalogs, \emph{Billiards Digest},
+the pooltool documentation), with every load-bearing claim verified
+against its primary source; the sweep summaries are retained internally
+but per-query transcripts were not logged, so we report the search as
+scoped rather than as an exhaustively documented systematic-review
+protocol, and we claim ``first'' only as first-we-could-locate. The
+closest prior art found is listed with each claim.
+
+% Claims C1-C5 keep their registered substance; their "Sizing:"
+% annotations are folded into plain prose, and the C4 neighbor check is
+% stated as the completed survey sentence.
+
+\begin{description}
+  \item[C1.] Systematic domains-of-validity quantification of the empirical
+    laws of pool (30$^\circ$/90$^\circ$ rules, throw/squirt/swerve laws,
+    gearing english, 10-times-fuller, bank/kick diamond systems, Coriolis
+    results) with registered, hash-pinned experiment scripts --- the
+    paper's headline
+    contribution, addressing a confirmed literature gap. Closest prior
+    art: pooltool's single self-consistency
+    notebook \citep{kiefl2024pooltool}; \citet{cohen2002threecushion}
+    (geometric corner-5 only); \citet{bayes1963collision};
+    \citet{wallace1988billiard} (single-rule experiments).
+  \item[C2.] Whole-engine multi-source validation battery (published
+    curves and tables + HSV footage + published specification windows +
+    cross-simulator oracle)
+    under an explicit anti-overfit out-of-sample doctrine, with a
+    machine-readable waiver ledger --- the paper's headline methodology
+    contribution.
+    Closest prior art: \citet{mathavan2010cushion,mathavan2014numerical}
+    (single sub-models, own footage); no engine-wide precedent.
+  \item[C3.] Compliant frozen-cluster break resolution (Hertz +
+    Lankarani--Nikravesh, Jacobi concurrent advance) embedded in an
+    otherwise closed-form event-driven kernel --- a major section of this
+    paper and the seed of a planned companion paper. Closest prior art:
+    \citet{gismerosmoreno2022multiple} (full-game penalty time-stepping);
+    \citet{cross2023oblique} (small-$N$ analytics); pooltool's 10\%
+    momentum-theft hack \citep{kiefl2024pooltool}.
+  \item[C4.] The shipped canonical \code{.wasm} as the paper's normative
+    physics definition: bit-exact cross-platform reproduction of every
+    figure from the shipped binary --- a major section of this paper and,
+    to our knowledge, without peer-reviewed simulator precedent. Closest
+    prior art: Rapier's enhanced-determinism mode (engineering
+    documentation); deterministic-WebAssembly runtimes
+    \citep{wasm2015nondeterminism}; the nearest scientific neighbors ---
+    versioned WebAssembly tool distributions in bioinformatics and the
+    climate community's bit-for-bit reproducibility and
+    ensemble-consistency practice --- pin binaries for reuse or test
+    statistical consistency of rebuilt source, but neither makes a
+    shipped versioned binary a paper's normative physics definition.
+  \item[C5.] Terminal rest projection (``round-trip law'': simulate output
+    is valid simulate input) and quartic event-detection robustness ---
+    deliberately sized as an engineering subsection, not a headline.
+    Closest prior art: \citet{leckie2006event} flagged the
+    fragility; Algorithm 1010 \citep{orellana2020algorithm1010} + two ACM
+    Remarks \citep{demichele2022remark,demichele2024remark}.
+\end{description}
+
+The remainder of the paper is organized as follows.
+Section~\ref{sec:related} situates the work in the measurement,
+simulation, and computational-billiards literature.
+Section~\ref{sec:simulator} describes the instrument, and
+Section~\ref{sec:methodology} the registered V\&V design, the anchor
+tiers, and the waiver-ledger doctrine. Section~\ref{sec:results} reports
+the rules study across the six experiment groups, and
+Section~\ref{sec:oracle} the cross-simulator agreement study together
+with the defect-discovery case study. Section~\ref{sec:reproducibility}
+defines the reproduction protocol built on the canonical binary;
+Section~\ref{sec:limitations} states limitations, and
+Section~\ref{sec:future} outlines future work.

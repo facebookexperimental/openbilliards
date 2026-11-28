@@ -1,0 +1,87 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+# GitHub Pages: brand site + playable game (feature 008 T010).
+# The site is fully static/self-contained; the artifact is site/ + web/
+# side by side (PLAY NOW links ../web/app.html) with a root redirect.
+# Publishing requires Pages to be ENABLED in repo Settings (Source: GitHub
+# Actions) — that flip is the owner's call; until then this workflow is
+# inert scaffolding and manual runs simply fail at the deploy step.
+name: pages
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    # tools/render/grade.json rides the artifact (GH-247): a grade-only
+    # recalibration must retrigger the deploy, not wait for a web/site change
+    paths: ['site/**', 'web/**', 'tools/render/grade.json', 'tools/notice-inventory.mjs', '.github/workflows/pages.yml']
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: assemble artifact (site + game, root redirect)
+        run: |
+          set -euo pipefail
+          mkdir dist-pages
+          cp -r site/. dist-pages/
+          mkdir -p dist-pages/web
+          cp -r web/. dist-pages/web/
+          rm -rf dist-pages/web/tools   # test harnesses are not for serving
+          # GH-247: offline-render.js loadGrade() resolves
+          # ../../tools/render/grade.json against /web/app/ — i.e. the SITE
+          # ROOT /tools/render/grade.json — and every export tier awaits it.
+          # web/tools (stripped above) is a symlink to the repo-root tools/;
+          # materialise the ONE runtime-fetched file at the resolving path
+          # (ios/tools/bundle-manifest.mjs INCLUDE_FILES precedent: the real
+          # file rides, no symlink ships).
+          mkdir -p dist-pages/tools/render
+          cp web/tools/render/grade.json dist-pages/tools/render/grade.json
+          # project pages serve under /openbilliards/ — a root-absolute
+          # redirect would land on the ORG root, off-site
+          cat > dist-pages/404.html <<'HTML'
+          <!DOCTYPE html><meta charset="utf-8"><title>openbilliards</title>
+          <meta http-equiv="refresh" content="0; url=/openbilliards/">
+          HTML
+      - name: competitor brands absent from the artifact's sources (deploy gate)
+        # brand-gate.yml judges PRs; this keeps a deploy from shipping a
+        # competitor name even if that workflow was skipped.
+        run: node tools/check-competitor-brands.mjs
+      - name: sw precache freshness — VERSION/PRECACHE match the tree
+        # pwa-standalone: web/sw.js precaches an enumerated snapshot; a web
+        # change without a regenerated block would ship a stale generation.
+        run: node web/tools/gen-sw-precache.mjs --check
+      - name: sw precache boot graph — static imports of a measured boot module are BOOT (GH-714 review r3)
+        # synthetic-tree arm over the generator's traversal: a new static
+        # dependency of a boot module must never wait for a re-recorded
+        # manifest to leave PRECACHE_FILL (red on the pre-r3 traversal).
+        run: node web/tools/test-sw-precache-graph.mjs
+      - name: artifact gate — every runtime-fetched URL exists (GH-247)
+        # The site is Pages-disabled, so no live deploy can be e2e'd: this
+        # artifact-level assertion IS the gate for the packaged-layout class.
+        run: node web/tools/pages-artifact-gate.mjs dist-pages
+      - name: link gate — no dead or root-escaping hrefs (site audit 2026-08-28)
+        # public-repo only: the PRIVATE tree's site/ is authored for
+        # repo-root serving (../web/... is correct there) and only the
+        # sync-exported snapshot carries the served-layout rewrite; the
+        # no-clamp subpath semantics belong to the public project-pages URL
+        if: github.repository == 'facebookexperimental/openbilliards'
+        run: node web/tools/pages-link-gate.mjs dist-pages
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist-pages
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

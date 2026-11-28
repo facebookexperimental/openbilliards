@@ -1,0 +1,286 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: lamp</title>
+<style>
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }
+#label { position: fixed; left: 8px; bottom: 6px; font: 12px/1.3 ui-monospace, Menlo, monospace; color: #e8e0d0; background: rgba(0,0,0,0.55); padding: 3px 6px; white-space: pre; }
+</style>
+<script type="importmap">
+{ "imports": { "three": "../../vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<div id="label"></div>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from '../../vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { roomLight } from '../../scene/club/room/light.js';
+import { buildLamp } from '../../scene/club/room/lamp.js';
+
+const q = new URLSearchParams(location.search);
+RectAreaLightUniformsLib.init();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x030303);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.05, 60);
+
+const VIEWS = {
+  low: [[-2.6, 0.72, 0.95], [0.3, 0.4, 0], 45],
+  play: [[-2.3, 1.05, 1.35], [0.1, 0, 0], 40],
+  wide: [[-4.0, 1.6, 2.6], [0, 0.3, 0], 50],
+  eye: [[-4.2, 0.95, 2.8], [0, 0.25, 0], 50],
+  top: [[0.001, 3.3, 0.5], [0, 0, 0], 45],
+  far: [[3.4, 0.95, -2.3], [0, 0.3, 0], 45],
+  under: [[-1.9, 0.5, 0.5], [0.2, 0.95, 0], 50],
+  close: [[-1.75, 1.22, 1.05], [-0.55, 1.12, 0], 32],
+  v11: [[0.0, 2.3, 0.03], [0, 0, 0], 66],
+  bar: [[3.9, 0.95, -3.0], [0, 0.25, 0], 50],
+  refl: [[-4.2, 0.95, 2.8], [0, -0.55, 0], 50],
+  skirt: [[-2.2, 1.0, 1.5], [-0.4, 1.0, 0.2], 30],
+  boot: [[-1.8345, 1.3935, 1.4558], [0, 0.05, 0], 40],
+  v3: [[-2.15, 0.62, 0], [0.6, 0, 0], 38],
+  l4: [[-2.4, 0.55, 1.2], [0, 0.85, 0], 45],
+  up: [[0.25, 0.12, 0.12], [0.05, 1.02, 0], 62],
+  raised: [[-2.7, 1.45, 1.7], [0, 0.7, 0], 40],
+  real: [[-2.3, 0.84, 1.35], [0.1, 0, 0], 40],
+};
+const sweepPose = (t) => {
+  const a = [-3.4, 0.6, 1.6], b = [-1.0, 3.0, 0.6];
+  return [[a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t], [0.1, 0, 0], 42];
+};
+function pose([pos, tgt, fov]) { camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt); camera.updateMatrixWorld(true); }
+let start = VIEWS[q.get('view')] ?? VIEWS.wide;
+if (q.get('cam')) { const c = q.get('cam').split(',').map(Number); start = [c.slice(0, 3), c.slice(3, 6), c[6] ?? 40]; }
+if (q.get('sweep') !== null) start = sweepPose(Number(q.get('sweep')));
+pose(start);
+
+// ---- the stand-in room: a floor, four walls, a ceiling (the club room's size), lit as the club room lights its own surfaces
+const FLOOR_Y = -0.79, CEIL_Y = FLOOR_Y + 3.24;
+const box = { min: new THREE.Vector3(-5.5, FLOOR_Y, -6.0), max: new THREE.Vector3(5.5, CEIL_Y, 3.6) };
+const detail = [0, 1, 2].includes(Number(q.get('tier'))) && q.get('tier') !== null ? Number(q.get('tier')) : 2;
+const frameFns = [];
+const club = {
+  enabled: true, tier: ['lite', 'base', 'high'][detail], knobs: { roomDetail: detail }, time: { value: 0 },
+  ctx: { renderer, scene, camera, query: q, room: null, table: null },
+  onFrame(fn) { if (!frameFns.includes(fn)) frameFns.push(fn); }, offFrame(fn) { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); },
+};
+roomLight.reset();
+roomLight.init({ club, envMap: null });
+roomLight.setBox(box.min, box.max);
+roomLight.setAmbient(new THREE.Color(0.30, 0.26, 0.21), new THREE.Color(0.24, 0.20, 0.155), new THREE.Color(0.50, 0.42, 0.33));
+const wallMat = roomLight.material({ color: 0x1f4a36, roughness: 0.9, name: 'dev.wall' });
+const woodMat = roomLight.material({ color: 0x3b2416, roughness: 0.6, name: 'dev.wood' });
+const ceilMat = roomLight.material({ color: 0xb9ab8e, roughness: 0.95, name: 'dev.ceiling' });
+const floorMat = roomLight.material({ color: 0x4a2f1c, roughness: 0.42, envMapIntensity: 0.35, tableShadow: true, name: 'dev.floor' });
+const W = box.max.x - box.min.x, D = box.max.z - box.min.z, cx = (box.max.x + box.min.x) / 2, cz = (box.max.z + box.min.z) / 2;
+const roomGroup = new THREE.Group(); roomGroup.name = 'devRoom'; scene.add(roomGroup);
+club.room = { enabled: true, group: roomGroup };
+const addPlane = (w, h, mat, pos, rot) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat); m.position.set(...pos); m.rotation.set(...rot); roomGroup.add(m); return m; };
+const floor = addPlane(W, D, floorMat, [cx, FLOOR_Y, cz], [-Math.PI / 2, 0, 0]);
+addPlane(W, D, ceilMat, [cx, CEIL_Y, cz], [Math.PI / 2, 0, 0]);
+addPlane(W, 3.24, wallMat, [cx, FLOOR_Y + 1.62, box.min.z], [0, 0, 0]);
+addPlane(W, 3.24, wallMat, [cx, FLOOR_Y + 1.62, box.max.z], [0, Math.PI, 0]);
+addPlane(D, 3.24, wallMat, [box.min.x, FLOOR_Y + 1.62, cz], [0, Math.PI / 2, 0]);
+addPlane(D, 3.24, wallMat, [box.max.x, FLOOR_Y + 1.62, cz], [0, -Math.PI / 2, 0]);
+addPlane(W, 1.0, woodMat, [cx, FLOOR_Y + 0.5, box.min.z + 0.01], [0, 0, 0]); // a wainscot, for scale
+// ceiling beams as the club room has them: main beams along x (one over the table's long axis), cross beams along z
+for (const bz of [-2.4, 0, 2.4]) { const b = new THREE.Mesh(new THREE.BoxGeometry(W, 0.24, 0.20), woodMat); b.position.set(cx, CEIL_Y - 0.12, bz); roomGroup.add(b); }
+for (const bx of [-2.75, 2.75]) { const b = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.17, D), woodMat); b.position.set(bx, CEIL_Y - 0.085, cz); roomGroup.add(b); }
+// wall lamps and a lit shelf, as fixed emitters with a glowing stand-in each
+const glowMat = roomLight.emissive({ color: new THREE.Color(1.0, 0.78, 0.5), intensity: 3.2, name: 'dev.sconce' });
+[[-3.5, 1.05, box.min.z + 0.12], [0, 1.05, box.min.z + 0.12], [3.5, 1.05, box.min.z + 0.12], [box.max.x - 0.12, 1.05, -2.5], [box.max.x - 0.12, 1.05, 1.2], [box.min.x + 0.12, 1.05, -1.5]].forEach((p, i) => {
+  const s = new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 12), glowMat); s.position.set(...p); roomGroup.add(s);
+  roomLight.addEmitter({ id: `dev.sconce.${i}`, type: 'point', position: new THREE.Vector3(...p), color: new THREE.Color(1.0, 0.74, 0.46), intensity: 2.4, radius: 5, size: [0.07, 0] });
+});
+
+// ---- the stand-in table (the cloth carries the app's class tag, so the lamp reads the bed from it) and a few balls
+const table = new THREE.Group();
+const clothMat = new THREE.MeshStandardMaterial({ color: 0x2a6fd0, roughness: 0.92 });
+clothMat.userData.obClass = 'cloth';
+const cloth = new THREE.Mesh(new THREE.BoxGeometry(2.62, 0.02, 1.35), clothMat); cloth.position.y = -0.01; table.add(cloth);
+const railMat = new THREE.MeshStandardMaterial({ color: 0x0c0c0c, roughness: 0.35 });
+for (const [sx, sz, px, pz] of [[2.94, 0.16, 0, 0.755], [2.94, 0.16, 0, -0.755], [0.16, 1.35, 1.39, 0], [0.16, 1.35, -1.39, 0]]) {
+  const r = new THREE.Mesh(new THREE.BoxGeometry(sx, 0.07, sz), railMat); r.position.set(px, 0.005, pz); table.add(r);
+}
+const body = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.3, 1.5), railMat); body.position.y = -0.19; table.add(body);
+for (const [lx, lz] of [[-1.15, -0.55], [1.15, -0.55], [-1.15, 0.55], [1.15, 0.55]]) { const leg = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.46, 0.16), railMat); leg.position.set(lx, -0.56, lz); table.add(leg); }
+const ballGeo = new THREE.SphereGeometry(0.028575, 32, 20);
+[[-0.55, 0.1, 0xf4f1e6], [0.05, -0.05, 0xe2b400], [0.42, 0.28, 0x1b3fb0], [0.7, -0.38, 0xb01818], [-0.15, -0.25, 0x101010], [1.05, 0.52, 0x0c6e3a], [0.95, 0.02, 0xd05a10]].forEach(([x, z, c]) => {
+  const b = new THREE.Mesh(ballGeo, new THREE.MeshStandardMaterial({ color: c, roughness: 0.08, envMapIntensity: 1 })); b.position.set(x, 0.028575, z); table.add(b);
+});
+scene.add(table);
+club.ctx.table = { group: table };
+const tableBounds = { minX: -1.47 - 1.55, maxX: 1.47 + 1.55, minZ: -0.835 - 1.55, maxZ: 0.835 + 1.55 };
+
+// ---- the stand-in app room: the lights and the luminaire meshes as the app builds them (web/scene/room.js, lightingvisuals.js)
+const IN = 0.0254;
+const FIXTURES = {
+  canopy: { emitters: [{ x: 0, z: 0, y: 1.02, w: 2.05, d: 0.66 }], face: [10, 9, 7.1], intensity: 7.6, color: 0xfff1da },
+  pendant: { emitters: [-0.55, 0, 0.55].map((x) => ({ x, z: 0, y: 0.90, w: 0.26, d: 0.26 })), face: [9, 6.5, 4.1], intensity: 7.6 * 20.5, color: 0xffb875 },
+  strip: { emitters: [{ x: 0, z: 0, y: 1.15, w: 2.984, d: 0.20 }], face: [10, 9.8, 9.5], intensity: 7.6 * 7, color: 0xfdf9f2 },
+  carom: { emitters: [{ x: 0, z: 0, y: 1.02, w: 2.60, d: 0.35 }], face: [10, 9.7, 9.4], intensity: 7.6 * 2.74, color: 0xfaf7f0 },
+  ring: { emitters: (() => { const ow = 102.4 * IN, od = 53 * IN, sw = 2.75 * IN, y = 45 * IN; return [
+    { x: 0, z: -(od - sw) / 2, y, w: ow - 2 * sw, d: sw }, { x: 0, z: (od - sw) / 2, y, w: ow - 2 * sw, d: sw },
+    { x: -(ow - sw) / 2, z: 0, y, w: sw, d: od }, { x: (ow - sw) / 2, z: 0, y, w: sw, d: od }]; })(), face: [11, 10.3, 9.2], intensity: 7.6 * 14.4, color: 0xffeed6 },
+};
+const fx = FIXTURES[q.get('fixture')] ?? FIXTURES.canopy;
+const appGroup = new THREE.Group(); scene.add(appGroup);
+const rectLights = fx.emitters.map((e) => { const l = new THREE.RectAreaLight(fx.color, fx.intensity, e.w, e.d); l.position.set(e.x, e.y, e.z); l.lookAt(e.x, 0, e.z); appGroup.add(l); return l; });
+appGroup.add(new THREE.HemisphereLight(0x38301f, 0x1c2a1c, 0.22));
+const fill = new THREE.PointLight(0xffdcae, 2.2, 0, 2); fill.position.set(3.2, 1.9, -2.3); appGroup.add(fill);
+const e0 = fx.emitters[0];
+const lampFace = new THREE.Mesh(new THREE.PlaneGeometry(e0.w, e0.d), new THREE.MeshBasicMaterial({ color: new THREE.Color(...fx.face) }));
+lampFace.rotation.x = Math.PI / 2; lampFace.position.set(e0.x, e0.y, e0.z); appGroup.add(lampFace);
+const hood = new THREE.Mesh(new THREE.BoxGeometry(e0.w + 0.14, 0.10, e0.d + 0.14), new THREE.MeshStandardMaterial({ color: 0x142014, roughness: 0.45, metalness: 0.25 }));
+hood.position.set(e0.x, e0.y + 0.055, e0.z); appGroup.add(hood);
+const rods = [-0.75, 0.75].map((rx) => { const r = new THREE.Mesh(new THREE.CylinderGeometry(0.007, 0.007, CEIL_Y - (e0.y + 0.14), 10), new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 0.4, metalness: 0.7 })); r.position.set(rx, (CEIL_Y + e0.y + 0.14) / 2, 0); appGroup.add(r); return r; });
+// a fixture other than the canopy: the app hides the canopy's meshes and hangs its own (emissive faces + housings), which the
+// lamp reads through window.__lighting.fixtureMeshes()
+if (fx !== FIXTURES.canopy) {
+  for (const o of [lampFace, hood, ...rods]) o.visible = false;
+  const fixtureGroup = new THREE.Group(); appGroup.add(fixtureGroup);
+  const fxMeshes = [];
+  for (const e of fx.emitters) {
+    const face = new THREE.Mesh(new THREE.PlaneGeometry(e.w, e.d), new THREE.MeshBasicMaterial({ color: new THREE.Color(...fx.face) }));
+    face.rotation.x = Math.PI / 2; face.position.set(e.x, e.y, e.z); fixtureGroup.add(face); fxMeshes.push(face);
+    const house = new THREE.Mesh(new THREE.BoxGeometry(e.w + 0.06, 0.08, e.d + 0.06), new THREE.MeshStandardMaterial({ color: 0x202020, roughness: 0.5 }));
+    house.position.set(e.x, e.y + 0.045, e.z); fixtureGroup.add(house); fxMeshes.push(house);
+  }
+  window.__lighting = { fixtureMeshes: () => fxMeshes, state: () => ({ brightness: 1 }) };
+}
+const appRoom = { group: appGroup, rectLight: rectLights[0], lightRefs: { group: appGroup, rectLights, lampFace, hood, rods, floor, fill } };
+club.ctx.room = appRoom;
+// the lit table as an upward emitter, and the floor shadow rectangle, as club/room.js sets them
+roomLight.addEmitter({ id: 'room.bounce.table', type: 'rect', position: new THREE.Vector3(0, 0.035, 0), normal: new THREE.Vector3(0, 1, 0), axis: new THREE.Vector3(1, 0, 0), size: [2.5, 1.25], color: new THREE.Color(0.75, 0.83, 1.0), intensity: 0.16, radius: 5.5 });
+roomLight.setShadow({ lamp: { cx: 0, cz: 0, hx: 1.02, hz: 0.33 }, table: { cx: 0, cz: 0, hx: 1.47, hz: 0.835 }, lampY: 1.02, tableY: 0.035, ambient: 0.32, strength: 1 });
+roomLight.commit();
+
+// ---- the luminaire
+const lamp = await buildLamp(club, { box, floorY: FLOOR_Y, tableBounds, roomLight, appRoom });
+scene.add(lamp.group);
+if (q.get('force')) lamp.force?.(q.get('force'));
+window.__lamp = lamp; window.__dev = { THREE, renderer, scene, camera, club, appRoom };
+
+// ---- the environment cube, captured from just above the cloth as the app does (the lamp leaves a cube render to the app:
+// the stand-in app luminaire is what it holds)
+const cubeRT = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType, generateMipmaps: true, minFilter: THREE.LinearMipmapLinearFilter });
+const cubeCam = new THREE.CubeCamera(0.02, 40, cubeRT);
+cubeCam.position.set(0, 0.115, 0); scene.add(cubeCam);
+const bake = () => { cubeCam.update(renderer, scene); scene.environment = cubeRT.texture; roomLight.setEnvMap(cubeRT.texture); };
+bake(); bake();
+
+// ---- ?mirror=1: a floor-mirror pass drawn the way club/env.js draws its own: from inside the player's render, by a scene hook
+// installed AFTER the lamp's (so the lamp's hook has already run for the outer render when the nested one starts). Shown as an
+// inset at the lower right: what the mirror pass holds (the room seen from the player's eye reflected in the floor), not a
+// composite into the floor. The lamp must be in it while it is solid and out of it while it is absent.
+let mirror = null;
+if (q.get('mirror') === '1') {
+  const rt = new THREE.WebGLRenderTarget(480, 270, { type: THREE.HalfFloatType });
+  const mcam = new THREE.PerspectiveCamera();
+  const prevBefore = scene.onBeforeRender;
+  const tgt = new THREE.Vector3();
+  let inside = false;
+  mirror = { renders: 0, lampDrawn: 0 };
+  scene.onBeforeRender = function devMirrorBefore(r, sc, cam, target) {
+    if (typeof prevBefore === 'function') prevBefore.call(this, r, sc, cam, target);
+    if (inside || cam !== camera) return;
+    inside = true;
+    const saved = r.getRenderTarget(), autoClear = r.autoClear;
+    try {
+      // the player's eye and view direction reflected in the floor plane (the picture is upside down relative to the screen:
+      // fine for an inset)
+      camera.getWorldDirection(tgt).multiplyScalar(4).add(camera.position);
+      mcam.fov = camera.fov; mcam.aspect = camera.aspect; mcam.near = camera.near; mcam.far = camera.far; mcam.updateProjectionMatrix();
+      mcam.position.set(camera.position.x, 2 * FLOOR_Y - camera.position.y, camera.position.z);
+      mcam.up.set(0, -1, 0);
+      mcam.lookAt(tgt.x, 2 * FLOOR_Y - tgt.y, tgt.z);
+      mcam.updateMatrixWorld(true);
+      floor.visible = false;
+      r.autoClear = true;
+      r.setRenderTarget(rt);
+      r.render(sc, mcam);
+      mirror.renders += 1;
+      if (lamp.group?.visible) mirror.lampDrawn += 1; // read right after the nested render: the outer state, for the label only
+    } finally {
+      floor.visible = true;
+      r.autoClear = autoClear;
+      r.setRenderTarget(saved);
+      inside = false;
+    }
+  };
+  const insetScene = new THREE.Scene(), insetCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  insetScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial({ map: rt.texture })));
+  mirror.draw = () => {
+    const w = renderer.domElement.width, h = renderer.domElement.height, iw = Math.round(w * 0.375), ih = Math.round(h * 0.375);
+    const autoClear = renderer.autoClear;
+    renderer.autoClear = false;
+    renderer.setViewport(w - iw - 12, 12, iw, ih); renderer.setScissor(w - iw - 12, 12, iw, ih); renderer.setScissorTest(true);
+    renderer.clearDepth();
+    renderer.render(insetScene, insetCam);
+    renderer.setScissorTest(false); renderer.setViewport(0, 0, w, h);
+    renderer.autoClear = autoClear;
+  };
+  window.__mirror = mirror;
+}
+
+// ---- ?cube=1: the environment cube's upward face as an inset at the upper right (a camera at the capture point looking
+// straight up, drawn like a cube face: through a CubeCamera child, so the lamp's hook treats it as a cube render)
+let cubeInset = null;
+if (q.get('cube') === '1') {
+  const rt = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+  const probe = new THREE.CubeCamera(0.02, 40, rt); probe.position.copy(cubeCam.position); scene.add(probe);
+  const insetScene = new THREE.Scene(), insetCam = new THREE.PerspectiveCamera(100, 1, 0.01, 10);
+  insetCam.up.set(1, 0, 0); insetCam.lookAt(0, 1, 0);
+  insetScene.background = rt.texture;
+  cubeInset = { draw() {
+    probe.update(renderer, scene);
+    const w = renderer.domElement.width, h = renderer.domElement.height, s = Math.round(h * 0.42);
+    const autoClear = renderer.autoClear;
+    renderer.autoClear = false;
+    renderer.setViewport(w - s - 12, h - s - 12, s, s); renderer.setScissor(w - s - 12, h - s - 12, s, s); renderer.setScissorTest(true);
+    renderer.clearDepth();
+    renderer.render(insetScene, insetCam);
+    renderer.setScissorTest(false); renderer.setViewport(0, 0, w, h);
+    renderer.autoClear = autoClear;
+  } };
+}
+
+const label = document.getElementById('label');
+if (q.get('label') === '0') label.style.display = 'none';
+const show = () => {
+  const s = lamp.state?.() ?? {}; const c = lamp.counts?.() ?? {};
+  label.textContent = lamp.enabled ? `lamp ${s.kind} tier ${s.detail}  view ${s.view}  state ${s.state}${s.reason ? ` (${s.reason})` : ''}  room ${s.room}  fade ${Number(s.fade).toFixed(2)}  cover ${s.cover?.tight}/${s.cover?.visible} (loose ${s.cover?.loose})  in frame ${s.whole?.inFrame} of frame ${s.whole?.ofFrame}  eye y ${camera.position.y.toFixed(2)}  hang ${s.hang} ${s.style}\n${c.drawCalls} draws ${c.triangles} tris  hook renders ${s.hook?.renders} cube ${s.hook?.cubeRenders} (left to the app ${s.hook?.cubeApp})  patched ${s.fadePatch?.done?.length}/4 missed ${s.fadePatch?.missed?.length}  programs ${s.hook?.programs}  panels ${s.face?.panels}`
+    : `club lamp off (${lamp.reason}): the stand-in app luminaire`;
+};
+
+let frames = 0, clock = 0, stopped = false;
+const to = q.get('to') !== null ? Number(q.get('to')) : null, steps = Number(q.get('step') ?? 0);
+let moved = false, after = 0;
+function frame() {
+  if (stopped) return;
+  const dt = 1 / 60; clock += dt; club.time.value = clock;
+  for (const fn of [...frameFns]) fn(clock, dt);
+  lamp.update(camera, dt);
+  renderer.render(scene, camera);
+  mirror?.draw();
+  cubeInset?.draw();
+  frames += 1;
+  if (to !== null && frames >= 6) {
+    if (!moved) { pose(sweepPose(to)); moved = true; }
+    else if (++after >= steps) { stopped = true; show(); window.__ready = true; return; }
+  }
+  show();
+  if (to === null && frames === 6) window.__ready = true;
+}
+renderer.setAnimationLoop(frame);
+</script>
+</body>
+</html>

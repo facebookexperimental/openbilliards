@@ -1,0 +1,178 @@
+% ===========================================================================
+% Supplement S6 — presentation methods for the validated-scenario video
+% artifacts: the C² log-domain time remap and shutter synthesis. Sources
+% of truth: the shipped implementation (web/app/framestep.js —
+% smootherstep / logRemapFrames / shutterSubframes, the one frame-timeline
+% module shared by the in-app exporter and the node render harness) and
+% the cited primary sources (entry-level metadata verified against them on
+% 2026-07-26; see references.bib).
+% SCOPE GUARD (taxonomy discipline): the simulator's
+% output of record is the kernel event stream (Section 3 of the main
+% text); this section documents how gated records are PRESENTED as video,
+% and nothing in it enters the paper's V&V taxonomy or evidence chain.
+% ===========================================================================
+\section{Presentation methods for the validated-scenario video artifacts}
+\label{sec:supp-timeremap}
+
+The artifact bundle's validated-scenario video pack
+(Section~\ref{sec:appendix-repro}) renders sixteen catalog entries ---
+each a solved strike, or a short ladder of strikes, replayed through the
+canonical binary shipped at the time of its render --- as annotated
+slow-motion videos. The simulator's output of record is the
+kernel event stream, not any sampled rendering of it (main text,
+Section~3), and no claim of the paper rests on these videos: each entry
+first re-simulates its claimed scenario on that shipped canonical binary
+and must reproduce its pinned record digest \emph{before} any frame is
+captured, so the videos are presentations of already-verified records.
+The per-entry kernel stamp is recorded in the entry's gate report; the
+pack's stamps postdate the paper's battery pin along the supersession
+lineage of the main text, and each entry's digests are pinned against
+its own stamp.
+This section documents the deterministic time-remap and shutter
+synthesis used by those presentations, for two reasons: the frame
+schedule is deterministic --- a pure function of the entry's playback
+plan, which is authored in the render tool's scenario catalog, with the
+derived schedule's summary (frame counts, worst rate-step ratio,
+shutter parameters, replay spans) pinned in the per-entry gate
+report --- and the design choices are
+non-obvious enough that a reproducer would otherwise have to
+reverse-engineer them from the delivered bytes.
+
+\paragraph{Frame schedule and the log-domain speed ramp.}
+Videos are delivered at a constant 60 frames per second; one output
+frame advances the kernel clock by $\Delta = 1/60$~s times a
+dimensionless playback rate $r$ (kernel seconds consumed per output
+second; $r = 1$ is real time). A playback plan is a short list of rate
+segments over kernel time, each pair of consecutive segments separated
+either by a camera cut (a hard rate step on the cut frame) or by a
+\emph{ramp}. A hard rate step without a cut reads as a speed jerk, so
+cut-less boundaries between rates $r_1$ and $r_2$ are ramped in the
+logarithmic rate domain:
+\begin{equation}
+r(u) \;=\; r_1\,\bigl(r_2/r_1\bigr)^{S(u)},
+\qquad
+S(x) \;=\; x^3\,(6x^2 - 15x + 10),
+\qquad u \in [0,1],
+\label{eq:supp-lograte}
+\end{equation}
+where $S$ is the quintic ``smootherstep'' polynomial, with zero first
+and second derivatives at both endpoints; the remap is therefore $C^2$
+in log-rate, so the on-screen speed carries no visible acceleration
+kink. $S$ is, term for term, the minimum-jerk rest-to-rest trajectory of
+human reaching movements \citep[eq.~(2), p.~1689]{flash1985coordination}:
+shaping the ramp with it makes the log-rate trajectory the minimum-jerk
+path between $\log_2 r_1$ and $\log_2 r_2$. The ramp duration follows a
+per-octave law,
+\begin{equation}
+D \;=\; \operatorname{clamp}\bigl(0.30 \cdot \lvert \log_2 (r_2/r_1)
+\rvert,\; 0.5,\; 1.5\bigr)~\text{output seconds},
+\label{eq:supp-octave}
+\end{equation}
+quantized to $n = \max(1, \operatorname{round}(D/\Delta))$ whole output
+frames --- a fixed time cost per doubling of speed, bounded below and
+above so that small steps are not abrupt and large ones do not drag.
+The per-frame kernel advance integrates the ramp at the frame midpoint,
+$\mathrm{d}t_j = \Delta \cdot r((j + \tfrac12)/n)$ for
+$j = 0,\dots,n-1$, and the ramp is scheduled as a \emph{lead-in}: it
+starts on the last steady frame from which its integrated kernel
+consumption still completes at or before the segment boundary, so that
+whenever the outgoing segment can host the ramp --- the common case ---
+the target rate is established at or before the boundary and impacts
+land fully inside their slow-motion rate. A segment too short to host
+its ramp instead starts the ramp at segment entry and overshoots the
+boundary; the published pack contains one such replay pass, and the
+exception is why the rate-step law below and the per-entry gate windows
+are measured on the \emph{emitted} clock, never on the nominal plan.
+Plan validation rejects
+non-positive or non-finite rates, which the log-domain form requires
+(the analogous restriction in the Web Audio specification is discussed
+below).
+
+\paragraph{Perceptual basis for ramping in the log domain.}
+The ramp is built in the logarithmic speed domain, where equal steps are
+equal speed \emph{ratios}; the quintic easing modulates how fast that
+axis is traversed (its rate reaching zero at both endpoints), so the
+constant-ratio character lives in the easing variable $S(u)$ rather
+than literally in each output frame. The ratio axis is the perceptually
+relevant one for visual speed. The classical measurement is Weber-law
+behavior: the
+just-noticeable difference in speed grows in proportion to the reference
+speed \citep{brown1960weber}. \citet{debruyn1988velocity} measured the
+Weber fraction for velocity discrimination at approximately 7\% at the
+optimal speeds (84\%-correct staircase criterion), roughly constant over
+a 4--64~deg/s plateau and rising (U-shaped) at slower and faster
+speeds. In modeling terms, \citet{stocker2006noise} adopt a logarithmic
+speed representation for their likelihood and internal-noise functions
+(a log-Normal likelihood, $\tilde{v} = \ln((v + v_0)/v_0)$, in their
+Methods), motivated by exactly this Weber--Fechner character of speed
+discrimination --- a modeling choice for the noise function, not a
+direct neural-coding proof; the neural grounding of a logarithmic,
+scale-invariant speed representation is the middle-temporal-area
+population analysis of \citet{nover2005logarithmic}. A perceptually
+equal speed change is therefore an equal step in $\log r$, and
+Eq.~\eqref{eq:supp-lograte} ramps along exactly that axis, its
+minimum-jerk easing distributing the steps in time. The same reasoning is
+codified for audio in the W3C Web Audio API, whose
+\code{exponentialRampToValueAtTime} automation has the identical
+functional form $v(t) = V_0 (V_1/V_0)^{(t - T_0)/(T_1 - T_0)}$ and whose
+specification recommends exponential ramps for ``filter frequencies and
+playback rate . . . because of the way humans perceive sound''
+\citep{webaudio_spec}. The specification's domain restriction is
+instructive: an exponential ramp can neither reach nor pass through
+zero --- the W3C text throws a \code{RangeError} only when the target
+value equals zero, while a zero or opposite-signed \emph{start} value
+silently freezes the ramp (a ramp between two negative values is
+permitted). Our plan validator is intentionally stricter than that
+domain: playback rates must be finite and strictly positive, so the
+degenerate cases the specification handles by freezing or throwing
+cannot be expressed in a plan at all.
+
+\paragraph{Shutter synthesis over world-time windows.}
+Motion blur is synthesized, not post-processed: each delivered frame is
+the accumulation of 8 sub-frame renders spanning a fixed
+$310^\circ$ shutter angle, i.e.\ the shutter opens at the frame's kernel
+time $t_j$ and stays open for $(310/360) \cdot \mathrm{d}t_j$ of
+\emph{kernel} (world) time, where $\mathrm{d}t_j$ is the integrated
+per-frame advance above --- never the nominal segment rate. Blur length
+therefore follows the on-screen speed through ramps exactly as a
+physical camera filming the slow-motion playback would behave. In the
+frame domain the sub-frame animation steps sum to exactly $\Delta$ per
+output frame (the first sub-frame carries the closed-shutter
+remainder), so frame counts and presentation-layer animation lengths
+are independent of the shutter setting.
+
+\paragraph{Monotone-map anchoring.}
+The schedule is emitted in monotone runs: within a run the map from
+output frame index to kernel time is strictly increasing, and a
+broadcast-style replay (a rewind to re-cover an impact) starts a new
+run, its boundary marked by a camera cut and a 0.4~s cross-dissolve
+identifying re-covered time. The \emph{placement} of timed presentation
+content ---
+predicted-overlay geometry, measured-value callouts, story-beat text
+reveals --- is declared as \emph{kernel-time} windows and resolved to
+output frames through this monotone map, never positioned by hand in
+output seconds; within a window, the reveal choreography itself (alpha
+fades, type entrances) plays authored fixed output-time durations ---
+0.4~s fades matching the dissolve above --- and a few entries carry
+small authored output-time leads. An annotation window that would match
+more than one run of its
+camera is rejected rather than guessed at. One mechanical law bounds
+the emitted clock: the worst consecutive cut-less per-frame
+kernel-advance ratio, measured on the emitted clock per monotone run,
+must not exceed $1.35\times$; the measured value is recorded in the
+per-entry gate report, and an entry that exceeds the bound fails before
+any frame is captured.
+
+\paragraph{Relation to prior art.}
+The two ingredients of Eq.~\eqref{eq:supp-lograte} appear separately in
+published work. Speed-template curves in video-editing tools enumerate
+logarithmic and exponential playback-speed transitions among other
+shapes, motivated by editorial smoothness rather than psychophysics
+\citep{gopro2017variable,adobe2012changing}; and Weber--Fechner-guided
+playback-rate control appears in adaptive fast-forward summarization,
+where perceived fast-forward speed is modeled on a logarithmic axis
+\citep{jin2017elasticplay}. We have not found a published description
+that combines a perceptually motivated log-domain speed curve with
+$C^2$ minimum-jerk easing for cinematic slow-motion time remapping; we
+record the synthesis here as presentation methodology --- it is not a
+claim of this paper, and none of the paper's results depend on it.

@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en"><head><meta charset="utf-8"><title>club sheet pair</title>
+<style>
+  html, body { margin: 0; background: #101010; color: #e8e8e8; font: 13px/1.25 -apple-system, "Helvetica Neue", Arial, sans-serif; overflow: hidden; }
+  #wrap { width: 1280px; height: 720px; position: relative; }
+  #head { position: absolute; left: 0; top: 0; width: 1280px; height: 44px; box-sizing: border-box; padding: 5px 10px; background: #1c1c1c; }
+  #head b { color: #ffd27a; }
+  .cap { position: absolute; top: 46px; height: 18px; width: 636px; font-size: 12px; color: #bdbdbd; padding-left: 6px; box-sizing: border-box; }
+  canvas { position: absolute; }
+</style></head><body><div id="wrap">
+<div id="head"></div>
+<div class="cap" style="left:0" id="capL"></div><div class="cap" style="left:644px" id="capR"></div>
+<canvas id="fl" width="636" height="358" style="left:0;top:64px"></canvas><canvas id="fr" width="636" height="358" style="left:644px;top:64px"></canvas>
+<canvas id="cl" width="636" height="290" style="left:0;top:428px"></canvas><canvas id="cr" width="636" height="290" style="left:644px;top:428px"></canvas>
+</div><script>
+const q = new URLSearchParams(location.search);
+const v = q.get('v') || 'V1';
+document.getElementById('head').innerHTML = `<b>${q.get('src') || 'loan-host frames (software GL); Mac frames follow'}</b><br>` +
+  `${q.get('round') || 'round 1'} &middot; ${v} ${q.get('name') || ''} &middot; top: whole frame, bottom: centre crop at 1:1`;
+document.getElementById('capL').textContent = 'BEFORE: ' + (q.get('before') || 'tournament');
+document.getElementById('capR').textContent = 'AFTER: ' + (q.get('after') || 'club');
+const load = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(new Error('missing ' + src)); i.src = src; });
+Promise.all([load(`_sheet/before-${v}.jpg`), load(`_sheet/after-${v}.jpg`)]).then(([a, b]) => {
+  const cx = Number(q.get('cx') ?? 0.5), cy = Number(q.get('cy') ?? 0.5);
+  for (const [img, f, c] of [[a, 'fl', 'cl'], [b, 'fr', 'cr']]) {
+    const F = document.getElementById(f), C = document.getElementById(c);
+    F.getContext('2d').drawImage(img, 0, 0, F.width, F.height);
+    const sx = Math.max(0, Math.min(img.width - C.width, Math.round(img.width * cx - C.width / 2)));
+    const sy = Math.max(0, Math.min(img.height - C.height, Math.round(img.height * cy - C.height / 2)));
+    C.getContext('2d').drawImage(img, sx, sy, C.width, C.height, 0, 0, C.width, C.height);
+  }
+  window.__ready = true;
+}).catch((e) => { document.getElementById('head').textContent = String(e); window.__ready = true; window.__sheetError = String(e); });
+</script></body></html>

@@ -1,0 +1,27 @@
+# GH-864 OQ4 provenance of the EXPORT-Z2 specimens: local band-9490 runs,
+# each from a clean standalone export through the launchd wrapper. Each
+# block: the run id, band, export commit and tree, the export END line, the
+# launchd RECEIPT and end lines, then the source commit as tree and its
+# tree as sourceTree; the export tree equals the source tree.
+
+export-z2-pass.log (the C7 head record run)
+runId: run-20260926T112500Z
+band: 9490-9519
+exportCommit: 72d11ec9fbd5a615a891ce5022c67a1301f1c2d2
+exportTree: 981ff851fcfa10d62bd25a5dcc3abe14e63f8956
+exportEnd: export at END: tree 981ff851fcfa10d62bd25a5dcc3abe14e63f8956 porcelain 0
+launchdReceipt: 2026-09-26T11:25:03Z lj c7 RECEIPT job pid 54068 pri 31 (want 31)
+launchdEnd: 2026-09-26T11:27:24Z lj c7 end after 117s rc 0
+tree: 2b3095f93db192a44fcf1660fcc69e2c32394156
+sourceTree: 981ff851fcfa10d62bd25a5dcc3abe14e63f8956
+
+export-z2-fail.log (the C8 before arm: base playback.js under the C7 harness)
+runId: run-20260926T153500Z
+band: 9490-9519
+exportCommit: f1bfbb34252a9fd3dc5d35f9ce30edfe0dfdfdf2
+exportTree: 18b484e9e80ea214432a97418aa556d5ff89547e
+exportEnd: export at END: tree 18b484e9e80ea214432a97418aa556d5ff89547e porcelain 0
+launchdReceipt: 2026-09-26T15:35:03Z lj gb-base RECEIPT job pid 43700 pri 31 (want 31)
+launchdEnd: 2026-09-26T15:37:25Z lj gb-base end after 116s rc 1
+tree: 4ddfb5d76369dc70d9997a6ad9ff759c82471c4b
+sourceTree: 18b484e9e80ea214432a97418aa556d5ff89547e

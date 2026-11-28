@@ -1,0 +1,154 @@
+{
+  "format": "openbilliards.anchors.v1",
+  "anchor": "mathavan2010_figs",
+  "provenance": "Digitized rebound curves from Mathavan, Jackson & Parkin 2010, 'A theoretical analysis of billiard ball dynamics under cushion impacts', Proc. IMechE Part C 224(9) 1863-1873, DOI 10.1243/09544062JMES1964. Fig 7 (p.1870/PDF p.8) is CAMERA-MEASURED experimental data (machine-vision, Riley Renaissance snooker table); Figs 8-10 (pp.1870-1871/PDF pp.8-9) are the paper's NUMERICAL curves from its 3D impulse model calibrated to that experiment (ee=0.98, muw=0.14, RMS-fit p.1870). These are the only camera-validated quantitative cushion anchors until first-party footage exists. EQUIPMENT IS SNOOKER (52.5 mm ball, L-profile cushion, h=7R/5): tests MUST construct snooker-parameter scenarios (paper ball M=0.1406 kg, R=0.02625 m; cushion nose height 7R/5=0.03675 m -- the one geometry where 7R/5 is CORRECT, see docs/research/gap-k66-cushion-params.md sec 1) and MUST NOT reuse these numbers for pool (WPA 1.27R). Digitization: PDF fetched 2026-07-02 from https://drdavepoolinfo.com/physics_articles/Mathavan_IMechE_2010.pdf; pages rendered at 600 dpi (pdftoppm), axis frames + tick marks pixel-calibrated (y-tick residuals < 0.01 units), series extracted by color/connected-component pixel clustering with manual disambiguation of legend/annotation overlap; uncertainties are per-series estimates (>= half a minor gridline or marker radius, whichever is larger).",
+  "paper": {
+    "title": "A theoretical analysis of billiard ball dynamics under cushion impacts",
+    "authors": "S. Mathavan, M. R. Jackson, R. M. Parkin",
+    "journal": "Proc. IMechE Part C: J. Mechanical Engineering Science 224(9), pp. 1863-1873",
+    "year": 2010,
+    "doi": "10.1243/09544062JMES1964",
+    "fetch_url": "https://drdavepoolinfo.com/physics_articles/Mathavan_IMechE_2010.pdf",
+    "fetched_date": "2026-07-02",
+    "digitization_method": "pdftoppm 600 dpi render + PIL pixel-cluster & per-column color sampling, frame/tick calibrated",
+    "digitization_date": "2026-07-02"
+  },
+  "equipment": {
+    "sport": "SNOOKER",
+    "warning": "SNOOKER equipment (52.5 mm ball). Assertion tests must build snooker-parameter scenarios; never assert these values against pool (WPA) geometry.",
+    "table": "Riley Renaissance-type snooker table (World Snooker Association official brand)",
+    "ball_mass_kg": 0.1406,
+    "ball_radius_m": 0.02625,
+    "cushion_nose_height_m": 0.03675,
+    "cushion_nose_height_rule": "h = 7R/5 (sin(theta)=2/5), the paper's snooker cushion geometry; correct HERE and only here",
+    "repo_snooker_constants_note": "docs/research/pooltool-physics.md table lists snooker m=0.140 kg, R=0.02619 m (pooltool defaults); the paper's own values (0.1406 kg, 0.02625 m) take precedence for these scenarios",
+    "model_fit": { "ee": 0.98, "mu_wall": 0.14, "fit": "RMS error minimum over 0..1 x 0..1 grid in 0.01 steps, incident speeds V0 < 1.5 m/s (p.1870)" },
+    "rigid_cushion_domain_mps": 2.5,
+    "angle_convention": "incident/rebound angles measured from the cushion line: 0 deg = glancing, 90 deg = perpendicular; rebound angle > 90 deg = ball returns to the side it came from (Fig 11)"
+  },
+  "figures": [
+    {
+      "figure": "7a", "page": 8, "kind": "experimental",
+      "conditions": "rolling arrival (w0T = V0/R), no sidespin, perpendicular incidence (alpha = 90 deg); machine-vision camera measurement",
+      "x_axis": { "name": "incident_speed", "unit": "m/s", "range": [0.0, 4.0] },
+      "y_axis": { "name": "rebound_speed", "unit": "m/s", "range": [0.0, 3.0] },
+      "notes": "Overlapping markers merged to cluster centroids. Point ratios run ~0.87-0.95 below 2.5 m/s and ~0.80-0.85 above; the paper's stated 0.818 'average equivalent COR' (p.1867) is its own summary of this experiment. Points above 2.5 m/s exceed the paper's rigid-cushion validity domain.",
+      "series": [
+        { "label": "experimental", "k_top": 1.0, "k_side": 0.0, "alpha_deg": 90.0, "u_x": 0.04, "u_y": 0.04,
+          "points": [[0.275,0.239],[0.365,0.328],[0.431,0.389],[0.513,0.482],[0.684,0.626],[0.854,0.797],[1.158,1.073],[1.304,1.238],[1.529,1.458],[1.759,1.648],[1.993,1.825],[2.276,2.032],[2.527,2.281],[2.698,2.264],[2.890,2.383],[2.981,2.463],[3.102,2.621],[3.398,2.732]] }
+      ]
+    },
+    {
+      "figure": "8a", "page": 8, "kind": "numerical",
+      "conditions": "rolling arrival (w0T = V0/R), no sidespin; one series per incident speed V0 [m/s]; x = incident angle [deg]",
+      "x_axis": { "name": "incident_angle", "unit": "deg", "range": [0.0, 100.0] },
+      "y_axis": { "name": "rebound_speed", "unit": "m/s", "range": [0.0, 3.0] },
+      "notes": "Speed loss is largest near 40-45 deg incidence for every V0 (paper p.1871: 'for any given speed-spin conditions, the speed loss is largest for the ball incident angles around 40 deg').",
+      "series": [
+        { "label": "V0=0.5", "v0_mps": 0.5, "k_top": 1.0, "k_side": 0.0, "u_y": 0.015,
+          "points": [[0,0.500],[10,0.472],[20,0.451],[30,0.431],[40,0.422],[45,0.425],[50,0.428],[60,0.431],[70,0.443],[80,0.451],[90,0.453]] },
+        { "label": "V0=1.0", "v0_mps": 1.0, "k_top": 1.0, "k_side": 0.0, "u_y": 0.015,
+          "points": [[0,1.000],[10,0.943],[20,0.895],[30,0.863],[40,0.850],[45,0.845],[50,0.855],[60,0.872],[70,0.887],[80,0.903],[90,0.915]] },
+        { "label": "V0=1.5", "v0_mps": 1.5, "k_top": 1.0, "k_side": 0.0, "u_y": 0.015,
+          "points": [[0,1.500],[10,1.413],[20,1.343],[30,1.290],[40,1.266],[45,1.267],[50,1.279],[60,1.298],[70,1.331],[80,1.354],[90,1.366]] },
+        { "label": "V0=2.0", "v0_mps": 2.0, "k_top": 1.0, "k_side": 0.0, "u_y": 0.02,
+          "points": [[0,2.000],[10,1.887],[20,1.799],[30,1.724],[40,1.694],[45,1.693],[50,1.706],[60,1.735],[70,1.779],[80,1.812],[90,1.824]] },
+        { "label": "V0=2.5", "v0_mps": 2.5, "k_top": 1.0, "k_side": 0.0, "u_y": 0.02,
+          "points": [[0,2.500],[10,2.359],[20,2.237],[30,2.146],[40,2.118],[45,2.120],[50,2.131],[60,2.167],[70,2.226],[80,2.263],[90,2.275]] }
+      ]
+    },
+    {
+      "figure": "8b", "page": 8, "kind": "numerical",
+      "conditions": "rolling arrival (w0T = V0/R), no sidespin; rebound angle is independent of V0 (single curve for all speeds)",
+      "x_axis": { "name": "incident_angle", "unit": "deg", "range": [0.0, 100.0] },
+      "y_axis": { "name": "rebound_angle", "unit": "deg", "range": [0.0, 100.0] },
+      "notes": "Rebound angle grows monotonically and sits above the incident angle for mid-range incidence (ball shortens off the cushion).",
+      "series": [
+        { "label": "all V0", "k_top": 1.0, "k_side": 0.0, "u_y": 1.0,
+          "points": [[0,0.0],[5,5.1],[10,10.4],[15,16.0],[20,21.8],[25,27.9],[30,34.1],[35,40.3],[40,46.6],[45,52.8],[50,58.7],[55,64.0],[60,68.8],[65,73.1],[70,76.6],[75,80.2],[80,83.5],[85,86.8],[90,90.0]] }
+      ]
+    },
+    {
+      "figure": "9a", "page": 9, "kind": "numerical",
+      "conditions": "V0 = 1 m/s, no sidespin, topspin w0T = k*V0/R (k=-1 bottom spin, 0 stun, 1 natural roll, 2 overspin); x = incident angle [deg]",
+      "x_axis": { "name": "incident_angle", "unit": "deg", "range": [0.0, 100.0] },
+      "y_axis": { "name": "rebound_speed", "unit": "m/s", "range": [0.7, 1.05] },
+      "notes": "Overspin rebounds fastest; with k=2 at 90 deg incidence the rebound speed reaches the incident speed (paper p.1871). Stun (k=0) loses the most speed, min ~0.756 at ~45 deg. k=-1 points below 20 deg overlap the k=1 curve (wider uncertainty).",
+      "series": [
+        { "label": "k=-1 bottom spin", "v0_mps": 1.0, "k_top": -1.0, "k_side": 0.0, "u_y": 0.01,
+          "points": [[20,0.848],[25,0.821],[30,0.809],[35,0.801],[40,0.799],[45,0.802],[50,0.808],[60,0.827],[70,0.845],[80,0.861],[90,0.867]] },
+        { "label": "k=0 stun", "v0_mps": 1.0, "k_top": 0.0, "k_side": 0.0, "u_y": 0.01,
+          "points": [[5,0.950],[10,0.914],[15,0.875],[20,0.846],[25,0.810],[30,0.789],[35,0.769],[40,0.760],[45,0.756],[50,0.762],[55,0.771],[60,0.786],[65,0.797],[70,0.812],[75,0.821],[80,0.831],[85,0.835],[90,0.838]] },
+        { "label": "k=1 natural roll", "v0_mps": 1.0, "k_top": 1.0, "k_side": 0.0, "u_y": 0.01,
+          "points": [[0,1.000],[10,0.943],[20,0.895],[30,0.862],[40,0.851],[45,0.848],[50,0.852],[60,0.868],[70,0.889],[80,0.906],[90,0.911]] },
+        { "label": "k=2 overspin", "v0_mps": 1.0, "k_top": 2.0, "k_side": 0.0, "u_y": 0.01,
+          "scheme_inconsistent_x": [20, 25, 30, 35, 40],
+          "scheme_inconsistency_note": "PAPER-FIGURE-vs-PAPER-EQUATIONS inconsistency (cushion-v3 integration, 2026-07-02): at alpha 20-40 deg the published Fig 9a k=2 curve dips to ~0.834, but the paper's own eqs (12)-(14) predict 0.915-0.947 (verified: port matches pooltool solve() to <1e-8; Delta-p converged to 2e-6; eqs 15a/15b friction-nulling has no effect here because nose slip never ceases, min |s|=1.20 m/s). The paper's own text contradicts its figure: p.1871 'when the ball is overspinning ... its rebound tends to be generally higher', yet the printed k=2 curve dips BELOW k=1. Digitization re-verified against a 300 dpi render on 2026-07-02: the curve really prints ~0.834. These 5 points are excluded from the paper anchor and pinned to the scheme's values in scheme_vs_paper_figure_inconsistency_pinned.",
+          "points": [[0,1.000],[10,0.920],[20,0.861],[25,0.843],[30,0.834],[35,0.836],[40,0.846],[50,0.882],[60,0.928],[70,0.969],[80,0.997],[90,1.005]] }
+      ]
+    },
+    {
+      "figure": "9b", "page": 9, "kind": "numerical",
+      "conditions": "V0 = 1 m/s, no sidespin, topspin w0T = k*V0/R; x = incident angle [deg]",
+      "x_axis": { "name": "incident_angle", "unit": "deg", "range": [0.0, 100.0] },
+      "y_axis": { "name": "rebound_angle", "unit": "deg", "range": [0.0, 100.0] },
+      "notes": "Rebound angles are not greatly affected by topspin (paper p.1871): all four curves lie within a ~9 deg band mid-range, ordered stun >= natural roll >= overspin. k=-1 tracks k=0/k=1 closely and is not separately digitized (crowded panel).",
+      "series": [
+        { "label": "k=0 stun", "v0_mps": 1.0, "k_top": 0.0, "k_side": 0.0, "u_y": 2.0,
+          "points": [[10,11.3],[20,22.6],[30,36.4],[40,50.0],[50,61.9],[60,70.9],[70,78.4],[80,84.8],[90,91.0]] },
+        { "label": "k=1 natural roll", "v0_mps": 1.0, "k_top": 1.0, "k_side": 0.0, "u_y": 1.5,
+          "points": [[10,11.7],[20,22.4],[30,34.1],[40,47.2],[50,59.1],[60,68.7],[70,78.1],[85,88.6],[90,90.0]] },
+        { "label": "k=2 overspin", "v0_mps": 1.0, "k_top": 2.0, "k_side": 0.0, "u_y": 1.5,
+          "points": [[10,10.1],[20,20.6],[30,31.7],[40,43.0],[50,54.4],[60,64.3],[70,73.0],[80,81.5],[90,90.2]] }
+      ]
+    },
+    {
+      "figure": "10a", "page": 9, "kind": "numerical",
+      "conditions": "V0 = 1 m/s, rolling (w0T = V0/R), sidespin w0S = k*V0/R (k>0 right spin, k<0 left spin); x = incident angle [deg]",
+      "x_axis": { "name": "incident_angle", "unit": "deg", "range": [0.0, 100.0] },
+      "y_axis": { "name": "rebound_speed", "unit": "m/s", "range": [0.8, 1.2] },
+      "notes": "Right spin (k=2) makes the rebound speed EXCEED the incident speed (max ~1.115 at 40-45 deg); heavy left spin (k=-2) exceeds it near 90 deg. k=-2 coincides with k=0 below ~60 deg (merged markers). k=2 at 90 deg partially occluded by k=-2 (u 0.02).",
+      "series": [
+        { "label": "k=-2", "v0_mps": 1.0, "k_top": 1.0, "k_side": -2.0, "u_y": 0.01,
+          "points": [[30,0.863],[40,0.848],[50,0.853],[60,0.870],[65,0.891],[70,0.909],[75,0.930],[80,0.955],[85,0.978],[90,1.002]] },
+        { "label": "k=-1", "v0_mps": 1.0, "k_top": 1.0, "k_side": -1.0, "u_y": 0.01,
+          "points": [[20,0.889],[30,0.854],[40,0.839],[45,0.838],[50,0.844],[60,0.863],[70,0.900],[80,0.938],[90,0.966]] },
+        { "label": "k=0", "v0_mps": 1.0, "k_top": 1.0, "k_side": 0.0, "u_y": 0.01,
+          "points": [[20,0.896],[30,0.863],[40,0.848],[50,0.852],[60,0.869],[70,0.889],[80,0.906],[90,0.912]] },
+        { "label": "k=1", "v0_mps": 1.0, "k_top": 1.0, "k_side": 1.0, "u_y": 0.01,
+          "points": [[10,0.947],[20,0.910],[25,0.905],[30,0.909],[40,0.930],[50,0.952],[60,0.971],[70,0.982],[80,0.980],[90,0.969]] },
+        { "label": "k=2", "v0_mps": 1.0, "k_top": 1.0, "k_side": 2.0, "u_y": 0.012,
+          "points": [[10,1.050],[20,1.085],[30,1.105],[40,1.115],[45,1.115],[50,1.114],[60,1.102],[70,1.079],[80,1.044],[85,1.021],[90,0.995]] }
+      ]
+    },
+    {
+      "figure": "10b", "page": 9, "kind": "numerical",
+      "conditions": "V0 = 1 m/s, rolling (w0T = V0/R), sidespin w0S = k*V0/R; x = incident angle [deg]; rebound angle > 90 deg = ball bounces back to the same side (Fig 11)",
+      "x_axis": { "name": "incident_angle", "unit": "deg", "range": [0.0, 100.0] },
+      "y_axis": { "name": "rebound_angle", "unit": "deg", "range": [0.0, 120.0] },
+      "notes": "SIDESPIN REVERSAL: with left spin the rebound angle crosses 90 deg at steep incidence (k=-2 near ~72 deg, k=-1 near ~76 deg) and reaches ~107/~104 deg at 90 deg incidence. Right spin flattens the rebound (k=2 ends ~64 deg). The figure also draws a horizontal reference line at 90 deg.",
+      "series": [
+        { "label": "k=-2", "v0_mps": 1.0, "k_top": 1.0, "k_side": -2.0, "u_y": 1.5,
+          "points": [[25,29.3],[30,35.7],[40,49.3],[50,62.7],[60,75.5],[70,86.9],[75,93.0],[80,97.3],[85,103.4],[90,106.8]] },
+        { "label": "k=-1", "v0_mps": 1.0, "k_top": 1.0, "k_side": -1.0, "u_y": 2.0,
+          "points": [[30,36.0],[40,48.5],[50,61.1],[60,73.1],[70,84.4],[80,95.5],[90,103.9]] },
+        { "label": "k=0", "v0_mps": 1.0, "k_top": 1.0, "k_side": 0.0, "u_y": 1.5,
+          "points": [[25,27.3],[30,34.1],[40,46.6],[50,58.5],[60,69.0],[70,76.6],[80,82.9],[90,89.6]] },
+        { "label": "k=1", "v0_mps": 1.0, "k_top": 1.0, "k_side": 1.0, "u_y": 1.5,
+          "points": [[10,10.9],[20,21.1],[30,30.3],[40,39.4],[50,47.3],[60,54.9],[70,62.3],[80,68.2],[90,76.3]] },
+        { "label": "k=2", "v0_mps": 1.0, "k_top": 1.0, "k_side": 2.0, "u_y": 2.0,
+          "scheme_inconsistent_x": [80, 90],
+          "scheme_inconsistency_note": "PAPER-FIGURE-vs-PAPER-EQUATIONS inconsistency (cushion-v3 integration, 2026-07-02): at alpha 80/90 deg the published Fig 10b k=2 curve reads 58.8/64.1 deg, but the paper's own eqs (12)-(14) predict 64.4/73.1 deg (verified: port matches pooltool solve() to <1e-8; Delta-p converged to 2e-6; eqs 15a/15b nulling has no effect). The same scenario's SPEED panel (Fig 10a k=2) matches the scheme at every digitized point including 80-90 deg, so a physics term missing from the scheme would have to bend the angle while leaving the speed untouched - implausible; a drafting/plotting artifact in the original figure is the consistent explanation. Digitization re-verified against a 300 dpi render on 2026-07-02. These 2 points are excluded from the paper anchor and pinned to the scheme's values in scheme_vs_paper_figure_inconsistency_pinned.",
+          "points": [[20,18.4],[30,26.6],[40,34.0],[50,41.4],[60,47.5],[70,53.3],[80,58.8],[90,64.1]] }
+      ]
+    }
+  ],
+  "stated_checks": {
+    "avg_equivalent_cor_perpendicular_rolling": 0.818,
+    "avg_equivalent_cor_note": "Paper p.1867: 'the equivalent coefficient of restitution for a rolling ball perpendicularly colliding with the cushion has a value of 0.818, on average'. The digitized Fig 7a point ratios run ~0.87-0.95 below 2.5 m/s and ~0.80-0.85 above, so 0.818 is recorded as the paper's own summary statistic, not re-derived from this digitization.",
+    "speed_loss_max_incidence_deg": { "min": 35.0, "max": 50.0 },
+    "sidespin_reversal": { "k": -1.0, "reversal_alpha_deg_min": 70.0, "rebound_angle_at_90_deg": 103.9 },
+    "overspin_perpendicular": { "k_top": 2.0, "rebound_over_incident_at_90deg": 1.005 },
+    "perpendicular_rolling_rebound_ratio_v1": 0.915
+  }
+}

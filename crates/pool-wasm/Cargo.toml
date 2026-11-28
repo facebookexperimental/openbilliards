@@ -1,0 +1,32 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+
+[package]
+name = "pool-wasm"
+description = "wasm-bindgen bindings for pool-core (openbilliards)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+# cdylib: the .wasm artifact; rlib: lets native `cargo test`/clippy compile
+# the crate (wasm-bindgen glue is inert off-wasm32). Profile-independent on
+# purpose: no [profile.*] overrides and no wasm-opt requirement — the plain
+# `--release` cdylib is the canonical artifact (constitution P-III: the
+# shipped .wasm binary IS the deterministic physics).
+crate-type = ["cdylib", "rlib"]
+
+[features]
+# Route Rust panic messages to console.error during development. OFF by
+# default: the hook costs code size, and the release boundary contract is
+# "errors as values" (simulate_json returns {"error": ...}), not panics.
+console_error_panic_hook = ["dep:console_error_panic_hook"]
+
+[dependencies]
+pool-core = { path = "../pool-core" }
+wasm-bindgen = "0.2"
+serde = { version = "1", features = ["derive"] }
+# float_roundtrip: lossless f64 parse for scenario JSON (contract §M8 does the
+# same for records); already enabled workspace-wide via pool-core.
+serde_json = { version = "1", features = ["float_roundtrip"] }
+console_error_panic_hook = { version = "0.1", optional = true }

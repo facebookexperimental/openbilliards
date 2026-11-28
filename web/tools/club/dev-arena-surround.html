@@ -1,0 +1,418 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: arena surround</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<script type="importmap">
+{ "imports": { "three": "../../vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from '../../vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { TIERS, TIER_IDS } from '../../scene/club/tiers.js';
+import { ARENA, PALETTE, VIEWS as LAYOUT_VIEWS, cutPlanes } from '../../scene/club/arena/layout.js';
+import * as LAYOUT from '../../scene/club/arena/layout.js';
+import { buildSurround } from '../../scene/club/arena/surround.js';
+import { RAIL, opalLaw, slotView, wallShare, withLuminance } from '../../scene/club/arena/surround/levels.js';
+import { BOARD, profileSection } from '../../scene/club/arena/surround/plan.js';
+
+const q = new URLSearchParams(location.search);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = q.get('tone') === '0' ? THREE.NoToneMapping : THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = Number(q.get('exposure')) || 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x010101);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.05, 80);
+
+const FLOOR_Y = -0.79;
+const VIEWS = {
+  wide: [[-4.0, 1.6, 2.6], [0, 0.3, 0], 50],
+  over: [[-3.2, 4.6, 5.0], [1.0, -0.4, -2.0], 55],                // high over the south boards: the ring, the decks and the cards from above
+  seatsN: [[1.2, 0.9, -2.6], [2.6, 0.5, -7.5], 42],               // close on the north block from inside the ring
+  seatsE: [[2.8, 0.75, 1.2], [9.5, 0.6, -0.6], 40],               // the east block along the break direction
+  board: [[0.2, 0.2, -1.9], [-0.2, -0.3, -4.3], 40],              // square on to the north board's word panel
+  score: [[-3.2, 1.4, 0], [-8.9, FLOOR_Y + 3.6, 0], 30],          // the scoreboard from the head of the island
+  ball: [[-0.32, 0.11, 0.26], [0.1, 0.03, 0], 30],                // close on two balls: what the room looks like in a ball
+  // round A2: close views of single surfaces (each is a pose the app's orbit rig can take, or close to one)
+  rows: [[2.2, 1.25, -3.4], [3.2, 1.0, -8.2], 34],                // the north block's rows, square on, from over the boards: every row, seat by seat
+  seat: [[2.9, 0.55, -4.6], [2.3, 0.6, -6.6], 34],                // three or four seats of the first rows from the walkway: backs, pans, armrests, standards
+  rail: [[-1.3, 0.42, -2.9], [0.4, 0.05, -4.3], 30],              // a joint between two modules with the rail, the frame's depth, the plinth and a foot
+  aisle: [[0.5, 1.0, -3.3], [0, 1.25, -9.0], 36],                 // the north aisle: nosings, step lights and their pools, hoop handrails, the guard rail
+  guard: [[3.9, 0.35, -3.9], [1.5, 0.1, -6.2], 40],               // along the guard rail: kick plate, fascia, the first row
+  scoreC: [[-5.2, 2.2, 0.9], [-8.9, FLOOR_Y + 3.6, 0], 26],       // the scoreboard from close: cabinet, bezel, wall rails, its spill on the fabric
+};
+for (const v of LAYOUT_VIEWS) VIEWS[v.id] = [v.cam.slice(), v.target.slice(), v.fov];
+const viewName = q.get('view') ?? 'wide';
+let [pos, tgt, fov] = VIEWS[viewName] ?? VIEWS.wide;
+const camArg = (q.get('cam') ?? '').split(',').map(Number);
+if (camArg.length === 7 && camArg.every(Number.isFinite)) { pos = camArg.slice(0, 3); tgt = camArg.slice(3, 6); fov = camArg[6]; }
+camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+
+// ---- the stand-in club object
+const tier = TIER_IDS.includes(q.get('clubtier')) ? q.get('clubtier') : 'base';
+const club = { enabled: true, tier, knobs: TIERS[tier], time: { value: 0 }, ctx: { query: q } };
+
+// ---- the room's light (the real room/light.js unless light=off)
+let roomLight = null;
+if (q.get('light') !== 'off') {
+  try { roomLight = (await import('../../scene/club/room/light.js')).roomLight ?? null; } catch (e) { console.warn('[dev-arena-surround] no room/light.js:', e?.message ?? e); }
+}
+const HALL = ARENA.hall;
+const box = { min: new THREE.Vector3(HALL.x0, FLOOR_Y, HALL.z0), max: new THREE.Vector3(HALL.x1, FLOOR_Y + HALL.height, HALL.z1) };
+if (roomLight) {
+  roomLight.reset?.(); roomLight.init?.({ club, cone: true }); roomLight.setBox?.(box.min, box.max);
+  // the hall's analytic ambient: the layout's rows (round A4: "house lights at half": 0.60 units on an open floor, 1.0 on
+  // an open vertical face; the light role's LEVELS-A4.md); ambient=<k> scales them, ambient=0 is a black hall
+  const ak = q.has('ambient') ? Number(q.get('ambient')) : 1;
+  const AL = LAYOUT.LIGHT ?? {}, row = (v, d) => new THREE.Color(...(Array.isArray(v) ? v : d).map((x) => x * ak));
+  roomLight.setAmbient?.(row(AL.ambientSky, [0.60, 0.57, 0.53]), row(AL.ambientGround, [0.09, 0.085, 0.08]), row(AL.ambientSide, [0.65, 0.62, 0.57]));
+  roomLight.setSides?.(cutPlanes(FLOOR_Y));
+  roomLight.setShadow?.({ lamp: { cx: 0, cz: 0, hx: 1.02, hz: 0.33 }, table: { cx: 0, cz: 0, hx: 1.45, hz: 0.82 }, lampY: 1.02, tableY: 0.035, strength: 1, ambient: 0.32 });
+}
+const lit = (p) => {
+  if (roomLight) return roomLight.material(p);
+  const m = new THREE.MeshStandardMaterial({ color: p.color, roughness: p.roughness ?? 0.9, metalness: p.metalness ?? 0, side: p.side ?? THREE.FrontSide }); m.name = p.name; return m;
+};
+
+// ---- stand-ins for the app's three lights (the tournament look's values) and its lamp
+RectAreaLightUniformsLib.init();
+scene.add(new THREE.HemisphereLight(0x3a3a3e, 0x2a2a2c, 1.25));
+const fill = new THREE.PointLight(0xd9dcdf, 2.2, 0, 2); fill.position.set(3.2, 1.9, -2.3); scene.add(fill);
+const lamp = new THREE.RectAreaLight(0xf6f7f9, 7.8, 2.05, 0.66); lamp.position.set(0, 1.02, 0); lamp.lookAt(0, 0, 0); scene.add(lamp);
+const lampFace = new THREE.Mesh(new THREE.PlaneGeometry(2.05, 0.66), new THREE.MeshBasicMaterial({ color: new THREE.Color(10, 9, 7.1) }));
+lampFace.rotation.x = Math.PI / 2; lampFace.position.set(0, 1.02, 0); scene.add(lampFace);
+const hood = new THREE.Mesh(new THREE.BoxGeometry(2.19, 0.1, 0.8), new THREE.MeshBasicMaterial({ color: 0x050505 }));
+hood.position.set(0, 1.075, 0); scene.add(hood);
+
+// ---- the stand-in table and a few glossy balls (the rail's streak in a ball)
+const tableG = new THREE.Group(); scene.add(tableG);
+const std = (color, roughness, metalness = 0) => new THREE.MeshStandardMaterial({ color, roughness, metalness });
+const dull = (color, roughness) => { const m = std(color, roughness); m.envMapIntensity = 0.1; return m; };
+const addBox = (sx, sy, sz, x, y, z, mat) => { const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), mat); m.position.set(x, y, z); tableG.add(m); return m; };
+const railMat = dull(0x1a1a1c, 0.45);
+addBox(2.9, 0.3, 1.63, 0, -0.16, 0, dull(0x161616, 0.5));
+const bed = addBox(2.54, 0.01, 1.27, 0, -0.005, 0, dull(0x1f5f9c, 0.92));
+for (const s of [-1, 1]) { addBox(2.9, 0.04, 0.18, 0, 0.015, s * 0.725, railMat); addBox(0.18, 0.04, 1.27, s * 1.36, 0.015, 0, railMat); }
+for (const sx of [-1, 1]) for (const sz of [-1, 1]) addBox(0.16, 0.5, 0.16, sx * 1.2, -0.54, sz * 0.6, dull(0x1c1c1e, 0.4));
+const balls = [[0xf2f0e6, -0.55, 0.10], [0xf0c21c, 0.05, -0.05], [0x2444b0, 0.42, 0.28], [0xc8241e, 0.70, -0.38], [0x55308a, -0.15, 0.45], [0xea6c14, -0.35, -0.25],
+  [0x12703e, 1.05, 0.52], [0x701824, 1.12, -0.50], [0x0b0b0b, 0.95, 0.02], [0xf0c21c, 0.62, -0.15]];
+const ballSet = [];
+for (const [col, x, z] of balls) { const b = new THREE.Mesh(new THREE.SphereGeometry(0.028575, 48, 32), std(col, 0.06)); b.position.set(x, 0.028575, z); tableG.add(b); ballSet.push({ id: ballSet.length, mesh: b, pocketed: false }); }
+
+// ---- the stand-in hall: a dark drape box, the carpet, the island, the backdrop wall with a stand-in wash
+const hall = new THREE.Group(); hall.name = 'standin.hall'; scene.add(hall);
+// round A3: the stand-in surfaces carry the layout's albedos (CONTRACT 15.2), the stand-in lights the round's level
+// factors per group (the light role's LEVELS.md, version 1: heads x 0.17, house panels x 0.73, ambient x 0.25, the
+// backdrop's floor lights x 0.156); lf=<k> scales them all once more
+const LA = LAYOUT.ALBEDO ?? { carpet: 0.10, island: 0.13, drape: 0.035, backdrop: 0.18 };
+const LF = Number(q.get('lf')) > 0 ? Number(q.get('lf')) : 1;
+const FACTOR = { heads: 0.17 * LF, house: 0.73 * LF, wash: 0.156 * LF };
+{
+  const shell = new THREE.Mesh(new THREE.BoxGeometry(HALL.x1 - HALL.x0, HALL.height, HALL.z1 - HALL.z0), lit({ color: withLuminance(PALETTE.drape, LA.drape), roughness: 0.95, side: THREE.BackSide, name: 'standin.drape' }));
+  shell.position.set((HALL.x0 + HALL.x1) / 2, FLOOR_Y + HALL.height / 2 + 0.002, (HALL.z0 + HALL.z1) / 2); hall.add(shell);
+  const carpet = new THREE.Mesh(new THREE.PlaneGeometry(HALL.x1 - HALL.x0, HALL.z1 - HALL.z0), lit({ color: withLuminance(PALETTE.carpet, LA.carpet), roughness: 0.95, name: 'standin.carpet' }));
+  carpet.rotation.x = -Math.PI / 2; carpet.position.set((HALL.x0 + HALL.x1) / 2, FLOOR_Y + 0.0005, (HALL.z0 + HALL.z1) / 2); hall.add(carpet);
+  const I = ARENA.island;
+  const island = new THREE.Mesh(new THREE.PlaneGeometry(I.x1 - I.x0, I.z1 - I.z0), lit({ color: withLuminance(PALETTE.island, LA.island), roughness: 0.95, tableShadow: true, name: 'standin.island' }));
+  island.rotation.x = -Math.PI / 2; island.position.set((I.x0 + I.x1) / 2, FLOOR_Y + 0.0012, (I.z0 + I.z1) / 2); hall.add(island);
+  const bd = ARENA.backdrop;
+  const wall = new THREE.Mesh(new THREE.PlaneGeometry(bd.z1 - bd.z0, bd.height), lit({ color: withLuminance(PALETTE.backdrop, LA.backdrop), roughness: 0.9, name: 'standin.backdrop' }));
+  wall.rotation.y = Math.PI / 2; wall.position.set(bd.x, FLOOR_Y + bd.height / 2, (bd.z0 + bd.z1) / 2); hall.add(wall);
+  if (roomLight && q.get('wash') !== '0') {
+    // the hall's floor lights at the wall's foot, as three stand-in tubes (the hall role owns the real ones)
+    for (const [i, z] of [-4.2, 0, 4.2].entries()) roomLight.addEmitter({ id: `standin.wash.${i}`, type: 'tube', position: new THREE.Vector3(bd.floorLights.x, FLOOR_Y + 0.15, z), axis: new THREE.Vector3(0, 0, 1), size: [3.6, 0.05], color: new THREE.Color(PALETTE.wash), intensity: 9 * FACTOR.wash, radius: 7 });
+  }
+}
+
+// ---- stand-ins for the rig's eight lamp heads (arena/rig/plan.js at the time of writing: shaded points on the truss's long
+// runs, aimed across the table at the carpet; the rig role owns the real ones). rig=0 leaves them out.
+if (roomLight && q.get('rig') !== '0') {
+  let n = 0;
+  for (const side of [-1, 1]) for (let i = 0; i < 4; i++) {
+    const p = new THREE.Vector3((i - 1.5) * 1.3, FLOOR_Y + 3.6, side * 1.15), aim = new THREE.Vector3(p.x * 0.75, FLOOR_Y, -side * 1.9);
+    const dir = aim.clone().sub(p).normalize();
+    roomLight.addEmitter({ id: `standin.rig.${n++}`, type: 'point', position: p, normal: dir, axis: dir, size: [0.1, 0.85], color: new THREE.Color(1.0, 0.93, 0.82), intensity: 15 * FACTOR.heads, radius: 8.5 });
+  }
+}
+
+// ---- stand-ins for the house light over the seating (arena/room.js HOUSE at the time of writing, round A2: one broad rect
+// panel per block at 7.4 m, turned away from the island; the bake role owns the real ones and registers two of them at
+// run time). house=0 leaves them out, house=<k> scales them.
+// Round A4: the house light is six FLOODS (arena/rig/plan.js floodPlan, the light role's: 90 cd, a flat field of 45
+// degrees, 5.8 m up just inside the boards' line, aimed out at the seating): the page registers the light role's own
+// plan as stand-ins, so the seats here stand in the light the app gives them without a bake (no occlusion, no bounce).
+if (roomLight && q.get('house') !== '0') {
+  const hk = q.has('house') ? Number(q.get('house')) || 1 : 1;
+  try {
+    const { floodPlan } = await import('../../scene/club/arena/rig/plan.js');
+    for (const e of floodPlan(ARENA, { floorY: FLOOR_Y }).emitters) roomLight.addEmitter({ id: `standin.${e.id}`, type: e.type, position: new THREE.Vector3(...e.position), normal: null, axis: new THREE.Vector3(...e.axis),
+      size: e.size.slice(), color: new THREE.Color(...e.color), intensity: e.intensity * hk, radius: e.radius, cone: e.cone, bell: e.bell === true });
+  } catch (e) { console.warn('[dev-arena-surround] no flood plan (arena/rig/plan.js floodPlan):', e?.message ?? e); }
+}
+
+// ---- the surround, in one or several variants. A plain page shows one. `sheet=` shows up to four cells (2 x 2, each
+// 640 x 360) of `view[,switch:value...][,base|high][,bare]`, e.g. sheet=V10;V10,rail:0;BACK;BACK,bare: both arms of a pair
+// from the same tree in one picture. Each variant is its own build, with its own emitters and its own environment capture.
+const tableBounds = { minX: -3.0, maxX: 3.0, minZ: -2.37, maxZ: 2.37 }; // the table's outer rectangle plus the stroke room
+const parseCell = (text) => {
+  const [view, ...rest] = text.split(',');
+  return { view, bare: rest.includes('bare'), tier: rest.find((r) => TIER_IDS.includes(r)) ?? null, sw: rest.filter((r) => r !== 'bare' && !TIER_IDS.includes(r)).join(',') };
+};
+// sweep=<n> / law=1 (round A3): the north rail's LED profile at s = 1.0, seen across its section. `near` is a point of the
+// opal a tenth of the slot from the lip on the camera's side, `far` a point a tenth from the far lip (what shows there
+// depends on the elevation: the opal, or the far lip's wall).
+// (round A4: the slit lies on the profile's chamfer, a slope that falls toward the table: RAIL_TOP is the slope's middle
+// line (`zMid` to the table's side of the board line), the points lie on the slope; `TILT` is added to the eye's
+// elevation wherever the section is evaluated)
+const PF = BOARD.profile, PS = profileSection(PF), TILT = PS.tilt;
+const RAIL_TOP = FLOOR_Y + ARENA.boards.height + PS.yMid, RAIL_AT = [1.0, RAIL_TOP, ARENA.island.z0 + PS.zMid];
+const onSlope = (u) => [RAIL_AT[0], RAIL_TOP + u * PS.across[1], RAIL_AT[2] + u * PS.across[2]];   // u metres down the slope (toward the table)
+const railPts = { near: onSlope(PF.slot * 0.4), mid: onSlope(0), far: onSlope(-PF.slot * 0.4), side: [RAIL_AT[0], FLOOR_Y + ARENA.boards.height + PS.yFront / 2, ARENA.island.z0 + PF.width / 2] };
+const sweepN = q.has('sweep') ? Math.max(2, Math.min(16, Number(q.get('sweep')) || 12)) : 0;
+const sweepD = Number(q.get('sweepd')) > 0 ? Number(q.get('sweepd')) : 3.0;
+const lawMode = !sweepN && q.get('law') === '1';
+const toolCell = (extra) => ({ view: sweepN ? 'sweep' : 'law', bare: false, tier: null, sw: q.get('clubsurround') ?? '', points: railPts, ...extra });
+const cells = sweepN
+  ? Array.from({ length: sweepN }, (_, i) => toolCell({ sweep: { h: +(0.9 + (1.5 * i) / (sweepN - 1)).toFixed(3) } }))
+  : lawMode
+    ? [0, 60, 80, 85].map((deg) => toolCell({ law: { deg } }))
+    : q.get('sheet')
+      ? q.get('sheet').split(';').slice(0, 4).map(parseCell)
+      : [{ view: viewName, bare: q.get('surround') === '0', tier: null, sw: q.get('clubsurround') ?? '' }];
+const variants = new Map();
+for (const c of cells) {
+  c.key = c.bare ? 'bare' : `${c.tier ?? tier}|${c.sw}`;
+  if (variants.has(c.key)) continue;
+  const v = { key: c.key, surround: null, emitters: [], cube: null, cubeCam: null };
+  if (!c.bare) {
+    const t = c.tier ?? tier;
+    const vq = new URLSearchParams(q); vq.set('clubsurround', c.sw);
+    v.surround = await buildSurround({ enabled: true, tier: t, knobs: TIERS[t], time: club.time, ctx: { query: vq } }, { box, floorY: FLOOR_Y, tableBounds, roomLight, layout: LAYOUT });
+    scene.add(v.surround.group);
+    v.surround.group.visible = false;
+    // a variant's emitters are registered only while it is drawn
+    if (roomLight) { v.emitters = roomLight.emitters.filter((e) => e.id.startsWith('arena.')).map((e) => ({ ...e })); for (const e of v.emitters) roomLight.removeEmitter(e.id); }
+  }
+  variants.set(c.key, v);
+}
+for (const c of cells) {
+  let [cp, ct, cf] = c === cells[0] && !q.get('sheet') ? [pos, tgt, fov] : (VIEWS[c.view] ?? VIEWS.wide);
+  let aspect = innerWidth / innerHeight;
+  if (c.sweep) {
+    // a camera `sweepD` in front of the rail (inside the ring), `h` above the floor, looking at the profile's top
+    cp = [RAIL_AT[0], FLOOR_Y + c.sweep.h, RAIL_AT[2] + sweepD]; ct = [RAIL_AT[0], RAIL_TOP - 0.01, RAIL_AT[2]]; cf = Number(q.get('sweepfov')) || 3.2;
+    aspect = innerWidth / sweepN / innerHeight;
+    // (the eye's elevation over the rail, and over the slot's own plane: the slope's tilt more)
+    const dy = FLOOR_Y + c.sweep.h - RAIL_TOP, el = Math.atan2(dy, sweepD), over = el + TILT;
+    const view = slotView(over > 0 ? Math.tan(Math.min(over, Math.PI / 2 - 1e-6)) : 0, PF.slot, PF.recess);
+    c.sweep = { ...c.sweep, overRail: +dy.toFixed(3), elevationDeg: +((el * 180) / Math.PI).toFixed(2), overSlotDeg: +((over * 180) / Math.PI).toFixed(2),
+      predicted: { opalShare: +view.opal.toFixed(3), opalLaw: +(over > 0 ? opalLaw(Math.sin(over)) : 0).toFixed(3), wallShare: +wallShare(PF.slot, PF.recess).toFixed(4) } };
+  } else if (c.law) {
+    // a camera 0.5 m from the opal's near part, `deg` off the face's normal (the slope's) toward the inside of the ring
+    const a = (c.law.deg * Math.PI) / 180, p = railPts.near, n = PS.normal, t = PS.across;
+    cp = [p[0], p[1] + 0.5 * (Math.cos(a) * n[1] + Math.sin(a) * t[1]), p[2] + 0.5 * (Math.cos(a) * n[2] + Math.sin(a) * t[2])]; ct = p; cf = 3.0;
+    c.law = { ...c.law, predicted: +opalLaw(Math.cos(a)).toFixed(3), opalShare: +slotView(Math.tan(Math.PI / 2 - a), PF.slot, PF.recess).opal.toFixed(3) };
+  }
+  c.camera = new THREE.PerspectiveCamera(cf, aspect, 0.05, 80);
+  if (c.law) c.camera.up.set(1, 0, 0);    // (the first cell looks straight down the face's normal: the rail runs up the picture)
+  c.camera.position.set(...cp); c.camera.lookAt(...ct); c.camera.updateMatrixWorld(true);
+}
+const surround = [...variants.values()].find((v) => v.surround)?.surround ?? null;
+if (roomLight) roomLight.commit?.();
+
+// ---- an environment capture from the table centre per variant (what the app's cube does)
+for (const v of variants.values()) {
+  v.cube = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+  v.cubeCam = new THREE.CubeCamera(0.05, 60, v.cube);
+  v.cubeCam.position.set(0, 0.45, 0);
+  scene.add(v.cubeCam);
+}
+let active = null, envOf = null;
+function activate(v) {
+  if (active !== v) {
+    for (const o of variants.values()) if (o.surround) o.surround.group.visible = o === v;
+    if (roomLight) {
+      for (const id of roomLight.emitters.filter((e) => e.id.startsWith('arena.')).map((e) => e.id)) roomLight.removeEmitter(id);
+      for (const e of v.emitters) roomLight.addEmitter(e);
+    }
+    active = v;
+  }
+  if (v.captured && envOf !== v) {
+    scene.environment = v.cube.texture;
+    // the stand-in table's body takes the cube at its own low share (a material on scene.environment ignores envMapIntensity)
+    tableG.traverse((o) => { if (o.isMesh && o.material.envMapIntensity < 1) { o.material.envMap = v.cube.texture; o.material.needsUpdate = true; } });
+    roomLight?.setEnvMap?.(v.cube.texture);
+    envOf = v;
+  }
+}
+const capture = () => { for (const v of variants.values()) { activate(v); v.cubeCam.update(renderer, scene); v.captured = true; envOf = null; } };
+
+// ---- post=1 (a single cell only): the app's composer and the club post chain (the same construction as dev-props.html)
+let composer = null, post = null;
+const frameFns = [];
+if (q.get('post') === '1' && cells.length === 1) {
+  try {
+    const { createPostFX } = await import('../../scene/postfx.js');
+    const { createPost } = await import('../../scene/club/post.js');
+    composer = createPostFX(renderer, scene, cells[0].camera, innerWidth, innerHeight, { samples: 4 });
+    const fall = composer.passes.find((p) => p.uniforms?.strength); if (fall) fall.uniforms.strength.value = 0.62;
+    composer.__obCine.bloom.strength = 0.03;
+    const pclub = {
+      enabled: true, tier, knobs: TIERS[tier], time: club.time,
+      ctx: { renderer, scene, camera: cells[0].camera, composer, game: { ballSet: { balls: ballSet } }, query: q },
+      onFrame(fn) { frameFns.push(fn); return () => { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); }; },
+    };
+    post = await createPost(pclub);
+    post.show?.();
+  } catch (e) { console.warn('[dev-arena-surround] post=1 is unavailable:', e?.message ?? e); composer = null; post = null; }
+}
+
+// ---- view=atlas|card|led: one painted canvas, flat (the pixels the 2D canvas holds: an sRGB texture on an untoned material)
+let flatScene = null, flatCam = null;
+if (viewName === 'flats' && surround) {
+  // all three canvases in one picture: the atlas across the top (fitted to the width), the seat card and the LED face under it
+  const texOf = (want) => { let t = null; surround.group.traverse((o) => { if (!t && o.isMesh && o.material?.map?.name === want) t = o.material.map; }); return t; };
+  flatScene = new THREE.Scene(); flatScene.background = new THREE.Color(0x3a2030);
+  flatCam = new THREE.OrthographicCamera(0, innerWidth, innerHeight, 0, -1, 1);
+  const put = (tex, x, yTop, w, alpha) => {
+    if (!tex) return 0;
+    const h = (w * tex.image.height) / tex.image.width;
+    const quad = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, transparent: alpha }));
+    quad.scale.set(w, h, 1); quad.position.set(x + w / 2, innerHeight - yTop - h / 2, 0); flatScene.add(quad);
+    return h;
+  };
+  const h1 = put(texOf('arena.surround.atlas'), 0, 0, innerWidth, false);
+  put(texOf('arena.surround.seatcard'), 0, h1 + 16, 800, true);
+  put(texOf('arena.surround.led'), 0, h1 + 16 + 400 + 16, 0, false);
+  put(texOf('arena.surround.led'), 816, h1 + 16, innerWidth - 816, false);
+  window.__flat = { which: 'flats' };
+} else if (['atlas', 'card', 'led'].includes(viewName) && surround) {
+  const want = { atlas: 'arena.surround.atlas', card: 'arena.surround.seatcard', led: 'arena.surround.led' }[viewName];
+  let tex = null;
+  surround.group.traverse((o) => { if (!tex && o.isMesh && o.material?.map?.name === want) tex = o.material.map; });
+  if (tex) {
+    const aw = tex.image.width, ah = tex.image.height, tile = q.get('tile') ?? 'all';
+    flatScene = new THREE.Scene(); flatScene.background = new THREE.Color(viewName === 'card' ? 0x3a2030 : 0x202020);
+    flatCam = new THREE.OrthographicCamera(0, innerWidth, innerHeight, 0, -1, 1);
+    const quad = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, transparent: viewName === 'card' }));
+    if (tile === 'all') { const k = Math.min(innerWidth / aw, innerHeight / ah); quad.scale.set(aw * k, ah * k, 1); quad.position.set((aw * k) / 2, innerHeight - (ah * k) / 2, 0); }
+    else { const t = Number(tile) || 0, ox = Math.min(Math.max(0, aw - innerWidth), t * (innerWidth - 40)); quad.scale.set(aw, ah, 1); quad.position.set(aw / 2 - ox, innerHeight - ah / 2, 0); }
+    flatScene.add(quad);
+    window.__flat = { which: viewName, size: [aw, ah], tile };
+  }
+}
+
+// ---- where each cell is drawn (x, y from the lower left, as the renderer counts)
+const W = innerWidth, Hh = innerHeight;
+const rectOf = (i, n) => (sweepN ? [(i * W) / n, 0, W / n, Hh] : n === 1 ? [0, 0, W, Hh] : n === 2 ? [(i * W) / 2, Hh / 4, W / 2, Hh / 2] : [((i % 2) * W) / 2, i < 2 ? Hh / 2 : 0, W / 2, Hh / 2]);
+cells.forEach((c, i) => { c.rect = rectOf(i, cells.length).map(Math.round); });
+// labels of the tool cells (kept in the picture with the tool's --keepDom): the camera's height and its elevation over the rail
+for (const c of cells) {
+  if (!c.sweep && !c.law) continue;
+  const el = document.createElement('div');
+  el.textContent = c.sweep ? `${c.sweep.h.toFixed(2)} m  ${c.sweep.elevationDeg.toFixed(1)}°` : `${c.law.deg}° off the normal`;
+  el.style.cssText = `position:absolute;left:${c.rect[0] + 3}px;top:${Hh - c.rect[1] - c.rect[3] + 3}px;color:#fff;font:11px/1.2 monospace;text-shadow:0 0 2px #000;pointer-events:none`;
+  document.body.appendChild(el);
+}
+
+// ---- display levels at named points: world points projected into the cell, the mean of a small patch (0..255, after the tone map)
+const S = ARENA.seating, I = ARENA.island;
+// the upper half of a seat's back pad (the fabric that shows above the tipped-up pan), row by row: a seat's middle on the
+// north block (x = 2.55) and on the east block (z = 2.175)
+const rowAt = (r) => ({ off: S.front + r * S.tread + 0.67, h: FLOOR_Y + S.firstRowH + r * S.rise + 0.74 });
+const SEAT_POINTS = {};
+for (let r = 0; r < S.rows; r++) { SEAT_POINTS[`seatN${r}`] = [2.55, rowAt(r).h, I.z0 - rowAt(r).off]; SEAT_POINTS[`seatE${r}`] = [I.x1 + rowAt(r).off, rowAt(r).h, 2.175]; }
+const POINTS = {
+  ...SEAT_POINTS,
+  railCrownN: [1.8, FLOOR_Y + 0.939, I.z0], railCrownE: [I.x1, FLOOR_Y + 0.939, 0.6], capN: [1.8, FLOOR_Y + 0.88, I.z0 + 0.06], panelTopN: [1.6, FLOOR_Y + 0.8, I.z0 + 0.045], panelLowN: [1.6, FLOOR_Y + 0.25, I.z0 + 0.045],
+  bed: [0, 0.001, 0], bedFar: [0.85, 0.001, -0.3],
+  railN: [1.8, FLOOR_Y + 0.93, I.z0], railE: [I.x1, FLOOR_Y + 0.93, 0.6], railW: [I.x0, FLOOR_Y + 0.93, -0.6],
+  panelN: [1.6, FLOOR_Y + 0.62, I.z0 + 0.06], panelWordN: [-0.2, FLOOR_Y + 0.5, I.z0 + 0.06], panelE: [I.x1 - 0.06, FLOOR_Y + 0.62, 1.0], panelW: [I.x0 + 0.06, FLOOR_Y + 0.62, -1.0],
+  carpetN: [1.8, FLOOR_Y + 0.002, I.z0 + 0.7], carpetFootN: [1.8, FLOOR_Y + 0.002, I.z0 + 0.2], carpetMidN: [1.8, FLOOR_Y + 0.002, -2.6],
+  // round A3: the board wash's pool (0.35, 1 and 2 m in front of the north board line), its band on the printed face
+  // (30 mm and 120 mm under the run), the guard rail's top tube, a deck's tread, a nosing
+  carpet035N: [1.8, FLOOR_Y + 0.002, I.z0 + 0.35], carpet1N: [1.8, FLOOR_Y + 0.002, I.z0 + 1.0], carpet2N: [1.8, FLOOR_Y + 0.002, I.z0 + 2.0],
+  panelBandN: [1.6, FLOOR_Y + 0.83, I.z0 + 0.045], panelBand12N: [1.6, FLOOR_Y + 0.74, I.z0 + 0.045],
+  guardN: [2.5, FLOOR_Y + S.firstRowH + S.guardRailH, I.z0 - S.front + 0.035], nosingN: [0, FLOOR_Y + S.firstRowH + S.rise, I.z0 - S.front - S.tread + 0.02],
+  fasciaN: [2.5, FLOOR_Y + 0.22, I.z0 - S.front + 0.005],
+  score: [ARENA.backdrop.x + 0.12, FLOOR_Y + ARENA.backdrop.scoreboard.centerH + 0.1, 0], scoreGround: [ARENA.backdrop.x + 0.12, FLOOR_Y + ARENA.backdrop.scoreboard.centerH + 0.52, 1.2],
+};
+function probe() {
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = Hh;
+  const c2 = cv.getContext('2d', { willReadFrequently: true });
+  c2.drawImage(renderer.domElement, 0, 0);
+  const vv = new THREE.Vector3();
+  const rad = cells.length === 1 ? 3 : 2;
+  return cells.map((c) => {
+    const [rx, ry, rw, rh] = c.rect, top = Hh - ry - rh;   // the cell's rectangle with y from the top
+    const out = {};
+    for (const [name, p] of Object.entries(c.points ?? POINTS)) {
+      vv.set(...p).project(c.camera);
+      if (vv.z < -1 || vv.z > 1 || Math.abs(vv.x) > 0.98 || Math.abs(vv.y) > 0.98) { out[name] = null; continue; }
+      const px = Math.round(rx + (vv.x * 0.5 + 0.5) * rw), py = Math.round(top + (-vv.y * 0.5 + 0.5) * rh);
+      const x0 = Math.max(rx, px - rad), y0 = Math.max(top, py - rad), w = Math.min(rx + rw - x0, 2 * rad + 1), h = Math.min(top + rh - y0, 2 * rad + 1);
+      const d = c2.getImageData(x0, y0, w, h).data;
+      let r = 0, g = 0, b = 0, mx = 0;
+      for (let i = 0; i < d.length; i += 4) { r += d[i]; g += d[i + 1]; b += d[i + 2]; mx = Math.max(mx, d[i], d[i + 1], d[i + 2]); }
+      const n = d.length / 4;
+      out[name] = { px: [px, py], rgb: [Math.round(r / n), Math.round(g / n), Math.round(b / n)], luma: Math.round((0.2126 * r + 0.7152 * g + 0.0722 * b) / n), max: mx };
+      // (with tone=0 the frame holds sRGB-encoded linear radiance: `linear` is the patch's radiance)
+      if (q.get('tone') === '0') { const s = (0.2126 * r + 0.7152 * g + 0.0722 * b) / n / 255; out[name].linear = +(s <= 0.04045 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4).toFixed(4); }
+    }
+    // the cell's own numbers: its mean level, the share of clipped and of black pixels
+    const all = c2.getImageData(rx, top, rw, rh).data;
+    let sum = 0, clipped = 0, black = 0;
+    for (let i = 0; i < all.length; i += 16) { const l = 0.2126 * all[i] + 0.7152 * all[i + 1] + 0.0722 * all[i + 2]; sum += l; if (all[i] >= 254 && all[i + 1] >= 254 && all[i + 2] >= 254) clipped += 1; if (l < 2) black += 1; }
+    const n = all.length / 16;
+    out.frame = { mean: +(sum / n).toFixed(1), clippedShare: +(clipped / n).toFixed(4), blackShare: +(black / n).toFixed(4) };
+    return out;
+  });
+}
+
+window.__dev = { THREE, renderer, scene, cells, variants, club, surround, roomLight, capture, composer, post };
+let frames = 0;
+const drawn = { calls: 0, triangles: 0 };
+renderer.setAnimationLoop(() => {
+  for (const fn of [...frameFns]) fn(frames / 60, 1 / 60);
+  if (flatScene) { const tm = renderer.toneMapping; renderer.toneMapping = THREE.NoToneMapping; renderer.render(flatScene, flatCam); renderer.toneMapping = tm; }
+  else if (composer) { activate(variants.get(cells[0].key)); composer.render(); }
+  else {
+    drawn.calls = 0; drawn.triangles = 0;
+    renderer.setScissorTest(cells.length > 1);
+    if (cells.length > 1) { renderer.setViewport(0, 0, W, Hh); renderer.setScissor(0, 0, W, Hh); renderer.setClearColor(0x000000); renderer.clear(); }
+    for (const c of cells) {
+      activate(variants.get(c.key));
+      renderer.setViewport(...c.rect); renderer.setScissor(...c.rect);
+      renderer.render(scene, c.camera);
+      c.drawn = { calls: renderer.info.render.calls, triangles: renderer.info.render.triangles };
+      drawn.calls += c.drawn.calls; drawn.triangles += c.drawn.triangles;
+    }
+  }
+  frames += 1;
+  if (!flatScene && (frames === 2 || frames === 4)) capture(); // the second capture holds the first one's reflections
+  if (frames === 5) post?.dof?.snap?.();
+  if (frames === 7) {
+    let probes = null;
+    try { probes = flatScene ? null : probe(); } catch (e) { probes = [{ error: String(e?.message ?? e) }]; }
+    window.__info = {
+      view: viewName, tier, sheet: q.get('sheet') ?? null, light: roomLight ? roomLight.state?.() ?? true : null,
+      counts: surround ? surround.counts() : null, state: surround ? surround.state() : null,
+      frame: { calls: cells[0].drawn?.calls ?? renderer.info.render.calls, triangles: cells[0].drawn?.triangles ?? renderer.info.render.triangles, programs: renderer.info.programs?.length ?? null,
+        textures: renderer.info.memory.textures, geometries: renderer.info.memory.geometries },
+      post: post?.enabled ? post.counts?.() : (post ? { enabled: false, reason: post.reason } : null),
+      probes: probes ? probes[0] : null,
+      cells: cells.map((c, i) => ({ view: c.view, variant: c.key, rect: c.rect, drawn: c.drawn ?? null, sweep: c.sweep ?? null, law: c.law ?? null, probes: probes ? probes[i] : null })),
+    };
+    window.__ready = true;
+  }
+});
+</script>
+</body>
+</html>

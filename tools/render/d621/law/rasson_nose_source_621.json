@@ -1,0 +1,82 @@
+{
+  "schema": "d621-rasson-nose-source/1",
+  "tag": "MODEL",
+  "citation": "rasson-ox-9ft CU-09, owner ruling 2026-09-10 option b",
+  "identity": {
+    "commit": "d058e15c27bd03518ebae8a1fd0b439a817011f3",
+    "definition_path": "docs/geometry/rasson-ox-9ft-table-definition.json",
+    "definition_sha256": "f9170dd52129cab67d62453b1529d22a31394614774653b4b83c3e03af00ad99",
+    "leaf": "CU-09",
+    "value_path": "value.tip_fillet_R_mm",
+    "leaf_sha256": "852a167245cb020c0505d781016cc1c1e3e7a65b1971976fff7b308a3fbcf709",
+    "record_path": "docs/geometry/rasson-ox-9ft-a1-station-records.json",
+    "record_file_sha256": "cbd1b30a51674bffa82b15e052d40264ca23b32a78732ed0d2074cd00ca683bc",
+    "record_pointer": "/records/CU-09",
+    "record_sha256": "6cf14ac85106cb7c09568a330139d674b55a9c63249023c6fbd2a50d46815f34"
+  },
+  "hash_method": "SHA-256 of UTF-8 JSON, sort_keys=True, separators=(comma,colon), ensure_ascii=False, no newline",
+  "scope": "Owner option b transfers only the unscaled value.tip_fillet_R_mm. The original leaf and confirmed station receipt are preserved verbatim as scalar evidence; other values, land, height, profile, foot and lean are not adopted.",
+  "leaf": {
+    "id": "CU-09",
+    "name": "model nose land height band above the bed + nose tip fillet radius",
+    "value": {
+      "band_incl_fillet_onset_mm": [
+        35.04,
+        36.0
+      ],
+      "land_height_mm": 0.817,
+      "land_z_hi_mm": 35.969,
+      "land_z_lo_mm": 35.152,
+      "tip_fillet_R_mm": 1.93,
+      "tip_fit": {
+        "R_range_32_stations": [
+          1.93,
+          1.939
+        ],
+        "n_points": 147,
+        "rms": 0.058
+      }
+    },
+    "scope": "reference-only",
+    "source": {
+      "doc": "z-range of section points lying within 0.05 mm of the nose u (the vertical land) in transverse plane sections, bed datum z=785.8; tip radius by least-squares circle on horizontal-probe hits (0.02 mm z steps) from land-1.5 to land+2.0 above the land; first pass used the densified cushion polygon and 11 outline vertices.",
+      "tier": "MODEL",
+      "dossier_file": "06-model-derived/a1-stations/rails",
+      "refs": [
+        {
+          "path": "docs/geometry/rasson-ox-9ft-a1-station-records.json",
+          "pointer": "/records/CU-09"
+        }
+      ]
+    },
+    "status": "MEASURED-REPLICATED",
+    "notes": "Land: replicate land_z at x=+450 +Y = [35.151938629150436, 35.968820285797165] (= 0.817 tall), matching the first-pass vertex land 35.152..35.969 (rails.json face_vertices[0] = [588.123, 35.152], cushion_top_curve_vertices[0] = [588.146, 35.969]). The first-pass rails.json \"nose_land_z\": [35.04334518442606, 35.9997829548643] is the wider band including the fillet onsets within 0.05 mm of the nose u; drawing land = 35.15..35.97. Tip fillet: REPLICATED R 1.93 supersedes the first-pass R 1.89 (rails.json nose_tip_circle R 1.8890069163430647, rms 0.064, 11 vertices; 1.874..1.925 over 22 stations) - the vertex-only fit under-weights the arc. A0 CU-09 [35.15, 35.97] confirmed. Datum note from the replication record: the mesh cloth-top plane is z=785.828, so every bed-relative height here carries +0.028 vs the true cloth surface (negligible).",
+    "a1_record": "OB-ROX-A1-REC-001#CU-09",
+    "verification": {
+      "verdict": "CONFIRMED",
+      "station": "rails",
+      "replicated": true
+    },
+    "ball_scaled": {
+      "land_height_mm": 0.84,
+      "land_z_hi_mm": 36.89,
+      "land_z_lo_mm": 36.06,
+      "tip_fillet_R_mm": 1.98
+    },
+    "provenance_tag": "MODEL(A1 station 'rails', CU-09: z-range of section points lying within 0.05 mm of the nose u (the vertical land))"
+  },
+  "record": {
+    "canonical_row": "CU-09",
+    "station": "rails",
+    "name": "model nose land height band above the bed + nose tip fillet radius",
+    "unit": "table",
+    "status": "MEASURED-REPLICATED",
+    "method": "z-range of section points lying within 0.05 mm of the nose u (the vertical land) in transverse plane sections, bed datum z=785.8; tip radius by least-squares circle on horizontal-probe hits (0.02 mm z steps) from land-1.5 to land+2.0 above the land; first pass used the densified cushion polygon and 11 outline vertices.",
+    "evidence_path": "/tmp/ob-rasson-meas/ox-a1/rails/replicate/replicate.out",
+    "evidence_quote": "land_lo: {\"mean\": 35.149725220355506, \"min\": 35.12045139265649, \"max\": 35.15199823379521, \"n\": 32} | land_hi: {\"mean\": 35.970017041189536, \"min\": 35.968820285797165, \"max\": 35.98747312168348, \"n\": 32} | nose_tip_R: {\"mean\": 1.9309795805532066, \"min\": 1.930106073599865, \"max\": 1.9394258381396354, \"n\": 32}",
+    "verification": {
+      "verdict": "CONFIRMED",
+      "detail": "All three quoted lines exist verbatim in replicate/replicate.out. Per-station replicate.json land_z: 28/32 stations [35.152, 35.9688/35.9689]; x=+-1100 lo=35.1497; y=+500 lo=35.1205; y=-500 hi=35.9875 -> the row's 35.152/35.969 are the modal station values (not the mean), and 35.152 equals the contact-height corner 35.15194 in rails.json. land_height 0.817 = 35.969-35.152. band_incl_fillet_onset [35.04, 36.00] = first-pass nose_land_z [35.043, 36.000] (rails.json / followups.out [2] 'band' rows 35.042-35.056 / 35.999-36.001). nose_tip_R 1.93: replicate nose_tip_R mean 1.93098, min 1.93011, max 1.93943, rms mean 0.05805, n=147 (146 at y=-500). The first-pass tip fit (R 1.889-1.921, n=11) is superseded by the 147-point replicate, correctly. No datum/scale issue."
+    }
+  }
+}

@@ -1,0 +1,273 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: cloth</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<base href="../../">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from './vendor/jsm/lights/RectAreaLightUniformsLib.js';
+import { TIERS, pickTier } from './scene/club/tiers.js';
+import { createAdopt } from './scene/club/adopt.js';
+import { createAssets } from './scene/club/assets.js';
+import { applyCloth } from './scene/club/mat/cloth.js';
+import { OutputPass } from './vendor/jsm/postprocessing/OutputPass.js';
+import { createGrade } from './scene/club/post/grade.js';
+import { createDrawer } from './scene/club/post/fsq.js';
+import { CLUB_TUNE } from './scene/club/post/tune.js';
+
+const q = new URLSearchParams(location.search);
+q.set('clubcloth', [q.get('clubcloth'), 'on'].filter(Boolean).join(',')); // this page always asks for the part (?cloth=off is its off switch)
+const t0 = performance.now();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85; // the tournament look's exposure
+document.body.appendChild(renderer.domElement);
+RectAreaLightUniformsLib.init();
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x050505);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.02, 60);
+const VIEWS = {
+  play: [[-2.3, 1.05, 1.35], [0.1, 0.0, 0.0], 40],            // V1
+  cue: [[-1.35, 0.32, 0.22], [0.2, 0.0, 0.0], 32],            // V2
+  break: [[-2.15, 0.62, 0.0], [0.6, 0.0, 0.0], 38],           // V3
+  rail: [[0.05, 0.115, 0.75], [0.5, 0.045, 0.6], 26],         // V6
+  cluster: [[-0.85, 0.2, 0.42], [0.05, 0.02, -0.02], 28],     // V7
+  wide: [[-4.0, 1.6, 2.6], [0.0, 0.3, 0.0], 50],              // V9
+  plan: [[0.0, 2.3, 0.03], [0.0, 0.0, 0.0], 66],              // V11
+  top: [[0.0, 0.99, 0.0001], [0.0, 0.0, 0.0], 118],
+  edge: [[-0.9, 0.16, 0.1], [-0.2, 0.0, 0.0], 30],            // low over the bed: the weave at the near edge
+  nose: [[0.42, 0.075, 0.33], [0.05, 0.012, 0.63], 22],       // a long cushion from the bed
+  corner: [[0.85, 0.28, 0.25], [1.27, 0.0, 0.635], 28],       // V4
+  macro: [[-0.85, 0.2, 0.42], [0.05, 0.02, -0.02], 9.4],      // V7 at a third of its field: what a 4K frame resolves
+};
+const viewName = q.get('view') ?? 'play';
+const [pos, tgt, fov] = VIEWS[viewName] ?? VIEWS.play;
+camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+
+const note = {};
+// ---- the app's room (lamp, lights) and table, read-only ----
+const shadingMod = await import('./scene/shading.js');
+const roomMod = await import('./scene/room.js');
+const tableMod = await import('./scene/table.js');
+const shared = shadingMod.createShared({ lightPos: roomMod.LIGHT_POS, roomMin: roomMod.ROOM.min, roomMax: roomMod.ROOM.max });
+const room = roomMod.buildRoom({ envBinding: false });
+scene.add(room.group);
+// the tournament look's light values (web/scene/look.js TOURNAMENT), written the way applyLook writes them
+const lr = room.lightRefs;
+if (lr) {
+  try {
+    lr.hemi.intensity = 1.25; lr.hemi.color.setHex(0x3a3a3e); lr.hemi.groundColor.setHex(0x2a2a2c);
+    lr.fill.intensity = 2.2; lr.fill.color.setHex(0xd9dcdf);
+    for (const rl of lr.rectLights ?? []) { rl.color.setHex(0xf6f7f9); rl.intensity = 7.8; }
+    lr.lampFace?.material?.color?.setRGB(19.4 * 1.015, 19.4 / 0.9301, 19.4 / 0.7605 * 0.985);
+  } catch (e) { note.look = String(e?.message ?? e); }
+}
+const tableId = q.get('table') ?? 'pool_pro_9ft';
+try { const prep = tableMod.buildTable.prepare?.(tableId); if (prep?.then) await prep; } catch (e) { note.prepare = String(e?.message ?? e); }
+const table = tableMod.buildTable({ shared, tableId });
+if (table.ready?.then) await table.ready;
+scene.add(table.group);
+note.table = table.group.userData?.tableId ?? null;
+// another cloth colour, the way the app's setting applies it (table.js setClothColor; ids: tournament_blue, classic_green,
+// snooker_green, burgundy, steel_gray, camel)
+if (q.get('color')) { try { tableMod.setClothColor?.(q.get('color')); note.color = q.get('color'); await new Promise((r) => setTimeout(r, 400)); } catch (e) { note.color = String(e?.message ?? e); } }
+
+// ---- three balls (plain spheres; the app's analytic ball shadow reads the shared sphere list) ----
+const R = 0.028575;
+const BALLS = [[-0.55, 0.05, 0xf2efe4], [0.05, -0.02, 0xd9a400], [0.62, 0.3, 0x8a1010]];
+const balls = BALLS.map(([x, z, c], i) => {
+  const b = new THREE.Mesh(new THREE.SphereGeometry(R, 48, 32), new THREE.MeshStandardMaterial({ color: c, roughness: 0.12 }));
+  b.position.set(x, R, z); scene.add(b);
+  shared.uSpheres.value[i].set(x, R, z, R);
+  return b;
+});
+shared.uSphereCount.value = balls.length;
+// an environment the way the app makes one: a cube capture of the room from above the table
+if (q.get('env') !== '0') {
+  const cubeRT = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+  const cubeCam = new THREE.CubeCamera(0.05, 30, cubeRT);
+  cubeCam.position.set(0, 0.45, 0);
+  for (const b of balls) b.visible = false;
+  cubeCam.update(renderer, scene);
+  for (const b of balls) b.visible = true;
+  scene.environment = cubeRT.texture;
+}
+if (viewName === 'top' || viewName === 'plan') for (const o of [lr?.hood, lr?.lampFace, ...(lr?.rods ?? [])]) if (o) o.visible = false;
+
+// ---- the stand-in club object (what index.js hands a service) ----
+const frameFns = [];
+const tier = pickTier({ renderer, query: q });
+const club = {
+  enabled: true, tier, knobs: TIERS[tier], time: { value: 0 },
+  ctx: { renderer, scene, camera, table, room, gi: { uniforms: shared }, query: q },
+  onFrame(fn) { frameFns.push(fn); }, offFrame(fn) { const i = frameFns.indexOf(fn); if (i >= 0) frameFns.splice(i, 1); },
+  room: { enabled: false },
+};
+// a stand-in for the reflection service's ambient cube (club.env.ambient): six constant colours
+if (q.get('amb')) {
+  const v = q.get('amb').split(',').map(Number);
+  const six = [0, 1, 2, 3, 4, 5].map((i) => new THREE.Vector3(...(v.length >= 18 ? v.slice(i * 3, i * 3 + 3) : v.slice(0, 3))));
+  club.env = { enabled: true, ambient: { enabled: true, uniforms: { uClubEnvAmb: { value: six } }, serial: 1 } };
+}
+club.adopt = createAdopt(club);
+club.assets = createAssets(club);
+// the occlusion service first, as in the app (its patch is in the shader text when the cloth part runs)
+let occ = { enabled: false, reason: 'occ=off' };
+if (q.get('occ') !== 'off') {
+  try { const m = await import('./scene/club/occlusion.js'); occ = await m.createOcclusion(club); } catch (e) { occ = { enabled: false, reason: String(e?.message ?? e) }; }
+}
+club.occ = occ;
+let cloth = { enabled: false, reason: 'cloth=off', state: () => ({ enabled: false }) };
+if (q.get('cloth') !== 'off') cloth = await applyCloth(club);
+if (cloth.enabled && q.get('tune')) {
+  for (const row of q.get('tune').split(',')) {
+    const [path, v] = row.split(':'); const [g, k] = path.split('.');
+    if (cloth.tune?.[g] && k in cloth.tune[g] && Number.isFinite(Number(v))) cloth.tune[g][k] = Number(v);
+  }
+  cloth.set();
+}
+window.__club = club; window.__cloth = cloth; window.__occ = occ;
+window.__dev = { THREE, renderer, scene, camera, shared, table, room, note };
+
+let settledAssets = false;
+club.assets.ready().then(() => { settledAssets = true; cloth.rebuild?.('assets'); });
+let frames = 0, settled = 0, last = performance.now(), baked = !occ.enabled;
+if (occ.enabled) Promise.all([occ.table.ready, occ.floor?.ready]).then(() => { baked = true; });
+// the look's grade and the app's output pass (the club chain without bloom, lens and occlusion pass)
+const usePost = q.get('post') !== '0';
+let draw = () => renderer.render(scene, camera);
+let sceneRT = null;
+if (usePost) {
+  const opt = { type: THREE.HalfFloatType, samples: 4 };
+  sceneRT = new THREE.WebGLRenderTarget(innerWidth, innerHeight, opt);
+  const gradeRT = new THREE.WebGLRenderTarget(innerWidth, innerHeight, { type: THREE.HalfFloatType, depthBuffer: false });
+  const drawer = createDrawer();
+  const grade = createGrade({ drawer });
+  grade.state.strength = CLUB_TUNE.grade.strength; grade.state.exposure = CLUB_TUNE.grade.exposure;
+  const out = new OutputPass(); out.renderToScreen = true;
+  draw = () => {
+    renderer.setRenderTarget(sceneRT); renderer.render(scene, camera);
+    grade.render(renderer, sceneRT.texture, gradeRT);
+    renderer.setRenderTarget(null);
+    out.render(renderer, null, gradeRT);
+  };
+  note.post = { grade: { ...CLUB_TUNE.grade }, exposure: renderer.toneMappingExposure };
+}
+// ---- the probe tool (see the head of this file). Nothing here runs unless a tool calls window.__probe. ----
+const PROBE_VIEW = { V1: 'play', V2: 'cue', V3: 'break', V6: 'rail', V7: 'cluster', V9: 'wide', V11: 'plan' };
+const PROBE_POINTS = {
+  V1: { centre: [0.2, 0.15], 'long side': [0.15, 0.55], 'foot end': [1.2, 0.22], 'head end': [-1.2, -0.2], 'corner tip foot near': [1.18, 0.56], 'corner tip head far': [-1.18, -0.56] },
+  V2: { centre: [0.3, 0.0], 'near field right': [-0.62, 0.3], 'near field left': [-0.7, -0.1], 'mid far': [0.9, 0.3], 'foot end': [1.2, 0.3], 'corner tip left': [1.18, -0.56] },
+  V7: { centre: [0.2, 0.15], 'near field': [-0.35, 0.3], 'far long side': [0.3, -0.56], 'foot end': [1.2, -0.3], 'corner tip': [1.18, -0.56] },
+  V11: { centre: [0.0, 0.2], 'x 0.6': [0.6, 0.2], 'foot end': [1.2, 0.2], 'head end': [-1.2, 0.2], 'corner tip': [1.18, 0.56], 'corner tip last 5 cm': [1.22, 0.6] },
+};
+const tune0 = JSON.parse(JSON.stringify(cloth.tune ?? {}));
+function probeTune(def) {
+  if (!cloth.enabled) return;
+  for (const g of Object.keys(tune0)) for (const k of Object.keys(tune0[g])) cloth.tune[g][k] = JSON.parse(JSON.stringify(tune0[g][k]));
+  const text = typeof def === 'string' ? def : (def?.tune ?? '');
+  for (const row of String(text).split(',').filter(Boolean)) {
+    const [path, v] = row.split(':'); const [g, k] = path.split('.');
+    if (cloth.tune?.[g] && k in cloth.tune[g] && Number.isFinite(Number(v))) cloth.tune[g][k] = Number(v);
+  }
+  cloth.set({ pool: 1, color: 1, sheen: 1, cush: 1, face: 1, weave: 1, ...(typeof def === 'object' && def?.groups ? def.groups : {}) });
+}
+let probeRT = null, probe2d = null;
+window.__probe = (spec = {}) => {
+  const W = renderer.domElement.width, H = renderer.domElement.height;
+  // the scene is drawn through a scissor box around each probe: under software GL a whole frame costs seconds, a box does not
+  const rt = sceneRT ?? (probeRT ??= new THREE.WebGLRenderTarget(W, H, { type: THREE.HalfFloatType }));
+  const display = !!sceneRT && spec.display !== false;
+  if (display && !probe2d) { const c = document.createElement('canvas'); c.width = W; c.height = H; probe2d = c.getContext('2d', { willReadFrequently: true }); }
+  const keep = { pos: camera.position.clone(), quat: camera.quaternion.clone(), fov: camera.fov };
+  const lampParts = [lr?.hood, lr?.lampFace, ...(lr?.rods ?? [])].filter(Boolean);
+  const lampWas = lampParts.map((o) => o.visible);
+  const half = new Uint16Array(9 * 9 * 4);
+  const v3 = new THREE.Vector3();
+  const r4 = (x) => +x.toFixed(4);
+  const out = {};
+  const t0p = performance.now();
+  let renders = 0;
+  for (const [name, def] of Object.entries(spec.sets ?? { now: '' })) {
+    probeTune(def);
+    out[name] = {};
+    for (const view of spec.views ?? ['V1', 'V2', 'V7', 'V11']) {
+      const [p, t, f] = VIEWS[PROBE_VIEW[view]] ?? VIEWS.play;
+      camera.position.set(...p); camera.fov = f; camera.updateProjectionMatrix(); camera.lookAt(...t); camera.updateMatrixWorld(true);
+      for (const o of lampParts) o.visible = view !== 'V11';
+      const low = view === 'V2' || view === 'V7', kx = 4, ky = low ? 1 : 4, bw = 2 * kx + 1, bh = 2 * ky + 1;
+      const rows = {};
+      const pts = spec.points?.[view] ?? PROBE_POINTS[view] ?? {};
+      for (const [label, [x, z]] of Object.entries(pts)) {
+        v3.set(x, 0, z).project(camera);
+        const px = Math.round((v3.x + 1) / 2 * W - 0.5), py = Math.round((1 - v3.y) / 2 * H - 0.5);
+        if (!(px >= kx + 2 && px < W - kx - 2 && py >= ky + 2 && py < H - ky - 2)) { rows[label] = { px: [px, py], out: true }; continue; }
+        rt.scissorTest = true; rt.scissor.set(px - kx - 2, H - 1 - py - ky - 2, bw + 4, bh + 4);
+        if (sceneRT) draw(); else { renderer.setRenderTarget(rt); renderer.render(scene, camera); renderer.setRenderTarget(null); }
+        renders += 1;
+        renderer.readRenderTargetPixels(rt, px - kx, H - 1 - py - ky, bw, bh, half);
+        const lin = [0, 0, 0];
+        for (let i = 0; i < bw * bh; i++) for (let c = 0; c < 3; c++) lin[c] += THREE.DataUtils.fromHalfFloat(half[i * 4 + c]);
+        const row = { px: [px, py], lin: lin.map((x) => r4(x / (bw * bh))) };
+        if (display) {
+          probe2d.drawImage(renderer.domElement, 0, 0);
+          const d = probe2d.getImageData(px - kx, py - ky, bw, bh).data;
+          const rgb = [0, 0, 0];
+          for (let i = 0; i < d.length; i += 4) for (let c = 0; c < 3; c++) rgb[c] += d[i + c];
+          row.rgb = rgb.map((x) => Math.round(x / (d.length / 4)));
+        }
+        rows[label] = row;
+      }
+      out[name][view] = rows;
+    }
+  }
+  rt.scissorTest = false;
+  probeTune('');
+  for (const [i, o] of lampParts.entries()) o.visible = lampWas[i];
+  camera.position.copy(keep.pos); camera.quaternion.copy(keep.quat); camera.fov = keep.fov; camera.updateProjectionMatrix();
+  out._ = { renders, ms: Math.round(performance.now() - t0p), display };
+  return out;
+};
+// ?rebuild=table: the table is rebuilt once (the app's table change) and the part's rebuild('table') is called
+let rebuildAsked = q.get('rebuild') === 'table', rebuilt = !rebuildAsked;
+async function rebuildTable() {
+  try {
+    const id2 = q.get('table2') ?? tableId;
+    const before = cloth.state?.();
+    if (typeof table.rebuild === 'function') { const r = table.rebuild(id2); if (r?.then) await r; }
+    else if (typeof table.setTable === 'function') { const r = table.setTable(id2); if (r?.then) await r; }
+    else note.rebuildHow = 'the table has no rebuild(): only the part was rebuilt';
+    if (table.ready?.then) await table.ready;
+    try { occ.rebuild?.('table'); } catch (e) { note.occRebuild = String(e?.message ?? e); }
+    const added = cloth.rebuild?.('table');
+    note.rebuild = { table: id2, added, patchedBefore: before?.patched ?? null, patchedAfter: cloth.state?.().patched ?? null, lamp: cloth.state?.().lamp ?? null };
+  } catch (e) { note.rebuildError = String(e?.message ?? e); }
+  rebuilt = true; settled = 0;
+}
+renderer.setAnimationLoop(() => {
+  const now = performance.now();
+  const dt = Math.min(0.1, (now - last) / 1000); last = now;
+  frames += 1;
+  club.time.value += dt;
+  for (const fn of [...frameFns]) fn(club.time.value, baked ? 0.1 : dt);
+  const st = occ.enabled ? occ.state() : null;
+  const baking = !!st && st.baking;
+  // under software GL a scene frame costs far more than a bake slice: draw the scene rarely while the maps bake
+  if (!baking || frames % 12 === 0) draw();
+  const occDone = !occ.enabled || (baked && !baking && (st.fade >= 1 || st.errors.length));
+  if (occDone && settledAssets && rebuildAsked && settled === 2) { rebuildAsked = false; rebuildTable(); return; }
+  if (occDone && settledAssets && rebuilt && ++settled === 3) { note.readyMs = Math.round(performance.now() - t0); note.adopt = club.adopt.state(); window.__ready = true; }
+});
+</script>
+</body>
+</html>

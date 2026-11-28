@@ -1,0 +1,2522 @@
+{
+"band/ball_circular_cushion_time/1034/shift-1E-12": {
+"accept": [
+"3fe85227f21f1cec",
+"3fe85227f21f1ced"
+],
+"crossings": 1,
+"nearest": [
+"3fe85227f21f1cec",
+"3fe85227f21f1ced"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1034/shift-1E-15": {
+"accept": [
+"3fe85229ff3a9691",
+"3fe85229ff3a9692"
+],
+"crossings": 1,
+"nearest": [
+"3fe85229ff3a9691",
+"3fe85229ff3a9692"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1034/shift-1E-18": {
+"accept": [
+"3fe8522a0ffef05d",
+"3fe8522a0ffef05e"
+],
+"crossings": 1,
+"nearest": [
+"3fe8522a0ffef05d",
+"3fe8522a0ffef05e"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1078/shift-1E-12": {
+"accept": [
+"3fae1bfb3de18e13",
+"3fae1bfb3de18e14"
+],
+"crossings": 1,
+"nearest": [
+"3fae1bfb3de18e13",
+"3fae1bfb3de18e14"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1078/shift-1E-15": {
+"accept": [
+"3fae1bfda477772e",
+"3fae1bfda477772f"
+],
+"crossings": 1,
+"nearest": [
+"3fae1bfda477772e",
+"3fae1bfda477772f"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1078/shift-1E-18": {
+"accept": [
+"3fae1bfdb7d05834",
+"3fae1bfdb7d05835"
+],
+"crossings": 1,
+"nearest": [
+"3fae1bfdb7d05834",
+"3fae1bfdb7d05835"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1518/shift-1E-12": {
+"accept": [
+"3f90d3a406320de8",
+"3f90d3a406320de9"
+],
+"crossings": 1,
+"nearest": [
+"3f90d3a406320de8",
+"3f90d3a406320de9"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1518/shift-1E-15": {
+"accept": [
+"3f90d3a6ba041631",
+"3f90d3a6ba041632"
+],
+"crossings": 1,
+"nearest": [
+"3f90d3a6ba041631",
+"3f90d3a6ba041632"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1518/shift-1E-18": {
+"accept": [
+"3f90d3a6cff7ca06",
+"3f90d3a6cff7ca07"
+],
+"crossings": 1,
+"nearest": [
+"3f90d3a6cff7ca06",
+"3f90d3a6cff7ca07"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1584/shift-1E-12": {
+"accept": [
+"3fa064bef5f12c85",
+"3fa064bef5f12c86"
+],
+"crossings": 1,
+"nearest": [
+"3fa064bef5f12c85",
+"3fa064bef5f12c86"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1584/shift-1E-15": {
+"accept": [
+"3fa064c227ac3c2d",
+"3fa064c227ac3c2e"
+],
+"crossings": 1,
+"nearest": [
+"3fa064c227ac3c2d",
+"3fa064c227ac3c2e"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1584/shift-1E-18": {
+"accept": [
+"3fa064c241d1922d",
+"3fa064c241d1922e"
+],
+"crossings": 1,
+"nearest": [
+"3fa064c241d1922d",
+"3fa064c241d1922e"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1606/shift-1E-12": {
+"accept": [
+"3fa7114ffd8137b4",
+"3fa7114ffd8137b5"
+],
+"crossings": 1,
+"nearest": [
+"3fa7114ffd8137b4",
+"3fa7114ffd8137b5"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1606/shift-1E-15": {
+"accept": [
+"3fa71152c360ab3d",
+"3fa71152c360ab3e"
+],
+"crossings": 1,
+"nearest": [
+"3fa71152c360ab3d",
+"3fa71152c360ab3e"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1606/shift-1E-18": {
+"accept": [
+"3fa71152d990699a",
+"3fa71152d990699b"
+],
+"crossings": 1,
+"nearest": [
+"3fa71152d990699a",
+"3fa71152d990699b"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1628/shift-1E-12": {
+"accept": [
+"3f84fa76047c6cbe",
+"3f84fa76047c6cbf"
+],
+"crossings": 1,
+"nearest": [
+"3f84fa76047c6cbe",
+"3f84fa76047c6cbf"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1628/shift-1E-15": {
+"accept": [
+"3f84fa7c2751914f",
+"3f84fa7c27519150"
+],
+"crossings": 1,
+"nearest": [
+"3f84fa7c2751914f",
+"3f84fa7c27519150"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1628/shift-1E-18": {
+"accept": [
+"3f84fa7c5864d373",
+"3f84fa7c5864d374"
+],
+"crossings": 1,
+"nearest": [
+"3f84fa7c5864d373",
+"3f84fa7c5864d374"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1694/shift-1E-12": {
+"accept": [
+"3fd456fdf540f163",
+"3fd456fdf540f164"
+],
+"crossings": 1,
+"nearest": [
+"3fd456fdf540f163",
+"3fd456fdf540f164"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1694/shift-1E-15": {
+"accept": [
+"3fd4570125c0964e",
+"3fd4570125c0964f"
+],
+"crossings": 1,
+"nearest": [
+"3fd4570125c0964e",
+"3fd4570125c0964f"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1694/shift-1E-18": {
+"accept": [
+"3fd4570140117e4c",
+"3fd4570140117e4d"
+],
+"crossings": 1,
+"nearest": [
+"3fd4570140117e4c",
+"3fd4570140117e4d"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1760/shift-1E-12": {
+"accept": [
+"3f9658cadcee0464",
+"3f9658cadcee0465"
+],
+"crossings": 1,
+"nearest": [
+"3f9658cadcee0464",
+"3f9658cadcee0465"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1760/shift-1E-15": {
+"accept": [
+"3f9658d04828a7be",
+"3f9658d04828a7bf"
+],
+"crossings": 1,
+"nearest": [
+"3f9658d04828a7be",
+"3f9658d04828a7bf"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1760/shift-1E-18": {
+"accept": [
+"3f9658d0730ad461",
+"3f9658d0730ad462"
+],
+"crossings": 1,
+"nearest": [
+"3f9658d0730ad461",
+"3f9658d0730ad462"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1892/shift-1E-12": {
+"accept": [
+"3fb0938dc4eb576b",
+"3fb0938dc4eb576c"
+],
+"crossings": 1,
+"nearest": [
+"3fb0938dc4eb576b",
+"3fb0938dc4eb576c"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1892/shift-1E-15": {
+"accept": [
+"3fb0938ee90eaffd",
+"3fb0938ee90eaffe"
+],
+"crossings": 1,
+"nearest": [
+"3fb0938ee90eaffd",
+"3fb0938ee90eaffe"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/1892/shift-1E-18": {
+"accept": [
+"3fb0938ef260308b",
+"3fb0938ef260308c"
+],
+"crossings": 1,
+"nearest": [
+"3fb0938ef260308b",
+"3fb0938ef260308c"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2024/shift-1E-12": {
+"accept": [
+"3f9213f32389e985",
+"3f9213f32389e986"
+],
+"crossings": 1,
+"nearest": [
+"3f9213f32389e985",
+"3f9213f32389e986"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2024/shift-1E-15": {
+"accept": [
+"3f9213f6b1d20fa5",
+"3f9213f6b1d20fa6"
+],
+"crossings": 1,
+"nearest": [
+"3f9213f6b1d20fa5",
+"3f9213f6b1d20fa6"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2024/shift-1E-18": {
+"accept": [
+"3f9213f6cee9f2aa",
+"3f9213f6cee9f2ab"
+],
+"crossings": 1,
+"nearest": [
+"3f9213f6cee9f2aa",
+"3f9213f6cee9f2ab"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2046/shift-1E-12": {
+"accept": [
+"3fa5844828bd805f",
+"3fa5844828bd8060"
+],
+"crossings": 1,
+"nearest": [
+"3fa5844828bd805f",
+"3fa5844828bd8060"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2046/shift-1E-15": {
+"accept": [
+"3fa5844a9ece5d86",
+"3fa5844a9ece5d87"
+],
+"crossings": 1,
+"nearest": [
+"3fa5844a9ece5d86",
+"3fa5844a9ece5d87"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2046/shift-1E-18": {
+"accept": [
+"3fa5844ab2f56759",
+"3fa5844ab2f5675a"
+],
+"crossings": 1,
+"nearest": [
+"3fa5844ab2f56759",
+"3fa5844ab2f5675a"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2068/shift-1E-12": {
+"accept": [
+"3fbb16356f6a2a83",
+"3fbb16356f6a2a84"
+],
+"crossings": 1,
+"nearest": [
+"3fbb16356f6a2a83",
+"3fbb16356f6a2a84"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2068/shift-1E-15": {
+"accept": [
+"3fbb163630271e5d",
+"3fbb163630271e5e"
+],
+"crossings": 1,
+"nearest": [
+"3fbb163630271e5d",
+"3fbb163630271e5e"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2068/shift-1E-18": {
+"accept": [
+"3fbb1636363b19e5",
+"3fbb1636363b19e6"
+],
+"crossings": 1,
+"nearest": [
+"3fbb1636363b19e5",
+"3fbb1636363b19e6"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2090/shift-1E-12": {
+"accept": [
+"3fd5c280c59f7fd4",
+"3fd5c280c59f7fd5"
+],
+"crossings": 1,
+"nearest": [
+"3fd5c280c59f7fd4",
+"3fd5c280c59f7fd5"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2090/shift-1E-15": {
+"accept": [
+"3fd5c2820973142c",
+"3fd5c2820973142d"
+],
+"crossings": 1,
+"nearest": [
+"3fd5c2820973142c",
+"3fd5c2820973142d"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2090/shift-1E-18": {
+"accept": [
+"3fd5c282136ae34b",
+"3fd5c282136ae34c"
+],
+"crossings": 1,
+"nearest": [
+"3fd5c282136ae34b",
+"3fd5c282136ae34c"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2200/shift-1E-12": {
+"accept": [
+"3f8fab3695853d0e",
+"3f8fab3695853d0f"
+],
+"crossings": 1,
+"nearest": [
+"3f8fab3695853d0e",
+"3f8fab3695853d0f"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2200/shift-1E-15": {
+"accept": [
+"3f8fab3c28406a37",
+"3f8fab3c28406a38"
+],
+"crossings": 1,
+"nearest": [
+"3f8fab3c28406a37",
+"3f8fab3c28406a38"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2200/shift-1E-18": {
+"accept": [
+"3f8fab3c54cdf32b",
+"3f8fab3c54cdf32c"
+],
+"crossings": 1,
+"nearest": [
+"3f8fab3c54cdf32b",
+"3f8fab3c54cdf32c"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2266/shift-1E-12": {
+"accept": [
+"3f83858a27b99a2d",
+"3f83858a27b99a2e"
+],
+"crossings": 1,
+"nearest": [
+"3f83858a27b99a2d",
+"3f83858a27b99a2e"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2266/shift-1E-15": {
+"accept": [
+"3f83858f15381deb",
+"3f83858f15381dec"
+],
+"crossings": 1,
+"nearest": [
+"3f83858f15381deb",
+"3f83858f15381dec"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2266/shift-1E-18": {
+"accept": [
+"3f83858f3d7674b2",
+"3f83858f3d7674b3"
+],
+"crossings": 1,
+"nearest": [
+"3f83858f3d7674b2",
+"3f83858f3d7674b3"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2288/shift-1E-12": {
+"accept": [
+"3faaa98ca768f8e6",
+"3faaa98ca768f8e7"
+],
+"crossings": 1,
+"nearest": [
+"3faaa98ca768f8e6",
+"3faaa98ca768f8e7"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2288/shift-1E-15": {
+"accept": [
+"3faaa98e76c91a9b",
+"3faaa98e76c91a9c"
+],
+"crossings": 1,
+"nearest": [
+"3faaa98e76c91a9b",
+"3faaa98e76c91a9c"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2288/shift-1E-18": {
+"accept": [
+"3faaa98e85074f27",
+"3faaa98e85074f28"
+],
+"crossings": 1,
+"nearest": [
+"3faaa98e85074f27",
+"3faaa98e85074f28"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2354/shift-1E-12": {
+"accept": [
+"3faa7bc3cf4e29a4",
+"3faa7bc3cf4e29a5"
+],
+"crossings": 1,
+"nearest": [
+"3faa7bc3cf4e29a4",
+"3faa7bc3cf4e29a5"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2354/shift-1E-15": {
+"accept": [
+"3faa7bc54b263af3",
+"3faa7bc54b263af4"
+],
+"crossings": 1,
+"nearest": [
+"3faa7bc54b263af3",
+"3faa7bc54b263af4"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2354/shift-1E-18": {
+"accept": [
+"3faa7bc556f27b12",
+"3faa7bc556f27b13"
+],
+"crossings": 1,
+"nearest": [
+"3faa7bc556f27b12",
+"3faa7bc556f27b13"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2552/shift-1E-12": {
+"accept": [
+"3f8bdefc86398921",
+"3f8bdefc86398922"
+],
+"crossings": 1,
+"nearest": [
+"3f8bdefc86398921",
+"3f8bdefc86398922"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2552/shift-1E-15": {
+"accept": [
+"3f8bdf07d44ae17a",
+"3f8bdf07d44ae17b"
+],
+"crossings": 1,
+"nearest": [
+"3f8bdf07d44ae17a",
+"3f8bdf07d44ae17b"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2552/shift-1E-18": {
+"accept": [
+"3f8bdf0830a715f2",
+"3f8bdf0830a715f3"
+],
+"crossings": 1,
+"nearest": [
+"3f8bdf0830a715f2",
+"3f8bdf0830a715f3"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2596/shift-1E-12": {
+"accept": [
+"3f91dca13d99bd78",
+"3f91dca13d99bd79"
+],
+"crossings": 1,
+"nearest": [
+"3f91dca13d99bd78",
+"3f91dca13d99bd79"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2596/shift-1E-15": {
+"accept": [
+"3f91dca6d7b41c00",
+"3f91dca6d7b41c01"
+],
+"crossings": 1,
+"nearest": [
+"3f91dca6d7b41c00",
+"3f91dca6d7b41c01"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2596/shift-1E-18": {
+"accept": [
+"3f91dca704bae1e7",
+"3f91dca704bae1e8"
+],
+"crossings": 1,
+"nearest": [
+"3f91dca704bae1e7",
+"3f91dca704bae1e8"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2728/shift-1E-12": {
+"accept": [
+"3fba6d659ce3db21",
+"3fba6d659ce3db22"
+],
+"crossings": 1,
+"nearest": [
+"3fba6d659ce3db21",
+"3fba6d659ce3db22"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2728/shift-1E-15": {
+"accept": [
+"3fba6d6752d5f01a",
+"3fba6d6752d5f01b"
+],
+"crossings": 1,
+"nearest": [
+"3fba6d6752d5f01a",
+"3fba6d6752d5f01b"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2728/shift-1E-18": {
+"accept": [
+"3fba6d6760ab24cf",
+"3fba6d6760ab24d0"
+],
+"crossings": 1,
+"nearest": [
+"3fba6d6760ab24cf",
+"3fba6d6760ab24d0"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2750/shift-1E-12": {
+"accept": [
+"3fc37e83a577c946",
+"3fc37e83a577c947"
+],
+"crossings": 1,
+"nearest": [
+"3fc37e83a577c946",
+"3fc37e83a577c947"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2750/shift-1E-15": {
+"accept": [
+"3fc37e84c022ad63",
+"3fc37e84c022ad64"
+],
+"crossings": 1,
+"nearest": [
+"3fc37e84c022ad63",
+"3fc37e84c022ad64"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2750/shift-1E-18": {
+"accept": [
+"3fc37e84c8dc26be",
+"3fc37e84c8dc26bf"
+],
+"crossings": 1,
+"nearest": [
+"3fc37e84c8dc26be",
+"3fc37e84c8dc26bf"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2816/shift-1E-12": {
+"accept": [
+"3f9148f117cb7aeb",
+"3f9148f117cb7aec"
+],
+"crossings": 1,
+"nearest": [
+"3f9148f117cb7aeb",
+"3f9148f117cb7aec"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2816/shift-1E-15": {
+"accept": [
+"3f9148f5b1cf45e6",
+"3f9148f5b1cf45e7"
+],
+"crossings": 1,
+"nearest": [
+"3f9148f5b1cf45e6",
+"3f9148f5b1cf45e7"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2816/shift-1E-18": {
+"accept": [
+"3f9148f5d6c7738a",
+"3f9148f5d6c7738b"
+],
+"crossings": 1,
+"nearest": [
+"3f9148f5d6c7738a",
+"3f9148f5d6c7738b"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/286/shift-1E-12": {
+"accept": [
+"3fa0477efd97bc8b",
+"3fa0477efd97bc8c"
+],
+"crossings": 1,
+"nearest": [
+"3fa0477efd97bc8b",
+"3fa0477efd97bc8c"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/286/shift-1E-15": {
+"accept": [
+"3fa04785e61d0afd",
+"3fa04785e61d0afe"
+],
+"crossings": 1,
+"nearest": [
+"3fa04785e61d0afd",
+"3fa04785e61d0afe"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/286/shift-1E-18": {
+"accept": [
+"3fa047861df03b1f",
+"3fa047861df03b20"
+],
+"crossings": 1,
+"nearest": [
+"3fa047861df03b1f",
+"3fa047861df03b20"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2882/shift-1E-12": {
+"accept": [
+"3facfed817e6a251",
+"3facfed817e6a252"
+],
+"crossings": 1,
+"nearest": [
+"3facfed817e6a251",
+"3facfed817e6a252"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2882/shift-1E-15": {
+"accept": [
+"3facfedaac37ffb2",
+"3facfedaac37ffb3"
+],
+"crossings": 1,
+"nearest": [
+"3facfedaac37ffb2",
+"3facfedaac37ffb3"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/2882/shift-1E-18": {
+"accept": [
+"3facfedac131758c",
+"3facfedac131758d"
+],
+"crossings": 1,
+"nearest": [
+"3facfedac131758c",
+"3facfedac131758d"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3014/shift-1E-12": {
+"accept": [
+"3f8e8876d3f9e0c0",
+"3f8e8876d3f9e0c1"
+],
+"crossings": 1,
+"nearest": [
+"3f8e8876d3f9e0c0",
+"3f8e8876d3f9e0c1"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3014/shift-1E-15": {
+"accept": [
+"3f8e887d9ff6262f",
+"3f8e887d9ff62630"
+],
+"crossings": 1,
+"nearest": [
+"3f8e887d9ff6262f",
+"3f8e887d9ff62630"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3014/shift-1E-18": {
+"accept": [
+"3f8e887dd779d46a",
+"3f8e887dd779d46b"
+],
+"crossings": 1,
+"nearest": [
+"3f8e887dd779d46a",
+"3f8e887dd779d46b"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3102/shift-1E-12": {
+"accept": [
+"3fcaf4ca7ac82baf",
+"3fcaf4ca7ac82bb0"
+],
+"crossings": 1,
+"nearest": [
+"3fcaf4ca7ac82baf",
+"3fcaf4ca7ac82bb0"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3102/shift-1E-15": {
+"accept": [
+"3fcaf4cad38836de",
+"3fcaf4cad38836df"
+],
+"crossings": 1,
+"nearest": [
+"3fcaf4cad38836de",
+"3fcaf4cad38836df"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3102/shift-1E-18": {
+"accept": [
+"3fcaf4cad6520a89",
+"3fcaf4cad6520a8a"
+],
+"crossings": 1,
+"nearest": [
+"3fcaf4cad6520a89",
+"3fcaf4cad6520a8a"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3168/shift-1E-12": {
+"accept": [
+"3f8296134a3bf120",
+"3f8296134a3bf121"
+],
+"crossings": 1,
+"nearest": [
+"3f8296134a3bf120",
+"3f8296134a3bf121"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3168/shift-1E-15": {
+"accept": [
+"3f82961bbe78caef",
+"3f82961bbe78caf0"
+],
+"crossings": 1,
+"nearest": [
+"3f82961bbe78caef",
+"3f82961bbe78caf0"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3168/shift-1E-18": {
+"accept": [
+"3f82961c02d5cd9d",
+"3f82961c02d5cd9e"
+],
+"crossings": 1,
+"nearest": [
+"3f82961c02d5cd9d",
+"3f82961c02d5cd9e"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3234/shift-1E-12": {
+"accept": [
+"3fa228591b8e6d90",
+"3fa228591b8e6d91"
+],
+"crossings": 1,
+"nearest": [
+"3fa228591b8e6d90",
+"3fa228591b8e6d91"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3234/shift-1E-15": {
+"accept": [
+"3fa2285acffeedf9",
+"3fa2285acffeedfa"
+],
+"crossings": 1,
+"nearest": [
+"3fa2285acffeedf9",
+"3fa2285acffeedfa"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3234/shift-1E-18": {
+"accept": [
+"3fa2285addada4ce",
+"3fa2285addada4cf"
+],
+"crossings": 1,
+"nearest": [
+"3fa2285addada4ce",
+"3fa2285addada4cf"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3366/shift-1E-12": {
+"accept": [
+"3fa59f775bd21050",
+"3fa59f775bd21051"
+],
+"crossings": 1,
+"nearest": [
+"3fa59f775bd21050",
+"3fa59f775bd21051"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3366/shift-1E-15": {
+"accept": [
+"3fa59f7964a18dd3",
+"3fa59f7964a18dd4"
+],
+"crossings": 1,
+"nearest": [
+"3fa59f7964a18dd3",
+"3fa59f7964a18dd4"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3366/shift-1E-18": {
+"accept": [
+"3fa59f7975564b5e",
+"3fa59f7975564b5f"
+],
+"crossings": 1,
+"nearest": [
+"3fa59f7975564b5e",
+"3fa59f7975564b5f"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/352/shift-1E-12": {
+"accept": [
+"3fcd2be10319d606",
+"3fcd2be10319d607"
+],
+"crossings": 1,
+"nearest": [
+"3fcd2be10319d606",
+"3fcd2be10319d607"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/352/shift-1E-15": {
+"accept": [
+"3fcd2be361cc1eb8",
+"3fcd2be361cc1eb9"
+],
+"crossings": 1,
+"nearest": [
+"3fcd2be361cc1eb8",
+"3fcd2be361cc1eb9"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/352/shift-1E-18": {
+"accept": [
+"3fcd2be375226975",
+"3fcd2be375226976"
+],
+"crossings": 1,
+"nearest": [
+"3fcd2be375226975",
+"3fcd2be375226976"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3564/shift-1E-12": {
+"accept": [
+"3fc022ecd1fd367f",
+"3fc022ecd1fd3680"
+],
+"crossings": 1,
+"nearest": [
+"3fc022ecd1fd367f",
+"3fc022ecd1fd3680"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3564/shift-1E-15": {
+"accept": [
+"3fc022ed30c3dadd",
+"3fc022ed30c3dade"
+],
+"crossings": 1,
+"nearest": [
+"3fc022ed30c3dadd",
+"3fc022ed30c3dade"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3564/shift-1E-18": {
+"accept": [
+"3fc022ed33c1b4b4",
+"3fc022ed33c1b4b5"
+],
+"crossings": 1,
+"nearest": [
+"3fc022ed33c1b4b4",
+"3fc022ed33c1b4b5"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3586/shift-1E-12": {
+"accept": [
+"3fb4312fd3f7576f",
+"3fb4312fd3f75770"
+],
+"crossings": 1,
+"nearest": [
+"3fb4312fd3f7576f",
+"3fb4312fd3f75770"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3586/shift-1E-15": {
+"accept": [
+"3fb43130752dea1d",
+"3fb43130752dea1e"
+],
+"crossings": 1,
+"nearest": [
+"3fb43130752dea1d",
+"3fb43130752dea1e"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3586/shift-1E-18": {
+"accept": [
+"3fb431307a5c6fbd",
+"3fb431307a5c6fbe"
+],
+"crossings": 1,
+"nearest": [
+"3fb431307a5c6fbd",
+"3fb431307a5c6fbe"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3916/shift-1E-12": {
+"accept": [
+"3f9cb7946b43b65f",
+"3f9cb7946b43b660"
+],
+"crossings": 1,
+"nearest": [
+"3f9cb7946b43b65f",
+"3f9cb7946b43b660"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3916/shift-1E-15": {
+"accept": [
+"3f9cb79f0a8f9cd2",
+"3f9cb79f0a8f9cd3"
+],
+"crossings": 1,
+"nearest": [
+"3f9cb79f0a8f9cd2",
+"3f9cb79f0a8f9cd3"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3916/shift-1E-18": {
+"accept": [
+"3f9cb79f5ea54844",
+"3f9cb79f5ea54845"
+],
+"crossings": 1,
+"nearest": [
+"3f9cb79f5ea54844",
+"3f9cb79f5ea54845"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3960/shift-1E-12": {
+"accept": [
+"3fb99f16b8d48404",
+"3fb99f16b8d48405"
+],
+"crossings": 1,
+"nearest": [
+"3fb99f16b8d48404",
+"3fb99f16b8d48405"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3960/shift-1E-15": {
+"accept": [
+"3fb99f17d103eaaf",
+"3fb99f17d103eab0"
+],
+"crossings": 1,
+"nearest": [
+"3fb99f17d103eaaf",
+"3fb99f17d103eab0"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/3960/shift-1E-18": {
+"accept": [
+"3fb99f17d9e21bf6",
+"3fb99f17d9e21bf7"
+],
+"crossings": 1,
+"nearest": [
+"3fb99f17d9e21bf6",
+"3fb99f17d9e21bf7"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4176/shift-1E-12": {
+"accept": [
+"4013a1dc3a67d07a",
+"4013a1dc3a67d07b"
+],
+"crossings": 1,
+"nearest": [
+"4013a1dc3a67d07a",
+"4013a1dc3a67d07b"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4176/shift-1E-15": {
+"accept": [
+"4013a1dc3d458063",
+"4013a1dc3d458064"
+],
+"crossings": 1,
+"nearest": [
+"4013a1dc3d458063",
+"4013a1dc3d458064"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4176/shift-1E-18": {
+"accept": [
+"4013a1dc3d5cdf78",
+"4013a1dc3d5cdf79"
+],
+"crossings": 1,
+"nearest": [
+"4013a1dc3d5cdf78",
+"4013a1dc3d5cdf79"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4180/shift-1E-12": {
+"accept": [
+"3fade3930a01135c",
+"3fade3930a01135d"
+],
+"crossings": 1,
+"nearest": [
+"3fade3930a01135c",
+"3fade3930a01135d"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4180/shift-1E-15": {
+"accept": [
+"3fade395f1359db5",
+"3fade395f1359db6"
+],
+"crossings": 1,
+"nearest": [
+"3fade395f1359db5",
+"3fade395f1359db6"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4180/shift-1E-18": {
+"accept": [
+"3fade396088dd131",
+"3fade396088dd132"
+],
+"crossings": 1,
+"nearest": [
+"3fade396088dd131",
+"3fade396088dd132"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4334/shift-1E-12": {
+"accept": [
+"3f8d6b8e2ae71971",
+"3f8d6b8e2ae71972"
+],
+"crossings": 1,
+"nearest": [
+"3f8d6b8e2ae71971",
+"3f8d6b8e2ae71972"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4334/shift-1E-15": {
+"accept": [
+"3f8d6b94ef05e615",
+"3f8d6b94ef05e616"
+],
+"crossings": 1,
+"nearest": [
+"3f8d6b94ef05e615",
+"3f8d6b94ef05e616"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4334/shift-1E-18": {
+"accept": [
+"3f8d6b95265fb1b1",
+"3f8d6b95265fb1b2"
+],
+"crossings": 1,
+"nearest": [
+"3f8d6b95265fb1b1",
+"3f8d6b95265fb1b2"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4422/shift-1E-12": {
+"accept": [
+"3f9565dd45d84c85",
+"3f9565dd45d84c86"
+],
+"crossings": 1,
+"nearest": [
+"3f9565dd45d84c85",
+"3f9565dd45d84c86"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4422/shift-1E-15": {
+"accept": [
+"3f9565e0931c094e",
+"3f9565e0931c094f"
+],
+"crossings": 1,
+"nearest": [
+"3f9565e0931c094e",
+"3f9565e0931c094f"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4422/shift-1E-18": {
+"accept": [
+"3f9565e0ad427318",
+"3f9565e0ad427319"
+],
+"crossings": 1,
+"nearest": [
+"3f9565e0ad427318",
+"3f9565e0ad427319"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4444/shift-1E-12": {
+"accept": [
+"3fa4dd6208ec5926",
+"3fa4dd6208ec5927"
+],
+"crossings": 1,
+"nearest": [
+"3fa4dd6208ec5926",
+"3fa4dd6208ec5927"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4444/shift-1E-15": {
+"accept": [
+"3fa4dd64dc3dff21",
+"3fa4dd64dc3dff22"
+],
+"crossings": 1,
+"nearest": [
+"3fa4dd64dc3dff21",
+"3fa4dd64dc3dff22"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4444/shift-1E-18": {
+"accept": [
+"3fa4dd64f349a858",
+"3fa4dd64f349a859"
+],
+"crossings": 1,
+"nearest": [
+"3fa4dd64f349a858",
+"3fa4dd64f349a859"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4554/shift-1E-12": {
+"accept": [
+"3fa5c8267e9095f4",
+"3fa5c8267e9095f5"
+],
+"crossings": 1,
+"nearest": [
+"3fa5c8267e9095f4",
+"3fa5c8267e9095f5"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4554/shift-1E-15": {
+"accept": [
+"3fa5c82871bd0c0d",
+"3fa5c82871bd0c0e"
+],
+"crossings": 1,
+"nearest": [
+"3fa5c82871bd0c0d",
+"3fa5c82871bd0c0e"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4554/shift-1E-18": {
+"accept": [
+"3fa5c828813c7e1b",
+"3fa5c828813c7e1c"
+],
+"crossings": 1,
+"nearest": [
+"3fa5c828813c7e1b",
+"3fa5c828813c7e1c"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4598/shift-1E-12": {
+"accept": [
+"3fa8daeb53abac02",
+"3fa8daeb53abac03"
+],
+"crossings": 1,
+"nearest": [
+"3fa8daeb53abac02",
+"3fa8daeb53abac03"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4598/shift-1E-15": {
+"accept": [
+"3fa8daed629cfd09",
+"3fa8daed629cfd0a"
+],
+"crossings": 1,
+"nearest": [
+"3fa8daed629cfd09",
+"3fa8daed629cfd0a"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4598/shift-1E-18": {
+"accept": [
+"3fa8daed72ce45f2",
+"3fa8daed72ce45f3"
+],
+"crossings": 1,
+"nearest": [
+"3fa8daed72ce45f2",
+"3fa8daed72ce45f3"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4642/shift-1E-12": {
+"accept": [
+"3fab661acac86c00",
+"3fab661acac86c01"
+],
+"crossings": 1,
+"nearest": [
+"3fab661acac86c00",
+"3fab661acac86c01"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4642/shift-1E-15": {
+"accept": [
+"3fab661deab4c5aa",
+"3fab661deab4c5ab"
+],
+"crossings": 1,
+"nearest": [
+"3fab661deab4c5aa",
+"3fab661deab4c5ab"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4642/shift-1E-18": {
+"accept": [
+"3fab661e03ae44f3",
+"3fab661e03ae44f4"
+],
+"crossings": 1,
+"nearest": [
+"3fab661e03ae44f3",
+"3fab661e03ae44f4"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4664/shift-1E-12": {
+"accept": [
+"3f95809c4da0525d",
+"3f95809c4da0525e"
+],
+"crossings": 1,
+"nearest": [
+"3f95809c4da0525d",
+"3f95809c4da0525e"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4664/shift-1E-15": {
+"accept": [
+"3f95809fea037f67",
+"3f95809fea037f68"
+],
+"crossings": 1,
+"nearest": [
+"3f95809fea037f67",
+"3f95809fea037f68"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4664/shift-1E-18": {
+"accept": [
+"3f9580a007348e1a",
+"3f9580a007348e1b"
+],
+"crossings": 1,
+"nearest": [
+"3f9580a007348e1a",
+"3f9580a007348e1b"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4752/shift-1E-12": {
+"accept": [
+"3f92e9caf500ae9f",
+"3f92e9caf500aea0"
+],
+"crossings": 1,
+"nearest": [
+"3f92e9caf500ae9f",
+"3f92e9caf500aea0"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4752/shift-1E-15": {
+"accept": [
+"3f92e9d5c793ac5c",
+"3f92e9d5c793ac5d"
+],
+"crossings": 1,
+"nearest": [
+"3f92e9d5c793ac5c",
+"3f92e9d5c793ac5d"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4752/shift-1E-18": {
+"accept": [
+"3f92e9d61f274d20",
+"3f92e9d61f274d21"
+],
+"crossings": 1,
+"nearest": [
+"3f92e9d61f274d20",
+"3f92e9d61f274d21"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4972/shift-1E-12": {
+"accept": [
+"3fa6aa5441a8dece",
+"3fa6aa5441a8decf"
+],
+"crossings": 1,
+"nearest": [
+"3fa6aa5441a8dece",
+"3fa6aa5441a8decf"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4972/shift-1E-15": {
+"accept": [
+"3fa6aa55b959545c",
+"3fa6aa55b959545d"
+],
+"crossings": 1,
+"nearest": [
+"3fa6aa55b959545c",
+"3fa6aa55b959545d"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/4972/shift-1E-18": {
+"accept": [
+"3fa6aa55c52bc691",
+"3fa6aa55c52bc692"
+],
+"crossings": 1,
+"nearest": [
+"3fa6aa55c52bc691",
+"3fa6aa55c52bc692"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/5192/shift-1E-12": {
+"accept": [
+"3f88b36dad30498c",
+"3f88b36dad30498d"
+],
+"crossings": 1,
+"nearest": [
+"3f88b36dad30498c",
+"3f88b36dad30498d"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/5192/shift-1E-15": {
+"accept": [
+"3f88b373f1f54b6b",
+"3f88b373f1f54b6c"
+],
+"crossings": 1,
+"nearest": [
+"3f88b373f1f54b6b",
+"3f88b373f1f54b6c"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/5192/shift-1E-18": {
+"accept": [
+"3f88b374236883ac",
+"3f88b374236883ad"
+],
+"crossings": 1,
+"nearest": [
+"3f88b374236883ac",
+"3f88b374236883ad"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/5324/shift-1E-12": {
+"accept": [
+"3fd0aaeceb80ed6d",
+"3fd0aaeceb80ed6e"
+],
+"crossings": 1,
+"nearest": [
+"3fd0aaeceb80ed6d",
+"3fd0aaeceb80ed6e"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/5324/shift-1E-15": {
+"accept": [
+"3fd0aaed5fde6520",
+"3fd0aaed5fde6521"
+],
+"crossings": 1,
+"nearest": [
+"3fd0aaed5fde6520",
+"3fd0aaed5fde6521"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/5324/shift-1E-18": {
+"accept": [
+"3fd0aaed63840a5f",
+"3fd0aaed63840a60"
+],
+"crossings": 1,
+"nearest": [
+"3fd0aaed63840a5f",
+"3fd0aaed63840a60"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/5456/shift-1E-12": {
+"accept": [
+"3fdfd5b66c996183",
+"3fdfd5b66c996184"
+],
+"crossings": 1,
+"nearest": [
+"3fdfd5b66c996183",
+"3fdfd5b66c996184"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/5456/shift-1E-15": {
+"accept": [
+"3fdfd5b6ec797266",
+"3fdfd5b6ec797267"
+],
+"crossings": 1,
+"nearest": [
+"3fdfd5b6ec797266",
+"3fdfd5b6ec797267"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/5456/shift-1E-18": {
+"accept": [
+"3fdfd5b6f06dbc55",
+"3fdfd5b6f06dbc56"
+],
+"crossings": 1,
+"nearest": [
+"3fdfd5b6f06dbc55",
+"3fdfd5b6f06dbc56"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/5544/shift-1E-12": {
+"accept": [
+"3f912f7b1a999b5a",
+"3f912f7b1a999b5b"
+],
+"crossings": 1,
+"nearest": [
+"3f912f7b1a999b5a",
+"3f912f7b1a999b5b"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/5544/shift-1E-15": {
+"accept": [
+"3f912f7f29a54d6f",
+"3f912f7f29a54d70"
+],
+"crossings": 1,
+"nearest": [
+"3f912f7f29a54d6f",
+"3f912f7f29a54d70"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/5544/shift-1E-18": {
+"accept": [
+"3f912f7f4a699a09",
+"3f912f7f4a699a0a"
+],
+"crossings": 1,
+"nearest": [
+"3f912f7f4a699a09",
+"3f912f7f4a699a0a"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/572/shift-1E-12": {
+"accept": [
+"3f975c4c6c49782e",
+"3f975c4c6c49782f"
+],
+"crossings": 1,
+"nearest": [
+"3f975c4c6c49782e",
+"3f975c4c6c49782f"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/572/shift-1E-15": {
+"accept": [
+"3f975c4f2eddcdc2",
+"3f975c4f2eddcdc3"
+],
+"crossings": 1,
+"nearest": [
+"3f975c4f2eddcdc2",
+"3f975c4f2eddcdc3"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/572/shift-1E-18": {
+"accept": [
+"3f975c4f44e06597",
+"3f975c4f44e06598"
+],
+"crossings": 1,
+"nearest": [
+"3f975c4f44e06597",
+"3f975c4f44e06598"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/594/shift-1E-12": {
+"accept": [
+"3fb4c3b9a590fba5",
+"3fb4c3b9a590fba6"
+],
+"crossings": 1,
+"nearest": [
+"3fb4c3b9a590fba5",
+"3fb4c3b9a590fba6"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/594/shift-1E-15": {
+"accept": [
+"3fb4c3ba69715d07",
+"3fb4c3ba69715d08"
+],
+"crossings": 1,
+"nearest": [
+"3fb4c3ba69715d07",
+"3fb4c3ba69715d08"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/594/shift-1E-18": {
+"accept": [
+"3fb4c3ba6fa2f16a",
+"3fb4c3ba6fa2f16b"
+],
+"crossings": 1,
+"nearest": [
+"3fb4c3ba6fa2f16a",
+"3fb4c3ba6fa2f16b"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/660/shift-1E-12": {
+"accept": [
+"3fa0107deaa36e66",
+"3fa0107deaa36e67"
+],
+"crossings": 1,
+"nearest": [
+"3fa0107deaa36e66",
+"3fa0107deaa36e67"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/660/shift-1E-15": {
+"accept": [
+"3fa0108039b88cff",
+"3fa0108039b88d00"
+],
+"crossings": 1,
+"nearest": [
+"3fa0108039b88cff",
+"3fa0108039b88d00"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/660/shift-1E-18": {
+"accept": [
+"3fa010804c292423",
+"3fa010804c292424"
+],
+"crossings": 1,
+"nearest": [
+"3fa010804c292423",
+"3fa010804c292424"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/748/shift-1E-12": {
+"accept": [
+"3fc10d9520eea237",
+"3fc10d9520eea238"
+],
+"crossings": 1,
+"nearest": [
+"3fc10d9520eea237",
+"3fc10d9520eea238"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/748/shift-1E-15": {
+"accept": [
+"3fc10d9755cf43c3",
+"3fc10d9755cf43c4"
+],
+"crossings": 1,
+"nearest": [
+"3fc10d9755cf43c3",
+"3fc10d9755cf43c4"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/748/shift-1E-18": {
+"accept": [
+"3fc10d9767f902f5",
+"3fc10d9767f902f6"
+],
+"crossings": 1,
+"nearest": [
+"3fc10d9767f902f5",
+"3fc10d9767f902f6"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/770/shift-1E-12": {
+"accept": [
+"3fbd42f1fe0f28c1",
+"3fbd42f1fe0f28c2"
+],
+"crossings": 1,
+"nearest": [
+"3fbd42f1fe0f28c1",
+"3fbd42f1fe0f28c2"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/770/shift-1E-15": {
+"accept": [
+"3fbd42f4432c5160",
+"3fbd42f4432c5161"
+],
+"crossings": 1,
+"nearest": [
+"3fbd42f4432c5160",
+"3fbd42f4432c5161"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/770/shift-1E-18": {
+"accept": [
+"3fbd42f45553b01e",
+"3fbd42f45553b01f"
+],
+"crossings": 1,
+"nearest": [
+"3fbd42f45553b01e",
+"3fbd42f45553b01f"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/792/shift-1E-12": {
+"accept": [
+"3fa20c8a8bb3e9db",
+"3fa20c8a8bb3e9dc"
+],
+"crossings": 1,
+"nearest": [
+"3fa20c8a8bb3e9db",
+"3fa20c8a8bb3e9dc"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/792/shift-1E-15": {
+"accept": [
+"3fa20c8be1f86988",
+"3fa20c8be1f86989"
+],
+"crossings": 1,
+"nearest": [
+"3fa20c8be1f86988",
+"3fa20c8be1f86989"
+],
+"surface": "main"
+},
+"band/ball_circular_cushion_time/792/shift-1E-18": {
+"accept": [
+"3fa20c8bec87abfa",
+"3fa20c8bec87abfb"
+],
+"crossings": 1,
+"nearest": [
+"3fa20c8bec87abfa",
+"3fa20c8bec87abfb"
+],
+"surface": "main"
+},
+"band/ball_linear_cushion_time/23034/shift-1E-12": {
+"accept": [
+"3fe8028e189b3cb3",
+"3fe8028e189b3cb4"
+],
+"crossings": 1,
+"nearest": [
+"3fe8028e189b3cb3",
+"3fe8028e189b3cb4"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/23034/shift-1E-15": {
+"accept": [
+"3fe802903932b124",
+"3fe802903932b125"
+],
+"crossings": 1,
+"nearest": [
+"3fe802903932b124",
+"3fe802903932b125"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/23034/shift-1E-18": {
+"accept": [
+"3fe802904aaeed3d",
+"3fe802904aaeed3e"
+],
+"crossings": 1,
+"nearest": [
+"3fe802904aaeed3d",
+"3fe802904aaeed3e"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/2794/shift-1E-12": {
+"accept": [
+"3fde2f978e416d5e",
+"3fde2f978e416d5f"
+],
+"crossings": 1,
+"nearest": [
+"3fde2f978e416d5e",
+"3fde2f978e416d5f"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/2794/shift-1E-15": {
+"accept": [
+"3fde2f9b4f7a0299",
+"3fde2f9b4f7a029a"
+],
+"crossings": 1,
+"nearest": [
+"3fde2f9b4f7a0299",
+"3fde2f9b4f7a029a"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/2794/shift-1E-18": {
+"accept": [
+"3fde2f9b6e66f3b9",
+"3fde2f9b6e66f3ba"
+],
+"crossings": 1,
+"nearest": [
+"3fde2f9b6e66f3b9",
+"3fde2f9b6e66f3ba"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/60633/shift-1E-12": {
+"accept": [
+"3fe4a31490d8b8e0",
+"3fe4a31490d8b8e1"
+],
+"crossings": 1,
+"nearest": [
+"3fe4a31490d8b8e0",
+"3fe4a31490d8b8e1"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/60633/shift-1E-15": {
+"accept": [
+"3fe4a31652975baa",
+"3fe4a31652975bab"
+],
+"crossings": 1,
+"nearest": [
+"3fe4a31652975baa",
+"3fe4a31652975bab"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/60633/shift-1E-18": {
+"accept": [
+"3fe4a3166097c911",
+"3fe4a3166097c912"
+],
+"crossings": 1,
+"nearest": [
+"3fe4a3166097c911",
+"3fe4a3166097c912"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/65164/shift-1E-12": {
+"accept": [
+"3fec284b910e57e6",
+"3fec284b910e57e7"
+],
+"crossings": 1,
+"nearest": [
+"3fec284b910e57e6",
+"3fec284b910e57e7"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/65164/shift-1E-15": {
+"accept": [
+"3fec284d3efca2fc",
+"3fec284d3efca2fd"
+],
+"crossings": 1,
+"nearest": [
+"3fec284d3efca2fc",
+"3fec284d3efca2fd"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/65164/shift-1E-18": {
+"accept": [
+"3fec284d4c319de4",
+"3fec284d4c319de5"
+],
+"crossings": 1,
+"nearest": [
+"3fec284d4c319de4",
+"3fec284d4c319de5"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/65165/shift-1E-12": {
+"accept": [
+"3fec284b910e4001",
+"3fec284b910e4002"
+],
+"crossings": 1,
+"nearest": [
+"3fec284b910e4001",
+"3fec284b910e4002"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/65165/shift-1E-15": {
+"accept": [
+"3fec284d3ef9af58",
+"3fec284d3ef9af59"
+],
+"crossings": 1,
+"nearest": [
+"3fec284d3ef9af58",
+"3fec284d3ef9af59"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/65165/shift-1E-18": {
+"accept": [
+"3fec284d4c73aa9d",
+"3fec284d4c73aa9e"
+],
+"crossings": 1,
+"nearest": [
+"3fec284d4c73aa9d",
+"3fec284d4c73aa9e"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/75020/shift-1E-12": {
+"accept": [
+"3ff10017cb089204",
+"3ff10017cb089205"
+],
+"crossings": 1,
+"nearest": [
+"3ff10017cb089204",
+"3ff10017cb089205"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/75020/shift-1E-15": {
+"accept": [
+"3ff10018b867f6f8",
+"3ff10018b867f6f9"
+],
+"crossings": 1,
+"nearest": [
+"3ff10018b867f6f8",
+"3ff10018b867f6f9"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/75020/shift-1E-18": {
+"accept": [
+"3ff10018bfa22268",
+"3ff10018bfa22269"
+],
+"crossings": 1,
+"nearest": [
+"3ff10018bfa22268",
+"3ff10018bfa22269"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/90003/shift-1E-12": {
+"accept": [
+"3fef7e263efbca62",
+"3fef7e263efbca63"
+],
+"crossings": 1,
+"nearest": [
+"3fef7e263efbca62",
+"3fef7e263efbca63"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/90003/shift-1E-15": {
+"accept": [
+"3fef7e2822de9d5d",
+"3fef7e2822de9d5e"
+],
+"crossings": 1,
+"nearest": [
+"3fef7e2822de9d5d",
+"3fef7e2822de9d5e"
+],
+"surface": "plane"
+},
+"band/ball_linear_cushion_time/90003/shift-1E-18": {
+"accept": [
+"3fef7e2832294479",
+"3fef7e283229447a"
+],
+"crossings": 1,
+"nearest": [
+"3fef7e2832294479",
+"3fef7e283229447a"
+],
+"surface": "plane"
+},
+"boundary/ball_circular_cushion_time/2133/shift-1E-12": {
+"accept": [
+"3fd1b5bf047507bd",
+"3fd1b5bf047507be"
+],
+"crossings": 1,
+"nearest": [
+"3fd1b5bf047507bd",
+"3fd1b5bf047507be"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/2133/shift-1E-15": {
+"accept": [
+"400098b784263813",
+"400098b784263814"
+],
+"crossings": 1,
+"nearest": [
+"400098b784263813",
+"400098b784263814"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/2133/shift-1E-18": {
+"accept": [
+"400098b78560b0dd",
+"400098b78560b0de"
+],
+"crossings": 1,
+"nearest": [
+"400098b78560b0dd",
+"400098b78560b0de"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/41810/shift-1E-12": {
+"accept": [
+"40145ffe79004b0e",
+"40145ffe79004b0f"
+],
+"crossings": 1,
+"nearest": [
+"40145ffe79004b0e",
+"40145ffe79004b0f"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/41810/shift-1E-15": {
+"accept": [
+"40145ffe7d6ccd38",
+"40145ffe7d6ccd39"
+],
+"crossings": 1,
+"nearest": [
+"40145ffe7d6ccd38",
+"40145ffe7d6ccd39"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/41810/shift-1E-18": {
+"accept": [
+"40145ffe7d8f9733",
+"40145ffe7d8f9734"
+],
+"crossings": 1,
+"nearest": [
+"40145ffe7d8f9733",
+"40145ffe7d8f9734"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/54898/shift-1E-12": {
+"accept": [
+"403843151deb09c4",
+"403843151deb09c5"
+],
+"crossings": 1,
+"nearest": [
+"403843151deb09c4",
+"403843151deb09c5"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/54898/shift-1E-15": {
+"accept": [
+"403843152184d9cc",
+"403843152184d9cd"
+],
+"crossings": 1,
+"nearest": [
+"403843152184d9cc",
+"403843152184d9cd"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/54898/shift-1E-18": {
+"accept": [
+"4038431521a12ae1",
+"4038431521a12ae2"
+],
+"crossings": 1,
+"nearest": [
+"4038431521a12ae1",
+"4038431521a12ae2"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/57482/shift-1E-12": {
+"accept": [
+"3fb91ccb25a36f25",
+"3fb91ccb25a36f26"
+],
+"crossings": 1,
+"nearest": [
+"3fb91ccb25a36f25",
+"3fb91ccb25a36f26"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/57482/shift-1E-15": {
+"accept": [
+"3fb91ccdb23789d3",
+"3fb91ccdb23789d4"
+],
+"crossings": 1,
+"nearest": [
+"3fb91ccdb23789d3",
+"3fb91ccdb23789d4"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/57482/shift-1E-18": {
+"accept": [
+"3fb91ccdc6436110",
+"3fb91ccdc6436111"
+],
+"crossings": 1,
+"nearest": [
+"3fb91ccdc6436110",
+"3fb91ccdc6436111"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/71588/shift-1E-12": {
+"accept": [
+"400a67855cd28491",
+"400a67855cd28492"
+],
+"crossings": 1,
+"nearest": [
+"400a67855cd28491",
+"400a67855cd28492"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/71588/shift-1E-15": {
+"accept": [
+"400a67856a62ae3c",
+"400a67856a62ae3d"
+],
+"crossings": 1,
+"nearest": [
+"400a67856a62ae3c",
+"400a67856a62ae3d"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/71588/shift-1E-18": {
+"accept": [
+"400a67856acf4bdc",
+"400a67856acf4bdd"
+],
+"crossings": 1,
+"nearest": [
+"400a67856acf4bdc",
+"400a67856acf4bdd"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/77165/shift-1E-12": {
+"accept": [
+"40440455f17767b1",
+"40440455f17767b2"
+],
+"crossings": 1,
+"nearest": [
+"40440455f17767b1",
+"40440455f17767b2"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/77165/shift-1E-15": {
+"accept": [
+"40440455f6c2194f",
+"40440455f6c21950"
+],
+"crossings": 1,
+"nearest": [
+"40440455f6c2194f",
+"40440455f6c21950"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/77165/shift-1E-18": {
+"accept": [
+"40440455f6ebb68b",
+"40440455f6ebb68c"
+],
+"crossings": 1,
+"nearest": [
+"40440455f6ebb68b",
+"40440455f6ebb68c"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/84243/shift-1E-12": {
+"accept": [
+"40433d826a2ab8c7",
+"40433d826a2ab8c8"
+],
+"crossings": 1,
+"nearest": [
+"40433d826a2ab8c7",
+"40433d826a2ab8c8"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/84243/shift-1E-15": {
+"accept": [
+"40433d826f8460b4",
+"40433d826f8460b5"
+],
+"crossings": 1,
+"nearest": [
+"40433d826f8460b4",
+"40433d826f8460b5"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/84243/shift-1E-18": {
+"accept": [
+"40433d826fae7399",
+"40433d826fae739a"
+],
+"crossings": 1,
+"nearest": [
+"40433d826fae7399",
+"40433d826fae739a"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/97784/shift-1E-12": {
+"accept": [
+"403e428a62236486",
+"403e428a62236487"
+],
+"crossings": 1,
+"nearest": [
+"403e428a62236486",
+"403e428a62236487"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/97784/shift-1E-15": {
+"accept": [
+"403e428a64f014d9",
+"403e428a64f014da"
+],
+"crossings": 1,
+"nearest": [
+"403e428a64f014d9",
+"403e428a64f014da"
+],
+"surface": "main"
+},
+"boundary/ball_circular_cushion_time/97784/shift-1E-18": {
+"accept": [
+"403e428a650618d9",
+"403e428a650618da"
+],
+"crossings": 1,
+"nearest": [
+"403e428a650618d9",
+"403e428a650618da"
+],
+"surface": "main"
+}
+}

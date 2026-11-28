@@ -1,0 +1,22 @@
+{
+  "schema": "rules-preset-v1",
+  "preset": "test-missing-cite-8ball",
+  "family": "eightball",
+  "display_key": "settings.variant.test-missing-cite-8ball",
+  "source": {
+    "title": "RECORDED NEGATIVE FIXTURE (022 T004, SC-003) — a test-only preset whose scratch_on_eight judged entry carries an EMPTY cite; the lint gate must fail loudly on it (task_config.rs preset_lint_negative_fixture_fails_loudly). NOT a shipped preset.",
+    "publisher": "Nobody",
+    "edition": "v0",
+    "url": "https://example.invalid/rules",
+    "tier": "secondary",
+    "inherits": null
+  },
+  "judged": {
+    "scratch_on_eight": {
+      "value": "loss",
+      "cite": ""
+    }
+  },
+  "adapter": {},
+  "not_modeled": []
+}

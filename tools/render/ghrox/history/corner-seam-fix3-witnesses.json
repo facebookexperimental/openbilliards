@@ -1,0 +1,154 @@
+{
+  "schema": "openbilliards/rox-retired-seam-witnesses/1",
+  "source_commit": "2f44adde31b7447f20a50da0fb3e38bc902b0fa4",
+  "fix3_dump_sha256": "85bdbef49ec44bb48bd77cf35ac1607cfa2450f392f3193c4e9ee06711a588d9",
+  "frame": "Each actual corner reflected into the +X+Z kernel nose-line frame, mm; 2 px/mm grid, 0.25 mm2 per cell.",
+  "retirement": "FIX9 measurement-corrected re-pin, ORDER-ROX-A4-FIX9. FIX8 transports the liner section to the frozen kernel mouth. Three of these twelve locations per corner now lie inside the C opening, and two old long-window slit cells lie ahead of its end chord on the mouth side of the actual cushion. Keep this fixed list and its full-window verdict as history; derive current high-cover and junction witnesses from the emitted construction. No threshold or planlaw source mask change.",
+  "original_rule": "Sealed FIX3 LAW cells on MODEL cup/flange outside the actual C radius, within one existing 0.1-degree fan step of either C endpoint",
+  "fixed_witnesses": [
+    {
+      "window": "short",
+      "grid_ij": [
+        345,
+        416
+      ],
+      "xy_mm": [
+        48.25,
+        -12.75
+      ],
+      "was_slit": true
+    },
+    {
+      "window": "short",
+      "grid_ij": [
+        348,
+        417
+      ],
+      "xy_mm": [
+        48.75,
+        -14.25
+      ],
+      "was_slit": true
+    },
+    {
+      "window": "short",
+      "grid_ij": [
+        351,
+        418
+      ],
+      "xy_mm": [
+        49.25,
+        -15.75
+      ],
+      "was_slit": true
+    },
+    {
+      "window": "short",
+      "grid_ij": [
+        354,
+        419
+      ],
+      "xy_mm": [
+        49.75,
+        -17.25
+      ],
+      "was_slit": true
+    },
+    {
+      "window": "short",
+      "grid_ij": [
+        356,
+        420
+      ],
+      "xy_mm": [
+        50.25,
+        -18.25
+      ],
+      "was_slit": false
+    },
+    {
+      "window": "short",
+      "grid_ij": [
+        359,
+        421
+      ],
+      "xy_mm": [
+        50.75,
+        -19.75
+      ],
+      "was_slit": false
+    },
+    {
+      "window": "short",
+      "grid_ij": [
+        362,
+        422
+      ],
+      "xy_mm": [
+        51.25,
+        -21.25
+      ],
+      "was_slit": false
+    },
+    {
+      "window": "short",
+      "grid_ij": [
+        364,
+        423
+      ],
+      "xy_mm": [
+        51.75,
+        -22.25
+      ],
+      "was_slit": false
+    },
+    {
+      "window": "short",
+      "grid_ij": [
+        365,
+        423
+      ],
+      "xy_mm": [
+        51.75,
+        -22.75
+      ],
+      "was_slit": false
+    },
+    {
+      "window": "short",
+      "grid_ij": [
+        367,
+        424
+      ],
+      "xy_mm": [
+        52.25,
+        -23.75
+      ],
+      "was_slit": false
+    },
+    {
+      "window": "short",
+      "grid_ij": [
+        370,
+        425
+      ],
+      "xy_mm": [
+        52.75,
+        -25.25
+      ],
+      "was_slit": false
+    },
+    {
+      "window": "short",
+      "grid_ij": [
+        373,
+        426
+      ],
+      "xy_mm": [
+        53.25,
+        -26.75
+      ],
+      "was_slit": false
+    }
+  ]
+}

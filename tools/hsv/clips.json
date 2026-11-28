@@ -1,0 +1,584 @@
+{
+ "base_url": "https://drdavepoolinfo.com/",
+ "fps_note": "A-series clips carry a camera OSD stamping '1/1000 ... 1000FPS' (verified on extracted frames); classic HSV 6.x clips have no OSD and 1000 fps is INFERRED from the shared rig (Kodak Motion Corder PS-110 typical configuration).",
+ "defaults": {
+  "thresh": 30,
+  "min_area": 150,
+  "pre": [
+   4,
+   18
+  ],
+  "post": [
+   5,
+   18
+  ]
+ },
+ "clips": [
+  {
+   "id": "HSV6-2",
+   "mp4": "HSV6-2_cue_bank_angled_top.mp4",
+   "url": "high_speed_videos/HSV6-2_cue_bank_angled_top.mp4",
+   "title": "CB kicked off rail at angle, topspin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "topspin"
+   },
+   "side": "top",
+   "edge": {
+    "scan": [
+     4,
+     45
+    ],
+    "sweep": [
+     30,
+     290
+    ]
+   },
+   "fps_provenance": "inferred",
+   "pre": [
+    3,
+    6
+   ],
+   "qc_extra": [
+    "short_pre_contact_capture"
+   ]
+  },
+  {
+   "id": "HSV6-3",
+   "mp4": "HSV6-3_cue_bank_angled_bottom.mp4",
+   "url": "high_speed_videos/HSV6-3_cue_bank_angled_bottom.mp4",
+   "title": "CB kicked off rail at angle, bottom spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "draw"
+   },
+   "side": "top",
+   "edge": {
+    "scan": [
+     4,
+     45
+    ],
+    "sweep": [
+     30,
+     290
+    ]
+   },
+   "fps_provenance": "inferred"
+  },
+  {
+   "id": "HSV6-4",
+   "mp4": "HSV6-4_cue_bank_angled_roll.mp4",
+   "url": "high_speed_videos/HSV6-4_cue_bank_angled_roll.mp4",
+   "title": "CB kicked off rail at angle, normal roll",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "roll"
+   },
+   "side": "top",
+   "edge": {
+    "scan": [
+     4,
+     45
+    ],
+    "sweep": [
+     30,
+     290
+    ]
+   },
+   "fps_provenance": "inferred"
+  },
+  {
+   "id": "HSV6-5",
+   "mp4": "HSV6-5_cue_bank_angled_stun.mp4",
+   "url": "high_speed_videos/HSV6-5_cue_bank_angled_stun.mp4",
+   "title": "CB kicked off rail at angle, stun",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "stun"
+   },
+   "side": "top",
+   "edge": {
+    "scan": [
+     4,
+     45
+    ],
+    "sweep": [
+     30,
+     290
+    ]
+   },
+   "fps_provenance": "inferred"
+  },
+  {
+   "id": "HSV6-6",
+   "mp4": "HSV6-6_bank_fast_left.mp4",
+   "url": "high_speed_videos/HSV6-6_bank_fast_left.mp4",
+   "title": "Bank fast speed + reverse (left) spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "fast",
+    "spin": "reverse-english"
+   },
+   "side": "right",
+   "edge": {
+    "scan": [
+     225,
+     315
+    ],
+    "sweep": [
+     35,
+     210
+    ]
+   },
+   "fps_provenance": "inferred"
+  },
+  {
+   "id": "HSV6-7",
+   "mp4": "HSV6-7_bank_fast_right.mp4",
+   "url": "high_speed_videos/HSV6-7_bank_fast_right.mp4",
+   "title": "Bank fast speed + natural/running (right) spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "fast",
+    "spin": "running-english"
+   },
+   "side": "right",
+   "edge": {
+    "scan": [
+     225,
+     315
+    ],
+    "sweep": [
+     35,
+     210
+    ]
+   },
+   "fps_provenance": "inferred"
+  },
+  {
+   "id": "HSV6-8",
+   "mp4": "HSV6-8_bank_slow_left.mp4",
+   "url": "high_speed_videos/HSV6-8_bank_slow_left.mp4",
+   "title": "Bank slow speed + reverse (left) spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "slow",
+    "spin": "reverse-english"
+   },
+   "side": "right",
+   "edge": {
+    "scan": [
+     225,
+     315
+    ],
+    "sweep": [
+     35,
+     210
+    ]
+   },
+   "fps_provenance": "inferred"
+  },
+  {
+   "id": "HSV6-9",
+   "mp4": "HSV6-9_bank_slow_right.mp4",
+   "url": "high_speed_videos/HSV6-9_bank_slow_right.mp4",
+   "title": "Bank slow speed + natural/running (right) spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "slow",
+    "spin": "running-english"
+   },
+   "side": "right",
+   "edge": {
+    "scan": [
+     225,
+     315
+    ],
+    "sweep": [
+     35,
+     210
+    ]
+   },
+   "fps_provenance": "inferred"
+  },
+  {
+   "id": "HSV6-10",
+   "mp4": "HSV6-10_cue_bank_straight_right.mp4",
+   "url": "high_speed_videos/HSV6-10_cue_bank_straight_right.mp4",
+   "title": "CB kicked straight into rail with (right) sidespin",
+   "conditions": {
+    "approach": "near-perpendicular",
+    "speed": "medium",
+    "spin": "sidespin"
+   },
+   "side": "top",
+   "edge": {
+    "scan": [
+     4,
+     45
+    ],
+    "sweep": [
+     30,
+     290
+    ]
+   },
+   "fps_provenance": "inferred"
+  },
+  {
+   "id": "HSV6-11",
+   "mp4": "HSV6-11_cue_bank_angled_left.mp4",
+   "url": "high_speed_videos/HSV6-11_cue_bank_angled_left.mp4",
+   "title": "CB kicked off rail with reverse (left) spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "reverse-english"
+   },
+   "side": "top",
+   "edge": {
+    "scan": [
+     4,
+     45
+    ],
+    "sweep": [
+     30,
+     290
+    ]
+   },
+   "fps_provenance": "inferred"
+  },
+  {
+   "id": "HSV6-12",
+   "mp4": "HSV6-12_cue_bank_angled_right.mp4",
+   "url": "high_speed_videos/HSV6-12_cue_bank_angled_right.mp4",
+   "title": "CB kicked off rail with natural/running (right) spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "running-english"
+   },
+   "side": "top",
+   "edge": {
+    "scan": [
+     4,
+     45
+    ],
+    "sweep": [
+     30,
+     290
+    ]
+   },
+   "fps_provenance": "inferred",
+   "pre": [
+    3,
+    6
+   ],
+   "qc_extra": [
+    "short_pre_contact_capture"
+   ]
+  },
+  {
+   "id": "HSV6-13",
+   "mp4": "HSV6-13_banked_ball_glanced_fast.mp4",
+   "url": "high_speed_videos/HSV6-13_banked_ball_glanced_fast.mp4",
+   "title": "OB banked fast with cut-angle-induced spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "fast",
+    "spin": "cut-induced"
+   },
+   "side": "right",
+   "edge": {
+    "scan": [
+     260,
+     318
+    ],
+    "sweep": [
+     60,
+     220
+    ]
+   },
+   "post": [
+    4,
+    10
+   ],
+   "qc_extra": [
+    "two_moving_balls",
+    "post_contact_curvature"
+   ],
+   "fps_provenance": "inferred",
+   "gate": [
+    60,
+    212,
+    173,
+    32
+   ],
+   "pre": [
+    4,
+    14
+   ]
+  },
+  {
+   "id": "HSV6-14",
+   "mp4": "HSV6-14_banked_ball_glanced_slow.mp4",
+   "url": "high_speed_videos/HSV6-14_banked_ball_glanced_slow.mp4",
+   "title": "OB banked slowly with cut-angle-induced spin",
+   "conditions": {
+    "approach": "angled",
+    "speed": "slow",
+    "spin": "cut-induced"
+   },
+   "side": "right",
+   "edge": {
+    "scan": [
+     260,
+     318
+    ],
+    "sweep": [
+     60,
+     220
+    ]
+   },
+   "post": [
+    4,
+    14
+   ],
+   "qc_extra": [
+    "two_moving_balls",
+    "post_contact_curvature"
+   ],
+   "fps_provenance": "inferred",
+   "gate": [
+    90,
+    124,
+    193,
+    32
+   ],
+   "pre": [
+    4,
+    16
+   ]
+  },
+  {
+   "id": "HSVA-26",
+   "mp4": "HSVA-26_kick_with_English.mp4",
+   "url": "high_speed_videos/new/HSVA-26_kick_with_English.mp4",
+   "title": "Kick shot with english",
+   "conditions": {
+    "approach": "angled",
+    "speed": "medium",
+    "spin": "sidespin"
+   },
+   "side": "bottom",
+   "roi": [
+    40,
+    192,
+    0,
+    320
+   ],
+   "fps_provenance": "stamped_1000fps_osd"
+  },
+  {
+   "id": "HSVA-27",
+   "mp4": "HSVA-27_small_angle_kick_with_reverse_English.mp4",
+   "url": "high_speed_videos/new/HSVA-27_small_angle_kick_with_reverse_English.mp4",
+   "title": "Small-angle kick with reverse english",
+   "conditions": {
+    "approach": "small-angle",
+    "speed": "medium",
+    "spin": "reverse-english"
+   },
+   "side": "bottom",
+   "roi": [
+    40,
+    192,
+    0,
+    320
+   ],
+   "fps_provenance": "stamped_1000fps_osd"
+  },
+  {
+   "id": "HSVA-28",
+   "mp4": "HSVA-28_small_angle_kick_with_running_English.mp4",
+   "url": "high_speed_videos/new/HSVA-28_small_angle_kick_with_running_English.mp4",
+   "title": "Small-angle kick with running english",
+   "conditions": {
+    "approach": "small-angle",
+    "speed": "medium",
+    "spin": "running-english"
+   },
+   "side": "bottom",
+   "roi": [
+    40,
+    192,
+    0,
+    320
+   ],
+   "fps_provenance": "stamped_1000fps_osd"
+  },
+  {
+   "id": "HSVA-68",
+   "mp4": "HSVA-68_kick_shot_with_running-English_slow.mp4",
+   "url": "high_speed_videos/new/HSVA-68_kick_shot_with_running-English_slow.mp4",
+   "title": "Large-angle kick with running english, slow",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "slow",
+    "spin": "running-english"
+   },
+   "side": "top",
+   "qc_extra": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ],
+   "fps_provenance": "stamped_1000fps_osd",
+   "qualitative_only": true
+  },
+  {
+   "id": "HSVA-69",
+   "mp4": "HSVA-69_kick_shot_with_running-English_fast.mp4",
+   "url": "high_speed_videos/new/HSVA-69_kick_shot_with_running-English_fast.mp4",
+   "title": "Large-angle kick with running english, fast",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "fast",
+    "spin": "running-english"
+   },
+   "side": "top",
+   "qc_extra": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ],
+   "fps_provenance": "stamped_1000fps_osd",
+   "qualitative_only": true
+  },
+  {
+   "id": "HSVA-70",
+   "mp4": "HSVA-70_kick_shot_with_reverse-English_slow.mp4",
+   "url": "high_speed_videos/new/HSVA-70_kick_shot_with_reverse-English_slow.mp4",
+   "title": "Large-angle kick with reverse english, slow",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "slow",
+    "spin": "reverse-english"
+   },
+   "side": "top",
+   "qc_extra": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ],
+   "fps_provenance": "stamped_1000fps_osd",
+   "qualitative_only": true
+  },
+  {
+   "id": "HSVA-71",
+   "mp4": "HSVA-71_kick_shot_with_reverse-English_fast.mp4",
+   "url": "high_speed_videos/new/HSVA-71_kick_shot_with_reverse-English_fast.mp4",
+   "title": "Large-angle kick with reverse english, fast",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "fast",
+    "spin": "reverse-english"
+   },
+   "side": "top",
+   "qc_extra": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ],
+   "fps_provenance": "stamped_1000fps_osd",
+   "qualitative_only": true
+  },
+  {
+   "id": "HSVA-72",
+   "mp4": "HSVA-72_kick_shot_with_draw_slow.mp4",
+   "url": "high_speed_videos/new/HSVA-72_kick_shot_with_draw_slow.mp4",
+   "title": "Large-angle kick with draw, slow",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "slow",
+    "spin": "draw"
+   },
+   "side": "top",
+   "qc_extra": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ],
+   "fps_provenance": "stamped_1000fps_osd",
+   "qualitative_only": true
+  },
+  {
+   "id": "HSVA-73",
+   "mp4": "HSVA-73_kick_shot_with_draw_fast.mp4",
+   "url": "high_speed_videos/new/HSVA-73_kick_shot_with_draw_fast.mp4",
+   "title": "Large-angle kick with draw, fast",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "fast",
+    "spin": "draw"
+   },
+   "side": "top",
+   "qc_extra": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ],
+   "fps_provenance": "stamped_1000fps_osd",
+   "qualitative_only": true
+  },
+  {
+   "id": "HSVA-74",
+   "mp4": "HSVA-74_kick_shot_with_follow_slow.mp4",
+   "url": "high_speed_videos/new/HSVA-74_kick_shot_with_follow_slow.mp4",
+   "title": "Large-angle kick with follow, slow",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "slow",
+    "spin": "follow"
+   },
+   "side": "top",
+   "qc_extra": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ],
+   "fps_provenance": "stamped_1000fps_osd",
+   "qualitative_only": true
+  },
+  {
+   "id": "HSVA-75",
+   "mp4": "HSVA-75_kick_shot_with_follow_fast.mp4",
+   "url": "high_speed_videos/new/HSVA-75_kick_shot_with_follow_fast.mp4",
+   "title": "Large-angle kick with follow, fast",
+   "conditions": {
+    "approach": "large-angle",
+    "speed": "fast",
+    "spin": "follow"
+   },
+   "side": "top",
+   "qc_extra": [
+    "unmeasurable_camera_looks_along_rail_no_reference_line",
+    "depth_axis_foreshortening_dominates_normal_component",
+    "in_clip_replay_cuts",
+    "spin_condition_from_title_only"
+   ],
+   "fps_provenance": "stamped_1000fps_osd",
+   "qualitative_only": true
+  }
+ ]
+}

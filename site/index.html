@@ -1,0 +1,680 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Openbilliards — an open-source billiards simulation of unusual fidelity</title>
+  <meta name="description" content="An open-source, event-driven billiards physics kernel: the full break in 3.87 ms in your browser, paper-cited models, byte-identical replays on any machine, and SDKs for TypeScript, Python and the shell.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Openbilliards — an open-source billiards simulation of unusual fidelity">
+  <meta property="og:description" content="An open-source, event-driven billiards physics kernel: the full break in 3.87 ms in your browser, paper-cited models, byte-identical replays on any machine, and SDKs for TypeScript, Python and the shell.">
+  <meta property="og:image" content="assets/img/hero-poster.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b100c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23efe9d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/hero.css">
+  <link rel="stylesheet" href="assets/break.css">
+  <link rel="stylesheet" href="assets/physics.css">
+  <link rel="stylesheet" href="assets/clip.css">
+  <script src="assets/site.js" defer></script>
+  <script src="assets/motion.js" defer></script>
+  <script src="assets/clip.js" defer></script>
+</head>
+<body>
+  <a class="bb-skip" href="#main">Skip to content</a>
+
+  <header>
+    <nav class="bb-nav" aria-label="Primary">
+      <a class="bb-wordmark" href="index.html">Openbilliards</a>
+      <button class="bb-nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <ul class="bb-nav-links" id="nav-links">
+        <li><a href="guide/en/index.html">Guide</a></li>
+        <li><a href="docs/index.html">API docs</a></li>
+        <li><a href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a></li>
+        <li><a class="bb-pill" href="web/app.html">Play now</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="bb-hero-100vh bb-section hero" aria-labelledby="hero-h">
+      <div class="hero-media" aria-hidden="true">
+        <video autoplay muted loop playsinline preload="metadata"
+               poster="assets/img/hero-poster.webp">
+          <source src="assets/img/hero-loop.webm" type="video/webm">
+          <source src="assets/img/hero-loop.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <p class="bb-edge-tab bb-label">Openbilliards — kernel 0.1</p>
+
+      <p class="bb-label bb-marker bb-reveal hero-tag">
+        An open-source billiards simulation of unusual fidelity</p>
+      <h1 id="hero-h" class="hero-lockup bb-reveal bb-d1">Open<wbr>billiards</h1>
+
+      <div class="hero-foot">
+        <div class="hero-intro">
+          <p class="bb-body bb-reveal bb-d2">Physics solved in closed form, not stepped:
+            a Rust event-driven kernel that simulates the full 15-ball break in
+            3.87&nbsp;ms in your browser
+            <span class="bb-cite">the internal verification archive</span>,
+            with every model cited to its paper and every replay byte-identical
+            on any machine.</p>
+          <p class="hero-ctas bb-reveal bb-d3">
+            <a class="bb-pill bb-pill--fill" href="web/app.html">Play now</a>
+            <a class="bb-pill" href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a>
+          </p>
+        </div>
+        <dl class="hero-specs bb-reveal bb-d4">
+          <div>
+            <dt class="bb-label">15-ball break, in-browser</dt>
+            <dd><span class="spec-v">3.87 ms</span>
+              <span class="bb-cite">the internal verification archive</span></dd>
+          </div>
+          <div>
+            <dt class="bb-label">Checks vs the benchmark&rsquo;s slow-mo</dt>
+            <dd><span class="spec-v">53/56 &#183; 0 FAIL</span>
+              <span class="bb-cite">the internal verification archive</span></dd>
+          </div>
+          <div>
+            <dt class="bb-label">Kernel unit + oracle tests</dt>
+            <dd><span class="spec-v">196/196</span>
+              <span class="bb-cite">the internal verification archive</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <p class="bb-label hero-scroll">
+        <a class="bb-link bb-link--down bb-link--quiet" href="#break">Scroll — the record</a>
+      </p>
+    </section>
+
+    <div class="divider"><hr class="bb-rule"></div>
+
+    <section class="bb-section break-act" id="break" aria-labelledby="break-h">
+      <div class="break-pin">
+        <div class="break-head">
+          <div>
+            <p class="bb-label bb-marker bb-reveal">The record</p>
+            <h2 id="break-h" class="bb-display band-display bb-reveal bb-d1">Anatomy<br>of a break.</h2>
+          </div>
+          <p class="bb-body break-lede bb-reveal bb-d2"><span class="break-lede-lead">One recorded break, event by event.</span>
+            The kernel solved it once, in closed form; what moves here is the record itself,
+            an event list that re-simulates byte-identical on any machine
+            <span class="bb-cite">Constitution</span>.
+            Every tick on the rail is read off the record, not an animation keyframe.</p>
+        </div>
+
+        <div class="break-stage">
+          <p class="bb-label figure-plate break-prov">Record &#8212; the break</p>
+          <div class="break-canvas-box">
+            <canvas class="break-canvas" role="img"
+                    aria-label="Recorded break replay. Scrolling this section scrubs through the record's frames; the record's full event timeline is available as text in this section."></canvas>
+            <div class="break-shade" aria-hidden="true"></div>
+          </div>
+          <div class="break-rail" aria-hidden="true">
+            <div class="break-rail-line"></div>
+            <div class="break-playhead"></div>
+          </div>
+          <p class="break-caption" aria-hidden="true"></p>
+        </div>
+
+        <div class="break-fallback">
+          <div class="break-timeline-static">
+            <p class="bb-label">Record timeline</p>
+            <ol class="break-events bb-body-s bb-muted">
+              <li><span class="break-ev-kind">Strike</span>
+                <span>t +0.000 s &#183; 7.5 m/s, 7&#176; elevation, +0.2R tip</span></li>
+              <li><span class="break-ev-kind">BallBall</span>
+                <span>t +0.115 s &#183; first contact, cue ball into the rack</span></li>
+              <li><span class="break-ev-kind">Cushion</span>
+                <span>t +0.226 s &#183; ball 8, first of 11 by 1.45 s</span></li>
+              <li><span class="break-ev-kind">Airborne</span>
+                <span>t +0.381 s &#183; cue ball hop apex, 364 mm</span></li>
+              <li><span class="break-ev-kind">Land</span>
+                <span>t +0.654 s &#183; cue ball back on the cloth</span></li>
+              <li><span class="break-ev-kind">Spread</span>
+                <span>t +0.880 s &#183; pack 0.54 m mean from the rack centroid</span></li>
+              <li><span class="break-ev-kind">Rest</span>
+                <span>t +6.764 s &#183; friction settles every ball; the record window ends here</span></li>
+            </ol>
+          </div>
+          <figure class="break-poster" role="img"
+                  aria-label="Poster frame of the recorded break: mid-break, the cue ball at its hop apex over the spreading pack, rendered by the engine itself.">
+            <figcaption class="bb-label figure-plate">Record &#8212; the break &#183; poster</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"><hr class="bb-rule"></div>
+
+    <section class="bb-section bb-band band" id="performance" aria-labelledby="perf-h">
+      <p class="bb-label bb-marker bb-reveal">Performance</p>
+      <h2 id="perf-h" class="bb-display band-display bb-reveal bb-d1">The break,<br>in 4 milliseconds.</h2>
+
+      <div class="band-body">
+        <div class="band-copy">
+          <p class="bb-body bb-reveal bb-d2">Between events the kernel evolves ball motion in
+            closed form; collision times are the real roots of degree-&le;4 polynomials,
+            found with the kernel&rsquo;s quartic root solver.
+            No timesteps, no accumulated error. A time-stepping engine would need
+            roughly 30,000 steps to hold the same tolerance over one shot
+            <span class="bb-cite">physics-engines.md&nbsp;&#183;&nbsp;&sect;4</span>.</p>
+          <p class="bb-body bb-muted bb-reveal bb-d3">That makes it an order of magnitude faster than
+            the leading open-source research simulator, measured on a harder workload:
+            its 9-ball break averages 35.9&nbsp;ms per shot
+            <span class="bb-cite">the simulator performance study (internal)</span>;
+            our 15-ball break settles in 3.76&nbsp;ms native with compliant
+            multibody cluster resolution
+            <span class="bb-cite">the internal verification archive</span>.</p>
+        </div>
+        <figure class="band-figure fig-void-cueball" role="img"
+                aria-label="Cue ball isolated on the slate void, rim-lit from the upper right, rendered by the engine itself.">
+          <figcaption class="bb-label figure-plate">Render — void mode &#183; cue ball</figcaption>
+        </figure>
+      </div>
+
+      <div class="claims">
+        <div class="claim bb-reveal">
+          <span class="claim-k bb-label">15-ball break — wasm, in-browser</span>
+          <span class="claim-v">7.92 ms</span>
+          <span class="claim-n bb-body-s bb-muted">Budget &lt; 10 ms p50 for a 2020-class laptop with compliant multibody break physics (Constitution), measured on M1/M2-class hardware. Pass.</span>
+          <span class="bb-cite">the internal verification archive</span>
+        </div>
+        <div class="claim bb-reveal bb-d1">
+          <span class="claim-k bb-label">Typical shot — native</span>
+          <span class="claim-v">98.9 &micro;s</span>
+          <span class="claim-n bb-body-s bb-muted">0.18 ms in wasm; budget &lt; 1 ms. Pass.</span>
+          <span class="bb-cite">the internal verification archive</span>
+        </div>
+        <div class="claim bb-reveal bb-d2">
+          <span class="claim-k bb-label">Whole-table pose sample</span>
+          <span class="claim-v">2.86 &micro;s</span>
+          <span class="claim-n bb-body-s bb-muted">Cheap enough for dozens of candidate simulations per frame: ghost balls, aim assist, AI rollouts.</span>
+          <span class="bb-cite">the internal verification archive</span>
+        </div>
+        <div class="claim bb-reveal bb-d3">
+          <span class="claim-k bb-label">Aim preview, main-thread cost</span>
+          <span class="claim-v">0.005 ms</span>
+          <span class="claim-n bb-body-s bb-muted">Moved to a Web Worker (was 1.04 ms avg); the ghost stays bit-identical to the shot, verified 21/21 angles; zero frames over 33 ms in headed 60 Hz sweeps.</span>
+          <span class="bb-cite">the internal verification archive</span>
+        </div>
+      </div>
+    </section>
+
+    <figure class="strip fig-table-break" role="img"
+            aria-label="Cinema still of the break: the engine&rsquo;s own render of the table at contact.">
+      <figcaption class="bb-label figure-plate">Render — table mode &#183; the break</figcaption>
+    </figure>
+
+    <section class="bb-section bb-band band" id="realism" aria-labelledby="real-h">
+      <p class="bb-label bb-marker bb-reveal">Realism</p>
+      <h2 id="real-h" class="bb-display band-display bb-reveal bb-d1">Every model<br>cites its paper.</h2>
+
+      <div class="band-body no-fig">
+        <div class="band-copy">
+          <p class="bb-body bb-reveal bb-d2">By constitutional law, every physical model in the
+            kernel carries a literature citation in its code docs
+            <span class="bb-cite">Constitution</span>:
+            Han&nbsp;2005 cushions as corrected by Kiefl, Mathavan&nbsp;2010/2014, Stronge impact
+            mechanics, Alciatore&rsquo;s velocity-dependent throw, endmass squirt, and the
+            grounded mass&eacute; regime from Coriolis,&nbsp;1835
+            <span class="bb-cite">the internal verification archive</span>.
+            The cloth is real too: the default surface is a worsted tournament cloth,
+            built from published measurements
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/docs/research/cloth-calibration.md">cloth-calibration.md</a>
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/crates/pool-core/src/catalog.rs">catalog.rs</a>.</p>
+          <p class="bb-body bb-muted bb-reveal bb-d3">And when the benchmark&rsquo;s own footage contradicts
+            the published physics, the literature wins: the conflict is documented as a
+            by-design deviation, not painted over
+            <span class="bb-cite">the internal verification archive</span>.
+            An explicit anti-overfit audit demotes any preset that matches the video but
+            degrades independent anchors; those ship opt-in, never as defaults
+            <span class="bb-cite">the internal verification archive</span>.</p>
+        </div>
+      </div>
+
+      <div class="claims">
+        <div class="claim bb-reveal">
+          <span class="claim-k bb-label">Behavioral suite vs reference-sim slow-mo</span>
+          <span class="claim-v">53/56 &#183; 0 FAIL</span>
+          <span class="claim-n bb-body-s bb-muted">Scored frame-by-frame against the benchmark&rsquo;s official 1080p60 physics demo, 9 scenario families; every miss root-caused in writing. Re-tallied 2026-07-07 after two scenario additions (51/54 before them).</span>
+          <span class="claim-c"><span class="bb-cite">the internal verification archive</span></span>
+        </div>
+        <div class="claim bb-reveal bb-d1">
+          <span class="claim-k bb-label">Published banking anchors</span>
+          <span class="claim-v">18 ANCHORS</span>
+          <span class="claim-n bb-body-s bb-muted">Jewett&rsquo;s 2004 rolling-vs-sliding rebound spread of 14&deg;&plusmn;2 measures 15.0&deg; at the kernel default: in.</span>
+          <span class="bb-cite">the internal verification archive</span>
+        </div>
+        <div class="claim bb-reveal bb-d2">
+          <span class="claim-k bb-label">Worn-ball fit, out-of-sample</span>
+          <span class="claim-v">&micro;(5&nbsp;m/s) = 0.0419</span>
+          <span class="claim-n bb-body-s bb-muted">Fitted on hop apexes and cut throws only, it landed inside Alciatore&rsquo;s dirty-ball band [0.034,&nbsp;0.057], data it never saw.</span>
+          <span class="bb-cite">the internal verification archive</span>
+        </div>
+        <div class="claim bb-reveal bb-d3">
+          <span class="claim-k bb-label">The feel four-pack</span>
+          <span class="claim-v">3 FRICTIONS</span>
+          <span class="claim-n bb-body-s bb-muted">Velocity-dependent throw, endmass squirt, cushion speed/spin coupling, and independent slide (~0.2) / roll (~0.01) / spin cloth coefficients. General engines structurally lack the separation.</span>
+          <span class="claim-c"><span class="bb-cite">the feel four-pack</span>
+            <span class="bb-cite">physics-engines.md</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band band" id="reproduced" aria-labelledby="repro-h">
+      <p class="bb-label bb-marker bb-reveal">Reproduced from reality</p>
+      <h2 id="repro-h" class="bb-display band-display bb-reveal bb-d1">Real shots,<br>re-created.</h2>
+
+      <div class="band-body no-fig">
+        <div class="band-copy">
+          <p class="bb-body bb-reveal bb-d2">These are real trick shots — designs after
+            Florian &ldquo;Venom&rdquo; Kohler, filmed by Dr.&nbsp;Dave Billiards —
+            re-created in-engine from the footage records: ball positions, tip
+            offsets and cue elevations measured frame by frame where each clip
+            supports them, and declared as honest brackets where it cannot
+            <span class="bb-cite">the internal footage records</span>,
+            then simulated by the same kernel that runs the game
+            <span class="bb-cite">the engine&rsquo;s own record player</span>.
+            Nothing here is animated by hand; what moves is the kernel&rsquo;s own record.</p>
+        </div>
+      </div>
+
+      <div class="repro-grid">
+        <figure class="repro-tile bb-reveal">
+          <video muted loop playsinline preload="none"
+                 poster="assets/img/repro-m1-umasse-poster.webp"
+                 aria-label="Engine re-creation of massé shot 1: an elevated cue strikes down on the cue ball, which bends away in a C; then, seen from overhead, the cue ball sweeps a table-length U around a line of nine balls, staying on the cloth the whole way, and pots the hanger in the far corner.">
+            <source src="assets/img/repro-m1-umasse.webm" type="video/webm">
+            <source src="assets/img/repro-m1-umasse.mp4" type="video/mp4">
+          </video>
+          <figcaption class="bb-label figure-plate">Reproduction — mass&eacute; shot 1 &#183; table-length U</figcaption>
+          <p class="repro-note bb-body-s bb-muted">A table-length mass&eacute; around a
+            nine-ball line, grounded the whole way — cue-ball path RMS &asymp; 24&nbsp;mm
+            vs the footage record. Slow motion.</p>
+        </figure>
+        <figure class="repro-tile bb-reveal bb-d1">
+          <video muted loop playsinline preload="none"
+                 poster="assets/img/repro-sm2-trick-poster.webp"
+                 aria-label="Engine re-creation of the seed-sm2 8-ball trick, seen from an elevated side view: the cue ball hops over a hanging 8-ball, lands beyond it, draws straight back, taps the 8 into the pocket, and stays safe at the pocket mouth.">
+            <source src="assets/img/repro-sm2-trick.webm" type="video/webm">
+            <source src="assets/img/repro-sm2-trick.mp4" type="video/mp4">
+          </video>
+          <figcaption class="bb-label figure-plate">Reproduction — 8-ball hop &amp; draw &#183; pocket-mouth trick</figcaption>
+          <p class="repro-note bb-body-s bb-muted">The cue ball hops the hanging 8, draws
+            back and taps it in, surviving at the mouth — the story of a reduced-scope
+            record (seed-sm2): hop and draw inside its brackets, the total
+            draw-back run ledgered short. Slow motion.</p>
+        </figure>
+        <figure class="repro-tile bb-reveal bb-d2">
+          <video muted loop playsinline preload="none"
+                 poster="assets/img/repro-v2-strike-poster.webp"
+                 aria-label="Engine re-creation of Venom shot 2 in slow motion: the cue strikes at 48.6 degrees and the cue ball hops airborne before landing with follow.">
+            <source src="assets/img/repro-v2-strike.webm" type="video/webm">
+            <source src="assets/img/repro-v2-strike.mp4" type="video/mp4">
+          </video>
+          <figcaption class="bb-label figure-plate">Reproduction — shot 2 &#183; fouett&eacute; follow</figcaption>
+          <p class="repro-note bb-body-s bb-muted">The fouett&eacute; strike: the cue ball
+            hops from a 48.6&deg; cue and lands running, at 16&times;.</p>
+        </figure>
+      </div>
+
+      <p class="repro-prov bb-body-s bb-muted bb-reveal">Reproduction under each
+        record&rsquo;s measured initial conditions and declared brackets — not a claim
+        of exactness. One record is verdicted REPRODUCED
+        (every gate holds, every residual &le; 2&sigma;), one re-creates the story of a
+        reduced-scope record (hop and draw inside its brackets; the full draw-back
+        run falls short), and one re-creates the cue-ball
+        story only; every miss is ledgered in the verification
+        records, never tuned away
+        <span class="bb-cite">the internal verification archive</span>.</p>
+    </section>
+
+    <section class="bb-section bb-band band" id="validated" aria-labelledby="val-h">
+      <p class="bb-label bb-marker bb-reveal">Validated on camera</p>
+      <h2 id="val-h" class="bb-display band-display bb-reveal bb-d1">The rules hold.<br>Watch them.</h2>
+
+      <div class="band-body no-fig">
+        <div class="band-copy">
+          <p class="bb-body bb-reveal bb-d2">The textbook effects every player
+            trusts — the 30&#176; rule, squirt, bank ladders, kick systems —
+            staged in-engine and filmed. Each clip re-simulates its pinned
+            verification record byte-for-byte before a frame is captured, and
+            the numbers burned into the frame are re-measured from that
+            record at render time, never typed in
+            <a class="bb-cite" href="assets/physics/physics-data.json">physics-data.json</a>.</p>
+        </div>
+      </div>
+
+      <div class="ph-grid ph-teaser">
+        <!-- BEGIN generated:scenario-teaser (scripts/site-physics-data.mjs) -->
+<figure class="ph-tile bb-reveal bb-d1">
+  <a class="ph-media bb-clip" href="assets/physics/squirt-endmass.mp4" data-clip
+     data-clip-title="Squirt / endmass — sidespin pushes the cue ball off the aim line" data-clip-duration="9.0 s"
+     data-clip-preview="assets/physics/preview/squirt-endmass-preview.mp4"
+     data-clip-autoplay data-clip-fullscreen
+     aria-label="Play — Squirt / endmass — sidespin pushes the cue ball off the aim line (9.0 s)">
+    <img src="assets/physics/squirt-endmass-poster.webp" alt="" width="1920" height="1080"
+         loading="lazy" decoding="async">
+    <span class="ph-dur bb-label" aria-hidden="true">9.0 s</span>
+  </a>
+  <figcaption class="bb-label figure-plate">Squirt / endmass</figcaption>
+  <p class="ph-claim bb-body-s">predicted 3.12° · measured 3.12°
+    <a class="bb-cite" href="assets/physics/squirt-endmass-gates.json">gates</a></p>
+  <p class="ph-note bb-body-s bb-muted">sidespin pushes the cue ball off the aim line</p>
+</figure>
+<figure class="ph-tile bb-reveal bb-d2">
+  <a class="ph-media bb-clip" href="assets/physics/thirty-rule.mp4" data-clip
+     data-clip-title="The 30° rule — natural-roll peak deflection" data-clip-duration="8.8 s"
+     data-clip-preview="assets/physics/preview/thirty-rule-preview.mp4"
+     data-clip-autoplay data-clip-fullscreen
+     aria-label="Play — The 30° rule — natural-roll peak deflection (8.8 s)">
+    <img src="assets/physics/thirty-rule-poster.webp" alt="" width="1920" height="1080"
+         loading="lazy" decoding="async">
+    <span class="ph-dur bb-label" aria-hidden="true">8.8 s</span>
+  </a>
+  <figcaption class="bb-label figure-plate">The 30° rule</figcaption>
+  <p class="ph-claim bb-body-s">predicted 33.70° · measured 33.71°
+    <a class="bb-cite" href="assets/physics/thirty-rule-gates.json">gates</a></p>
+  <p class="ph-note bb-body-s bb-muted">natural-roll peak deflection</p>
+</figure>
+<figure class="ph-tile bb-reveal bb-d3">
+  <a class="ph-media bb-clip" href="assets/physics/bank-ladder-b28.mp4" data-clip
+     data-clip-title="Bank through-diamond ladder — TP B.28 five-table envelope" data-clip-duration="24.4 s"
+     data-clip-preview="assets/physics/preview/bank-ladder-b28-preview.mp4"
+     data-clip-autoplay data-clip-fullscreen
+     aria-label="Play — Bank through-diamond ladder — TP B.28 five-table envelope (24.4 s)">
+    <img src="assets/physics/bank-ladder-b28-poster.webp" alt="" width="1920" height="1080"
+         loading="lazy" decoding="async">
+    <span class="ph-dur bb-label" aria-hidden="true">24.4 s</span>
+  </a>
+  <figcaption class="bb-label figure-plate">Bank through-diamond ladder</figcaption>
+  <p class="ph-claim bb-body-s">predicted 5.07–6.22 · measured 5.32
+    <a class="bb-cite" href="assets/physics/bank-ladder-b28-gates.json">gates</a></p>
+  <p class="ph-note bb-body-s bb-muted">TP B.28 five-table envelope</p>
+</figure>
+<!-- END generated:scenario-teaser -->
+      </div>
+
+      <p class="ph-more bb-reveal">
+        <!-- BEGIN generated:scenario-more (scripts/site-physics-data.mjs) -->
+<a class="bb-link" href="docs/physics.html#scenarios">All 15 scenarios, gated and grouped</a>
+<!-- END generated:scenario-more -->
+      </p>
+    </section>
+
+    <section class="bb-section bb-band band" id="determinism" aria-labelledby="det-h">
+      <p class="bb-label bb-marker bb-reveal">Determinism</p>
+      <h2 id="det-h" class="bb-display band-display bb-reveal bb-d1">Same shot, same bytes,<br>any machine.</h2>
+
+      <div class="band-body">
+        <div class="band-copy">
+          <p class="bb-body bb-reveal bb-d2">The kernel is a pure function: initial state, shot
+            parameters, and a seed go in; an event list comes out. No ambient randomness,
+            no wall-clock reads, no NaN. The canonical build is a single .wasm binary,
+            bit-exact across platforms by the WebAssembly spec, so determinism is a build
+            property, not a discipline problem
+            <span class="bb-cite">Constitution</span>.</p>
+          <p class="bb-body bb-muted bb-reveal bb-d3">A replay is just shot parameters plus a seed. It
+            re-simulates bit-exactly anywhere, forever verifiable. Every record embeds
+            the kernel version hash, so cross-version replay is rejected by design.</p>
+        </div>
+        <figure class="band-figure fig-void-rack" role="img"
+                aria-label="A racked set of balls isolated on the slate void, rendered by the engine itself.">
+          <figcaption class="bb-label figure-plate">Render — void mode &#183; the rack</figcaption>
+        </figure>
+      </div>
+
+      <div class="claims">
+        <div class="claim bb-reveal">
+          <span class="claim-k bb-label">Cross-OS gate, every merge</span>
+          <span class="claim-v">X86_64 &equiv; ARM64</span>
+          <span class="claim-n bb-body-s bb-muted">CI byte-compares record JSON between ubuntu-latest and macos-latest; any difference fails the build.</span>
+          <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/.github/workflows/ci.yml">ci.yml&nbsp;&#183;&nbsp;determinism</a>
+        </div>
+        <div class="claim bb-reveal bb-d1">
+          <span class="claim-k bb-label">Native &harr; wasm</span>
+          <span class="claim-v">7/7 IDENTICAL</span>
+          <span class="claim-n bb-body-s bb-muted">Byte-identical records across backends, re-verified locally.</span>
+          <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/scripts/determinism-cross.sh">determinism-cross.sh</a>
+        </div>
+        <div class="claim bb-reveal bb-d2">
+          <span class="claim-k bb-label">Three languages, one record</span>
+          <span class="claim-v">CLI &equiv; TS &equiv; PY</span>
+          <span class="claim-n bb-body-s bb-muted">One golden scenario through native pool-cli, the TypeScript SDK, and pool_py must match byte-for-byte, gated in CI.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band band" id="sdk" aria-labelledby="sdk-h">
+      <p class="bb-label bb-marker bb-reveal">Open source + SDK</p>
+      <h2 id="sdk-h" class="bb-display band-display bb-reveal bb-d1">Script it. Study it.<br>Train on it.</h2>
+
+      <div class="sdk-body">
+        <div class="band-copy">
+          <p class="bb-body bb-reveal bb-d2">Three control surfaces over one kernel: a CLI with
+            run, batch, sweep, compare, and sample subcommands; a plain-ESM TypeScript SDK
+            for node and browser; and a PyO3 Python module whose batch simulation releases
+            the GIL and returns numpy (N,&nbsp;8) arrays.
+            All three consume the same JSON scenario schema.</p>
+          <p class="bb-body bb-muted bb-reveal bb-d3">Deterministic, headless, seeded, and fast enough
+            for roughly 10,000 physics-true shots per second per core
+            <span class="bb-cite">the internal verification archive</span>:
+            a research and AI-training substrate in everything but the gym wrapper,
+            which does not ship yet. Rollouts reproduce exactly: same state, same
+            parameters, same seed, same bytes
+            <span class="bb-cite">Constitution</span>.</p>
+        </div>
+        <pre class="bb-code bb-reveal bb-d2"><code><i class="tk-c"># 100 seeded breaks, in parallel, deterministically</i>
+<b class="tk-n">import</b> math
+<b class="tk-n">import</b> numpy <b class="tk-n">as</b> np
+<b class="tk-n">import</b> pool_py <b class="tk-n">as</b> pp
+
+scenarios = [
+    (pp.SystemState.<b class="tk-n">nine_ball_rack</b>(seed),
+     pp.<b class="tk-n">Shot</b>(v0=9.0, phi=math.pi / 2, seed=seed))
+    <b class="tk-n">for</b> seed <b class="tk-n">in</b> range(100)
+]
+records = pp.<b class="tk-n">batch_simulate</b>(scenarios,
+    options=pp.SimOptions.<b class="tk-n">realistic</b>())  <i class="tk-c"># GIL released</i>
+
+ts = np.linspace(0.0, records[0].duration, 500)
+frames = records[0].<b class="tk-n">sample_batch</b>(ts)  <i class="tk-c"># (T, N, 8) float64</i></code></pre>
+      </div>
+
+      <div class="claims">
+        <div class="claim bb-reveal">
+          <span class="claim-k bb-label">Throughput per core</span>
+          <span class="claim-v">~10,000 SHOTS/S</span>
+          <span class="claim-n bb-body-s bb-muted">A typical shot resolves in 98.9 &micro;s native.</span>
+          <span class="bb-cite">the internal verification archive</span>
+        </div>
+        <div class="claim bb-reveal bb-d1">
+          <span class="claim-k bb-label">Hardened for unattended use</span>
+          <span class="claim-v">HARDENING GATE</span>
+          <span class="claim-n bb-body-s bb-muted">The hardening gate: 10,000+ randomized shots and 1,000+ seeded breaks must complete with zero hangs, panics, NaN states, or energy gains.</span>
+        </div>
+        <div class="claim bb-reveal bb-d2">
+          <span class="claim-k bb-label">Kernel test suite</span>
+          <span class="claim-v">196/196</span>
+          <span class="claim-n bb-body-s bb-muted">Unit + oracle tests, zero failures, enforced per merge by CI.</span>
+          <span class="bb-cite">the internal verification archive</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band band" id="engineering" aria-labelledby="eng-h">
+      <p class="bb-label bb-marker bb-reveal">Engineering</p>
+      <h2 id="eng-h" class="bb-display band-display bb-reveal bb-d1">Spec-driven,<br>AI-native.</h2>
+
+      <div class="band-body">
+        <div class="band-copy">
+          <p class="bb-body bb-reveal bb-d2">Development flows through a ratified constitution of
+            seven principles, with plan-time gates on every feature: physics from literature,
+            one source of truth, determinism by construction, oracle-tested realism, a
+            performance budget, license compliance, simplicity
+            <span class="bb-cite">Constitution</span>.</p>
+          <p class="bb-body bb-muted bb-reveal bb-d3">Physics changes must show oracle results against the reference implementation
+            (event times within 1&nbsp;&micro;s, final positions within 0.1&nbsp;mm) or the merge is blocked.</p>
+        </div>
+        <figure class="band-figure fig-detail-cushion" role="img"
+                aria-label="Low warm-lit close-up along the rail: cushion nose, pocket jaw and two balls on the cloth, rendered by the engine itself.">
+          <figcaption class="bb-label figure-plate">Render — detail &#183; cushion</figcaption>
+        </figure>
+      </div>
+
+      <div class="claims">
+        <div class="claim bb-reveal">
+          <span class="claim-k bb-label">Research before code</span>
+          <span class="claim-v">18 REPORTS</span>
+          <span class="claim-n bb-body-s bb-muted">Deep-research reports ground every architectural decision, including the decision not to use a general physics engine.</span>
+          <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/tree/main/docs/research">docs/research/</a>
+        </div>
+        <div class="claim bb-reveal bb-d1">
+          <span class="claim-k bb-label">Constitution</span>
+          <span class="claim-v">7 PRINCIPLES</span>
+          <span class="claim-n bb-body-s bb-muted">Semver-governed amendments across seven feature cycles.</span>
+          <span class="claim-c"><span class="bb-cite">Constitution</span></span>
+        </div>
+        <div class="claim bb-reveal bb-d2">
+          <span class="claim-k bb-label">Adversarial delivery QA</span>
+          <span class="claim-v">114 CHECKS</span>
+          <span class="claim-n bb-body-s bb-muted">A 7-parallel-area gate whose 89-sub-check mouse functional matrix caught a total-freeze blocker before ship: found, fixed, re-verified.</span>
+          <span class="bb-cite">the internal verification archive</span>
+        </div>
+        <div class="claim bb-reveal bb-d3">
+          <span class="claim-k bb-label">Taste panel</span>
+          <span class="claim-v">0 MUST-FIX</span>
+          <span class="claim-n bb-body-s bb-muted">Three independent critics, four rounds, from triple-fail to pass; design tokens gated in CI against hardcoded colors.</span>
+          <span class="claim-c"><span class="bb-cite">the internal verification archive</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="bb-section bb-band band" id="field" aria-labelledby="field-h">
+      <p class="bb-label bb-marker bb-reveal">The field</p>
+      <h2 id="field-h" class="bb-display band-display bb-reveal bb-d1">The field,<br>read honestly.</h2>
+
+      <div class="band-body no-fig">
+        <div class="band-copy">
+          <p class="bb-body bb-reveal bb-d2">The seat for simulation-grade physics with modern
+            delivery on an open platform is currently empty: the old physics benchmark is
+            essentially untouched since 2015, and the realism leader never shipped on Steam,
+            with its last major version in 2021
+            <span class="bb-cite">the internal reference-sim study</span>.
+            We respect both lineages enough to measure ourselves against them, openly.</p>
+        </div>
+      </div>
+
+      <div class="compare-grid bb-reveal bb-d2">
+        <article class="bb-card">
+          <p class="bb-label">reference-sim — the realism benchmark</p>
+          <h3 class="bb-heading-s">Closed source, earned reputation</h3>
+          <p class="bb-body-s bb-muted">Windows-only, sold from its own site, last major
+            version 1.9.0 in 2021
+            <span class="bb-cite">the internal reference-sim study</span>.
+            We calibrate against its own slow-motion demo (53/56 checks, 0 failures
+            <span class="bb-cite">the internal verification archive</span>) and
+            publish both scorecards, including what it still does better: licensed equipment
+            art, extreme-spin cushion behavior, the true mass&eacute; boomerang, and a mature
+            online ecosystem
+            <span class="bb-cite">the internal verification archive</span>.
+            Its replays cannot be independently verified; ours re-simulate bit-exactly anywhere.</p>
+        </article>
+        <article class="bb-card">
+          <p class="bb-label">Openbilliards — the open seat</p>
+          <h3 class="bb-heading-s">Open, in the browser</h3>
+          <p class="bb-body-s bb-muted">The 15-ball break in 3.87 ms in-browser, jump shots and grounded mass&eacute; shipped
+            and tested, replays byte-compared across operating systems on every merge
+            <span class="bb-cite">the internal verification archive</span>
+            <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/.github/workflows/ci.yml">ci.yml</a>.</p>
+        </article>
+      </div>
+
+      <div class="fineprint bb-reveal">
+        <h3 class="bb-heading-s">What we don&rsquo;t claim</h3>
+        <ul class="bb-list bb-body-s bb-muted">
+          <li>Rendering is physically grounded, not yet benchmark-equal: the close-up is near the bar,
+            the wide shot is not, held at &#9888;&#xFE0E; in our own report
+            <span class="bb-cite">the internal verification archive</span>.</li>
+          <li>Mass&eacute; passes 5/6 checks; the re-accelerating boomerang needs a continuous-Magnus
+            regime the analytic kernel excludes by design
+            <span class="bb-cite">the internal verification archive</span>.</li>
+          <li>Cushion constants are literature values plus fits, not first-party measurements,
+            tracked open as issue #5
+            <span class="bb-cite">the internal verification archive</span>.</li>
+          <li>The RL environment is potential, not product: deterministic, headless, numpy-native,
+            but no gym wrapper ships today.</li>
+        </ul>
+      </div>
+    </section>
+
+    <figure class="strip fig-table-wide" role="img"
+            aria-label="Wide cinema still of the full table under warm light, rendered by the engine itself.">
+      <figcaption class="bb-label figure-plate">Render — table mode &#183; wide</figcaption>
+    </figure>
+  </main>
+
+  <footer class="bb-footer">
+    <p class="bb-display bb-footer-statement bb-reveal">Solved,<br>not stepped.</p>
+
+    <div class="bb-footer-grid">
+      <nav aria-label="Site">
+        <p class="bb-label">Site</p>
+        <ul>
+          <li><a class="bb-link" href="index.html">Home</a></li>
+          <li><a class="bb-link" href="guide/en/index.html">Gameplay guide</a></li>
+          <li><a class="bb-link" href="docs/index.html">API docs</a></li>
+          <li><a class="bb-link" href="docs/physics.html">The engine</a></li>
+          <li><a class="bb-link" href="web/app.html">Play</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Project">
+        <p class="bb-label">Project</p>
+        <ul>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards">GitHub</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="bb-label">Colophon</p>
+        <p class="bb-body-s bb-muted" style="max-width: 34ch;">Set in Space&nbsp;Grotesk and JetBrains&nbsp;Mono,
+          vendored. No trackers, no CDNs, no requests beyond this origin. Every number on
+          this page resolves to a repository artifact.</p>
+      </div>
+    </div>
+
+    <p class="bb-footer-credits">
+      <span>&copy; 2026 Meta Platforms, Inc. &#183; MIT &#183; <a href="web/vendor/NOTICE-pooltool.txt" style="white-space: nowrap;">includes Apache-2.0 code</a> &#183; <a href="https://opensource.fb.com/legal/terms" style="white-space: nowrap;">Terms of Use</a> &#183; <a href="https://opensource.fb.com/legal/privacy" style="white-space: nowrap;">Privacy Policy</a></span>
+      <span>Rendered by its own engine</span>
+    </p>
+  </footer>
+
+  <script>
+    // Pause the hero loop for reduced-motion visitors (poster remains).
+    addEventListener('DOMContentLoaded', () => {
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const v = document.querySelector('.hero-media video');
+      if (v && reduce) {
+        v.removeAttribute('autoplay'); v.pause();
+      }
+      // Reproduction tiles: preload="none" + poster at rest; playback (and
+      // the network fetch it triggers) starts only near the viewport, and
+      // never for reduced-motion visitors — they keep the posters.
+      const tiles = document.querySelectorAll('.repro-tile video');
+      if (!reduce && tiles.length && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) e.target.play().catch(() => {});
+            else e.target.pause();
+          }
+        }, { rootMargin: '25% 0px' });
+        tiles.forEach((t) => io.observe(t));
+      }
+    });
+  </script>
+</body>
+</html>

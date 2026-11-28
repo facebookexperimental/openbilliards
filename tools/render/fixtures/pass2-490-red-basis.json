@@ -1,0 +1,193 @@
+{
+ "provenance": {
+  "basis_tree": "fix-490-chinese8-visual @ 00b6d7c0 (the pass-2 verdict's sealed pre-cure state; measured 2026-08-22 on the merge-identical afaf45c4 render before any pass-2 cure landed)",
+  "flank_subject_basis_note": "GH-1149 (2026-10-29): rail-end-face now counts an olive pixel only when its first hit is the rail-end dressing (leather / wood / skirt). The pinned 2031 is kept. Re-validated on a clean export of 00b6d7c0: every olive pixel in the two windows first-hits that dressing (cn8r82-ring-5 2006, cn8r82-block-5 23, cn8-plank-5 3; the probe reads 2032, as it skips the staged pot). The cured tree 1dd93a2f reads 0 olive pixels. On main 725f8fbb (F2) and on 2ac027c3 (R82) every olive pixel first-hits cloth or the cotton net, so the row reads 0 there.",
+  "verdict": "finale adversarial pass #2 (wf_d81cd2b0-2dc synthesis), items 1/3/7",
+  "instrument": "web/tools/check-490-pass2.mjs --measure (r12 body gate; session laws unchanged; poses pinned below)",
+  "note": "r12-APPROVED (owner card 17b, 2026-09-03): the plate-era rows (midmouth-bayplate/-throat/-cone/-rim/-clip, midext-neck, midext-fold, midext-stitch as a crease row, and every cove arm) retired with the plate contract; the r12 rows GATE-1..6 are red-armed on the R1-FIX12 code seal 1e5e119a (the plate tree: plate present, cone present, slot 92, rail 92) — measured by THIS gate on a clean `git archive 1e5e119a` extract carrying the r12 gate, the r12 JSON and the corner contract (the r11 table.js mirror lacking the r12 letters reads midext-contract 999). Kept rows keep their pinned bases and provenance verbatim.",
+  "r12_basis_tree": "1e5e119a",
+  "r12_basis_note": "MEASURED 2026-09-03 by this gate (--measure) on the clean 1e5e119a extract carrying the r12 gate/JSON/corner contract (log: the R1-MIDPOCKET-BUILD pack, logs/basis-1e5e119a.log): gate1 999 = no cn8-mid-leather body (the plate is not a body); gate2 = the 62° cone cn8-cloth-midfall shrinking to r 40.6 below the bed; gate3 = the plank halves ending at 46 (the 92 mm bay) vs DT-09 41.92; gate4 = the r12 families missing + the retired families present; gate5 = the plate top 42.0 vs LP-06 41.7 and its hem tips vs LP-09; gate6 = no body at the middles / the corner ring r 88.5 vs R + W_L 136.5. BUILD-2 condition 5 (2026-09-04): gate5_count_err RE-PINNED 492 → 480 (dashes 14 → 8, lobes 249) — the 492 had been measured with an earlier revision of this gate (two fresh runs of that revision on the same clean 1e5e119a extract reproduce 14 / 492 exactly: deterministic); the sealed gate reads 8 / 480 on the same tree (the dash clustering changed between revisions, the geometry did not). Every other r12 basis value re-measured identical by the final gate (gate/measured-1e5e119a.json in the BUILD-2 pack). Both values fire against the window 0.",
+  "crack_basis_tree": "GH-1146 (2026-10-29, ruling 22cf7661 item 2): boot-tip-crack-fold is RETIRED with the cn8Fillet sweep (E-D2-CN8FILLET). On the D3 loft ring a fold or a crack is caught per PR by the D3 section verifier (tools/render/ghcn8/cn8_emitted_checks.mjs verifyCapturedCover, run by test_cn8_emitted_checks.mjs in the ci.yml cushion node gates): C2 'captured closed sections self-intersect' (control: a bow-tie section) and 'actual shell is not closed, manifold, consistently wound and positive-volume' (controls: a removed cap triangle, a flipped triangle) and B2 'inward/tangent faces' (control: the flipped triangle); B2 'section orientation is inconsistent' also reads it, with no red control in that file. boot-tip-crack-dogear is RE-DERIVED on the D3 layout (userData.cn8D3 stations x profileCount), because no D3 row catches a flap that keeps the shell closed and oriented (A3 and BINDING see only a vertex that leaves the constructor). Its red basis is the live plant --perturb=dogear: one flat-run profile point at each ring's middle station raised 3 mm, which reads 4 abutments per ring = 16 (measured on the shipped D3 constructor on the CPU with the gate's census, loadCornerBuilder over web/scene/table.js; the emitted ring equals the constructor by the D3 BINDING row); the clean constructor reads 0 on all four rings. The pinned 16 replaces the rev-8 basis, which has no D3 layout. Previous basis, for both rows: fix-490-chinese8-visual @ 16766180 (the finale pack tree the owner's crack screenshot came from; boot-tip-crack rows measured 2026-08-23 by the same mesh census the gate runs — 4 rings, 2 wall sign flips + 2 dogear abutments each)",
+  "midmouth_void_basis_tree": "craft-uplift @ 065422db (the R1-FIX9 code seal): the knit funnel spanned the mouth from the hole rim. Measured 2026-09-02 (R1-FIX10) by THIS gate on a clean `git archive 065422db` extract with the gate's own three files copied in (web/tools/check-490-pass2.mjs, this fixture, and docs/geometry/cn8-middle-furniture-definition.json at r11 — the r10 source refuses the r11 SK-04 identity check; nothing else in the archive touched), OB_E2E_PORT=10300: midmouth_void_span 2152 = knit first hits outside the bag footprint (|u| <= 26.03, w >= 27.95 mm) — per eye/mouth mid_close_diag@-z 547, mid_tt_inside@-z 531, mid_close_diag@+z 546, mid_tt_inside@+z 528 (knit-in 785 / 866 / 787 / 868); first spanning hits cn8-net-1 at u -35, v -17, w 43..53 mm (the funnel). The sealed R1-FIX10 tree reads 0 (knit-in 692 / 768 per eye). r14 (GH-1146, 2026-10-29, ruling 50b6d52f): the footprint is now the JOY bag f93c0276 built (contract NT-07..NT-11 by the table's section law, plus the NT-06 cord reach and the 2 mm slack). A cord is judged against the woven sections within one cord reach VR = NT-06[0] of its height, because its body reaches that far above and below the surface it hangs on. The basis hits (u -35, v -17, w 43..53) sit 0.66 mm above the seam; the footprint there (the sections down to v -18.3) is |u| <= 41.58, w >= 124.25, so they stay outside by more than 71 mm (CPU, the gate's own bagSection). The shipped JOY bag's cords, rebuilt on the CPU from table.js and cn8pockets.js, all fall inside (0 of 27900 vertices per mouth). RE-MEASURED 2026-10-30 by this gate on the clean 065422db extract (the tree's own app, cdp.mjs and png.mjs; this gate, this fixture, craft-look-poses.json and both contracts copied in): midmouth_void_span 4225 (knit in/out per eye and mouth 235/1051, 309/1064, 235/1050, 312/1060); the first outside hits are cn8-net-1 / -4 at u -30..-35, v -15..-20, w 37..47, the funnel. 4225 replaces the r12 footprint's 2152 as the pin. The same run reads gate6_corner_mm 48 through the tree's own O_f, and d3_dogear null (no D3 layout), as expected for a pre-D3 tree. Live arm --perturb=net-shift (the middle nets 20 mm inboard).",
+  "midmouth_beam_basis_tree": "craft-uplift @ 8d197a95 (the R1-FIX10 seal, verification NO_GO blocker B2). Measured 2026-09-02 by THIS gate on a clean `git archive 8d197a95` extract with the gate and this fixture copied in (the archive's geometry JSON is already r11), OB_E2E_PORT=10300: midmouth_beam_hits 820 = mid_close_diag 230 + mid_tt_inside 180 at each mouth, first hits on cn8-beam-long-nE / -pE at u 50–61 mm, v −34…−56 mm, w 64 mm (the beam's inner face plane and its end face 50 mm from the pocket centre — inside the slate hole). The verifiers' own grid read 39/321 and 26/286. Cured in R1-FIX11 by derivation: the beam's notch from the hole circle (56.8 mm), the throat lathe a full ring with its liner skirt restored outside the bag's slot, the cut face given height resolution so its flank drop is height-limited, and the fall clamped to the wall planes; the R1-FIX11 seal reads 0. r14 (GH-1146, 2026-10-29, ruling 22cf7661 item 3): a beam hit counts only when the ray crosses no bag envelope (the open JOY net is seen through, the R1-FIX10 defect is a beam with nothing in front of it). On 8d197a95 the bag is an opaque sheet, so no beam first hit lies behind it: the count is unchanged by construction. Live arm --perturb=net-hide (the middle nets hidden).",
+  "midext_sock_basis_tree": "80872a88 (this lane's own post-merge tree — the r8 contract and the r8 gate in place, table.js sock profile UNMODIFIED). Third row in a row whose basis is not the as-built 83dcfdf5 but the lane's own green tree, and for the same reason: the visual audit sees what the suite cannot. Measured before a single byte of the cure: the sock's top station is ROUND-13's v = -16.0, the drawn selvedge SK-04 is -6.0, so 10.00 mm of cn8-mid-lipwall casting is bare under the leather at both middles. Independently confirmed by /tmp/ob-midx/sockgap.mjs, a separate probe that walks the same meshes by a different selector and reports cn8-net-1 and cn8-net-4 top v = -16.00 mm each.",
+  "midext_sock_rise_basis_tree": "craft-uplift @ 065422db (the R1-FIX9 seal): knit top −6.0 vs SK-04 r11 −9.5 → gap −3.50 (the R1-FIX10 basis run's own log line `midext_sock_gap_mm = -3.50`). Paired to midext-sockgap under LAW-PURCHASED-BASELINE: an identity fires both ways.",
+  "midedge_basis_tree": "midedge-knit: craft-uplift @ 065422db (the R1-FIX9 code seal): review round 10 (R1-FIX12 pack) passed mid_edgeon on the FIX9 frames because a grey knit band stood under the hem there and failed FIX12 because it was gone; measured 2026-09-03 by THIS gate on a clean `git archive 065422db` extract with this gate, this fixture, the r11 geometry JSON/MD and the frozen pose file copied in: midedge_knit_above_px 5117 (+z 2611, -z 2506; knit top -6.01 / -6.00 mm = the crest, 3.5 mm above the r11 selvedge) - the same state midext-sockgap-rise pins at 3.5 on the same tree. midedge-tips: PERTURBATION-armed (--perturb=cover-lift, +3 mm on the middle covers' lower edges); the cover has sat on SK-04 = BC-09 - BC-07 depth on every sealed tree since r11.",
+  "midext_basis_tree": "cn8-midpocket-exterior @ 83dcfdf5 (= origin/fix-cn8-midpocket-bayplate, the head of PR #593 — the as-built middle-pocket exterior the owner photographed on 2026-08-29; base-tree equivalence to the diagnosis tree /private/tmp/ob-midwallfix2/wt-combined @ 4148d169 proved by re-running the diagnosis script verbatim, plan silhouette reproduced to the printed digit). Measured 2026-08-30 by the same mesh census the gate runs, on the UNMODIFIED tree, before any table.js byte moved: crest sagitta 13.82 mm, cn8-cloth-margin 56.65 mm outboard of the plank arris, 32/484 landed exterior rays first-hit cloth. — r12: the straight / protrude / window rows are re-bound to LP-04 / DT-04 = 140 and keep these 83dcfdf5 numbers as their pinned bases (a plate-era exterior 56.65 mm beyond the new arris still fires).",
+  "midext_window_basis_tree": "cn8-midpocket-exterior @ 83dcfdf5, the SAME unmodified as-built tree as midext_basis_tree. Added 2026-08-30 in the visual-audit fix round, and red-armed the same way the trio was: the row was written first, run on 83dcfdf5 before the cure existed, and measured 54.31 mm on cn8cap-skirt-1 with 24 meshes admitted to the bay window — the three pre-existing midext rows reproduced their pinned bases to the printed digit in the same run (13.82 / 56.65 / 32), which is what proves the staging tree is the basis tree. Second red point, recorded because it is the reason the row exists: on the lane's OWN fixed-geometry tree f4e5fb30 (all ten prior rows green) this row measured +17.61 mm on an anonymous mesh, i.e. it fires on a defect no name-scoped row could see.",
+  "midext_contract_basis_tree": "r12: measured on the 1e5e119a extract — the r11 CN8_MID mirror carries none of the r12 letters, which the gate reads as the maximal drift (999 mm), so the row fires on the basis tree without a synthetic value.",
+  "r12_basis_values": {
+   "gate1_plan_max_mm": 999,
+   "gate2_fall_dev_mm": 32.966,
+   "gate3_butt_mm": 4.08,
+   "gate4_census_bad": 34,
+   "gate5_edge_dev_mm": 6.73,
+   "gate5_count_err": 480,
+   "gate6_mid_mm": 999,
+   "gate6_corner_mm": 48,
+   "midext_cloth_bad": 484,
+   "midext_contract_max_mm": 999
+  },
+  "netball_pose_note": "r12 (card 17b, 2026-09-03): the ruled corner leather (A_r 140, W_L 84) covers the pass-2 netball eye (cam [1.06,1.7,0.62]) — raycast from it to the sock first-hits cn8r82-ring on every ray. The eye moves below the skirt hem (cam [0.98,1.58,-0.05] look at the resting ball, fov 26) and the census counts green on the netted ball's OWN projected disc (background-free); the knit floor is read in a 520 px box about the ball. The pinned red 1052 is the 00b6d7c0 whole-ROI count at the old eye — kept as the fire value (the stain was the ball's own shading, thousands of px at any eye); the old pose is kept beside it as netball_before_r12.",
+  "rail_sights_basis_tree": "1e5e119a",
+  "rail_sights_basis_note": "LAND-629 (owner card 17c option B, 2026-09-04): SI-01 REMOVED — the row is now a COUNT (sight_count ≤ 0). Red basis = 1e5e119a, whose census read 18 discs (n_long 12, n_short 6 — the BUILD-2 measure gate/measured-1e5e119a.json); live arm --perturb=sight-add adds one disc at the rail top and must fire. The BUILD-2 offset row (24.003 on ad4bc913) retires with the sights."
+ },
+ "poses": {
+  "flank": {
+   "cam": [
+    1.02,
+    1.66,
+    0.55
+   ],
+   "look": [
+    0.6,
+    1.22,
+    -0.1
+   ],
+   "fov": 36
+  },
+  "bore": {
+   "cam": [
+    0.678,
+    1.318,
+    0.42
+   ],
+   "look": [
+    0.678,
+    1.318,
+    -0.05
+   ],
+   "fov": 34
+  },
+  "netball": {
+   "cam": [
+    0.98,
+    1.58,
+    -0.05
+   ],
+   "look": [
+    0.6335,
+    1.2735,
+    -0.1
+   ],
+   "fov": 26
+  },
+  "netball_before_r12": {
+   "cam": [
+    1.06,
+    1.7,
+    0.62
+   ],
+   "look": [
+    0.628,
+    1.268,
+    -0.12
+   ],
+   "fov": 30
+  }
+ },
+ "measured": {
+  "netball_green_px": 1052,
+  "bore_hp": 0.02905,
+  "flank_olive_px": 2031,
+  "d3_dogear": 16,
+  "gate1_plan_max_mm": 999,
+  "gate1_plan_who": "-z no cn8-mid-leather body at bed+0.5",
+  "gate2_fall_dev_mm": 32.966,
+  "gate2_fall_who": "-z cn8-cloth-midfall-1 beyond DT-12",
+  "gate3_butt_mm": 4.08,
+  "gate3_butt_who": "-z plank end 46.00, no body",
+  "gate4_census_bad": 34,
+  "gate4_missing": [
+   "-z:leather",
+   "-z:skirt",
+   "-z:stitch",
+   "-z:lace",
+   "-z:fallcloth",
+   "-z:slatecut",
+   "+z:leather",
+   "+z:skirt",
+   "+z:stitch",
+   "+z:lace",
+   "+z:fallcloth",
+   "+z:slatecut"
+  ],
+  "gate4_retired": [
+   "cn8cap-boot-1",
+   "cn8-midthread-1",
+   "cn8-mid-lipwall-1",
+   "cn8-mid-throat-1",
+   "cn8-mid-liner-1",
+   "cn8-cloth-midfall-1",
+   "cn8-cloth-midfold-1W",
+   "cn8-cloth-midfold-1E",
+   "cn8-cloth-midslot-1W",
+   "cn8-cloth-midslot-1E",
+   "cn8cap-boot-4",
+   "cn8-midthread-4",
+   "cn8-mid-lipwall-4",
+   "cn8-mid-throat-4",
+   "cn8-mid-liner-4",
+   "cn8-cloth-midfall-4",
+   "cn8-cloth-midfold-4W",
+   "cn8-cloth-midfold-4E",
+   "cn8-cloth-midslot-4W",
+   "cn8-cloth-midslot-4E"
+  ],
+  "gate5_edge_dev_mm": 6.73,
+  "gate5_edge_who": "-z top 42.00 crest -9.50 tips -9.50",
+  "gate5_stitch_dev_mm": 0.3,
+  "gate5_count_err": 480,
+  "gate5_dashes": 8,
+  "gate5_lobes": 249,
+  "gate6_mid_mm": 999,
+  "gate6_mid_who": "-z leather front edge at bed+20",
+  "gate6_corner_mm": 48,
+  "gate6_corner_who": "cn8r82-ring-0 window reach",
+  "midext_sagitta_mm": 13.82,
+  "midext_arris_proud_mm": 56.65,
+  "midext_cloth_bad": 484,
+  "midext_cloth_who": "cn8-cloth-midslot-4E",
+  "midext_window_proud_mm": 54.31,
+  "midext_window_who": "cn8cap-skirt-1",
+  "midext_sock_gap_mm": 10.0,
+  "midext_sock_rise_mm": 3.5,
+  "midext_sock_who": "cn8-net-1",
+  "midedge_knit_above_px": 5117,
+  "midedge_tips_mm": 3.0,
+  "midedge_tips_who": "cn8cap-boot-4",
+  "midmouth_void_span": 4225,
+  "midmouth_beam_hits": 868,
+  "midext_contract_max_mm": 999,
+  "midext_contract_who": "missing DT03,DT05,DT06,DT10,DT11,DT12,DT13,FL01,FL02,LP01,LP02,LP03,LP04,LP06,LP09,LP18,SK01,SK04,LP07[0],LP07[1],LP10[0],LP10[1],LP10[2],LP11[0],LP11[1],LP12,LP05[0][1],LP05[1][1],LP05[2][1]",
+  "sight_count": 18,
+  "sight_who": "1e5e119a: 12 long-rail + 6 short-rail gold discs at nose + 70.05"
+ },
+ "windows": {
+  "netball_green_px_max": 60,
+  "bore_hp_min": 0.036,
+  "flank_olive_px_max": 100,
+  "d3_dogear_max": 0,
+  "gate1_plan_max_mm_max": 1.0,
+  "gate2_fall_dev_mm_max": 0.2,
+  "gate3_butt_mm_max": 0.5,
+  "gate4_census_bad_max": 0,
+  "gate5_edge_dev_mm_max": 0.05,
+  "gate5_stitch_dev_mm_max": 0.5,
+  "gate5_count_err_max": 0,
+  "gate6_mid_mm_max": 1.0,
+  "gate6_corner_mm_max": 1.0,
+  "midext_sagitta_mm_max": 1.0,
+  "midext_arris_proud_mm_max": 0,
+  "midext_cloth_bad_max": 0,
+  "midext_window_proud_mm_max": 0,
+  "midext_sock_gap_mm_max": 0.01,
+  "midext_sock_rise_mm_max": 1.11,
+  "midedge_knit_above_px_max": 0,
+  "midedge_tips_mm_max": 0.05,
+  "midmouth_void_span_max": 0,
+  "midmouth_beam_hits_max": 0,
+  "midext_contract_max_mm_max": 1e-06,
+  "sight_count_max": 0
+ }
+}

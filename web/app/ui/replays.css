@@ -1,0 +1,320 @@
+/* Copyright (c) Meta Platforms, Inc. and affiliates. */
+
+/* ui/replays.css — replays-place content leaf (feature 035, program 525
+   S4; sub-slice 035a). Kit leaf per the cache-poison contract: loaded by
+   web/app/replays.js via a `?v=` stamped <link> (bump REPLAYS_CSS_V in
+   replays.js on EVERY change to this file — protocol R8). Tokens only
+   (--ob-* and --ob-glass-*, ci.yml grep gated); labels wrap or grow, never
+   ellipsize (e2e-ui --audit law). Selectors here are the
+   the replays contract (feature 035, internal) §3.1 surface (ids and
+   data-ob values frozen at 035a integration; class names are styling only
+   and may change with a REPLAYS_CSS_V bump).
+
+   Material: the S1 smoked-glass family (shell.md §6 material note) — the
+   place invents no new material language. Fallback ladder mirrors
+   ui/shell.css: (1) no backdrop-filter support = the solid rules below,
+   (2) prefers-reduced-transparency, (3) body.ob-glass-off (the D7
+   perf-tier gate) — every rung lands the tinted solid (--ob-glass-solid).
+   The solid rule is declared FIRST, the glass rule under
+   body:not(.ob-glass-off) after it (plan §4.6).
+
+   Rows: `.ob-pb-row` / `.ob-pb-day` markup and base styling belong to
+   playback.js / ui/playback.css (contract §4 law 3 — one row renderer);
+   this sheet styles the HOST band only and never restyles a `#ob-pb-*` or
+   `#ob-playback` selector. */
+
+/* ---- host section: the S1 replays card while the module owns it -------
+   (.ob-replays-host is added by replays.js on a healthy mount; the S1
+   geometry is untouched — the body fits the 280px column) ------------- */
+#ob-shell-cards > section.ob-replays-host[hidden] { display: none; }
+/* the S1 stub children carry [hidden] from mount (contract §4 law 4), but
+   shell.css's `#ob-shell-cards .ob-shell-actions { display: flex }` outranks
+   the UA [hidden] rule (the GH-534 F1 ghost class the atelier host kill
+   rule names too) — the host belt for the inline pair replays.js sets;
+   found by the 035a capture pack (contract §7 entry 19) */
+#ob-shell-cards > section.ob-replays-host > .ob-shell-actions[hidden] { display: none; }
+
+/* ---- latest-session body (contract §2 row 1) --------------------------- */
+#ob-replays-latest {
+  margin: 0;
+  color: var(--ob-text-1);
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-body);
+}
+#ob-replays-latest[hidden] { display: none; }
+/* GH-668 S5 B-RP01 (ruling R15, contract §7 entry 36): the card = the
+   session — TWO lines under the place h2. The former caps eyebrow (B-K13)
+   is gone; the body's name rides aria-label (shell.place.replays.latest).
+   line 1 — day · game · mode: the control voice (14 / 560 / text-0), wraps
+   as data, never clips */
+.ob-replays-day {
+  margin: 0;
+  font-size: var(--ob-fs-0);
+  font-weight: var(--ob-fw-med);
+  line-height: var(--ob-lh-control);
+  color: var(--ob-text-0);
+  overflow-wrap: anywhere;
+}
+/* line 2 — the newest row's own when-line voice (ui/playback.css
+   .ob-pb-when: 12 px, text-1, body leading, tabular figures) + the marks
+   inline after it while they fit, else on their own line (the row's law) */
+.ob-replays-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ob-sp-1);
+  margin-top: var(--ob-sp-1);
+  font-size: var(--ob-fs--1);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-1);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere; /* wraps, never clips */
+}
+/* the marks node — line 2's second flex item — is the row renderer's OWN
+   `.ob-pb-marks` (playback.js `__playback.marks(id)`, GH-668 S5 B-RP03:
+   one marks renderer for the rows and the card); ui/playback.css paints it,
+   this sheet only places it (the flex gap above). The degrade rung (an old
+   DVR without the seam) is a bare span of text faces in line 2's own
+   text-1 voice — no bespoke glyph rules remain here. */
+/* the GH-318 old-kernel badge is the kit part (.ob-badge.ob-badge--warn —
+   B-K16); .ob-replays-badge is a paint-free structure hook that only places
+   it as the body's third line */
+.ob-replays-badge { margin-top: var(--ob-sp-1); }
+.ob-replays-badge[hidden] { display: none; }
+
+/* ---- actions: Open latest / the empty sentence ------------------------- */
+#ob-replays-actions {
+  display: flex;
+  flex-direction: column;
+  /* GH-668 B-K01 / B-RP01 (ruling R15): Open latest is a DEFAULT kit pill
+     (shrink-to-fit, centred, one word) — start-aligned in the column, never
+     stretched to a field; the kit auto-row law flips it to --row only if a
+     locale's copy overflows the column */
+  align-items: flex-start;
+  gap: var(--ob-sp-1);
+  margin-top: var(--ob-sp-2);
+}
+#ob-replays-actions .ob-btn[hidden] { display: none; }
+.ob-replays-empty {
+  margin: 0;
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-body);
+  /* GH-668 B-SH02 (S5 slice-2 vfix): the empty state is the card's BODY
+     voice — text-1, never the hint ink (e2e-replays arm 1 pins it). */
+  color: var(--ob-text-1);
+  overflow-wrap: anywhere;
+}
+.ob-replays-empty[hidden] { display: none; }
+/* 035b populates the export line; the placeholder is DOM-present + hidden
+   from 035a (contract §3.1) */
+#ob-replays-export[hidden] { display: none; }
+
+/* ---- session rail: the place's ONE body-level band (contract §2 row 2a,
+   §4 law 9b). Body order rail < #ob-shell (F5 paint-order law); the same
+   z as the shell overlay, so the shell's own chrome paints over it by DOM
+   order. Desktop: a panel beside the card column, top-aligned with the
+   cards (--ob-replays-card-top is written by replays.js on show/resize),
+   kept clear of the bottom places rail and #ob-shell-note. ------------- */
+#ob-replays-rail {
+  position: fixed;
+  z-index: var(--ob-z-shell);
+  top: var(--ob-replays-card-top, calc(14px + env(safe-area-inset-top, 0px)));
+  left: calc(14px + env(safe-area-inset-left, 0px) + min(280px, 62vw) + var(--ob-sp-3));
+  width: min(360px, calc(100vw - 28px - min(280px, 62vw) - var(--ob-sp-3)));
+  max-height: min(64vh, calc(100vh - 140px - var(--ob-replays-card-top, 14px)));
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border-radius: var(--ob-r-l);
+  border: 1px solid var(--ob-line-1);
+  box-shadow: var(--ob-el-2);
+  font-family: var(--ob-font);
+  color: var(--ob-text-0);
+  pointer-events: auto;
+  /* material rung 1 (and every fallback rung): the tinted solid */
+  background-color: var(--ob-glass-solid);
+  background-image: var(--ob-glass-noise);
+  border-top-color: var(--ob-glass-edge);
+}
+#ob-replays-rail[hidden] { display: none; }
+/* the band's painted title (GH-668 B-RP04 / RP:R-16, contract §7 entry 39):
+   the region's name as a GROUP HEAD — voice = the kit .ob-caps (12 / 620 /
+   caps; CJK arm the kit's), never restated here; ink = --ob-text-1, the G7
+   GROUND LAW for a caps / hint role on the 52 % smoke (rung 0
+   --ob-glass-bg) — the kit's text-2 is legal only on an opaque step or the
+   solid rung (B-K02). aria-hidden: the region's aria-label speaks it once.
+   Chrome above the list: the register budgets it (rail rect − list rect). */
+.ob-replays-rail-title {
+  padding: var(--ob-sp-2) var(--ob-sp-3) 0;
+  color: var(--ob-text-1);
+  overflow-wrap: anywhere;
+}
+/* 035b parts: DOM-present placeholders, hidden throughout 035a */
+#ob-replays-filters[hidden],
+#ob-replays-footer[hidden],
+#ob-replays-clips[hidden] { display: none; }
+#ob-replays-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* the END PAD (contract §7 entry 24, both edges): a measured px the
+     register writes so scrollTop = max lands the clip's TOP edge on a
+     clean boundary — every reachable rest state is whole at both edges.
+     GH-668 review visual audit r1 F3: while the list overflows the register
+     OWNS padding-bottom outright (the property = the whole end residual, 0
+     = the last row flush on the clip edge; band height and residual are
+     chosen together — replays.js jointSnap); the sp-1 breathing is the
+     default only for a list that does not scroll. */
+  padding: var(--ob-sp-1) var(--ob-sp-2) var(--ob-replays-pad-end, var(--ob-sp-1));
+}
+/* GH-668 S5 replays r3 (review visual audit r1 F3, integrator ruling (b)): the
+   band's FIRST day label is rendered into the head slot ABOVE the scrollport
+   (replays.js `.ob-replays-rail-day`, the renderer's own `.ob-pb-day--head`
+   node via mountList `head`); a FILLED slot owns the scroll content's former
+   top inset, so the list starts ON its first row (O = 0: the row-42 proof's
+   flush condition) and nothing moves on screen (title → label → first row
+   keep their 8 / 4 px). An empty slot (no rows; an old DVR that keeps the
+   label in the flow) leaves the sp-1 inset above. */
+#ob-replays-rail > .ob-replays-rail-day:not(:empty) + #ob-replays-list { padding-top: 0; }
+/* the host is a flex column (playback.css `.ob-pb-list--rail`): its rows and
+   day labels NEVER flex-shrink — the list scrolls instead. Found by the Ta16
+   e2e-ui phone walker: with several rows inside the capped coarse band, the
+   coarse `min-height: 44px` below had lowered the rows' automatic flex
+   minimum from their content height (60px) to 44px, so flex shrank every row
+   and the 44px grid track overflowed the 28px content box (icon faces 8px
+   off the content-box centre — the kit centring law). */
+#ob-replays-list > * { flex: 0 0 auto; }
+#ob-replays-list:focus-visible {
+  outline: none;
+  box-shadow: var(--ob-focus);
+}
+/* rail placeholder (shell.place.replays.rail.empty — shown only when the
+   rail is visible with nothing to list). Ink = --ob-text-1: the G7 GROUND
+   LAW on the 52 % smoke (RP:R-10 / B-K02) — text-2 is the opaque-step ink */
+.ob-replays-rail-empty {
+  margin: 0;
+  padding: var(--ob-sp-3);
+  font-size: var(--ob-fs-0);
+  line-height: var(--ob-lh-body);
+  color: var(--ob-text-1);
+  overflow-wrap: anywhere;
+}
+.ob-replays-rail-empty[hidden] { display: none; }
+
+/* ---- material: the rail is the SOLID rung on every register (GH-638 /
+   #727 ORDER-LIGHT-C2-FIX21 — the shell rail's exemption, B-K14 / A2): its
+   labels (the rail title, the day heads, the session rows' text-1 / accent
+   runs) read 3.57–4.15:1 over the venue-lit floor and walls through the
+   52 % smoke (e2e-ui A2, shell replays, 2026-09-16). The rung-0 lift and
+   its reduced-transparency counter-rule are gone; the solid rule above
+   is the material on every rung, no blur under it. -------------------- */
+
+/* ---- phone register (coarse pointer; LANDSCAPE only — portrait shows
+   #ob-rotate). THE STACK REGISTER (Ta18, contract §7 entry 20 — coordinator
+   ruling Q-C4 2026-09-05): the card column holds TWO boxes stacked, the
+   replays card on top and the band below it, both inside the column's
+   vertical budget (card top .. the band's bottom offset — the shell's
+   published rail top + sp-3, the B-K05 seam below; 88 px + safe-area is
+   the floor for an older shell). Before this register the
+   band sat at the same anchor but the card (later in body order, same
+   z-index 8) painted OVER it whenever the card was tall (pack finding,
+   contract §7 entry 18). Now the card is a height-capped flex column whose
+   latest-session body is the internal scrollport (the play/practice host
+   idiom — play.css FR-003 cap; ui/scrollfade.js edge law on the body) and
+   the band keeps its frozen anchor + cap; replays.js derives the split on
+   show / resize / render and writes it as custom properties (contract
+   §3.1: --ob-replays-card-top; entry 20: --ob-replays-band-h = the band's
+   budget, --ob-replays-card-cap = the card's max-height; the band always
+   gets at least ONE full row through the first row's bottom, the card the
+   rest — never a magic number, every term is a measured box or the
+   shell's own offsets). Fallbacks (no JS value yet): the card caps at the
+   whole column, the band at the contract cap. Rows >= 44 pt; safe area
+   honoured (contract §3.1 phone register / §4 law 9). --------------- */
+@media (pointer: coarse) {
+  /* the band's BOTTOM OFFSET (GH-668 S5 B-K05 seam consumed, shell.md §9
+     entry 23; contract §7 entry 36): 100vh − the shell's published place-
+     rail top (`--ob-shell-rail-top`, live) + sp-3 breathing. The pre-seam
+     guess (88 px = 12 + 66 + 10, a copy of the shell's own offsets) stays
+     as the FLOOR for an older shell that publishes nothing (its :root
+     default is 100vh → the seam term collapses to sp-3): the seam is the
+     truth, the guess the floor. replays.js reads the COMPUTED bottom — one
+     number for CSS and JS. Declared on both boxes (the section lives under
+     #ob-shell, the band is body-level). */
+  #ob-shell-cards > section.ob-replays-host,
+  #ob-replays-rail {
+    --ob-replays-bottom: max(calc(88px + env(safe-area-inset-bottom, 0px)),
+      calc(100vh - var(--ob-shell-rail-top, 100vh) + var(--ob-sp-3)));
+  }
+  #ob-shell-cards > section.ob-replays-host {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    position: relative;
+    max-height: var(--ob-replays-card-cap,
+      calc(100vh - var(--ob-replays-bottom) - var(--ob-replays-card-top, 14px)));
+  }
+  /* B-RP01 (ruling R15 "the card is the session"): on coarse pointers the
+     Open pill and the hold hint are NOT painted — the seeded body is the
+     tap target (replays.js syncTap: role=button + the openLatest name).
+     Both nodes stay in the DOM (contract §4 law 4 reads the hint by key);
+     the actions wrap collapses with them while the archive is seeded (the
+     empty sentence keeps it) so the body is the card's last painted line.
+     r7 (review r4 P2-1 — the cache-poison contract's FRESH-CSS + STALE-JS
+     pairing, the ownership ledger mixed-freshness law): the three hides key on the
+     `data-ob-tap="body"` marker replays.js writes on the host where it
+     wires the body's tap + key handlers. A cached pre-tap replays.js never
+     writes it, so under this sheet that module keeps its Open pill + hint
+     painted — its only launch path (click + Enter); the pill then carries
+     the coarse floor itself (the kit ships no blanket .ob-btn floor, A6
+     pad paired). Arm X1 R-STALE-REPLAYS proves both faces. */
+  #ob-shell-cards > section.ob-replays-host[data-ob-tap="body"] #ob-replays-actions .ob-btn { display: none; }
+  #ob-shell-cards > section.ob-replays-host[data-ob-tap="body"] #ob-replays-actions:has(> .ob-replays-empty[hidden]) { display: none; }
+  #ob-shell-cards > section.ob-replays-host[data-ob-tap="body"] > p.ob-shell-hold { display: none; }
+  #ob-shell-cards > section.ob-replays-host:not([data-ob-tap="body"]) #ob-replays-actions .ob-btn {
+    min-height: var(--ob-h-coarse);
+    padding-inline: var(--ob-pill-pad-coarse);
+  }
+  /* (the host's own [hidden] kill rule above outranks this display: flex
+     — the GH-534 F1 ghost class law) */
+  #ob-shell-cards > section.ob-replays-host > * { flex: 0 0 auto; }
+  /* the latest-session body is the ONE flexible child: it shrinks to the
+     cap and scrolls internally (heading, Open action and the hold hint
+     stay put); the kit scroll-edge fade paints only while content is
+     clipped (its ::before/::after are absolute → position: relative) */
+  #ob-shell-cards > section.ob-replays-host > #ob-replays-latest {
+    flex: 1 1 auto;
+    /* GH-668 S5 review visual audit r1 F2 (P2): on coarse pointers the body
+       IS the tap target (syncTap, R15), so the TARGET carries the shared
+       coarse floor — the kit `--ob-h-coarse` (44) as the body box's
+       min-height, never invisible padding on the card's chrome (the two-line
+       body measured 40.9 px). The register floors its block snap at the same
+       computed value (replays.js writeRegister) so a capped card never asks
+       the body for less than its floor; the band keeps two whole rows at
+       844×390 (arm V2 measures both phones ×7). */
+    min-height: var(--ob-h-coarse);
+    position: relative;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* the body's END PAD (entry 24, both edges — see #ob-replays-list) */
+    padding-bottom: var(--ob-replays-pad-end, 0px);
+  }
+  #ob-replays-rail {
+    top: auto;
+    left: calc(14px + env(safe-area-inset-left, 0px));
+    width: min(280px, 58vw); /* the coarse card column width */
+    bottom: var(--ob-replays-bottom);
+    /* GH-668 S5 replays r3 (audit r1 F2, D-G1-3 restated — contract §7 row 45):
+       the viewport cap is 38.5vh, the smallest half-vh that holds TWO whole
+       rows at 667×375 with a margin (the two-row need is 143.78 px ×7
+       locales; 38vh = 142.50 sat 1.28 px short, 38.4vh would clear it by
+       0.22 px only, 38.5vh = 144.375 clears by 0.60); the card body's 44 px
+       floor, the safe areas and the shell rail stay whole at 667 and 844
+       (arms V2 / P). replays.js BAND_CAP_VH is the same number. */
+    max-height: min(38.5vh,
+      calc(100vh - var(--ob-replays-bottom) - var(--ob-replays-card-top, 0px)),
+      var(--ob-replays-band-h, 38.5vh));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  #ob-replays-rail .ob-pb-row { min-height: 44px; }
+}

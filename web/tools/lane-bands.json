@@ -1,0 +1,14 @@
+{
+  "v": 1,
+  "note": "Declared LANE port bands on the shared development Mac (GH-687 follow-through; owner rulings 2026-09-07). PLAN rows: 30 ports per lane (the layout minimum — bandLayout needs an http half + a CDP half), contiguous, below the CI reserved range in ci-bands.json. LEGACY rows: the bands lanes were running on before the plan, kept until `until` so no running chain breaks — lanes migrate at their next Chrome-gate start; the lint WARNS on a tool default inside a legacy row until that date and FAILS after it (and fails on the row itself once it has expired). run-gate refuses a --band narrower than the layout minimum by name and never widens across any declared boundary (CI reserved, plan or legacy). The lint (node web/tools/ci-bands-lint.mjs; hygiene arm 8g) refuses any tool default whose FULL derived range (base + declared PORT_INVENTORY) intersects any declared band; a tool that derives ports from a base without declaring an inventory fails as 'undeclared-inventory'.",
+  "bands": [
+    { "lane": "maintainer", "band": "9400-9429", "note": "node gates and review only" },
+    { "lane": "ci-red",       "band": "9430-9459", "note": "the CI-RED lane (nightly reds, CI infrastructure)" },
+    { "lane": "ballreturn",   "band": "9460-9489" },
+    { "lane": "lighting",     "band": "9490-9519" },
+    { "lane": "diamond",      "band": "9520-9549" },
+    { "lane": "snooker",      "band": "9550-9579" },
+    { "lane": "chinese8",     "band": "9580-9609" },
+    { "lane": "verifiers",    "band": "9610-9639" }
+  ]
+}

@@ -1,0 +1,97 @@
+% ===========================================================================
+% Supplement — full predicted-shift verification table (moved from the main
+% text's Section 6 when the main text was shortened; the main text keeps
+% a two-row extract, tab:predicted-shifts). Every number traces to the
+% drift rows of the study's baseline manifest and its ledger under the
+% canonical kernel 0.1.0+fb3425ad.
+% ===========================================================================
+\section{Predicted-shift verification across the slip-law and
+  branch-selection fix cascade}
+\label{sec:supp-predicted-shifts}
+
+Before the post-fix battery re-run, each affected experiment received a
+written prediction of the direction and mechanism of its shift, and no
+registered band or catalog parameter was re-tuned
+(Section~\ref{sec:oracle} of the main text presents the fix-cascade case
+study and a two-row extract). Table~\ref{tab:supp-predicted-shifts}
+transcribes all seven prediction classes; all seven confirmed.
+
+% Table typography: the longtable takes the
+% sanctioned 7.0 in artwork width via a symmetric \LTleft/\LTright
+% overhang (matching the native-size figure convention; 'plus 1fill'
+% keeps the chunks centered without per-row hbox warnings), with
+% absolute ragged-right column widths and continuation furniture. The
+% col-1 header is abbreviated 'Expt.' so it no longer overflows into
+% col 2 (row labels C1/A3/... are defined in the text).
+{\small
+\setlength{\LTleft}{-57pt plus 1fill}%
+\setlength{\LTright}{-57pt plus 1fill}%
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.55in}>{\raggedright\arraybackslash}p{2.9in}>{\raggedright\arraybackslash}p{3.19in}@{}}
+  \caption{Predicted-shift verification across the slip-law and
+  branch-selection fix cascade.
+  Each row is a prediction class registered before the post-fix battery
+  re-run; ``bit-identical'' means byte equality of the affected rows
+  after masking kernel-version stamps. No acceptance band or catalog
+  parameter was re-tuned.}
+  \label{tab:supp-predicted-shifts}\\
+    \toprule
+    Expt. & Registered prediction & Measured outcome \\
+    \midrule
+    \endfirsthead
+    \multicolumn{3}{@{}l}{Table~\ref{tab:supp-predicted-shifts} \emph{(continued)}}\\
+    \toprule
+    Expt. & Registered prediction & Measured outcome \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{3}{r@{}}{\emph{Continued on next page}}\\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+    \expid{C1} &
+    branch-selection fix: the four \code{stronge_realistic} discontinuous
+    bank cells collapse;
+    other presets untouched &
+    cells $4\to0$; the three-crossing cell (aim 3.0, 1\,m/s) monotone;
+    \code{han2005}, \code{mathavan}, and \code{grip} rows bit-identical \\
+    \addlinespace
+    \expid{A3} &
+    slip tan-argument ratio $\to 1$ (throw exactly $\arctan\mu$); stick
+    regime unchanged &
+    ratio $0.9745\to1.00014$; stick ratio 1.02564 unchanged; worst
+    slip-channel $|E|$ vs the transcribed master curves
+    $0.0886\to0.0012^\circ$ \\
+    \addlinespace
+    \expid{A1} &
+    half-ball separations shift in the $+2.6$\% slip-throw direction;
+    straight-in rows unchanged &
+    separations $-0.10$ to $-0.13^\circ$; straight-in rows
+    bit-identical \\
+    \addlinespace
+    \expid{A5}, \expid{A6} &
+    gearing zero-crossings bit-identical (gearing zeroes slip);
+    slip-branch ratios rescale by $(1+e_b)/(2e_b)$ &
+    zero-crossings bit-identical; transfer ratio
+    $0.95007\to0.97508 = (1+e_b)/2$; half-ball sanity throw
+    $4.5222\to4.6407^\circ$ \\
+    \addlinespace
+    \expid{B1}--\expid{B4} &
+    strike-only experiments unchanged &
+    \expid{B1}, \expid{B2}, \expid{B4} bit-identical; \expid{B3}
+    identical except a stale script stamp flag (bookkeeping) \\
+    \addlinespace
+    \expid{D1}--\expid{D3}, \expid{F1}--\expid{F3} &
+    \expid{D2}, \expid{D3}, \expid{F1} unchanged; \expid{F3} shifts only
+    in its over-cut family (airborne contacts are slip-branch impacts);
+    \expid{D1} shifts (post-impact slide is slip-branch) &
+    confirmed as stated: \expid{D1} asymptote $E_\theta$ at 1\,m/s
+    $0.1307\to0.1729^\circ$; \expid{F3} min-elevation curves and jump
+    sweep bit-identical \\
+    \addlinespace
+    \expid{E1}, \expid{E3} &
+    compliant-cluster rows unchanged (force-based Coulomb consumes no
+    impulse cap); the model contrast survives &
+    \expid{E1} compliant slope bit-identical (contrast 0.139 vs 0.0295);
+    \expid{E3} compliant squat rows bit-identical \\
+\end{longtable}
+}

@@ -1,0 +1,3 @@
+E2E-PLAY FAIL: browse: the rail must scroll the selected card into view: {"dx":140}
+E2E-PLAY-BROWSE: PASS
+E2E-PLAY-CARD: FAIL

@@ -1,0 +1,304 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club dev page: chalk dust</title>
+<style>
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }
+#labels { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; font: 12px/1.3 ui-monospace, Menlo, monospace; color: #e8e8e8; }
+#labels div { position: absolute; padding: 3px 6px; background: rgba(0, 0, 0, 0.55); white-space: pre; }
+#note { position: absolute; right: 0; bottom: 0; padding: 3px 6px; background: rgba(0, 0, 0, 0.6); font: 11px/1.3 ui-monospace, Menlo, monospace; color: #cfd8e0; white-space: pre; }
+</style>
+<base href="../../">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<div id="labels"></div><div id="note"></div>
+<script type="module">
+import * as THREE from 'three';
+import { RectAreaLightUniformsLib } from './vendor/jsm/lights/RectAreaLightUniformsLib.js';
+
+const q = new URLSearchParams(location.search);
+const num = (k, d) => { const v = Number(q.get(k)); return q.has(k) && Number.isFinite(v) ? v : d; };
+const R = 0.028575;
+const SHOTS = {
+  hard: { v0: 7.5, a: 0, b: 0, theta: 2 }, medium: { v0: 3.5, a: 0, b: 0, theta: 2 }, softish: { v0: 2.0, a: 0, b: 0, theta: 2 },
+  soft: { v0: 1.2, a: 0, b: 0, theta: 2 }, side: { v0: 7.5, a: 0.45, b: 0, theta: 2 }, draw: { v0: 5.5, a: 0, b: -0.45, theta: 4 },
+  follow: { v0: 5.5, a: 0, b: 0.4, theta: 2 }, break: { v0: 11, a: 0, b: 0.05, theta: 2 }, jack: { v0: 6, a: 0.2, b: -0.3, theta: 28 },
+};
+const shotName = SHOTS[q.get('shot')] ? q.get('shot') : 'hard';
+const S = { ...SHOTS[shotName] };
+S.v0 = num('v0', S.v0); S.a = num('a', S.a); S.b = num('b', S.b); S.theta = num('theta', S.theta) * Math.PI / 180;
+const T0 = num('t0', 0.5);
+const PHI = Math.PI / 2;            // kernel azimuth: +y, the table's long axis (world +x)
+const KX = 0.10, KY = -0.55;        // the cue ball of the lane's fixed layout (kernel x, y)
+const TIMES = (q.get('times') ?? '-0.02,0.02,0.08,0.2,0.5,1.0').split(',').map(Number).filter(Number.isFinite).slice(0, 6);
+const TIER = ['lite', 'base', 'high'].includes(q.get('tier')) ? q.get('tier') : 'high';
+const COUNT = q.has('count') ? Math.max(0, Math.floor(num('count', 160))) : { lite: 0, base: 64, high: 160 }[TIER];
+
+const record = {
+  kernel_version: 'dev-page', format_version: 1,
+  shot: { v0: S.v0, phi: PHI, theta: S.theta, a: S.a, b: S.b, seed: 7 },
+  initial: { balls: [
+    { id: 0, params: { r: R }, state: { pos: { x: KX, y: KY, z: R } } },
+    { id: 1, params: { r: R }, state: { pos: { x: KX + 0.02, y: KY + 0.42, z: R } } },
+  ] },
+  events: [{ t: T0, kind: { Strike: { ball: 0 } }, post: [] }, { t: T0 + 6, kind: 'Rest', post: [] }],
+};
+
+// ---- renderer and scene ---------------------------------------------------------------------------------------------------------
+const W = innerWidth, H = innerHeight;
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85; // the tournament look's exposure
+renderer.autoClear = false;
+document.body.insertBefore(renderer.domElement, document.body.firstChild);
+RectAreaLightUniformsLib.init();
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x060504);
+
+// the strike's frame (world): three.x = kernel y, three.z = kernel x
+const C = new THREE.Vector3(KY, R, KX);
+const D = new THREE.Vector3(Math.sin(PHI), 0, Math.cos(PHI));
+const UP = new THREE.Vector3(0, 1, 0);
+const RIGHT = new THREE.Vector3().crossVectors(D, UP);
+const FWD = D.clone().multiplyScalar(Math.cos(S.theta)).addScaledVector(UP, -Math.sin(S.theta));
+const UPE = UP.clone().multiplyScalar(Math.cos(S.theta)).addScaledVector(D, Math.sin(S.theta));
+const depth = Math.sqrt(1 - S.a * S.a - S.b * S.b);
+const P = C.clone().addScaledVector(RIGHT, S.a * R).addScaledVector(UPE, S.b * R).addScaledVector(FWD, -depth * R);
+
+// the lamp: the app's rectangle (room.js LIGHT_W x LIGHT_D, colour and level) over the table's middle
+const lamp = new THREE.RectAreaLight(0xfff1da, 7.6, 2.05, 0.66);
+lamp.position.set(0, 0.82, 0); lamp.lookAt(0, 0, 0);
+scene.add(lamp);
+scene.add(new THREE.HemisphereLight(0x38301f, 0x1c2a1c, 0.22));
+const lampFace = new THREE.Mesh(new THREE.PlaneGeometry(2.05, 0.66), new THREE.MeshBasicMaterial({ color: 0xfff1da }));
+lampFace.position.copy(lamp.position); lampFace.rotation.x = Math.PI / 2; lampFace.name = 'devLampFace';
+scene.add(lampFace);
+
+const bed = new THREE.Mesh(new THREE.BoxGeometry(2.54, 0.04, 1.27), new THREE.MeshStandardMaterial({ color: 0x0a4cb0, roughness: 0.95 }));
+bed.position.y = -0.02; bed.name = 'devBed'; scene.add(bed);
+const rail = new THREE.Mesh(new THREE.BoxGeometry(2.84, 0.05, 1.57), new THREE.MeshStandardMaterial({ color: 0x2a1a12, roughness: 0.5 }));
+rail.position.y = -0.03; rail.name = 'devRail'; scene.add(rail);
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), new THREE.MeshStandardMaterial({ color: 0x30241c, roughness: 0.7 }));
+floor.rotation.x = -Math.PI / 2; floor.position.y = -0.8; floor.name = 'devFloor'; scene.add(floor);
+if (q.get('bg') === 'cloth') {
+  const board = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 0.5), new THREE.MeshStandardMaterial({ color: 0x1d6fc4, roughness: 0.95, side: THREE.DoubleSide }));
+  board.position.copy(C).addScaledVector(RIGHT, -0.3); board.position.y = 0.2; board.lookAt(C.clone().addScaledVector(RIGHT, 1)); board.name = 'devBoard';
+  scene.add(board);
+}
+
+const ballGroup = new THREE.Group(); ballGroup.name = 'devBalls'; scene.add(ballGroup);
+const ballGeo = new THREE.SphereGeometry(R, 48, 32);
+const cueBall = new THREE.Mesh(ballGeo, new THREE.MeshStandardMaterial({ color: 0xf4f1e6, roughness: 0.12 }));
+const objBall = new THREE.Mesh(ballGeo, new THREE.MeshStandardMaterial({ color: 0xe0a010, roughness: 0.12 }));
+ballGroup.add(cueBall, objBall);
+const OBJ0 = new THREE.Vector3(KY + 0.42, R, KX + 0.02);
+
+// the cue stand-in: a tapered rod named as the app names its cue
+const CUE_LEN = 1.45;
+const cue = new THREE.Group(); cue.name = 'obCueStick';
+const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.0064, 0.0146, CUE_LEN, 20, 1), new THREE.MeshStandardMaterial({ color: 0xd8b98a, roughness: 0.35 }));
+rod.position.y = -CUE_LEN / 2 - 0.012;
+const tip = new THREE.Mesh(new THREE.CylinderGeometry(0.0062, 0.0064, 0.012, 20, 1), new THREE.MeshStandardMaterial({ color: 0x2e5f9a, roughness: 0.9 }));
+tip.position.y = -0.006;
+cue.add(rod, tip);
+cue.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), FWD); // local +y = tip -> ball
+scene.add(cue);
+
+// stand-in poses at playback time t (this page's own law: the dust is judged against them, nothing more)
+function pose(t) {
+  const tau = t - T0;
+  // cue: constant acceleration into the contact, then a decelerating follow-through of 0.16 m
+  let adv;
+  const vc = Math.max(0.3, 0.6 * S.v0), F = 0.16, dF = 2 * F / vc;
+  if (tau < 0) { const s = Math.min(0.12, -tau); adv = -(S.v0 * s - 0.5 * (S.v0 / 0.12) * s * s); }
+  else if (tau < dF) adv = vc * tau - (vc / (2 * dF)) * tau * tau;
+  else adv = F;
+  cue.position.copy(P).addScaledVector(FWD, adv);
+  cue.visible = tau < 1.2;
+  // cue ball: leaves at 1.35 x the tip speed, slows a little, stops a ball's width short of the object ball; that one goes on
+  const vb = 1.35 * S.v0 * depth;
+  const gap = OBJ0.clone().sub(C); gap.y = 0;
+  const reach = Math.max(0, gap.length() - 2 * R);
+  const run = tau <= 0 ? 0 : Math.max(0, vb * tau - 0.25 * tau * tau);
+  const dirB = gap.clone().normalize();
+  cueBall.position.copy(C).addScaledVector(dirB, Math.min(run, reach));
+  objBall.position.copy(OBJ0).addScaledVector(dirB, Math.min(1.5, Math.max(0, run - reach) * 0.9));
+}
+
+// ---- camera ------------------------------------------------------------------------------------------------------------------
+const camera = new THREE.PerspectiveCamera(32, 1, 0.02, 60);
+const at = (f, r, u) => C.clone().addScaledVector(D, f).addScaledVector(RIGHT, r).addScaledVector(UP, u);
+const VIEWS = {
+  q: [at(-0.19, 0.25, 0.15), at(0.03, 0, 0.0), 30],
+  aim: [at(-0.62, 0.05, 0.20), at(0.25, 0, -0.02), 32],
+  side: [at(-0.03, 0.46, 0.07), at(-0.03, 0, 0.005), 26],
+  top: [at(-0.02, 0.001, 0.55), at(-0.02, 0, 0), 28],
+  close: [at(-0.17, 0.13, 0.08), at(-0.02, 0, 0.0), 30],
+  player: [at(-0.50, 0.03, 0.17), at(0.10, 0, -0.01), 26],
+  v2: [new THREE.Vector3(-1.35, 0.32, 0.22), new THREE.Vector3(0.2, 0, 0), 32],
+};
+const viewName = VIEWS[q.get('view')] ? q.get('view') : 'q';
+const [cpos, ctgt, cfov] = VIEWS[viewName];
+camera.position.copy(cpos); camera.fov = cfov; camera.lookAt(ctgt);
+
+// ---- the stand-in game, machine and club -----------------------------------------------------------------------------------------
+const balls = [{ id: 0, mesh: cueBall, pocketed: false }, { id: 1, mesh: objBall, pocketed: false }];
+const game = { record, clock: 0, duration: T0 + 6, phi: PHI, ballSet: { balls, group: ballGroup }, cueBall: () => balls[0], activeBalls: () => balls };
+const handlers = { frame: [], stateChange: [] };
+const machine = {
+  state: 'PLAYBACK',
+  on(ev, fn) { (handlers[ev] ??= []).push(fn); return () => { const i = handlers[ev].indexOf(fn); if (i >= 0) handlers[ev].splice(i, 1); }; },
+  emit(ev, ...args) { for (const fn of (handlers[ev] ?? []).slice()) fn(...args); },
+};
+const club = { enabled: true, tier: TIER, knobs: { motion: 'full', motionDust: COUNT, motionMarks: 0 }, ctx: { scene, machine, game, query: q, renderer, camera } };
+window.__club = club;
+
+let part = null, motion = null, via = 'none', buildNote = '';
+if (q.get('dust') !== 'off') {
+  if (q.get('via') !== 'direct') {
+    try {
+      const mod = await import('./scene/club/motion.js');
+      motion = await mod.createMotion(club, { parts: [['dust', './motion/dust.js', () => import('./scene/club/motion/dust.js'), 'applyDust']] });
+      part = motion.parts?.dust ?? null; via = 'motion.js';
+      if (part?.enabled !== true) buildNote = `motion.js: dust ${part?.reason ?? 'not built'}`;
+    } catch (e) { buildNote = `motion.js unavailable (${e?.message ?? e}); direct`; motion = null; }
+  }
+  if (!motion) {
+    const mod = await import('./scene/club/motion/dust.js');
+    part = await mod.applyDust(club);
+    via = 'direct';
+  }
+}
+// the dust's program is linked while the part is built (motion/dust/warm.js): the counts before anything is drawn
+const progs = () => { const list = renderer.info.programs ?? []; return { programs: list.length, dust: list.filter((p) => p.name === 'club.motion.dust').length }; };
+const warmSeen = { afterBuildBeforeAnyFrame: progs() };
+function drive(t) {
+  pose(t);
+  game.clock = t;
+  if (motion) machine.emit('frame', t, 0);
+  else if (part?.enabled === true) part.update(t, record);
+}
+
+// ---- the strip -----------------------------------------------------------------------------------------------------------------
+const n = Math.max(1, TIMES.length), cols = n <= 1 ? 1 : n <= 4 ? 2 : 3, rows = Math.ceil(n / cols);
+const tw = Math.floor(W / cols), th = Math.floor(H / rows);
+camera.aspect = tw / th; camera.updateProjectionMatrix();
+const labels = document.getElementById('labels');
+function drawStrip() {
+  renderer.setScissorTest(true);
+  labels.textContent = '';
+  for (let i = 0; i < n; i++) {
+    const cx = (i % cols) * tw, cy = Math.floor(i / cols) * th;
+    renderer.setViewport(cx, H - cy - th, tw, th); renderer.setScissor(cx, H - cy - th, tw, th);
+    drive(T0 + TIMES[i]);
+    renderer.clear();
+    renderer.render(scene, camera);
+    const st = part?.state?.() ?? null;
+    const el = document.createElement('div');
+    el.style.left = `${cx}px`; el.style.top = `${cy}px`;
+    el.textContent = `strike ${TIMES[i] >= 0 ? '+' : ''}${TIMES[i].toFixed(2)} s   particles ${st ? st.alive : '-'}${st && !st.visible ? ' (nothing drawn)' : ''}`;
+    labels.appendChild(el);
+  }
+  renderer.setScissorTest(false);
+}
+for (let k = 0; k < 3; k++) drawStrip();
+warmSeen.afterStrip = progs(); // the strip drew the cloud: still one dust program if the early link was the right one
+
+// ---- the checks ------------------------------------------------------------------------------------------------------------------
+const result = { shot: { name: shotName, ...S, t0: T0 }, view: viewName, tier: TIER, count: COUNT, via, buildNote, state: null, purity: null, furniture: null, bake: null };
+function hashFrame(target, t) {
+  drive(t);
+  renderer.setRenderTarget(target); renderer.setViewport(0, 0, target.width, target.height);
+  renderer.clear(); renderer.render(scene, camera);
+  const px = new Uint8Array(target.width * target.height * 4);
+  renderer.readRenderTargetPixels(target, 0, 0, target.width, target.height, px);
+  renderer.setRenderTarget(null);
+  let h = 0x811c9dc5, sum = 0;
+  for (let i = 0; i < px.length; i++) { h ^= px[i]; h = Math.imul(h, 0x01000193) >>> 0; sum += px[i]; }
+  return { hash: h.toString(16).padStart(8, '0'), sum };
+}
+try {
+  const target = new THREE.WebGLRenderTarget(426, 360, { type: THREE.UnsignedByteType, colorSpace: THREE.SRGBColorSpace });
+  const ts = TIMES.map((x) => T0 + x);
+  const orders = {
+    forward: ts.slice(),
+    backward: ts.slice().reverse(),
+    // each time again with other times (one far outside the cloud's life, one before the strike) drawn between
+    shuffled: ts.flatMap((t, i) => [ts[(i * 3 + 2) % ts.length], T0 + 3.3, t, T0 - 0.4]).concat(ts),
+  };
+  const seen = new Map(); // t -> Set of hashes
+  const sums = {};
+  for (const [name, list] of Object.entries(orders)) for (const t of list) {
+    const r = hashFrame(target, t);
+    if (!seen.has(t)) seen.set(t, new Set());
+    seen.get(t).add(r.hash);
+    if (ts.includes(t)) (sums[(t - T0).toFixed(2)] ??= []).push(`${name}:${r.sum}`);
+  }
+  const distinctFrames = new Set(ts.map((t) => [...seen.get(t)][0])).size;
+  result.purity = {
+    renders: Object.values(orders).reduce((a, l) => a + l.length, 0), times: ts.map((t) => +(t - T0).toFixed(3)),
+    hashesPerTime: ts.map((t) => seen.get(t).size), pure: ts.every((t) => seen.get(t).size === 1), distinctFrames,
+    hashes: ts.map((t) => [...seen.get(t)].join('|')), sums,
+  };
+  target.dispose();
+} catch (e) { result.purity = { error: String(e?.message ?? e) }; }
+
+try {
+  const fmod = await import('./scene/ballreturn/furniture.js');
+  // a time at which the dust is drawn
+  drive(T0 + 0.08);
+  const dustMesh = scene.getObjectByName('clubMotionDust');
+  const walk = () => { const f = fmod.furnitureOf(THREE, scene, { excludeGroup: ballGroup }); return { meshes: f.length, names: f.map((x) => x.name), hasDust: f.some((x) => x.mesh === dustMesh), skipped: f.skipped?.length ?? 0 }; };
+  const a = walk();
+  let bite = null;
+  if (dustMesh) {
+    const home = dustMesh.parent;
+    scene.add(dustMesh);           // the same mesh without its obAim* ancestors
+    const b = walk();
+    home.add(dustMesh);
+    bite = { meshes: b.meshes, hasDust: b.hasDust };
+  }
+  result.furniture = { dustVisible: dustMesh?.visible === true, dustAncestors: dustMesh ? (() => { const o = []; for (let p = dustMesh.parent; p && p !== scene; p = p.parent) o.push(p.name); return o; })() : null,
+    meshes: a.meshes, hasDust: a.hasDust, names: a.names, movedUnderSceneRoot: bite };
+} catch (e) { result.furniture = { error: String(e?.message ?? e) }; }
+
+try {
+  // the app's rule (main.js hideGameplayVisualsForBake), written out: every visible node named obCueStick or obAim*
+  drive(T0 + 0.08);
+  const dustMesh = scene.getObjectByName('clubMotionDust');
+  const hidden = [];
+  scene.traverse((o) => { const nm = o.name || ''; if (o.visible && (nm === 'obCueStick' || nm.startsWith('obAim'))) hidden.push(o); });
+  hidden.forEach((o) => { o.visible = false; });
+  let shown = !!dustMesh;
+  for (let p = dustMesh; p; p = p.parent) if (p.visible === false) shown = false;
+  hidden.forEach((o) => { o.visible = true; });
+  let after = !!dustMesh;
+  for (let p = dustMesh; p; p = p.parent) if (p.visible === false) after = false;
+  result.bake = { hiddenNodes: hidden.map((o) => o.name), dustDrawnInBake: shown, dustDrawnAfterRestore: after };
+} catch (e) { result.bake = { error: String(e?.message ?? e) }; }
+
+drawStrip();
+result.state = motion ? motion.state() : (part?.state?.() ?? null);
+// (the purity check above draws into a render target, which is another program of the same material: 2 after it)
+result.warm = { ...warmSeen, afterChecks: progs(), state: part?.state?.()?.warm ?? null };
+result.info = { calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, programs: renderer.info.programs?.length ?? null };
+window.__dust = result;
+window.__dev = { THREE, renderer, scene, camera, part, motion, drive, drawStrip };
+const pr = result.purity, fu = result.furniture, bk = result.bake;
+document.getElementById('note').textContent =
+  `shot ${shotName} v0 ${S.v0} a ${S.a} b ${S.b} | view ${viewName} | ${q.get('dust') === 'off' ? 'dust OFF' : `dust ${part?.enabled === true ? 'on' : 'NOT BUILT: ' + (part?.reason ?? buildNote)} via ${via}, ceiling ${COUNT}`}\n`
+  + `purity ${pr?.error ?? (pr?.pure ? `byte-equal at ${pr.times.length} times over ${pr.renders} renders, ${pr.distinctFrames} distinct frames` : 'NOT PURE ' + JSON.stringify(pr?.hashesPerTime))}`
+  + ` | furniture ${fu?.error ?? `${fu?.meshes} meshes, dust in it: ${fu?.hasDust}; under scene root: ${fu?.movedUnderSceneRoot?.hasDust}`}`
+  + ` | bake rule: dust drawn ${bk?.error ?? bk?.dustDrawnInBake}`
+  + ` | dust programs: ${warmSeen.afterBuildBeforeAnyFrame.dust} before any frame, ${warmSeen.afterStrip.dust} after the strip`;
+window.__ready = true;
+</script>
+</body>
+</html>

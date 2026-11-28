@@ -1,0 +1,1746 @@
+% ===========================================================================
+% Section 5 — Results (assembled part 1 of 05-results.tex):
+% section header + Group A (ball-ball impact and throw).
+% Every number traces to the study's baseline manifest, its ledger, or a
+% pinned experiment output (canonical kernel 0.1.0+fb3425ad).
+% ===========================================================================
+\section{Results: the empirical laws of pool}
+\label{sec:results}
+
+This section reports the battery group by group. All quantities are
+post-cascade baselines under the canonical kernel \code{0.1.0+fb3425ad};
+the battery itself executed on a native build whose kernel sources are
+git-identical to the canonical binary (the source-identity proof travels
+with the baseline manifest), and per-figure provenance is tabulated in
+Supplementary Material Section~S1. Comparison errors follow the
+$E = S - D$ convention of Section~\ref{sec:methodology}, verification
+results are labeled as verification, and every empirical rule carries a
+domain-of-validity statement whose one-row summary is collected in
+Table~\ref{tab:domains}; deviations are recorded in the study's waiver
+ledger (categories in Table~\ref{tab:waiver-categories}). Figure slots F2--F13 are referred to as ``slot F$n$'' to keep the
+slot namespace distinct from experiment IDs \expid{F1}--\expid{F3}.
+
+Two figure conventions hold throughout the paper. First, every figure
+caption opens with a bold claim-type prefix so the epistemic weight of
+the artwork is visible before its content: \textbf{Validation}
+(comparison against measured data or observation), \textbf{Verification}
+(code against closed forms, its own source model, or another code),
+\textbf{Comparison} (benchmarking against derived reference
+constructions, conventions, or practitioner lore), and
+\textbf{Performance} (reserved for computational measurements); the
+architecture schematic carries the neutral prefix \textbf{Overview}.
+Second, registered ledger rows visible in artwork use a single
+waiver-marker language: an orange (Okabe--Ito vermillion) open ring on
+the affected data point --- or, where no single point applies, an
+orange panel-anchored note naming the row's ledger category. Table~\ref{tab:figure-roadmap}
+maps every figure slot to its claim type and experiments.
+
+\begin{table}[htbp]
+  \caption{Figure roadmap: every figure slot with its claim type and
+  experiment IDs. Slot F0 is the battery-wide verdict map of
+  Section~\ref{sec:introduction}; slots F2--F13 appear in this section;
+  slot F14 in Section~\ref{sec:oracle}. Slot names F0--F14 are a
+  distinct namespace from experiment IDs \expid{F1}--\expid{F3}.}
+  \label{tab:figure-roadmap}
+  % explicit caption/toprule gap + \small body (the caption descenders
+  % touched the \toprule; all rows stay single-line)
+  \vspace{6pt}
+  \centering
+  \small
+  \begin{tabular}{llll}
+    \toprule
+    Slot & Claim type & Experiments & Where \\
+    \midrule
+    F0  & Validation (summary map) & battery-wide & \S\ref{sec:introduction} \\
+    F1  & Overview (architecture)  & --- & \S\ref{sec:simulator} \\
+    F2  & Verification & \expid{A3} & \S\ref{sec:results-a} \\
+    F3  & Comparison   & \expid{A1}, \expid{A2} & \S\ref{sec:results-a} \\
+    F4  & Comparison   & \expid{A4}--\expid{A6} & \S\ref{sec:results-a} \\
+    F5  & Comparison   & \expid{A7} & \S\ref{sec:results-a} \\
+    F6  & Verification & \expid{B1}--\expid{B4} & \S\ref{sec:results-b} \\
+    F7  & Validation   & \expid{C1} & \S\ref{sec:results-c} \\
+    F8  & Comparison   & \expid{C2}, \expid{C3} & \S\ref{sec:results-c} \\
+    F9  & Validation / verification-of-port & \expid{C4} & \S\ref{sec:results-c} \\
+    F10 & Verification & \expid{D1}--\expid{D3} & \S\ref{sec:results-d} \\
+    F11 & Validation / comparison & \expid{E1}, \expid{E2} & \S\ref{sec:results-e} \\
+    F12 & Validation   & \expid{E3} & \S\ref{sec:results-e} \\
+    F13 & Comparison   & \expid{F1}--\expid{F3} & \S\ref{sec:results-f} \\
+    F14 & Verification & ORACLE-X & \S\ref{sec:oracle} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Group A --- ball--ball impact and throw}
+\label{sec:results-a}
+
+\figstub{F2}{F2.pdf}{%
+  \textbf{Verification.} Cut-induced throw (experiment \expid{A3}):
+  kernel throw versus cut angle at ball-impact speeds
+  $\{0.447, 1.341, 3.129\}$\,m/s for the (a)~stun, (b)~natural-roll,
+  and (c)~maximum-draw states (225 runs), overlaid on the TP A-14
+  master forms \citep{alciatore_tp_a14} --- the source's own fitted
+  $\mu(v)$ model evaluated at kernel-measured impact conditions, so
+  this comparison is code-against-source-model verification rather than
+  validation against a measurement. Panels (d)--(f) make the comparison
+  error visible: $E = S - D$ per state, with the per-family maxima
+  annotated. The panel-(a) callout gives the slip- and stick-regime
+  tan-argument ratios --- the slip Coulomb-cap expectation is 1.0 and
+  the stick ratio is $2/(1+e_b)$, the declared $e_b$ channel; values
+  in the text.}{F2}
+
+Seven experiments probe the ball--ball channel: stun separation
+(\expid{A1}), the $30^\circ$ rule (\expid{A2}), cut-induced throw
+(\expid{A3}), spin-induced throw (\expid{A4}), gearing english
+(\expid{A5}), spin transfer (\expid{A6}), and the chalk-mark (``cling'')
+envelope (\expid{A7}). Each design records its strike convention and
+gates it per run (stun via the recorded pre-impact roll ratio, natural
+roll via a roll-in check), and $E$ is evaluated at the first ball--ball
+event against the source forms \citep{alciatore_tp_catalog} at
+kernel-measured impact conditions. Two threads run through the group.
+First, under the corrected Coulomb-cap slip-impulse law (the slip-law
+fix; Section~\ref{sec:oracle}), slip-regime
+throw now matches the source forms essentially exactly. Second, the
+declared $e_b = 0.95$ ball--ball restitution versus the sources' $e = 1$
+idealizations produces a coherent $\sim$2.6\% family of stick-regime
+differences, declared as catalog content rather than model error.
+
+\paragraph{The $90^\circ$ and $85^\circ$ rules (\expid{A1}).}
+The ideal stun-separation rule (TP 3.1: cue ball and object ball depart
+at exactly $90^\circ$) and its real-ball refinement ($\approx 85^\circ$)
+were swept over cuts $5$--$80^\circ$ at impact speeds $0.5$--$3$\,m/s
+with stun enforced at impact (64 runs; Fig.~\ref{fig:F3}a). Measured
+separation never exceeds $90^\circ$, and the deficit is largest exactly
+where the taught rule is silent: for cuts of $15^\circ$ and below
+(nearly full hits) the impact is friction-capped, and separation
+collapses $8.5^\circ$ (at $15^\circ$ cut) to $19.2^\circ$ (at $5^\circ$)
+below the ideal --- identically at all four speeds, because the stick
+regime is speed-free. At the half-ball reference the separation runs
+$82.49^\circ$ (0.5\,m/s) to $86.37^\circ$ (3\,m/s), a $3.88^\circ$ speed
+spread the rule does not carry; the speed-averaged value $84.63^\circ$
+sits $0.37^\circ$ below the informal $85^\circ$ figure, and TP A.5's own
+fixed-parameter evaluation ($83.259^\circ$ at $e = 0.94$, $\mu = 0.06$)
+is met within $-0.77^\circ$ at slow speed, the residual being the
+declared parameter difference ($e_b = 0.95$, velocity-dependent
+$\mu(v)$). Straight-in rows verify the degenerate closed form --- cue-ball
+residual speed fraction $0.02498$--$0.02500$ against $(1-e_b)/2 = 0.025$
+--- and are bit-identical across the kernel cascade. On the verification
+side, the mean slip-regime friction ratio over the 49 slip-classified
+impacts is 0.99988 against the Coulomb-cap law (expected 1.0) and
+1.02612 against the retired legacy overlay (expected
+$(1+e)/2e = 1.02632$) --- direct evidence of which impulse law the kernel
+implements; the experiment's worksheet reproduces the kernel to
+$0.0017^\circ$, with the legacy form retained as a documented overlay at
+$0.1293^\circ$, the measured size of the slip-law shift on this grid. Domain statement: the $90^\circ$ rule is
+an upper bound approached only for thin, fast cuts (deficit $0.87^\circ$
+at $80^\circ$/3\,m/s); the $85^\circ$ half-ball refinement is accurate on
+average but carries a $-2.5^\circ$ to $+1.4^\circ$ speed dependence over
+$0.5$--$3$\,m/s; below a $15^\circ$ cut both rules fail by construction.
+
+\paragraph{The $30^\circ$ rule (\expid{A2}).}
+Rolling-ball carom deflection $\theta_c$ was measured against TP 3.3's
+closed form (the friction-free, perfectly elastic ideal in the lineage of
+\citealp{wallace1988billiard}) over ball fractions $0.05$--$0.95$ in
+steps of $0.025$ at $1.0$, $1.5$, and $2.0$\,m/s with natural roll gated
+per run (111 runs, none censored; Fig.~\ref{fig:F3}b). The source pins
+the peak exactly: $33.749^\circ$ at ball fraction 0.529. Peak
+\emph{location} is speed-robust --- refined peak fractions 0.532, 0.526,
+and 0.523, inside the registered $0.53 \pm 0.02$ band at every speed.
+Peak \emph{height} is not: $33.72^\circ$ at 1.0\,m/s ($E = -0.03^\circ$)
+lies inside the registered $33.7 \pm 0.3^\circ$ band, but $33.18^\circ$
+at 1.5\,m/s and $32.92^\circ$ at 2.0\,m/s miss it ($E = -0.57^\circ$ and
+$-0.83^\circ$). The miss is
+characterized, not re-tuned: the reference form carries no restitution or
+friction loss, and the deficit grows with speed because the absolute
+tangential impulse grows even as $\mu(v)$ decays. The $27$--$34^\circ$
+plateau claim holds at all speeds --- measured quarter- to
+three-quarter-hit plateau widths 0.512, 0.496, and 0.488 in ball fraction
+versus the ideal 0.516 --- and $\theta_c$ never exceeds $34^\circ$
+anywhere on the grid (grid maximum $33.7103^\circ$). The peak-height
+band is thus a slow-speed statement of the source form
+(Table~\ref{tab:domains}). The post-registration one-at-a-time brackets
+of Section~\ref{sec:methodology} restate this verdict at its honest
+precision. The robust content is the \emph{speed-ordered departure
+family}: in every bracket arm the peak height declines monotonically
+with speed, by $0.75$--$1.00^\circ$ from 1.0 to 2.0\,m/s, and the
+peak-location band ($0.53 \pm 0.02$) holds at every speed in every arm
+(refined fractions 0.517--0.539). The fragile content is band
+\emph{membership}: a $\pm 0.03$ change in the declared $e_b$ translates
+the whole peak-height family by $\mp 0.88$--$0.96^\circ$, and the
+$\mu(v)$-revision spread by $+0.33$--$0.53^\circ$, so which single speed
+lands inside the $\pm 0.3^\circ$ band flips across arms (none at
+$e_b = 0.92$; 2.0\,m/s only at $e_b = 0.98$; 1.5\,m/s only under the
+2005-era decay constant). We therefore quote the registered
+in-band-at-1.0-m/s verdict together with its $e_b$-fragility, and rest
+no conclusion on the band membership alone.
+
+\paragraph{Cut-induced-throw master curves (\expid{A3}).}
+The group's central comparison --- \emph{verification of the port}, not
+validation: the kernel's catalog implements TP~A-14's fitted $\mu(v)$
+verbatim, so this is code against its own source model
+(Section~\ref{sec:methodology}) --- sweeps cuts $0$--$60^\circ$ at
+ball-impact speeds $\{0.447, 1.341, 3.129\}$\,m/s under stun, natural
+roll, and maximum draw (225 runs) against the TP A-14 master curves
+\citep{alciatore_tp_a14}, both as the source's printed master forms
+(transcribed and self-checked, Table~\ref{tab:uval}; no pixel
+digitization) evaluated at nominal conditions and as the closed form
+evaluated at kernel-measured impact conditions (Fig.~\ref{fig:F2}). Under the corrected slip law the
+slip-regime throw is the TP A-14 form itself: the mean tan-argument ratio
+over 132 slip impacts is 1.00014 (pre-fix legacy value 0.9745; the
+collapse of this ratio to unity was a registered prediction of the
+slip-law fix, Section~\ref{sec:oracle}), while the stick-regime ratio
+$1.02564 = 2/(1+e_b)$ is exactly the declared restitution difference.
+Comparison errors: the roll and maximum-draw families close at
+$\max|E| \le 0.0012^\circ$ (maximum draw, slow) --- roughly two orders of
+magnitude below the pre-cascade baseline of $0.0886^\circ$ --- and the
+stun family's $\max|E| = 0.1237^\circ$ occurs at the two grid cells where
+kernel and source disagree on stick/slip classification (the
+$(1+e_b)/2$-scaled cap boundary). The rule's features quantify as
+follows. (i) The slow-stun peak reaches $5.32^\circ$ near the half-ball
+hit, confirming the taught ``maximum $\approx 5^\circ$''. (ii) The
+$\le 20^\circ$-cut speed-collapse rule (the $1/7$ friction cap) holds
+strictly to $17.5^\circ$ on this grid: the spread across speeds is
+exactly zero at cuts $\le 17.5^\circ$ and $0.55^\circ$ at $20^\circ$,
+the fast curve leaving the cap between $17.5^\circ$ and $20^\circ$ ---
+consistent with the source's own $\approx 18^\circ$ crossover. Stated
+with its brackets: at the $2.5^\circ$ grid step the measured crossover
+is the interval $(17.5^\circ, 20.0^\circ]$; the closed-form
+cap-departure boundary at the fast speed evaluates to $18.0^\circ$,
+moving only to $17.9$--$18.2^\circ$ over $e_b \in [0.92, 0.98]$ but to
+$20.9^\circ$ under the $\mu(v)$-revision spread, under which the
+grid-measured collapse extends to $20.0^\circ$ (the slow-speed half-ball
+throw spans $4.76$--$4.91^\circ$ over the $e_b$ bracket). (iii) The
+``$\sim$4$\times$ throw reduction under roll or draw'' holds at medium
+and fast speed (medium-speed roll ratios 3.5--4.6) but relaxes to
+$\approx 2.2$--$2.3\times$ at slow speed, where $\mu(v)$ saturates --- a
+validity boundary of the rule, not a kernel miss.
+
+\paragraph{Spin-induced-throw maxima (\expid{A4}).}
+The TP B.25 and FAQ speed-effects claims
+\citep{alciatore_tp_b25,alciatore_faq} were swept over outside english
+$0$--$100\%$ in steps of 2.5 (percentage points of maximum sidespin,
+pp), cut angles $0$--$45^\circ$, and the three A3 speeds (492 runs); the
+registered $-100..100\%$ grid was executed as $0..100\%$, a declared
+deviation --- straight-shot SIT is sign-symmetric up to squirt direction. All four registered claims hold
+against the source's derived constructions (Fig.~\ref{fig:F4}). The peak locus sits at stun $+$ slow $+$
+$\approx 50\%$ english: the measured peak on the slow straight shot is at
+$47.10\%$ of maximum sidespin --- inside the registered $50 \pm 5\%$ band,
+3.06\,pp below the source's closed-form construction ($50.16\%$) and
+2.07\,pp below the same construction at kernel constants --- with peak SIT
+$5.15^\circ$ against the source's $5.12^\circ$. Below $25\%$ english,
+SIT is speed-independent to $0.021^\circ$ (the stick branch makes the
+claim exact; the spread is $0.09^\circ$ at $25\%$ itself, where the fast
+curve reaches its branch point). Beyond the peak, SIT declines
+monotonically at every speed (SIT at $100\%$ english over peak: 0.755
+measured versus 0.768 for the source form, slow). The required-english
+locus rises monotonically with cut angle at every speed, tracking the
+source construction within 3.7\,pp over the $0$--$45^\circ$ locus grid
+while the SIT value at the peak matches within $0.04^\circ$. The SIT
+maximum is a branch-boundary feature --- it sits at the measured
+stick-to-slip kink --- so its location inherits the $(1+e_b)/2$-scaled
+cap boundary, about 1\,pp below the $e = 1$ source kink; gearing
+cross-checks agree with the $80\%\sin\phi$ rule within 2.01\,pp (see
+\expid{A5}).
+
+\paragraph{Gearing english (\expid{A5}).}
+TP A.26's zero-throw construction \citep{alciatore_tp_a26} prescribes the
+gearing english percentage $PE_g(\phi) = 80\%\,\sin\phi$ --- 80/60/40\%
+english at 0/25/50\% ball fraction. Over the seven-point fraction ladder
+($1/8$--$7/8$, at 1\,m/s), the measured zero-throw and
+zero-spin-pickup crossings coincide to $\le 0.0075$\,pp of english: the
+two definitions of ``gearing'' are operationally one crossing. Against
+the rule evaluated at the measured cut angle at impact, $|E| \le
+0.13$\,pp everywhere (largest at the thinnest hit); against the nominal
+aimed fraction, $E$ runs $-0.29$ to $-1.29$\,pp, the difference being
+default-cue squirt shifting the delivered cut --- an input convention, not
+mechanics. The half-ball crossing is speed-invariant to 0.18\,pp over
+$0.5$--$2.0$\,m/s, and the spin-rate-factor identity underlying the
+construction verifies directly to $|E| \le 3.2 \times 10^{-4}$. These
+zero-crossing anchors are bit-identical across the slip-law kernel cascade
+--- gearing zeroes the contact slip, so a slip-impulse rescale cannot
+move them (the predicted invariance) --- while the off-gearing slip throw
+rescaled exactly as predicted (half-ball sanity throw
+$4.5222^\circ \to 4.6407^\circ$). The construction is thus reproduced
+essentially exactly once input conventions are stated; squirt
+compensation is the only correction the rule needs
+(Table~\ref{tab:domains}).
+
+\paragraph{Spin transfer (\expid{A6}).}
+TP A.27's friction-capped transfer curves were measured from object-ball
+spin immediately post-collision over english $\times$ speed grids on
+straight and $30^\circ$-cut legs (Fig.~\ref{fig:F4}). The source's only
+exact printed value is the stick-branch plateau
+$\mathrm{STP}_{\max} = 5/14 = 35.71\%$; the kernel transfers exactly
+$5/14$ of the contact slip, and the measured plateaus of
+$36.79$--$36.81\%$ sit a speed-independent $+1.1$\,pp above the nominal
+form --- an offset fully accounted by default-cue squirt tilting the
+contact kinematics ($E$ against the form at measured kinematics:
+$-0.003$ to $-0.012$\,pp). On the slip branch, the transfer ratio
+against the $e = 1$ worksheet is $0.97508 = (1+e_b)/2$ exactly --- the
+corrected slip law's predicted signature (the pre-fix value was
+$0.95007 = e_b$). The measured stick-to-slip kink sits 1.2--3.6\,pp of
+english below the source's $e = 1$ kink, consistent with the same scaled
+cap boundary seen in \expid{A3}/\expid{A4}, and within $+0.2$ to
+$+0.5$\,pp of the kernel-law boundary at measured kinematics. The
+cut-$30^\circ$ transferred-spin zero crossing reproduces \expid{A5}'s
+gearing point (spin-rate-corrected $|E| \le 0.01$\,pp; within 0.50\,pp
+of \expid{A5}'s crossing range) --- two independent observables, one
+construction. One bookkeeping item remains open: this experiment's
+internal verification worksheet still transcribes the retired legacy
+slip law, leaving an ungated residual of 0.3146\,rad/s that equals the
+slip-law shift by design; its re-pin is queued.
+
+\paragraph{Cling envelope (\expid{A7}).}
+Chalk-spot (``cling'') contact friction was modeled by scaling the
+ball--ball friction curve by $k \in \{1, 2, 3\}$ (TP A.17's scale
+factor) over the \expid{A3} stun grid at cuts $10$--$50^\circ$ and the
+three standard speeds (45 runs; the $k = 1$ arm is byte-identical to
+\expid{A3}'s stun rows). The extra throw $\delta(k) = S(k) - S(1)$ is
+published as the aiming-rule uncertainty band (Fig.~\ref{fig:F5}): the
+worst cell is $+5.15^\circ$ at medium speed, $50^\circ$ cut, $k = 3$,
+with the slow cell ($+5.06^\circ$) within $0.1^\circ$ and fast topping
+out at $+3.14^\circ$. On the source's own total-throw observable there
+is no speed-ordering reversal anywhere on the grid --- at
+$k = 3$/$50^\circ$, slow $9.90^\circ >$ medium $7.75^\circ >$ fast
+$3.08^\circ$ --- and an earlier ledger reading to the contrary, evaluated
+on the $\delta$ observable, was retired on re-evaluation (a resolved
+ledger row; the $\delta$ ordering survives only as a subordinate
+envelope remark). The sweep adds a
+speed-boundary refinement to the source: friction independence below the
+cap-departure cut is exact ($\delta = 0$ to machine precision), but the
+boundary itself is speed-dependent --- $32.5^\circ$ at slow, $25.0^\circ$
+at medium, and $18.0^\circ$ at fast speed on the kernel law (closed-form
+values 32.45/24.99/18.02$^\circ$, moving by at most
+$\pm 0.34/0.24/0.15^\circ$ over $e_b \in [0.92, 0.98]$ and to
+34.1/27.7/20.9$^\circ$ under the $\mu(v)$-revision spread; the
+$10^\circ$-grid verification brackets are $[30, 40]$, $[20, 30]$, and
+$[10, 20]^\circ$) --- so TP
+A.14's ``independent below about $30^\circ$'' is a slow-speed statement;
+at fast speed the safe zone shrinks to $\approx 18^\circ$. In practical
+terms, the first cut at which a $k = 3$ chalk spot adds $\ge 0.5^\circ$
+of throw moves from $20^\circ$ (fast) to $40^\circ$ (slow). One source
+discrepancy is recorded rather than resolved: TP A.17's printed
+$\mu(v)$ fit uses decay constant 0.77 (2005 era) while the current TP
+A.14 revision and the kernel use 1.088; both documents
+transcription-check against their own forms, and the difference is
+carried in $u_{\mathrm{val}}$.
+The slip and stick branch ratios (1.00006 and 1.02564) are invariant
+under $k$, as the scaling multiplies $\mu$ identically in $S$ and $D$.
+
+Taken together, group A locates the throw family's first failure axis at
+shot speed --- behavior traced to the velocity dependence of ball--ball
+friction \citep{marlow1995physics,alciatore_tp_a14} rather than to any
+single-point miss; the boundaries seed the corresponding rows of
+Table~\ref{tab:domains}.
+
+\figstub{F3}{F3.pdf}{%
+  \textbf{Comparison.} Stun separation and the $30^\circ$ rule
+  (experiments \expid{A1}, \expid{A2}) against idealized reference
+  forms. (a)~Separation angle versus cut and speed against the
+  ideal-$90^\circ$ construction (TP 3.1) and the $85^\circ$ real-ball
+  rule of thumb; in the friction-capped region (cuts
+  $\lesssim 15^\circ$) the deficit is speed-free. (b)~Rolling-ball
+  carom deflection $\theta_c$ versus ball fraction against the
+  frictionless-elastic TP 3.3 closed form, with the $27$--$34^\circ$
+  plateau shaded and the speed-dependent peak-height band departures
+  ringed ($E = -0.57^\circ$ at 1.5\,m/s and $-0.83^\circ$ at
+  2\,m/s). (c)~Residual view
+  of (a): separation minus $90^\circ$, negative everywhere on the
+  registered grid. (d)~Residual view of (b): $E = S - D$ against the
+  TP 3.3 form per speed, with the registered $\pm0.3^\circ$ band
+  (which applies at the peak) shaded and the peak misses ringed;
+  values in the text.}{F3}
+
+\figstub{F4}{F4.pdf}{%
+  \textbf{Comparison.} Spin-induced throw, gearing english, and spin
+  transfer (experiments \expid{A4}, \expid{A5}, \expid{A6}).
+  (a)~SIT peak locus: the english fraction at the throw maximum over
+  cut $\times$ speed (solid: kernel $S$; dashed: the TP B.25
+  construction $D$ per speed), with the registered $50\pm5\%$ band
+  drawn as a black error bar at its registered condition, the slow
+  straight shot --- the
+  required english rises monotonically with cut angle at every speed.
+  (b)~Gearing zero-crossings against the $PE_g(\phi) = 80\%\sin\phi$
+  construction \citep{alciatore_tp_a26}. (c)~Cue-ball to object-ball
+  spin transfer per ball speed (solid: kernel $S$; dashed: the TP A.27
+  form $D$ at measured kinematics), with the slip-branch ratio
+  $S/D = (1+e_b)/2$ against the $e = 1$ worksheet tagged on the panel
+  (re-pin open); values in the
+  text.}{F4}
+
+\figstub{F5}{F5.pdf}{%
+  \textbf{Comparison.} Cling envelope (experiment \expid{A7}): extra
+  throw $\Delta\theta(k) = S(k) - S(1)$ under chalk-spot friction
+  multipliers $k \in \{2, 3\}$ across speed $\times$ cut, published
+  as the aiming-rule uncertainty band. Markers carry the registered
+  $10^\circ$-grid samples (connecting lines only guide the eye);
+  dotted verticals mark the speed-dependent friction-independence
+  boundary (the $\mu$-cap departure cut per speed); the worst case is
+  starred, and the TP A.17 versus TP A-14 $\mu(v)$-revision
+  discrepancy is recorded;
+  values in the text.}{F5}
+
+% ===========================================================================
+% Section 5 — Results (assembled part 2 of 05-results.tex):
+% Group B (stick-ball).
+% Every number traces to the study's baseline manifest, its ledger, or a
+% pinned experiment output (canonical kernel 0.1.0+fb3425ad).
+% ===========================================================================
+\subsection{Group B --- stick--ball}
+\label{sec:results-b}
+
+\figstub{F6}{F6.pdf}{%
+  \textbf{Verification.} The stick--ball channel (experiments
+  \expid{B1}--\expid{B4}). (a)~Endmass squirt versus the TP A-31
+  closed form \citep{alciatore_tp_a31,cross2008squirt}:
+  machine-precision agreement, with the maximum error and per-cue
+  linear-fit $R^2$ on the panel; the speed-invariance spread over
+  1--4\,m/s is exactly zero.
+  (b)~Natural pivot length versus the Platinum protocol band; circles
+  read the commanded offset, squares the contact offset, and blue
+  versus orange encodes inside versus outside the 8--14\,in band. (c)~Miscue envelope: spin-rate
+  factor versus commanded offset --- exactly linear --- with
+  per-convention ceiling SRFs in the legend, the two literature
+  reference levels, and the
+  rejected tail (Table~\ref{tab:miscue-conventions}). (d)~Center of percussion:
+  slide-phase duration versus tip height, reaching zero at $70\%$ of
+  ball height (overspin above it); open markers are rows censored by
+  the table runway;
+  values in the text.}{F6}
+
+The stick--ball channel is the battery's cleanest. All four outputs are
+physics-identical across the slip-law kernel cascade (the strike resolves
+before any ball--ball impact), and because the kernel's strike model
+implements the published closed forms directly
+\citep{alciatore_tp_a31,cross2008squirt,shepard2001squirt,
+coriolis1835,alciatore2008coriolis}, this group is verification in the
+V\&V~20 sense: machine-precision agreement is the \emph{expected}
+result, framed as implementation evidence, not physics validation
+(Section~\ref{sec:methodology}). The group's measured content lives
+instead in its protocol conventions --- and one scoping note governs the
+whole group: the Platinum comparisons are \emph{in-sample calibration
+consistency}, not independent validation, because the catalog's
+per-shaft end masses derive from the same Platinum pivot lengths via
+the Shepard inversion (Table~\ref{tab:uval};
+Section~\ref{sec:methodology}); holdout measurements do not exist in
+the published record.
+
+Table~\ref{tab:groupb-summary} summarizes the four experiments; the
+per-experiment prose is Supplementary Material Section~S4. Two findings
+do not read off the table. First, the Platinum convention sensitivity:
+commanding the robot protocol's published 6/12\,mm as \emph{tip-center}
+offsets (the protocol page's literal wording, and the frozen \expid{B1}
+protocol reading) undershoots all four robot-measured shafts by
+$0.32$--$0.42^\circ$, while re-reading the same numbers as \emph{contact}
+offsets closes the gap almost exactly ($+0.02^\circ$ on the lowest-squirt
+shaft); in the pivot-length observable the catalog spans
+$10.5$--$64.9$\,in against the published $8$--$14$\,in band, and a
+contact re-reference (factor $\approx 0.729$) would bring two further
+shafts inside. Both readings are recorded and neither is adopted as a
+recalibration --- the convention gap is an order larger than any
+plausible protocol $u_D$. Second,
+the miscue envelope is a conventions result
+(Table~\ref{tab:miscue-conventions}): the kernel's miscue rule is input
+validation on \emph{commanded tip-center} offsets with no tip-friction
+model anywhere, so the envelope is one-sidedly conservative --- the tip
+friction implied by its ceilings ($0.39$--$0.58$ across conventions)
+sits at or below the $0.577$--$0.659$ the literature attributes to
+chalked tips, contact offsets in $(0.5, 0.55]R$ are unreachable under
+every convention, and the registered $0.525$--$0.6R$ sweep tail was
+realized as 16 designed rejection probes. A post-registration kernel amendment
+re-binds the miscue limit to the contact offset; every previously
+accepted input reproduces bit-exactly, while the nickel-tip rejection
+probes among these 16 would now be accepted --- the one disclosed
+behavioral change class (amendment note in
+Section~\ref{sec:limitations}).
+
+% Table typography: ragged-right rebalanced columns (reclaims the unused
+% 12% width), single-spaced rows (the tab:engines \baselinestretch
+% idiom), and longtable continuation furniture.
+{\def\baselinestretch{1}\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.15\linewidth}>{\raggedright\arraybackslash}p{0.39\linewidth}>{\raggedright\arraybackslash}p{0.35\linewidth}p{0.045\linewidth}@{}}
+  \caption{Group B (stick--ball) summary: headline result, measured
+  domain boundary, and figure panel per experiment.
+  Per-experiment prose in Supplementary Material Section~S4. Lettered
+  marks resolve to the notes at the end of the table.}
+  \label{tab:groupb-summary}\\
+  \toprule
+  Experiment & Headline result & Domain boundary & Fig. \\
+  \midrule
+  \endfirsthead
+  \multicolumn{4}{@{}l}{Table~\ref{tab:groupb-summary} \emph{(continued)}}\\
+  \toprule
+  Experiment & Headline result & Domain boundary & Fig. \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{4}{r@{}}{\emph{Continued on next page}}\\
+  \endfoot
+  \bottomrule
+  \multicolumn{4}{@{}>{\raggedright\arraybackslash}p{0.98\linewidth}@{}}{%
+  \rule{0pt}{2.4ex}%
+  Notes.
+  \textsuperscript{a}\,verification; in-sample for the Platinum catalog.
+  \textsuperscript{b}\,a registered exclusion, not a waiver.
+  \textsuperscript{c}\,registered convention; revised post-registration
+  to bind the contact offset (Section~\ref{sec:limitations}); accepted inputs reproduce
+  bit-exactly, the nickel-tip rejection probes would now be accepted
+  (artifact unchanged), $(0.5, 0.55]R$ still unreachable.}\\
+  \endlastfoot
+  \expid{B1} endmass squirt &
+  $\max|E| = 8\times10^{-15}\,^\circ$ vs the TP A-31 closed form (333
+  runs); near-linear in offset ($R^2 \geq 0.9961$); speed invariance
+  exact &
+  protocol conventions only\textsuperscript{a} &
+  \ref{fig:F6}a \\
+  \addlinespace
+  \expid{B2} natural pivot length &
+  closed form to $4.8\times10^{-10}$\,m; one per-cue $L^{*}$ leaves
+  $\leq 0.077^\circ$ worst-case residual across the legal offset ladder &
+  tip-center vs contact measurement convention; catalog
+  10.5--64.9\,in vs the 8--14\,in robot band &
+  \ref{fig:F6}b \\
+  \addlinespace
+  \expid{B3} miscue limit &
+  $\mathrm{SRF} = (5/2)(x/R)$ exactly linear ($|E| \leq
+  2.2\times10^{-16}$; 252 runs); per-convention ceilings in
+  Table~\ref{tab:miscue-conventions} &
+  one-sidedly conservative commanded-offset envelope\textsuperscript{c};
+  $(0.5, 0.55]R$
+  unreachable &
+  \ref{fig:F6}c \\
+  \addlinespace
+  \expid{B4} center of percussion &
+  slide duration exactly zero at $b = 0.4R$ (70\% of ball height) at
+  all speeds; SRF slope 2.5, $R^2 = 1$ &
+  none mechanical; 19 long-slide cells censored by the table
+  runway\textsuperscript{b} &
+  \ref{fig:F6}d \\
+\end{longtable}
+}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Miscue-envelope conventions (experiment \expid{B3}): the
+  kernel's commanded tip-center miscue rule expressed per tip
+  convention, against the source's tip-friction envelope (TP 2.1
+  \citep{alciatore_tp_catalog}; observed extreme per the high-speed
+  video catalog \citep{alciatore_hsv_catalog}). ``Contact mode'' drives
+  the contact offset directly (tip radius $\to 0$); implied
+  $\mu_{\mathrm{tip}}$ expresses each ceiling through the source's
+  friction model. Kernel rows state the registered envelope (kernel
+  \code{0.1.0+fb3425ad}); the post-registration amendment re-binds
+  the limit to the contact offset, raising the nickel- and dime-tip
+  reachable contact offsets to exactly $0.500R$ (SRF ceiling $1.250$)
+  while $(0.5, 0.55]R$ stays unreachable; registered values unchanged,
+  with the one behavioral change class (\expid{B3}'s nickel-tip
+  rejection probes) disclosed in Section~\ref{sec:limitations}.}
+  \label{tab:miscue-conventions}
+  \footnotesize
+  \setlength{\tabcolsep}{3.5pt}
+  \begin{tabular}{lccc}
+    \toprule
+    Convention & Max contact offset ($R$) & SRF ceiling &
+    Implied $\mu_{\mathrm{tip}}$ \\
+    \midrule
+    Contact mode (tip $r \to 0$) & 0.500 & 1.250 & 0.577 \\
+    Nickel tip (10.6\,mm)        & 0.365 & 0.912 & 0.392 \\
+    Dime tip (8.95\,mm)          & 0.381 & 0.952 & 0.412 \\
+    \midrule
+    Source, recommended maximum  & 0.500 & 1.25  & 0.577 \\
+    Source, measured extreme     & 0.550 & 1.37 (observed) & 0.659 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+In summary, every boundary surfaced in this group is a protocol or
+equipment convention rather than a mechanics discrepancy, and all four
+experiments' physics is bit-identical across the kernel cascade; the
+corresponding rows of Table~\ref{tab:domains} therefore state
+\emph{conventions} as the first failure mechanism.
+
+% ===========================================================================
+% Section 5.3 — Results, Group C: cushion and diamond systems (experiments
+% C1-C4). Drafted from the post-cascade baseline of record (canonical kernel
+% 0.1.0+fb3425ad); per-figure provenance in
+% Appendix A. Assembles into sections/05-results.tex between the group-B and
+% group-D subsections.
+% ===========================================================================
+\subsection{Group C --- cushion and diamond systems}
+\label{sec:results-c}
+
+\figstub{F7}{F7.pdf}{%
+  \textbf{Validation.} Sliding banks (experiment \expid{C1}).
+  (a)~Through-diamond bank arrivals for six aims at 1--3\,m/s against
+  the TP B.28 five-table measured envelope \citep{alciatore_tp_b28}
+  (grey band; short horizontal dashes mark the individual measured
+  tables), with the twice-plus-tenths rule line overlaid (dashed);
+  \code{han2005_default} sits inside on five of six aims at the
+  3\,m/s reference speed, and the aim-1.0 miss is ringed (a through-diamond arrival
+  \emph{below} the envelope means the bank runs \emph{longer}).
+  (b)~Residual view: $E = S - D$ against the envelope midline for
+  \code{han2005_default} at all three speeds, where the grey band is
+  the envelope's half-width about its midline. (c)~All four cushion
+  presets at the reference speed on the same residual axes
+  (\code{han2005_default} and \code{stronge_realistic} sit inside the
+  envelope on 5/6 aims, \code{mathavan_fitted} on 4/6,
+  \code{grip_fitted} on 3/6); the post-fix settled-rebound
+  continuity record is 0/156 discontinuous cells with one
+  multi-crossing cell (\code{grip_fitted} at 1\,m/s); one-at-a-time
+  parameter-sensitivity values in the text.}{F7}
+
+\figstub{F8}{F8.pdf}{%
+  \textbf{Comparison.} Diamond systems (experiments \expid{C2},
+  \expid{C3}) against practitioner system lore. (a)~Corner-5
+  third-rail arrival error $E = S - T$ over the 24 $(D, F)$ cells at
+  the reference condition (\code{han2005_default}, 2.5\,m/s, nominal
+  english) under the primary $T = D - F$ reading (in-cell values are
+  $E$ in diamonds). (b)~Arrival RMSE across the speed $\times$ english
+  conditions for \code{han2005_default} and \code{stronge_realistic}
+  --- english deviation dominates speed; the y-tick encoding
+  \code{v<speed> e<mult>x} reads cue speed in m/s and english as a
+  multiple of the nominal setting. (c)~1/2/3-diamond sidespin kick
+  offsets versus english fraction for all four cushion presets at
+  2\,m/s, with the $\pm 0.3$-diamond rule window on the rule targets
+  (open squares) and the CI fixture pin (grey $+$;
+  \code{mathavan_2010} preset); the single registered-window breach --- \code{grip_fitted} at
+  3\,m/s full english --- is ringed;
+  values in the text.}{F8}
+
+\figstub{F9}{F9.pdf}{%
+  \textbf{Validation.} Cushion rebound coupling (experiment
+  \expid{C4}) against the digitized Figs.~7--10 of
+  \citet{mathavan2010cushion}. (a)--(c)~Kernel curves ($S$; the
+  \code{part_a_mathavan_2010} preset, the kernel's Mathavan
+  dual-contact resolver at the source's own snooker fit) over the
+  digitized points ($D$; bars are the per-point composite acceptance
+  tolerance $u_y + 0.05\,|D|$ --- digitization uncertainty $u_y$ plus
+  the 5\%-of-$|D|$ acceptance term inherited from the CI anchor suite
+  --- not experimental error bars); (a) marks the points beyond the
+  source's rigid-cushion domain ($\times$), (c) rings the single tolerance-edge
+  miss.
+  (d)~Running-minus-reverse rebound-speed asymmetry, peaks marked.
+  (e)~Normalized residuals $E/\mathrm{tol}$, all 240 anchored points,
+  with the seven figure-versus-equations points marked $\diamond$. Anchor classes per
+  Section~\ref{sec:methodology}: the Figs.~8--10 comparisons are
+  verification of the ported scheme; the Fig.~7a camera points are the
+  measured-datum validation content (12/12, $\max|E| = 0.067$\,m/s);
+  values in the text.}{F9}
+
+Group C moves from single impacts to the cushion channel and the diamond
+aiming systems built on it. Throughout, four cushion presets are compared:
+\code{han2005_default} (the corrected Han model, \citealp{han2005dynamics}),
+\code{stronge_realistic} \citep{stronge2018impact}, and the fitted
+\code{mathavan_fitted} \citep{mathavan2010cushion} and \code{grip_fitted}
+presets.
+
+\paragraph{Bank tables (\expid{C1})}
+Experiment \expid{C1} aims stun banks through six diamond aims (0.5--3.0)
+at 1--3\,m/s and reads the through-diamond arrival of the solved
+corner-bank reference line against the five measured tables of TP B.28
+\citep{alciatore_tp_b28}. At the documented 3\,m/s reference speed the
+\code{han2005_default} arrivals are 1.31, 2.61, 3.92, 5.23, 6.54, and
+7.86 diamonds (Fig.~\ref{fig:F7}). Five of the six aims fall inside the
+five-table measured envelope; the frozen registered criterion requires all
+six, and aim 1.0 misses it: the arrival measures 2.6121 against an envelope
+minimum of 2.72, i.e.\ 0.11 diamond below the envelope --- the simulator
+banks slightly longer at that aim than every measured table. TP B.28 prints no error bars, so
+no $|E| < u_{\mathrm{val}}$ conclusion is available for this datum
+(Table~\ref{tab:uval}); the 0.108-diamond shortfall is smaller than the
+${\leq}0.25$-diamond spread between the source's own on-system tables
+--- equipment variability, recorded as context but not invoked against
+the frozen criterion (Section~\ref{sec:methodology}). The
+TP B.27 ``twice-plus-tenths'' reference-line replication passes separately
+on its own gates --- the measured reference line (tangent ratio 0.786 at
+4\,m/s) sits inside both the $15^\circ$ and $30^\circ$ windows
+\citep{alciatore_tp_catalog} --- and that verdict is not extended to the
+envelope. Among the other presets, \code{stronge_realistic} is likewise
+inside on five of six rows, while the fitted presets depart:
+\code{mathavan_fitted} on four of six (outside at the shallow aims
+0.5--1.0) and \code{grip_fitted} on
+three of six, with a sign-reversed speed dependence at shallow aims.
+
+The one-at-a-time sensitivity study on the registered ``diamond-short''
+axis identifies restitution, not friction, as the lever on bank length.
+Sweeping the kinematic restitution \code{e0} from 0.75 to 0.95 around the
+0.85 default moves the mean arrival by $-0.34$ to $+0.35$ diamond, and the
+energetic \code{ee0} of the Mathavan family from 0.70 to 0.98 moves it by
+$-0.38$ to $+0.70$ diamond, whereas cushion nose height contributes at most
+0.11 diamond. The flat rail-friction axis instead saturates: lowering
+$\mu_w$ from the 0.2 default to 0.1 shifts arrivals by $-0.30$ diamond, but
+raising it to 0.25 or 0.30 produces exactly zero change in every cell ---
+the stun-bank contact already resolves in the stick branch, so additional
+friction cannot be consumed.
+
+The adjacent banking calibration targets that fail are ledgered rather
+than re-tuned: the Stronge-pairing $45^\circ$ sliding bank and the
+Han/Stronge draw rebounds \emph{reverse} the source's claimed speed and
+vertical-spin directions (the fitted Mathavan presets get the spin
+ordering right), steep rolling banks go long under every preset, and the
+\code{han2005_default} $45^\circ$ sliding point sits just below its TP
+B.27 window --- per-target values in Section~\ref{sec:limitations}. All of these residuals
+are bit-identical across the settled-rebound branch-selection variants:
+they are not artifacts of the branch-selection defect. The two
+direction reversals are further resolved into model-form versus
+parameter content by extending the one-at-a-time machinery above to the
+reversed observables themselves, over the full admissible parameter
+space --- the registered sweep ranges as the complete Cartesian product
+of restitution~$\times$~$\mu_w$ (the preset's own fitted
+$\mu(v_{\mathrm{slip}})$ curve alongside the flat pins)~$\times$~nose
+height, 75/90/72 unique configurations per preset (post-registration
+analysis, recorded in the artifact bundle). The verdicts
+split. The \emph{draw-rebound} reversal is model-form: no admissible
+parameter cell reproduces the source's ``draw shortens'' direction
+under the corrected Han form (0 of 75 cells; draw lengthens the
+$45^\circ$ impact rebound by $+0.90$ to $+13.70^\circ$ across the
+space, the joint minimum at the corner $e_0 = 0.95$, $\mu_w = 0.10$,
+nose $0.60$)
+or the Stronge compliant form (0 of 90), while the Mathavan
+dual-contact class reproduces it in every admissible cell (72 of 72)
+--- a structural boundary of the single-contact impulse class, not a
+calibration choice. The \emph{speed-direction} reversal is instead governed by an
+\emph{interaction}: the strongest reversals occur where a fitted
+$\mu(v_{\mathrm{slip}})$ curve drives a tangential-compliance pairing.
+Within the admissible space,
+every flat-$\mu_w$ cell restores the
+source's shortening direction under every restitution and nose setting
+(75 of 75 Stronge cells, 60 of 60 Mathavan), while every cell retaining
+the fitted \code{sp_calibrated} or \code{hsv_fitted} curve on its
+compliant pairing reverses across the entire
+restitution~$\times$~nose plane (15 of 15 and 12 of 12). A factorial
+crossing of the four model forms against all seven $\mu$ treatments
+over the full restitution~$\times$~nose grids --- 105/105/84/84 cells
+for Han, Stronge, and the Mathavan scheme with and without tangential
+compliance --- fixes the scope of that attribution. Every
+fitted-curve~$\times$~compliant-pairing cell reverses (54 of 54,
+$+2.30$ to $+13.93^\circ$) and every flat-$\mu_w$ cell of every form
+is source-correct (270 of 270). The non-compliant forms are
+source-correct in 44 of their 54 fitted-curve cells: the
+compliance-free Mathavan scheme in all 24 ($-3.15$ to $-0.15^\circ$)
+and the corrected Han impulse in all 15 \code{sp_calibrated} cells
+($-0.31$ to $-0.23^\circ$), but under the \code{hsv_fitted} curve Han
+flips in 10 of 15 restitution~$\times$~nose cells --- from
+$+0.50^\circ$ at the default operating point (the Jewett
+near-independence scale) to $+2.72^\circ$ at the $e_0 = 0.75$,
+nose-0.67 corner. The interaction attribution therefore governs the
+reversal's \emph{magnitude} --- the compliant reversals reach five
+times the worst non-compliant flip at matched corners --- and not the
+sign alone, which Han's single-contact impulse also flips under the
+\code{hsv_fitted} curve away from the default point. The same
+crossing settles the draw ordering beyond the preset spaces: no Han
+or Stronge cell restores the source direction under any $\mu$
+treatment (0 of 210), the Mathavan form with tangential compliance
+restores it everywhere (84 of 84), and its compliance-free variant
+flips in 6 of 84 cells, all at flat $\mu_w \geq 0.25$ and by at most
+$+0.52^\circ$.
+\code{han2005_default} (flat $\mu_w$ by construction) never reverses
+($-0.23$ to $-0.50^\circ$, the near-independence Jewett measured).
+Table~\ref{tab:domains}'s bank-lore row carries this attribution.
+That defect (the branch-selection defect), discovered by this
+experiment, produced four
+discontinuous \code{stronge_realistic} bank-arrival cells with
+0.49--0.85-diamond jumps before the fix; under first-crossing branch
+selection they collapse to zero,
+and Section~\ref{sec:oracle} presents the case study.
+
+\paragraph{Corner-5 three-rail system (\expid{C2})}
+Experiment \expid{C2} drives running-english three-rail kicks over 24
+$(D, F)$ cells with $D \in \{2..5\}$, speeds $\{1.5, 2.5, 3.5\}$\,m/s, and
+the commanded english scaled by $\{0.5, 1.0, 1.5\}$. At the reference
+condition (\code{han2005_default}, 2.5\,m/s, nominal english) the primary
+corner-5 system $T = D - F$ \citep{alciatore_tp_catalog,
+cohen2002threecushion} holds as a system: the third-rail arrival error
+has RMSE 0.123 diamond over the 24 cells with $\max |E| = 0.28$
+(Fig.~\ref{fig:F8}a), and regressing the measured arrival on the predicted
+$T$ gives slope 1.077 with intercept $-0.189$ diamond and RMSE 0.102
+(the fit is not through-origin: the 7.7\% slope excess and the negative
+intercept cancel near $T \approx 2.4$, so the system reads on-line
+mid-range and the deviation grows toward the swept extremes). The validity map is strongly
+anisotropic: the mean absolute sensitivity of $E$ to a $0.5\times$ english
+step is 0.22 diamond (up to 0.43 at short $D-F$ cells), versus 0.07 diamond
+per m/s (at most 0.13) for speed --- english deviation dominates the
+arrival while speed barely matters (Fig.~\ref{fig:F8}b), consistent with
+the source's own teaching emphasis \citep{alciatore_faq}. The fourth-rail lore splits: the published benchmark that a 5-3-2 route
+comes up almost one diamond short plays on-system in the simulator
+($n_4 = -0.02$, where positive would be short), while the secondary speed
+and english direction claims measure sign-reversed --- slower arrives long
+($n_4$ $-0.201$ at 1.5\,m/s versus $-0.015$ at 3.5\,m/s) and less english
+arrives longest ($-0.643$ at $0.5\times$ versus $-0.137$ at $1.5\times$).
+Those claims derive from unspecified ``typical table'' conditions the
+battery does not model; both readings are recorded. As a cross-model
+characterization, \code{han2005_default} and \code{stronge_realistic}
+produce identical arrivals at 2.5 and 3.5\,m/s (rolling contacts resolve
+through the shared stick branch) and separate only at 1.5\,m/s, by at most
+0.49 diamond; the reference-condition verdict is model-invariant.
+
+\paragraph{Sidespin kicks (\expid{C3})}
+Experiment \expid{C3} plays perpendicular cross-table kicks with $1/3$,
+$2/3$, and full running english at 2 and 3\,m/s under all four presets and
+reads the return offset in diamonds against the 1/2/3-diamond rule
+\citep{alciatore_faq, alciatore_tp_catalog}. One provenance qualification
+governs this experiment: the default rail-friction intercept
+$\mu_w = 0.20$ was calibrated against this very anchor family during
+kernel development (Section~\ref{sec:methodology-registration}), so the
+verdict here is calibration-consistent rather than out-of-sample. At
+2\,m/s every preset lands
+within the $\pm 0.3$-diamond rule window (\code{han2005_default}: 0.78,
+1.91, 2.80 diamonds); at 3\,m/s all remain inside except
+\code{grip_fitted}, whose full-english kick misses by $-0.64$ diamond
+(marked in Fig.~\ref{fig:F8}c) --- the third independent frame in which
+that preset leaves its validity domain. Two protocol
+characterizations attach. First, the $1/3$-english cells at 3\,m/s reach
+the rail still slightly sliding (roll ratio 0.90 against the rule's
+natural-roll assumption); they are flagged per the registration, not
+excluded. Second, mirror symmetry --- exact to about $5\times10^{-15}$
+diamond for the closed-form Han and Stronge presets --- degrades to about
+$1.1\times10^{-2}$ diamond for the fitted tangential-compliance presets
+through last-ulp branch divergence; this is a verification-side numerical
+characterization, not a physics deviation. These cue-only kicks are
+bit-identical across the slip-law kernel cascade.
+
+\paragraph{Rebound coupling (\expid{C4})}
+Experiment \expid{C4} promotes the cushion anchors of
+\citet{mathavan2010cushion} to the full simulation surface, and its
+headline count must be classified before it is quoted
+(Section~\ref{sec:methodology}). The pinned result --- 239 of 240
+digitized points from the source's Figs.~7--10 inside the per-point
+composite acceptance tolerance $u_y + 0.05\,|D|$ (digitization
+uncertainty $u_y$ plus a 5\%-of-$|D|$ acceptance allowance inherited from
+the CI anchor suite; Fig.~\ref{fig:F9}) --- was produced by the kernel's
+port of the source's own scheme at the source's own fitted constants
+(\code{SimOptions.mathavan_2010()}: $ee = 0.98$, $\mu_{\mathrm{wall}} =
+0.14$, the values the source fitted to its Fig.~7a camera data; \emph{not}
+the \code{mathavan_fitted} catalog preset, which appears only in this
+experiment's later parts). Figs.~8--10 are the source's numerical output
+of that same scheme, so their 227/228 points are \emph{verification of the
+port}, not independent validation. The validation content proper is
+Fig.~7a's 12 in-domain camera-measured points: 12/12 inside tolerance
+with $\max|E| = 0.067$\,m/s --- the one comparison in this experiment
+where $E$ meets a measured datum. Its validation uncertainty combines
+both recorded digitization components: the fixture carries $u_x = u_y =
+0.04$\,m/s per point, and because the simulation is evaluated at the
+measured incident speed, $u_x$ propagates through the local slope of
+the rebound-speed response ($\mathrm{d}S/\mathrm{d}V = 0.91$, constant
+to within 0.003 over the in-domain segment) to $0.036$\,m/s, giving
+$u_{\mathrm{val}} = (u_y^2 + (0.91\,u_x)^2)^{1/2} \approx 0.054$\,m/s.
+Stated plainly, the worst point \emph{exceeds} $u_{\mathrm{val}}$ by
+about 20\% --- under the V\&V~20 reading, an estimated model-form error
+of $|E| - u_{\mathrm{val}} \approx 0.013$\,m/s at that point (against
+the vertical component alone the same point would read $1.7\,u_y$);
+the other eleven points resolve within $u_{\mathrm{val}}$. Out of sample
+the picture is disclosed rather than flattered: re-scoring the same 240
+points (a post-registration analysis, recorded in the
+artifact bundle) puts the no-Mathavan-inputs default at 52/240
+inside tolerance (\code{han2005_default}, flat $\mu_w = f_c = 0.20$;
+worst errors $16.8^\circ$ on angle observables and $0.55$\,m/s on speeds;
+1 of 12 on the Fig.~7a camera points), and a model-form-swap arm --- the
+corrected Han impulse form driven at the source's own fitted wall
+friction, $\mu_{\mathrm{wall}} = 0.14$ --- at 57/240 (0 of 12 on
+Fig.~7a). Both Han arms extrapolate to the snooker $7R/5$ nose geometry
+the Han model was not formulated at, and neither was tuned; the numbers
+delimit what the Han family can and cannot do on snooker rebound
+coupling, and they are the honest out-of-sample companions to the
+in-sample 239/240. The single miss in the pinned run is a tolerance-edge
+flip --- Fig.~9a,
+$k = 2$ overspin at $\alpha = 10^\circ$: $E = +0.0577$ against a tolerance
+of 0.056, with a zero-drift extrapolation of the 1\,ms launch protocol
+landing inside the band. Seven
+further points are internally inconsistent between the source's equations
+and its printed figures; the kernel reproduces the equations to within
+0.005\,m/s and $0.07^\circ$ and genuinely disagrees with the figures ---
+an upstream artifact, excluded from the validation statistics with that
+attribution. Fig.~7a points
+beyond the source's own declared 2.5\,m/s rigid-cushion domain are
+measured but excluded, with the overlay overshoot growing monotonically
+from $+0.018$\,m/s at 2.53\,m/s to $+0.359$\,m/s at 3.40\,m/s --- the
+source's domain boundary made explicit. The english-asymmetry extension finds the
+running-minus-reverse rebound-speed difference peaking at $40^\circ$ from
+the rail perpendicular for both \code{han2005_default} and
+\code{mathavan_fitted} at both 1.5 and 3.0\,m/s (peak differences 0.32 and
+0.64\,m/s for Han) --- on the steep edge of, but inside, the FAQ's
+$20$--$40^\circ$ window \citep{alciatore_faq}. Shallow approaches show the
+claimed littleness (peak-normalized asymmetry 0.06 at $80^\circ$), and the
+rebound angle remains monotone in incidence for all four presets, both
+arrival spins, and both speeds.
+
+Taken together, the diamond systems hold \emph{as systems} near their
+teaching conditions, while the published speed and spin correction lore
+attached to them is where validity fails first: it is the speed-direction
+and fourth-rail refinements, not the systems themselves, that the
+measurements reverse (Table~\ref{tab:domains}).
+
+% ===========================================================================
+% Section 5.4 — Results, Group D: curved paths / Coriolis results
+% (experiments D1-D3). Drafted from the post-cascade baseline of record
+% (canonical kernel 0.1.0+fb3425ad); per-figure
+% provenance in Appendix A. Assembles into sections/05-results.tex between
+% the group-C and group-E subsections.
+% ===========================================================================
+\subsection{Group D --- curved paths (Coriolis)}
+\label{sec:results-d}
+
+\figstub{F10}{F10.pdf}{%
+  \textbf{Verification.} Curved-path (Coriolis) results (experiments
+  \expid{D1}--\expid{D3}). (a)~Post-impact sliding-path parabola: the
+  slip-aligned-frame quadratic fit is exact (worst time-domain
+  residual $3.6\times10^{-16}$\,m; slip points drawn at the
+  $10^{-17}$ floor) while the registered tangent-frame criterion
+  misses on every run, shown per run for the
+  frame-artifact record.
+  (b)~Mass\'e BAR-aiming (B~=~ball contact point, A~=~cloth aim
+  point, R~=~CB resting point) mean $|E|$ over cue elevation
+  $\times$ tip speed (azimuth-averaged); the two tip-speed rows are
+  identical --- Coriolis' impact-friction invariance; 88\% of cells
+  come up slightly short, the source's own caveat (TP A.19; values in
+  the text). (c)~Swerve drift versus distance along the aim line at
+  full english and 2\,m/s tip speed, one curve per elevation; the
+  level-cue curvature is exactly zero (the elevation-0 line's
+  residual straight drift is squirt, not swerve) and the
+  squirt--swerve cancellation crossings are marked ($\diamond$);
+  values in the text.}{F10}
+
+Group D tests the curved-path results of \citet{coriolis1835}, in the
+translation and modern notation of \citet{nadler2005coriolis} and the
+treatment of \citet{alciatore2008coriolis}.
+
+Table~\ref{tab:groupd-summary} summarizes the three experiments; the
+per-experiment prose is Supplementary Material Section~S4. Three
+findings carry the group. First, the tangent-frame waiver: experiment
+\expid{D1}'s registered acceptance criterion --- quadratic-fit
+$R^2 > 1 - 10^{-6}$ in the frame aligned with the measured post-impact
+velocity --- fails on all six runs ($1 - R^2$ between $2.2\times10^{-6}$
+and $3.7\times10^{-6}$), because the real-ball impact model leaves the
+friction acceleration $2.9$--$4.1^\circ$ off perpendicular to that axis,
+injecting a cubic term a quadratic fit cannot absorb; in the
+slip-aligned frame --- the parabola's own axis frame --- the fit is
+exact to machine precision ($1 - R^2 = 0.0$ on every run, worst
+time-domain residual $3.6\times10^{-16}$\,m). The miss is kept as this
+paper's worked example of a frame-sensitive verification criterion. Second, the mass\'e BAR
+aiming rule --- ``B for ball contact point, A for cloth aim point, R for
+CB resting point,'' the source's own naming \citep{alciatore_faq} --- is
+speed-invariant in exactly Coriolis' sense:
+friction acting along the fixed slip direction cannot rotate the final
+direction \citep{coriolis1835}, and the per-cell heading errors at the
+two tip speeds are identical to the full recorded precision of the
+output in all 32 (elevation, azimuth) pairs --- with mean heading error
+$0.68^\circ$ (maximum $1.60^\circ$) and 88\% of cells coming up ``a
+little short,'' the source's own caveat reproduced (TP A.19,
+\citealp{alciatore_tp_catalog}). The $45$--$55^\circ$ rows run in the
+airborne jump-launch regime, where the flight leg is inert to the
+comparison by a conservation identity: under any impulsive strike the
+natural-roll heading --- the azimuth of the planar combination
+$(5\mathbf{v}_{0,xy} +
+2R\,\boldsymbol{\omega}_0\times\hat{\mathbf{z}})/7$ --- is exactly
+invariant to hops, to the ball--slate restitution, and to the friction
+law (Coriolis' own robustness remark, quoted in
+\citealp{bouleau2006coriolis}), so those rows
+exercise the strike's impulse--momentum mapping and the solver's
+conservation structure but cannot discriminate strike realism beyond the
+impulsive idealization --- the scope note, with the falsifiable in-sim
+check, is Supplementary Material Section~S4. Third, the delayed-onset swerve rule is
+made quantitative through the squirt--swerve cancellation distance
+(``squerve''), the distance at which swerve re-crosses the aim line
+that the $1.9^\circ$ full-english squirt displaced: measured
+cancellation distances span $0.08$--$2.65$\,m on the grid, moving
+outward at $5^\circ$ elevation and full english from 0.26\,m at 1\,m/s
+to 1.05\,m at 2\,m/s to 2.36\,m at 3\,m/s (the marked crossings in
+Fig.~\ref{fig:F10}c) --- a derived, teachable quantity linking the
+stick--ball and curved-path channels.
+
+% Table typography: ragged-right rebalanced columns, single-spaced rows
+% (the tab:engines \baselinestretch idiom), and longtable continuation
+% furniture.
+{\def\baselinestretch{1}\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.15\linewidth}>{\raggedright\arraybackslash}p{0.37\linewidth}>{\raggedright\arraybackslash}p{0.36\linewidth}p{0.05\linewidth}@{}}
+  \caption{Group D (curved paths) summary: headline result, measured
+  domain boundary, and figure panel per experiment.
+  Per-experiment prose in Supplementary Material Section~S4.}
+  \label{tab:groupd-summary}\\
+  \toprule
+  Experiment & Headline result & Domain boundary & Fig. \\
+  \midrule
+  \endfirsthead
+  \multicolumn{4}{@{}l}{Table~\ref{tab:groupd-summary} \emph{(continued)}}\\
+  \toprule
+  Experiment & Headline result & Domain boundary & Fig. \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{4}{r@{}}{\emph{Continued on next page}}\\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  \expid{D1} parabolic slide path &
+  exact in the slip-aligned frame ($1 - R^2 = 0.0$; TP A.4 slide
+  duration to $2.8\times10^{-17}$\,s); path extent scales
+  $v^{2.09}$--$v^{2.14}$ vs the registered $\sim v^2$ &
+  registered tangent-frame criterion misses every run --- a frame
+  artifact, not mechanics &
+  \ref{fig:F10}a \\
+  \addlinespace
+  \expid{D2} mass\'e BAR aiming &
+  mean $|E| = 0.68^\circ$, max $1.60^\circ$ over 64 cells (two
+  ill-conditioned cells excluded); per-speed errors bit-identical
+  (Coriolis invariance) &
+  degrades at low elevation/high speed (the source's own caveat);
+  executed elevation subset
+  declared &
+  \ref{fig:F10}b \\
+  \addlinespace
+  \expid{D3} swerve maps &
+  all three registered structural rules, zero violations; level-cue
+  drift exactly zero; squerve span 0.08--2.65\,m &
+  onset delayed at speed (as taught); sliding legs closed-form to
+  $2.6\times10^{-13}$\,m --- the \expid{D1} verification floor &
+  \ref{fig:F10}c \\
+\end{longtable}
+}
+
+The 1835 closed forms are exact in their own frames and under their own
+assumptions; every apparent deviation in this group traces to a frame or
+protocol choice, not to mechanics (Table~\ref{tab:domains}). Group D is
+the battery's cleanest verification showcase, and its frame-artifact row
+is the methodological caution it contributes.
+
+% ===========================================================================
+% 05e-results-groupEF.tex — Section 5, groups E and F (drafted prose)
+% Merged into sections/05-results.tex after the group D subsection.
+% Slot-namespace reminder: figure slots F11--F13 are distinct from
+% experiment IDs F1--F3 (kinematics group); prose disambiguates.
+% All numbers trace to the study's baseline manifest, its ledger rows,
+% and the pinned outputs under the canonical kernel 0.1.0+fb3425ad;
+% per-claim provenance in Appendix A.
+% ===========================================================================
+\subsection{Group E --- frozen contacts and the break}
+\label{sec:results-e}
+
+\figstub{F11}{F11.pdf}{%
+  \textbf{Validation / comparison.} Frozen-contact rules (experiments
+  \expid{E1}, \expid{E2}): panel (a) benchmarks the lore-anchored
+  ten-times-fuller rule (\expid{E1}; instructional constant, no
+  measured retention datum), panel (b) carries \expid{E2}'s
+  measured-datum content. (a)~Kissed-ball heading retention $r$ versus the
+  approach (fullness) angle $\beta$ for a frozen pair, against the
+  ten-times-fuller rule form $\tan\theta_T = r\cot\beta$ with
+  $r = 0.10$ (Jewett), compliant versus sequential resolver; the
+  $45^\circ$
+  HSV reference cell ($E$ vs rule $+0.0056$) and the measured
+  retention minimum (with the rise
+  toward thin grazing hits) are annotated. (b)~Combination throw versus gap:
+  every comparison family converges to the two-body cut-induced-throw
+  law from the smallest tested gap; the source's $R/3$ optimum
+  (dash-dot line, 9.525\,mm) is drawn with the measured
+  straightest-departure gap
+  band $d_0 = 9.85$--$9.99$\,mm (shaded, near-straight cells), and
+  the open frozen-limit throw
+  excess is ringed;
+  frozen-pair markers aggregate over the $\alpha \times v_0$
+  conditions; values in the text.}{F11}
+
+\figstub{F12}{F12.pdf}{%
+  \textbf{Validation.} Break mechanics (experiment \expid{E3}).
+  (a)~Square-hit squat fraction (settle distance over travel, the
+  observable defined in the text) versus break speed against the
+  frame-tracked HSV B.43 evidence bands --- the inner ``clip'' band
+  (0.15--0.35) is
+  the tighter frame-tracked target, the outer band (0.1--0.4) its
+  conservative
+  envelope, both read from the pinned output --- compliant versus
+  sequential resolver. (b)~Effective-mass scaling over connected
+  cluster size: faint dots are per-topology cluster values from the
+  compliant seeds, squares their means, against the HSV B.45 concept
+  value 1.5 and the cluster-size-invariant sequential value. (c)~Cluster-model contrast:
+  squat fraction across break speed for both resolvers
+  ($\Delta_{\mathrm{frac}} = 0.0615$ at 4\,m/s, mean 0.0549) --- the
+  contrast survives the slip-law re-baseline; values in the text.}{F12}
+
+Group E exercises the regime that motivated the compliant frozen-cluster
+resolver of Section~\ref{sec:simulator}: shots into topologies in which
+balls touch before the cue ball arrives. Every experiment in the group
+runs both resolvers --- the default compliant chain (Hertz contact with
+Lankarani--Nikravesh damping, advanced concurrently across the cluster
+\citep{lankarani1994continuous}) and the legacy sequential-impulse
+pairwise arm --- so each rule doubles as a model contrast
+(Fig.~\ref{fig:F11}).
+
+\paragraph{Ten-times-fuller (\expid{E1})}
+The ten-times-fuller system for frozen pairs --- published by Jewett
+(\emph{Billiards Digest}, December 2024) and documented on high-speed
+video \citep{alciatore_hsv_catalog} --- asserts that the kissed ball
+departs one tenth of the way from the tangent line toward the shot line
+per unit of fullness: $\tan\theta_T = r\cot\beta$ with retention constant
+$r = 0.10$. The anchor class is lore under the taxonomy of
+Section~\ref{sec:methodology}: the numeric datum is the instructional
+constant 0.10, and the video documents the scenario rather than a
+measured retention, so this row is benchmarking, not validation. Under the compliant resolver the measured retention drifts
+from 0.136 at fullness $\beta = 5^\circ$ to 0.084 at $60^\circ$, crossing
+the rule's 0.10 at $\beta \approx 32^\circ$ (interpolated); the local
+slope at the
+$45^\circ$ video reference is 0.106 ($E_r = +0.006$), so the rule
+holds at its own teaching point, and the heading error stays within
+about $1.5^\circ$ for $\beta \geq 25^\circ$. Past its minimum near
+$60^\circ$ the retention rises again toward the thinnest, grazing hits
+(0.086 at
+$70^\circ$, 0.110 at $80^\circ$; $\beta = 0$ is dead full, so large
+$\beta$ is a thin hit --- the up-hook annotated in
+Fig.~\ref{fig:F11}a), and the mechanism is normal-channel geometry, not
+friction: the frictionless baseline $r_{\mathrm{free}}(\beta)$
+introduced below carries the same up-hook (0.078 at $60^\circ$ rising
+to 0.106 at $80^\circ$) while the friction-attributable difference
+$r - r_{\mathrm{free}}$ \emph{shrinks} monotonically over the same
+range (0.006 to 0.004) --- as the hit thins and $\tan\beta$ grows, the
+retention read
+$r = \tan\theta_T \tan\beta$ increasingly magnifies the residual
+normal-channel deflection that the frozen chain's damped contacts leave
+on the kissed ball, even as the deflection $\theta_T$ itself vanishes. The flat-retention
+idealization is the domain boundary: $E$ grows to $+4.7^\circ$ at
+$15^\circ$ and $+8.3^\circ$ at $5^\circ$ fullness. Because the
+frozen-pair tangential excess (an open investigation; experiment
+\expid{E2}, below) rides this same compliant channel, its
+possible contamination of the low-fullness conclusion is bounded rather
+than assumed away: deflating the friction-attributable part of the
+retention --- $r - r_{\mathrm{free}}(\beta)$, measured against a
+per-fullness frictionless-geometry baseline $r_{\mathrm{free}}$ (the same
+ladder re-run with $\mu \equiv 0$: 0.096 at $\beta = 5^\circ$, 0.078 at
+$60^\circ$) --- by the \expid{E2} hot factors normalized to the
+${\sim}1.04\times$ measured anchor, $h = 1.132/1.04$ to $1.554/1.04 =
+1.09$--$1.49$ (the excess is measured \emph{relative} to the anchor, so
+the raw $1.13$--$1.55\times$ ratios are not the divisor), gives
+$r_{\mathrm{corr}}(5^\circ) = 0.1225$--$0.1323$ against
+0.136 uncorrected, moves the interpolated rule crossing from
+$32.1^\circ$ to $28.3$--$31.1^\circ$, and leaves the low-fullness excess
+over the rule's 0.10 standing in every arm, with $E$ at $5^\circ$
+fullness still $+5.7$ to $+7.7^\circ$ against $+8.3^\circ$ uncorrected
+(post-registration analysis, recorded in the artifact bundle). The
+curve is
+also step-converged: halving or doubling the compliant resolver's
+$10^{-6}$-s internal step (episode cap held at 3\,ms) moves no retention
+point by more than $6.3\times10^{-4}$ and the $5^\circ$-fullness heading
+error by at most $0.12^\circ$. The sequential arm
+contradicts both the rule and the three-ball chain analysis of TP~B.29
+\citep{alciatore_tp_catalog}: its fitted slope is 0.029 --- in the
+output's characterization a ``forty-times-fuller'' system, the pairwise
+$(1-e_b)/2 = 0.025$ residual --- and on the square frozen hit it pushes
+the cue ball \emph{forward} ($+0.024$ of impact speed) where the
+compliant chain rebounds it ($-0.056$, sign-matching TP~B.29's
+elastic-chain value of $-0.071$). A 1\,mm gap erases the contrast
+(kissed-ball retention collapses $0.103 \to 0.024$ and the two resolvers
+coincide bit-exactly): gapped topologies bypass the cluster path by
+construction. The compliant slope is bit-identical across the
+slip-law revision (Section~\ref{sec:oracle}) because its force-based
+Coulomb friction consumes no impulse cap, so the model contrast survives
+re-baselining.
+
+\paragraph{Gap throw and the $R/3$ optimum (\expid{E2})}
+The combination-throw experiment asks where a gapped two-ball combination
+stops being a cluster problem (TP~B.21, TP~A.15
+\citep{alciatore_tp_catalog}; FAQ pages \citep{alciatore_faq}); folk
+statements place the boundary near a ball width. The measured boundary is
+two orders of magnitude lower: every comparison family --- the source
+stun form, the measured TP~A-14 overlay \citep{alciatore_tp_a14}, and the
+characterized kernel law --- agrees with the plain two-body
+cut-induced-throw (CIT) prediction to within the $0.1^\circ$ tolerance
+from the smallest tested gap, 0.1\,mm, onward, over the whole gapped
+grid. This is by construction: any gap above the kernel's
+$10^{-5}$\,m cluster tolerance resolves as two ordinary pairwise impacts.
+Against the kernel's own law the gapped residual is
+0.0000--0.0121$^\circ$; against the sources' $e = 1$ forms it is
+0.000--0.104$^\circ$, the declared restitution family (a
+declared-model-content ledger row). TP~B.21's teaching optimum --- a gap of
+$R/3$ (9.525\,mm) sends the second ball straightest, independent of
+friction --- is reproduced to first order: the straightest-departure gap
+$d_0$ measures 9.85--9.99\,mm on the three near-straight cells, with the
+kernel-law small-angle optimum (9.811\,mm) accounting for most of the
+offset, while the fourth cell ($\alpha = 20^\circ$ at 2.5\,m/s) measures
+5.23\,mm, outside the source's near-straight claim domain. The frozen
+limit itself is the group's open item: the compliant resolver throws
+frozen pairs $1.13$--$1.55\times$ more than 1\,mm-gapped ones, against a
+measured anchor of ${\approx}1.04\times$ ($5.16^\circ$ versus
+$4.95^\circ$, at a ${\sim}30^\circ$ cut --- beyond the registered
+$\leq 20^\circ$ grid, a $u_{\mathrm{val}}$ caveat), with
+$E = -1.11$ to $-0.33^\circ$ against the TP~B.21 $d \to 0$ form and a
+speed dependence the anchor does not show; the sequential arm shows no
+excess at all ($E = -0.076$ to $-0.000^\circ$, the pairwise limit). The
+sign is correct --- no gap throws the most --- but the magnitude is an
+open investigation (Section~\ref{sec:limitations}), with
+over-accumulated
+tangential impulse in the compliant friction integration as the working
+hypothesis \citep[cf.][]{cross2023oblique}.
+
+\paragraph{Break squat and effective mass (\expid{E3})}
+The break experiment measures square-hit ``squat'' --- the cue ball's
+residual motion after a full-rack collision --- against frame-tracked
+evidence bands from high-speed footage (HSV~B.43
+\citep{alciatore_hsv_catalog}) over nominal break speeds 4--13.4\,m/s
+(measured impact speeds 3.2--12.9\,m/s; the grid top matches the reported
+professional break-speed range \citep{alciatore_faq}). Two registration
+deviations are declared rather than absorbed: the elevation grid $\{0, 3\}^\circ$
+is a subset of the registered $0$--$5^\circ$ range, and the registered
+``momentum-theft baseline'' is realized as the in-kernel sequential arm,
+pooltool's 10\% momentum-removal hack \citep{kiefl2024pooltool} being a
+documented rejected alternative. Under the compliant resolver the cue
+ball rebounds along the reversed incoming line (within
+$2\times10^{-6}$ degrees) at 0.137--0.159 of impact speed: every row is
+inside the outer evidence band $[0.10, 0.40]$, every row at
+$\geq 8$\,m/s is inside the clip target $[0.15, 0.35]$, no dead-stop row
+($<0.05$) appears anywhere, and $E$ against the 0.180 anchor value is
+$-0.021$ to $-0.043$ --- a comparison the anchor resolves only at band
+level: the footage's capture-chain $u_D$ (Table~\ref{tab:uval}) supports
+the frame-tracked evidence bands, not a point datum, so $|E| \leq 0.043$
+is reported against the band rather than against a $u_{\mathrm{val}}$
+tighter than the band itself. The sequential arm saturates at 0.084--0.106 and
+falls below the outer band for speeds $\leq 8$\,m/s, while the kinetic
+energy delivered to the rack is nearly model-invariant (0.77--0.81 for
+both): the resolvers differ in where the cue-ball residual goes
+(Fig.~\ref{fig:F12}c plots that residual contrast), not in the gross
+energy budget. The effective-mass ladder
+sharpens the same point. HSV~B.45 assigns the struck rack an effective
+mass $M_{\mathrm{eff}}/m \approx 1.5$ (via TP~B.20
+\citep{alciatore_tp_catalog}); the compliant resolver reproduces the
+direction of the scaling --- 1.287 for a three-ball wedge, 1.374 for a
+six-ball cluster, 1.359 for the default nine-ball rack --- but caps below
+the concept value ($E = -0.14$).
+The cap is a topology statement: the default rack's seeded back-row
+micro-gaps truncate its connected frozen cluster at six balls, so the
+nine-ball rack measures at the six-cluster value. The sequential arm is
+cluster-size-invariant at 1.2154 ($E = -0.28$): a pairwise resolver never
+feeds back-row inertia into the cue ball. The compliant model's topology
+sensitivity --- and its complete erasure under the sequential resolver ---
+is the break-scale evidence for contribution C3. Like E1's retention
+curve, these break-row observables are step-converged in their own
+right: a post-hoc bracket re-running the square/elevation-0 ladder and
+the effective-mass probes at compliant steps
+$\{5\times10^{-7}, 10^{-6}, 2\times10^{-6}\}$\,s (episode cap held at
+3\,ms) moves no squat fraction by more than $2.8\times10^{-4}$ and no
+$M_{\mathrm{eff}}/m$ value by more than $7.7\times10^{-4}$, with every
+evidence-band verdict invariant across the bracket (analysis recorded
+in the artifact bundle). The declared $e_b$ bracket is likewise applied
+to the break rows (the compliant resolver consumes $e_b$ directly
+through its Lankarani--Nikravesh damping), with the scope stated
+exactly: each arm holds one \emph{constant} $e_b$ for every contact, so
+these runs measure constant-$e_b$ parameter sensitivity --- they do not
+bound a speed-dependent $e_b(v)$, which would mix effective values
+across the break's contact spectrum and which the kernel does not model
+(Section~\ref{sec:methodology}). Over a 62-point constant-$e_b$ grid
+spanning $[0.92, 0.98]$
+the squat fraction moves by up to $0.0201$ and $M_{\mathrm{eff}}/m$ by
+up to $0.0551$ --- observed grid maxima of a response that is
+non-monotone and \emph{event-discrete} in $e_b$, not interval bounds:
+both maxima are realized across an interior jump between the adjacent
+grid points 0.95775 and 0.958, where the 8\,m/s squat drops
+discontinuously from 0.156 to 0.136 as the cascade's contact sequence
+reorders, so no finite arm set bounds the declared interval --- the
+outer-band, dead-stop, and
+direction verdicts are
+invariant at every grid point, and the only membership change is at
+the clip target's
+8\,m/s edge, inside for $e_b \in [0.935, 0.95775]$ at grid resolution
+and outside on both sides of that window --- so the
+``every row at $\geq 8$\,m/s'' clip statement above holds at the frozen
+$e_b = 0.95$ and is $e_b$-sensitive at exactly that edge (analysis
+recorded in the artifact bundle). Two characterization
+remarks close the group. First, the post-break hop apex measures
+$\leq 0.039$ ball diameters everywhere, satisfying the one-sided footage
+bound (${\leq}{\sim}0.3$ diameters, no registered minimum); the gap to
+the observed ${\sim}0.23$ is recorded as a vertical-channel remark, not a
+band miss. Second, three extreme
+quarter-off rows (12--13.4\,m/s) flip a downstream scratch-outcome bit
+across kernel revisions: individual outcome bits after long slip cascades
+are chaotic across model changes even though every output is bit-exact
+for a fixed binary --- a deliberate scoping of what the reproducibility
+contract of Section~\ref{sec:reproducibility} does and does not promise.
+
+\subsection{Group F --- kinematics closed forms and the jump}
+\label{sec:results-f}
+
+\figstub{F13}{F13.pdf}{%
+  \textbf{Comparison.} Kinematics and rule-domain flagship
+  (experiments \expid{F1}--\expid{F3}; panels (b) and (c) both belong
+  to experiment \expid{F2}). (a)~Lag table-lengths versus cue speed on
+  the frozen default catalog, with the 4.0--4.5 window and the anchor
+  stroke. (b)~Draw square law $S = C_S\,(R\omega)^2$: pooled
+  through-origin fit (dashed, $R^2 = 0.986$) plus per-speed fits (thin
+  lines) --- the pooled functional form holds, while the per-speed fits
+  degrade at low spin/speed ($R^2 = 0.42$ at 1.5\,m/s, 0.94 at 2\,m/s,
+  ${\geq}0.98$ above) with a strongly speed-dependent coefficient
+  against the perfect-ball program (TP B.8 at kernel constants). (c)~Trisect ratio
+  $\theta/\mathrm{cut}$ versus cut, exact at the $30^\circ$
+  calibration point, with the within-10\%-of-3 window shaded. (d)~Minimum jump elevation versus
+  obstacle gap under the sphere criterion (primary solid curves), with
+  the chart-style overhead criterion as a dashed comparison overlay ---
+  the two separate only at the ringed far-edge cell; $\times$ marks uncleared cells
+  and the maximum airborne over-cut is $2.779^\circ$ (slip-branch);
+  values
+  in the text.}{F13}
+
+\paragraph{Closed-form verification (\expid{F1})}
+Between events the kernel evolves the constant-friction closed forms of
+TP~4.1/B.5 \citep{alciatore_tp_catalog}, so this channel is verification
+in the V\&V~20 sense (Section~\ref{sec:methodology}): $E$ is a numerical
+floor, not a physics comparison. Over the 25-cell $(v, \omega)$ launch
+grid, slide-to-roll event times and distances match the closed forms to
+at most $5.4\times10^{-14}$\,s and $9.8\times10^{-14}$\,m (the roll-onset
+time is exact), and the $v^2$ stop law holds to $2.1\times10^{-14}$\,m.
+The one systematic offset is a convention: the kernel's $g = 9.80665$
+versus the source's $9.81$ (0.03\%), isolated in the $u_{\mathrm{val}}$
+note.
+
+\paragraph{One parameter set, two datasets (\expid{F1})}
+The battery's anti-overfit centerpiece is a one-parameter-set,
+two-datasets test (Fig.~\ref{fig:F13}a). The default parameter catalog
+--- sliding friction 0.2, rolling friction 0.01, Han-model cushion
+restitution $e_0 = 0.85$ \citep{han2005dynamics}, WPA cushion-nose height
+at 63.5\% of ball diameter --- was frozen before any battery sweep ran.
+This single set produces a lag curve monotone in cue speed whose anchor
+stroke travels 4.130 table lengths, inside the 4.0--4.5 lag window; and
+it is the same set that is scored against group C's bank dataset
+(Section~\ref{sec:results-c}), placing five of six through-diamond aims
+inside the TP~B.28 five-table measured envelope \citep{alciatore_tp_b28}
+at 3\,m/s with an RMSE of 0.116 diamond against the closest measured
+table --- a registered miss of the frozen all-six criterion, stated as
+such below, not a pass. Lag and banks are independent datasets, and
+neither was used to tune the other, so each result is out-of-sample with
+respect to the other --- in the scoped sense of
+Section~\ref{sec:methodology-registration}: both datasets pre-existed as
+continuous-integration anchors during kernel development (lag from
+2026-07-01, banks from 2026-07-03), so the claim is no-joint-re-tuning
+under battery-scored defaults unchanged for nineteen days before
+registration (chronology scoped per literal in
+Section~\ref{sec:methodology-registration}), not blindness.
+Both caveats belong next to the showcase. The
+sixth bank aim is the registered miss: aim 1.0 measures 2.612 against an
+envelope minimum of 2.72, i.e.\ 0.108 diamonds long. And the pairing is
+catalog-specific: the opt-in \code{mathavan_fitted} preset --- in-domain
+for snooker rebound coupling --- lags 3.45 table lengths, and 4.83 at the
+literature restitution value, long the other way. The TP~B.6 table-lengths overlay (rolling
+rollouts with cushions in play) is, by contrast, a characterized
+model-content difference: $E > 0$ on every rail-contacted pinned row,
+$+0.033$ to $+0.681$ table lengths, because the kernel's Han-model
+rolling rebound retains more speed than the source's
+stun-at-restitution-0.7 recursion assumes --- a simplification the source
+itself flags; the rail-free
+``touch'' row's $E = -0.0007$ is purely the gravity convention. Because
+each pinned row pairs a different speed with a different rail count, no
+per-rail-count trend is claimed; a per-rail attribution would require a
+matched-speed design, which the frozen registration does not include.
+
+\paragraph{Draw square law (\expid{F2})}
+TP~B.8/B.9 predict draw-back distance proportional to $(R\omega)^2$ at
+impact \citep{alciatore_tp_catalog}. The functional form holds as a
+pooled law: a least-squares fit through the origin over the 26 backspin
+arrivals gives $R^2 = 0.986$ with $C_S = 0.320$ (Fig.~\ref{fig:F13}b).
+The pooled qualifier matters --- the per-speed fits degrade toward low
+spin/speed, with $R^2 = 0.42$ at 1.5\,m/s and 0.94 at 2\,m/s against
+${\geq}0.98$ at 3--4\,m/s. The coefficient, in turn, sits 27\%
+below the perfect-ball value $C_D = 0.437$ obtained from TP~B.8's own
+formula at the kernel's cloth constants ($C_S/C_D = 0.732$), and the gap
+is fully attributed rather than fitted away: re-running TP~B.8's branch
+program from the measured post-impact state reproduces the simulated draw
+distance exactly (to the output's $10^{-8}$ rounding) --- between events
+the kernel \emph{is} the TP~B.8 kinematics --- so the entire rule-level
+error is the perfect-ball impact idealization. Concretely, the declared
+restitution $e_b = 0.95$ leaves the cue ball moving forward at
+$(1-e_b)/2 = 2.5\%$ of its pre-impact speed, which enters the natural-roll
+velocity $v''' = (5v'' + 2u'')/7$ with five-fold weight, and impact
+friction bleeds 3--6\% of the arriving backspin on strong-draw cells. The single-coefficient law also
+degrades at low spin --- per-speed $C_S$ runs 0.039 at 1.5\,m/s to 0.325
+at 4\,m/s --- and follow-branch arrivals are excluded exactly as the
+source's own program excludes them.
+
+\paragraph{The trisect rule (\expid{F2})}
+The trisect rule \citep{alciatore_faq} states that, with ``good action''
+draw, the cue ball's total departure is about three times the cut angle
+for cuts below roughly $40^\circ$. Good action was calibrated once, per
+the source's definition --- bisection to perpendicular cue-ball departure
+at a half-ball hit, giving commanded offset $b = -0.377$ and
+spin-to-speed ratio $\rho = -0.687$ at impact, versus the perfect-ball
+geometric $-0.625$ --- then frozen across the cut sweep. The measured
+departure-to-cut ratio is not a plateau at 3: it declines monotonically
+from 3.99 at a $5^\circ$ cut to 2.59 at $45^\circ$, passing through
+exactly 3.0 at the $30^\circ$ half-ball calibration point
+(Fig.~\ref{fig:F13}c). The ratio is within 10\% of 3 only for cuts of
+$22.5$--$40^\circ$, and the absolute error $E = \theta - 3\times\mathrm{cut}$
+peaks at $+9.1^\circ$ ($15^\circ$ cut) and $-11.8^\circ$ ($40^\circ$)
+\emph{inside} the rule's claimed domain. The window is immobile under the
+one-at-a-time brackets of Section~\ref{sec:methodology}: the grid edges
+($22.5^\circ$, $40.0^\circ$) do not move in any arm; the interpolated
+edges ($22.08^\circ$, $40.18^\circ$) shift by at most $0.01^\circ$ per
+endpoint over $e_b \in [0.92, 0.98]$ and by $+0.09^\circ/-0.08^\circ$
+under the $\mu(v)$-revision spread; grid quantization bounds the true
+edges in $(20.0^\circ, 22.5^\circ]$ and $[40.0^\circ, 42.5^\circ)$; and
+the small-cut ratio spans only 3.99--4.01 across all arms. The
+$2.5^\circ$-grid-step brackets, not the bare edges, are what
+Table~\ref{tab:domains} carries. The small-cut excess is not a kernel
+artifact, and its operating-point decomposition separates the
+geometric, restitution, and friction contributions. In the perfect-ball
+overlay the departure obeys $\tan\theta = 5\sin c\cos c\,/\,(2k -
+5\sin^2 c)$, where $k = |\rho|$ is the magnitude of the spin-to-speed
+ratio at impact --- the rolling-transfer fraction that ``good action''
+fixes through the half-ball anchor $\theta(30^\circ) = 90^\circ$ ---
+so the ideal small-cut limit is $\theta/\mathrm{cut} \to 5/(2k) = 4.00$
+at the perfect-ball calibration $k = 0.625$. Evaluating the same ideal
+formula \emph{counterfactually} at the frozen calibration's $k = 0.687$
+gives $3.64$ --- a number we quote only to size and sign the
+calibration shift, not as a limit of the nonideal system: the overlay
+is derived for frictionless perfect balls, so once $e_b < 1$ and
+impact friction act its collision terms change as well, and
+substituting a recalibrated $k$ alone is not a valid evaluation off the
+ideal point. The calibration shift itself is the impact channels'
+doing: matching $\theta(30^\circ) = 90^\circ$
+through the kernel's impact --- where $e_b = 0.95$ leaves a forward
+cue-ball residual that enters the natural-roll velocity with five-fold
+weight, and impact friction bleeds 3--6\% of the arriving backspin ---
+requires $|\rho| = 0.687$ rather than $0.625$, with the $e_b$ channel
+carrying about $0.048$ of the $0.062$ shift (linearized from the
+bracket: the recalibrated $|\rho|$ runs $0.716$ to $0.659$ across
+$e_b \in [0.92, 0.98]$) and the friction channel the remainder. What
+the measurements then show is that the calibration anchor pins the
+small-cut behavior near the ideal value: the $5^\circ$-cut ratio (a
+finite sample, not a limit) measures $3.99$ at the frozen catalog and
+stays at $3.99$--$4.01$ in every bracket arm precisely because
+each arm re-calibrates its own $\rho$. The breakdown of the $3\times$
+rule is therefore geometric in this calibration-anchored sense ---
+ideal geometry at the shared anchor gives $4.0$, and the measured
+small-cut ratio stays within $0.01$--$0.02$ of it at every admissible
+operating point --- while $e_b$ and friction set only the calibration's
+operating point, not the small-cut excess. The
+$3\times$ line is tangent to the physics only at the half-ball point ---
+the battery's sharpest instance of a rule that is exact at its
+calibration point and only there. (The departure direction at the rolling
+transition matches the closed-form roll direction with zero residual on
+every run, so the finding is physical content, not numerics.)
+
+\paragraph{Jump envelope and airborne over-cut (\expid{F3})}
+The jump experiment measures the minimum cue elevation that clears a full
+obstacle ball as a function of gap, mirroring the published jump chart
+\citep{alciatore_faq}; cells that fail to clear \emph{are} the measured
+envelope (the deliverable), and all registered qualitative jump rules
+pass with zero violations. The envelope is a speed-dependent window: at
+2\,m/s only the 0.2\,m gap clears (at $45^\circ$); at 3\,m/s gaps to
+0.6\,m clear with minima of 30--35$^\circ$; at 4\,m/s gaps to 1.2\,m
+clear under the sphere criterion, with the minimum falling to $25^\circ$
+at mid-range gaps and rising toward both edges. Within the window, longer
+gaps need \emph{less} elevation (short jumps need height early), and the
+far edge is set by first-hop landing reach. First-landing distance peaks
+at $35^\circ$ elevation at all three speeds, so the handout's ``less
+elevation gives a longer jump'' holds only on the descending branch. At
+the window's far edge the chart-style overhead clearance criterion
+diverges from the true sphere criterion by at most one grid step
+($v_0 = 4$\,m/s at a 1.3\,m gap: $40^\circ$ passes overhead while the
+descending flank clips the ball); Fig.~\ref{fig:F13}d reports the
+sphere criterion with the overhead overlay. Airborne ball--ball contacts
+over-cut (HSV~B.37 \citep{alciatore_hsv_catalog}): the object ball is
+driven along the plan projection of the tilted three-dimensional line of
+centers --- and simultaneously downward into the slate --- and the
+measured effective cut tracks that geometry with a friction/throw
+residual of at most $|E| = 2.78^\circ$, growing with contact height on
+both branches (airborne impacts ride the slip branch of the ball--ball
+law). The strike-channel closed forms verify as in experiment \expid{F1}:
+cue-strike speed ratio to $6.3\times10^{-6}$ (exactly the recorded
+mass-ratio rounding), launch direction $v_z/v = -\sin\theta$ to machine
+zero, and hop apex to the output's rounding. A design boundary completes
+the picture: the geometric cue-clearance floor binds only within
+${\sim}0.1$\,m of a rail, where it reaches 13.8--39$^\circ$; elsewhere
+the ballistic requirement ($\geq 20^\circ$ to clear a full ball on this
+grid) governs, so open-table jump feasibility is ballistics, not cue
+geometry.
+
+The group's summary is the paper's central exhibit: the closed-form
+kinematics underneath the rules sits at machine precision
+(verification), while the teachable rules built on top of it --- the
+trisect multiplier and the jump chart --- carry the narrowest measured
+validity windows in the battery.
+
+% ===========================================================================
+% 05f-results-synthesis.tex — Section 5 closing synthesis (drafted prose)
+% Table tab:domains: one row per empirical rule, transcribed from the
+% group subsections (the baseline manifest and the ledger);
+% per-row output provenance in Appendix A.
+% ===========================================================================
+\subsection{Domains-of-validity synthesis}
+
+Table~\ref{tab:domains} collects the rule-level outcome of the battery:
+each empirical law, its anchor class under the taxonomy of
+Section~\ref{sec:methodology} (measured datum / derived idealized
+reference / practitioner lore / specification window --- rows anchored
+only to lore carry no estimable $u_{\mathrm{val}}$ and are
+characterizations of the rule as printed), the variable it was scored on,
+its validity domain as measured, and the first mechanism that breaks it. ASME V\&V~20 places
+extrapolation beyond validation points out of scope \citep{asme2009vv20};
+the table makes that boundary itself the result --- to our knowledge the
+first systematic quantification of the domains of validity of the
+empirical laws of pool (contribution C1,
+Section~\ref{sec:contributions}). Three patterns recur. The rules
+hold at or near their teaching conditions, often exactly at a
+calibration point (the trisect multiplier, the ten-times-fuller slope,
+the gearing-english percentages). The first failures are, in order of
+prevalence: idealized parameters in the reference forms ($e = 1$
+restitution, flat retention, frictionless-elastic peaks), speed
+extrapolation beyond the teaching condition, and measurement or protocol
+conventions rather than mechanics. Per-row output provenance is given
+in Supplementary Material Section~S1.
+
+% Table typography: rotated to landscape (pdflscape, the repo-wide
+% landscape mechanism) with ragged-right columns, single-spaced rows (the
+% tab:engines \baselinestretch idiom), longtable continuation furniture,
+% and lettered
+% table notes (a--k) that carry the long in-cell parentheticals verbatim —
+% every number stays inside the table environment.
+\begin{landscape}
+{\def\baselinestretch{1}\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.14\linewidth}>{\raggedright\arraybackslash}p{0.05\linewidth}>{\raggedright\arraybackslash}p{0.12\linewidth}>{\raggedright\arraybackslash}p{0.34\linewidth}>{\raggedright\arraybackslash}p{0.29\linewidth}@{}}
+  \caption{The empirical laws of pool: measured domains of validity. One
+  row per rule; comparison error $E = S - D$ per anchor;
+  per-row provenance in Supplementary Material Section~S1. The anchor-class
+  column applies the taxonomy of Section~\ref{sec:methodology}:
+  \emph{meas.}\ = measured datum (instrumented measurement),
+  \emph{deriv.}\ = derived idealized reference (a source's own closed
+  form, construction, or numerics; ``(port)'' where the kernel implements
+  the source's own model), \emph{lore} = rule-of-thumb practitioner
+  claim ($u_{\mathrm{val}}$ not estimable), \emph{spec.}\ = published
+  specification window. Diamond
+  units abbreviated ``dia''; table lengths ``TL''. Lettered marks
+  (\textsuperscript{a}--\textsuperscript{l}) resolve to the notes at the
+  end of the table.}
+  \label{tab:domains}\\
+  \toprule
+  Rule & Class & Validation variable & Measured validity domain & First
+  failure mechanism \\
+  \midrule
+  \endfirsthead
+  \multicolumn{5}{@{}l}{Table~\ref{tab:domains} \emph{(continued)}}\\
+  \toprule
+  Rule & Class & Validation variable & Measured validity domain & First
+  failure mechanism \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{5}{r@{}}{\emph{Continued on next page}}\\
+  \endfoot
+  \bottomrule
+  \multicolumn{5}{@{}>{\raggedright\arraybackslash}p{0.99\linewidth}@{}}{%
+  \rule{0pt}{2.4ex}%
+  Notes.
+  \textsuperscript{a}\,$\pm0.03$ on $e_b$ shifts the peak family
+  $\mp0.9^\circ$.
+  \textsuperscript{b}\,cap departure $17.9$--$18.2^\circ$ over the $e_b$
+  bracket; $20.9^\circ$ under the $\mu(v)$ revision; source crossover
+  ${\approx}18^\circ$.
+  \textsuperscript{c}\,boundaries move $\pm0.34/0.24/0.15^\circ$ over the
+  $e_b$ bracket; $34.1/27.7/20.9^\circ$ under the $\mu(v)$ revision;
+  $10^\circ$-grid brackets $[30,40]/[20,30]/[10,20]^\circ$.
+  \textsuperscript{d}\,in-sample calibration consistency: the catalog end
+  masses derive from the same Platinum pivot data,
+  Section~\ref{sec:methodology}.
+  \textsuperscript{e}\,draw ordering: 0 of 210 cells restore it; compliant
+  Mathavan correct in all 84, compliance-free flips 6 of 84,
+  $\leq +0.52^\circ$.
+  \textsuperscript{f}\,sliding-$45^\circ$ speed direction: all
+  flat-$\mu_w$ cells restore it, all fitted~$\times$~compliant cells
+  reverse, Han~$\times$~\code{hsv_fitted} flips 10 of 15 (to
+  $+2.72^\circ$).
+  \textsuperscript{g}\,$\max|E| = 0.067$\,m/s $= 1.2\,u_{\mathrm{val}}$
+  with $u_x$ propagated through the response slope.
+  \textsuperscript{h}\,model-form swap at source $\mu_{\mathrm{wall}}$:
+  57/240.
+  \textsuperscript{i}\,$E = +8.3^\circ$ at $5^\circ$ fullness; $+5.7$ to
+  $+7.7^\circ$ under the full frozen-pair-excess
+  deflation bound, rule crossing $28.3$--$31.1^\circ$ --- the excess
+  survives.
+  \textsuperscript{j}\,per-speed $R^2$ 0.42 at 1.5\,m/s, 0.94 at 2\,m/s.
+  \textsuperscript{k}\,true edges in $(20.0, 22.5]$ / $[40.0,
+  42.5)^\circ$ at grid step; interpolated edges immobile over the $e_b$
+  bracket, $+0.09/-0.08^\circ$ under the $\mu(v)$ revision.
+  \textsuperscript{l}\,registered convention; revised post-registration
+  to bind the contact offset (Section~\ref{sec:limitations}); accepted inputs reproduce
+  bit-exactly, the nickel-tip rejection probes would now be accepted
+  (artifact unchanged), $(0.5, 0.55]R$ still unreachable.}\\
+  \endlastfoot
+  \multicolumn{5}{@{}l}{\emph{Group A --- ball--ball impact and throw}}\\*
+  90$^\circ$ stun line; 85$^\circ$ real-ball rule &
+  deriv.\ + lore &
+  separation angle &
+  ideal form verified; real balls measure $82.49^\circ$ at slow-speed
+  half-ball &
+  $\mu(v)$ friction and $e_b$: the real-ball value drifts with speed and
+  cut \\
+  30$^\circ$ rule; $33.7^\circ$ peak &
+  deriv. &
+  carom deflection &
+  peak location $33.71^\circ$ and $27$--$34^\circ$ plateau at all
+  registered speeds and in every bracket arm; $33.7\pm0.3^\circ$ peak
+  height at slow speed only &
+  frictionless-elastic reference form; $E = -0.83^\circ$ at 2\,m/s; band membership
+  $e_b$-fragile\textsuperscript{a} \\
+  CIT: $\leq 20^\circ$ speed collapse; $4\times$ roll/draw reduction &
+  deriv.\ (port) &
+  throw vs cut, speed, spin &
+  collapse holds to $17.5^\circ$ --- crossover in
+  $(17.5^\circ, 20.0^\circ]$ at the $2.5^\circ$ grid step; closed-form
+  cap departure $18.0^\circ$\,\textsuperscript{b} ---
+  ${\sim}4\times$ reduction at medium/fast speed &
+  $\mu(v)$ crossover; saturation relaxes the reduction to
+  ${\sim}2.3\times$ at slow speed \\
+  SIT maximum at stun, slow, ${\sim}50\%$ english &
+  deriv. &
+  SIT peak locus &
+  peak at 47.1\% english, inside the registered $50\pm5\%$ band &
+  none observed on the registered grid \\
+  Gearing english $80/60/40\%$ &
+  deriv. &
+  zero-throw crossings &
+  reproduced at $0/25/50\%$ ball fraction; invariant across the slip-law
+  revision &
+  none observed on the registered grid \\
+  Spin transfer CB$\to$OB &
+  deriv. &
+  OB spin pickup &
+  friction-capped transfer curves confirmed &
+  declared $e_b$: slip ratio $(1+e_b)/2 = 0.975$ vs the $e = 1$
+  worksheets \\
+  Cling (chalk-spot) envelope &
+  deriv. &
+  worst-case throw &
+  bounded at $+5.15^\circ$ ($k = 3$, $50^\circ$ cut, medium speed);
+  friction-independence boundaries
+  32.5/25.0/18.0$^\circ$\,\textsuperscript{c} &
+  envelope content by design; source revision drift recorded \\
+  \multicolumn{5}{@{}l}{\emph{Group B --- stick--ball}}\\*
+  Endmass squirt closed form &
+  deriv. &
+  squirt angle &
+  exact match; near-linear in offset; speed-invariant &
+  protocol conventions only \\
+  Natural pivot length (8--14\,in band) &
+  meas. &
+  pivot length &
+  closed form reproduced; catalog measures 10.5--64.9\,in under the
+  adopted tip-center convention\textsuperscript{d} &
+  measurement convention: tip-center vs contact offset \\
+  Miscue limit $0.5$--$0.55R$ &
+  lore &
+  maximum side offset &
+  $0.5R$ bound conservative (implied $\mu_{\mathrm{tip}}$ 0.39--0.58);
+  $(0.5, 0.55]R$ unreachable\textsuperscript{l} &
+  commanded-offset input surface, no tip-friction model \\
+  Center of percussion (70\% height) &
+  deriv. &
+  slide-phase duration &
+  duration $\to 0$ at $0.7\cdot 2R$ tip height; overspin above &
+  none mechanical; long-slide rows censored by table runway \\
+  \multicolumn{5}{@{}l}{\emph{Group C --- cushion and diamond systems}}\\*
+  Sliding-bank through-diamond tables &
+  meas. &
+  arrival diamond &
+  5/6 aims inside the TP B.28 envelope at 3\,m/s; twice-plus-tenths
+  replicates &
+  aim 1.0 banks 0.108 dia long; shallow-aim cushion
+  calibration \\
+  Bank speed/spin correction lore &
+  lore &
+  bank-angle shift direction &
+  not reproduced as stated &
+  direction reversals resolved by the admissible-space sweep and
+  cross-form crossing (Section~\ref{sec:results-c}): draw ordering is a
+  Han/Stronge model-form boundary\textsuperscript{e};
+  sliding-$45^\circ$ speed direction splits by cushion
+  family\textsuperscript{f} \\
+  Corner-5 three-rail system ($T = D - F$) &
+  lore &
+  arrival diamond &
+  RMSE 0.10--0.12 dia over $D = 2$--$5$ &
+  fourth-rail speed/english lore splits against itself \\
+  1/2/3-diamond sidespin kicks &
+  lore &
+  cross-table arrival &
+  confirmed on cue-only kicks at reference speed
+  (calibration-consistent: $\mu_w$ was pinned on this anchor family,
+  Section~\ref{sec:methodology-registration}) &
+  natural-roll protocol assumption at 3\,m/s \\
+  Cushion rebound/spin coupling &
+  meas.\ + deriv.\ (port) &
+  rebound angle and speed &
+  measured Fig.~7a camera points 12/12 within
+  tolerance\textsuperscript{g}; port at source constants
+  239/240; out-of-sample \code{han2005_default}
+  52/240\textsuperscript{h}, below 2.5\,m/s &
+  source's own rigid-cushion domain above 2.5\,m/s; one tolerance-edge point \\
+  \multicolumn{5}{@{}l}{\emph{Group D --- curved paths}}\\*
+  Coriolis parabolic slide path &
+  deriv. &
+  quadratic path fit &
+  exact ($1 - R^2 = 0$) in the slip-aligned frame &
+  frame-sensitive criterion only \\
+  Mass\'e BAR aiming &
+  deriv. &
+  final CB direction &
+  parallel to the aim line; 88\% of cells slightly short, as the source
+  expects &
+  low-elevation/high-speed degradation (the source's own caveat) \\
+  Swerve &
+  lore &
+  lateral drift &
+  zero at level cue; drift $\propto$ elevation $\times$ spin &
+  onset delayed at speed (as taught); none beyond \\
+  \multicolumn{5}{@{}l}{\emph{Group E --- frozen contacts and the break}}\\*
+  Ten-times-fuller &
+  lore &
+  kissed-ball heading slope &
+  0.106 at the $45^\circ$ reference; within ${\sim}1.5^\circ$ for fullness
+  $\geq 25^\circ$ &
+  flat-retention idealization\textsuperscript{i} \\
+  Frozen ${\approx}$ small-gap combination throw; $R/3$ optimum &
+  deriv.\ + meas. &
+  combination throw vs gap &
+  two-body CIT from a 0.1\,mm gap; straightest gap 9.85--9.99\,mm vs
+  9.525\,mm &
+  compliant frozen-limit excess $1.13$--$1.55\times$ (open) \\
+  Break squat; effective mass &
+  meas. &
+  CB residual fraction; $M_{\mathrm{eff}}/m$ &
+  squat 0.137--0.159 inside the evidence band at 3.2--12.9\,m/s;
+  $M_{\mathrm{eff}}/m$ 1.287--1.374, scaling with cluster size &
+  connected-cluster topology caps $M_{\mathrm{eff}}$ below the 1.5
+  concept value; scaling
+  erased by the pairwise resolver \\
+  \multicolumn{5}{@{}l}{\emph{Group F --- kinematics and the jump}}\\*
+  Slide$\to$roll and stop-law closed forms &
+  deriv. &
+  event times and distances &
+  machine precision ($\leq 10^{-13}$) &
+  verification floor; 0.03\% gravity convention \\
+  Lag benchmark (4.0--4.5 TL) &
+  spec. &
+  table lengths &
+  4.13 on the frozen default catalog, jointly with the bank envelope
+  (out-of-sample) &
+  catalog-specific: \code{mathavan_fitted} lags 3.45 TL \\
+  Draw square law &
+  deriv. &
+  draw distance vs $(R\omega)^2$ &
+  pooled form holds ($R^2 = 0.986$) &
+  degrades at low spin/speed\textsuperscript{j}; perfect-ball
+  idealization: $C_S/C_D = 0.732$ ($e_b$ plus impact-friction spin
+  bleed) \\
+  Trisect $3\times$ rule &
+  lore &
+  departure/cut ratio &
+  exact at $30^\circ$; within 10\% of 3 for $22.5$--$40^\circ$
+  cuts\textsuperscript{k} &
+  geometry itself: ratio $\to 4.0$ as cut $\to 0$ \\
+  Jump minimum-elevation chart &
+  lore &
+  minimum elevation vs gap &
+  speed-dependent window measured (to 1.2\,m at 4\,m/s) &
+  clearance-criterion convention at the far edge \\
+  Airborne over-cut &
+  deriv. &
+  effective cut angle &
+  tracks the tilted line-of-centers plan projection;
+  $\max|E| = 2.78^\circ$ &
+  three-dimensional contact geometry; grows with contact height \\
+\end{longtable}
+}
+\end{landscape}

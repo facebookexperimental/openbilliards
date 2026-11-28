@@ -1,0 +1,261 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Concepts — openbilliards API docs</title>
+  <meta name="description" content="The concepts under the openbilliards SDK: canonical-wasm determinism and strict replays, the one scenario document, event records with exact-time sampling, and the equipment catalog.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Concepts — openbilliards API docs">
+  <meta property="og:description" content="The concepts under the openbilliards SDK: canonical-wasm determinism and strict replays, the one scenario document, event records with exact-time sampling, and the equipment catalog.">
+  <meta property="og:image" content="../assets/img/hero-poster.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b100c'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23efe9d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/docs.css">
+  <script src="../assets/site.js" defer></script>
+  <script src="../assets/motion.js" defer></script>
+</head>
+<body>
+  <a class="bb-skip" href="#main">Skip to content</a>
+
+  <header>
+    <nav class="bb-nav" aria-label="Primary">
+      <a class="bb-wordmark" href="../index.html">Openbilliards</a>
+      <button class="bb-nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <ul class="bb-nav-links" id="nav-links">
+        <li><a href="../guide/en/index.html">Guide</a></li>
+        <li><a href="index.html">API docs</a></li>
+        <li><a href="https://github.com/facebookexperimental/openbilliards" rel="external">GitHub&nbsp;&#8599;</a></li>
+        <li><a class="bb-pill bb-pill--fill" href="../web/app.html">Play now</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="docs-shell">
+
+      <aside class="docs-side">
+        <nav class="docs-toc" aria-label="API documentation">
+          <p class="bb-label docs-toc-head">API docs</p>
+          <ul class="docs-toc-pages">
+            <li><a href="index.html">Getting started</a></li>
+            <li><a href="ts.html">TypeScript SDK</a></li>
+            <li><a href="python.html">Python SDK</a></li>
+            <li><a href="cli.html">CLI</a></li>
+            <li><a href="concepts.html" aria-current="page">Concepts</a></li>
+            <li><a href="physics.html">The engine</a></li>
+          </ul>
+          <p class="bb-label docs-toc-head">On this page</p>
+          <ul class="docs-toc-anchors">
+            <li><a href="#determinism">01 — Determinism &amp; replays</a></li>
+            <li><a href="#scenario">02 — The scenario model</a></li>
+            <li><a href="#records">03 — Events &amp; sampling</a></li>
+            <li><a href="#equipment">04 — Equipment catalog</a></li>
+            <li><a href="#amendments">05 — Kernel amendments</a></li>
+          </ul>
+        </nav>
+        <div class="docs-side-plate">
+          <p class="bb-label">Kernel contract — the kernel's module map</p>
+          <p class="bb-label"><span class="bb-cite">the kernel contract</span></p>
+        </div>
+      </aside>
+
+      <article class="docs-main">
+        <div class="docs-head">
+          <nav class="docs-crumbs bb-label bb-reveal" aria-label="Breadcrumb">
+            <a href="../index.html">Openbilliards</a><span class="sep" aria-hidden="true">/</span><a href="index.html">API docs</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Concepts</span>
+          </nav>
+          <p class="bb-label bb-marker bb-reveal">Foundations</p>
+          <h1 class="bb-heading bb-reveal bb-d1">Concepts</h1>
+          <p class="bb-body docs-lede bb-reveal bb-d2">
+            Four ideas carry the whole SDK: one canonical binary, one scenario
+            document, records made of events instead of frames, and a catalog of
+            measured equipment. Everything else on these pages is surface area.
+          </p>
+        </div>
+
+        <section class="docs-section" id="determinism">
+          <p class="bb-label bb-marker">01 — Determinism &amp; replays</p>
+          <h2 class="bb-heading-s">Seed + params = bytes</h2>
+          <div class="bb-prose">
+            <p>The canonical physics is the committed wasm binary at
+              <code>web/dist/pool-wasm/</code>, bit-exact across platforms because
+              wasm float semantics are part of the spec. Servers, shares and replays
+              use it; the native CLI and Python builds embed the same kernel source,
+              and CI byte-compares one golden scenario across all three surfaces
+              (native pool-cli, node TS SDK, pool_py) into identical record JSON
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/scripts/cross-surface.sh">scripts/cross-surface.sh</a>.</p>
+            <p>Every record embeds its <code>kernel_version</code>
+              (crate version + build hash) and <code>format_version</code>. Replay
+              loading is strict on every surface: a record only replays on the build
+              that made it, because cross-version replay is not bit-reproducible.
+              Version gates are cheap; silently-wrong physics is not
+              <span class="bb-cite">feature 005 (internal spec)</span>.</p>
+            <p>Shares follow the same doctrine: a share code carries the rack kind,
+              seed, equipment ids and shot parameters, never frames, and the
+              receiver re-simulates on the canonical wasm. A kernel mismatch is
+              surfaced as a gate, not a decode error
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/share.ts">sdk/ts/src/share.ts</a>.</p>
+          </div>
+        </section>
+        <section class="docs-section" id="scenario">
+          <p class="bb-label bb-marker">02 — The scenario model</p>
+          <h2 class="bb-heading-s">One document drives everything</h2>
+          <div class="bb-prose">
+            <p>Every surface consumes the same JSON document:</p>
+          </div>
+          <p class="bb-label well-cap">Scenario schema</p>
+          <pre class="bb-code"><code>{
+  <b class="tk-n">"system"</b>:  { <b class="tk-n">"balls"</b>: [ &#8230; ], <b class="tk-n">"table"</b>: &#8230;, <b class="tk-n">"equipment"</b>: &#8230;? },  <i class="tk-c">// SystemState</i>
+  <b class="tk-n">"shot"</b>:    { <b class="tk-n">"v0"</b>: 2.0, <b class="tk-n">"phi"</b>: 1.5707, <b class="tk-n">"theta"</b>: 0.0,
+               <b class="tk-n">"a"</b>: 0.0, <b class="tk-n">"b"</b>: 0.0, <b class="tk-n">"seed"</b>: 0 },                <i class="tk-c">// ShotParams</i>
+  <b class="tk-n">"options"</b>: { &#8230; }                                             <i class="tk-c">// SimOptions, optional</i>
+}</code></pre>
+          <div class="bb-prose">
+            <p>The shot is a cue strike, not a velocity assignment: tip speed
+              <code>v0</code> (m/s, &#8804; 15), azimuth <code>phi</code>, elevation
+              <code>theta</code>, and tip offsets <code>a</code>/<code>b</code> in ball
+              radii under the miscue limit a&#178;+b&#178; &#8804; 0.25. The
+              <code>seed</code> scopes all shot randomness. An omitted
+              <code>options</code> key means the frozen v1 default physics; presets
+              and equipment compose on top, they never mutate the default.</p>
+            <p>Input validation is kernel law, mirrored fast in the SDKs: unique ids
+              with the cue (id 0) present and stationary, on-bed and airborne
+              consistency rules, in-bounds positions, and a pairwise-overlap gate with
+              a 1&#181;m kiss tolerance
+              <a class="bb-cite" href="https://github.com/facebookexperimental/openbilliards/blob/main/sdk/ts/src/scenario.ts">sdk/ts/src/scenario.ts</a>.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="records">
+          <p class="bb-label bb-marker">03 — Events &amp; sampling</p>
+          <h2 class="bb-heading-s">Events, not frames</h2>
+          <div class="bb-prose">
+            <p>The kernel is event-driven: it solves for the next collision or state
+              transition analytically, resolves it, and snapshots the affected balls,
+              looping until every ball rests. A <code>ShotRecord</code> is that event list
+              plus the initial state: <code>Strike</code>, <code>BallBall</code>,
+              <code>BallLinearCushion</code>, <code>BallCircularCushion</code>,
+              <code>BallPocket</code>, <code>BallTable</code>, <code>BallOffTable</code>,
+              <code>Transition</code>, then <code>Rest</code>
+              <span class="bb-cite">the kernel contract</span>.</p>
+            <p>Because motion between events is closed-form, a sampler reconstructs the
+              exact state at ANY time; there is no fixed timestep to be between. All
+              samplers share one flat layout: 8 floats per ball
+              (<code>x, y, z, qw, qx, qy, qz, motion_code</code>), with the frozen code
+              mapping 0 Stationary, 1 Spinning, 2 Sliding, 3 Rolling, 4 Pocketed,
+              5 Airborne. TypeScript fills a reusable <code>Float64Array</code>, Python
+              returns numpy arrays, the CLI writes CSV: same bytes, three dialects.</p>
+            <p>Simultaneity is deterministic too: ties are broken by a frozen
+              comparator (time, tier, energy, ids), so &#8220;the same break&#8221; is the same
+              break down to the event order.</p>
+            <p><strong>The rules layer</strong> builds on the same stream: a
+              ruleset adjudicates each shot as a pure function of match state,
+              the recorded event list and the recorded calls &#8212; no physics
+              access, no re-simulation, no clock &#8212; so a replay produces
+              identical verdicts on every machine. Which game adjudicates rides
+              the share link (legacy links decode as 9-ball, never prompting),
+              and the kernel stays game-agnostic: adding or editing a game
+              entry changes zero physics
+              <a class="bb-cite" href="ts.html#games">ts &#183; game catalog</a>
+              <a class="bb-cite" href="ts.html#rules">ts &#183; rulesets</a>.</p>
+          </div>
+        </section>
+
+        <section class="docs-section" id="equipment">
+          <p class="bb-label bb-marker">04 — Equipment catalog</p>
+          <h2 class="bb-heading-s">Measured equipment, pinned ids</h2>
+          <div class="bb-prose">
+            <p>Five axes (table, cloth, ball set, cue, cushion model) form one
+              versioned registry in the kernel. Entries are immutable once shipped;
+              new measurements get new ids, so a record's equipment tag stays
+              meaningful forever. Every entry carries provenance:
+              <em>calibrated</em> (fitted by this project),
+              <em>literature</em>, or <em>estimated</em>
+              <span class="bb-cite">the kernel contract &#183; amendment 012</span>.</p>
+            <p>All surfaces route through the same kernel resolve: table geometry at
+              the ball set's radius, cloth friction applied to ball params, the cushion
+              model slice (fitted models patch the table response; they are joint
+              fits), the cue onto options, and the five-id tag onto
+              <code>system.equipment</code>. The default composition is omitted from
+              documents so byte parity holds.</p>
+            <p>Inspect it from any surface: <code>engine.catalog()</code>,
+              <code>pool_py.catalog()</code>, or <code>pool-cli catalog list</code>;
+              all three read the same registry
+              <a class="bb-cite" href="cli.html#catalog">cli &#183; catalog</a>.</p>
+          </div>
+        </section>
+        <section class="docs-section" id="amendments">
+          <p class="bb-label bb-marker">05 — Kernel amendments</p>
+          <h2 class="bb-heading-s">The changelog is a concept map</h2>
+          <div class="bb-prose">
+            <p>The kernel contract grows by numbered amendments; each one is a
+              physics capability the SDK surfaces somewhere above
+              <span class="bb-cite">the kernel contract &#183; amendments</span>.</p>
+          </div>
+          <ul class="bb-list bb-body-s" style="max-width: 60ch; margin-top: 24px;">
+            <li><strong>001</strong> — selectable cushion model</li>
+            <li><strong>002</strong> — airborne dynamics: 2.5D jump core, then true 3D airborne-vs-cushion and off-table terminal states</li>
+            <li><strong>003</strong> — slip-velocity cushion friction hook</li>
+            <li><strong>004</strong> — pinch-mass&#233; strike regime</li>
+            <li><strong>005 / 006</strong> — Mathavan 2010 dual-contact cushion; separation clamp + step-size default</li>
+            <li><strong>007 / 008</strong> — tangential-compliance bristle + e_x energy return; release energy-deficit cap</li>
+            <li><strong>009</strong> — grip-mode stick-slip (cushion v5)</li>
+            <li><strong>010 / 011</strong> — ball-ball micro-hop and ball-table bounce keep thresholds</li>
+            <li><strong>012</strong> — equipment catalog: registry, spec resolution, cue on options</li>
+          </ul>
+        </section>
+
+        <nav class="docs-prevnext" aria-label="Docs pagination">
+          <a href="cli.html"><p class="bb-label">Previous</p><p class="pn-title">&#8592; CLI reference</p></a>
+          <a href="physics.html"><p class="bb-label">Next</p><p class="pn-title">The engine &#8594;</p></a>
+        </nav>
+      </article>
+    </div>
+  </main>
+
+  <footer class="bb-footer docs-footer">
+    <div class="bb-footer-grid">
+      <nav aria-label="API docs">
+        <p class="bb-label">API docs</p>
+        <ul>
+          <li><a class="bb-link" href="index.html">Getting started</a></li>
+          <li><a class="bb-link" href="ts.html">TypeScript SDK</a></li>
+          <li><a class="bb-link" href="python.html">Python SDK</a></li>
+          <li><a class="bb-link" href="cli.html">CLI reference</a></li>
+          <li><a class="bb-link" href="concepts.html">Concepts</a></li>
+          <li><a class="bb-link" href="physics.html">The engine</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site">
+        <p class="bb-label">Site</p>
+        <ul>
+          <li><a class="bb-link" href="../index.html">Home</a></li>
+          <li><a class="bb-link" href="../guide/en/index.html">Gameplay guide</a></li>
+          <li><a class="bb-link" href="../web/app.html">Play</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Project">
+        <p class="bb-label">Project</p>
+        <ul>
+          <li><a class="bb-link bb-link--ext" href="https://github.com/facebookexperimental/openbilliards">GitHub</a></li>
+          <li><span class="bb-cite">Kernel contract</span></li>
+          <li><span class="bb-cite">SDK spec</span></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="bb-label">Colophon</p>
+        <p class="bb-body-s bb-muted" style="max-width: 34ch;">Every example on these
+          pages ran against the shipped kernel before publication. No trackers, no
+          CDNs, no requests beyond this origin.</p>
+      </div>
+    </div>
+    <p class="bb-footer-credits">
+      <span>&copy; 2026 Meta Platforms, Inc. &#183; MIT &#183; <a href="../web/vendor/NOTICE-pooltool.txt" style="white-space: nowrap;">includes Apache-2.0 code</a> &#183; <a href="https://opensource.fb.com/legal/terms" style="white-space: nowrap;">Terms of Use</a> &#183; <a href="https://opensource.fb.com/legal/privacy" style="white-space: nowrap;">Privacy Policy</a></span>
+      <span>Docs verified against kernel 0.1.0</span>
+    </p>
+  </footer>
+</body>
+</html>

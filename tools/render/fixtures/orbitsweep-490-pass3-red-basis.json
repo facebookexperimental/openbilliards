@@ -1,0 +1,74 @@
+{
+ "provenance": {
+  "note": "GH-490 PASS-3 red basis: the pass-2 sealed tree fix-490-chinese8-visual @ f4d8dd34 measured through the PASS-3 structural probe (orbitsweep-490.mjs --sweep --frames 1, 2026-08-22 pass-3 cure lane). The middle-boot tabs do not exist there, the side gathering rings sit at the retired -0.075 bare-hoop station and no ring studs exist -- the B4/M4 rows fire by construction. Encode bases: netball = the pass-2 sealed netball-chroma basis (check-490-pass2, 00b6d7c0, 1052 px); mouth_outside = the pass-2 permanent dark-side stain magnitude (787-850 px constant to tail; 850 pinned); marking_clip = the 489 shipped fulltable encode's G=255 census peak (1114 px @ f61, the same clip class on a shipped deliverable, five-lens pass-3 record); blown_frac = the 6cd246ff furniture-as-lamp boot blown-fraction floor (0.11, the pre-cure basis family).",
+  "tree_head": "f4d8dd34",
+  "measured_when": "2026-08-22"
+ },
+ "measured": {
+  "structural": {
+   "legs": [
+    [
+     -0.960105946272261,
+     -0.5701059462722609
+    ],
+    [
+     -0.960105946272261,
+     0.5701059462722609
+    ],
+    [
+     0,
+     -0.5201059462722608
+    ],
+    [
+     0,
+     0.5201059462722608
+    ],
+    [
+     0.960105946272261,
+     -0.5701059462722609
+    ],
+    [
+     0.960105946272261,
+     0.5701059462722609
+    ]
+   ],
+   "ring_gold_count": 4,
+   "ringstud_count": 0,
+   "midring_y": [
+    -0.075,
+    -0.075
+   ],
+   "midboot": [],
+   "bed_max_x": 1.3359999656677246,
+   "bed_max_z": 0.6959999799728394,
+   "blind_inner_x": 1.333999999947846,
+   "blind_inner_z": 0.6939999999478459,
+   "blind_outer_x": 1.3460000000521541,
+   "blind_outer_z": 0.706000000052154,
+   "block_ring_gap": 0.0010770452411432152,
+   "bag_field": {
+    "med": 0.24268236756324768,
+    "p95": 0.487484335899353,
+    "n": 3598
+   },
+   "bag_deep": {
+    "med": 0.14552856981754303,
+    "p95": 0.3881223201751709,
+    "n": 1799
+   },
+   "ring_floor": {
+    "med": 0.5076643228530884,
+    "p95": 1.432526707649231,
+    "n": 3341
+   },
+   "sock_clear_long": 0.0005000013411045057,
+   "sock_clear_end": 0.0005000013411045057
+  },
+  "encode": {
+   "netball_green_max": 1052,
+   "mouth_outside_max": 850,
+   "marking_clip_max": 1114,
+   "blown_frac_max": 0.11
+  }
+ }
+}

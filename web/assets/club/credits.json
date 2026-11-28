@@ -1,0 +1,2252 @@
+{
+  "schema": 1,
+  "generatedBy": "web/tools/club/asset-build.mjs",
+  "encoder": "sips-316",
+  "budget": {
+    "maxSide": 2048,
+    "maxTotalBytes": 12000000,
+    "planTotalBytes": 10900000
+  },
+  "totalBytes": 10638552,
+  "liteTierBytes": 4019356,
+  "fullTierBytes": 9213537,
+  "highTotalBytes": 17949291,
+  "files": [
+    {
+      "file": "floor-color.jpg",
+      "id": "floor.color",
+      "variant": "full",
+      "bytes": 730131,
+      "sha256": "256a81ef011538a3fea89d33586ed94d8e7f12f4aeec11c13b3d4745c2850f1b",
+      "width": 2048,
+      "height": 2048,
+      "format": "jpeg",
+      "colorSpace": "srgb",
+      "provider": "Poly Haven",
+      "asset": "wood_floor",
+      "assetPage": "https://polyhaven.com/a/wood_floor",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_floor/wood_floor_diff_2k.jpg",
+      "authors": [
+        "Dimitrios Savva"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:32:42Z",
+      "originalBytes": 2983667,
+      "originalSha256": "7c3ff1164c8dd0758ef2c048e9a266d28174120de01052ec40e6ca486177345c",
+      "processing": "Resampled to fit 2048 px and re-encoded as JPEG: sips -Z 2048 -s format jpeg -s formatOptions 55.",
+      "tileMetres": 1.7,
+      "notes": "Smoked-oak planks, 9 boards across one repeat, boards run along V (image vertical)."
+    },
+    {
+      "file": "floor-color-1024.jpg",
+      "id": "floor.color",
+      "variant": "lite",
+      "bytes": 191071,
+      "sha256": "6ff5c2a00fcdba6c85ceb04998ca1c2c68362a5d0c68b200ce0b9dccb046c82f",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "srgb",
+      "provider": "Poly Haven",
+      "asset": "wood_floor",
+      "assetPage": "https://polyhaven.com/a/wood_floor",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_floor/wood_floor_diff_2k.jpg",
+      "authors": [
+        "Dimitrios Savva"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:32:42Z",
+      "originalBytes": 2983667,
+      "originalSha256": "7c3ff1164c8dd0758ef2c048e9a266d28174120de01052ec40e6ca486177345c",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 60.",
+      "tileMetres": 1.7,
+      "notes": "Smoked-oak planks, 9 boards across one repeat, boards run along V (image vertical)."
+    },
+    {
+      "file": "floor-normal.jpg",
+      "id": "floor.normal",
+      "variant": "full",
+      "bytes": 762233,
+      "sha256": "9dbdd1c2b0d75f49e053c76f9fd238905bf8af67807fa20b44bd4a2c9f3eb54c",
+      "width": 2048,
+      "height": 2048,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "wood_floor",
+      "assetPage": "https://polyhaven.com/a/wood_floor",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/wood_floor/wood_floor_nor_gl_2k.png",
+      "authors": [
+        "Dimitrios Savva"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:13Z",
+      "originalBytes": 19399802,
+      "originalSha256": "2364421a19aba9392bcd0ba14617e7e91ac2869ca3fab16d83563b5250d71bc8",
+      "processing": "Resampled to fit 2048 px and re-encoded as JPEG: sips -Z 2048 -s format jpeg -s formatOptions 88.",
+      "tileMetres": 1.7,
+      "notes": "OpenGL convention (+Y up), from the lossless PNG original."
+    },
+    {
+      "file": "floor-normal-1024.jpg",
+      "id": "floor.normal",
+      "variant": "lite",
+      "bytes": 142905,
+      "sha256": "c302ffcfe6fc58c444672e6c5f0ab103e76a8ba95b98561dd34ff4b4960f404e",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "wood_floor",
+      "assetPage": "https://polyhaven.com/a/wood_floor",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/wood_floor/wood_floor_nor_gl_2k.png",
+      "authors": [
+        "Dimitrios Savva"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:13Z",
+      "originalBytes": 19399802,
+      "originalSha256": "2364421a19aba9392bcd0ba14617e7e91ac2869ca3fab16d83563b5250d71bc8",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 90.",
+      "tileMetres": 1.7,
+      "notes": "OpenGL convention (+Y up), from the lossless PNG original."
+    },
+    {
+      "file": "floor-rough.jpg",
+      "id": "floor.rough",
+      "variant": "full",
+      "bytes": 145652,
+      "sha256": "4cac647e2655516384e1640abb35a1e39db9bb6c09f124aa528655fbce4671c3",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "wood_floor",
+      "assetPage": "https://polyhaven.com/a/wood_floor",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_floor/wood_floor_rough_2k.jpg",
+      "authors": [
+        "Dimitrios Savva"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:32:42Z",
+      "originalBytes": 2267559,
+      "originalSha256": "297eda0d75f2020cc541dbf242e1f5fd058053249567f49a4506fc2c5b1a172b",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 60.",
+      "tileMetres": 1.7,
+      "notes": "Roughness, single channel (grey JPEG)."
+    },
+    {
+      "file": "wood-dark-color.jpg",
+      "id": "wood_dark.color",
+      "variant": "full",
+      "bytes": 653527,
+      "sha256": "1a7b9cc751d97e729921a37964323d7ce4ead18fe217a084941f979abf0d9661",
+      "width": 2048,
+      "height": 2048,
+      "format": "jpeg",
+      "colorSpace": "srgb",
+      "provider": "Poly Haven",
+      "asset": "dark_wood",
+      "assetPage": "https://polyhaven.com/a/dark_wood",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/dark_wood/dark_wood_diff_2k.jpg",
+      "authors": [
+        "Dario Barresi",
+        "Dimitrios Savva",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:14Z",
+      "originalBytes": 2894186,
+      "originalSha256": "ff811f97ab46f1148f2753451fd9d64abf0ab9101e85922ed9f45fc3595a3cf2",
+      "processing": "Resampled to fit 2048 px and re-encoded as JPEG: sips -Z 2048 -s format jpeg -s formatOptions 55.",
+      "tileMetres": 2,
+      "notes": "Dark red-brown mahogany-type cabinet wood, grain runs along U (image horizontal)."
+    },
+    {
+      "file": "wood-dark-color-1024.jpg",
+      "id": "wood_dark.color",
+      "variant": "lite",
+      "bytes": 203241,
+      "sha256": "bbbc2ab8385178ba1ba6e3b146cd6e0000e6de8756ce95e79f62e9316488c931",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "srgb",
+      "provider": "Poly Haven",
+      "asset": "dark_wood",
+      "assetPage": "https://polyhaven.com/a/dark_wood",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/dark_wood/dark_wood_diff_2k.jpg",
+      "authors": [
+        "Dario Barresi",
+        "Dimitrios Savva",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:14Z",
+      "originalBytes": 2894186,
+      "originalSha256": "ff811f97ab46f1148f2753451fd9d64abf0ab9101e85922ed9f45fc3595a3cf2",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 60.",
+      "tileMetres": 2,
+      "notes": "Dark red-brown mahogany-type cabinet wood, grain runs along U (image horizontal)."
+    },
+    {
+      "file": "wood-dark-normal.jpg",
+      "id": "wood_dark.normal",
+      "variant": "full",
+      "bytes": 125257,
+      "sha256": "e813a62f74dfb00232b8edb021af72550e250104a2386960f9af2a56b63e76c9",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "dark_wood",
+      "assetPage": "https://polyhaven.com/a/dark_wood",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/png/2k/dark_wood/dark_wood_nor_gl_2k.png",
+      "authors": [
+        "Dario Barresi",
+        "Dimitrios Savva",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:14Z",
+      "originalBytes": 18635244,
+      "originalSha256": "5607cf76d8da2844ee285fbabdc79976e18240e13efe6927a368c8cb06bf9148",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 90.",
+      "tileMetres": 2,
+      "notes": "OpenGL convention (+Y up), from the lossless PNG original."
+    },
+    {
+      "file": "wood-dark-rough.jpg",
+      "id": "wood_dark.rough",
+      "variant": "full",
+      "bytes": 125258,
+      "sha256": "a108c528eb8db3e82e5aa3d357100205dbd5ea8c417baf2666b6c47fcf3b9ae5",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "dark_wood",
+      "assetPage": "https://polyhaven.com/a/dark_wood",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/dark_wood/dark_wood_rough_2k.jpg",
+      "authors": [
+        "Dario Barresi",
+        "Dimitrios Savva",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:14Z",
+      "originalBytes": 2325418,
+      "originalSha256": "09eb42a24aeadcd5dd04d19f89d8df4116fd9cdbd405d0dab17e263b54ece133",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 50.",
+      "tileMetres": 2,
+      "notes": "Roughness."
+    },
+    {
+      "file": "wall-normal.jpg",
+      "id": "wall.normal",
+      "variant": "full",
+      "bytes": 253998,
+      "sha256": "48f1b4e44df712c584c792809a56fada216ea95682223407fd0d2dc461161e14",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "beige_wall_001",
+      "assetPage": "https://polyhaven.com/a/beige_wall_001",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/beige_wall_001/beige_wall_001_nor_gl_2k.jpg",
+      "authors": [
+        "Dimitrios Savva",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:14Z",
+      "originalBytes": 815507,
+      "originalSha256": "7f5cbecd6766f44034f3b78b4addb1559e12bdd5a77501bd418a736609e7cedc",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 75.",
+      "tileMetres": 3,
+      "notes": "Smooth painted plaster, low relief; OpenGL convention (+Y up)."
+    },
+    {
+      "file": "wall-rough.jpg",
+      "id": "wall.rough",
+      "variant": "full",
+      "bytes": 31460,
+      "sha256": "cf3c1c53c412ef0646574a34c72a39a252d55711c6b228f640a4fbc8f314f0d5",
+      "width": 512,
+      "height": 512,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "beige_wall_001",
+      "assetPage": "https://polyhaven.com/a/beige_wall_001",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/beige_wall_001/beige_wall_001_rough_2k.jpg",
+      "authors": [
+        "Dimitrios Savva",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:14Z",
+      "originalBytes": 656368,
+      "originalSha256": "a76e2307d8ec47d1be1d4710851fc4545db7aecfa176333738a6756358b64767",
+      "processing": "Resampled to fit 512 px and re-encoded as JPEG: sips -Z 512 -s format jpeg -s formatOptions 60.",
+      "tileMetres": 3,
+      "notes": "Roughness."
+    },
+    {
+      "file": "leather-color.jpg",
+      "id": "leather.color",
+      "variant": "full",
+      "bytes": 260207,
+      "sha256": "f1b5144564a15cc84fd9af497dba9ee5dc406c3c7daa65f93d19dbb3961b9097",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "srgb",
+      "provider": "Poly Haven",
+      "asset": "leather_red_02",
+      "assetPage": "https://polyhaven.com/a/leather_red_02",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/leather_red_02/leather_red_02_coll1_2k.jpg",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:14Z",
+      "originalBytes": 4160234,
+      "originalSha256": "a900630e541991b7ee63aab820f425610fbf2db32f7ae6c63b6ef4fc2325ab60",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 50.",
+      "tileMetres": 0.6,
+      "notes": "Dark brown pebbled upholstery leather (the source asset's colour variant 1)."
+    },
+    {
+      "file": "leather-normal.jpg",
+      "id": "leather.normal",
+      "variant": "full",
+      "bytes": 280837,
+      "sha256": "37183887d5e734149dde9fa5265b109fc2f659aa81cd377c60879f95fa3dfb7d",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "leather_red_02",
+      "assetPage": "https://polyhaven.com/a/leather_red_02",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/leather_red_02/leather_red_02_nor_gl_2k.jpg",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:15Z",
+      "originalBytes": 4324549,
+      "originalSha256": "be8e0525fe6cc7d0215d4fc81f2761a2f8485f85baad3bcd4b9bcdeb843ea925",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 60.",
+      "tileMetres": 0.6,
+      "notes": "OpenGL convention (+Y up)."
+    },
+    {
+      "file": "leather-rough.jpg",
+      "id": "leather.rough",
+      "variant": "full",
+      "bytes": 75572,
+      "sha256": "011d08cd70597cae8d88a49dc095e974df20f252940f9d78b341dd2acde790a4",
+      "width": 512,
+      "height": 512,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "leather_red_02",
+      "assetPage": "https://polyhaven.com/a/leather_red_02",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/leather_red_02/leather_red_02_rough_2k.jpg",
+      "authors": [
+        "Rob Tuytel"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:15Z",
+      "originalBytes": 3529399,
+      "originalSha256": "0dd604b493aef28488a7f8a4c86846c1ec7313c16bd5198a9deec8a7f880b43d",
+      "processing": "Resampled to fit 512 px and re-encoded as JPEG: sips -Z 512 -s format jpeg -s formatOptions 60.",
+      "tileMetres": 0.6,
+      "notes": "Roughness."
+    },
+    {
+      "file": "veneer-color.jpg",
+      "id": "veneer.color",
+      "variant": "full",
+      "bytes": 809333,
+      "sha256": "03c825fc1e6c40ee1e16216e4819c693c417292a8fc61ae2a34a83277cbaee12",
+      "width": 2048,
+      "height": 2048,
+      "format": "jpeg",
+      "colorSpace": "srgb",
+      "provider": "Poly Haven",
+      "asset": "rosewood_veneer1",
+      "assetPage": "https://polyhaven.com/a/rosewood_veneer1",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rosewood_veneer1/rosewood_veneer1_diff_2k.jpg",
+      "authors": [
+        "Jenelle van Heerden"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:15Z",
+      "originalBytes": 3294736,
+      "originalSha256": "4aae1766165d5058ae0311d94d53fb0d5c7cb55d3314916e801b9505cf34ed8e",
+      "processing": "Resampled to fit 2048 px and re-encoded as JPEG: sips -Z 2048 -s format jpeg -s formatOptions 55.",
+      "tileMetres": 2.43,
+      "notes": "Figured rosewood veneer, book-matched columns, grain runs along V (image vertical)."
+    },
+    {
+      "file": "veneer-color-1024.jpg",
+      "id": "veneer.color",
+      "variant": "lite",
+      "bytes": 229773,
+      "sha256": "8360fd5066dfc2300a01ad6c989578672db007f84eb497cf6961f273a6779194",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "srgb",
+      "provider": "Poly Haven",
+      "asset": "rosewood_veneer1",
+      "assetPage": "https://polyhaven.com/a/rosewood_veneer1",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rosewood_veneer1/rosewood_veneer1_diff_2k.jpg",
+      "authors": [
+        "Jenelle van Heerden"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:15Z",
+      "originalBytes": 3294736,
+      "originalSha256": "4aae1766165d5058ae0311d94d53fb0d5c7cb55d3314916e801b9505cf34ed8e",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 60.",
+      "tileMetres": 2.43,
+      "notes": "Figured rosewood veneer, book-matched columns, grain runs along V (image vertical)."
+    },
+    {
+      "file": "veneer-normal.jpg",
+      "id": "veneer.normal",
+      "variant": "full",
+      "bytes": 122608,
+      "sha256": "bbd355f766adfccfbd411506fb3cf23087b8782b91b1baba060a4393751eea8d",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "rosewood_veneer1",
+      "assetPage": "https://polyhaven.com/a/rosewood_veneer1",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rosewood_veneer1/rosewood_veneer1_nor_gl_2k.jpg",
+      "authors": [
+        "Jenelle van Heerden"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:15Z",
+      "originalBytes": 1569067,
+      "originalSha256": "9ae97e960494ffc5cd948ad89225f694a4624a228418f107bd7145d020dd728d",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 95.",
+      "tileMetres": 2.43,
+      "notes": "OpenGL convention (+Y up)."
+    },
+    {
+      "file": "felt-normal.jpg",
+      "id": "felt.normal",
+      "variant": "full",
+      "bytes": 385068,
+      "sha256": "765cc3634a7c92321d6bbca89394de9b423581e5817ece7708b59b5f542dabdb",
+      "width": 1021,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "terlenka",
+      "assetPage": "https://polyhaven.com/a/terlenka",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/terlenka/terlenka_nor_gl_2k.jpg",
+      "authors": [
+        "colormass",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:15Z",
+      "originalBytes": 4113359,
+      "originalSha256": "7fd916e6d897dfe003dac3400c81dd919e11e3441558bac04c26e07be380e6a0",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 90.",
+      "tileMetres": 0.266,
+      "notes": "Fine twill weave, low relief, for small-scale tiling on the cloth; OpenGL convention (+Y up)."
+    },
+    {
+      "file": "metal-normal.jpg",
+      "id": "metal.normal",
+      "variant": "full",
+      "bytes": 180266,
+      "sha256": "e138bdcf0d7561d58b238cf2fb7cf4f14dc88edd77e898dbe58325a27e3870a5",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "ambientCG",
+      "asset": "Metal009",
+      "assetPage": "https://ambientcg.com/a/Metal009",
+      "sourceUrl": "https://ambientcg.com/get?file=Metal009_2K-JPG.zip",
+      "archiveMember": "Metal009_2K-JPG_NormalGL.jpg",
+      "archiveMemberSha256": "8773d9e97a4b057ced3e538d8ecc6069d27c8948191d61daf79b9ad93d93e3b3",
+      "authors": [
+        "ambientCG"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://docs.ambientcg.com/license/ (site-wide: every asset is CC0 1.0 Universal; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:16Z",
+      "originalBytes": 16660145,
+      "originalSha256": "6f79f53d5073e65707c5765316fa9257f4604e1790093be5a51ed8226761a7f0",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 90. The original is one image member of the downloaded archive; nothing else from the archive is used.",
+      "tileMetres": null,
+      "notes": "Brushed metal, brush lines run along U (image horizontal); OpenGL convention (+Y up). A procedural CC0 material, not a scan."
+    },
+    {
+      "file": "metal-rough.jpg",
+      "id": "metal.rough",
+      "variant": "full",
+      "bytes": 171122,
+      "sha256": "96ce2c8f3221cd5fed7b742ff2e43eefb56a2daba8248f8d992fbea8ec4a87dd",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "ambientCG",
+      "asset": "Metal009",
+      "assetPage": "https://ambientcg.com/a/Metal009",
+      "sourceUrl": "https://ambientcg.com/get?file=Metal009_2K-JPG.zip",
+      "archiveMember": "Metal009_2K-JPG_Roughness.jpg",
+      "archiveMemberSha256": "e802f013b93cb1bd4b55cd91f02a1863233475a7f8bd0e6755cfaa447a729674",
+      "authors": [
+        "ambientCG"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://docs.ambientcg.com/license/ (site-wide: every asset is CC0 1.0 Universal; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:16Z",
+      "originalBytes": 16660145,
+      "originalSha256": "6f79f53d5073e65707c5765316fa9257f4604e1790093be5a51ed8226761a7f0",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 60. The original is one image member of the downloaded archive; nothing else from the archive is used.",
+      "tileMetres": null,
+      "notes": "Roughness with brush streaks."
+    },
+    {
+      "file": "hdri-room.png",
+      "id": "hdri.room",
+      "variant": "full",
+      "bytes": 1095061,
+      "sha256": "7b3f697b31b506d2f32a1e0dbb7cab9da0ccc8717e8194f09063b50eaca36a94",
+      "width": 1024,
+      "height": 512,
+      "format": "png",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "warm_bar",
+      "assetPage": "https://polyhaven.com/a/warm_bar",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/warm_bar_1k.hdr",
+      "authors": [
+        "Greg Zaal",
+        "Jarod Guest"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0; the asset API carries no per-asset licence field)",
+      "downloaded": "2026-11-14T01:39:15Z",
+      "originalBytes": 1487340,
+      "originalSha256": "610f4496687a175cca1d993f01931c1a0c42e81ad8878d3ada6363b2334c5555",
+      "processing": "Radiance .hdr decoded (run-length RGBE) and its RGBE bytes written unchanged as an 8-bit RGBA PNG (asset-hdr-to-rgbe-png.mjs, PNG filter type 1 on every row, zlib level 9); no resize, no tone change.",
+      "tileMetres": null,
+      "notes": "Equirectangular interior (a warm bar at night), RGBE bytes in an RGBA PNG: linear RGB = (R, G, B) * 2^(A - 128) / 255; row 0 is the zenith. Alpha is data: decode before any filtering, never through a 2D canvas. Every row uses PNG filter type 1 (see asset-hdr-to-rgbe-png.mjs)."
+    },
+    {
+      "file": "room-light.png",
+      "id": "room.light",
+      "variant": "full",
+      "bytes": 901496,
+      "sha256": "35919e0802072ecebd8cd3cf399977982afa78f4dcbefe7f29796503b0741998",
+      "width": 1024,
+      "height": 1024,
+      "format": "png",
+      "colorSpace": "RGB: irradiance through the sRGB curve; A: linear",
+      "provider": "made by this project (baked)",
+      "authors": [
+        "OpenBilliards contributors"
+      ],
+      "licence": "CC0-1.0",
+      "inputs": [
+        "web/scene/club/room.js",
+        "web/scene/club/room/shell.js",
+        "web/scene/club/room/light.js",
+        "web/scene/club/room/lightmap.js",
+        "web/scene/club/room/props.js",
+        "web/scene/club/room/props/",
+        "web/scene/club/room/lamp.js",
+        "web/scene/club/room/lamp/"
+      ],
+      "generatedBy": "web/tools/club/bake-room.html + bake-room-scene.mjs + bake-room-core.mjs + bake-room-worker.mjs (compute), web/tools/club/bake-room.mjs (file)",
+      "processing": "Light map of the club room's shell: for each texel of the shell's second UV set, the irradiance of every fixed emitter with soft shadows (CPU ray casting against the shell, the props, the luminaire and both tables), bounced light and an occlusion-weighted ambient, and in alpha the visible share of the main lamp. RGB = irradiance / 16 through the sRGB curve with a 4 x 4 ordered dither; 1024 x 1024 RGBA8 PNG, adaptive row filters, zlib level 6, the bake's record in a tEXt chunk. The same light on a 28 x 8 x 24 grid over the room (six receiver directions per grid point, the same encoding) rides in a private ancillary chunk (rlVo, 129024 bytes before zlib): the furniture reads it. Deterministic: the same tree gives the same bytes.",
+      "bake": {
+        "signature": "d592cea3b9b6611d",
+        "levels": "46c222158e5e69e2",
+        "fullScale": 16,
+        "params": {
+          "gather": 32,
+          "patch": 48,
+          "bounces": 3,
+          "gain": 2,
+          "amb": 1,
+          "ao": 3.5,
+          "maxEdge": 0.3,
+          "house": {
+            "sky": [
+              0.34,
+              0.281,
+              0.216
+            ],
+            "ground": [
+              0.75,
+              0.632,
+              0.493
+            ],
+            "side": [
+              1.45,
+              1.16,
+              0.888
+            ]
+          }
+        },
+        "lamp": {
+          "rect": [
+            0,
+            0,
+            1.025,
+            0.33,
+            1.02
+          ],
+          "radiance": [
+            7.188,
+            7.255,
+            7.389
+          ],
+          "pool": [
+            0.48,
+            7.8,
+            2.2
+          ]
+        },
+        "scene": {
+          "triangles": 38932,
+          "emitters": 20,
+          "texels": 949344,
+          "tier": "base",
+          "content": {
+            "geometry": "618a81da6b039ed4",
+            "shell": "0343a402d7df5f7e",
+            "props": "612b3be1d6c97949",
+            "luminaire": "8ad52781ec21e18d",
+            "table": "072cf071f792357c",
+            "emitters": "0f7578cfc16a02fb",
+            "albedo": "57e8580024e2c089",
+            "triangles": {
+              "shell": 2318,
+              "props": 18344,
+              "luminaire": 2024,
+              "table": 120
+            }
+          }
+        },
+        "volume": {
+          "dims": [
+            28,
+            8,
+            24
+          ],
+          "min": [
+            -5.5,
+            0,
+            -6
+          ],
+          "max": [
+            5.5,
+            3.24,
+            3.6
+          ],
+          "bias": 0.12,
+          "phases": 4,
+          "bytes": 129024,
+          "stats": {
+            "points": 5376,
+            "valid": 5183,
+            "filled": 193,
+            "left": 0,
+            "peak": 20.971927642822266,
+            "clippedSamples": 8
+          }
+        },
+        "ambient": {
+          "sky": [
+            0.5566,
+            0.3371,
+            0.2017
+          ],
+          "ground": [
+            0.891,
+            0.6081,
+            0.4441
+          ],
+          "side": [
+            0.6067,
+            0.4569,
+            0.3354
+          ]
+        },
+        "host": "a Linux x86_64 host (software GL)",
+        "browser": "HeadlessChrome/151.0.7922.71",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.71 Safari/537.36",
+        "workers": 8,
+        "jobs": 1,
+        "pageSeconds": 39.1,
+        "node": "v26.3.1",
+        "zlib": "1.2.12",
+        "content": {
+          "geometry": "618a81da6b039ed4",
+          "shell": "0343a402d7df5f7e",
+          "props": "612b3be1d6c97949",
+          "luminaire": "8ad52781ec21e18d",
+          "table": "072cf071f792357c",
+          "emitters": "0f7578cfc16a02fb",
+          "albedo": "57e8580024e2c089",
+          "triangles": {
+            "shell": 2318,
+            "props": 18344,
+            "luminaire": 2024,
+            "table": 120
+          }
+        },
+        "treeBuildsBakedScene": true,
+        "inputFiles": {
+          "count": 24,
+          "sha256": "d7e084a3ea5b82f0a88c70bc5e4eb4d4ecb7b2e4ca7dc9d6f2eae405dbcf5d8a",
+          "each": {
+            "web/scene/club/room.js": "ca481dd42e8c6c02f47912ad5180d698bf3f1d8735aa14ef3e11cfcd95ffdab0",
+            "web/scene/club/room/lamp.js": "459b8d9e34dddf27b7c3b72531070b055ceb0a0cc22f028cfb5fbfe55f839def",
+            "web/scene/club/room/lamp/face.js": "5308026d6e1db038fcd9f1858cf76b76ee23e738570177f1d0ea093a96a7389b",
+            "web/scene/club/room/lamp/geom.js": "191831ee68e1ddb8f40fd9bf7b97ec9f24bd5b8a617ac7ad38f4909be23175a6",
+            "web/scene/club/room/lamp/model.js": "91f3a74cea198a7dc9275edcfd058c990dc75a7fbc70bbc37c815cb72b7d50ad",
+            "web/scene/club/room/lamp/rule.js": "6b4b6ab05787d3f2d1870cb8c90bfd4e98b46518a7af528adcd96f754cd666ee",
+            "web/scene/club/room/light.js": "7784c23ba0d85f9c53326da702a48c49f03e5d98f8be345ce0758e1ff19be033",
+            "web/scene/club/room/lightmap.js": "af33888641aaae3ccab33b7b7b47b2635e8235de081b54a0176a5999a4923db4",
+            "web/scene/club/room/props.js": "e27946ba9365a77bf0a8e68002f2c250c13537e9148efa74b0237855df6030fa",
+            "web/scene/club/room/props/atlas.js": "a7708ea7cf0c767a8eb35ede76887f5a780919f195cb115e5de215da0b1e7e38",
+            "web/scene/club/room/props/bar.js": "aa2b341603a235de7a3825c0490199befdd38084e213318f08b9f76f347bf2ad",
+            "web/scene/club/room/props/extras.js": "0d0c29f0e1b6202e149864d6cd9c43f2eec0ccba385e38473abb85329abf1e54",
+            "web/scene/club/room/props/fartable.js": "806c92d0ece1a0329a5aaf3a0419a8ae4d5ec7034499727a439189c535b25547",
+            "web/scene/club/room/props/kit.js": "9bb3e4d9b08f8646aa0453709033da7b5bc49900e1828f6c230f7eab6b0d20ba",
+            "web/scene/club/room/props/layout.js": "215c7c6996ec266b1ffc603550c39d16e116e4746a9b0faac99eff0170aed1dc",
+            "web/scene/club/room/props/levels.js": "7d27d255a51e90a86e602d401ec1b1c8d4da5047669b84c21741cd6c33cb5eea",
+            "web/scene/club/room/props/seating.js": "1829f3c3de6250f14d374fc844e0769ba9cbf51c34e81c871393dd218ace5ef8",
+            "web/scene/club/room/props/strokefont.js": "b442f4ecf9ddee6daa10603acb9c9c15291435a0fde58ceb7660463c35683abb",
+            "web/scene/club/room/props/wall.js": "cb478fb392077fef94fe9c25a3dc53fa4988ba7a1e926a78848cd1fe27cf03db",
+            "web/scene/club/room/shell.js": "fa2afa10505c52bdedf9b8eafa9b2033668389c402c58904e4934226fa624c2d",
+            "web/tools/club/bake-room-core.mjs": "08d08b4c90af60ff01ac5b1ada632b460a8b041ca613ba8e268c2f24ec1188e2",
+            "web/tools/club/bake-room-scene.mjs": "ba00b38b1d9f32bd8d61147d1ecacff5428f480b3468016a27d87d1904f61831",
+            "web/tools/club/bake-room-worker.mjs": "8ea80d0ce759c0ffd7e84e363a650a3d33e3b71f8a00dd614d3c33713b35cb91",
+            "web/tools/club/bake-room.html": "c833c0f13938a6282d1569fd734f3ad3332ca38261f9c6adc02149a901420fb5"
+          }
+        }
+      },
+      "tileMetres": null,
+      "notes": "No third-party input: geometry, emitters and albedo hints all come from the code listed under inputs. At run time the room refuses the file when its signature (shell layout, light-map charts, emitter ids and positions, the props plan) does not equal the live room, then the analytic light is used. The exact test is the tool's: `node web/tools/club/bake-room.mjs check` rebuilds the room from the tree and compares content hashes of every blocker triangle, the emitter table and the albedo hints with the record in the file; re-bake when it reports a difference."
+    },
+    {
+      "file": "room-light-lite.png",
+      "id": "room.light.lite",
+      "variant": "lite",
+      "bytes": 296255,
+      "sha256": "455d60c2ef91ccfa0575fada797ffa933179e9b526f203dc852528e3d15e374d",
+      "width": 512,
+      "height": 512,
+      "format": "png",
+      "colorSpace": "RGB: irradiance through the sRGB curve; A: linear",
+      "provider": "made by this project (baked)",
+      "authors": [
+        "OpenBilliards contributors"
+      ],
+      "licence": "CC0-1.0",
+      "inputs": [
+        "web/scene/club/room.js",
+        "web/scene/club/room/shell.js",
+        "web/scene/club/room/light.js",
+        "web/scene/club/room/lightmap.js",
+        "web/scene/club/room/props.js",
+        "web/scene/club/room/props/",
+        "web/scene/club/room/lamp.js",
+        "web/scene/club/room/lamp/"
+      ],
+      "generatedBy": "web/tools/club/bake-room.html + bake-room-scene.mjs + bake-room-core.mjs + bake-room-worker.mjs (compute), web/tools/club/bake-room.mjs (file)",
+      "processing": "Light map of the club room's shell: for each texel of the shell's second UV set, the irradiance of every fixed emitter with soft shadows (CPU ray casting against the shell, the props, the luminaire and both tables), bounced light and an occlusion-weighted ambient, and in alpha the visible share of the main lamp. RGB = irradiance / 16 through the sRGB curve with a 4 x 4 ordered dither; 512 x 512 RGBA8 PNG, adaptive row filters, zlib level 6, the bake's record in a tEXt chunk. The same light on a 28 x 8 x 24 grid over the room (six receiver directions per grid point, the same encoding) rides in a private ancillary chunk (rlVo, 129024 bytes before zlib): the furniture reads it. Deterministic: the same tree gives the same bytes.",
+      "bake": {
+        "signature": "a728dc044201c9be",
+        "levels": "f059e76fc25d0dc1",
+        "fullScale": 16,
+        "params": {
+          "gather": 32,
+          "patch": 48,
+          "bounces": 3,
+          "gain": 2,
+          "amb": 1,
+          "ao": 3.5,
+          "maxEdge": 0.3,
+          "house": {
+            "sky": [
+              0.34,
+              0.281,
+              0.216
+            ],
+            "ground": [
+              0.75,
+              0.632,
+              0.493
+            ],
+            "side": [
+              1.45,
+              1.16,
+              0.888
+            ]
+          }
+        },
+        "lamp": {
+          "rect": [
+            0,
+            0,
+            1.025,
+            0.33,
+            1.02
+          ],
+          "radiance": [
+            7.188,
+            7.255,
+            7.389
+          ],
+          "pool": [
+            0.48,
+            7.8,
+            2.2
+          ]
+        },
+        "scene": {
+          "triangles": 23568,
+          "emitters": 8,
+          "texels": 241147,
+          "tier": "lite",
+          "content": {
+            "geometry": "6ce775ae8f11b85e",
+            "shell": "bd583990c72371f1",
+            "props": "67dcb3b7ee6e76e7",
+            "luminaire": "d34428f58ed53dfa",
+            "table": "072cf071f792357c",
+            "emitters": "db6e343ffd94da6d",
+            "albedo": "9cf52d235f465d8f",
+            "triangles": {
+              "shell": 974,
+              "props": 4628,
+              "luminaire": 900,
+              "table": 120
+            }
+          }
+        },
+        "volume": {
+          "dims": [
+            28,
+            8,
+            24
+          ],
+          "min": [
+            -5.5,
+            0,
+            -6
+          ],
+          "max": [
+            5.5,
+            3.24,
+            3.6
+          ],
+          "bias": 0.12,
+          "phases": 4,
+          "bytes": 129024,
+          "stats": {
+            "points": 5376,
+            "valid": 5223,
+            "filled": 153,
+            "left": 0,
+            "peak": 20.987123489379883,
+            "clippedSamples": 5
+          }
+        },
+        "ambient": {
+          "sky": [
+            0.4868,
+            0.3086,
+            0.195
+          ],
+          "ground": [
+            0.8213,
+            0.5888,
+            0.4437
+          ],
+          "side": [
+            0.6426,
+            0.4927,
+            0.3645
+          ]
+        },
+        "host": "a Linux x86_64 host (software GL)",
+        "browser": "HeadlessChrome/151.0.7922.71",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.71 Safari/537.36",
+        "workers": 8,
+        "jobs": 1,
+        "pageSeconds": 14.1,
+        "node": "v26.3.1",
+        "zlib": "1.2.12",
+        "content": {
+          "geometry": "6ce775ae8f11b85e",
+          "shell": "bd583990c72371f1",
+          "props": "67dcb3b7ee6e76e7",
+          "luminaire": "d34428f58ed53dfa",
+          "table": "072cf071f792357c",
+          "emitters": "db6e343ffd94da6d",
+          "albedo": "9cf52d235f465d8f",
+          "triangles": {
+            "shell": 974,
+            "props": 4628,
+            "luminaire": 900,
+            "table": 120
+          }
+        },
+        "treeBuildsBakedScene": true,
+        "inputFiles": {
+          "count": 24,
+          "sha256": "d7e084a3ea5b82f0a88c70bc5e4eb4d4ecb7b2e4ca7dc9d6f2eae405dbcf5d8a",
+          "each": {
+            "web/scene/club/room.js": "ca481dd42e8c6c02f47912ad5180d698bf3f1d8735aa14ef3e11cfcd95ffdab0",
+            "web/scene/club/room/lamp.js": "459b8d9e34dddf27b7c3b72531070b055ceb0a0cc22f028cfb5fbfe55f839def",
+            "web/scene/club/room/lamp/face.js": "5308026d6e1db038fcd9f1858cf76b76ee23e738570177f1d0ea093a96a7389b",
+            "web/scene/club/room/lamp/geom.js": "191831ee68e1ddb8f40fd9bf7b97ec9f24bd5b8a617ac7ad38f4909be23175a6",
+            "web/scene/club/room/lamp/model.js": "91f3a74cea198a7dc9275edcfd058c990dc75a7fbc70bbc37c815cb72b7d50ad",
+            "web/scene/club/room/lamp/rule.js": "6b4b6ab05787d3f2d1870cb8c90bfd4e98b46518a7af528adcd96f754cd666ee",
+            "web/scene/club/room/light.js": "7784c23ba0d85f9c53326da702a48c49f03e5d98f8be345ce0758e1ff19be033",
+            "web/scene/club/room/lightmap.js": "af33888641aaae3ccab33b7b7b47b2635e8235de081b54a0176a5999a4923db4",
+            "web/scene/club/room/props.js": "e27946ba9365a77bf0a8e68002f2c250c13537e9148efa74b0237855df6030fa",
+            "web/scene/club/room/props/atlas.js": "a7708ea7cf0c767a8eb35ede76887f5a780919f195cb115e5de215da0b1e7e38",
+            "web/scene/club/room/props/bar.js": "aa2b341603a235de7a3825c0490199befdd38084e213318f08b9f76f347bf2ad",
+            "web/scene/club/room/props/extras.js": "0d0c29f0e1b6202e149864d6cd9c43f2eec0ccba385e38473abb85329abf1e54",
+            "web/scene/club/room/props/fartable.js": "806c92d0ece1a0329a5aaf3a0419a8ae4d5ec7034499727a439189c535b25547",
+            "web/scene/club/room/props/kit.js": "9bb3e4d9b08f8646aa0453709033da7b5bc49900e1828f6c230f7eab6b0d20ba",
+            "web/scene/club/room/props/layout.js": "215c7c6996ec266b1ffc603550c39d16e116e4746a9b0faac99eff0170aed1dc",
+            "web/scene/club/room/props/levels.js": "7d27d255a51e90a86e602d401ec1b1c8d4da5047669b84c21741cd6c33cb5eea",
+            "web/scene/club/room/props/seating.js": "1829f3c3de6250f14d374fc844e0769ba9cbf51c34e81c871393dd218ace5ef8",
+            "web/scene/club/room/props/strokefont.js": "b442f4ecf9ddee6daa10603acb9c9c15291435a0fde58ceb7660463c35683abb",
+            "web/scene/club/room/props/wall.js": "cb478fb392077fef94fe9c25a3dc53fa4988ba7a1e926a78848cd1fe27cf03db",
+            "web/scene/club/room/shell.js": "fa2afa10505c52bdedf9b8eafa9b2033668389c402c58904e4934226fa624c2d",
+            "web/tools/club/bake-room-core.mjs": "08d08b4c90af60ff01ac5b1ada632b460a8b041ca613ba8e268c2f24ec1188e2",
+            "web/tools/club/bake-room-scene.mjs": "ba00b38b1d9f32bd8d61147d1ecacff5428f480b3468016a27d87d1904f61831",
+            "web/tools/club/bake-room-worker.mjs": "8ea80d0ce759c0ffd7e84e363a650a3d33e3b71f8a00dd614d3c33713b35cb91",
+            "web/tools/club/bake-room.html": "c833c0f13938a6282d1569fd734f3ad3332ca38261f9c6adc02149a901420fb5"
+          }
+        }
+      },
+      "tileMetres": null,
+      "notes": "No third-party input: geometry, emitters and albedo hints all come from the code listed under inputs. At run time the room refuses the file when its signature (shell layout, light-map charts, emitter ids and positions, the props plan) does not equal the live room, then the analytic light is used. The exact test is the tool's: `node web/tools/club/bake-room.mjs check` rebuilds the room from the tree and compares content hashes of every blocker triangle, the emitter table and the albedo hints with the record in the file; re-bake when it reports a difference."
+    },
+    {
+      "file": "arena-light.png",
+      "id": "arena.light",
+      "variant": "full",
+      "bytes": 899107,
+      "sha256": "5be536c6433b2ba0a6142c180353ca9d5108b2299165001bbdbf7d5667c3f399",
+      "width": 1024,
+      "height": 1024,
+      "format": "png",
+      "colorSpace": "RGB: irradiance through the sRGB curve; A: linear",
+      "provider": "made by this project (baked)",
+      "authors": [
+        "OpenBilliards contributors"
+      ],
+      "licence": "CC0-1.0",
+      "inputs": [
+        "web/scene/club/arena/room.js",
+        "web/scene/club/arena/shell.js",
+        "web/scene/club/arena/shell/",
+        "web/scene/club/arena/layout.js",
+        "web/scene/club/room/light.js",
+        "web/scene/club/room/lightmap.js",
+        "web/scene/club/arena/rig.js",
+        "web/scene/club/arena/rig/",
+        "web/scene/club/arena/surround.js",
+        "web/scene/club/arena/surround/",
+        "web/scene/club/arena/floor.js",
+        "web/scene/club/arena/floor/"
+      ],
+      "generatedBy": "web/tools/club/bake-room.html + bake-room-scene.mjs + bake-room-core.mjs + bake-room-worker.mjs (compute), web/tools/club/bake-room.mjs (file)",
+      "processing": "Light map of the arena hall's carpet and backdrop: for each texel of the shell's second UV set, the irradiance of every fixed emitter with soft shadows (CPU ray casting against the hall, the rig, the surround, the floor furniture and the table), bounced light and an occlusion-weighted ambient, and in alpha the visible share of the main lamp. RGB = irradiance / 32 through the sRGB curve with a 4 x 4 ordered dither; 1024 x 1024 RGBA8 PNG, adaptive row filters, zlib level 6, the bake's record in a tEXt chunk. The same light on a 31 x 24 x 31 grid over the room (six receiver directions per grid point, the same encoding) rides in a private ancillary chunk (rlVo, 553536 bytes before zlib): the furniture reads it. Deterministic: the same tree gives the same bytes.",
+      "bake": {
+        "signature": "cbcae80195dfa4fd",
+        "levels": "a6e57337ab57980d",
+        "fullScale": 32,
+        "params": {
+          "gather": 32,
+          "patch": 48,
+          "bounces": 3,
+          "gain": 1,
+          "amb": 1,
+          "ao": 3.5,
+          "maxEdge": 0.6,
+          "house": {
+            "sky": [
+              0.3,
+              0.285,
+              0.265
+            ],
+            "ground": [
+              0.05,
+              0.0475,
+              0.044
+            ],
+            "side": [
+              0.1,
+              0.094,
+              0.088
+            ]
+          }
+        },
+        "lamp": {
+          "rect": [
+            0,
+            0,
+            1.025,
+            0.33,
+            1.02
+          ],
+          "radiance": [
+            7.188,
+            7.255,
+            7.389
+          ],
+          "pool": [
+            0.48,
+            7.8,
+            1
+          ]
+        },
+        "scene": {
+          "triangles": 391034,
+          "emitters": 87,
+          "texels": 825108,
+          "tier": "high",
+          "venue": "arena",
+          "content": {
+            "geometry": "96a6e07cadcfcbdc",
+            "shell": "78c9d2514975c9d4",
+            "props": "c1b94efd4f9130a8",
+            "luminaire": "e44558dc34ff7cfe",
+            "table": "fe44ef85a4c82228",
+            "emitters": "647e839bf5f36792",
+            "albedo": "f1fb11eb18843a94",
+            "triangles": {
+              "shell": 10628,
+              "props": 342250,
+              "luminaire": 1520,
+              "table": 180
+            },
+            "parts": {
+              "rig": {
+                "hash": "42b6a59dc25cfe3c",
+                "triangles": 81990
+              },
+              "surround": {
+                "hash": "a327aa790dbc94d2",
+                "triangles": 226036
+              },
+              "floor": {
+                "hash": "8544ac7865634ff7",
+                "triangles": 35744
+              }
+            }
+          }
+        },
+        "volume": {
+          "dims": [
+            31,
+            24,
+            31
+          ],
+          "min": [
+            -11,
+            0,
+            -12.6
+          ],
+          "max": [
+            14,
+            9.5,
+            12.6
+          ],
+          "bias": 0.12,
+          "phases": 4,
+          "bytes": 553536,
+          "stats": {
+            "points": 23064,
+            "valid": 20995,
+            "filled": 2069,
+            "left": 0,
+            "peak": 532.5856323242188,
+            "clippedSamples": 149
+          }
+        },
+        "ambient": {
+          "sky": [
+            0.2523,
+            0.2352,
+            0.2183
+          ],
+          "ground": [
+            0,
+            0,
+            0
+          ],
+          "side": [
+            0.1235,
+            0.1161,
+            0.1102
+          ]
+        },
+        "host": "a Linux x86_64 host, software GL, page mode",
+        "browser": "HeadlessChrome/151.0.7922.71",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.71 Safari/537.36",
+        "workers": 6,
+        "jobs": 1,
+        "pageSeconds": 197.1,
+        "node": "v26.3.1",
+        "zlib": "1.2.12",
+        "content": {
+          "geometry": "96a6e07cadcfcbdc",
+          "shell": "78c9d2514975c9d4",
+          "props": "c1b94efd4f9130a8",
+          "luminaire": "e44558dc34ff7cfe",
+          "table": "fe44ef85a4c82228",
+          "emitters": "647e839bf5f36792",
+          "albedo": "f1fb11eb18843a94",
+          "triangles": {
+            "shell": 10628,
+            "props": 342250,
+            "luminaire": 1520,
+            "table": 180
+          },
+          "parts": {
+            "rig": {
+              "hash": "42b6a59dc25cfe3c",
+              "triangles": 81990
+            },
+            "surround": {
+              "hash": "a327aa790dbc94d2",
+              "triangles": 226036
+            },
+            "floor": {
+              "hash": "8544ac7865634ff7",
+              "triangles": 35744
+            }
+          }
+        },
+        "treeBuildsBakedScene": true,
+        "inputFiles": {
+          "count": 31,
+          "sha256": "2852b4612161ccb3267f7069bfc876789d4cbf73b8d6a1c00af5781459e97f61",
+          "each": {
+            "web/scene/club/arena/floor.js": "83e4bdadaff61d659c3fdb35d2a129c2883c8276fd1fe33717133161f06d4f7c",
+            "web/scene/club/arena/floor/items.js": "ce1a63b803d2458cca3a7a9c3bec333d5a00b50f597387aa240b6d428f7e2c23",
+            "web/scene/club/arena/floor/paint.js": "f764b9fe23a63e7a5d0191f54baf719b90156c743cd55428d535644a50422a73",
+            "web/scene/club/arena/floor/plan.js": "0834ef7e761e0c5c19cf9c48689cd17b2ba107459fc49d780a8b452ebb2505b2",
+            "web/scene/club/arena/layout.js": "ef82bcb80fe28c8afba1e2a39ee4d94a3d1bd2b9643bb2d8beedbc1ced54f7a3",
+            "web/scene/club/arena/rig.js": "486866a200b225b0df7c3afdd2ffdf4147e814667967cfc0087ec0e8c0b66bbc",
+            "web/scene/club/arena/rig/haze.js": "731056e58dfc177658a969a8f41b2016ef7ab042f68d1cd4a453b5ef5ca448dc",
+            "web/scene/club/arena/rig/house.js": "99bb9d4b29215735242f792bdb2d5e261f73210a9d30ce9bd18eff0ebc730316",
+            "web/scene/club/arena/rig/housing.js": "7d5188190a87036c8685be25991174a28a6b3cc2d176e5346954ad79f08733d9",
+            "web/scene/club/arena/rig/luminaire.js": "7cd70ed6840d864e57ff9763715ccc0452aca44c49b3d442b4b84ad9eaa2ef90",
+            "web/scene/club/arena/rig/mat.js": "031d51756b025bcb1c87f6c45fd132b1219ea8ffee46a05e7469aaa34d5c0fde",
+            "web/scene/club/arena/rig/plan.js": "62189b0d31d5fd52ecbc91451d43949f958b205747fef5da0127b0f37f049972",
+            "web/scene/club/arena/rig/steel.js": "cc059c93800c901b1eb5f98807e097392132cc165b7efb6b1feb11209dca2571",
+            "web/scene/club/arena/rig/truss.js": "38227cb5cfab04a0dd4e3e434c0849f3b080ede7a51f6ddbc79e82c83d0a23b2",
+            "web/scene/club/arena/room.js": "1b65767c168f162dff5d52b01c5766979c4144d24a53d74f7ab4a33cc00f13ed",
+            "web/scene/club/arena/shell.js": "883a570f356b4cbcebf96cd1f3c4ba9036a07160c6db66496a660991f7c1994b",
+            "web/scene/club/arena/shell/glsl.js": "ec0088bdd67ea8fc2c3fa4eec8df389421de9a39d1f609af193908f7ba6875bd",
+            "web/scene/club/arena/shell/plan.js": "1644d7c1bb3f927ec7d6b254a1363fee45baffc71f7c96b0fef0c586424c9eb1",
+            "web/scene/club/arena/shell/tex.js": "68218cf2b15354b9867910c0f260efd52dc45a359ac640d745714bf7527f9a73",
+            "web/scene/club/arena/surround.js": "b7affb21f29e76647c4852a6b42abd384609f6732638d4d75ad588b033ed0cc3",
+            "web/scene/club/arena/surround/content.js": "4a6e98381b9fec2eccab9aa30618a028d722f1fcacf7980e566a547b26347046",
+            "web/scene/club/arena/surround/levels.js": "b732b0cccfc410aa7b4d1464989632bc1f10b8cb777b4c187e6ad505804d7fcb",
+            "web/scene/club/arena/surround/paint.js": "31117c2bf8446ac97070e2f9aaaa1ae68e54b46e5208bf4922ddd4d2b0ac9c19",
+            "web/scene/club/arena/surround/plan.js": "0bb37fc04f7aeb1ab48478c797ac214e381b5966823e816d40c2bcac84a78bea",
+            "web/scene/club/arena/surround/seat.js": "865b3d166ac7bc85383bc73dadb31e822dd94c9b637521be5a0b1626ae05e744",
+            "web/scene/club/room/light.js": "eabf2cd164d2d775d5f4912fe23fff6613b9032d082db93d16ea70d683e3cab0",
+            "web/scene/club/room/lightmap.js": "6fd31ec40fc7fd973ca5cb841efa81e45910396f87c0dc72faed17019b151bdf",
+            "web/tools/club/bake-room-core.mjs": "e2df586852af4d8f5871d988bb38bac85f1a3bd25615a64883601c94456ee74f",
+            "web/tools/club/bake-room-scene.mjs": "e3b80dd2652e75d91da97ce48308c0946ebdc81e0854870e88f6390730bc8dae",
+            "web/tools/club/bake-room-worker.mjs": "8ea80d0ce759c0ffd7e84e363a650a3d33e3b71f8a00dd614d3c33713b35cb91",
+            "web/tools/club/bake-room.html": "ff15875ea6316b31c80b2ba56496697dc06bc2fd9f7062dd290df3006f62dd5a"
+          }
+        }
+      },
+      "tileMetres": null,
+      "notes": "No third-party input: geometry, emitters and albedo hints all come from the code listed under inputs. At run time the room refuses the file when the hall's signature (layout version, the lite or full plan, the hall's box, the island, the backdrop, the light-map charts) does not equal the live room, then the analytic light is used; a part (shell, rig, surround, floor furniture) or an emitter that changed since the bake is named in the room's state and the file stays in use. The exact test is the tool's: `node web/tools/club/bake-room.mjs check` rebuilds the room from the tree and compares content hashes of every blocker triangle, the emitter table and the albedo hints with the record in the file; re-bake when it reports a difference."
+    },
+    {
+      "file": "arena-carpet-color.jpg",
+      "id": "arena.carpet.color",
+      "variant": "full",
+      "bytes": 163324,
+      "sha256": "768e0e7542ddfb70f10782521b2fdf9c79c1831f5d32271a5b6354c608e06a48",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "srgb",
+      "provider": "ambientCG",
+      "asset": "Carpet016",
+      "assetPage": "https://ambientcg.com/a/Carpet016",
+      "sourceUrl": "https://ambientcg.com/get?file=Carpet016_4K-JPG.zip",
+      "archiveMember": "Carpet016_4K-JPG_Color.jpg",
+      "archiveMemberSha256": "f457b9848d64647d9a64832f5464dd67eff9988d4d565b65fe6293ee02ae90a4",
+      "authors": [
+        "ambientCG"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://docs.ambientcg.com/license/ (site-wide: every asset is CC0 1.0 Universal)",
+      "licenceStatement": "All assets are released under the Creative Commons CC0 license, making them free to use without attribution - even in commercial circumstances.",
+      "downloaded": "2026-11-15T00:17:37Z",
+      "originalBytes": 111252536,
+      "originalSha256": "a1c26db39c84a3c72ff3c5b7230ac2264c2a33f3c995d3ab821be98a69aa7a4c",
+      "processing": "Converted to neutral grey (sips -m, the system's \"Generic Gray Gamma 2.2\" profile), resampled to fit 1024 px and re-encoded as JPEG: sips -m <grey profile> -Z 1024 -s format jpeg -s formatOptions 55. The original is one image member of the downloaded archive; nothing else from the archive is used.",
+      "tileMetres": 1.7,
+      "meanBytes": [
+        177.4,
+        177.4,
+        177.4
+      ],
+      "meanLinear": [
+        0.4421,
+        0.4421,
+        0.4421
+      ],
+      "notes": "Loop-pile carpet (a wool berber: loops about 7 mm wide at the source's scale, rows run along U), converted to neutral grey so that the material's colour sets the tint; the scan's darker flecks stay as darker specks. Tiles without a seam."
+    },
+    {
+      "file": "arena-carpet-normal.jpg",
+      "id": "arena.carpet.normal",
+      "variant": "full",
+      "bytes": 197043,
+      "sha256": "a1a99b0d4efd992ee6ff4ab5482bd0a35ef8f825e32cd428017a636db6adfc54",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "ambientCG",
+      "asset": "Carpet016",
+      "assetPage": "https://ambientcg.com/a/Carpet016",
+      "sourceUrl": "https://ambientcg.com/get?file=Carpet016_4K-JPG.zip",
+      "archiveMember": "Carpet016_4K-JPG_NormalGL.jpg",
+      "archiveMemberSha256": "6598bd96aeae5e63059f56359598a5472f6421d05dbf2fad7186cd6a0548ce43",
+      "authors": [
+        "ambientCG"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://docs.ambientcg.com/license/ (site-wide: every asset is CC0 1.0 Universal)",
+      "licenceStatement": "All assets are released under the Creative Commons CC0 license, making them free to use without attribution - even in commercial circumstances.",
+      "downloaded": "2026-11-15T00:17:37Z",
+      "originalBytes": 111252536,
+      "originalSha256": "a1c26db39c84a3c72ff3c5b7230ac2264c2a33f3c995d3ab821be98a69aa7a4c",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 40. The original is one image member of the downloaded archive; nothing else from the archive is used.",
+      "tileMetres": 1.7,
+      "notes": "OpenGL convention (+Y up). Strong relief: the mean tilt of the 4096 px original is 18 degrees. At 1024 px a loop is about 4 px wide, so the default-tier file holds the pile as grain of the right strength rather than as loops."
+    },
+    {
+      "file": "arena-carpet-rough.jpg",
+      "id": "arena.carpet.rough",
+      "variant": "full",
+      "bytes": 103002,
+      "sha256": "47616715973f6f28dcb13444c9921a4449d08aaf54d211fd54d6eb22406c3538",
+      "width": 1024,
+      "height": 1024,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "ambientCG",
+      "asset": "Carpet016",
+      "assetPage": "https://ambientcg.com/a/Carpet016",
+      "sourceUrl": "https://ambientcg.com/get?file=Carpet016_4K-JPG.zip",
+      "archiveMember": "Carpet016_4K-JPG_Roughness.jpg",
+      "archiveMemberSha256": "5c92173e56a68661017d8ab7e015416bb97efb358f83d855a9a2ffc2bb8c462b",
+      "authors": [
+        "ambientCG"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://docs.ambientcg.com/license/ (site-wide: every asset is CC0 1.0 Universal)",
+      "licenceStatement": "All assets are released under the Creative Commons CC0 license, making them free to use without attribution - even in commercial circumstances.",
+      "downloaded": "2026-11-15T00:17:37Z",
+      "originalBytes": 111252536,
+      "originalSha256": "a1c26db39c84a3c72ff3c5b7230ac2264c2a33f3c995d3ab821be98a69aa7a4c",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 35. The original is one image member of the downloaded archive; nothing else from the archive is used.",
+      "tileMetres": 1.7,
+      "notes": "Roughness, single channel (grey JPEG)."
+    },
+    {
+      "file": "arena-seat-color.jpg",
+      "id": "arena.seat.color",
+      "variant": "full",
+      "bytes": 25470,
+      "sha256": "0dd98131795d738a5fa3a273a843645e08c1856ef6a03e9083dcc14c95266d06",
+      "width": 512,
+      "height": 492,
+      "format": "jpeg",
+      "colorSpace": "srgb",
+      "provider": "Poly Haven",
+      "asset": "velour_velvet",
+      "assetPage": "https://polyhaven.com/a/velour_velvet",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/velour_velvet/velour_velvet_diff_4k.jpg",
+      "authors": [
+        "colormass",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0)",
+      "licenceStatement": "CC0 1.0 Universal - public domain dedication, no attribution required",
+      "downloaded": "2026-11-15T00:34:27Z",
+      "originalBytes": 13005232,
+      "originalSha256": "c186d0c369aef2204be81f5eb8c9ca8b271d7480f65bb53785ed484647dfa7c6",
+      "processing": "Made neutral (each pixel's strongest channel, computed on the decoded original by web/tools/club/asset-arena.mjs), resampled to fit 512 px and re-encoded as JPEG: sips -Z 512 -s format jpeg -s formatOptions 70.",
+      "tileMetres": [
+        0.284,
+        0.273
+      ],
+      "meanBytes": [
+        173.3,
+        173.3,
+        173.3
+      ],
+      "meanLinear": [
+        0.4194,
+        0.4194,
+        0.4194
+      ],
+      "notes": "Short velour upholstery fabric, made neutral (the scan is red: each pixel keeps its strongest channel, so the map holds the nap's light and dark patches near full scale and the material's colour sets the hue). Low contrast by nature: the look of a velour is in its sheen, not in this map."
+    },
+    {
+      "file": "arena-seat-normal.jpg",
+      "id": "arena.seat.normal",
+      "variant": "full",
+      "bytes": 48202,
+      "sha256": "647bfab2dda8d132c1f698d18e41523d71258c36d771593b505e5f466c364880",
+      "width": 512,
+      "height": 492,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "velour_velvet",
+      "assetPage": "https://polyhaven.com/a/velour_velvet",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/velour_velvet/velour_velvet_nor_gl_4k.jpg",
+      "authors": [
+        "colormass",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0)",
+      "licenceStatement": "CC0 1.0 Universal - public domain dedication, no attribution required",
+      "downloaded": "2026-11-15T00:34:30Z",
+      "originalBytes": 9222989,
+      "originalSha256": "2817fba6736d2dca3efbcf9b988421bf96ab206dfc833c2b77a8bd99368364fa",
+      "processing": "Resampled to fit 512 px and re-encoded as JPEG: sips -Z 512 -s format jpeg -s formatOptions 75.",
+      "tileMetres": [
+        0.284,
+        0.273
+      ],
+      "notes": "OpenGL convention (+Y up). Low relief (a napped surface)."
+    },
+    {
+      "file": "arena-seat-rough.jpg",
+      "id": "arena.seat.rough",
+      "variant": "full",
+      "bytes": 72663,
+      "sha256": "d2f21ad72c3aedbae155ddd9210bad15761c57b872fd2cdf9a34abfdda7b17af",
+      "width": 512,
+      "height": 492,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "velour_velvet",
+      "assetPage": "https://polyhaven.com/a/velour_velvet",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/velour_velvet/velour_velvet_rough_4k.jpg",
+      "authors": [
+        "colormass",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0)",
+      "licenceStatement": "CC0 1.0 Universal - public domain dedication, no attribution required",
+      "downloaded": "2026-11-15T00:34:32Z",
+      "originalBytes": 15136265,
+      "originalSha256": "3ae05783ad283854b588c01ec715805591881a74b45fed4b5a8913d21ed85bdd",
+      "processing": "Resampled to fit 512 px and re-encoded as JPEG: sips -Z 512 -s format jpeg -s formatOptions 60.",
+      "tileMetres": [
+        0.284,
+        0.273
+      ],
+      "notes": "Roughness, single channel (grey JPEG)."
+    },
+    {
+      "file": "arena-drape-normal.jpg",
+      "id": "arena.drape.normal",
+      "variant": "full",
+      "bytes": 109363,
+      "sha256": "ab5bac8b2a670fc260d1480f6444037f259630108ee659779a3208d6d62a9b2d",
+      "width": 1024,
+      "height": 1021,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "caban",
+      "assetPage": "https://polyhaven.com/a/caban",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/caban/caban_nor_gl_4k.jpg",
+      "authors": [
+        "colormass",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0)",
+      "licenceStatement": "CC0 1.0 Universal - public domain dedication, no attribution required",
+      "downloaded": "2026-11-15T00:35:17Z",
+      "originalBytes": 8440015,
+      "originalSha256": "74ac71b9557d29c60feb110693c3f5411d6d58ed12fc02c000de601478d3cf3c",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 60.",
+      "tileMetres": [
+        0.274,
+        0.273
+      ],
+      "notes": "Heavy napped wool cloth; OpenGL convention (+Y up)."
+    },
+    {
+      "file": "arena-drape-rough.jpg",
+      "id": "arena.drape.rough",
+      "variant": "full",
+      "bytes": 176907,
+      "sha256": "86e71827dad40a2ea85740da0e9b1d882aeb80956e8788ec97988f8b8ee954fa",
+      "width": 1024,
+      "height": 1021,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "caban",
+      "assetPage": "https://polyhaven.com/a/caban",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/caban/caban_rough_4k.jpg",
+      "authors": [
+        "colormass",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0)",
+      "licenceStatement": "CC0 1.0 Universal - public domain dedication, no attribution required",
+      "downloaded": "2026-11-15T00:35:20Z",
+      "originalBytes": 16811133,
+      "originalSha256": "fb0666f72a7af51994c40a24c45c23e5e07538d91af9ed5d3c6bb2cffd86f9a0",
+      "processing": "Resampled to fit 1024 px and re-encoded as JPEG: sips -Z 1024 -s format jpeg -s formatOptions 35.",
+      "tileMetres": [
+        0.274,
+        0.273
+      ],
+      "notes": "Roughness, single channel (grey JPEG)."
+    },
+    {
+      "file": "arena-light-lite.png",
+      "id": "arena.light.lite",
+      "variant": "lite",
+      "bytes": 281216,
+      "sha256": "d1b889ff7a4af46e30024b16e50d3e9ac8982a5cc50a8d184e58306ab373404c",
+      "width": 512,
+      "height": 512,
+      "format": "png",
+      "colorSpace": "RGB: irradiance through the sRGB curve; A: linear",
+      "provider": "made by this project (baked)",
+      "authors": [
+        "OpenBilliards contributors"
+      ],
+      "licence": "CC0-1.0",
+      "inputs": [
+        "web/scene/club/arena/room.js",
+        "web/scene/club/arena/shell.js",
+        "web/scene/club/arena/shell/",
+        "web/scene/club/arena/layout.js",
+        "web/scene/club/room/light.js",
+        "web/scene/club/room/lightmap.js",
+        "web/scene/club/arena/rig.js",
+        "web/scene/club/arena/rig/",
+        "web/scene/club/arena/surround.js",
+        "web/scene/club/arena/surround/",
+        "web/scene/club/arena/floor.js",
+        "web/scene/club/arena/floor/"
+      ],
+      "generatedBy": "web/tools/club/bake-room.html + bake-room-scene.mjs + bake-room-core.mjs + bake-room-worker.mjs (compute), web/tools/club/bake-room.mjs (file)",
+      "processing": "Light map of the arena hall's carpet and backdrop: for each texel of the shell's second UV set, the irradiance of every fixed emitter with soft shadows (CPU ray casting against the hall, the rig, the surround, the floor furniture and the table), bounced light and an occlusion-weighted ambient, and in alpha the visible share of the main lamp. RGB = irradiance / 32 through the sRGB curve with a 4 x 4 ordered dither; 512 x 512 RGBA8 PNG, adaptive row filters, zlib level 6, the bake's record in a tEXt chunk. The same light on a 31 x 12 x 31 grid over the room (six receiver directions per grid point, the same encoding) rides in a private ancillary chunk (rlVo, 276768 bytes before zlib): the furniture reads it. Deterministic: the same tree gives the same bytes.",
+      "bake": {
+        "signature": "17f72611ae4fedfd",
+        "levels": "79a6d8cd2524e441",
+        "fullScale": 32,
+        "params": {
+          "gather": 32,
+          "patch": 48,
+          "bounces": 3,
+          "gain": 1,
+          "amb": 1,
+          "ao": 3.5,
+          "maxEdge": 0.6,
+          "house": {
+            "sky": [
+              0.3,
+              0.285,
+              0.265
+            ],
+            "ground": [
+              0.05,
+              0.0475,
+              0.044
+            ],
+            "side": [
+              0.1,
+              0.094,
+              0.088
+            ]
+          }
+        },
+        "lamp": {
+          "rect": [
+            0,
+            0,
+            1.025,
+            0.33,
+            1.02
+          ],
+          "radiance": [
+            7.188,
+            7.255,
+            7.389
+          ],
+          "pool": [
+            0.48,
+            7.8,
+            1
+          ]
+        },
+        "scene": {
+          "triangles": 46240,
+          "emitters": 83,
+          "texels": 210056,
+          "tier": "lite",
+          "venue": "arena",
+          "content": {
+            "geometry": "a919cad9744ba08a",
+            "shell": "fa4e8665e834536d",
+            "props": "d81aedd503d2ac5a",
+            "luminaire": "01b8762594dd0ba1",
+            "table": "fe44ef85a4c82228",
+            "emitters": "b20032df9f9ca805",
+            "albedo": "f42622854de33455",
+            "triangles": {
+              "shell": 206,
+              "props": 12910,
+              "luminaire": 420,
+              "table": 180
+            },
+            "parts": {
+              "rig": {
+                "hash": "e0e6300f95d32b84",
+                "triangles": 8516
+              },
+              "surround": {
+                "hash": "b2d32ff1955c5469",
+                "triangles": 3948
+              },
+              "floor": {
+                "hash": "440884977784e277",
+                "triangles": 866
+              }
+            }
+          }
+        },
+        "volume": {
+          "dims": [
+            31,
+            12,
+            31
+          ],
+          "min": [
+            -11,
+            0,
+            -12.6
+          ],
+          "max": [
+            14,
+            9.5,
+            12.6
+          ],
+          "bias": 0.12,
+          "phases": 4,
+          "bytes": 276768,
+          "stats": {
+            "points": 11532,
+            "valid": 10560,
+            "filled": 972,
+            "left": 0,
+            "peak": 265.1546630859375,
+            "clippedSamples": 95
+          }
+        },
+        "ambient": {
+          "sky": [
+            0.2643,
+            0.2459,
+            0.2274
+          ],
+          "ground": [
+            0,
+            0,
+            0
+          ],
+          "side": [
+            0.1542,
+            0.1448,
+            0.1376
+          ]
+        },
+        "host": "a Linux x86_64 host, software GL, page mode",
+        "browser": "HeadlessChrome/151.0.7922.71",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.71 Safari/537.36",
+        "workers": 6,
+        "jobs": 1,
+        "pageSeconds": 23.8,
+        "node": "v26.3.1",
+        "zlib": "1.2.12",
+        "content": {
+          "geometry": "a919cad9744ba08a",
+          "shell": "fa4e8665e834536d",
+          "props": "d81aedd503d2ac5a",
+          "luminaire": "01b8762594dd0ba1",
+          "table": "fe44ef85a4c82228",
+          "emitters": "b20032df9f9ca805",
+          "albedo": "f42622854de33455",
+          "triangles": {
+            "shell": 206,
+            "props": 12910,
+            "luminaire": 420,
+            "table": 180
+          },
+          "parts": {
+            "rig": {
+              "hash": "e0e6300f95d32b84",
+              "triangles": 8516
+            },
+            "surround": {
+              "hash": "b2d32ff1955c5469",
+              "triangles": 3948
+            },
+            "floor": {
+              "hash": "440884977784e277",
+              "triangles": 866
+            }
+          }
+        },
+        "treeBuildsBakedScene": true,
+        "inputFiles": {
+          "count": 31,
+          "sha256": "2852b4612161ccb3267f7069bfc876789d4cbf73b8d6a1c00af5781459e97f61",
+          "each": {
+            "web/scene/club/arena/floor.js": "83e4bdadaff61d659c3fdb35d2a129c2883c8276fd1fe33717133161f06d4f7c",
+            "web/scene/club/arena/floor/items.js": "ce1a63b803d2458cca3a7a9c3bec333d5a00b50f597387aa240b6d428f7e2c23",
+            "web/scene/club/arena/floor/paint.js": "f764b9fe23a63e7a5d0191f54baf719b90156c743cd55428d535644a50422a73",
+            "web/scene/club/arena/floor/plan.js": "0834ef7e761e0c5c19cf9c48689cd17b2ba107459fc49d780a8b452ebb2505b2",
+            "web/scene/club/arena/layout.js": "ef82bcb80fe28c8afba1e2a39ee4d94a3d1bd2b9643bb2d8beedbc1ced54f7a3",
+            "web/scene/club/arena/rig.js": "486866a200b225b0df7c3afdd2ffdf4147e814667967cfc0087ec0e8c0b66bbc",
+            "web/scene/club/arena/rig/haze.js": "731056e58dfc177658a969a8f41b2016ef7ab042f68d1cd4a453b5ef5ca448dc",
+            "web/scene/club/arena/rig/house.js": "99bb9d4b29215735242f792bdb2d5e261f73210a9d30ce9bd18eff0ebc730316",
+            "web/scene/club/arena/rig/housing.js": "7d5188190a87036c8685be25991174a28a6b3cc2d176e5346954ad79f08733d9",
+            "web/scene/club/arena/rig/luminaire.js": "7cd70ed6840d864e57ff9763715ccc0452aca44c49b3d442b4b84ad9eaa2ef90",
+            "web/scene/club/arena/rig/mat.js": "031d51756b025bcb1c87f6c45fd132b1219ea8ffee46a05e7469aaa34d5c0fde",
+            "web/scene/club/arena/rig/plan.js": "62189b0d31d5fd52ecbc91451d43949f958b205747fef5da0127b0f37f049972",
+            "web/scene/club/arena/rig/steel.js": "cc059c93800c901b1eb5f98807e097392132cc165b7efb6b1feb11209dca2571",
+            "web/scene/club/arena/rig/truss.js": "38227cb5cfab04a0dd4e3e434c0849f3b080ede7a51f6ddbc79e82c83d0a23b2",
+            "web/scene/club/arena/room.js": "1b65767c168f162dff5d52b01c5766979c4144d24a53d74f7ab4a33cc00f13ed",
+            "web/scene/club/arena/shell.js": "883a570f356b4cbcebf96cd1f3c4ba9036a07160c6db66496a660991f7c1994b",
+            "web/scene/club/arena/shell/glsl.js": "ec0088bdd67ea8fc2c3fa4eec8df389421de9a39d1f609af193908f7ba6875bd",
+            "web/scene/club/arena/shell/plan.js": "1644d7c1bb3f927ec7d6b254a1363fee45baffc71f7c96b0fef0c586424c9eb1",
+            "web/scene/club/arena/shell/tex.js": "68218cf2b15354b9867910c0f260efd52dc45a359ac640d745714bf7527f9a73",
+            "web/scene/club/arena/surround.js": "b7affb21f29e76647c4852a6b42abd384609f6732638d4d75ad588b033ed0cc3",
+            "web/scene/club/arena/surround/content.js": "4a6e98381b9fec2eccab9aa30618a028d722f1fcacf7980e566a547b26347046",
+            "web/scene/club/arena/surround/levels.js": "b732b0cccfc410aa7b4d1464989632bc1f10b8cb777b4c187e6ad505804d7fcb",
+            "web/scene/club/arena/surround/paint.js": "31117c2bf8446ac97070e2f9aaaa1ae68e54b46e5208bf4922ddd4d2b0ac9c19",
+            "web/scene/club/arena/surround/plan.js": "0bb37fc04f7aeb1ab48478c797ac214e381b5966823e816d40c2bcac84a78bea",
+            "web/scene/club/arena/surround/seat.js": "865b3d166ac7bc85383bc73dadb31e822dd94c9b637521be5a0b1626ae05e744",
+            "web/scene/club/room/light.js": "eabf2cd164d2d775d5f4912fe23fff6613b9032d082db93d16ea70d683e3cab0",
+            "web/scene/club/room/lightmap.js": "6fd31ec40fc7fd973ca5cb841efa81e45910396f87c0dc72faed17019b151bdf",
+            "web/tools/club/bake-room-core.mjs": "e2df586852af4d8f5871d988bb38bac85f1a3bd25615a64883601c94456ee74f",
+            "web/tools/club/bake-room-scene.mjs": "e3b80dd2652e75d91da97ce48308c0946ebdc81e0854870e88f6390730bc8dae",
+            "web/tools/club/bake-room-worker.mjs": "8ea80d0ce759c0ffd7e84e363a650a3d33e3b71f8a00dd614d3c33713b35cb91",
+            "web/tools/club/bake-room.html": "ff15875ea6316b31c80b2ba56496697dc06bc2fd9f7062dd290df3006f62dd5a"
+          }
+        }
+      },
+      "tileMetres": null,
+      "notes": "No third-party input: geometry, emitters and albedo hints all come from the code listed under inputs. At run time the room refuses the file when the hall's signature (layout version, the lite or full plan, the hall's box, the island, the backdrop, the light-map charts) does not equal the live room, then the analytic light is used; a part (shell, rig, surround, floor furniture) or an emitter that changed since the bake is named in the room's state and the file stays in use. The exact test is the tool's: `node web/tools/club/bake-room.mjs check` rebuilds the room from the tree and compares content hashes of every blocker triangle, the emitter table and the albedo hints with the record in the file; re-bake when it reports a difference."
+    },
+    {
+      "file": "arena-env.png",
+      "id": "arena.env",
+      "variant": "full",
+      "bytes": 309370,
+      "sha256": "32f290b30805f3d04ae2f977b5d98c43db1549ce1b0e271e321d0348629c971e",
+      "width": 768,
+      "height": 252,
+      "format": "png",
+      "colorSpace": "RGBE: scene-linear radiance, rgb x 2^(A - 136)",
+      "provider": "made by this project (baked)",
+      "authors": [
+        "OpenBilliards contributors"
+      ],
+      "licence": "CC0-1.0",
+      "inputs": [
+        "web/scene/club/arena/room.js",
+        "web/scene/club/arena/shell.js",
+        "web/scene/club/arena/shell/",
+        "web/scene/club/arena/layout.js",
+        "web/scene/club/room/light.js",
+        "web/scene/club/room/lightmap.js",
+        "web/scene/club/arena/rig.js",
+        "web/scene/club/arena/rig/",
+        "web/scene/club/arena/surround.js",
+        "web/scene/club/arena/surround/",
+        "web/scene/club/arena/floor.js",
+        "web/scene/club/arena/floor/",
+        "web/assets/club/arena-light.png"
+      ],
+      "generatedBy": "web/tools/club/bake-room.html + bake-room-env.mjs (capture, chain, coding), web/tools/club/bake-room.mjs (file)",
+      "processing": "The arena hall as seen from one point (0, 1.2 m over the floor, 0): six 90-degree views of the hall under its baked light map (no balls, no cue, no haze; the table as a matt stand-in), rendered linear without tone mapping at four times the face's size and averaged into faces of 128 px in the GL cube convention. 6 levels, each the cube through a cosine-power lobe for a roughness (0, 0.15, 0.3, 0.5, 0.75, 1), stacked top to bottom in one 768 x 252 RGBA8 PNG, six faces a row; RGBE (rgb x 2^(A - 136), scene-linear radiance); adaptive row filters, zlib level 6, the record in a tEXt chunk. No cube is rendered at run time.",
+      "bake": {
+        "signature": "cbcae80195dfa4fd",
+        "levels": "a6e57337ab57980d",
+        "light": {
+          "sig": "cbcae80195dfa4fd",
+          "soft": "a6e57337ab57980d",
+          "bytes": 899107
+        },
+        "capturedUnderTheLightFileOnDisk": true,
+        "n": 128,
+        "chain": [
+          {
+            "s": 128,
+            "y": 0,
+            "rough": 0
+          },
+          {
+            "s": 64,
+            "y": 128,
+            "rough": 0.15
+          },
+          {
+            "s": 32,
+            "y": 192,
+            "rough": 0.3
+          },
+          {
+            "s": 16,
+            "y": 224,
+            "rough": 0.5
+          },
+          {
+            "s": 8,
+            "y": 240,
+            "rough": 0.75
+          },
+          {
+            "s": 4,
+            "y": 248,
+            "rough": 1
+          }
+        ],
+        "probe": [
+          0,
+          1.2,
+          0
+        ],
+        "box": {
+          "min": [
+            -11,
+            0,
+            -12.6
+          ],
+          "max": [
+            14,
+            9.5,
+            12.6
+          ]
+        },
+        "unit": 0.2318,
+        "faces": [
+          {
+            "face": "+x",
+            "mean": 0.05794,
+            "peak": 16.61,
+            "zero": 0
+          },
+          {
+            "face": "-x",
+            "mean": 0.05728,
+            "peak": 16.61,
+            "zero": 0
+          },
+          {
+            "face": "+y",
+            "mean": 0.05787,
+            "peak": 17.797,
+            "zero": 0
+          },
+          {
+            "face": "-y",
+            "mean": 0.01665,
+            "peak": 0.049,
+            "zero": 0
+          },
+          {
+            "face": "+z",
+            "mean": 0.05304,
+            "peak": 3.977,
+            "zero": 0
+          },
+          {
+            "face": "-z",
+            "mean": 0.05235,
+            "peak": 3.987,
+            "zero": 0
+          }
+        ],
+        "target": "float",
+        "hidden": [
+          "arenaRig.lens: 135 triangles at 23 run-time emitters",
+          "arenaRig.haze",
+          "the table stand-in",
+          "the page lamp",
+          "arenaRig: clubLamp"
+        ],
+        "host": "a Linux x86_64 host, software GL, page mode",
+        "browser": "HeadlessChrome/151.0.7922.71",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.71 Safari/537.36",
+        "node": "v26.3.1",
+        "zlib": "1.2.12"
+      },
+      "tileMetres": null,
+      "notes": "No third-party input: a picture of this project's own hall. The env service (web/scene/club/env/hall.js) decodes the PNG itself and refuses a cube whose hall signature is not the light map's. `node web/tools/club/bake-room.mjs check` reads the record and tells whether the cube was captured under the light file on disk."
+    },
+    {
+      "file": "arena-env-lite.png",
+      "id": "arena.env.lite",
+      "variant": "lite",
+      "bytes": 80554,
+      "sha256": "3c57b420af18c02d3601f78e26a37c31743423175ff895292221c5664cc51937",
+      "width": 384,
+      "height": 124,
+      "format": "png",
+      "colorSpace": "RGBE: scene-linear radiance, rgb x 2^(A - 136)",
+      "provider": "made by this project (baked)",
+      "authors": [
+        "OpenBilliards contributors"
+      ],
+      "licence": "CC0-1.0",
+      "inputs": [
+        "web/scene/club/arena/room.js",
+        "web/scene/club/arena/shell.js",
+        "web/scene/club/arena/shell/",
+        "web/scene/club/arena/layout.js",
+        "web/scene/club/room/light.js",
+        "web/scene/club/room/lightmap.js",
+        "web/scene/club/arena/rig.js",
+        "web/scene/club/arena/rig/",
+        "web/scene/club/arena/surround.js",
+        "web/scene/club/arena/surround/",
+        "web/scene/club/arena/floor.js",
+        "web/scene/club/arena/floor/",
+        "web/assets/club/arena-light-lite.png"
+      ],
+      "generatedBy": "web/tools/club/bake-room.html + bake-room-env.mjs (capture, chain, coding), web/tools/club/bake-room.mjs (file)",
+      "processing": "The arena hall as seen from one point (0, 1.2 m over the floor, 0): six 90-degree views of the hall under its baked light map (no balls, no cue, no haze; the table as a matt stand-in), rendered linear without tone mapping at four times the face's size and averaged into faces of 64 px in the GL cube convention. 5 levels, each the cube through a cosine-power lobe for a roughness (0, 0.3, 0.5, 0.75, 1), stacked top to bottom in one 384 x 124 RGBA8 PNG, six faces a row; RGBE (rgb x 2^(A - 136), scene-linear radiance); adaptive row filters, zlib level 6, the record in a tEXt chunk. No cube is rendered at run time.",
+      "bake": {
+        "signature": "17f72611ae4fedfd",
+        "levels": "79a6d8cd2524e441",
+        "light": {
+          "sig": "17f72611ae4fedfd",
+          "soft": "79a6d8cd2524e441",
+          "bytes": 281216
+        },
+        "capturedUnderTheLightFileOnDisk": true,
+        "n": 64,
+        "chain": [
+          {
+            "s": 64,
+            "y": 0,
+            "rough": 0
+          },
+          {
+            "s": 32,
+            "y": 64,
+            "rough": 0.3
+          },
+          {
+            "s": 16,
+            "y": 96,
+            "rough": 0.5
+          },
+          {
+            "s": 8,
+            "y": 112,
+            "rough": 0.75
+          },
+          {
+            "s": 4,
+            "y": 120,
+            "rough": 1
+          }
+        ],
+        "probe": [
+          0,
+          1.2,
+          0
+        ],
+        "box": {
+          "min": [
+            -11,
+            0,
+            -12.6
+          ],
+          "max": [
+            14,
+            9.5,
+            12.6
+          ]
+        },
+        "unit": 0.2318,
+        "faces": [
+          {
+            "face": "+x",
+            "mean": 0.04939,
+            "peak": 5.202,
+            "zero": 0
+          },
+          {
+            "face": "-x",
+            "mean": 0.04894,
+            "peak": 5.201,
+            "zero": 0
+          },
+          {
+            "face": "+y",
+            "mean": 0.04834,
+            "peak": 6.351,
+            "zero": 0
+          },
+          {
+            "face": "-y",
+            "mean": 0.01619,
+            "peak": 0.044,
+            "zero": 0
+          },
+          {
+            "face": "+z",
+            "mean": 0.05773,
+            "peak": 0.721,
+            "zero": 0
+          },
+          {
+            "face": "-z",
+            "mean": 0.05153,
+            "peak": 0.705,
+            "zero": 0
+          }
+        ],
+        "target": "float",
+        "hidden": [
+          "arenaRig.lens: 44 triangles at 12 run-time emitters",
+          "the table stand-in",
+          "the page lamp",
+          "arenaRig: clubLamp"
+        ],
+        "host": "a Linux x86_64 host, software GL, page mode",
+        "browser": "HeadlessChrome/151.0.7922.71",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.71 Safari/537.36",
+        "node": "v26.3.1",
+        "zlib": "1.2.12"
+      },
+      "tileMetres": null,
+      "notes": "No third-party input: a picture of this project's own hall. The env service (web/scene/club/env/hall.js) decodes the PNG itself and refuses a cube whose hall signature is not the light map's. `node web/tools/club/bake-room.mjs check` reads the record and tells whether the cube was captured under the light file on disk."
+    }
+  ],
+  "highFiles": [
+    {
+      "file": "high/arena-carpet-color.jpg",
+      "id": "arena.carpet.color",
+      "variant": "high",
+      "bytes": 3060396,
+      "sha256": "267f75a18b0e7ef76f981dc007d39388f57fa707f1bccd712366f1b38a30e70c",
+      "width": 4096,
+      "height": 4096,
+      "format": "jpeg",
+      "colorSpace": "srgb",
+      "provider": "ambientCG",
+      "asset": "Carpet016",
+      "assetPage": "https://ambientcg.com/a/Carpet016",
+      "sourceUrl": "https://ambientcg.com/get?file=Carpet016_4K-JPG.zip",
+      "archiveMember": "Carpet016_4K-JPG_Color.jpg",
+      "archiveMemberSha256": "f457b9848d64647d9a64832f5464dd67eff9988d4d565b65fe6293ee02ae90a4",
+      "authors": [
+        "ambientCG"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://docs.ambientcg.com/license/ (site-wide: every asset is CC0 1.0 Universal)",
+      "licenceStatement": "All assets are released under the Creative Commons CC0 license, making them free to use without attribution - even in commercial circumstances.",
+      "downloaded": "2026-11-15T00:17:37Z",
+      "originalBytes": 111252536,
+      "originalSha256": "a1c26db39c84a3c72ff3c5b7230ac2264c2a33f3c995d3ab821be98a69aa7a4c",
+      "processing": "Converted to neutral grey (sips -m, the system's \"Generic Gray Gamma 2.2\" profile), resampled to fit 4096 px and re-encoded as JPEG: sips -m <grey profile> -Z 4096 -s format jpeg -s formatOptions 80. The original is one image member of the downloaded archive; nothing else from the archive is used.",
+      "tileMetres": 1.7,
+      "notes": "Loop-pile carpet (a wool berber: loops about 7 mm wide at the source's scale, rows run along U), converted to neutral grey so that the material's colour sets the tint; the scan's darker flecks stay as darker specks. Tiles without a seam."
+    },
+    {
+      "file": "high/arena-carpet-normal.jpg",
+      "id": "arena.carpet.normal",
+      "variant": "high",
+      "bytes": 9642640,
+      "sha256": "d9d61c2652d3730cc1a0588845e151b13072cbf88b4bc15934fd80828036e8a7",
+      "width": 4096,
+      "height": 4096,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "ambientCG",
+      "asset": "Carpet016",
+      "assetPage": "https://ambientcg.com/a/Carpet016",
+      "sourceUrl": "https://ambientcg.com/get?file=Carpet016_4K-JPG.zip",
+      "archiveMember": "Carpet016_4K-JPG_NormalGL.jpg",
+      "archiveMemberSha256": "6598bd96aeae5e63059f56359598a5472f6421d05dbf2fad7186cd6a0548ce43",
+      "authors": [
+        "ambientCG"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://docs.ambientcg.com/license/ (site-wide: every asset is CC0 1.0 Universal)",
+      "licenceStatement": "All assets are released under the Creative Commons CC0 license, making them free to use without attribution - even in commercial circumstances.",
+      "downloaded": "2026-11-15T00:17:37Z",
+      "originalBytes": 111252536,
+      "originalSha256": "a1c26db39c84a3c72ff3c5b7230ac2264c2a33f3c995d3ab821be98a69aa7a4c",
+      "processing": "Resampled to fit 4096 px and re-encoded as JPEG: sips -Z 4096 -s format jpeg -s formatOptions 62. The original is one image member of the downloaded archive; nothing else from the archive is used.",
+      "tileMetres": 1.7,
+      "notes": "OpenGL convention (+Y up). Strong relief: the mean tilt of the 4096 px original is 18 degrees. At 1024 px a loop is about 4 px wide, so the default-tier file holds the pile as grain of the right strength rather than as loops."
+    },
+    {
+      "file": "high/arena-carpet-rough.jpg",
+      "id": "arena.carpet.rough",
+      "variant": "high",
+      "bytes": 1282683,
+      "sha256": "676d947bb0fd2588e1bac80709ff7083c193f4d136b22922cd5f4e6fb71e492b",
+      "width": 4096,
+      "height": 4096,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "ambientCG",
+      "asset": "Carpet016",
+      "assetPage": "https://ambientcg.com/a/Carpet016",
+      "sourceUrl": "https://ambientcg.com/get?file=Carpet016_4K-JPG.zip",
+      "archiveMember": "Carpet016_4K-JPG_Roughness.jpg",
+      "archiveMemberSha256": "5c92173e56a68661017d8ab7e015416bb97efb358f83d855a9a2ffc2bb8c462b",
+      "authors": [
+        "ambientCG"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://docs.ambientcg.com/license/ (site-wide: every asset is CC0 1.0 Universal)",
+      "licenceStatement": "All assets are released under the Creative Commons CC0 license, making them free to use without attribution - even in commercial circumstances.",
+      "downloaded": "2026-11-15T00:17:37Z",
+      "originalBytes": 111252536,
+      "originalSha256": "a1c26db39c84a3c72ff3c5b7230ac2264c2a33f3c995d3ab821be98a69aa7a4c",
+      "processing": "Resampled to fit 4096 px and re-encoded as JPEG: sips -Z 4096 -s format jpeg -s formatOptions 40. The original is one image member of the downloaded archive; nothing else from the archive is used.",
+      "tileMetres": 1.7,
+      "notes": "Roughness, single channel (grey JPEG)."
+    },
+    {
+      "file": "high/arena-seat-color.jpg",
+      "id": "arena.seat.color",
+      "variant": "high",
+      "bytes": 838791,
+      "sha256": "63568150ad261af0026578f62b14bcba16e016cc6d138bbb3716ff46045f8dbd",
+      "width": 2048,
+      "height": 1970,
+      "format": "jpeg",
+      "colorSpace": "srgb",
+      "provider": "Poly Haven",
+      "asset": "velour_velvet",
+      "assetPage": "https://polyhaven.com/a/velour_velvet",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/velour_velvet/velour_velvet_diff_4k.jpg",
+      "authors": [
+        "colormass",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0)",
+      "licenceStatement": "CC0 1.0 Universal - public domain dedication, no attribution required",
+      "downloaded": "2026-11-15T00:34:27Z",
+      "originalBytes": 13005232,
+      "originalSha256": "c186d0c369aef2204be81f5eb8c9ca8b271d7480f65bb53785ed484647dfa7c6",
+      "processing": "Made neutral (each pixel's strongest channel, computed on the decoded original by web/tools/club/asset-arena.mjs), resampled to fit 2048 px and re-encoded as JPEG: sips -Z 2048 -s format jpeg -s formatOptions 80.",
+      "tileMetres": [
+        0.284,
+        0.273
+      ],
+      "notes": "Short velour upholstery fabric, made neutral (the scan is red: each pixel keeps its strongest channel, so the map holds the nap's light and dark patches near full scale and the material's colour sets the hue). Low contrast by nature: the look of a velour is in its sheen, not in this map."
+    },
+    {
+      "file": "high/arena-seat-normal.jpg",
+      "id": "arena.seat.normal",
+      "variant": "high",
+      "bytes": 894285,
+      "sha256": "c1730974cf6e4cbcd1ea47388e17a21e85c482e99d9179caee544725026e703e",
+      "width": 2048,
+      "height": 1970,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "velour_velvet",
+      "assetPage": "https://polyhaven.com/a/velour_velvet",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/velour_velvet/velour_velvet_nor_gl_4k.jpg",
+      "authors": [
+        "colormass",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0)",
+      "licenceStatement": "CC0 1.0 Universal - public domain dedication, no attribution required",
+      "downloaded": "2026-11-15T00:34:30Z",
+      "originalBytes": 9222989,
+      "originalSha256": "2817fba6736d2dca3efbcf9b988421bf96ab206dfc833c2b77a8bd99368364fa",
+      "processing": "Resampled to fit 2048 px and re-encoded as JPEG: sips -Z 2048 -s format jpeg -s formatOptions 80.",
+      "tileMetres": [
+        0.284,
+        0.273
+      ],
+      "notes": "OpenGL convention (+Y up). Low relief (a napped surface)."
+    },
+    {
+      "file": "high/arena-seat-rough.jpg",
+      "id": "arena.seat.rough",
+      "variant": "high",
+      "bytes": 690840,
+      "sha256": "e947cb72e7b18626ea9c1a670083d935a7ebee7feceb945f60cf6f15f52a7ed8",
+      "width": 2048,
+      "height": 1970,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "velour_velvet",
+      "assetPage": "https://polyhaven.com/a/velour_velvet",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/velour_velvet/velour_velvet_rough_4k.jpg",
+      "authors": [
+        "colormass",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0)",
+      "licenceStatement": "CC0 1.0 Universal - public domain dedication, no attribution required",
+      "downloaded": "2026-11-15T00:34:32Z",
+      "originalBytes": 15136265,
+      "originalSha256": "3ae05783ad283854b588c01ec715805591881a74b45fed4b5a8913d21ed85bdd",
+      "processing": "Resampled to fit 2048 px and re-encoded as JPEG: sips -Z 2048 -s format jpeg -s formatOptions 35.",
+      "tileMetres": [
+        0.284,
+        0.273
+      ],
+      "notes": "Roughness, single channel (grey JPEG)."
+    },
+    {
+      "file": "high/arena-drape-normal.jpg",
+      "id": "arena.drape.normal",
+      "variant": "high",
+      "bytes": 678246,
+      "sha256": "4561a89f732880f6fa27efb17a088bb7eead3e1d6772c1c32125238e7b17c30e",
+      "width": 2048,
+      "height": 2043,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "caban",
+      "assetPage": "https://polyhaven.com/a/caban",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/caban/caban_nor_gl_4k.jpg",
+      "authors": [
+        "colormass",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0)",
+      "licenceStatement": "CC0 1.0 Universal - public domain dedication, no attribution required",
+      "downloaded": "2026-11-15T00:35:17Z",
+      "originalBytes": 8440015,
+      "originalSha256": "74ac71b9557d29c60feb110693c3f5411d6d58ed12fc02c000de601478d3cf3c",
+      "processing": "Resampled to fit 2048 px and re-encoded as JPEG: sips -Z 2048 -s format jpeg -s formatOptions 75.",
+      "tileMetres": [
+        0.274,
+        0.273
+      ],
+      "notes": "Heavy napped wool cloth; OpenGL convention (+Y up)."
+    },
+    {
+      "file": "high/arena-drape-rough.jpg",
+      "id": "arena.drape.rough",
+      "variant": "high",
+      "bytes": 861410,
+      "sha256": "04ac5b8b44b05ade09bef8a4a02fe6ca3cb8dada295f4f5da49030bab1a291b3",
+      "width": 2048,
+      "height": 2043,
+      "format": "jpeg",
+      "colorSpace": "linear",
+      "provider": "Poly Haven",
+      "asset": "caban",
+      "assetPage": "https://polyhaven.com/a/caban",
+      "sourceUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/caban/caban_rough_4k.jpg",
+      "authors": [
+        "colormass",
+        "Rico Cilliers"
+      ],
+      "licence": "CC0-1.0",
+      "licenceEvidence": "https://polyhaven.com/license (site-wide: every asset is CC0)",
+      "licenceStatement": "CC0 1.0 Universal - public domain dedication, no attribution required",
+      "downloaded": "2026-11-15T00:35:20Z",
+      "originalBytes": 16811133,
+      "originalSha256": "fb0666f72a7af51994c40a24c45c23e5e07538d91af9ed5d3c6bb2cffd86f9a0",
+      "processing": "Resampled to fit 2048 px and re-encoded as JPEG: sips -Z 2048 -s format jpeg -s formatOptions 35.",
+      "tileMetres": [
+        0.274,
+        0.273
+      ],
+      "notes": "Roughness, single channel (grey JPEG)."
+    }
+  ]
+}

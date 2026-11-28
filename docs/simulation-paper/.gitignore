@@ -1,0 +1,23 @@
+# LaTeX build artifacts (make clean). The deliverables main.pdf and
+# supplement.pdf are committed, so they are not listed here.
+main.aux
+main.bbl
+main.blg
+main.log
+main.out
+main.spl
+main.toc
+main.fls
+main.fdb_latexmk
+main.xdv
+sections/*.aux
+supplement-main.pdf
+supplement-main.aux
+supplement-main.bbl
+supplement-main.blg
+supplement-main.log
+supplement-main.out
+supplement-main.spl
+supplement-main.fls
+supplement-main.fdb_latexmk
+supplement-main.xdv

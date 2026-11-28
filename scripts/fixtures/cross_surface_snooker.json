@@ -1,0 +1,21 @@
+{
+  "name": "cross_surface_snooker",
+  "description": "SC-001 gate scenario with a NON-DEFAULT ball radius (52.5 mm snooker-size, r = 0.02625): the '\"table\": \"wpa_9ft\"' preset must expand with the FIRST ball's radius on EVERY surface (cushion nose height = 0.635 * 2r), so this scenario diverges byte-wise the moment any surface falls back to the default-radius table.",
+  "provenance": "review finding on crates/pool-cli/src/scenario.rs expand_table_preset vs pool-wasm table_geometry_json / pool_py Table.wpa_9ft default radii; ball mass 0.142 kg (snooker spec), other params kernel defaults scaled to r",
+  "system": {
+    "balls": [
+      {
+        "id": 0,
+        "params": {"m": 0.142, "r": 0.02625, "u_s": 0.2, "u_r": 0.01, "u_sp": 0.011666666666666667, "e_b": 0.95, "e_c": 0.85, "f_c": 0.2, "e_t": 0.5},
+        "state": {"pos": {"x": 0.0, "y": -0.6, "z": 0.02625}, "vel": {"x": 0.0, "y": 0.0, "z": 0.0}, "avel": {"x": 0.0, "y": 0.0, "z": 0.0}, "motion": "Stationary"}
+      },
+      {
+        "id": 1,
+        "params": {"m": 0.142, "r": 0.02625, "u_s": 0.2, "u_r": 0.01, "u_sp": 0.011666666666666667, "e_b": 0.95, "e_c": 0.85, "f_c": 0.2, "e_t": 0.5},
+        "state": {"pos": {"x": 0.1, "y": 0.3, "z": 0.02625}, "vel": {"x": 0.0, "y": 0.0, "z": 0.0}, "avel": {"x": 0.0, "y": 0.0, "z": 0.0}, "motion": "Stationary"}
+      }
+    ],
+    "table": "wpa_9ft"
+  },
+  "shot": {"v0": 3.0, "phi": 1.6, "theta": 0.0, "a": 0.0, "b": 0.2, "seed": 5}
+}

@@ -1,0 +1,632 @@
+{
+ "_comment": [
+  "CRAFT-UPLIFT look-loop pose set. Frozen: these are the EXACT poses the",
+  "purchased-model comparison study (Drive 3dmodels-study-2026-08) used for",
+  "its ours/<table>/*.png bank, so every capture here is pixel-comparable",
+  "against that bank and against the reference sheets in side-by-side/.",
+  "Poses are in the KERNEL frame [kx, ky, h] metres, as __test.cameraPose",
+  "consumes them (three.x = k.y, three.y = h, three.z = k.x). fov is",
+  "VERTICAL degrees.",
+  "Corner anchors are derived, not eyeballed: look = (halfWidth +",
+  "cushionWidth, halfLength + cushionWidth) — the outer corner of the",
+  "cushion nose chain. Side anchors are the same kx + 4 mm.",
+  "predator_apex_9ft reuses the diamond_proam_9ft numbers: both carry a",
+  "2.540 x 1.270 m playfield and the same 50.8 mm cushion width, so the",
+  "anchor arithmetic lands on the same point. Verified against a live",
+  "capture, not assumed (see SPIKE-REPORT-CRAFT.md Phase 0)."
+ ],
+ "_identity_comment": [
+  "MEASURED, not assumed (phase-0 census, /tmp/craft/census.mjs, five live",
+  "boots). Three things that look like identity signals are NOT:",
+  "  - __test.bed() reports the GAME template, not the rendered table: it",
+  "    returns 2.540 x 1.270 on all five boots including chinese8 (whose",
+  "    kernel playfield is 2.540 x 1.260) and snooker (3.569 x 1.778).",
+  "  - window.__cn8ringtex === 'photo' is true on EVERY table (a module",
+  "    global, so the shared chinese8 settle predicate's use of it is a",
+  "    texture-readiness signal, not a table signal).",
+  "  - window.__snkOccl exists on EVERY table, same reason.",
+  "bakeClass+fixture separates three of four, but diamond_proam_9ft and the",
+  "silent fallback wpa_generic_9ft are BOTH pool/canopy_panel. So identity",
+  "closes on the mesh-name family, which the fallback has none of:",
+  "  chinese8 cn8*=259  snooker obSnk*=large  diamond dm*=130",
+  "  predator obPdt*=large  wpa_generic_9ft = 0 of any of them."
+ ],
+ "identity": {
+  "chinese8_pro_9ft": {
+   "fixture": "joy_lowrect",
+   "bakeClass": "chinese8_9ft",
+   "meshPrefix": "cn8",
+   "minMeshes": 200
+  },
+  "joy_q8_9ft": {
+   "fixture": "joy_lowrect",
+   "bakeClass": "chinese8_9ft",
+   "meshPrefix": "cn8",
+   "minMeshes": 200
+  },
+  "wpbsa_snooker_12ft": {
+   "fixture": "snooker_luminaire",
+   "bakeClass": "snooker_12ft",
+   "meshPrefix": "obSnk",
+   "minMeshes": 100
+  },
+  "diamond_proam_9ft": {
+   "fixture": "canopy_panel",
+   "bakeClass": "pool",
+   "meshPrefix": "dm",
+   "minMeshes": 100
+  },
+  "predator_apex_9ft": {
+   "fixture": "pdt_studio",
+   "bakeClass": "pool",
+   "meshPrefix": "obPdt",
+   "minMeshes": 50
+  }
+ },
+ "poses": {
+  "chinese8_pro_9ft": [
+   {
+    "name": "corner_close_diag",
+    "cam": [
+     0.478,
+     1.118,
+     0.16
+    ],
+    "look": [
+     0.678,
+     1.318,
+     0.01
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_close_rail",
+    "cam": [
+     0.648,
+     0.958,
+     0.11
+    ],
+    "look": [
+     0.678,
+     1.318,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_tt_diag",
+    "cam": [
+     0.288,
+     0.928,
+     0.38
+    ],
+    "look": [
+     0.678,
+     1.318,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_tt_side",
+    "cam": [
+     0.778,
+     0.778,
+     0.38
+    ],
+    "look": [
+     0.678,
+     1.318,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_edgeon",
+    "cam": [
+     0.428,
+     1.068,
+     0.025
+    ],
+    "look": [
+     0.678,
+     1.318,
+     0.03
+    ],
+    "fov": 26
+   },
+   {
+    "name": "mid_close_diag",
+    "cam": [
+     0.422,
+     -0.15,
+     0.16
+    ],
+    "look": [
+     0.682,
+     0.0,
+     0.01
+    ],
+    "fov": 30
+   },
+   {
+    "name": "mid_tt_inside",
+    "cam": [
+     0.192,
+     -0.25,
+     0.38
+    ],
+    "look": [
+     0.682,
+     0.0,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "mid_edgeon",
+    "cam": [
+     0.342,
+     -0.02,
+     0.03
+    ],
+    "look": [
+     0.682,
+     0.0,
+     0.03
+    ],
+    "fov": 26
+   },
+   {
+    "name": "overview",
+    "cam": [
+     0.0,
+     -2.6,
+     1.75
+    ],
+    "look": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fov": 42
+   }
+  ],
+  "wpbsa_snooker_12ft": [
+   {
+    "name": "corner_close_diag",
+    "cam": [
+     0.7366,
+     1.6321,
+     0.16
+    ],
+    "look": [
+     0.9366,
+     1.8321,
+     0.01
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_close_rail",
+    "cam": [
+     0.9066,
+     1.4721,
+     0.11
+    ],
+    "look": [
+     0.9366,
+     1.8321,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_tt_diag",
+    "cam": [
+     0.5466,
+     1.4421,
+     0.38
+    ],
+    "look": [
+     0.9366,
+     1.8321,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_tt_side",
+    "cam": [
+     1.0366,
+     1.2921,
+     0.38
+    ],
+    "look": [
+     0.9366,
+     1.8321,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_edgeon",
+    "cam": [
+     0.6866,
+     1.5821,
+     0.025
+    ],
+    "look": [
+     0.9366,
+     1.8321,
+     0.03
+    ],
+    "fov": 26
+   },
+   {
+    "name": "mid_close_diag",
+    "cam": [
+     0.6806,
+     -0.15,
+     0.16
+    ],
+    "look": [
+     0.9406,
+     0.0,
+     0.01
+    ],
+    "fov": 30
+   },
+   {
+    "name": "mid_tt_inside",
+    "cam": [
+     0.4506,
+     -0.25,
+     0.38
+    ],
+    "look": [
+     0.9406,
+     0.0,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "mid_edgeon",
+    "cam": [
+     0.6006,
+     -0.02,
+     0.03
+    ],
+    "look": [
+     0.9406,
+     0.0,
+     0.03
+    ],
+    "fov": 26
+   },
+   {
+    "name": "overview",
+    "cam": [
+     0.0,
+     -2.6,
+     1.75
+    ],
+    "look": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fov": 42
+   }
+  ],
+  "diamond_proam_9ft": [
+   {
+    "name": "corner_close_diag",
+    "cam": [
+     0.4858,
+     1.1208,
+     0.16
+    ],
+    "look": [
+     0.6858,
+     1.3208,
+     0.01
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_close_rail",
+    "cam": [
+     0.6558,
+     0.9608,
+     0.11
+    ],
+    "look": [
+     0.6858,
+     1.3208,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_tt_diag",
+    "cam": [
+     0.2958,
+     0.9308,
+     0.38
+    ],
+    "look": [
+     0.6858,
+     1.3208,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_tt_side",
+    "cam": [
+     0.7858,
+     0.7808,
+     0.38
+    ],
+    "look": [
+     0.6858,
+     1.3208,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_edgeon",
+    "cam": [
+     0.4358,
+     1.0708,
+     0.025
+    ],
+    "look": [
+     0.6858,
+     1.3208,
+     0.03
+    ],
+    "fov": 26
+   },
+   {
+    "name": "mid_close_diag",
+    "cam": [
+     0.4306,
+     -0.15,
+     0.16
+    ],
+    "look": [
+     0.6906,
+     0.0,
+     0.01
+    ],
+    "fov": 30
+   },
+   {
+    "name": "mid_tt_inside",
+    "cam": [
+     0.2006,
+     -0.25,
+     0.38
+    ],
+    "look": [
+     0.6906,
+     0.0,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "mid_edgeon",
+    "cam": [
+     0.3506,
+     -0.02,
+     0.03
+    ],
+    "look": [
+     0.6906,
+     0.0,
+     0.03
+    ],
+    "fov": 26
+   },
+   {
+    "name": "overview",
+    "cam": [
+     0.0,
+     -2.6,
+     1.75
+    ],
+    "look": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fov": 42
+   }
+  ],
+  "predator_apex_9ft": [
+   {
+    "name": "corner_close_diag",
+    "cam": [
+     0.4858,
+     1.1208,
+     0.16
+    ],
+    "look": [
+     0.6858,
+     1.3208,
+     0.01
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_close_rail",
+    "cam": [
+     0.6558,
+     0.9608,
+     0.11
+    ],
+    "look": [
+     0.6858,
+     1.3208,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_tt_diag",
+    "cam": [
+     0.2958,
+     0.9308,
+     0.38
+    ],
+    "look": [
+     0.6858,
+     1.3208,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_tt_side",
+    "cam": [
+     0.7858,
+     0.7808,
+     0.38
+    ],
+    "look": [
+     0.6858,
+     1.3208,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "corner_edgeon",
+    "cam": [
+     0.4358,
+     1.0708,
+     0.025
+    ],
+    "look": [
+     0.6858,
+     1.3208,
+     0.03
+    ],
+    "fov": 26
+   },
+   {
+    "name": "mid_close_diag",
+    "cam": [
+     0.4306,
+     -0.15,
+     0.16
+    ],
+    "look": [
+     0.6906,
+     0.0,
+     0.01
+    ],
+    "fov": 30
+   },
+   {
+    "name": "mid_tt_inside",
+    "cam": [
+     0.2006,
+     -0.25,
+     0.38
+    ],
+    "look": [
+     0.6906,
+     0.0,
+     0.0
+    ],
+    "fov": 30
+   },
+   {
+    "name": "mid_edgeon",
+    "cam": [
+     0.3506,
+     -0.02,
+     0.03
+    ],
+    "look": [
+     0.6906,
+     0.0,
+     0.03
+    ],
+    "fov": 26
+   },
+   {
+    "name": "overview",
+    "cam": [
+     0.0,
+     -2.6,
+     1.75
+    ],
+    "look": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "fov": 42
+   }
+  ]
+ },
+ "_extra_comment": [
+  "R3-SNK-11 (ORDER-CRAFT-R3-SNK11.md A): three STUDY-ONLY poses the clay-study tools render in addition to the nine frozen",
+  "look-loop poses — side elevation, end elevation (both long-lens, rail-height, for card 18b's body panels) and the owner's",
+  "2026-09-03 middle-pocket screenshot pose (inside the table, low, looking outward at the middle pocket). The craft-look pack",
+  "(tools/render/craft-look.mjs) reads `poses` only; these live under `poses_extra` so no pack, gate or battery frame changes."
+ ],
+ "poses_extra": {
+  "wpbsa_snooker_12ft": [
+   {
+    "name": "side_elev",
+    "cam": [
+     7.0,
+     0.0,
+     0.42
+    ],
+    "look": [
+     0.0,
+     0.0,
+     0.3
+    ],
+    "fov": 20
+   },
+   {
+    "name": "end_elev",
+    "cam": [
+     0.0,
+     7.5,
+     0.42
+    ],
+    "look": [
+     0.0,
+     0.0,
+     0.3
+    ],
+    "fov": 20
+   },
+   {
+    "name": "owner_mid_inside",
+    "cam": [
+     0.66,
+     0.0,
+     0.11
+    ],
+    "look": [
+     0.9406,
+     0.0,
+     0.0
+    ],
+    "fov": 45
+   }
+  ]
+ }
+}

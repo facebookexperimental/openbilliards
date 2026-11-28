@@ -1,0 +1,668 @@
+{
+ "pairs": [
+  {
+   "pair": "P-fast-angled",
+   "description": "bank ~28deg from normal, fast",
+   "reverse": {
+    "clip": "HSV6-6",
+    "spin": "reverse",
+    "speed": "fast",
+    "vn_in_mps_nominal": 5.08,
+    "theta_in_deg": [
+     28.54,
+     0.29
+    ],
+    "theta_out_deg": [
+     21.33,
+     0.1
+    ],
+    "speed_ratio": [
+     0.6317,
+     0.006
+    ],
+    "e_n": [
+     0.6698,
+     0.0065
+    ],
+    "tangential_ratio": [
+     0.4808,
+     0.0043
+    ],
+    "v_in_mps": 5.78,
+    "time_base": "frame_index_dup1_1000fps_inferred",
+    "qc": [
+     "perspective_skew_uncorrected"
+    ],
+    "mu_eff": [
+     0.1691,
+     0.0028
+    ]
+   },
+   "running": {
+    "clip": "HSV6-7",
+    "spin": "running",
+    "speed": "fast",
+    "vn_in_mps_nominal": 4.34,
+    "theta_in_deg": [
+     27.17,
+     0.5
+    ],
+    "theta_out_deg": [
+     39.08,
+     0.25
+    ],
+    "speed_ratio": [
+     0.7545,
+     0.0113
+    ],
+    "e_n": [
+     0.6583,
+     0.0093
+    ],
+    "tangential_ratio": [
+     1.0415,
+     0.0195
+    ],
+    "v_in_mps": 4.88,
+    "time_base": "frame_index_dup1_1000fps_inferred",
+    "qc": [
+     "perspective_skew_uncorrected"
+    ],
+    "mu_eff": [
+     0.0129,
+     0.0058
+    ]
+   },
+   "rev_over_run_speed_ratio": [
+    0.8372,
+    0.0148
+   ],
+   "rev_over_run_e_n": [
+    1.0175,
+    0.0174
+   ],
+   "rebound_angle_shift_deg": [
+    -17.75,
+    0.27
+   ]
+  },
+  {
+   "pair": "P-slow-angled",
+   "description": "bank ~24deg from normal, slow",
+   "reverse": {
+    "clip": "HSV6-8",
+    "spin": "reverse",
+    "speed": "slow",
+    "vn_in_mps_nominal": 2.26,
+    "theta_in_deg": [
+     23.93,
+     0.21
+    ],
+    "theta_out_deg": [
+     12.32,
+     0.19
+    ],
+    "speed_ratio": [
+     0.803,
+     0.0056
+    ],
+    "e_n": [
+     0.8582,
+     0.0047
+    ],
+    "tangential_ratio": [
+     0.4224,
+     0.0075
+    ],
+    "v_in_mps": 2.48,
+    "time_base": "frame_index_dup1_1000fps_inferred",
+    "qc": [
+     "perspective_skew_uncorrected"
+    ],
+    "mu_eff": [
+     0.1379,
+     0.0026
+    ]
+   },
+   "running": {
+    "clip": "HSV6-9",
+    "spin": "running",
+    "speed": "slow",
+    "vn_in_mps_nominal": 5.67,
+    "theta_in_deg": [
+     23.88,
+     1.14
+    ],
+    "theta_out_deg": [
+     47.09,
+     1.24
+    ],
+    "speed_ratio": [
+     0.8471,
+     0.0428
+    ],
+    "e_n": [
+     0.6307,
+     0.0337
+    ],
+    "tangential_ratio": [
+     1.5327,
+     0.0668
+    ],
+    "v_in_mps": 6.2,
+    "time_base": "frame_index_dup2_1000fps_inferred",
+    "qc": [
+     "duplicated_frames_factor_2",
+     "perspective_skew_uncorrected"
+    ],
+    "mu_eff": [
+     0.1446,
+     0.0152
+    ]
+   },
+   "rev_over_run_speed_ratio": [
+    0.9479,
+    0.0483
+   ],
+   "rev_over_run_e_n": [
+    1.3607,
+    0.0731
+   ],
+   "rebound_angle_shift_deg": [
+    -34.77,
+    1.25
+   ]
+  },
+  {
+   "pair": "P-med-angled",
+   "description": "kick ~28deg from normal, medium",
+   "reverse": {
+    "clip": "HSV6-11",
+    "spin": "reverse",
+    "speed": "medium",
+    "vn_in_mps_nominal": 5.3,
+    "theta_in_deg": [
+     28.06,
+     0.11
+    ],
+    "theta_out_deg": [
+     14.22,
+     0.22
+    ],
+    "speed_ratio": [
+     0.6237,
+     0.0044
+    ],
+    "e_n": [
+     0.6851,
+     0.0041
+    ],
+    "tangential_ratio": [
+     0.3256,
+     0.0051
+    ],
+    "v_in_mps": 6.01,
+    "time_base": "frame_index_dup1_1000fps_inferred",
+    "qc": [
+     "perspective_skew_uncorrected"
+    ],
+    "mu_eff": [
+     0.2134,
+     0.0021
+    ]
+   },
+   "running": {
+    "clip": "HSV6-12",
+    "spin": "running",
+    "speed": "medium",
+    "vn_in_mps_nominal": 6.9,
+    "theta_in_deg": [
+     27.74,
+     6.52
+    ],
+    "theta_out_deg": [
+     33.03,
+     0.92
+    ],
+    "speed_ratio": [
+     0.7617,
+     0.1518
+    ],
+    "e_n": [
+     0.7215,
+     0.145
+    ],
+    "tangential_ratio": [
+     0.8922,
+     0.1718
+    ],
+    "v_in_mps": 7.8,
+    "time_base": "frame_index_dup2_1000fps_inferred",
+    "qc": [
+     "short_pre_contact_capture",
+     "duplicated_frames_factor_2",
+     "perspective_skew_uncorrected"
+    ],
+    "mu_eff": [
+     0.0329,
+     0.0588
+    ]
+   },
+   "rev_over_run_speed_ratio": [
+    0.8188,
+    0.1633
+   ],
+   "rev_over_run_e_n": [
+    0.9495,
+    0.1909
+   ],
+   "rebound_angle_shift_deg": [
+    -18.81,
+    0.95
+   ]
+  },
+  {
+   "pair": "P-small-angle",
+   "description": "small-angle kick, medium (theta_in mismatch 19.5 vs 11.9 deg)",
+   "reverse": {
+    "clip": "HSVA-27",
+    "spin": "reverse",
+    "speed": "medium",
+    "vn_in_mps_nominal": 4.69,
+    "theta_in_deg": [
+     19.46,
+     2.05
+    ],
+    "theta_out_deg": [
+     10.12,
+     2.01
+    ],
+    "speed_ratio": [
+     0.7146,
+     0.0102
+    ],
+    "e_n": [
+     0.7461,
+     0.0094
+    ],
+    "tangential_ratio": [
+     -0.3769,
+     0.011
+    ],
+    "v_in_mps": 4.98,
+    "time_base": "osd_counter_1000fps_stamped",
+    "qc": [
+     "no_cushion_edge_fit_axis_aligned",
+     "perspective_skew_uncorrected"
+    ],
+    "mu_eff": [
+     0.2786,
+     0.0051
+    ]
+   },
+   "running": {
+    "clip": "HSVA-28",
+    "spin": "running",
+    "speed": "medium",
+    "vn_in_mps_nominal": 4.79,
+    "theta_in_deg": [
+     11.85,
+     2.18
+    ],
+    "theta_out_deg": [
+     29.86,
+     2.01
+    ],
+    "speed_ratio": [
+     0.934,
+     0.0308
+    ],
+    "e_n": [
+     0.8277,
+     0.025
+    ],
+    "tangential_ratio": [
+     2.2648,
+     0.1581
+    ],
+    "v_in_mps": 4.9,
+    "time_base": "osd_counter_1000fps_stamped",
+    "qc": [
+     "no_cushion_edge_fit_axis_aligned",
+     "near_perpendicular_tangential_ratio_ill_conditioned",
+     "perspective_skew_uncorrected"
+    ],
+    "mu_eff": [
+     0.1452,
+     0.0086
+    ]
+   },
+   "rev_over_run_speed_ratio": [
+    0.7651,
+    0.0275
+   ],
+   "rev_over_run_e_n": [
+    0.9014,
+    0.0295
+   ],
+   "rebound_angle_shift_deg": [
+    -19.74,
+    2.84
+   ]
+  },
+  {
+   "pair": "P-largeangle-slow",
+   "description": "large-angle kick, slow -- ALONG-RAIL VIEW, tangential channel only",
+   "reverse": {
+    "clip": "HSVA-70",
+    "spin": "reverse",
+    "speed": "slow",
+    "vn_in_mps_nominal": 0.19,
+    "theta_in_deg": [
+     71.66,
+     2.08
+    ],
+    "theta_out_deg": [
+     85.19,
+     2.01
+    ],
+    "speed_ratio": [
+     0.9745,
+     0.0209
+    ],
+    "e_n": [
+     0.2595,
+     0.0132
+    ],
+    "tangential_ratio": [
+     1.023,
+     0.0203
+    ],
+    "v_in_mps": 0.59,
+    "time_base": "osd_counter_1000fps_stamped",
+    "qc": [
+     "no_cushion_edge_fit_axis_aligned",
+     "near_perpendicular_tangential_ratio_ill_conditioned",
+     "low_normal_speed_dwell_unreliable",
+     "camera_along_rail_normal_channel_is_depth_proxy_only",
+     "angles_and_e_n_not_physical_use_tangential_ratio_only",
+     "stripe_rotation_centroid_bias",
+     "perspective_skew_uncorrected"
+    ],
+    "mu_eff": [
+     0.0551,
+     0.0478
+    ],
+    "blob_radius_in_px": [
+     23.91,
+     0.03
+    ],
+    "blob_radius_out_px": [
+     22.67,
+     0.05
+    ],
+    "tangential_ratio_radius_corrected": [
+     1.0791,
+     0.0216
+    ],
+    "depth_drift_note": "blob radius drift in->out 5.5% (transverse-scale systematic)"
+   },
+   "running": {
+    "clip": "HSVA-68",
+    "spin": "running",
+    "speed": "slow",
+    "vn_in_mps_nominal": 0.03,
+    "theta_in_deg": [
+     88.08,
+     2.04
+    ],
+    "theta_out_deg": [
+     85.82,
+     2.02
+    ],
+    "speed_ratio": [
+     1.0377,
+     0.0198
+    ],
+    "e_n": [
+     2.2554,
+     0.4881
+    ],
+    "tangential_ratio": [
+     1.0356,
+     0.0179
+    ],
+    "v_in_mps": 0.76,
+    "time_base": "osd_counter_1000fps_stamped",
+    "qc": [
+     "no_cushion_edge_fit_axis_aligned",
+     "near_perpendicular_tangential_ratio_ill_conditioned",
+     "low_normal_speed_dwell_unreliable",
+     "camera_along_rail_normal_channel_is_depth_proxy_only",
+     "angles_and_e_n_not_physical_use_tangential_ratio_only",
+     "stripe_rotation_centroid_bias",
+     "perspective_skew_uncorrected"
+    ],
+    "mu_eff": [
+     0.3249,
+     0.1624
+    ],
+    "blob_radius_in_px": [
+     23.51,
+     0.08
+    ],
+    "blob_radius_out_px": [
+     23.97,
+     0.05
+    ],
+    "tangential_ratio_radius_corrected": [
+     1.0154,
+     0.018
+    ],
+    "depth_drift_note": "blob radius drift in->out -2.0% (transverse-scale systematic)"
+   },
+   "rev_over_run_tangential_ratio": [
+    0.9878,
+    0.026
+   ],
+   "rev_over_run_tangential_ratio_radius_corrected": [
+    1.0627,
+    0.0284
+   ]
+  },
+  {
+   "pair": "P-largeangle-fast",
+   "description": "large-angle kick, fast -- ALONG-RAIL VIEW, FAILED VALIDATION (mutually inconsistent depth drift; excluded from verdict)",
+   "reverse": {
+    "clip": "HSVA-71",
+    "spin": "reverse",
+    "speed": "fast",
+    "vn_in_mps_nominal": 0.79,
+    "theta_in_deg": [
+     79.14,
+     2.05
+    ],
+    "theta_out_deg": [
+     84.99,
+     2.02
+    ],
+    "speed_ratio": [
+     1.1237,
+     0.025
+    ],
+    "e_n": [
+     0.5203,
+     0.0339
+    ],
+    "tangential_ratio": [
+     1.1399,
+     0.0233
+    ],
+    "v_in_mps": 4.18,
+    "time_base": "osd_counter_1000fps_stamped",
+    "qc": [
+     "no_cushion_edge_fit_axis_aligned",
+     "low_normal_speed_dwell_unreliable",
+     "camera_along_rail_normal_channel_is_depth_proxy_only",
+     "angles_and_e_n_not_physical_use_tangential_ratio_only",
+     "stripe_rotation_centroid_bias",
+     "perspective_skew_uncorrected"
+    ],
+    "mu_eff": [
+     0.4794,
+     0.0777
+    ],
+    "blob_radius_in_px": [
+     23.67,
+     0.08
+    ],
+    "blob_radius_out_px": [
+     24.49,
+     0.07
+    ],
+    "tangential_ratio_radius_corrected": [
+     1.1015,
+     0.0231
+    ],
+    "depth_drift_note": "blob radius drift in->out -3.4% (transverse-scale systematic)"
+   },
+   "running": {
+    "clip": "HSVA-69",
+    "spin": "running",
+    "speed": "fast",
+    "vn_in_mps_nominal": 0.29,
+    "theta_in_deg": [
+     85.12,
+     2.21
+    ],
+    "theta_out_deg": [
+     83.82,
+     2.05
+    ],
+    "speed_ratio": [
+     0.8105,
+     0.0221
+    ],
+    "e_n": [
+     1.0253,
+     0.2116
+    ],
+    "tangential_ratio": [
+     0.8087,
+     0.0165
+    ],
+    "v_in_mps": 3.39,
+    "time_base": "osd_counter_1000fps_stamped",
+    "qc": [
+     "no_cushion_edge_fit_axis_aligned",
+     "low_normal_speed_dwell_unreliable",
+     "camera_along_rail_normal_channel_is_depth_proxy_only",
+     "angles_and_e_n_not_physical_use_tangential_ratio_only",
+     "stripe_rotation_centroid_bias",
+     "perspective_skew_uncorrected"
+    ],
+    "mu_eff": [
+     1.1062,
+     0.1625
+    ],
+    "blob_radius_in_px": [
+     24.15,
+     0.12
+    ],
+    "blob_radius_out_px": [
+     26.27,
+     0.15
+    ],
+    "tangential_ratio_radius_corrected": [
+     0.7434,
+     0.0162
+    ],
+    "depth_drift_note": "blob radius drift in->out -8.1% (transverse-scale systematic)"
+   },
+   "rev_over_run_tangential_ratio": [
+    1.4095,
+    0.0407
+   ],
+   "rev_over_run_tangential_ratio_radius_corrected": [
+    1.4817,
+    0.0448
+   ],
+   "failed_validation": true
+  }
+ ],
+ "straight_in": [
+  {
+   "clip": "HSV6-10",
+   "spin": "sidespin",
+   "speed": "medium",
+   "vn_in_mps_nominal": 3.69,
+   "theta_in_deg": [
+    4.21,
+    0.7
+   ],
+   "theta_out_deg": [
+    20.6,
+    0.7
+   ],
+   "speed_ratio": [
+    0.6665,
+    0.0188
+   ],
+   "e_n": [
+    0.6256,
+    0.0141
+   ],
+   "tangential_ratio": [
+    -3.1905,
+    0.5428
+   ],
+   "v_in_mps": 3.7,
+   "time_base": "frame_index_dup1_1000fps_inferred",
+   "qc": [
+    "near_perpendicular_tangential_ratio_ill_conditioned",
+    "perspective_skew_uncorrected"
+   ],
+   "mu_eff": [
+    0.1899,
+    0.0095
+   ]
+  },
+  {
+   "clip": "HSVA-26",
+   "spin": "sidespin",
+   "speed": "medium",
+   "vn_in_mps_nominal": 3.48,
+   "theta_in_deg": [
+    4.11,
+    2.12
+   ],
+   "theta_out_deg": [
+    23.95,
+    2.04
+   ],
+   "speed_ratio": [
+    0.758,
+    0.0139
+   ],
+   "e_n": [
+    0.6946,
+    0.0084
+   ],
+   "tangential_ratio": [
+    -4.2908,
+    0.7335
+   ],
+   "v_in_mps": 3.49,
+   "time_base": "osd_counter_1000fps_stamped",
+   "qc": [
+    "no_cushion_edge_fit_axis_aligned",
+    "near_perpendicular_tangential_ratio_ill_conditioned",
+    "perspective_skew_uncorrected"
+   ],
+   "mu_eff": [
+    0.2245,
+    0.008
+   ]
+  }
+ ]
+}

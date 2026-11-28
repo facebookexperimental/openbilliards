@@ -1,0 +1,52 @@
+{
+ "basis": "fix-490-chinese8-visual @ 6cd246ff (finale adversarial review pre-cure tree; measurements taken on the 6cd246ff+main merge 2026-08-21 BLOCKER-CURE lane session, before any cure commit)",
+ "provenance": {
+  "structural": "in-browser geometry/field dumps on the pre-cure boot (bed bbox 1.358/0.7396 vs blind inner faces 1.334/0.694; block outer chain rOut-0.0002 vs ring skirt at rOut => 0.2 mm coplanar gap; cn8-fallbag-5 vertex field med 0.652 / p95 3.397 vs cn8-net-5 ring-floor med 0.537; cn8-net-low-5 bbox z 0.7185 through the long-blind plane 0.694; 4 leg stances at [\u00b10.9628, \u00b10.5728]; zero cn8-ring-gold meshes)",
+  "pixel": "24-bearing red sweep basis (fulltable side-band leg clusters 2, no mid cluster; leg identity read H 38.8-39.6 \u2014 the five-lens verdict's own WB-controlled measurement). INTERIOR NOTE: the red tree's bore CENTER already read dark (bore-centred hole/cloth 0.124-0.149 measured at az135/150) \u2014 the chrome-funnel class red-arms STRUCTURALLY (bag light-trap field rows: med 0.652 / p95 3.397 vs the cured <=0.45-ratio/0.58 windows) plus the cammatch joy-macro:hole armed neighborhood (pre-cure stable 0.745-0.749 vs the cured 0.36-0.52 pin); the pixel interior rows are ordering GUARDS on the cured tree."
+ },
+ "measured": {
+  "structural": {
+   "legs": [
+    [
+     -0.9628,
+     -0.5728
+    ],
+    [
+     -0.9628,
+     0.5728
+    ],
+    [
+     0.9628,
+     -0.5728
+    ],
+    [
+     0.9628,
+     0.5728
+    ]
+   ],
+   "ring_gold_count": 0,
+   "bed_max_x": 1.358,
+   "bed_max_z": 0.7396,
+   "blind_inner_x": 1.334,
+   "blind_inner_z": 0.694,
+   "bay_max_x": 1.358,
+   "block_ring_gap": 0.0002,
+   "bag_field": {
+    "med": 0.652,
+    "p95": 3.397,
+    "n": 2702
+   },
+   "ring_floor": {
+    "med": 0.537,
+    "p95": 1.211,
+    "n": 4357
+   },
+   "sock_clear_long": -0.0245,
+   "sock_clear_end": -0.0245
+  },
+  "leg_h_med": 39.2,
+  "leg_s_med": 0.47,
+  "leg_clusters_side": 2,
+  "leg_mid_cluster": false
+ }
+}

@@ -1,0 +1,112 @@
+{
+  "v": 1,
+  "name": "killrecovery-repeat",
+  "notes": [
+    "TEMPORARY (#1315): drop this file and ios.yml's 'L3 kill-recovery repeat' step when #1315",
+    "closes, or on a later ruling.",
+    "Fifteen walks of lifecycle.json's kill-recovery phase. Each phase is a fresh relaunch with",
+    "-OBInjectFailure killOnce (one simulated content-process death after first readiness, then",
+    "the shell's reload), followed by that phase's two interactive-again waits. On main b97e65a8",
+    "(ios run 44757799313) WebKit's content process stopped answering after that reload while",
+    "-OBDeadBootDiag YES was on. ShellSeam.launchArgs now leaves the flag off any launch that",
+    "injects a failure, so every walk here runs without it.",
+    "Not carried over from lifecycle: the settings assert and the language reset (they need its",
+    "first phase) and the 'recovered' checkpoint (an L4 rendezvous). GestureDriver stops at the",
+    "first failing phase."
+  ],
+  "source": "ios/tools/scenarios/lifecycle.json, phase kill-recovery",
+  "viewport": { "width": 844, "height": 390 },
+  "boot": { "query": "obtool&norec&seed=1", "ephemeralStore": true, "statusSeam": true },
+  "phases": [
+    { "name": "kill-recovery-01", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-02", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-03", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-04", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-05", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-06", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-07", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-08", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-09", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-10", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-11", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-12", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-13", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-14", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] },
+    { "name": "kill-recovery-15", "launch": { "query": "obtool&norec&seed=1", "injectFailures": ["killOnce"] },
+      "steps": [
+        { "kind": "sleep", "ms": 1000 },
+        { "kind": "waitEval", "js": "window.__test?.ready === true", "tries": 34 },
+        { "kind": "waitEval", "js": "['AIM','BALL_IN_HAND'].includes(__test.state())", "tries": 140, "diag": "(() => ({ state: __test.state() }))()" }
+      ] }
+  ]
+}

@@ -1,0 +1,78 @@
+% ===========================================================================
+% Supplement S2 (former Appendix B) — Tier-1 reproduction procedure
+% Compiles into supplement.pdf via supplement-main.tex; main-text pointers
+% are prose "Section S2".
+% Cites the bundle manifest + checker; step-by-step tier-1 procedure;
+% what "verified" means mechanically. Sources: the bundle's results map
+% (contents, how to reproduce, caveats), the study design's tier-1
+% definition, the ledger's exclusion sections, the identity checker, and
+% the determinism matrix.
+% ===========================================================================
+\section{Tier-1 reproduction procedure}
+\label{sec:appendix-repro}
+
+\paragraph{Artifact bundle contents.}
+The artifact bundle, which is not part of the public source release and
+has not been published (main-text Section~\ref{sec:availability}),
+contains: the canonical WebAssembly binary (\code{pool_wasm_bg.wasm},
+stamp \code{0.1.0+fb3425ad}, sha256
+\code{5e3b6ee499b32c868689c3f5279bbd02}\allowbreak\code{8161c94bdd306fbe969a2dbe5ef34936});
+a binary Python wheel (abi3, CPython $\geq$ 3.9) and an npm SDK tarball;
+the 24 experiment scripts, the oracle harness, the shared experiment
+library, and a 13-check environment smoke test; the sensitivity pack
+(the sensitivity scripts, the report generator, and the pinned
+sensitivity report) together with the physics-identity
+checker it imports and the checker's normalized-baseline manifest and
+machine waiver ledger; exactly the fixtures the
+scripts read, each with its provenance block; the machine-readable
+expected-hash table, parsed from the baseline manifest and never
+hand-written; the waiver ledger verbatim; the validated-scenario video
+pack --- sixteen annotated
+slow-motion entries (final renders 2026-08-05), each staged strike
+replayed through the then-current shipped canonical binary under a
+gate-before-capture law (the claimed pinned record digest must
+reproduce before any frame is captured; the per-entry kernel stamp is
+recorded in the gate report, and the pack's stamps are later canonical
+stamps than the battery pin above, each entry's digests pinned against
+its own stamp), with a per-entry machine-readable gate report
+(the derived frame-schedule summary --- frame
+counts, worst rate-step ratio, shutter parameters, replay spans ---
+gate verdicts, and, for part
+of the pack, capture-verification records; the playback plans
+themselves are authored in the render tool's scenario catalog), a
+poster frame, and a pack
+ledger carrying per-entry SHA-256 hashes of the delivered bytes
+together with the render and verification history, including the
+cue-model provenance (presentation methods
+in Section~\ref{sec:supp-timeremap}; the videos present verified
+records and carry no claims of the paper) --- and
+a SHA-256 manifest covering every file in the bundle.
+
+\paragraph{Procedure.}
+Tier-1 reproduction is five steps: (1)~verify the SHA-256 manifest;
+(2)~install the wheel; (3)~run the 13-check environment smoke test;
+(4)~run any experiment script; (5)~compare the output sha256 against the
+expected-hash table. Verification \emph{is} hash equality: a tier-1
+reproduction succeeds exactly when the regenerated output bytes hash to
+the pinned value.
+
+\paragraph{Checker semantics.}
+The physics-identity checker (normalization spec v2)
+masks only kernel-version stamps and compares per-record trajectory
+digests as stamp-independent physics evidence; 25/25 outputs pass on the
+baseline manifest of record.
+
+\paragraph{Reproducibility caveats, stated honestly.}
+Wheel bytes are not guaranteed bit-reproducible across machines and
+toolchains --- the determinism obligation attaches to \emph{outputs}, not
+to package bytes. Raw output hashes embed the kernel stamp, so a
+differently-stamped wheel requires the documented normalization until the
+submission-freeze rebuild.
+
+\paragraph{Licensing.}
+The kernel source is public under the MIT license, and the portions
+derived from pooltool remain under the Apache License~2.0 (main-text
+Section~\ref{sec:availability}); the bundle's license terms will be
+stated when it is published. The bundle redistributes no Dr.~Dave
+frames or other third-party captures --- only derived measurement
+tables with provenance.

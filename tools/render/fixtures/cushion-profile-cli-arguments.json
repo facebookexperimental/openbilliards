@@ -1,0 +1,144 @@
+{
+  "what": "RECORDED CLI argument exits and one-line refusals. Each args array was run through node tools/render/check-cushion-profile.mjs during the P3 close-out; evidence: <private evidence>/p3-item2/. The sweep argument is the ORDER-CN8-RING-A1 acceptance invocation. Retired alias-flag refusals were RECORDED in <private evidence>/p3-item4/ during the alias-summary change. Duplicate-option refusals were RECORDED from the real CLI during the review-r1 fix round; evidence: <private evidence>/reviewfix/argument-recording/. RE-RECORDED on the #766 x (#765 x main 3a8f984c) union tree (ring-chain trial, 2026-09-20): the union of both sides' rows re-run through the real CLI; the usage string lists the union of options (incl. --profile-sources and --perturb=drop-profile-argument from main); no exit code moved. RE-RECORDED on the #766 x main 9018b450 landing tree (ring chain single landing, 2026-09-21): the 17 union rows re-run through the real CLI on the merged checker (main added the OX judged construction + D621 fourth argument); exit codes asserted unchanged.",
+  "refusals": [
+    {
+      "args": [
+        "--sweep-mm=0.5",
+        "--expect-baseline"
+      ],
+      "exit": 2,
+      "stderr": "check-cushion-profile: --sweep-mm cannot be combined with --expect-baseline (dense sweep is report-only)\n"
+    },
+    {
+      "args": [
+        "--sweep-mm=0.5",
+        "--perturb=flip-tucked-cap"
+      ],
+      "exit": 2,
+      "stderr": "check-cushion-profile: --sweep-mm cannot be combined with --perturb=flip-tucked-cap (dense sweep is report-only)\n"
+    },
+    {
+      "args": [
+        "--sweep-mm=0.5",
+        "--perturb=midjaw-overrun"
+      ],
+      "exit": 2,
+      "stderr": "check-cushion-profile: --sweep-mm cannot be combined with --perturb=midjaw-overrun (dense sweep is report-only)\n"
+    },
+    {
+      "args": [
+        "--show-aliases"
+      ],
+      "exit": 2,
+      "stderr": "check-cushion-profile: unknown argument --show-aliases; usage: node tools/render/check-cushion-profile.mjs [--expect-baseline[=<file>] | --profile-sources[=<file>] | --perturb=flip-tucked-cap | --perturb=midjaw-overrun | --perturb=pairwise-jaw-weld | --perturb=drop-profile-argument | --perturb=plant-degenerate | --perturb=plant-collinear | --perturb=plant-weldonly | --perturb=inflate-degenerate | --sweep-mm=<step>]\n"
+    },
+    {
+      "args": [
+        "--show-aliases",
+        "--expect-baseline"
+      ],
+      "exit": 2,
+      "stderr": "check-cushion-profile: unknown argument --show-aliases; usage: node tools/render/check-cushion-profile.mjs [--expect-baseline[=<file>] | --profile-sources[=<file>] | --perturb=flip-tucked-cap | --perturb=midjaw-overrun | --perturb=pairwise-jaw-weld | --perturb=drop-profile-argument | --perturb=plant-degenerate | --perturb=plant-collinear | --perturb=plant-weldonly | --perturb=inflate-degenerate | --sweep-mm=<step>]\n"
+    },
+    {
+      "args": [
+        "--sweep-mm=0.5",
+        "--perturb=pairwise-jaw-weld"
+      ],
+      "exit": 2,
+      "stderr": "check-cushion-profile: --sweep-mm cannot be combined with --perturb=pairwise-jaw-weld (dense sweep is report-only)\n"
+    },
+    {
+      "args": [
+        "--perturb=midjaw-overrun",
+        "--perturb=pairwise-jaw-weld"
+      ],
+      "exit": 2,
+      "stderr": "check-cushion-profile: duplicate argument --perturb (--perturb=midjaw-overrun, --perturb=pairwise-jaw-weld); each option may be given once; usage: node tools/render/check-cushion-profile.mjs [--expect-baseline[=<file>] | --profile-sources[=<file>] | --perturb=flip-tucked-cap | --perturb=midjaw-overrun | --perturb=pairwise-jaw-weld | --perturb=drop-profile-argument | --perturb=plant-degenerate | --perturb=plant-collinear | --perturb=plant-weldonly | --perturb=inflate-degenerate | --sweep-mm=<step>]\n"
+    },
+    {
+      "args": [
+        "--expect-baseline",
+        "--expect-baseline"
+      ],
+      "exit": 2,
+      "stderr": "check-cushion-profile: duplicate argument --expect-baseline (--expect-baseline, --expect-baseline); each option may be given once; usage: node tools/render/check-cushion-profile.mjs [--expect-baseline[=<file>] | --profile-sources[=<file>] | --perturb=flip-tucked-cap | --perturb=midjaw-overrun | --perturb=pairwise-jaw-weld | --perturb=drop-profile-argument | --perturb=plant-degenerate | --perturb=plant-collinear | --perturb=plant-weldonly | --perturb=inflate-degenerate | --sweep-mm=<step>]\n"
+    },
+    {
+      "args": [
+        "--sweep-mm=0.5",
+        "--sweep-mm=1"
+      ],
+      "exit": 2,
+      "stderr": "check-cushion-profile: duplicate argument --sweep-mm (--sweep-mm=0.5, --sweep-mm=1); each option may be given once; usage: node tools/render/check-cushion-profile.mjs [--expect-baseline[=<file>] | --profile-sources[=<file>] | --perturb=flip-tucked-cap | --perturb=midjaw-overrun | --perturb=pairwise-jaw-weld | --perturb=drop-profile-argument | --perturb=plant-degenerate | --perturb=plant-collinear | --perturb=plant-weldonly | --perturb=inflate-degenerate | --sweep-mm=<step>]\n"
+    },
+    {
+      "args": [
+        "--perturb=pairwise-jaw-weld",
+        "--perturb=pairwise-jaw-weld"
+      ],
+      "exit": 2,
+      "stderr": "check-cushion-profile: duplicate argument --perturb (--perturb=pairwise-jaw-weld, --perturb=pairwise-jaw-weld); each option may be given once; usage: node tools/render/check-cushion-profile.mjs [--expect-baseline[=<file>] | --profile-sources[=<file>] | --perturb=flip-tucked-cap | --perturb=midjaw-overrun | --perturb=pairwise-jaw-weld | --perturb=drop-profile-argument | --perturb=plant-degenerate | --perturb=plant-collinear | --perturb=plant-weldonly | --perturb=inflate-degenerate | --sweep-mm=<step>]\n"
+    },
+    {
+      "args": [
+        "--expect-baseline="
+      ],
+      "exit": 2,
+      "stderr": "[cushion-profile] REFUSED — --expect-baseline= given without a value; pass a file or the bare flag\n"
+    },
+    {
+      "args": [
+        "--perturb="
+      ],
+      "exit": 2,
+      "stderr": "[cushion-profile] REFUSED — --perturb given without a value (blank or trailing)\n"
+    },
+    {
+      "args": [
+        "--profile-sources="
+      ],
+      "exit": 2,
+      "stderr": "[cushion-profile] REFUSED — --profile-sources= given without a value (the bare flag prints the census; a file pins it)\n"
+    },
+    {
+      "args": [
+        "--perturb=drop-profile-argument"
+      ],
+      "exit": 2,
+      "stderr": "[cushion-profile] REFUSED — --perturb=drop-profile-argument is the census red plant: give --profile-sources <file>\n"
+    },
+    {
+      "args": [
+        "--expect-baseline",
+        "/nonexistent/baseline.json"
+      ],
+      "exit": 2,
+      "stderr": "[cushion-profile] REFUSED — --expect-baseline /nonexistent/baseline.json: file not found\n"
+    },
+    {
+      "args": [
+        "--bogus-flag"
+      ],
+      "exit": 2,
+      "stderr": "check-cushion-profile: unknown argument --bogus-flag; usage: node tools/render/check-cushion-profile.mjs [--expect-baseline[=<file>] | --profile-sources[=<file>] | --perturb=flip-tucked-cap | --perturb=midjaw-overrun | --perturb=pairwise-jaw-weld | --perturb=drop-profile-argument | --perturb=plant-degenerate | --perturb=plant-collinear | --perturb=plant-weldonly | --perturb=inflate-degenerate | --sweep-mm=<step>]\n"
+    },
+    {
+      "args": [
+        "--perturb=pairwise-jaw-weld",
+        "--profile-sources="
+      ],
+      "exit": 2,
+      "stderr": "[cushion-profile] REFUSED — --profile-sources= given without a value (the bare flag prints the census; a file pins it)\n"
+    },
+    {
+      "args": [
+        "--sweep-mm=0.5",
+        "--profile-sources=tools/render/fixtures/cushion-profile-sources-490.json"
+      ],
+      "exit": 2,
+      "stderr": "check-cushion-profile: --sweep-mm cannot be combined with --profile-sources <file> (dense sweep is report-only)\n"
+    }
+  ],
+  "helpExit": 0
+}

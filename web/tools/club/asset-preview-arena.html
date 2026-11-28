@@ -1,0 +1,213 @@
+<!doctype html>
+<!-- Copyright (c) Meta Platforms, Inc. and affiliates. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>club asset preview: arena</title>
+<style>html, body { margin: 0; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<script type="importmap">
+{ "imports": { "three": "../../vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<script type="module">
+import * as THREE from 'three';
+import { createAssets } from '../../scene/club/assets.js';
+import { TIERS } from '../../scene/club/tiers.js';
+
+const q = new URLSearchParams(location.search);
+const view = q.get('view') ?? 'island';
+const tier = ['lite', 'base', 'high'].includes(q.get('tier')) ? q.get('tier') : 'high';
+const num = (k, d) => { const v = Number(q.get(k)); return q.get(k) !== null && Number.isFinite(v) ? v : d; };
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x020203);
+const assets = createAssets({ tier, knobs: TIERS[tier], ctx: { query: q } });
+const preview = { tier, view, errors: [] };
+window.__preview = preview;
+
+// a canvas stand-in per id (shown until the file arrives, and for good when it does not)
+function standIn(id) {
+  const c = document.createElement('canvas'); c.width = c.height = 2;
+  const g = c.getContext('2d'); g.fillStyle = id.endsWith('.normal') ? 'rgb(128,128,255)' : 'rgb(160,160,160)'; g.fillRect(0, 0, 2, 2);
+  return new THREE.CanvasTexture(c);
+}
+const T = (id, srgb, repeat) => assets.texture(id, { srgb, repeat, anisotropy: 8, fallback: standIn(id) });
+const grey = (v) => new THREE.Color().setRGB(v, v, v, THREE.LinearSRGBColorSpace);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.05, 80);
+const plain = q.get('plain') === '1';
+
+function carpetMaterial(w, d) {
+  const tile = num('tile', 1.7), ns = num('ns', 0.6), tint = num('tint', 0.113);
+  const rep = [w / tile, d / tile];
+  // the mean of the colour map is 0.4421 linear: without the map the same albedo is tint x 0.4421
+  return plain
+    ? new THREE.MeshStandardMaterial({ name: 'previewCarpetPlain', color: grey(tint * 0.4421), roughness: 1, metalness: 0 })
+    : new THREE.MeshStandardMaterial({
+      name: 'previewCarpet', color: grey(tint), map: T('arena.carpet.color', true, rep), normalMap: T('arena.carpet.normal', false, rep),
+      roughnessMap: T('arena.carpet.rough', false, rep), roughness: 1.5, metalness: 0, normalScale: new THREE.Vector2(ns, ns),
+    });
+}
+
+function buildIsland() {
+  const W = 11, D = 8.6;
+  const island = new THREE.Mesh(new THREE.PlaneGeometry(W, D), carpetMaterial(W, D));
+  island.rotation.x = -Math.PI / 2; scene.add(island);
+  // a table-sized block for scale (2.9 x 1.6 m, 0.8 m high), dark
+  const table = new THREE.Mesh(new THREE.BoxGeometry(2.9, 0.8, 1.6), new THREE.MeshStandardMaterial({ name: 'previewTable', color: 0x15171a, roughness: 0.7 }));
+  table.position.y = 0.4; scene.add(table);
+  // the table light's pool, two heads, and a low fill: plain lights, a material test
+  const k = num('light', 1);
+  const pool = new THREE.SpotLight(0xfff4e6, 70 * k, 16, 1.15, 0.9, 1.4);
+  pool.position.set(0, 3.4, 0); pool.target.position.set(0, 0, 0); scene.add(pool, pool.target);
+  for (const [x, z] of [[-4.2, 3.4], [4.2, 3.4], [-4.2, -3.4], [4.2, -3.4]]) {
+    const head = new THREE.SpotLight(0xdfe8ff, 90 * k, 14, 0.8, 0.9, 1.4);
+    head.position.set(x, 4.5, z); head.target.position.set(x * 0.6, 0, z * 0.6); scene.add(head, head.target);
+  }
+  scene.add(new THREE.HemisphereLight(0x8c96a8, 0x202226, 0.6 * k));
+  const VIEWS = {
+    island: [[0, 1.6, D / 2 + 4], [0, 0, 1.6], 46],        // standing 4 m from the island's edge
+    raised: [[6.4, 3.2, 7.4], [0, 0, 0], 46],              // a raised wide pose
+    near: [[1.3, 1.55, 3.9], [0.7, 0, 2.5], 40],           // standing on the carpet, looking down
+    macro: [[0.45, 0.32, 2.75], [0.2, 0, 2.3], 35],        // crouched: the pile itself
+    graze: [[0, 0.3, D / 2 + 1.5], [0, 0, 0], 40],         // grazing along the island
+  };
+  const [pos, tgt, fov] = VIEWS[view] ?? VIEWS.island;
+  camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+}
+
+function buildSeats() {
+  // seat-sized shapes (a pan and a back, 0.45 m wide) in two rows, with the seat fabric at its real scale; the drape behind
+  const tile = num('tile', 0.3), ns = num('ns', 1.0);
+  const fabric = (color) => new THREE.MeshStandardMaterial({
+    name: 'previewSeat', color, map: T('arena.seat.color', true, [1 / tile, 1 / tile]), normalMap: T('arena.seat.normal', false, [1 / tile, 1 / tile]),
+    roughnessMap: T('arena.seat.rough', false, [1 / tile, 1 / tile]), roughness: 1.2, metalness: 0, normalScale: new THREE.Vector2(ns, ns),
+  });
+  const uvMetres = (geo, w, h) => { const uv = geo.attributes.uv; for (let i = 0; i < uv.count; i += 1) uv.setXY(i, uv.getX(i) * w, uv.getY(i) * h); return geo; };
+  const mats = [fabric(new THREE.Color(0x7d1f24)), fabric(new THREE.Color(0x24344f)), fabric(new THREE.Color(0x8a8a8a))];
+  for (let row = 0; row < 2; row += 1) {
+    for (let i = 0; i < 7; i += 1) {
+      const m = mats[(i + row) % 3];
+      const pan = new THREE.Mesh(uvMetres(new THREE.BoxGeometry(0.45, 0.09, 0.42, 1, 1, 1), 0.45, 0.42), m);
+      pan.position.set((i - 3) * 0.52, 0.45 + row * 0.35, -row * 0.85); scene.add(pan);
+      const back = new THREE.Mesh(uvMetres(new THREE.BoxGeometry(0.45, 0.5, 0.07), 0.45, 0.5), m);
+      back.position.set((i - 3) * 0.52, 0.75 + row * 0.35, -0.24 - row * 0.85); back.rotation.x = -0.12; scene.add(back);
+    }
+  }
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(8, 6), carpetMaterial(8, 6));
+  floor.rotation.x = -Math.PI / 2; scene.add(floor);
+  buildCurtain(-2.2, 7, 3.2);
+  const k = num('light', 1);
+  const key = new THREE.SpotLight(0xfff2e2, 45 * k, 12, 0.9, 0.8, 1.6);
+  key.position.set(1.5, 3.6, 2.4); key.target.position.set(0, 0.5, -0.4); scene.add(key, key.target);
+  scene.add(new THREE.HemisphereLight(0x8c96a8, 0x202226, 0.25 * k));
+  const VIEWS = { seats: [[0.9, 1.25, 2.3], [0, 0.6, -0.3], 40], seatnear: [[0.25, 0.95, 0.75], [0, 0.6, -0.1], 35] };
+  const [pos, tgt, fov] = VIEWS[view] ?? VIEWS.seats;
+  camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+}
+
+// a pleated curtain: a plane folded into soft pleats 0.3 m apart, UVs in metres along the cloth
+function buildCurtain(z, width, height) {
+  const tile = num('dtile', 0.5), ns = num('dns', 1.0);
+  const segs = Math.round(width / 0.02);
+  const geo = new THREE.PlaneGeometry(width, height, segs, 1);
+  const pos = geo.attributes.position, uv = geo.attributes.uv;
+  let run = 0, prevX = null, prevZ = null;
+  for (let i = 0; i <= segs; i += 1) {
+    const x = -width / 2 + (i / segs) * width;
+    const dz = 0.06 * Math.sin((x / 0.3) * Math.PI * 2) + 0.02 * Math.sin((x / 0.11) * Math.PI * 2);
+    if (prevX !== null) run += Math.hypot(x - prevX, dz - prevZ);
+    prevX = x; prevZ = dz;
+    for (const j of [i, i + segs + 1]) { pos.setZ(j, dz); uv.setXY(j, run / tile, (j === i ? height : 0) / tile); }
+  }
+  geo.computeVertexNormals();
+  const mat = new THREE.MeshStandardMaterial({
+    name: 'previewDrape', color: grey(0.03), normalMap: T('arena.drape.normal', false, null), roughnessMap: T('arena.drape.rough', false, null),
+    roughness: 1.3, metalness: 0, normalScale: new THREE.Vector2(ns, ns), side: THREE.DoubleSide,
+  });
+  const m = new THREE.Mesh(geo, mat);
+  m.position.set(0, height / 2, z); scene.add(m);
+  return m;
+}
+
+function buildDrape() {
+  buildCurtain(0, 6, 3.2);
+  const k = num('light', 1);
+  const wash = new THREE.SpotLight(0xfff2e2, 900 * k, 14, 0.8, 0.9, 1.4);
+  wash.position.set(-2.5, 3.6, 3.2); wash.target.position.set(0.5, 1.4, 0); scene.add(wash, wash.target);
+  scene.add(new THREE.HemisphereLight(0x8c96a8, 0x202226, 0.5 * k));
+  const VIEWS = { drape: [[0.6, 1.5, 4.2], [0, 1.5, 0], 40], drapenear: [[0.3, 1.5, 1.1], [0, 1.45, 0], 35] };
+  const [pos, tgt, fov] = VIEWS[view] ?? VIEWS.drape;
+  camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+}
+
+function buildTube() {
+  // truss tube: 50 mm chords and 20 mm braces; left the club's `metal.*` maps, right `arena.alu.*` (stand-ins if absent)
+  const pair = (ids, x) => {
+    const mat = new THREE.MeshStandardMaterial({
+      name: `previewTube:${ids[0]}`, color: 0xc9ccd0, metalness: 1, roughness: 1, normalMap: T(ids[0], false, [1, 8]), roughnessMap: T(ids[1], false, [1, 8]),
+      normalScale: new THREE.Vector2(num('ns', 1), num('ns', 1)),
+    });
+    for (const [dx, dy] of [[-0.145, -0.145], [0.145, -0.145], [-0.145, 0.145], [0.145, 0.145]]) {
+      const chord = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 2.4, 40, 1), mat);
+      chord.rotation.z = Math.PI / 2; chord.position.set(x, 1.5 + dy, dx); scene.add(chord);
+    }
+    for (let i = 0; i < 8; i += 1) {
+      const brace = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 0.01, 0.41, 20, 1), mat);
+      brace.position.set(x - 1.05 + i * 0.3, 1.5, 0.145); brace.rotation.z = (i % 2 ? 1 : -1) * 0.785; scene.add(brace);
+    }
+  };
+  pair(['metal.normal', 'metal.rough'], -1.3);
+  pair(['arena.alu.normal', 'arena.alu.rough'], 1.3);
+  const env = new THREE.PMREMGenerator(renderer);
+  const room = new THREE.Scene();
+  room.add(new THREE.Mesh(new THREE.BoxGeometry(10, 6, 10), new THREE.MeshBasicMaterial({ color: 0x0c0d10, side: THREE.BackSide })));
+  for (const [x, y, z, c] of [[0, 2.9, 0, 0xffffff], [3, 1, 4, 0x8090b0], [-4, 0.5, -3, 0xb08060]]) {
+    const p = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.05, 1.2), new THREE.MeshBasicMaterial({ color: new THREE.Color(c).multiplyScalar(6) }));
+    p.position.set(x, y, z); p.lookAt(0, 1.5, 0); room.add(p);
+  }
+  scene.environment = env.fromScene(room, 0.02).texture; env.dispose();
+  const key = new THREE.SpotLight(0xffffff, 120, 10, 0.7, 0.8, 1.6);
+  key.position.set(0.8, 3.2, 2.2); key.target.position.set(0, 1.5, 0); scene.add(key, key.target);
+  const VIEWS = { tube: [[0, 1.75, 2.6], [0, 1.5, 0], 40], tubenear: [[-1.0, 1.72, 0.75], [-1.3, 1.6, 0], 30] };
+  const [pos, tgt, fov] = VIEWS[view] ?? VIEWS.tube;
+  camera.position.set(...pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...tgt);
+}
+
+function buildFlat() {
+  // every arena map as an unlit, 2 x 2 tiled swatch: what the browser decoded, with seams exposed
+  const ids = [['arena.carpet.color', 1], ['arena.carpet.normal', 0], ['arena.carpet.rough', 0], ['arena.seat.color', 1], ['arena.seat.normal', 0], ['arena.seat.rough', 0],
+    ['arena.drape.normal', 0], ['arena.drape.rough', 0], ['arena.alu.normal', 0], ['arena.alu.rough', 0], ['metal.normal', 0], ['metal.rough', 0]];
+  const cols = 6; const rows = Math.ceil(ids.length / cols);
+  ids.forEach(([id, srgb], n) => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(0.96, 0.96), new THREE.MeshBasicMaterial({ name: `flat:${id}`, map: T(id, Boolean(srgb), [2, 2]), toneMapped: false }));
+    m.position.set((n % cols) - (cols - 1) / 2, (rows - 1) / 2 - Math.floor(n / cols), 0); scene.add(m);
+  });
+  const a = innerWidth / innerHeight; const h = Math.max(rows, cols / a) / 2 + 0.05;
+  const cam = new THREE.OrthographicCamera(-h * a, h * a, h, -h, 0.1, 10);
+  cam.position.set(0, 0, 5);
+  return cam;
+}
+
+let active = camera;
+try {
+  if (view === 'flat') active = buildFlat();
+  else if (view === 'seats' || view === 'seatnear') buildSeats();
+  else if (view === 'drape' || view === 'drapenear') buildDrape();
+  else if (view === 'tube' || view === 'tubenear') buildTube();
+  else buildIsland();
+} catch (e) { preview.errors.push(String(e?.message ?? e)); console.error('[asset-preview-arena]', e); }
+assets.ready().then(() => { preview.assets = assets.state(); preview.settled = true; });
+let frames = 0;
+renderer.setAnimationLoop(() => {
+  renderer.render(scene, active);
+  if (preview.settled && ++frames === 4) window.__ready = true;
+});
+</script>
+</body>
+</html>
